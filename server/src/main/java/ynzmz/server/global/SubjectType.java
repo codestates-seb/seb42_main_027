@@ -1,7 +1,6 @@
-package ynzmz.server.review;
+package ynzmz.server.global;
 
 public enum SubjectType {
-
     KOREAN,
     ENGLISH,
     MATHS,
