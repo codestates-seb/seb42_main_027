@@ -1,9 +1,9 @@
-package ynzmz.server.review.post.entity;
+package ynzmz.server.reviewpost.entity;
 
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.member.entity.Member;
-import ynzmz.server.review.lecture.entity.Lecture;
+import ynzmz.server.lecture.entity.Lecture;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

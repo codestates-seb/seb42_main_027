@@ -1,9 +1,9 @@
-package ynzmz.server.review.lecture.entity;
+package ynzmz.server.lecture.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import ynzmz.server.review.SubjectType;
-import ynzmz.server.review.teacher.entity.Teacher;
+import ynzmz.server.global.SubjectType;
+import ynzmz.server.teacher.entity.Teacher;
 
 import javax.persistence.*;
 import java.util.List;

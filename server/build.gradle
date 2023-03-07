@@ -25,10 +25,12 @@ ext {
 }
 
 dependencies {
+	implementation 'org.mapstruct:mapstruct:1.5.2.Final'  //mapper 자동작성 mapstruct 추가
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'  //mapper 자동작성 mapstruct 추가
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 //	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
-//	implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config' // 추가
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config' // 추가
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
