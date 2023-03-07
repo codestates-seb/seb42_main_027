@@ -5,3 +5,10 @@ spring:
     url: jdbc:mysql://mainproject27team.c16y5acx5nnq.ap-northeast-2.rds.amazonaws.com:3306/mainproject?serverTimezone=Asia/Seoul
     username: admin
     password: TZJrQnSUmZGHc2Fm0Vjw
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
