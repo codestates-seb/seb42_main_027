@@ -2,9 +2,11 @@ package ynzmz.server.teacher.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.tag.entity.Tag;
 import ynzmz.server.tag.service.TagService;
@@ -58,7 +60,12 @@ public class TeacherController {
     }
     //강사 전체조회
     @GetMapping
-    public void getAllTeachers(){}
+    public ResponseEntity<?> getAllTeachers(@RequestParam int page, @RequestParam int size){
+        Page<Teacher> teacherPage = teacherService.findTeachers(page -1, size);
+        List<Teacher> teachers = teacherPage.getContent();
+        List<TeacherDto.infoResponse> responses = teacherMapper.teacherInfoResponsesToTeachers(teachers);
+        return new ResponseEntity<>(new MultiResponseDto<>(responses, teacherPage), HttpStatus.OK);
+    }
     //과목별 강사조회
     @GetMapping("/subject/{subject}")
     public void getTeachersBySubject(@PathVariable String subject){}

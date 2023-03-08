@@ -35,4 +35,5 @@ public interface TeacherMapper {
         return infoResponse;
     }
 
+    List<TeacherDto.infoResponse> teacherInfoResponsesToTeachers(List<Teacher> teachers);
 }
