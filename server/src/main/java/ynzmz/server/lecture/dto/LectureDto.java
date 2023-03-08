@@ -1,7 +1,7 @@
 package ynzmz.server.lecture.dto;
 
 import lombok.Builder;
-import ynzmz.server.global.SubjectType;
+import ynzmz.server.tag.Tag;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class LectureDto {
     public static class Post{
         private String name;
         private String introduction;
-        private List<SubjectType> subjectTypes;
+        private List<Tag> subjectTypes;
         private long teacherId;
     }
     //pathDto

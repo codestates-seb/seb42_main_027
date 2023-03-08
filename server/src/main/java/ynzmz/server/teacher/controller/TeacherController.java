@@ -1,8 +1,12 @@
 package ynzmz.server.teacher.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.teacher.dto.TeacherDto;
+import ynzmz.server.teacher.entity.Teacher;
 import ynzmz.server.teacher.mapper.TeacherMapper;
 import ynzmz.server.teacher.service.TeacherService;
 
@@ -14,8 +18,10 @@ public class TeacherController {
     private final TeacherMapper teacherMapper;
     //강사등록
     @PostMapping
-    public void postTeacher(@RequestBody TeacherDto.Post teacherPost){
-
+    public ResponseEntity<?> postTeacher(@RequestBody TeacherDto.Post teacherPost){
+        Teacher teacher = teacherMapper.teacherToTeacherPost(teacherPost);
+        Teacher createdTeacher = teacherService.createTeacher(teacher);
+        return new ResponseEntity<>(new SingleResponseDto<>(createdTeacher), HttpStatus.CREATED);
     }
     //강사수정
     @PatchMapping("/{teacher-id}")

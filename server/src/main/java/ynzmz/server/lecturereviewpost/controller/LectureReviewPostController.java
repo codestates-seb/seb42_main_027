@@ -1,16 +1,16 @@
-package ynzmz.server.reviewpost.controller;
+package ynzmz.server.lecturereviewpost.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ynzmz.server.reviewpost.mapper.ReviewPostMapper;
-import ynzmz.server.reviewpost.sevice.ReviewPostService;
+import ynzmz.server.lecturereviewpost.mapper.LectureReviewPostMapper;
+import ynzmz.server.lecturereviewpost.sevice.LectureReviewPostService;
 
 @RestController
 @RequestMapping("/reviews")
 @RequiredArgsConstructor
-public class ReviewPostController {
-    private final ReviewPostService reviewPostService;
-    private final ReviewPostMapper reviewPostMapper;
+public class LectureReviewPostController {
+    private final LectureReviewPostService lectureReviewPostService;
+    private final LectureReviewPostMapper lectureReviewPostMapper;
     //리뷰작성
     @PostMapping
     public void postReviewPost(){}

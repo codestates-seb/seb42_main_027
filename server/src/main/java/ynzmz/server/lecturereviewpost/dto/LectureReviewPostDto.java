@@ -1,8 +1,8 @@
-package ynzmz.server.reviewpost.dto;
+package ynzmz.server.lecturereviewpost.dto;
 
 import lombok.Builder;
 
-public class ReviewPostDto {
+public class LectureReviewPostDto {
     @Builder
     public static class Post{
         private String title;
