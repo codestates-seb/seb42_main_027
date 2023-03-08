@@ -59,16 +59,25 @@ public class TeacherController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
     //강사 전체조회
+    //과목별 강사조회 + 강사 전체 조회
     @GetMapping
-    public ResponseEntity<?> getAllTeachers(@RequestParam int page, @RequestParam int size){
-        Page<Teacher> teacherPage = teacherService.findTeachers(page -1, size);
-        List<Teacher> teachers = teacherPage.getContent();
-        List<TeacherDto.infoResponse> responses = teacherMapper.teacherInfoResponsesToTeachers(teachers);
-        return new ResponseEntity<>(new MultiResponseDto<>(responses, teacherPage), HttpStatus.OK);
+    public ResponseEntity<?> getTeachersBySubject(@RequestParam(value = "type", required = false) String type,
+                                     @RequestParam int page,
+                                     @RequestParam int size){
+
+        if(type == null) {
+            Page<Teacher> teacherPage = teacherService.findTeachers(page -1, size);
+            List<Teacher> teachers = teacherPage.getContent();
+            List<TeacherDto.infoResponse> responses = teacherMapper.teacherInfoResponsesToTeachers(teachers);
+            return new ResponseEntity<>(new MultiResponseDto<>(responses, teacherPage), HttpStatus.OK);
+        } else {
+            Page<Teacher> teacherPage = teacherService.findTeachers(type,page -1, size);
+            List<Teacher> teachers = teacherPage.getContent();
+            List<TeacherDto.infoResponse> responses = teacherMapper.teacherInfoResponsesToTeachers(teachers);
+            return new ResponseEntity<>(new MultiResponseDto<>(responses, teacherPage), HttpStatus.OK);
+
+        }
     }
-    //과목별 강사조회
-    @GetMapping("/subject/{subject}")
-    public void getTeachersBySubject(@PathVariable String subject){}
     //강사 상세조회
     @GetMapping("/{teacher-id}")
     public ResponseEntity<?> getTeacherDetail(@PathVariable("teacher-id") long teacherId){

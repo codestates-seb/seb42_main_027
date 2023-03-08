@@ -31,6 +31,11 @@ public class TeacherService {
     public Page<Teacher> findTeachers(int page, int size) {
         return teacherRepository.findAll(PageRequest.of(page, size, Sort.by("teacherId").descending()));
     }
+
+    public Page<Teacher> findTeachers(String type, int page, int size) {
+        return teacherRepository.findByTagType(type, PageRequest.of(page, size, Sort.by("teacherId").descending()));
+    }
+
     public Teacher findTeacherById(long teacherId){
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
         return teacher.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TEACHER_NOT_FOUND));
