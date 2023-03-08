@@ -2,8 +2,8 @@ package ynzmz.server.tag.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ynzmz.server.tag.Tag;
-import ynzmz.server.tag.TeacherTag;
+import ynzmz.server.tag.entity.Tag;
+import ynzmz.server.tag.entity.TeacherTag;
 import ynzmz.server.tag.repository.TagRepository;
 import ynzmz.server.tag.repository.TeacherTagRepository;
 import ynzmz.server.teacher.entity.Teacher;

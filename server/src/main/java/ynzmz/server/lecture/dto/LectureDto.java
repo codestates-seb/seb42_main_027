@@ -1,7 +1,7 @@
 package ynzmz.server.lecture.dto;
 
 import lombok.Builder;
-import ynzmz.server.tag.Tag;
+import ynzmz.server.tag.entity.Tag;
 
 import java.util.List;
 

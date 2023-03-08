@@ -1,11 +1,12 @@
 package ynzmz.server.teacher.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.dto.SingleResponseDto;
-import ynzmz.server.tag.Tag;
+import ynzmz.server.tag.entity.Tag;
 import ynzmz.server.tag.service.TagService;
 import ynzmz.server.tag.service.TeacherTagService;
 import ynzmz.server.teacher.dto.TeacherDto;
@@ -18,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/teachers")
 @RequiredArgsConstructor
+@Slf4j
 public class TeacherController {
     private final TeacherService teacherService;
     private final TeacherMapper teacherMapper;
@@ -45,11 +47,11 @@ public class TeacherController {
     @GetMapping
     public void getAllTeachers(){}
     //과목별 강사조회
-    @GetMapping("/{subject}")
+    @GetMapping("/subject/{subject}")
     public void getTeachersBySubject(@PathVariable String subject){}
     //강사 상세조회
     @GetMapping("/{teacher-id}")
-    public ResponseEntity<?> getTeacherDetail(@PathVariable("teacher-id") long teacherId) throws Exception {
+    public ResponseEntity<?> getTeacherDetail(@PathVariable("teacher-id") long teacherId){
         Teacher teacher = teacherService.getTeacher(teacherId);
         TeacherDto.infoResponse response = teacherMapper.teacherInfoResponseToTeacher(teacher);
         return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);

@@ -1,13 +1,8 @@
 package ynzmz.server.lecture.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
-import ynzmz.server.tag.LectureTag;
-import ynzmz.server.tag.Tag;
-import ynzmz.server.tag.TeacherTag;
-import ynzmz.server.teacher.entity.Teacher;
+import ynzmz.server.tag.entity.LectureTag;
 
 import javax.persistence.*;
 import java.util.ArrayList;

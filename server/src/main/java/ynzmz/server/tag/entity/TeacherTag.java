@@ -1,17 +1,18 @@
-package ynzmz.server.tag;
+package ynzmz.server.tag.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ynzmz.server.tag.entity.Tag;
 import ynzmz.server.teacher.entity.Teacher;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Builder
+@Getter
 @AllArgsConstructor @NoArgsConstructor
 public class TeacherTag {
     @Id

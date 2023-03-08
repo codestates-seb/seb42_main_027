@@ -1,4 +1,4 @@
-package ynzmz.server.tag;
+package ynzmz.server.tag.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;

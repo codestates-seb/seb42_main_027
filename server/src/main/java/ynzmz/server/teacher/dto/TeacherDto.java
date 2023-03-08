@@ -1,9 +1,8 @@
 package ynzmz.server.teacher.dto;
 
 import lombok.*;
-import ynzmz.server.tag.TeacherTag;
+import ynzmz.server.tag.entity.Tag;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
@@ -24,6 +23,6 @@ public class TeacherDto {
         private Long teacherId;
         private String name;
         private String introduction;
-        private List<TeacherTag> tags;
+        private List<Tag.Type> tags;
     }
 }
