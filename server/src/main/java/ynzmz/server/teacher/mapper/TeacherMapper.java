@@ -7,4 +7,5 @@ import ynzmz.server.teacher.entity.Teacher;
 @Mapper(componentModel = "spring")
 public interface TeacherMapper {
     Teacher teacherToTeacherPost(TeacherDto.Post teacherPostDto);
+    TeacherDto.infoResponse teacherInfoResponseToTeacher(Teacher teacher);
 }

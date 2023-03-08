@@ -1,5 +1,6 @@
 package ynzmz.server.tag;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -17,9 +18,11 @@ public class Tag {
     @Column(unique = true)
     private Type type;
     @OneToMany(mappedBy = "tag")
+    @JsonManagedReference
     private List<TeacherTag> teacherTags = new ArrayList<>();
 
     @OneToMany(mappedBy = "tag")
+    @JsonManagedReference
     private List<LectureTag> lectureTags =new ArrayList<>();
 
     public enum Type {

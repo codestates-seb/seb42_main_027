@@ -21,7 +21,8 @@ public class TeacherController {
     public ResponseEntity<?> postTeacher(@RequestBody TeacherDto.Post teacherPost){
         Teacher teacher = teacherMapper.teacherToTeacherPost(teacherPost);
         Teacher createdTeacher = teacherService.createTeacher(teacher);
-        return new ResponseEntity<>(new SingleResponseDto<>(createdTeacher), HttpStatus.CREATED);
+        TeacherDto.infoResponse response = teacherMapper.teacherInfoResponseToTeacher(createdTeacher);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
     //강사수정
     @PatchMapping("/{teacher-id}")
@@ -34,7 +35,11 @@ public class TeacherController {
     public void getTeachersBySubject(@PathVariable String subject){}
     //강사 상세조회
     @GetMapping("/{teacher-id}")
-    public void getTeacherDetail(@PathVariable("teacher-id") long teacherId){}
+    public ResponseEntity<?> getTeacherDetail(@PathVariable("teacher-id") long teacherId) throws Exception {
+        Teacher teacher = teacherService.getTeacher(teacherId);
+        TeacherDto.infoResponse response = teacherMapper.teacherInfoResponseToTeacher(teacher);
+        return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
+    }
     //강사 삭제
     @DeleteMapping("/{teacher-id}")
     public void deleteTeacher(@PathVariable("teacher-id") long teacherId){}

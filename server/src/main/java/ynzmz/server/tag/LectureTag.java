@@ -19,10 +19,12 @@ public class LectureTag {
     private Long lectureTagId;
     @ManyToOne
     @JoinColumn(name = "lecture_id")
+    @JsonBackReference
     private Lecture lecture;
 
     @ManyToOne
     @JoinColumn(name = "tag_id")
+    @JsonBackReference
     private Tag tag;
 
 }

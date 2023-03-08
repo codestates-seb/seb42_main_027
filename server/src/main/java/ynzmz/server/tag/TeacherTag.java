@@ -19,9 +19,11 @@ public class TeacherTag {
     private Long teacherTagId;
     @ManyToOne
     @JoinColumn(name = "teacher_id")
+    @JsonBackReference
     private Teacher teacher;
 
     @ManyToOne
     @JoinColumn(name = "tag_id")
+    @JsonBackReference
     private Tag tag;
 }

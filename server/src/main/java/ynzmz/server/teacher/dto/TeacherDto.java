@@ -1,23 +1,25 @@
 package ynzmz.server.teacher.dto;
 
-import lombok.Builder;
+import lombok.*;
 import ynzmz.server.tag.TeacherTag;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter @Setter
 public class TeacherDto {
     //강사등록
-    @Builder
+    @Getter
     public static class Post {
         private String name;
         private String introduction;
-        private List<TeacherTag> tags;
+        private List<TeacherTag> teacherTags;
     }
     //강사수정
     //강사전체조회
     //강사디테일조회
-    @Builder
+
+    @Getter @Setter
     public static class infoResponse {
         private Long teacherId;
         private String name;
