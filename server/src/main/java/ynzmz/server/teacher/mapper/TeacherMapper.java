@@ -11,7 +11,8 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface TeacherMapper {
-    Teacher teacherToTeacherPost(TeacherDto.Post teacherPostDto);
+    Teacher teacherToTeacherPost(TeacherDto.Post teacherPost);
+    Teacher teacherToTeacherPatch(TeacherDto.Patch teacherPatch);
     default TeacherDto.infoResponse teacherInfoResponseToTeacher(Teacher teacher){
         if ( teacher == null ) {
             return null;

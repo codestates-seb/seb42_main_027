@@ -8,6 +8,7 @@ import ynzmz.server.tag.repository.TagRepository;
 import ynzmz.server.tag.repository.TeacherTagRepository;
 import ynzmz.server.teacher.entity.Teacher;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -24,5 +25,10 @@ public class TeacherTagService {
                     .build();
             teacherTagRepository.save(teacherTag);
         }
+    }
+
+    @Transactional
+    public void deleteAllTeacherTagByTeacher(Teacher teacher) {
+        teacherTagRepository.deleteAllTeacherTagByTeacher(teacher);
     }
 }

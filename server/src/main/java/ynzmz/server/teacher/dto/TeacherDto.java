@@ -15,6 +15,13 @@ public class TeacherDto {
         private List<String> tags;
     }
     //강사수정
+    @Getter @Setter
+    public static class Patch {
+        private long teacherId;
+        private String name;
+        private String introduction;
+        private List<String> tags;
+    }
     //강사전체조회
     //강사디테일조회
 

@@ -32,17 +32,30 @@ public class TeacherController {
         Teacher teacher = teacherMapper.teacherToTeacherPost(teacherPost);
         Teacher createdTeacher = teacherService.createTeacher(teacher);
 
+        //TeacherTag 생성
         List<Tag.Type> tagsByType = tagService.findTagsByType(teacherPost.getTags());
-
         teacherTagService.createTeacherTag(createdTeacher,tagsByType);
 
-        Teacher teacher1 = teacherService.getTeacher(createdTeacher.getTeacherId());
-        TeacherDto.infoResponse response = teacherMapper.teacherInfoResponseToTeacher(teacher1);
+        TeacherDto.infoResponse response = teacherMapper.teacherInfoResponseToTeacher(teacher);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
     //강사수정
     @PatchMapping("/{teacher-id}")
-    public void patchTeacher(@PathVariable("teacher-id") long teacherId){}
+    public ResponseEntity<?> patchTeacher(@PathVariable("teacher-id") long teacherId,
+                             @RequestBody TeacherDto.Patch teacherPatch) {
+        teacherPatch.setTeacherId(teacherId);
+        Teacher teacher = teacherMapper.teacherToTeacherPatch(teacherPatch);
+        Teacher updatedTeacher = teacherService.updateTeacher(teacher);
+
+        //TeacherTag 수정 (삭제후 수정)
+        List<Tag.Type> tagsByType = tagService.findTagsByType(teacherPatch.getTags());
+        teacherTagService.deleteAllTeacherTagByTeacher(updatedTeacher);
+        teacherTagService.createTeacherTag(updatedTeacher,tagsByType);
+
+        TeacherDto.infoResponse response = teacherMapper.teacherInfoResponseToTeacher(updatedTeacher);
+
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+    }
     //강사 전체조회
     @GetMapping
     public void getAllTeachers(){}
@@ -52,7 +65,7 @@ public class TeacherController {
     //강사 상세조회
     @GetMapping("/{teacher-id}")
     public ResponseEntity<?> getTeacherDetail(@PathVariable("teacher-id") long teacherId){
-        Teacher teacher = teacherService.getTeacher(teacherId);
+        Teacher teacher = teacherService.findTeacherById(teacherId);
         TeacherDto.infoResponse response = teacherMapper.teacherInfoResponseToTeacher(teacher);
         return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
