@@ -36,6 +36,10 @@ public class TeacherService {
         return teacherRepository.findByTagType(type, PageRequest.of(page, size, Sort.by("teacherId").descending()));
     }
 
+    public void deleteTeacher(long teacherId) {
+        teacherRepository.deleteById(teacherId);
+    }
+
     public Teacher findTeacherById(long teacherId){
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
         return teacher.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TEACHER_NOT_FOUND));

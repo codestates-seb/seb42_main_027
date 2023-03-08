@@ -58,7 +58,6 @@ public class TeacherController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
-    //강사 전체조회
     //과목별 강사조회 + 강사 전체 조회
     @GetMapping
     public ResponseEntity<?> getTeachersBySubject(@RequestParam(value = "type", required = false) String type,
@@ -87,5 +86,7 @@ public class TeacherController {
     }
     //강사 삭제
     @DeleteMapping("/{teacher-id}")
-    public void deleteTeacher(@PathVariable("teacher-id") long teacherId){}
+    public void deleteTeacher(@PathVariable("teacher-id") long teacherId){
+        teacherService.deleteTeacher(teacherId);
+    }
 }
