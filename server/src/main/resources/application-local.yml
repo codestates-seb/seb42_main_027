@@ -5,6 +5,7 @@ spring:
     url: jdbc:mysql://localhost:3306/main027?serverTimezone=Asia/Seoul
     username: root
     password: 12345678
+    initialization-mode: always
   jpa:
     hibernate:
       ddl-auto: create

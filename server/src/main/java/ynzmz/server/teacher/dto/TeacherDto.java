@@ -12,7 +12,7 @@ public class TeacherDto {
     public static class Post {
         private String name;
         private String introduction;
-        private List<String> teacherTypes;
+        private List<TeacherTag> tags;
     }
     //강사수정
     //강사전체조회

@@ -1,5 +1,6 @@
 package ynzmz.server.teacher.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,8 +18,6 @@ public class Teacher {
     private Long teacherId;
     private String name;
     private String introduction;
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
-    private List<TeacherTag> tags = new ArrayList<>();
-
+    @OneToMany(mappedBy = "teacher")
+    private List<TeacherTag> teacherTags = new ArrayList<>();
 }

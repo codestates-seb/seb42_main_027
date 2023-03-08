@@ -3,6 +3,8 @@ package ynzmz.server.tag;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -12,7 +14,13 @@ public class Tag {
     private Long tagId;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(unique = true)
     private Type type;
+    @OneToMany(mappedBy = "tag")
+    private List<TeacherTag> teacherTags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "tag")
+    private List<LectureTag> lectureTags =new ArrayList<>();
 
     public enum Type {
         KOREAN,
@@ -27,11 +35,10 @@ public class Tag {
         정시,
         수시,
         수능,
-        특강,
-        여름방학,
         메가스터디,
-        인프런,
-        EBS,
+        대성마이맥,
+        이투스,
+        EBS
 
     }
 }

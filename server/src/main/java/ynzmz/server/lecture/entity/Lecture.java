@@ -1,10 +1,12 @@
 package ynzmz.server.lecture.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.tag.LectureTag;
 import ynzmz.server.tag.Tag;
+import ynzmz.server.tag.TeacherTag;
 import ynzmz.server.teacher.entity.Teacher;
 
 import javax.persistence.*;
@@ -20,10 +22,7 @@ public class Lecture {
     private String name;
     private String introduction;
     private long starPointAverage;
-    @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    private Teacher teacher;
-    @OneToMany(mappedBy = "lecture", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
-    private List<LectureTag> tags = new ArrayList<>();
+    @OneToMany(mappedBy = "lecture")
+    private List<LectureTag> lectureTags = new ArrayList<>();
+
 }
