@@ -1,7 +1,7 @@
 ---
-name: "[BE] 강사 도메인 구현 - "
+name: "[BE] 김민호 작업 Template"
 about: 김민호 탬플릿
-title: ''
+title: "[BE] XX 도메인 구현 -  XX추가"
 labels: BackEnd
 assignees: Minogod
 
