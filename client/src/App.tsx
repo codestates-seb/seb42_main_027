@@ -1,4 +1,4 @@
-import React from 'react';
+import React from '@testing-library/react';
 import logo from './logo.svg';
 import './App.css';
 
