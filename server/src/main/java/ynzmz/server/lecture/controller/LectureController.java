@@ -91,17 +91,19 @@ public class LectureController {
 
         return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
 
-
     }
 
     //강의 한건 디테일조회
     @GetMapping("/{lecture-id}")
-    public void getLecturesDetail(@PathVariable("lecture-id") long lectureId) {
+    public ResponseEntity<?> getLecturesDetail(@PathVariable("lecture-id") long lectureId) {
 
+        Lecture lecture = lectureService.findLectureById(lectureId);
+        LectureDto.InfoResponse response = lectureMapper.lectureInfoResponseToLecture(lecture);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
     //강의 삭제
     @DeleteMapping("/{lecture-id}")
     public void deleteLecture(@PathVariable("lecture-id") long lectureId) {
-
+        lectureService.deleteLecture(lectureId);
     }
 }

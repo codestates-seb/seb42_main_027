@@ -44,6 +44,11 @@ public class LectureService {
         return lectureRepository.findByTeacherId(teacherId, PageRequest.of(page, size, Sort.by("lectureId").descending()));
     }
 
+    public void deleteLecture(long lectureId) {
+        Lecture lecture = findLectureById(lectureId);
+        lectureRepository.delete(lecture);
+    }
+
     public Lecture findLectureById(long lectureId){
         Optional<Lecture> lecture = lectureRepository.findById(lectureId);
         return lecture.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TEACHER_NOT_FOUND));
