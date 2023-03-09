@@ -24,11 +24,10 @@ public class LectureReviewPostController {
     //리뷰작성
     @PostMapping
     public ResponseEntity<?> postReviewPost(@RequestBody LectureReviewPostDto.Post lectureReviewPostPost){
-        //등록시 과목의 평점을 수정한다
         LectureReviewPost lectureReviewPost = lectureReviewPostMapper.LectureReviewPostToLectureReviewPostPost(lectureReviewPostPost);
         LectureReviewPost createdLectureReviewPost = lectureReviewPostService.createLectureReviewPost(lectureReviewPost);
 
-        //등록시 강의의 평균점수를 수정한다
+        //등록시 강의의 평균점수를 수정
         double averageStarPoint = lectureReviewPostService.getLectureReviewPostAverageStarPoint(createdLectureReviewPost);
         lectureService.LectureStarPointAverageUpdate(createdLectureReviewPost.getLecture(), averageStarPoint);
 
@@ -39,7 +38,20 @@ public class LectureReviewPostController {
     }
     //리뷰수정
     @PatchMapping("/{review-post-id}")
-    public void patchReviewPost(@PathVariable("review-post-id") long parameter){}
+    public ResponseEntity<?> patchReviewPost(@PathVariable("review-post-id") long lectureReviewPostId,
+                                @RequestBody LectureReviewPostDto.Patch lectureReviewPostPatch) {
+        LectureReviewPost lectureReviewPost = lectureReviewPostMapper.LectureReviewPostToLectureReviewPostPatch(lectureReviewPostPatch);
+        lectureReviewPost.setLectureReviewPostId(lectureReviewPostId);
+        LectureReviewPost updatedLectureReviewPost = lectureReviewPostService.updateLectureReviewPost(lectureReviewPost);
+
+        //등록시 강의의 평균점수를 수정
+        double averageStarPoint = lectureReviewPostService.getLectureReviewPostAverageStarPoint(updatedLectureReviewPost);
+        lectureService.LectureStarPointAverageUpdate(updatedLectureReviewPost.getLecture(), averageStarPoint);
+
+        LectureReviewPostDto.InfoResponse response = lectureReviewPostMapper.LectureReviewPostInfoResponseToLectureReviewPost(updatedLectureReviewPost);
+
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+    }
     //리뷰 전체 조회
     @GetMapping
     public void getAllReviewPost(){}

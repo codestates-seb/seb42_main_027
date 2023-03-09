@@ -17,7 +17,6 @@ public class TeacherDto {
     //강사수정
     @Getter @Setter
     public static class Patch {
-        private long teacherId;
         private String name;
         private String introduction;
         private List<String> tags;

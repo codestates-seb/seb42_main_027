@@ -45,8 +45,8 @@ public class TeacherController {
     @PatchMapping("/{teacher-id}")
     public ResponseEntity<?> patchTeacher(@PathVariable("teacher-id") long teacherId,
                              @RequestBody TeacherDto.Patch teacherPatch) {
-        teacherPatch.setTeacherId(teacherId);
         Teacher teacher = teacherMapper.teacherToTeacherPatch(teacherPatch);
+        teacher.setTeacherId(teacherId);
         Teacher updatedTeacher = teacherService.updateTeacher(teacher);
 
         //TeacherTag 수정 (삭제후 수정)

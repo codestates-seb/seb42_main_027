@@ -19,6 +19,15 @@ public class LectureReviewPostDto {
         private long lectureId;
         private String createdAt;
     }
+    @Getter
+    public static class Patch{
+        private String title;
+        private double starPoint;
+        private String content;
+        private long memberId;
+        private long lectureId;
+        private String createdAt;
+    }
 
     @Getter @Setter
     public static class InfoResponse{

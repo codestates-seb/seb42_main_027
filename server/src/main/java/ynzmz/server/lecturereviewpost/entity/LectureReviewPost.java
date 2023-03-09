@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class LectureReviewPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reviewPostId;
+    private Long LectureReviewPostId;
     private String title;
     private double starPoint;
     private String content;
