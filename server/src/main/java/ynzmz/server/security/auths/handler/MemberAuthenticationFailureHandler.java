@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Slf4j
-public class MemberAuthenticationFailureHandler implements AuthenticationFailureHandler {
+public class MemberAuthenticationFailureHandler implements AuthenticationFailureHandlerㄹ {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request,
