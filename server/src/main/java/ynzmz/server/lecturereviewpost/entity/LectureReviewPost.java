@@ -1,4 +1,4 @@
-package ynzmz.server.reviewpost.entity;
+package ynzmz.server.lecturereviewpost.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
-public class ReviewPost {
+public class LectureReviewPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewPostId;
