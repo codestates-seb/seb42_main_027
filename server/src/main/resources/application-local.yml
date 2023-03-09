@@ -5,6 +5,13 @@ spring:
     url: jdbc:mysql://mainproject27team.c16y5acx5nnq.ap-northeast-2.rds.amazonaws.com:3306/mainproject?serverTimezone=Asia/Seoul
     username: admin
     password: TZJrQnSUmZGHc2Fm0Vjw
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 
 jwt:
   key: ${JWT_SECRET_KEY}               # 민감한 정보는 시스템 환경 변수에서 로드한다.
