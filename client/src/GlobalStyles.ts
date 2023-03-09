@@ -60,3 +60,5 @@ a {
   color: inherit;
 }
 `;
+
+export default GlobalStyle;
