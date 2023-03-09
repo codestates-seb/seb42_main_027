@@ -13,7 +13,8 @@ public enum ExceptionCode {
 
     NOT_AUTHORIZED(401, "본인만 회원탈퇴 할수있습니다"),
     INVALID_MEMBER_STATUS(400, "Invalid member status"),
-    TEACHER_NOT_FOUND(404, "해당 고유번호 강사가 없습니다.");
+    TEACHER_NOT_FOUND(404, "해당 고유번호 강사가 없습니다."),
+    LECTURE_NOT_FOUND(404, "해당 고유번호 강의가 없습니다.");
     // 권한이없을때
 
     @Getter

@@ -8,8 +8,8 @@ import javax.persistence.*;
 
 @Entity
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@AllArgsConstructor @NoArgsConstructor
 public class LectureTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
