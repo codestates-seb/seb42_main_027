@@ -1,4 +1,4 @@
-package ynzmz.error.exception;
+package ynzmz.server.error.exception;
 
 import lombok.Getter;
 

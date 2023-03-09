@@ -1,4 +1,4 @@
-package ynzmz.error.exception;
+package ynzmz.server.error.exception;
 
 public class BusinessLogicException extends RuntimeException {
 
