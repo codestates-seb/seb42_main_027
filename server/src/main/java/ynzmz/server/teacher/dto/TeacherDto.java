@@ -26,7 +26,7 @@ public class TeacherDto {
     //강사디테일조회
 
     @Getter @Setter
-    public static class infoResponse {
+    public static class InfoResponse {
         private Long teacherId;
         private String name;
         private String introduction;

@@ -38,7 +38,7 @@ public class TeacherController {
         List<Tag.Type> tagsByType = tagService.findTagsByType(teacherPost.getTags());
         teacherTagService.createTeacherTag(createdTeacher,tagsByType);
 
-        TeacherDto.infoResponse response = teacherMapper.teacherInfoResponseToTeacher(teacher);
+        TeacherDto.InfoResponse response = teacherMapper.teacherInfoResponseToTeacher(teacher);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
     //강사수정
@@ -54,25 +54,25 @@ public class TeacherController {
         teacherTagService.deleteAllTeacherTagByTeacher(updatedTeacher);
         teacherTagService.createTeacherTag(updatedTeacher,tagsByType);
 
-        TeacherDto.infoResponse response = teacherMapper.teacherInfoResponseToTeacher(updatedTeacher);
+        TeacherDto.InfoResponse response = teacherMapper.teacherInfoResponseToTeacher(updatedTeacher);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
     //과목별 강사조회 + 강사 전체 조회
     @GetMapping
-    public ResponseEntity<?> getTeachersBySubject(@RequestParam(value = "type", required = false) String type,
+    public ResponseEntity<?> getTeachersByTag(@RequestParam(value = "tag", required = false) String tag,
                                      @RequestParam int page,
                                      @RequestParam int size){
 
-        if(type == null) {
+        if(tag == null) {
             Page<Teacher> teacherPage = teacherService.findTeachers(page -1, size);
             List<Teacher> teachers = teacherPage.getContent();
-            List<TeacherDto.infoResponse> responses = teacherMapper.teacherInfoResponsesToTeachers(teachers);
+            List<TeacherDto.InfoResponse> responses = teacherMapper.teacherInfoResponsesToTeachers(teachers);
             return new ResponseEntity<>(new MultiResponseDto<>(responses, teacherPage), HttpStatus.OK);
         } else {
-            Page<Teacher> teacherPage = teacherService.findTeachers(type,page -1, size);
+            Page<Teacher> teacherPage = teacherService.findTeachers(tag,page -1, size);
             List<Teacher> teachers = teacherPage.getContent();
-            List<TeacherDto.infoResponse> responses = teacherMapper.teacherInfoResponsesToTeachers(teachers);
+            List<TeacherDto.InfoResponse> responses = teacherMapper.teacherInfoResponsesToTeachers(teachers);
             return new ResponseEntity<>(new MultiResponseDto<>(responses, teacherPage), HttpStatus.OK);
 
         }
@@ -81,7 +81,7 @@ public class TeacherController {
     @GetMapping("/{teacher-id}")
     public ResponseEntity<?> getTeacherDetail(@PathVariable("teacher-id") long teacherId){
         Teacher teacher = teacherService.findTeacherById(teacherId);
-        TeacherDto.infoResponse response = teacherMapper.teacherInfoResponseToTeacher(teacher);
+        TeacherDto.InfoResponse response = teacherMapper.teacherInfoResponseToTeacher(teacher);
         return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
     //강사 삭제

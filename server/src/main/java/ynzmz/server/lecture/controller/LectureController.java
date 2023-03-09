@@ -1,9 +1,11 @@
 package ynzmz.server.lecture.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
@@ -12,6 +14,8 @@ import ynzmz.server.lecture.service.LectureService;
 import ynzmz.server.tag.entity.Tag;
 import ynzmz.server.tag.service.LectureTagService;
 import ynzmz.server.tag.service.TagService;
+import ynzmz.server.teacher.dto.TeacherDto;
+import ynzmz.server.teacher.entity.Teacher;
 
 import java.util.List;
 
@@ -54,15 +58,31 @@ public class LectureController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
-    //강의 전체조회
+
+    //과목별 강의조회 + 강의 전체 조회
     @GetMapping
-    public void getAllLecture(){}
+    public ResponseEntity<?> getLectureByTag(@RequestParam(value = "tag", required = false) String tag,
+                                                  @RequestParam int page,
+                                                  @RequestParam int size){
+
+        if(tag == null) {
+            Page<Lecture> lecturePage = lectureService.findLectures(page -1, size);
+            List<Lecture> lectures = lecturePage.getContent();
+            List<LectureDto.InfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
+            return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
+        } else {
+            Page<Lecture> lecturePage = lectureService.findLectures(tag,page -1, size);
+            List<Lecture> lectures = lecturePage.getContent();
+            List<LectureDto.InfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
+            return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
+
+        }
+    }
+
     //강사별 강의조회
     @GetMapping("/teacher/{teacher-id}")
     public void getLecturesByTeacher(@PathVariable("teacher-id") long teacherId){}
-    //과목별 강의조회
-    @GetMapping("/{subject}")
-    public void getLecturesBySubject(@PathVariable String subject){}
+
     //강의 한건 디테일조회
     @GetMapping("/{lecture-id}")
     public void getLecturesDetail(@PathVariable("lecture-id") long lectureId){}

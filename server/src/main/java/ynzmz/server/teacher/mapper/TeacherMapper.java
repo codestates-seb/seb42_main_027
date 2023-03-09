@@ -13,12 +13,12 @@ import java.util.List;
 public interface TeacherMapper {
     Teacher teacherToTeacherPost(TeacherDto.Post teacherPost);
     Teacher teacherToTeacherPatch(TeacherDto.Patch teacherPatch);
-    default TeacherDto.infoResponse teacherInfoResponseToTeacher(Teacher teacher){
+    default TeacherDto.InfoResponse teacherInfoResponseToTeacher(Teacher teacher){
         if ( teacher == null ) {
             return null;
         }
 
-        TeacherDto.infoResponse infoResponse = new TeacherDto.infoResponse();
+        TeacherDto.InfoResponse infoResponse = new TeacherDto.InfoResponse();
 
         infoResponse.setTeacherId( teacher.getTeacherId() );
         infoResponse.setName( teacher.getName() );
@@ -35,5 +35,5 @@ public interface TeacherMapper {
         return infoResponse;
     }
 
-    List<TeacherDto.infoResponse> teacherInfoResponsesToTeachers(List<Teacher> teachers);
+    List<TeacherDto.InfoResponse> teacherInfoResponsesToTeachers(List<Teacher> teachers);
 }
