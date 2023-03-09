@@ -1,15 +1,21 @@
 package ynzmz.server.security.config;
 
+import io.jsonwebtoken.Jwt;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import ynzmz.server.security.auths.filter.JwtAuthenticationFilter;
+import ynzmz.server.security.auths.jwt.JwtTokenizer;
 
 import javax.persistence.Entity;
 
@@ -21,7 +27,14 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SecurityConfiguration {
 
-    //초기 securityConfiguration.
+    public final JwtTokenizer jwtTokenizer;
+
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer){
+        this.jwtTokenizer = jwtTokenizer;
+    }
+
+
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
@@ -31,6 +44,7 @@ public class SecurityConfiguration {
                 .cors(withDefaults()) //corsConfigurationSource라는 이름으로 등록된 Bean을 이용합니다.
                 .formLogin().disable()
                 .httpBasic().disable()
+                .apply(new CustomFilterConfigurer());
                 .authorizeRequests(authorize -> authorize
                         .anyRequest().permitAll());
 
@@ -51,5 +65,18 @@ public class SecurityConfiguration {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity>{
+        @Override //configure() 메서드를 오버라이드 Configuration을 커스터마이징.
+        public void configure(HttpSecurity builder) throws Exception {
+            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+
+            JwtAuthenticationFilter jwtAuthenticationfilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            JwtAuthenticationFilter.setFilterProcessUrl("/v11/auth/login");
+
+            builder.addFilter(jwtAuthenticationfilter);
+
+        }
     }
 }
