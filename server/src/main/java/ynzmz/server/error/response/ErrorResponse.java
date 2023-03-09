@@ -1,10 +1,10 @@
-package ynzmz.error.response;
+package ynzmz.server.error.response;
 
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
-import ynzmz.error.exception.ExceptionCode;
+import ynzmz.server.error.exception.ExceptionCode;
 
 
 import javax.validation.ConstraintViolation;

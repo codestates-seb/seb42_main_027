@@ -1,4 +1,4 @@
-package ynzmz.error.advice;
+package ynzmz.server.error.advice;
 
 
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ynzmz.error.exception.BusinessLogicException;
-import ynzmz.error.response.ErrorResponse;
+import ynzmz.server.error.exception.BusinessLogicException;
+import ynzmz.server.error.response.ErrorResponse;
 
 
 
