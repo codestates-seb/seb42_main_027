@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/main027?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/main27?serverTimezone=Asia/Seoul
     username: root
     password: 12345678
     initialization-mode: always
@@ -13,3 +13,16 @@ spring:
     properties:
       hibernate:
         format_sql: true
+#mail:
+#  address:
+#    admin: admin@gmail.com
+#    url: jdbc:mysql://database-1.coluq7bvskjj.ap-northeast-2.rds.amazonaws.com:3306/mainproject?serverTimezone=Asia/Seoul
+#    username: admin
+#    password: 12341234
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
