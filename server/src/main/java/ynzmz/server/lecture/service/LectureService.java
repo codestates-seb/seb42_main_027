@@ -40,6 +40,10 @@ public class LectureService {
         return lectureRepository.findByTagType(tag, PageRequest.of(page, size, Sort.by("lectureId").descending()));
     }
 
+    public Page<Lecture> findLecturesByTeacher(long teacherId, int page, int size) {
+        return lectureRepository.findByTeacherId(teacherId, PageRequest.of(page, size, Sort.by("lectureId").descending()));
+    }
+
     public Lecture findLectureById(long lectureId){
         Optional<Lecture> lecture = lectureRepository.findById(lectureId);
         return lecture.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TEACHER_NOT_FOUND));

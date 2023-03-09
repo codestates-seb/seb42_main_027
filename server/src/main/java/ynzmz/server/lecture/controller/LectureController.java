@@ -80,13 +80,28 @@ public class LectureController {
     }
 
     //강사별 강의조회
-    @GetMapping("/teacher/{teacher-id}")
-    public void getLecturesByTeacher(@PathVariable("teacher-id") long teacherId){}
+    @GetMapping("/teacher")
+    public ResponseEntity<?> getLecturesByTeacher(@RequestParam(value = "teacher", required = false) long teacherId,
+                                     @RequestParam int page,
+                                     @RequestParam int size) {
+
+        Page<Lecture> lecturePage = lectureService.findLecturesByTeacher(teacherId,page -1, size);
+        List<Lecture> lectures = lecturePage.getContent();
+        List<LectureDto.InfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
+
+        return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
+
+
+    }
 
     //강의 한건 디테일조회
     @GetMapping("/{lecture-id}")
-    public void getLecturesDetail(@PathVariable("lecture-id") long lectureId){}
+    public void getLecturesDetail(@PathVariable("lecture-id") long lectureId) {
+
+    }
     //강의 삭제
     @DeleteMapping("/{lecture-id}")
-    public void deleteLecture(@PathVariable("lecture-id") long lectureId){}
+    public void deleteLecture(@PathVariable("lecture-id") long lectureId) {
+
+    }
 }
