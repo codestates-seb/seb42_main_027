@@ -15,10 +15,10 @@ public class LectureReviewPost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewPostId;
     private String title;
-    private int starPoint;
+    private double starPoint;
     private String content;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private String createdAt;
+    private String modifiedAt;
     private long viewCount;
     private long voteCount;
     @ManyToOne

@@ -31,7 +31,7 @@ public class LectureDto {
         private long lectureId;
         private String name;
         private String introduction;
-        private long starPointAverage;
+        private double starPointAverage;
         private List<Tag.Type> tags;
         private long teacherId;
     }

@@ -11,6 +11,8 @@ import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecture.repository.LectureRepository;
 import ynzmz.server.teacher.entity.Teacher;
 
+import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -54,5 +56,11 @@ public class LectureService {
         return lecture.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TEACHER_NOT_FOUND));
     }
 
+    //강의 평균 별점 저장
+    @Transactional
+    public void LectureStarPointAverageUpdate(Lecture lecture, double starPointAverage){
+        lecture.setStarPointAverage(starPointAverage);
+        lectureRepository.save(lecture);
+    }
 
 }

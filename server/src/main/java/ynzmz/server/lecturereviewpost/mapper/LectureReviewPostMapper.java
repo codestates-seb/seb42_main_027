@@ -6,5 +6,6 @@ import ynzmz.server.lecturereviewpost.entity.LectureReviewPost;
 
 @Mapper(componentModel = "spring")
 public interface LectureReviewPostMapper {
-    LectureReviewPost reviewPostToPost(LectureReviewPostDto.Post reviewPostPostDto);
+    LectureReviewPost LectureReviewPostToLectureReviewPostPost(LectureReviewPostDto.Post reviewPostPostDto);
+    LectureReviewPostDto.InfoResponse LectureReviewPostInfoResponseToLectureReviewPost(LectureReviewPost lectureReviewPost);
 }

@@ -18,7 +18,7 @@ public class Lecture {
     private Long lectureId;
     private String name;
     private String introduction;
-    private long starPointAverage;
+    private double starPointAverage;
     @OneToMany(mappedBy = "lecture")
     private List<LectureTag> lectureTags = new ArrayList<>();
 

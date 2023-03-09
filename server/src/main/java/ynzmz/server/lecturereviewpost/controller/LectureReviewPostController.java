@@ -1,19 +1,42 @@
 package ynzmz.server.lecturereviewpost.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.lecture.service.LectureService;
+import ynzmz.server.lecturereviewpost.dto.LectureReviewPostDto;
+import ynzmz.server.lecturereviewpost.entity.LectureReviewPost;
 import ynzmz.server.lecturereviewpost.mapper.LectureReviewPostMapper;
 import ynzmz.server.lecturereviewpost.sevice.LectureReviewPostService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/reviews")
 @RequiredArgsConstructor
 public class LectureReviewPostController {
     private final LectureReviewPostService lectureReviewPostService;
+    private final LectureService lectureService;
     private final LectureReviewPostMapper lectureReviewPostMapper;
     //리뷰작성
     @PostMapping
-    public void postReviewPost(){}
+    public ResponseEntity<?> postReviewPost(@RequestBody LectureReviewPostDto.Post lectureReviewPostPost){
+        //등록시 과목의 평점을 수정한다
+        LectureReviewPost lectureReviewPost = lectureReviewPostMapper.LectureReviewPostToLectureReviewPostPost(lectureReviewPostPost);
+        LectureReviewPost createdLectureReviewPost = lectureReviewPostService.createLectureReviewPost(lectureReviewPost);
+
+        //등록시 강의의 평균점수를 수정한다
+        double averageStarPoint = lectureReviewPostService.getLectureReviewPostAverageStarPoint(createdLectureReviewPost);
+        lectureService.LectureStarPointAverageUpdate(createdLectureReviewPost.getLecture(), averageStarPoint);
+
+
+        LectureReviewPostDto.InfoResponse response = lectureReviewPostMapper.LectureReviewPostInfoResponseToLectureReviewPost(createdLectureReviewPost);
+
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
+    }
     //리뷰수정
     @PatchMapping("/{review-post-id}")
     public void patchReviewPost(@PathVariable("review-post-id") long parameter){}
