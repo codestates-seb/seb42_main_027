@@ -1,5 +1,6 @@
 package ynzmz.server.security.auths.userdetails;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,6 +11,7 @@ import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Component
@@ -25,7 +27,7 @@ public class MemberDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Member> optionalMember = memberRepository.findByEmail(username);
-        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.빈칸));
+        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
         return new MemberDetails(findMember);
     }
@@ -34,13 +36,20 @@ public class MemberDetailsService implements UserDetailsService {
         MemberDetails(Member member){
             setMemberId(member.getMemberId());
             setEmail(member.getEmail());
+            setDisplayName(member.getDisplayName());
             setPassword(member.getPassword());
             setIconImageUrl(member.getIconImageUrl());
+            setRoles(member.getRoles());
+        }
+
+        @Override
+        public Collection<? extends GrantedAuthority> getAuthorities(){
+            return authorityUtils.createdAuthorities(getRoles());
         }
 
         @Override
         public String getUsername() {
-            return getDisplayName();
+            return getEmail();
         }
 
         @Override

@@ -16,9 +16,11 @@ import ynzmz.server.security.auths.dto.LoginDto;
 import ynzmz.server.security.auths.jwt.JwtTokenizer;
 
 import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,13 +51,18 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, //클라이언트의 인증 정보를 이용해 인증에 성공할 경우 호출
                                             HttpServletResponse response,
                                             FilterChain chain,
-                                            Authentication authResult){
+                                            Authentication authResult) throws ServletException, IOException {
         Member member = (Member) authResult.getPrincipal(); //member 엔티티 클래스 객체 얻음
+
         String accessToken = delegateAccessToken(member); //AccessToken 생성
         String refreshToken = delegateRefreshToken(member); //RefreshToken생성
 
         response.setHeader("Authorization", "Bearer" + accessToken); //클라이언트측에서 요청할때마다 requestHeader에 추가
         response.setHeader("Refresh", refreshToken);
+
+        this.getSuccessHandler().onAuthenticationSuccess(request,response,authResult);
+
+
     }
 
     private String delegateAccessToken(Member member) {
@@ -65,8 +72,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String subject = member.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
-
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+
         String accessToken = jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
 
         return accessToken;

@@ -45,8 +45,9 @@ public class MemberService {
         List<String> roles = authorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
 
-        publisher.publishEvent(new MemberRegistrationApplicationEvent(this, savedMember));
-        return memberRepository.save(member);
+        Member savedMember = memberRepository.save(member);
+
+        return savedMember;
     }
 
     public Member updateMember(Member member){
@@ -58,9 +59,6 @@ public class MemberService {
         return memberRepository.save(findMember);
     }
 
-    public Member findMember(long memberId){
-        return findVerifiedMember(memberId);
-    }
 
     public Page<Member> findMembers(int page, int size){
         return memberRepository.findAll(PageRequest.of(page,size,

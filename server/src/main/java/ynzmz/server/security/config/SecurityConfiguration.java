@@ -4,10 +4,10 @@ import io.jsonwebtoken.Jwt;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -15,7 +15,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import ynzmz.server.security.auths.filter.JwtAuthenticationFilter;
+import ynzmz.server.security.auths.filter.JwtVerificationFilter;
+import ynzmz.server.security.auths.handler.MemberAuthenticationFailureHandler;
+import ynzmz.server.security.auths.handler.MemberAuthenticationSuccessHandler;
 import ynzmz.server.security.auths.jwt.JwtTokenizer;
+import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
 
 import javax.persistence.Entity;
 
@@ -27,10 +31,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SecurityConfiguration {
 
-    public final JwtTokenizer jwtTokenizer;
+    private final JwtTokenizer jwtTokenizer;
+    private final CustomAuthorityUtils authorityUtils;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer){
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils){
         this.jwtTokenizer = jwtTokenizer;
+        this.authorityUtils = authorityUtils;
     }
 
 
@@ -42,9 +48,12 @@ public class SecurityConfiguration {
                 .and()
                 .csrf().disable()
                 .cors(withDefaults()) //corsConfigurationSource라는 이름으로 등록된 Bean을 이용합니다.
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .formLogin().disable()
                 .httpBasic().disable()
-                .apply(new CustomFilterConfigurer());
+                .apply(new CustomFilterConfigurer())
+                .and()
                 .authorizeRequests(authorize -> authorize
                         .anyRequest().permitAll());
 
@@ -73,9 +82,15 @@ public class SecurityConfiguration {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
             JwtAuthenticationFilter jwtAuthenticationfilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
-            JwtAuthenticationFilter.setFilterProcessUrl("/v11/auth/login");
+            JwtAuthenticationFilter.setFilterProcessUrl("/auth/login");
+            JwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
+            JwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
-            builder.addFilter(jwtAuthenticationfilter);
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
+
+            builder
+                    .addFilter(jwtAuthenticationfilter) //Authentication 이후에 verification 동작.
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
 
         }
     }
