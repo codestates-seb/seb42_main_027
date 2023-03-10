@@ -1,0 +1,42 @@
+export const dummy = [
+  {
+    name: '한석원',
+    belong: '메가스터디',
+    subject: '수학',
+    img: '이미지',
+    best: '가장 빛나는 강사',
+    grade: 4.3,
+  },
+  {
+    name: '정승제',
+    belong: '이투스',
+    subject: '수학',
+    img: '이미지',
+    best: '인기 스타 강사',
+    grade: 4.8,
+  },
+  {
+    name: '한석원',
+    belong: '메가스터디',
+    subject: '수학',
+    img: '이미지',
+    best: '가장 빛나는 강사',
+    grade: 4.3,
+  },
+  {
+    name: '정승제',
+    belong: '이투스',
+    subject: '수학',
+    img: '이미지',
+    best: '인기 스타 강사',
+    grade: 4.8,
+  },
+  {
+    name: '한석원',
+    belong: '메가스터디',
+    subject: '수학',
+    img: '이미지',
+    best: '가장 빛나는 강사',
+    grade: 4.3,
+  },
+];
