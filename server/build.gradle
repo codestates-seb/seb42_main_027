@@ -25,6 +25,9 @@ ext {
 }
 
 dependencies {
+	annotationProcessor 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.mapstruct:mapstruct:1.5.2.Final'  //mapper 자동작성 mapstruct 추가
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'  //mapper 자동작성 mapstruct 추가
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -32,10 +35,10 @@ dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config' // 추가
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
+
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.mysql:mysql-connector-j'
-	annotationProcessor 'org.projectlombok:lombok'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	testImplementation 'org.springframework.security:spring-security-test'
