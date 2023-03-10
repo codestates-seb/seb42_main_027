@@ -1,7 +1,9 @@
 package ynzmz.server.vote.lecturereviewpost.lecturereviewpost.mapper;
 
 import org.mapstruct.Mapper;
+import ynzmz.server.comment.lecturereviewpost.entity.LectureReviewPostComment;
 import ynzmz.server.lecturereviewpost.entity.LectureReviewPost;
+import ynzmz.server.vote.lecturereviewpost.comment.entity.LectureReviewPostCommentVote;
 import ynzmz.server.vote.lecturereviewpost.lecturereviewpost.dto.LectureReviewPostVoteDto;
 import ynzmz.server.vote.lecturereviewpost.lecturereviewpost.entity.LectureReviewPostVote;
 

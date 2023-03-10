@@ -5,8 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ynzmz.server.vote.lecturereviewpost.lecturereviewpost.entity.LectureReviewPostVote;
 
-import javax.persistence.GeneratedValue;
-
 public class LectureReviewPostVoteDto {
 
     @Getter @Setter

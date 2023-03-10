@@ -49,9 +49,9 @@ public class LectureReviewPostVoteController {
         Member member = memberService.findMemberById(memberId);
 
         LectureReviewPostVote lectureReviewPostVote = lectureReviewPostVoteService.lectureReviewPostVoteDown(lectureReviewPost, member);
-        LectureReviewPost voteUpLectureReviewPost = lectureReviewPostService.findLectureReviewPostById(lectureReviewPostVote.getLectureReviewPost().getLectureReviewPostId());
+        LectureReviewPost voteDownLectureReviewPost = lectureReviewPostService.findLectureReviewPostById(lectureReviewPostVote.getLectureReviewPost().getLectureReviewPostId());
 
-        LectureReviewPostVoteDto.Response response = lectureReviewPostVoteMapper.lectureReviewPostVoteToLectureReviewPostResponse(lectureReviewPostVote, voteUpLectureReviewPost);
+        LectureReviewPostVoteDto.Response response = lectureReviewPostVoteMapper.lectureReviewPostVoteToLectureReviewPostResponse(lectureReviewPostVote, voteDownLectureReviewPost);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
