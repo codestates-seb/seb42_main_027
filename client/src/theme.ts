@@ -10,9 +10,11 @@ const fontSizes = {
 const colors = {
   black: '#000000',
   white: '#FFFFFF',
-  grey: '#B8B8B8',
+  fontColor: '#565656',
+  pointColor: '#6667AB',
+  gray: '#B8B8B8',
   success: '#65E271',
-  danger: '#65E271',
+  danger: '#EC3C3C',
 };
 
 export const radius = {
