@@ -4,7 +4,6 @@ import io.jsonwebtoken.io.Decoders;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.rules.Timeout;
 import ynzmz.server.security.auths.jwt.JwtTokenizer;
 
 import java.util.*;

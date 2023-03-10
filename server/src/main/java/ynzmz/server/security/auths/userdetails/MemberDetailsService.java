@@ -63,7 +63,7 @@ public class MemberDetailsService implements UserDetailsService {
         }
 
         @Override
-        public boolean isCredentialNonExpired() {
+        public boolean isCredentialsNonExpired() {
             return true;
         }
 
