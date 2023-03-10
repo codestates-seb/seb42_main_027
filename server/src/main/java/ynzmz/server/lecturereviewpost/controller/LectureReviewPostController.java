@@ -12,8 +12,6 @@ import ynzmz.server.lecturereviewpost.dto.LectureReviewPostDto;
 import ynzmz.server.lecturereviewpost.entity.LectureReviewPost;
 import ynzmz.server.lecturereviewpost.mapper.LectureReviewPostMapper;
 import ynzmz.server.lecturereviewpost.sevice.LectureReviewPostService;
-import ynzmz.server.teacher.dto.TeacherDto;
-import ynzmz.server.teacher.entity.Teacher;
 import ynzmz.server.teacher.service.TeacherService;
 
 import java.util.List;
@@ -94,9 +92,15 @@ public class LectureReviewPostController {
         }
     }
     //리뷰 1건 상세조회
-    @GetMapping("/{review-post-id}")
-    public void getReviewPostDetail(@PathVariable("review-post-id") long reviewPostId){}
+    @GetMapping("/{lecture-review-post-id}")
+    public ResponseEntity<?> getReviewPostDetail(@PathVariable("lecture-review-post-id") long lectureReviewPostId){
+        LectureReviewPost lectureReviewPost = lectureReviewPostService.findLectureReviewPostById(lectureReviewPostId);
+        LectureReviewPostDto.InfoResponse response = lectureReviewPostMapper.lectureReviewPostInfoResponseToLectureReviewPost(lectureReviewPost);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+    }
     //리뷰 삭제
-    @DeleteMapping("/{review-post-id}")
-    public void deleteReview(@PathVariable("review-post-id") long reviewPostId){}
+    @DeleteMapping("/{lecture-review-post-id}")
+    public void deleteReview(@PathVariable("lecture-review-post-id") long lectureReviewPostId){
+        lectureReviewPostService.deleteLectureReviewPost(lectureReviewPostId);
+    }
 }

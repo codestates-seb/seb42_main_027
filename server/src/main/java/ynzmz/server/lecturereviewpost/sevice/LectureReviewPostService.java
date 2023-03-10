@@ -45,6 +45,9 @@ public class LectureReviewPostService {
         return lectureReviewPostRepository.findLectureReviewPostByLectureTeacherTeacherId(teacherId, PageRequest.of(page, size, Sort.by("teacherId").descending()));
     }
 
+    public void deleteLectureReviewPost(long lectureReviewPostId) {
+        lectureReviewPostRepository.deleteById(lectureReviewPostId);
+    }
 
 
     public LectureReviewPost findLectureReviewPostById(long lectureReviewPostId) {
