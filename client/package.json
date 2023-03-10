@@ -9,11 +9,11 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.14",
     "@types/react-router": "^5.1.20",
-    "@types/styled-components": "^5.1.26",
     "prettier": "^2.8.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "styled-components": "^5.3.8",
     "web-vitals": "^2.1.4",
     "zustand": "^4.3.6"
   },
@@ -44,6 +44,7 @@
   "devDependencies": {
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "eslint": "^8.35.0",
     "eslint-config-airbnb": "^19.0.4",
