@@ -1,6 +1,7 @@
 package ynzmz.server.teacher.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import ynzmz.server.tag.entity.Tag;
 
 import java.util.List;

@@ -9,7 +9,6 @@ import ynzmz.server.comment.lecturereviewpost.entity.LectureReviewPostComment;
 import ynzmz.server.comment.lecturereviewpost.repository.LectureReviewPostCommentRepository;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
-import ynzmz.server.lecturereviewpost.entity.LectureReviewPost;
 
 import java.util.Optional;
 

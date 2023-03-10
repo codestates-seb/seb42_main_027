@@ -10,15 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import ynzmz.server.comment.lecturereviewpost.entity.LectureReviewPostComment;
 import ynzmz.server.comment.lecturereviewpost.service.LectureReviewPostCommentService;
 import ynzmz.server.dto.SingleResponseDto;
-import ynzmz.server.lecturereviewpost.entity.LectureReviewPost;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.vote.lecturereviewpost.comment.dto.LectureReviewPostCommentVoteDto;
 import ynzmz.server.vote.lecturereviewpost.comment.entity.LectureReviewPostCommentVote;
 import ynzmz.server.vote.lecturereviewpost.comment.mapper.LectureReviewPostCommentVoteMapper;
 import ynzmz.server.vote.lecturereviewpost.comment.service.LectureReviewPostCommentVoteService;
-import ynzmz.server.vote.lecturereviewpost.lecturereviewpost.dto.LectureReviewPostVoteDto;
-import ynzmz.server.vote.lecturereviewpost.lecturereviewpost.entity.LectureReviewPostVote;
 
 @RestController
 @RequestMapping("/lecture-review-post-comment-vote")

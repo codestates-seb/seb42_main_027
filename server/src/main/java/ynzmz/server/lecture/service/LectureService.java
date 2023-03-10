@@ -9,10 +9,8 @@ import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecture.repository.LectureRepository;
-import ynzmz.server.teacher.entity.Teacher;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 @Service

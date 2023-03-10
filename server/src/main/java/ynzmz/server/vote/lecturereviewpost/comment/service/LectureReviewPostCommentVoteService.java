@@ -3,11 +3,9 @@ package ynzmz.server.vote.lecturereviewpost.comment.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ynzmz.server.comment.lecturereviewpost.entity.LectureReviewPostComment;
-import ynzmz.server.lecturereviewpost.entity.LectureReviewPost;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.vote.lecturereviewpost.comment.entity.LectureReviewPostCommentVote;
 import ynzmz.server.vote.lecturereviewpost.comment.repository.LectureReviewPostCommentVoteRepository;
-import ynzmz.server.vote.lecturereviewpost.lecturereviewpost.entity.LectureReviewPostVote;
 
 import java.util.Optional;
 

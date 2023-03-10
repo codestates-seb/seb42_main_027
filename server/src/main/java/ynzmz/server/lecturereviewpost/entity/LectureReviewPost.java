@@ -2,11 +2,10 @@ package ynzmz.server.lecturereviewpost.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import ynzmz.server.member.entity.Member;
 import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.member.entity.Member;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter

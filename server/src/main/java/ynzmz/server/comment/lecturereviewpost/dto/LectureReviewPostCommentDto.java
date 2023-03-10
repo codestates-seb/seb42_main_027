@@ -5,8 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ynzmz.server.member.entity.Member;
 
-import javax.persistence.*;
-
 public class LectureReviewPostCommentDto {
     @Getter
     public static class Post{

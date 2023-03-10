@@ -5,7 +5,6 @@ import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.tag.entity.LectureTag;
 import ynzmz.server.tag.entity.Tag;
-import ynzmz.server.tag.entity.TeacherTag;
 
 import java.util.ArrayList;
 import java.util.List;

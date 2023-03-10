@@ -1,7 +1,10 @@
 package ynzmz.server.tag.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import ynzmz.server.lecture.entity.Lecture;
 
 import javax.persistence.*;

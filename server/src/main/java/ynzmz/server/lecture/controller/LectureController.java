@@ -14,8 +14,6 @@ import ynzmz.server.lecture.service.LectureService;
 import ynzmz.server.tag.entity.Tag;
 import ynzmz.server.tag.service.LectureTagService;
 import ynzmz.server.tag.service.TagService;
-import ynzmz.server.teacher.dto.TeacherDto;
-import ynzmz.server.teacher.entity.Teacher;
 
 import java.util.List;
 

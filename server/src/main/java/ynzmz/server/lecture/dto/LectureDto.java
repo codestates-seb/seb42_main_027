@@ -1,6 +1,5 @@
 package ynzmz.server.lecture.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.tag.entity.Tag;

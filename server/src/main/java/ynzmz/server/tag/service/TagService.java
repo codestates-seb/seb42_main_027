@@ -3,7 +3,6 @@ package ynzmz.server.tag.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ynzmz.server.tag.entity.Tag;
-import ynzmz.server.tag.repository.TagRepository;
 
 import java.util.ArrayList;
 import java.util.List;

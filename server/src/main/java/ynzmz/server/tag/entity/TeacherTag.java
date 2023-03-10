@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ynzmz.server.tag.entity.Tag;
 import ynzmz.server.teacher.entity.Teacher;
 
 import javax.persistence.*;
