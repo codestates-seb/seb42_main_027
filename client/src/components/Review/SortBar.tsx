@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
-import { FlexContainer } from 'Review/Page/ReviewPage';
+import { FlexContainer } from 'pages/Review/ReviewPage';
 import { useState } from 'react';
 
 function SortBar() {

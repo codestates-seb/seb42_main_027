@@ -1,10 +1,10 @@
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
-import SortBar from 'Review/Component/SortBar';
-import SearchBar from 'Review/Component/SearchBar';
-import CharacterCard from 'Review/Component/CharacterCard';
-import Pagenation from 'Review/Component/Pagenation';
-import { dummy } from 'Review/Component/CharacterDummy';
+import SortBar from 'components/Review/SortBar';
+import SearchBar from 'components/Review/SearchBar';
+import Pagenation from 'components/Review/Pagenation';
+import CharacterCard from 'components/Review/CharacterCard';
+import { dummy } from 'components/Review/CharacterDummy';
 
 function ReviewPage() {
   return (
