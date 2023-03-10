@@ -1,5 +1,6 @@
 package ynzmz.server.teacher.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.tag.entity.Tag;
@@ -10,6 +11,7 @@ import java.util.List;
 public class TeacherDto {
     //강사등록
     @Getter
+    @AllArgsConstructor
     public static class Post {
         private String name;
         private String introduction;

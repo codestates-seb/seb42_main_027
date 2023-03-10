@@ -12,7 +12,6 @@ import ynzmz.server.lecturereviewpost.dto.LectureReviewPostDto;
 import ynzmz.server.lecturereviewpost.entity.LectureReviewPost;
 import ynzmz.server.lecturereviewpost.mapper.LectureReviewPostMapper;
 import ynzmz.server.lecturereviewpost.sevice.LectureReviewPostService;
-import ynzmz.server.teacher.service.TeacherService;
 
 import java.util.List;
 
@@ -22,7 +21,6 @@ import java.util.List;
 public class LectureReviewPostController {
     private final LectureReviewPostService lectureReviewPostService;
     private final LectureService lectureService;
-    private final TeacherService teacherService;
     private final LectureReviewPostMapper lectureReviewPostMapper;
     //리뷰작성
     @PostMapping

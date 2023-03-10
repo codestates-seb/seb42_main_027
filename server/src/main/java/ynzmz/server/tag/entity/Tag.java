@@ -26,11 +26,11 @@ public class Tag {
     private List<LectureTag> lectureTags =new ArrayList<>();
 
     public enum Type {
-        KOREAN,
-        ENGLISH,
-        MATH,
-        SCIENCE,
-        SOCIETY,
+        국어,
+        영어,
+        수학,
+        과학,
+        사회,
         고3,
         고2,
         고1,
@@ -42,6 +42,5 @@ public class Tag {
         대성마이맥,
         이투스,
         EBS
-
     }
 }

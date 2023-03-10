@@ -1,5 +1,6 @@
 package ynzmz.server.lecturereviewpost.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.lecture.entity.Lecture;
@@ -7,6 +8,7 @@ import ynzmz.server.member.entity.Member;
 
 public class LectureReviewPostDto {
     @Getter
+    @AllArgsConstructor
     public static class Post{
         private String title;
         private double starPoint;
@@ -28,7 +30,7 @@ public class LectureReviewPostDto {
     @Getter @Setter
     public static class InfoResponse{
 
-        private long reviewPostId;
+        private long lectureReviewPostId;
         private String title;
         private double starPoint;
         private String content;
