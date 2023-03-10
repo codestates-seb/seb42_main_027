@@ -27,7 +27,7 @@ public class MemberController {
     public ResponseEntity postMember(@RequestBody @Valid MemberPostDto requestBody){
         Member member = memberMapper.memberPostDtoToMember(requestBody);
         Member createdMember = memberService.createMember(member);
-        return new ResponseEntity;
+        return member;
     }
 
 
