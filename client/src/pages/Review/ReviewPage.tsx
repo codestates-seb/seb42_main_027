@@ -13,7 +13,7 @@ function ReviewPage() {
       <SortBar />
       <SearchBar />
       <CharacterCard teacher={dummy} />
-      <Pagenation />
+      <Pagenation size={48} currentPage={1} pageSize={6} />
     </FlexContainer>
   );
 }
