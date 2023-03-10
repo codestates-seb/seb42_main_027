@@ -91,6 +91,10 @@ public class LectureReviewPostController {
             return new ResponseEntity<>(new MultiResponseDto<>(responses, lectureReviewPostPage), HttpStatus.OK);
         }
     }
+    //리뷰 추천
+    //리뷰 비추천
+
+
     //리뷰 1건 상세조회
     @GetMapping("/{lecture-review-post-id}")
     public ResponseEntity<?> getReviewPostDetail(@PathVariable("lecture-review-post-id") long lectureReviewPostId){
