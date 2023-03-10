@@ -15,7 +15,8 @@ public enum ExceptionCode {
     INVALID_MEMBER_STATUS(400, "Invalid member status"),
     TEACHER_NOT_FOUND(404, "해당 고유번호 강사가 없습니다."),
     LECTURE_REVIEW_POST_NOT_FOUND(404, "해당 고유번호 강의 리뷰글이 없습니다."),
-    LECTURE_NOT_FOUND(404, "해당 고유번호 강의가 없습니다.");
+    LECTURE_NOT_FOUND(404, "해당 고유번호 강의가 없습니다."),
+    LECTURE_REVIEW_POST_COMMENT_NOT_FOUND(404, "해당 고유번호 강의 리뷰글 댓글이 없습니다.");
     // 권한이없을때
 
     @Getter

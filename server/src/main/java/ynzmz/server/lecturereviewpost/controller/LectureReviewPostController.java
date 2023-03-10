@@ -17,7 +17,7 @@ import ynzmz.server.teacher.service.TeacherService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reviews")
+@RequestMapping("/lecture-review-posts")
 @RequiredArgsConstructor
 public class LectureReviewPostController {
     private final LectureReviewPostService lectureReviewPostService;
