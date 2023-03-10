@@ -1,10 +1,12 @@
 package ynzmz.server.lecturereviewpost.sevice;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
-import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecturereviewpost.entity.LectureReviewPost;
 import ynzmz.server.lecturereviewpost.repository.LectureReviewPostRepository;
 
@@ -31,6 +33,19 @@ public class LectureReviewPostService {
 
         return lectureReviewPostRepository.save(findLectureReviewPost);
     }
+
+    public Page<LectureReviewPost> findAllLectureReviewPosts(int page, int size) {
+        return lectureReviewPostRepository.findAll(PageRequest.of(page, size, Sort.by("lectureReviewPostId").descending()));
+    }
+
+    public Page<LectureReviewPost> findLectureReviewPostsByLecture(long lectureId, int page, int size) {
+        return lectureReviewPostRepository.findLectureReviewPostByLectureLectureId(lectureId, PageRequest.of(page, size, Sort.by("lectureReviewPostId").descending()));
+    }
+    public Page<LectureReviewPost> findLectureReviewPostsByTeacher(long teacherId, int page, int size) {
+        return lectureReviewPostRepository.findLectureReviewPostByLectureTeacherTeacherId(teacherId, PageRequest.of(page, size, Sort.by("teacherId").descending()));
+    }
+
+
 
     public LectureReviewPost findLectureReviewPostById(long lectureReviewPostId) {
         Optional<LectureReviewPost> lectureReviewPost = lectureReviewPostRepository.findById(lectureReviewPostId);
