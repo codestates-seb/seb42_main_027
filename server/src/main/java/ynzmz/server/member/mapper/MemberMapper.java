@@ -10,6 +10,6 @@ public interface MemberMapper {
 
     Member memberPostDtoToMember(MemberPostDto memberPostDto);
     Member memberPatchDtoToMember(MemberPatchDto memberPatchDto);
-    MemberDto memberToMemberDto(Member member);
+    MemberDto memberToMemberResponse (Member member);
 
 }
