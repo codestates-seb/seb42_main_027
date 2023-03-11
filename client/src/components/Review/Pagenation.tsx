@@ -62,4 +62,7 @@ const PageBox = styled.span<BorderTop>`
   border-top: ${props => (props.selected ? '2px solid #6667ab' : null)};
   color: ${props => (props.first || props.last ? '#b8b8b8' : null)};
   cursor: pointer;
+  :hover {
+    color: #6667ab;
+  }
 `;
