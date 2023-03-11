@@ -1,0 +1,44 @@
+= Main_Project_027
+:sectnums:
+:toc: left
+:toclevels: 4
+:toc-title: Table of Contents
+:source-highlighter: highlightjs
+:sectlinks:
+:pdf-fontsdir: src/asciidoc/fonts
+v1.0.0, 2023.03.10 19:30
+
+'''
+== 강사
+=== 강사 등록
+.curl-request
+include::{snippets}/post-teachers/curl-request.adoc[]
+.http-request
+include::{snippets}/post-teachers/http-request.adoc[]
+.request-fields
+include::{snippets}/post-teachers/request-fields.adoc[]
+.request-body
+include::{snippets}/post-teachers/request-body.adoc[]
+.http-response
+include::{snippets}/post-teachers/http-response.adoc[]
+.response-fields
+include::{snippets}/post-teachers/response-fields.adoc[]
+.response-body
+include::{snippets}/post-teachers/response-body.adoc[]
+=== 강사 정보 수정
+.curl-request
+include::{snippets}/patch-teachers/curl-request.adoc[]
+.path-parameters
+include::{snippets}/patch-teachers/path-parameters.adoc[]
+.http-request
+include::{snippets}/patch-teachers/http-request.adoc[]
+.request-fields
+include::{snippets}/patch-teachers/request-fields.adoc[]
+.request-body
+include::{snippets}/patch-teachers/request-body.adoc[]
+.http-response
+include::{snippets}/patch-teachers/http-response.adoc[]
+.response-fields
+include::{snippets}/patch-teachers/response-fields.adoc[]
+.response-body
+include::{snippets}/patch-teachers/response-body.adoc[]

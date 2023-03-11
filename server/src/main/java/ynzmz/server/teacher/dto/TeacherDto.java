@@ -19,6 +19,7 @@ public class TeacherDto {
     }
     //강사수정
     @Getter @Setter
+    @AllArgsConstructor
     public static class Patch {
         private String name;
         private String introduction;
