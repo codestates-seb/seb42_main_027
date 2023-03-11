@@ -3,6 +3,7 @@ import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/Review/ReviewPage';
 import { useState } from 'react';
+import Button from 'components/UI/Button';
 
 function SortBar() {
   const sortArr: string[] = ['전체', '이투스', '메가스터디', '에듀윌', '그 외'];
@@ -17,9 +18,9 @@ function SortBar() {
       <GlobalStyle />
       {sortArr.map((el, index) => {
         return (
-          <SortButton key={index} value={el} onClick={sortTagHandler}>
+          <PButton key={index} value={el} onClick={sortTagHandler}>
             {el}
-          </SortButton>
+          </PButton>
         );
       })}
     </FlexContainer>
@@ -28,12 +29,4 @@ function SortBar() {
 
 export default SortBar;
 
-const SortButton = styled.button`
-  width: 5.9rem;
-  border: none;
-  padding: 0.5rem 1rem;
-  background-color: #6667ab;
-  color: white;
-  border-radius: 5rem;
-  cursor: pointer;
-`;
+const PButton = Button.PointBtn;
