@@ -42,3 +42,18 @@ include::{snippets}/patch-teachers/http-response.adoc[]
 include::{snippets}/patch-teachers/response-fields.adoc[]
 .response-body
 include::{snippets}/patch-teachers/response-body.adoc[]
+=== 강사 전체 조회
+.curl-request
+include::{snippets}/get-all-teachers/curl-request.adoc[]
+.request-parameters
+include::{snippets}/get-all-teachers/request-parameters.adoc[]
+.http-request
+include::{snippets}/get-all-teachers/http-request.adoc[]
+.request-body
+include::{snippets}/get-all-teachers/request-body.adoc[]
+.http-response
+include::{snippets}/get-all-teachers/http-response.adoc[]
+.response-fields
+include::{snippets}/get-all-teachers/response-fields.adoc[]
+.response-body
+include::{snippets}/get-all-teachers/response-body.adoc[]

@@ -15,6 +15,7 @@ public class StubData {
     public static final Member member = new Member();
     public static final Teacher teacher = new Teacher();
     public static final TeacherDto.InfoResponse teacherInfoResponse = new TeacherDto.InfoResponse();
+    public static final List<TeacherDto.InfoResponse> teacherInfoResponses = new ArrayList<>();
 
 
     public static final LectureReviewPostDto.InfoResponse lectureReviewPostInfoResponse = new LectureReviewPostDto.InfoResponse();
@@ -34,6 +35,9 @@ public class StubData {
         teacherInfoResponse.setTags(tagTypesSample);
 
         lectureReviewPostInfoResponse.setLectureReviewPostId(1L);
+
+        teacherInfoResponses.add(teacherInfoResponse);
+        teacherInfoResponses.add(teacherInfoResponse);
 
 
     }

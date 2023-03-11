@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
@@ -21,19 +23,18 @@ import ynzmz.server.teacher.entity.Teacher;
 import ynzmz.server.teacher.mapper.TeacherMapper;
 import ynzmz.server.teacher.service.TeacherService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ynzmz.server.helper.StubData.tagsSample;
-import static ynzmz.server.helper.StubData.teacherInfoResponse;
+import static ynzmz.server.helper.StubData.*;
 import static ynzmz.server.utils.ApiDocumentUtils.getRequestPreProcessor;
 import static ynzmz.server.utils.ApiDocumentUtils.getResponsePreProcessor;
 
@@ -136,7 +137,40 @@ class TeacherControllerTest {
     }
 
     @Test
-    void getTeachersByTag() {
+    @DisplayName("강사 전체 조회")
+    void getTeachersByTag() throws Exception {
+
+        when(teacherService.findTeachers(anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Teacher())), PageRequest.of(1,1),1));
+        when(teacherMapper.teacherInfoResponsesToTeachers(any())).thenReturn(teacherInfoResponses);
+
+        ResultActions actions =
+                mockMvc.perform(
+                        get("/teachers/")
+                                .param("page", "1")
+                                .param("size", "5")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                );
+        actions.andExpect(status().isOk()).andDo(document("get-all-teachers",
+                getRequestPreProcessor(),
+                getResponsePreProcessor(),
+                requestParameters(
+                        parameterWithName("page").description("요청 페이지"),
+                        parameterWithName("size").description("요청 페이지당 출력개수")
+                ),
+                responseFields(
+                        List.of(
+                                fieldWithPath("data.[].teacherId").type(JsonFieldType.NUMBER).description("강사 식별번호"),
+                                fieldWithPath("data.[].name").type(JsonFieldType.STRING).description("강사 이름"),
+                                fieldWithPath("data.[].introduction").type(JsonFieldType.STRING).description("강사 소개"),
+                                fieldWithPath("data.[].tags").type(JsonFieldType.ARRAY).description("강사 키워드 태그"),
+                                fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지정보 - 현재 페이지"),
+                                fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("페이지정보 - 페이지당 출력 갯수"),
+                                fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("페이지정보 - 전체 질문글수"),
+                                fieldWithPath("pageInfo.totalPages").type(JsonFieldType.NUMBER).description("페이지정보 - 전체 페이지수")
+                        )
+                ))
+        );
     }
 
     @Test
