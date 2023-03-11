@@ -30,7 +30,7 @@ public class LectureReviewPostController {
 
         //등록시 강의의 평균점수를 수정
         double averageStarPoint = lectureReviewPostService.getLectureReviewPostAverageStarPoint(createdLectureReviewPost);
-        lectureService.LectureStarPointAverageUpdate(createdLectureReviewPost.getLecture(), averageStarPoint);
+        lectureService.lectureStarPointAverageUpdate(createdLectureReviewPost.getLecture(), averageStarPoint);
 
 
         LectureReviewPostDto.InfoResponse response = lectureReviewPostMapper.lectureReviewPostInfoResponseToLectureReviewPost(createdLectureReviewPost);
@@ -47,7 +47,7 @@ public class LectureReviewPostController {
 
         //등록시 강의의 평균점수를 수정
         double averageStarPoint = lectureReviewPostService.getLectureReviewPostAverageStarPoint(updatedLectureReviewPost);
-        lectureService.LectureStarPointAverageUpdate(updatedLectureReviewPost.getLecture(), averageStarPoint);
+        lectureService.lectureStarPointAverageUpdate(updatedLectureReviewPost.getLecture(), averageStarPoint);
 
         LectureReviewPostDto.InfoResponse response = lectureReviewPostMapper.lectureReviewPostInfoResponseToLectureReviewPost(updatedLectureReviewPost);
 

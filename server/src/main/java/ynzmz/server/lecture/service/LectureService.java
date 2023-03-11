@@ -56,7 +56,7 @@ public class LectureService {
 
     //강의 평균 별점 저장
     @Transactional
-    public void LectureStarPointAverageUpdate(Lecture lecture, double starPointAverage){
+    public void lectureStarPointAverageUpdate(Lecture lecture, double starPointAverage){
         lecture.setStarPointAverage(starPointAverage);
         lectureRepository.save(lecture);
     }

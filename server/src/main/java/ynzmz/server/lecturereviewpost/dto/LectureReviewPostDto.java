@@ -3,7 +3,7 @@ package ynzmz.server.lecturereviewpost.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.member.entity.Member;
 
 public class LectureReviewPostDto {
@@ -38,7 +38,7 @@ public class LectureReviewPostDto {
         private String modifiedAt;
         private long viewCount;
         private long voteCount;
-        private Lecture lecture;
+        private LectureDto.InfoResponse lecture;
         private Member member;
     }
 }
