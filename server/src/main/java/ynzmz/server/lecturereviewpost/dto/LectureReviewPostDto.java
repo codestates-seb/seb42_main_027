@@ -18,13 +18,12 @@ public class LectureReviewPostDto {
         private String createdAt;
     }
     @Getter
+    @AllArgsConstructor
     public static class Patch{
         private String title;
         private double starPoint;
         private String content;
-        private long memberId;
-        private long lectureId;
-        private String createdAt;
+        private String modifiedAt;
     }
 
     @Getter @Setter
