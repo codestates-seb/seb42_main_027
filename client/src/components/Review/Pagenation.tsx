@@ -58,6 +58,7 @@ type BorderTop = {
 };
 
 const PageBox = styled.span<BorderTop>`
+  font-weight: bold;
   padding: 2rem 0.5rem;
   border-top: ${props => (props.selected ? '2px solid #6667ab' : null)};
   color: ${props => (props.first || props.last ? '#b8b8b8' : null)};
