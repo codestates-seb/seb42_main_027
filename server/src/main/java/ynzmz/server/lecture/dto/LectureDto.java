@@ -1,14 +1,17 @@
 package ynzmz.server.lecture.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.tag.entity.Tag;
+import ynzmz.server.teacher.dto.TeacherDto;
 
 import java.util.List;
 
 public class LectureDto {
     //postDto
     @Getter
+    @AllArgsConstructor
     public static class Post{
         private String name;
         private String introduction;
@@ -17,6 +20,7 @@ public class LectureDto {
     }
     //pathDto
     @Getter
+    @AllArgsConstructor
     public static class Patch{
         private String name;
         private String introduction;
@@ -32,6 +36,6 @@ public class LectureDto {
         private String introduction;
         private double starPointAverage;
         private List<Tag.Type> tags;
-        private long teacherId;
+        private TeacherDto.InfoResponse teacher;
     }
 }

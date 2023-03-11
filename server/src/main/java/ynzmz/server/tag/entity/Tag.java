@@ -25,6 +25,10 @@ public class Tag {
     @JsonManagedReference
     private List<LectureTag> lectureTags =new ArrayList<>();
 
+    public Tag(Type type) {
+        this.type = type;
+    }
+
     public enum Type {
         국어,
         영어,

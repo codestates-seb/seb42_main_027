@@ -26,8 +26,7 @@ import ynzmz.server.teacher.service.TeacherService;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
@@ -138,7 +137,7 @@ class TeacherControllerTest {
 
     @Test
     @DisplayName("강사 전체 조회")
-    void getTeachersByTag() throws Exception {
+    void getAllTeachers() throws Exception {
 
         when(teacherService.findTeachers(anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Teacher())), PageRequest.of(1,1),1));
         when(teacherMapper.teacherInfoResponsesToTeachers(any())).thenReturn(teacherInfoResponses);
@@ -174,10 +173,89 @@ class TeacherControllerTest {
     }
 
     @Test
-    void getTeacherDetail() {
+    @DisplayName("강사 태그별 조회")
+    void getTeachersByTag() throws Exception {
+
+        when(teacherService.findTeachers(anyString(),anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Teacher())), PageRequest.of(1,1),1));
+        when(teacherMapper.teacherInfoResponsesToTeachers(any())).thenReturn(teacherInfoResponses);
+
+        ResultActions actions =
+                mockMvc.perform(
+                        get("/teachers/")
+                                .param("tag", "국어")
+                                .param("page", "1")
+                                .param("size", "5")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                );
+        actions.andExpect(status().isOk()).andDo(document("get-teachers-tags",
+                getRequestPreProcessor(),
+                getResponsePreProcessor(),
+                requestParameters(
+                        parameterWithName("tag").description("강사 키워드 태그명"),
+                        parameterWithName("page").description("요청 페이지"),
+                        parameterWithName("size").description("요청 페이지당 출력개수")
+                ),
+                responseFields(
+                        List.of(
+                                fieldWithPath("data.[].teacherId").type(JsonFieldType.NUMBER).description("강사 식별번호"),
+                                fieldWithPath("data.[].name").type(JsonFieldType.STRING).description("강사 이름"),
+                                fieldWithPath("data.[].introduction").type(JsonFieldType.STRING).description("강사 소개"),
+                                fieldWithPath("data.[].tags").type(JsonFieldType.ARRAY).description("강사 키워드 태그"),
+                                fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지정보 - 현재 페이지"),
+                                fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("페이지정보 - 페이지당 출력 갯수"),
+                                fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("페이지정보 - 전체 질문글수"),
+                                fieldWithPath("pageInfo.totalPages").type(JsonFieldType.NUMBER).description("페이지정보 - 전체 페이지수")
+                        )
+                ))
+        );
     }
 
     @Test
-    void deleteTeacher() {
+    @DisplayName("강사 디테일 페이지 조회")
+    void getTeacherDetail() throws Exception {
+
+        long teacherId = 1L;
+
+        when(teacherService.findTeacherById(anyInt())).thenReturn(new Teacher());
+        when(teacherMapper.teacherInfoResponseToTeacher(any())).thenReturn(teacherInfoResponse);
+
+        ResultActions actions = mockMvc.perform(get("/teachers/{teacher-id}",teacherId)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+        );
+        actions.andExpect(status().isOk()).andDo(document("get-teacher",
+                getRequestPreProcessor(),
+                getResponsePreProcessor(),
+                pathParameters(
+                        parameterWithName("teacher-id").description("강사 식별번호")
+                ),
+                responseFields(
+                        List.of(
+                                fieldWithPath("data.teacherId").type(JsonFieldType.NUMBER).description("강사 식별번호"),
+                                fieldWithPath("data.name").type(JsonFieldType.STRING).description("강사 이름"),
+                                fieldWithPath("data.introduction").type(JsonFieldType.STRING).description("강사 소개"),
+                                fieldWithPath("data.tags").type(JsonFieldType.ARRAY).description("강사 키워드 태그")
+                        )
+                ))
+        );
+    }
+
+    @Test
+    @DisplayName("강사 삭제")
+    void deleteTeacher() throws Exception {
+        long teacherId = 1L;
+
+        ResultActions actions = mockMvc.perform(delete("/teachers/{teacher-id}",teacherId)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+        );
+        actions.andExpect(status().isOk()).andDo(document("delete-teacher",
+                getRequestPreProcessor(),
+                getResponsePreProcessor(),
+                pathParameters(
+                        parameterWithName("teacher-id").description("강사 식별번호")
+                )
+                ));
     }
 }

@@ -10,14 +10,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.test.web.servlet.MockMvc;
+import ynzmz.server.helper.StubData;
 import ynzmz.server.lecture.service.LectureService;
 import ynzmz.server.lecturereviewpost.dto.LectureReviewPostDto;
 import ynzmz.server.lecturereviewpost.mapper.LectureReviewPostMapper;
 import ynzmz.server.lecturereviewpost.sevice.LectureReviewPostService;
-import ynzmz.server.helper.StubData;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = LectureReviewPostController.class)
 @AutoConfigureRestDocs
@@ -49,8 +46,6 @@ class LectureReviewPostControllerTest {
                 1L,
                 "2023.03.10.18:52:36");
         String jsonPost = gson.toJson(mockPost);
-
-        when(lectureReviewPostMapper.lectureReviewPostInfoResponseToLectureReviewPost(any()));
 
     }
 
