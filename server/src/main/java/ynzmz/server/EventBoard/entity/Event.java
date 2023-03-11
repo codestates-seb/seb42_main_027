@@ -6,8 +6,10 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 
-//@Entity
-//@Getter
-//@Setter
+@Entity
+@Getter
+@Setter
 public class Event {
+
+
 }
