@@ -1,19 +1,19 @@
-#server:
-#  port: 8080
-#spring:
-#  datasource:
-##    url: jdbc:mysql://localhost:3306/main027?serverTimezone=Asia/Seoul
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/main027?serverTimezone=Asia/Seoul
 #    url: jdbc:mysql://localhost:3306
-#    username: root
-#    password: 12341234
-#    initialization-mode: always
-#  jpa:
-#    hibernate:
-#      ddl-auto: create
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        format_sql: true
+    username: root
+    password: 12341234
+    initialization-mode: always
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 #server:
 #  port: 8080
 #spring:

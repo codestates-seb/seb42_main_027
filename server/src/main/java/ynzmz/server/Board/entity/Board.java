@@ -4,6 +4,7 @@ package ynzmz.server.Board.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,7 +17,7 @@ public class Board {
 
     @Id @GeneratedValue
     long boardId;
-
+    @Column
     String title;
 
     String contentBody;
