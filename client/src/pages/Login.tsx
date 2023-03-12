@@ -1,4 +1,3 @@
-import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import theme from 'theme';
 
@@ -37,7 +36,6 @@ const StyledButton = styled.button<ButtonProps>`
     }
   }};
   border-radius: 5px;
-  border: none;
 `;
 
 function Button({ size, onClick, disabled, children }: ButtonProps) {
