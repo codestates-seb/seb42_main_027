@@ -11,8 +11,11 @@ const Label = styled.label`
 
 const StyleInput = styled.input`
   border: 1px solid ${colors.gray};
-  padding: 0.25rem 1rem;
+  padding: 0.4rem 1rem;
   border-radius: 0.5rem;
+  width: 20rem;
+  margin-bottom: 1rem;
+  color: ${colors.fontColor};
 `;
 
 type InputProps = {
