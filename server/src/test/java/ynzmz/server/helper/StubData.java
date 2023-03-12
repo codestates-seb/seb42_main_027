@@ -31,6 +31,7 @@ public class StubData {
     public static final LectureReviewPostDto.InfoResponse lectureReviewPostInfoResponse = new LectureReviewPostDto.InfoResponse();
     public static final List<LectureReviewPostDto.InfoResponse> lectureReviewPostInfoResponses = new ArrayList<>();
     public static final LectureReviewPostCommentDto.Response lectureReviewPostCommentResponse = new LectureReviewPostCommentDto.Response();
+    public static final List<LectureReviewPostCommentDto.Response> lectureReviewPostCommentResponses = new ArrayList<>();
     public static void init(){
 
         tagsSample.add("국어");
@@ -118,5 +119,8 @@ public class StubData {
         lectureReviewPostCommentResponse.setModifiedAt("2023.03.10.18:52:36");
         lectureReviewPostCommentResponse.setLectureReviewPostId(1L);
         lectureReviewPostCommentResponse.setMember(member);
+
+        lectureReviewPostCommentResponses.add(lectureReviewPostCommentResponse);
+        lectureReviewPostCommentResponses.add(lectureReviewPostCommentResponse);
     }
 }

@@ -17,6 +17,7 @@ public class LectureReviewPostCommentDto {
     }
 
     @Getter
+    @AllArgsConstructor
     public static class Patch{
         private String content;
         private String modifiedAt;

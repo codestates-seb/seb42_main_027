@@ -11,6 +11,7 @@ v1.0.0, 2023.03.10 19:30
 '''
 == API
 === 리뷰 게시판
-* link:review-board-teacher.html[리뷰게시판 - 강사관련 API]
-* link:review-board-lecture.html[리뷰게시판 - 강의관련 API]
-* link:review-board-post.html[리뷰게시판 - 리뷰관련 API]
+* link:review-board-teacher.html[리뷰게시판 - 강사 API]
+* link:review-board-lecture.html[리뷰게시판 - 강의 API]
+* link:review-board-post.html[리뷰게시판 - 리뷰 API]
+* link:review-board-comment.html[리뷰게시판 - 리뷰 댓글 API]
