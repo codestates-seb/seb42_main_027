@@ -1,13 +1,14 @@
+import Input from 'components/UI/Input';
 import styled from 'styled-components';
 import theme from 'theme';
 import BaseButton from '../components/UI/BaseButton';
 
-const { colors } = theme;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  width: 40%;
+  margin: 0 auto;
 `;
 
 const Title = styled.h1`
@@ -26,23 +27,13 @@ const ButtonGroup = styled.div`
   justify-content: space-between;
 `;
 
-const Label = styled.label`
-  display: flex;
-  flex-direction: column;
-  color: ${colors.pointColor};
-`;
-
 function Login() {
   return (
     <div>
       <Container>
         <Title>로그인</Title>
         <Form>
-          <Label htmlFor="email">
-            Email
-            <input type="text" id="email" />
-          </Label>
-
+          <Input type="email" htmlFor="email" label="Email" id="email" />
           <ButtonGroup>
             <BaseButton
               color="pointColor"
