@@ -1,11 +1,16 @@
+import PButton from 'components/login/PButton';
 import Input from 'components/UI/Input';
+import { useState } from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
 import BaseButton from '../components/UI/BaseButton';
 
+const { colors } = theme;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 40%;
   margin: 0 auto;
@@ -20,29 +25,79 @@ const Title = styled.h1`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
-  justify-content: space-between;
+  margin-bottom: 1rem;
+`;
+
+const Separator = styled.span`
+  color: ${colors.pointColor};
+  margin: 0 0.8rem;
 `;
 
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isPasswordInputOpen, setIsPasswordInputOpen] = useState(false);
+
+  const handlerChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const handlerChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handlerClickNextBtn = () => {
+    setIsPasswordInputOpen(true);
+  };
+
   return (
     <div>
       <Container>
         <Title>로그인</Title>
         <Form>
-          <Input type="email" htmlFor="email" label="Email" id="email" />
+          <Input
+            onChange={handlerChangeEmail}
+            type="email"
+            htmlFor="email"
+            label="Email"
+            id="email"
+          />
+          {isPasswordInputOpen ? (
+            <Input
+              onChange={handlerChangePassword}
+              type="password"
+              htmlFor="password"
+              label="암호"
+              id="password"
+            />
+          ) : null}
+
           <ButtonGroup>
-            <BaseButton
-              color="pointColor"
-              size="md"
-              onClick={() => console.log('clicked')}
-              disabled={false}
-            >
-              다음
-            </BaseButton>
+            {isPasswordInputOpen ? (
+              <BaseButton
+                color="pointColor"
+                size="md"
+                onClick={handlerClickNextBtn}
+                disabled={false}
+              >
+                로그인
+              </BaseButton>
+            ) : (
+              <BaseButton
+                color="pointColor"
+                size="md"
+                onClick={handlerClickNextBtn}
+                disabled={false}
+              >
+                다음
+              </BaseButton>
+            )}
+
             <BaseButton
               color="white"
               size="md"
@@ -53,6 +108,11 @@ function Login() {
             </BaseButton>
           </ButtonGroup>
         </Form>
+        <ButtonGroup>
+          <PButton>이메일 찾기</PButton>
+          <Separator>|</Separator>
+          <PButton>암호 찾기</PButton>
+        </ButtonGroup>
       </Container>
     </div>
   );

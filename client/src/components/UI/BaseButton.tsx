@@ -6,7 +6,7 @@ const { pointColor, gray } = theme.colors;
 type ButtonProps = {
   size: 'sm' | 'md' | 'lg';
   color: 'pointColor' | 'white';
-  onClick: () => void;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
   disabled: boolean;
   children: string;
 };
