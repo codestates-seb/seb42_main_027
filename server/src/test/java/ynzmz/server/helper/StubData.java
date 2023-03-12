@@ -1,5 +1,6 @@
 package ynzmz.server.helper;
 
+import ynzmz.server.comment.lecturereviewpost.dto.LectureReviewPostCommentDto;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecturereviewpost.dto.LectureReviewPostDto;
@@ -28,6 +29,8 @@ public class StubData {
     public static final LectureDto.InfoResponse lectureInfoResponse = new LectureDto.InfoResponse();
     public static final List<LectureDto.InfoResponse> lectureInfoResponses = new ArrayList<>();
     public static final LectureReviewPostDto.InfoResponse lectureReviewPostInfoResponse = new LectureReviewPostDto.InfoResponse();
+    public static final List<LectureReviewPostDto.InfoResponse> lectureReviewPostInfoResponses = new ArrayList<>();
+    public static final LectureReviewPostCommentDto.Response lectureReviewPostCommentResponse = new LectureReviewPostCommentDto.Response();
     public static void init(){
 
         tagsSample.add("국어");
@@ -105,5 +108,15 @@ public class StubData {
         lectureReviewPostInfoResponse.setLecture(lectureInfoResponse);
         lectureReviewPostInfoResponse.setMember(member);
 
+        lectureReviewPostInfoResponses.add(lectureReviewPostInfoResponse);
+        lectureReviewPostInfoResponses.add(lectureReviewPostInfoResponse);
+
+        lectureReviewPostCommentResponse.setLectureReviewPostCommentId(1L);
+        lectureReviewPostCommentResponse.setContent("이사람 재대로 들은거 맞음?");
+        lectureReviewPostCommentResponse.setVoteCount(0);
+        lectureReviewPostCommentResponse.setCreatedAt("2023.03.10.18:52:36");
+        lectureReviewPostCommentResponse.setModifiedAt("2023.03.10.18:52:36");
+        lectureReviewPostCommentResponse.setLectureReviewPostId(1L);
+        lectureReviewPostCommentResponse.setMember(member);
     }
 }
