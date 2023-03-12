@@ -6,7 +6,7 @@ const { pointColor, gray } = theme.colors;
 type ButtonProps = {
   size: 'sm' | 'md' | 'lg';
   color: 'pointColor' | 'white';
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled: boolean;
   children: string;
 };
@@ -49,7 +49,6 @@ function BaseButton({ color, size, onClick, disabled, children }: ButtonProps) {
   return (
     <StyledButton
       color={color}
-      type="button"
       onClick={onClick}
       disabled={disabled}
       size={size}
@@ -58,5 +57,7 @@ function BaseButton({ color, size, onClick, disabled, children }: ButtonProps) {
     </StyledButton>
   );
 }
-
+BaseButton.defaultProps = {
+  onClick: undefined,
+};
 export default BaseButton;

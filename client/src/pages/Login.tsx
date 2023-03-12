@@ -43,16 +43,21 @@ function Login() {
   const [password, setPassword] = useState('');
   const [isPasswordInputOpen, setIsPasswordInputOpen] = useState(false);
 
-  const handlerChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-  const handlerChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const handlerClickNextBtn = () => {
+  const handleClickNextBtn = () => {
     setIsPasswordInputOpen(true);
+  };
+
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log('submit', email, password);
   };
 
   return (
@@ -61,7 +66,7 @@ function Login() {
         <Title>로그인</Title>
         <Form>
           <Input
-            onChange={handlerChangeEmail}
+            onChange={handleChangeEmail}
             type="email"
             htmlFor="email"
             label="Email"
@@ -69,7 +74,7 @@ function Login() {
           />
           {isPasswordInputOpen ? (
             <Input
-              onChange={handlerChangePassword}
+              onChange={handleChangePassword}
               type="password"
               htmlFor="password"
               label="암호"
@@ -82,8 +87,8 @@ function Login() {
               <BaseButton
                 color="pointColor"
                 size="md"
-                onClick={handlerClickNextBtn}
                 disabled={false}
+                onClick={handleSubmit}
               >
                 로그인
               </BaseButton>
@@ -91,19 +96,14 @@ function Login() {
               <BaseButton
                 color="pointColor"
                 size="md"
-                onClick={handlerClickNextBtn}
+                onClick={handleClickNextBtn}
                 disabled={false}
               >
                 다음
               </BaseButton>
             )}
 
-            <BaseButton
-              color="white"
-              size="md"
-              onClick={() => console.log('clicked')}
-              disabled={false}
-            >
+            <BaseButton color="white" size="md" disabled={false}>
               Google 로그인
             </BaseButton>
           </ButtonGroup>
