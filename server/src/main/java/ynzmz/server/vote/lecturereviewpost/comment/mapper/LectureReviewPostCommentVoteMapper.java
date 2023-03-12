@@ -14,7 +14,7 @@ public interface LectureReviewPostCommentVoteMapper {
         lectureReviewPostCommnetVoteResponse.setVoteStatus(lectureReviewPostCommentVote.getVoteStatus());
         lectureReviewPostCommnetVoteResponse.setLectureReviewPostCommentId(lectureReviewPostCommentVote.getLectureReviewPostComment().getLectureReviewPostCommentId());
         lectureReviewPostCommnetVoteResponse.setMemberId(lectureReviewPostCommentVote.getMember().getMemberId());
-        lectureReviewPostCommnetVoteResponse.setLectureReviewPostTotalCount(lectureReviewPostComment.getVoteCount());
+        lectureReviewPostCommnetVoteResponse.setLectureReviewPostCommentTotalCount(lectureReviewPostComment.getVoteCount());
         return lectureReviewPostCommnetVoteResponse;
     }
 }

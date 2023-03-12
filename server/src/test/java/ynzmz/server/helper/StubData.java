@@ -1,6 +1,7 @@
 package ynzmz.server.helper;
 
 import ynzmz.server.comment.lecturereviewpost.dto.LectureReviewPostCommentDto;
+import ynzmz.server.comment.lecturereviewpost.entity.LectureReviewPostComment;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecturereviewpost.dto.LectureReviewPostDto;
@@ -11,6 +12,10 @@ import ynzmz.server.tag.entity.Tag;
 import ynzmz.server.tag.entity.TeacherTag;
 import ynzmz.server.teacher.dto.TeacherDto;
 import ynzmz.server.teacher.entity.Teacher;
+import ynzmz.server.vote.lecturereviewpost.comment.dto.LectureReviewPostCommentVoteDto;
+import ynzmz.server.vote.lecturereviewpost.comment.entity.LectureReviewPostCommentVote;
+import ynzmz.server.vote.lecturereviewpost.lecturereviewpost.dto.LectureReviewPostVoteDto;
+import ynzmz.server.vote.lecturereviewpost.lecturereviewpost.entity.LectureReviewPostVote;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +37,11 @@ public class StubData {
     public static final List<LectureReviewPostDto.InfoResponse> lectureReviewPostInfoResponses = new ArrayList<>();
     public static final LectureReviewPostCommentDto.Response lectureReviewPostCommentResponse = new LectureReviewPostCommentDto.Response();
     public static final List<LectureReviewPostCommentDto.Response> lectureReviewPostCommentResponses = new ArrayList<>();
+    public static final LectureReviewPostVote lectureReviewPostVote = new LectureReviewPostVote();
+    public static final LectureReviewPostVoteDto.Response lectureReviewPostVoteResponse = new LectureReviewPostVoteDto.Response();
+    public static final LectureReviewPostComment lectureReviewPostComment = new LectureReviewPostComment();
+    public static final LectureReviewPostCommentVote lectureReviewPostCommentVote = new LectureReviewPostCommentVote();
+    public static final LectureReviewPostCommentVoteDto.Response lectureReviewPostCommentVoteResponse = new LectureReviewPostCommentVoteDto.Response();
     public static void init(){
 
         tagsSample.add("국어");
@@ -122,5 +132,35 @@ public class StubData {
 
         lectureReviewPostCommentResponses.add(lectureReviewPostCommentResponse);
         lectureReviewPostCommentResponses.add(lectureReviewPostCommentResponse);
+
+        lectureReviewPostVote.setLectureReviewPostVoteId(1L);
+        lectureReviewPostVote.setMember(member);
+        lectureReviewPostVote.setVoteStatus(LectureReviewPostVote.VoteStatus.UP);
+        lectureReviewPostVote.setLectureReviewPost(lectureReviewPost);
+
+        lectureReviewPostVoteResponse.setVoteStatus(LectureReviewPostVote.VoteStatus.UP);
+        lectureReviewPostVoteResponse.setLectureReviewPostTotalCount(5);
+        lectureReviewPostVoteResponse.setMemberId(1L);
+        lectureReviewPostVoteResponse.setLectureReviewPostId(1L);
+
+        lectureReviewPostComment.setLectureReviewPostCommentId(1L);
+        lectureReviewPostComment.setMember(member);
+        lectureReviewPostComment.setContent("이사람 재대로 들은거 맞음?");
+        lectureReviewPostComment.setVoteCount(0);
+        lectureReviewPostComment.setCreatedAt("2023.03.10.18:52:36");
+        lectureReviewPostComment.setModifiedAt("2023.03.10.18:52:36");
+        lectureReviewPostComment.setLectureReviewPost(lectureReviewPost);
+        lectureReviewPostComment.setMember(member);
+
+
+        lectureReviewPostCommentVote.setLectureReviewPostCommentVoteId(1L);
+        lectureReviewPostCommentVote.setVoteStatus(LectureReviewPostCommentVote.VoteStatus.UP);
+        lectureReviewPostCommentVote.setMember(member);
+        lectureReviewPostCommentVote.setLectureReviewPostComment(lectureReviewPostComment);
+
+        lectureReviewPostCommentVoteResponse.setVoteStatus(LectureReviewPostCommentVote.VoteStatus.UP);
+        lectureReviewPostCommentVoteResponse.setLectureReviewPostCommentId(1L);
+        lectureReviewPostCommentVoteResponse.setMemberId(1L);
+        lectureReviewPostCommentVoteResponse.setLectureReviewPostCommentTotalCount(5);
     }
 }

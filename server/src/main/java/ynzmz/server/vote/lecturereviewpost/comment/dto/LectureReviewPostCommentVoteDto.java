@@ -13,6 +13,6 @@ public class LectureReviewPostCommentVoteDto {
         private LectureReviewPostCommentVote.VoteStatus voteStatus;
         private long lectureReviewPostCommentId;
         private long memberId;
-        private long lectureReviewPostTotalCount;
+        private long lectureReviewPostCommentTotalCount;
     }
 }
