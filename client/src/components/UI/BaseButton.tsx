@@ -41,7 +41,7 @@ const StyledButton = styled.button<ButtonProps>`
         return '0.5rem 0.75rem';
     }
   }};
-  border-radius: 5px;
+  border-radius: 0.5rem;
   cursor: pointer;
 `;
 
