@@ -4,12 +4,14 @@ import SortBar from 'components/Review/SortBar';
 import SearchBar from 'components/Review/SearchBar';
 import Pagenation from 'components/Review/Pagenation';
 import CharacterCard from 'components/Review/CharacterCard';
+import Carousel from 'components/Review/Carousel';
 import { dummy } from 'components/Review/CharacterDummy';
 
 function ReviewPage() {
   return (
     <FlexContainer dir="col">
       <GlobalStyle />
+      <Carousel />
       <SortBar />
       <SearchBar />
       <CharacterCard teacher={dummy} />
