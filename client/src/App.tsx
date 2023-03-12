@@ -1,16 +1,15 @@
-import GlobalStyle from 'GlobalStyles';
-
-import Header from 'components/layouts/Header';
-import Footer from 'components/layouts/Footer';
+import MainLayout from 'components/layouts/MainLayout';
+import GlobalStyle from './GlobalStyles';
+import Router from './Router';
 
 function App() {
   return (
-    <div>
-      <Header />
-      <h1>hi</h1>
-      <Footer />
+    <>
       <GlobalStyle />
-    </div>
+      <MainLayout>
+        <Router />
+      </MainLayout>
+    </>
   );
 }
 
