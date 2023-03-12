@@ -3,6 +3,7 @@ import Input from 'components/UI/Input';
 import { useState } from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
+import { validateEmail } from 'components/login/loginRegex';
 import BaseButton from '../components/UI/BaseButton';
 
 const { colors } = theme;
@@ -57,6 +58,10 @@ function Login() {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (!email || !validateEmail(email)) {
+      window.alert('올바르지 않은 이메일 형식입니다.');
+    }
+    if (!password) window.alert('암호를 입력하세요.');
     console.log('submit', email, password);
   };
 
