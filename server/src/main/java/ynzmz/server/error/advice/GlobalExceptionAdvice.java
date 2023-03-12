@@ -1,11 +1,7 @@
 package ynzmz.server.error.advice;
 
 
-
 import lombok.extern.slf4j.Slf4j;
-//import org.hibernate.exception.ConstraintViolationException;
-import javax.validation.ConstraintViolationException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -18,9 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.response.ErrorResponse;
 
-
-
-
+import javax.validation.ConstraintViolationException;
 
 @Slf4j
 @RestControllerAdvice

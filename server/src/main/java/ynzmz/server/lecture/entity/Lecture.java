@@ -1,11 +1,13 @@
 package ynzmz.server.lecture.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
-import ynzmz.server.global.SubjectType;
+import ynzmz.server.tag.entity.LectureTag;
 import ynzmz.server.teacher.entity.Teacher;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 //강의
 @Entity
@@ -16,11 +18,13 @@ public class Lecture {
     private Long lectureId;
     private String name;
     private String introduction;
-    @Enumerated(value = EnumType.STRING)
-    @ElementCollection
-    private List<SubjectType> subjectTypes;
-    private long starPointAverage;
+    private double starPointAverage;
+    @OneToMany(mappedBy = "lecture")
+    private List<LectureTag> lectureTags = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "teacher_id")
+    @JsonBackReference
     private Teacher teacher;
+
 }

@@ -1,18 +1,38 @@
 package ynzmz.server.teacher.dto;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import ynzmz.server.tag.entity.Tag;
 
 import java.util.List;
 
+@Getter @Setter
 public class TeacherDto {
     //강사등록
-    @Builder
+    @Getter
+    @AllArgsConstructor
     public static class Post {
         private String name;
         private String introduction;
-        private List<String> teacherTypes;
+        private List<String> tags;
     }
     //강사수정
+    @Getter @Setter
+    @AllArgsConstructor
+    public static class Patch {
+        private String name;
+        private String introduction;
+        private List<String> tags;
+    }
     //강사전체조회
     //강사디테일조회
+
+    @Getter @Setter
+    public static class InfoResponse {
+        private Long teacherId;
+        private String name;
+        private String introduction;
+        private List<Tag.Type> tags;
+    }
 }

@@ -1,8 +1,10 @@
 package ynzmz.server.teacher.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
-import ynzmz.server.global.SubjectType;
+import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.tag.entity.TeacherTag;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,11 +18,11 @@ public class Teacher {
     private Long teacherId;
     private String name;
     private String introduction;
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<TeacherTag> teacherTags = new ArrayList<>();
 
-    @Enumerated(EnumType.STRING)
-    @ElementCollection
-    private List<SubjectType> teacherTypes = new ArrayList<>();
-
-
-
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<Lecture> lectures = new ArrayList<>();
 }

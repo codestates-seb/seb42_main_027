@@ -2,7 +2,7 @@ package ynzmz.server.error.exception;
 
 public class BusinessLogicException extends RuntimeException {
 
-    private ExceptionCode exceptionCode;
+    private final ExceptionCode exceptionCode;
 
     public ExceptionCode getExceptionCode() {
         return exceptionCode;
