@@ -38,11 +38,19 @@ const common = {
   `,
 };
 
+// 요소 사이 기본 간격 설정. 기본 20px
+const gap = {
+  px20: '1.25rem',
+  px40: '2.5rem',
+  px60: '3.75rem',
+};
+
 // theme 객체에 감싸서 반환한다.
 const theme = {
   fontSizes,
   colors,
   common,
+  gap,
 };
 
 export default theme;
