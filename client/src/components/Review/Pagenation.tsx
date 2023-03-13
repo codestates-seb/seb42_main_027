@@ -37,7 +37,7 @@ function Pagenation({ size, currentPage, pageSize }: Props) {
 export default Pagenation;
 
 const PagenationContainer = styled.div`
-  width: 50rem;
+  width: 60vw;
   border-top: 1px solid #b8b8b8;
 
   display: flex;
