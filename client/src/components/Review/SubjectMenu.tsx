@@ -3,57 +3,123 @@ import React from 'react';
 import styled from 'styled-components';
 
 type Props = {
+  buttonOpen: boolean;
   setSubject: React.Dispatch<React.SetStateAction<string>>;
 };
 
-function SubjectMenu({ setSubject }: Props) {
-  const subjectArr: string[] = [
-    '과목 선택',
-    '국어',
-    '영어',
-    '수학',
-    '사회',
-    '과학',
-    '기타',
+function SubjectMenu({ buttonOpen, setSubject }: Props) {
+  const subjectArr1: string[] = ['국어', '영어', '수학', '한국사'];
+  const subjectArr2: string[] = [
+    '지리',
+    '일반사회',
+    '윤리',
+    '역사',
+    '통합사회',
   ];
+  const subjectArr3: string[] = [
+    '물리',
+    '지구과학',
+    '화학',
+    '생명과학',
+    '통합과학',
+  ];
+  const subjectArr4: string[] = ['일본어', '아랍어', '중국어', '스페인어'];
+  const subjectArr5: string[] = ['프랑스어', '독일어', '베트남어', '한문'];
 
   const buttonClickHandler = (e: any) => {
     setSubject(e.target.value);
   };
 
   return (
-    <MenuContainer>
-      {subjectArr.map((el, index) => {
-        return (
-          <MenuButton key={index} value={el} onClick={buttonClickHandler}>
-            {el}
-          </MenuButton>
-        );
-      })}
+    <MenuContainer isOpen={buttonOpen}>
+      <MenuSubContainer>
+        공통
+        {subjectArr1.map((el, index) => {
+          return (
+            <MenuButton key={index} value={el} onClick={buttonClickHandler}>
+              {el}
+            </MenuButton>
+          );
+        })}
+      </MenuSubContainer>
+      <MenuSubContainer>
+        사회탐구
+        {subjectArr2.map((el, index) => {
+          return (
+            <MenuButton key={index} value={el} onClick={buttonClickHandler}>
+              {el}
+            </MenuButton>
+          );
+        })}
+      </MenuSubContainer>
+      <MenuSubContainer>
+        과학탐구
+        {subjectArr3.map((el, index) => {
+          return (
+            <MenuButton key={index} value={el} onClick={buttonClickHandler}>
+              {el}
+            </MenuButton>
+          );
+        })}
+      </MenuSubContainer>
+      <MenuSubContainer>
+        제2외국어 (1)
+        {subjectArr4.map((el, index) => {
+          return (
+            <MenuButton key={index} value={el} onClick={buttonClickHandler}>
+              {el}
+            </MenuButton>
+          );
+        })}
+      </MenuSubContainer>
+      <MenuSubContainer>
+        제2외국어 (2)
+        {subjectArr5.map((el, index) => {
+          return (
+            <MenuButton key={index} value={el} onClick={buttonClickHandler}>
+              {el}
+            </MenuButton>
+          );
+        })}
+      </MenuSubContainer>
     </MenuContainer>
   );
 }
 
 export default SubjectMenu;
 
-const MenuContainer = styled.div`
-  width: 8rem;
+type MenuContainer = {
+  isOpen?: boolean;
+};
+const MenuContainer = styled.div<MenuContainer>`
   padding: 0.5rem;
-  border-radius: 0rem 0rem 1rem 1rem;
-  background-color: #b8b8b8;
-  display: flex;
-  flex-direction: column;
+  border-radius: 1rem 1rem 1rem 1rem;
+  background-color: #d0d0d0;
+  display: ${props => (props.isOpen ? 'flex' : 'none')};
   justify-content: center;
-  align-items: center;
-  z-index: 1;
+  align-items: left;
   gap: 0.3rem;
 `;
 
-const MenuButton = styled.button`
-  width: 7rem;
+const MenuSubContainer = styled.div`
+  width: fit-content;
+  padding: 0.5rem;
+  border-radius: 1rem;
   background-color: #b8b8b8;
-  border: none;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+  gap: 0.3rem;
+  color: black;
+`;
+
+const MenuButton = styled.button`
+  width: 100%;
+  background-color: #6667ab;
+  padding: 0.4rem 0.5rem;
   color: white;
   cursor: pointer;
-  font-size: large;
+  border-radius: 0.5rem;
 `;
