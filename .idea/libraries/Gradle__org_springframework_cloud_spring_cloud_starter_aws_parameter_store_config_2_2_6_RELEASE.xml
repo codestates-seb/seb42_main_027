@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config:2.2.6.RELEASE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-starter-aws-parameter-store-config/2.2.6.RELEASE/bff55cc48fa08dbdf328dd509bc68e97b8b99a8d/spring-cloud-starter-aws-parameter-store-config-2.2.6.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-starter-aws-parameter-store-config/2.2.6.RELEASE/3c90bae3f061ceb09898549dc34ae96f55fe3a97/spring-cloud-starter-aws-parameter-store-config-2.2.6.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

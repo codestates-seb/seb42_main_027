@@ -23,6 +23,15 @@ public enum ExceptionCode {
     NOT_IMPLEMENTATION(501, "No Implementation"),
 
     NOT_AUTHORIZED(401, "본인만 회원탈퇴 할수있습니다"),
+
+    INVALID_MEMBER_STATUS(400, "Invalid member status"),
+    TEACHER_NOT_FOUND(404, "해당 고유번호 강사가 없습니다."),
+    LECTURE_REVIEW_NOT_FOUND(404, "해당 고유번호 강의 리뷰글이 없습니다."),
+    LECTURE_NOT_FOUND(404, "해당 고유번호 강의가 없습니다."),
+    LECTURE_REVIEW_COMMENT_NOT_FOUND(404, "해당 고유번호 강의 리뷰글 댓글이 없습니다."),
+    EVENT_NOT_FOUND(404,"해당 아이디 관련 이벤트가 없습니다"),
+    EVENT_NOT_YZ(600,"야놀지말자 이벤트가 아니라 수정할 수 없습니다");
+
     INVALID_MEMBER_STATUS(400, "Invalid member status");
 
     // 권한이없을때
