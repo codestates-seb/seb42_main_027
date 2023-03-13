@@ -1,4 +1,3 @@
-import axios from 'axios';
 import PButton from 'components/login/PButton';
 import Input from 'components/UI/Input';
 import { useState } from 'react';
@@ -70,12 +69,13 @@ function Login() {
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
     pathData.email = email;
     pathData.password = password;
+
     try {
       await login(pathData);
     } catch (error) {
-      console.log(error);
       setFailedLogin(true);
     }
   };
