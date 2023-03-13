@@ -17,32 +17,32 @@ public class LectureReviewVoteService {
 
     private final LectureReviewVoteRepository lectureReviewVoteRepository;
 
-    public LectureReviewVote lectureReviewVoteUp(VoteCount lectureReview, LectureReviewVote lectureReviewVote) {
+    public LectureReviewVote lectureReviewVoteUp(VoteCount countTarget, LectureReviewVote lectureReviewVote) {
 
         if(lectureReviewVote.getVoteStatus().equals(LectureReviewVote.VoteStatus.UP)){ //만약에 UP 이면
             lectureReviewVote.setVoteStatus(LectureReviewVote.VoteStatus.NONE); // UP 취소로 동작 (NONE 으로 변경)
-            lectureReview.setVoteCount(lectureReview.getVoteCount() -1); // 게시글의 카운트수 -1
+            countTarget.setVoteCount(countTarget.getVoteCount() -1); // 게시글의 카운트수 -1
         } else if (lectureReviewVote.getVoteStatus().equals(LectureReviewVote.VoteStatus.NONE)) { // NONE 상태면
             lectureReviewVote.setVoteStatus(LectureReviewVote.VoteStatus.UP); // UP 으로 변경
-            lectureReview.setVoteCount(lectureReview.getVoteCount() +1); // 게시글 카운트 수 +1
+            countTarget.setVoteCount(countTarget.getVoteCount() +1); // 게시글 카운트 수 +1
         } else { //down 상태면
             lectureReviewVote.setVoteStatus(LectureReviewVote.VoteStatus.UP); // DOWN -> UP 으로 변경
-            lectureReview.setVoteCount(lectureReview.getVoteCount() +2); // 게시글 카운트 수 + 2 (DOWN -> UP)이라서
+            countTarget.setVoteCount(countTarget.getVoteCount() +2); // 게시글 카운트 수 + 2 (DOWN -> UP)이라서
         }
         return lectureReviewVoteRepository.save(lectureReviewVote);
     }
 
-    public LectureReviewVote lectureReviewVoteDown(VoteCount lectureReview, LectureReviewVote lectureReviewVote) {
+    public LectureReviewVote lectureReviewVoteDown(VoteCount countTarget, LectureReviewVote lectureReviewVote) {
 
         if(lectureReviewVote.getVoteStatus().equals(LectureReviewVote.VoteStatus.DOWN)){ //만약에 DOWN 이면
             lectureReviewVote.setVoteStatus(LectureReviewVote.VoteStatus.NONE); // DOWN 취소로 동작 (NONE 으로 변경)
-            lectureReview.setVoteCount(lectureReview.getVoteCount() +1); // 게시글의 카운트수 +1
+            countTarget.setVoteCount(countTarget.getVoteCount() +1); // 게시글의 카운트수 +1
         } else if (lectureReviewVote.getVoteStatus().equals(LectureReviewVote.VoteStatus.NONE)) { // NONE 상태면
             lectureReviewVote.setVoteStatus(LectureReviewVote.VoteStatus.DOWN); // DOWN 으로 변경
-            lectureReview.setVoteCount(lectureReview.getVoteCount() -1); // 게시글 카운트 수 +1
+            countTarget.setVoteCount(countTarget.getVoteCount() -1); // 게시글 카운트 수 +1
         } else { //down 상태면
             lectureReviewVote.setVoteStatus(LectureReviewVote.VoteStatus.DOWN); // UP -> DOWN 으로 변경
-            lectureReview.setVoteCount(lectureReview.getVoteCount() -2); // 게시글 카운트 수 + 2 (DOWN -> UP)이라서
+            countTarget.setVoteCount(countTarget.getVoteCount() -2); // 게시글 카운트 수 + 2 (DOWN -> UP)이라서
         }
         return lectureReviewVoteRepository.save(lectureReviewVote);
     }

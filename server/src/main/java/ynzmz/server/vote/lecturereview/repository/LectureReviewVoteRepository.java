@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface LectureReviewVoteRepository extends JpaRepository<LectureReviewVote, Long> {
-
     Optional<LectureReviewVote> findByLectureReviewAndMemberAndTarget(LectureReview lectureReview, Member member, LectureReviewVote.Target target);
     Optional<LectureReviewVote> findByLectureReviewCommentAndMemberAndTarget(LectureReviewComment lectureReviewComment, Member member, LectureReviewVote.Target target);
 }

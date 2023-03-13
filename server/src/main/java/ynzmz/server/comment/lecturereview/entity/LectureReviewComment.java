@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-public class LectureReviewComment extends VoteCount {
+public class LectureReviewComment implements VoteCount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lectureReviewCommentId;

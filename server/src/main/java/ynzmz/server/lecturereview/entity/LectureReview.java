@@ -15,7 +15,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-public class LectureReview extends VoteCount {
+public class LectureReview implements VoteCount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long LectureReviewId;
@@ -25,7 +25,7 @@ public class LectureReview extends VoteCount {
     private String createdAt;
     private String modifiedAt;
     private long viewCount;
-//    private long voteCount;
+    private long voteCount;
     @ManyToOne
     @JoinColumn(name = "lecture_id")
     @JsonBackReference
