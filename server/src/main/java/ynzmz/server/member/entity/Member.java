@@ -1,9 +1,11 @@
 package ynzmz.server.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import ynzmz.server.lecture.entity.Lecture;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -29,14 +31,21 @@ public class Member {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> lectures = new ArrayList<>();
+
+//    @ElementCollection(fetch = FetchType.EAGER)
+//    private List<String> lectures = new ArrayList<>();
+//
+//    @ElementCollection(fetch = FetchType.EAGER)
+//    private List<String> likeTeacher = new ArrayList<>();
+//
+//    @ElementCollection(fetch = FetchType.EAGER)
+//    private List<String> likeLecture = new ArrayList<>();
+//
+
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
-
-
 
     public enum MemberStatus{
         MEMBER_ACTIVE("활동중"),

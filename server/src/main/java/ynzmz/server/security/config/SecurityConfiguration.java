@@ -1,10 +1,10 @@
 package ynzmz.server.security.config;
 
-import io.jsonwebtoken.Jwt;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import ynzmz.server.security.auths.filter.JwtAuthenticationFilter;
 import ynzmz.server.security.auths.filter.JwtVerificationFilter;
 import ynzmz.server.security.auths.handler.MemberAuthenticationFailureHandler;
@@ -20,22 +21,24 @@ import ynzmz.server.security.auths.handler.MemberAuthenticationSuccessHandler;
 import ynzmz.server.security.auths.jwt.JwtTokenizer;
 import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
 
-import javax.persistence.Entity;
 
-import java.lang.reflect.Array;
+
 import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
+@EnableWebSecurity(debug = true)
 public class SecurityConfiguration {
 
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
+    private final CorsFilter corsFilter;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils){
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, CorsFilter corsFilter){
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
+        this.corsFilter = corsFilter;
     }
 
 
@@ -88,6 +91,7 @@ public class SecurityConfiguration {
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
 
             builder
+                    .addFilter(corsFilter)
                     .addFilter(jwtAuthenticationFilter) //Authentication 이후에 verification 동작.
                     .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
 
