@@ -3,7 +3,7 @@ package ynzmz.server.lecture.mapper;
 import org.mapstruct.Mapper;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.tag.entity.LectureTag;
+import ynzmz.server.tag.mappingtable.lecture.LectureTag;
 import ynzmz.server.tag.entity.Tag;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public interface LectureMapper {
 
         ArrayList<Tag.Type> responses = new ArrayList<>();
 
-        for(LectureTag lectureTag: list){
+        for(LectureTag lectureTag : list){
             responses.add(lectureTag.getTag().getType());
         }
         infoResponse.setTags(responses);

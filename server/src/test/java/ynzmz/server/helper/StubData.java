@@ -7,9 +7,9 @@ import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecturereviewpost.dto.LectureReviewPostDto;
 import ynzmz.server.lecturereviewpost.entity.LectureReviewPost;
 import ynzmz.server.member.entity.Member;
-import ynzmz.server.tag.entity.LectureTag;
+import ynzmz.server.tag.mappingtable.lecture.LectureTag;
 import ynzmz.server.tag.entity.Tag;
-import ynzmz.server.tag.entity.TeacherTag;
+import ynzmz.server.tag.mappingtable.teacher.TeacherTag;
 import ynzmz.server.teacher.dto.TeacherDto;
 import ynzmz.server.teacher.entity.Teacher;
 import ynzmz.server.vote.lecturereviewpost.comment.dto.LectureReviewPostCommentVoteDto;
@@ -24,7 +24,7 @@ public class StubData {
     public static final List<String> tagsSample = new ArrayList<>();
     public static final List<Tag.Type> tagTypesSample = new ArrayList<>();
     public static final List<TeacherTag> teacherTagsSample = new ArrayList<>();
-    public static final List<LectureTag> lectureTagsSample = new ArrayList<>();
+    public static final List<LectureTag> LECTURE_LECTURE_TAGS_SAMPLE = new ArrayList<>();
     public static final Member member = new Member();
     public static final Teacher teacher = new Teacher();
     public static final Lecture lecture = new Lecture();
@@ -56,9 +56,9 @@ public class StubData {
         teacherTagsSample.add(new TeacherTag(1L,teacher,new Tag(Tag.Type.고3)));
         teacherTagsSample.add(new TeacherTag(1L,teacher,new Tag(Tag.Type.메가스터디)));
 
-        lectureTagsSample.add(new LectureTag(1L,lecture,new Tag(Tag.Type.국어)));
-        lectureTagsSample.add(new LectureTag(1L,lecture,new Tag(Tag.Type.고3)));
-        lectureTagsSample.add(new LectureTag(1L,lecture,new Tag(Tag.Type.메가스터디)));
+        LECTURE_LECTURE_TAGS_SAMPLE.add(new LectureTag(1L,lecture,new Tag(Tag.Type.국어)));
+        LECTURE_LECTURE_TAGS_SAMPLE.add(new LectureTag(1L,lecture,new Tag(Tag.Type.고3)));
+        LECTURE_LECTURE_TAGS_SAMPLE.add(new LectureTag(1L,lecture,new Tag(Tag.Type.메가스터디)));
 
         member.setMemberId(1L);
         member.setDisplayName("홍길동");
@@ -76,7 +76,7 @@ public class StubData {
         lecture.setLectureId(1L);
         lecture.setIntroduction("3개월 만에 완전정복해보세요!");
         lecture.setTeacher(teacher);
-        lecture.setLectureTags(lectureTagsSample);
+        lecture.setLectureTags(LECTURE_LECTURE_TAGS_SAMPLE);
 
         lectureReviewPost.setLectureReviewPostId(1L);
         lectureReviewPost.setTitle("이 강의 추천합니다!");

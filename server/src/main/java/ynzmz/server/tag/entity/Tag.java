@@ -2,6 +2,9 @@ package ynzmz.server.tag.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import ynzmz.server.tag.mappingtable.lecture.LectureTag;
+import ynzmz.server.tag.mappingtable.teacher.TeacherTag;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

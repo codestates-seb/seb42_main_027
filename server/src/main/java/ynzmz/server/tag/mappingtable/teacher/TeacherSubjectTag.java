@@ -1,10 +1,11 @@
-package ynzmz.server.tag.entity;
+package ynzmz.server.tag.mappingtable.teacher;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ynzmz.server.tag.entity.SubjectTag;
 import ynzmz.server.teacher.entity.Teacher;
 
 import javax.persistence.*;
@@ -13,17 +14,17 @@ import javax.persistence.*;
 @Builder
 @Getter
 @AllArgsConstructor @NoArgsConstructor
-public class TeacherTag {
+public class TeacherSubjectTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long teacherTagId;
+    private Long teacherSubjectTagId;
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     @JsonBackReference
     private Teacher teacher;
 
     @ManyToOne
-    @JoinColumn(name = "tag_id")
+    @JoinColumn(name = "subject_tag_id")
     @JsonBackReference
-    private Tag tag;
+    private SubjectTag subjectTag;
 }
