@@ -1,4 +1,4 @@
-package ynzmz.server.Board.entity;
+package ynzmz.server.board.entity;
 
 
 import lombok.Getter;

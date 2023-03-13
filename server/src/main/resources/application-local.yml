@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/main027?serverTimezone=Asia/Seoul
-#    url: jdbc:mysql://localhost:3306
+#    url: jdbc:mysql://localhost:3306/main027
     username: root
     password: 12341234
     initialization-mode: always

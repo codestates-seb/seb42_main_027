@@ -1,4 +1,4 @@
-package ynzmz.server.EventBoard;
+package ynzmz.server.eventBoard;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -8,7 +8,6 @@ import org.jsoup.select.Elements;
 
 
 import java.io.IOException;
-import java.net.URL;
 
 
 public class dataCrawler {
