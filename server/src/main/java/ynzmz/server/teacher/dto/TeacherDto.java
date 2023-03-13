@@ -22,9 +22,9 @@ public class TeacherDto {
         private List<String> profile;
         private List<String> analects;
         private String imageUrl;
-        private List<String> gradeTags;
-        private List<String> subjectTags;
-        private List<String> platformTags;
+        private List<String> gradeTag;
+        private List<String> subjectTag;
+        private List<String> platformTag;
     }
     //강사수정
     @Getter @Setter
@@ -35,9 +35,9 @@ public class TeacherDto {
         private List<String> profile;
         private List<String> analects;
         private String imageUrl;
-        private List<String> gradeTags;
-        private List<String> subjectTags;
-        private List<String> platformTags;
+        private List<String> gradeTag;
+        private List<String> subjectTag;
+        private List<String> platformTag;
     }
     //강사전체조회
     @Getter @Setter

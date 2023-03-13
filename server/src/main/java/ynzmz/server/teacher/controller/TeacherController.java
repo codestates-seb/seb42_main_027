@@ -35,9 +35,9 @@ public class TeacherController {
         Teacher createdTeacher = teacherService.createTeacher(teacher);
 
         //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )
-        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(teacherPost.getGradeTags());
-        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(teacherPost.getPlatformTags());
-        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(teacherPost.getSubjectTags());
+        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(teacherPost.getGradeTag());
+        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(teacherPost.getPlatformTag());
+        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(teacherPost.getSubjectTag());
 
         //생성된 강사 맵핑테이블 생성
         tagService.createTeacherTag(createdTeacher, gradeTags, platformTags, subjectTags);
@@ -54,9 +54,9 @@ public class TeacherController {
         Teacher updatedTeacher = teacherService.updateTeacher(teacher);
 
         //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )
-        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(teacherPatch.getGradeTags());
-        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(teacherPatch.getPlatformTags());
-        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(teacherPatch.getSubjectTags());
+        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(teacherPatch.getGradeTag());
+        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(teacherPatch.getPlatformTag());
+        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(teacherPatch.getSubjectTag());
 
         //태그 수정방법 : 저장값 전부 삭제후 재등록
         tagService.deleteAllTeacherTagByTeacher(updatedTeacher);
@@ -79,7 +79,7 @@ public class TeacherController {
             List<TeacherDto.SimpleInfoResponse> responses = teacherMapper.teacherInfoResponsesToTeachers(teachers);
             return new ResponseEntity<>(new MultiResponseDto<>(responses, teacherPage), HttpStatus.OK);
         } else {
-            Page<Teacher> teacherPage = teacherService.findTeachers(tag,page -1, size);
+            Page<Teacher> teacherPage = teacherService.findTeachers(page -1, size);
             List<Teacher> teachers = teacherPage.getContent();
             List<TeacherDto.SimpleInfoResponse> responses = teacherMapper.teacherInfoResponsesToTeachers(teachers);
             return new ResponseEntity<>(new MultiResponseDto<>(responses, teacherPage), HttpStatus.OK);

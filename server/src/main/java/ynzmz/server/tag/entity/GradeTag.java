@@ -1,17 +1,14 @@
 package ynzmz.server.tag.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ynzmz.server.tag.Tag;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor
-public class GradeTag implements Tag {
+public class GradeTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gradeTagId;

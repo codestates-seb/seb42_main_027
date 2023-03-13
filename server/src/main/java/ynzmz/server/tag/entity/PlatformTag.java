@@ -2,14 +2,13 @@ package ynzmz.server.tag.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ynzmz.server.tag.Tag;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor
-public class PlatformTag implements Tag {
+public class PlatformTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long platformTagId;

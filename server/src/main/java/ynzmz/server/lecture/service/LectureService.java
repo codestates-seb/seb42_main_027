@@ -25,7 +25,7 @@ public class LectureService {
     public Lecture updateLecture(Lecture lecture) {
         Lecture findLecture = findLectureById(lecture.getLectureId());
 
-        Optional.ofNullable(lecture.getName()).ifPresent(findLecture::setName);
+        Optional.ofNullable(lecture.getTitle()).ifPresent(findLecture::setTitle);
         Optional.ofNullable(lecture.getIntroduction()).ifPresent(findLecture::setIntroduction);
         Optional.ofNullable(lecture.getTeacher()).ifPresent(findLecture::setTeacher);
 
@@ -36,9 +36,9 @@ public class LectureService {
         return lectureRepository.findAll(PageRequest.of(page, size, Sort.by("lectureId").descending()));
     }
 
-    public Page<Lecture> findLectures(String tag, int page, int size) {
-        return lectureRepository.findByTagType(tag, PageRequest.of(page, size, Sort.by("lectureId").descending()));
-    }
+//    public Page<Lecture> findLectures(String tag, int page, int size) {
+//        return lectureRepository.findByTagType(tag, PageRequest.of(page, size, Sort.by("lectureId").descending()));
+//    }
 
     public Page<Lecture> findLecturesByTeacher(long teacherId, int page, int size) {
         return lectureRepository.findByTeacherId(teacherId, PageRequest.of(page, size, Sort.by("lectureId").descending()));

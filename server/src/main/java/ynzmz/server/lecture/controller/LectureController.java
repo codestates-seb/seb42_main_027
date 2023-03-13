@@ -32,9 +32,9 @@ public class LectureController {
         Lecture createdLecture = lectureService.createdLecture(lecture);
 
         //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )
-        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(lecturePost.getGradeTags());
-        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(lecturePost.getPlatformTags());
-        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(lecturePost.getSubjectTags());
+        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(lecturePost.getGradeTag());
+        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(lecturePost.getPlatformTag());
+        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(lecturePost.getSubjectTag());
 
         //생성된 강사 맵핑테이블 생성
         tagService.createLectureTag(createdLecture, gradeTags, platformTags, subjectTags);
@@ -51,9 +51,9 @@ public class LectureController {
         Lecture updateLecture = lectureService.updateLecture(lecture);
 
         //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )
-        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(lecturePatch.getGradeTags());
-        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(lecturePatch.getPlatformTags());
-        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(lecturePatch.getSubjectTags());
+        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(lecturePatch.getGradeTag());
+        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(lecturePatch.getPlatformTag());
+        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(lecturePatch.getSubjectTag());
 
         //태그 수정방법 : 저장값 전부 삭제후 재등록
         tagService.deleteAllLectureTagByLecture(updateLecture);
@@ -77,7 +77,7 @@ public class LectureController {
             List<LectureDto.SimpleInfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
             return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
         } else {
-            Page<Lecture> lecturePage = lectureService.findLectures(tag,page -1, size);
+            Page<Lecture> lecturePage = lectureService.findLectures(page -1, size);
             List<Lecture> lectures = lecturePage.getContent();
             List<LectureDto.SimpleInfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
             return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);

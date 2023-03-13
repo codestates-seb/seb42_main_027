@@ -7,7 +7,6 @@ import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecturereview.dto.LectureReviewDto;
 import ynzmz.server.lecturereview.entity.LectureReview;
 import ynzmz.server.member.entity.Member;
-import ynzmz.server.tag.Tag;
 import ynzmz.server.teacher.dto.TeacherDto;
 import ynzmz.server.teacher.entity.Teacher;
 import ynzmz.server.vote.lecturereview.comment.dto.LectureReviewCommentVoteDto;
