@@ -1,10 +1,10 @@
+import axios from 'axios';
 import PButton from 'components/login/PButton';
 import Input from 'components/UI/Input';
 import { useState } from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
 import { validateEmail } from 'components/login/loginRegex';
-import { fetchLogin } from 'api';
 import BaseButton from '../components/UI/BaseButton';
 
 const { colors } = theme;
@@ -45,11 +45,6 @@ function Login() {
   const [password, setPassword] = useState('');
   const [isPasswordInputOpen, setIsPasswordInputOpen] = useState(false);
 
-  const pathData = {
-    email: '',
-    password: '',
-  };
-
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -62,20 +57,14 @@ function Login() {
     setIsPasswordInputOpen(true);
   };
 
-  // const getLogin = async () => {
-  //   const response = await fetchLogin(pathData);
-  //   localStorage.setItem('token', response.data.jwt);
-  // };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!email || !validateEmail(email))
+    if (!email || !validateEmail(email)) {
       window.alert('올바르지 않은 이메일 형식입니다.');
-    if (!password) window.alert('암호를 입력하세요.');
-
-    pathData.email = email;
-    pathData.password = password;
-    // getLogin();
+    }
+    if (!password) {
+      window.alert('암호를 입력하세요.');
+    }
   };
 
   return (
@@ -86,33 +75,25 @@ function Login() {
           <Input
             onChange={handleChangeEmail}
             type="email"
-            htmlFor="email"
-            label="Email"
             id="email"
+            label="Email"
           />
           {isPasswordInputOpen ? (
             <Input
               onChange={handleChangePassword}
               type="password"
-              htmlFor="password"
-              label="암호"
               id="password"
+              label="암호"
             />
           ) : null}
 
           <ButtonGroup>
             {isPasswordInputOpen ? (
-              <BaseButton
-                buttonType="submit"
-                color="pointColor"
-                size="md"
-                disabled={false}
-              >
+              <BaseButton color="pointColor" size="md" disabled={false}>
                 로그인
               </BaseButton>
             ) : (
               <BaseButton
-                buttonType="button"
                 color="pointColor"
                 size="md"
                 onClick={handleClickNextBtn}
@@ -122,12 +103,7 @@ function Login() {
               </BaseButton>
             )}
 
-            <BaseButton
-              buttonType="button"
-              color="white"
-              size="md"
-              disabled={false}
-            >
+            <BaseButton color="white" size="md" disabled={false}>
               Google 로그인
             </BaseButton>
           </ButtonGroup>
