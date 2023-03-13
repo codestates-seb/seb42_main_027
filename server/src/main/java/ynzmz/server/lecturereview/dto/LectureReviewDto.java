@@ -3,8 +3,12 @@ package ynzmz.server.lecturereview.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import ynzmz.server.comment.lecturereview.entity.LectureReviewComment;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.member.entity.Member;
+import ynzmz.server.teacher.dto.TeacherDto;
+
+import java.util.List;
 
 public class LectureReviewDto {
     @Getter
@@ -25,7 +29,38 @@ public class LectureReviewDto {
         private String content;
         private String modifiedAt;
     }
+    @Getter @Setter
+    public static class ListPageResponse{
 
+        private long lectureReviewId;
+        private String title;
+        private double starPoint;
+        private String content;
+        private String createdAt;
+        private String modifiedAt;
+        private long viewCount;
+        private long voteCount;
+        private TeacherDto.SimpleInfoResponse teacher;
+        private LectureDto.SimpleInfoResponse lecture;
+        private Member member;
+    }
+
+    @Getter @Setter
+    public static class DetailPageResponse{
+
+        private long lectureReviewId;
+        private String title;
+        private double starPoint;
+        private String content;
+        private String createdAt;
+        private String modifiedAt;
+        private long viewCount;
+        private long voteCount;
+        private TeacherDto.SimpleInfoResponse teacher;
+        private LectureDto.SimpleInfoResponse lecture;
+        private Member member;
+        private List<LectureReviewComment> comments;
+    }
     @Getter @Setter
     public static class InfoResponse{
 
@@ -37,7 +72,7 @@ public class LectureReviewDto {
         private String modifiedAt;
         private long viewCount;
         private long voteCount;
-        private LectureDto.InfoResponse lecture;
+        private LectureDto.SimpleInfoResponse lecture;
         private Member member;
     }
 }

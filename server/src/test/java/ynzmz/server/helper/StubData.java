@@ -29,10 +29,10 @@ public class StubData {
     public static final Teacher teacher = new Teacher();
     public static final Lecture lecture = new Lecture();
     public static final LectureReview LECTURE_REVIEW = new LectureReview();
-    public static final TeacherDto.InfoResponse teacherInfoResponse = new TeacherDto.InfoResponse();
-    public static final List<TeacherDto.InfoResponse> teacherInfoResponses = new ArrayList<>();
-    public static final LectureDto.InfoResponse lectureInfoResponse = new LectureDto.InfoResponse();
-    public static final List<LectureDto.InfoResponse> lectureInfoResponses = new ArrayList<>();
+    public static final TeacherDto.SimpleInfoResponse TEACHER_SIMPLE_INFO_RESPONSE = new TeacherDto.SimpleInfoResponse();
+    public static final List<TeacherDto.SimpleInfoResponse> TEACHER_SIMPLE_INFO_RESPONS = new ArrayList<>();
+    public static final LectureDto.SimpleInfoResponse LECTURE_SIMPLE_INFO_RESPONSE = new LectureDto.SimpleInfoResponse();
+    public static final List<LectureDto.SimpleInfoResponse> LECTURE_SIMPLE_INFO_RESPONS = new ArrayList<>();
     public static final LectureReviewDto.InfoResponse lectureReviewPostInfoResponse = new LectureReviewDto.InfoResponse();
     public static final List<LectureReviewDto.InfoResponse> lectureReviewPostInfoResponses = new ArrayList<>();
     public static final LectureReviewCommentDto.Response lectureReviewPostCommentResponse = new LectureReviewCommentDto.Response();
@@ -89,23 +89,23 @@ public class StubData {
         LECTURE_REVIEW.setLecture(lecture);
         LECTURE_REVIEW.setMember(member);
 
-        teacherInfoResponse.setTeacherId(1L);
-        teacherInfoResponse.setName("홍길동");
-        teacherInfoResponse.setIntroduction("국어 최고의 강사!");
-        teacherInfoResponse.setTags(tagTypesSample);
+        TEACHER_SIMPLE_INFO_RESPONSE.setTeacherId(1L);
+        TEACHER_SIMPLE_INFO_RESPONSE.setName("홍길동");
+        TEACHER_SIMPLE_INFO_RESPONSE.setIntroduction("국어 최고의 강사!");
+        TEACHER_SIMPLE_INFO_RESPONSE.setTags(tagTypesSample);
 
-        teacherInfoResponses.add(teacherInfoResponse);
-        teacherInfoResponses.add(teacherInfoResponse);
+        TEACHER_SIMPLE_INFO_RESPONS.add(TEACHER_SIMPLE_INFO_RESPONSE);
+        TEACHER_SIMPLE_INFO_RESPONS.add(TEACHER_SIMPLE_INFO_RESPONSE);
 
-        lectureInfoResponse.setLectureId(1L);
-        lectureInfoResponse.setName("수능 국어 완전정복");
-        lectureInfoResponse.setIntroduction("3개월 만에 완전정복해보세요!");
-        lectureInfoResponse.setStarPointAverage(4.2);
-        lectureInfoResponse.setTags(tagTypesSample);
-        lectureInfoResponse.setTeacher(teacherInfoResponse);
+        LECTURE_SIMPLE_INFO_RESPONSE.setLectureId(1L);
+        LECTURE_SIMPLE_INFO_RESPONSE.setName("수능 국어 완전정복");
+        LECTURE_SIMPLE_INFO_RESPONSE.setIntroduction("3개월 만에 완전정복해보세요!");
+        LECTURE_SIMPLE_INFO_RESPONSE.setStarPointAverage(4.2);
+        LECTURE_SIMPLE_INFO_RESPONSE.setTags(tagTypesSample);
+        LECTURE_SIMPLE_INFO_RESPONSE.setTeacher(TEACHER_SIMPLE_INFO_RESPONSE);
 
-        lectureInfoResponses.add(lectureInfoResponse);
-        lectureInfoResponses.add(lectureInfoResponse);
+        LECTURE_SIMPLE_INFO_RESPONS.add(LECTURE_SIMPLE_INFO_RESPONSE);
+        LECTURE_SIMPLE_INFO_RESPONS.add(LECTURE_SIMPLE_INFO_RESPONSE);
 
 
         lectureReviewPostInfoResponse.setLectureReviewId(1L);
@@ -116,7 +116,7 @@ public class StubData {
         lectureReviewPostInfoResponse.setModifiedAt("2023.03.10.18:52:36");
         lectureReviewPostInfoResponse.setViewCount(1);
         lectureReviewPostInfoResponse.setVoteCount(0);
-        lectureReviewPostInfoResponse.setLecture(lectureInfoResponse);
+        lectureReviewPostInfoResponse.setLecture(LECTURE_SIMPLE_INFO_RESPONSE);
         lectureReviewPostInfoResponse.setMember(member);
 
         lectureReviewPostInfoResponses.add(lectureReviewPostInfoResponse);

@@ -14,19 +14,19 @@ public interface LectureMapper {
     Lecture lectureToLecturePost(LectureDto.Post lecturePost);
     Lecture lectureToLecturePatch(LectureDto.Patch lecurePatch);
 
-    default LectureDto.InfoResponse lectureInfoResponseToLecture(Lecture lecture) {
+    default LectureDto.SimpleInfoResponse lectureInfoResponseToLecture(Lecture lecture) {
         if ( lecture == null ) {
             return null;
         }
 
-        LectureDto.InfoResponse infoResponse = new LectureDto.InfoResponse();
+        LectureDto.SimpleInfoResponse simpleInfoResponse = new LectureDto.SimpleInfoResponse();
 
         if ( lecture.getLectureId() != null ) {
-            infoResponse.setLectureId( lecture.getLectureId() );
+            simpleInfoResponse.setLectureId( lecture.getLectureId() );
         }
-        infoResponse.setName( lecture.getTitle() );
-        infoResponse.setIntroduction( lecture.getIntroduction() );
-        infoResponse.setStarPointAverage( lecture.getStarPointAverage() );
+        simpleInfoResponse.setName( lecture.getTitle() );
+        simpleInfoResponse.setIntroduction( lecture.getIntroduction() );
+        simpleInfoResponse.setStarPointAverage( lecture.getStarPointAverage() );
         List<LectureTag> list = lecture.getLectureTags();
 
         ArrayList<Tag.Type> responses = new ArrayList<>();
@@ -34,10 +34,10 @@ public interface LectureMapper {
         for(LectureTag lectureTag : list){
             responses.add(lectureTag.getTag().getType());
         }
-        infoResponse.setTags(responses);
+        simpleInfoResponse.setTags(responses);
 
-        return infoResponse;
+        return simpleInfoResponse;
     }
 
-    List<LectureDto.InfoResponse> lectureInfoResponsesToLectures(List<Lecture> lectures);
+    List<LectureDto.SimpleInfoResponse> lectureInfoResponsesToLectures(List<Lecture> lectures);
 }

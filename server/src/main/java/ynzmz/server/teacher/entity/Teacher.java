@@ -22,7 +22,6 @@ public class Teacher {
     private String name;
     private String introduction;
     private String imageUrl;
-    private double starPointAverage;
     @ElementCollection(targetClass=String.class)
     @Column
     private List<String> profile = new ArrayList<>();
@@ -43,7 +42,7 @@ public class Teacher {
 
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.REMOVE)
     @JsonManagedReference
-    private List<TeacherTag> teacherTags = new ArrayList<>();
+    private List<TeacherTag> Tags = new ArrayList<>();
 
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.REMOVE)
     @JsonManagedReference

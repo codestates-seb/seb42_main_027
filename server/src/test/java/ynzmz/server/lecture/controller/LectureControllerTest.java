@@ -66,7 +66,7 @@ class LectureControllerTest {
         LectureDto.Post mockPost = new LectureDto.Post("수능 국어 완전정복", "3개월 만에 완전정복해보세요!", tagsSample,1L);
         String jsonPost = gson.toJson(mockPost);
 
-        when(lectureMapper.lectureInfoResponseToLecture(any())).thenReturn(lectureInfoResponse);
+        when(lectureMapper.lectureInfoResponseToLecture(any())).thenReturn(LECTURE_SIMPLE_INFO_RESPONSE);
 
 
         ResultActions actions = mockMvc.perform(post("/lectures")
@@ -106,12 +106,12 @@ class LectureControllerTest {
     void patchLecture() throws Exception {
         LectureDto.Patch mockPatch = new LectureDto.Patch("수능 국어 완전정복(수정)", "3개월 만에 완전정복해보세요(수정)", tagsSample,1L);
         String jsonPatch = gson.toJson(mockPatch);
-        lectureInfoResponse.setName("수능 국어 완전정복(수정)");
-        lectureInfoResponse.setIntroduction("3개월 만에 완전정복해보세요(수정)");
+        LECTURE_SIMPLE_INFO_RESPONSE.setName("수능 국어 완전정복(수정)");
+        LECTURE_SIMPLE_INFO_RESPONSE.setIntroduction("3개월 만에 완전정복해보세요(수정)");
         long lectureId = 1L;
         
         when(lectureMapper.lectureToLecturePatch(any())).thenReturn(new Lecture());
-        when(lectureMapper.lectureInfoResponseToLecture(any())).thenReturn(lectureInfoResponse);
+        when(lectureMapper.lectureInfoResponseToLecture(any())).thenReturn(LECTURE_SIMPLE_INFO_RESPONSE);
 
         ResultActions actions = mockMvc.perform(patch("/lectures/{lectures-id}",lectureId)
                 .content(jsonPatch)
@@ -155,7 +155,7 @@ class LectureControllerTest {
     void getAllLecture() throws Exception {
 
         when(lectureService.findLectures(anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Lecture())), PageRequest.of(1,1),1));
-        when(lectureMapper.lectureInfoResponsesToLectures(any())).thenReturn(lectureInfoResponses);
+        when(lectureMapper.lectureInfoResponsesToLectures(any())).thenReturn(LECTURE_SIMPLE_INFO_RESPONS);
 
         ResultActions actions =
                 mockMvc.perform(
@@ -196,7 +196,7 @@ class LectureControllerTest {
     void getLectureByTag() throws Exception {
 
         when(lectureService.findLectures(anyString(),anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Lecture())), PageRequest.of(1,1),1));
-        when(lectureMapper.lectureInfoResponsesToLectures(any())).thenReturn(lectureInfoResponses);
+        when(lectureMapper.lectureInfoResponsesToLectures(any())).thenReturn(LECTURE_SIMPLE_INFO_RESPONS);
 
         ResultActions actions =
                 mockMvc.perform(
@@ -239,7 +239,7 @@ class LectureControllerTest {
     void getLecturesByTeacher() throws Exception {
 
         when(lectureService.findLecturesByTeacher(anyLong(),anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Lecture())), PageRequest.of(1,1),1));
-        when(lectureMapper.lectureInfoResponsesToLectures(any())).thenReturn(lectureInfoResponses);
+        when(lectureMapper.lectureInfoResponsesToLectures(any())).thenReturn(LECTURE_SIMPLE_INFO_RESPONS);
 
         ResultActions actions =
                 mockMvc.perform(
@@ -283,7 +283,7 @@ class LectureControllerTest {
     void getLecturesDetail() throws Exception {
         long lectureId = 1L;
 
-        when(lectureMapper.lectureInfoResponseToLecture(any())).thenReturn(lectureInfoResponse);
+        when(lectureMapper.lectureInfoResponseToLecture(any())).thenReturn(LECTURE_SIMPLE_INFO_RESPONSE);
 
         ResultActions actions =
                 mockMvc.perform(

@@ -36,7 +36,7 @@ public class LectureController {
         lectureTagService.createLectureTag(createdLecture,tagsByType);
 
 
-        LectureDto.InfoResponse response = lectureMapper.lectureInfoResponseToLecture(createdLecture);
+        LectureDto.SimpleInfoResponse response = lectureMapper.lectureInfoResponseToLecture(createdLecture);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
     //강의 수정
@@ -52,7 +52,7 @@ public class LectureController {
         lectureTagService.deleteAllLectureTagByLecture(updateLecture);
         lectureTagService.createLectureTag(updateLecture,tagsByType);
 
-        LectureDto.InfoResponse response = lectureMapper.lectureInfoResponseToLecture(updateLecture);
+        LectureDto.SimpleInfoResponse response = lectureMapper.lectureInfoResponseToLecture(updateLecture);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -66,12 +66,12 @@ public class LectureController {
         if(tag == null) {
             Page<Lecture> lecturePage = lectureService.findLectures(page -1, size);
             List<Lecture> lectures = lecturePage.getContent();
-            List<LectureDto.InfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
+            List<LectureDto.SimpleInfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
             return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
         } else {
             Page<Lecture> lecturePage = lectureService.findLectures(tag,page -1, size);
             List<Lecture> lectures = lecturePage.getContent();
-            List<LectureDto.InfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
+            List<LectureDto.SimpleInfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
             return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
 
         }
@@ -85,7 +85,7 @@ public class LectureController {
 
         Page<Lecture> lecturePage = lectureService.findLecturesByTeacher(teacherId,page -1, size);
         List<Lecture> lectures = lecturePage.getContent();
-        List<LectureDto.InfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
+        List<LectureDto.SimpleInfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
 
         return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
 
@@ -96,7 +96,7 @@ public class LectureController {
     public ResponseEntity<?> getLecturesDetail(@PathVariable("lecture-id") long lectureId) {
 
         Lecture lecture = lectureService.findLectureById(lectureId);
-        LectureDto.InfoResponse response = lectureMapper.lectureInfoResponseToLecture(lecture);
+        LectureDto.SimpleInfoResponse response = lectureMapper.lectureInfoResponseToLecture(lecture);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
     //강의 삭제
