@@ -23,6 +23,7 @@ import javax.validation.constraints.Positive;
 @RequestMapping("/members")
 @Slf4j
 @RequiredArgsConstructor
+@Validated
 public class MemberController {
 
     private final MemberMapper memberMapper;
@@ -54,6 +55,15 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
 
     }
+
+    @DeleteMapping("/{member-id}")
+    public ResponseEntity<?> deleteMember(@PathVariable("member-id") long memberId) {
+
+        memberService.deleteMember(memberId);
+        return new ResponseEntity<>("삭제완료", HttpStatus.OK);
+    }
+
+
 }
 
 

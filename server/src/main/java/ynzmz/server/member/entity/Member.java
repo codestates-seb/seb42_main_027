@@ -29,22 +29,29 @@ public class Member {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
-//    @Enumerated(value = EnumType.STRING)
-//    @Column(nullable = false)
-//    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
-//
-//    public enum MemberStatus{
-//        MEMBER_ACTIVE("활동중"),
-//        MEMBER_SLEEP("휴면 상태"),
-//        MEMBER_DELETE("탈퇴 상태");
-//
-//        @Getter
-//        private String status;
-//
-//        MemberStatus(String status){
-//           this.status = status;
-//       }
-//    }
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> lectures = new ArrayList<>();
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
+
+
+
+    public enum MemberStatus{
+        MEMBER_ACTIVE("활동중"),
+        MEMBER_SLEEP("휴면 상태"),
+        MEMBER_DELETE("탈퇴 상태");
+
+        @Getter
+        private String status;
+
+        MemberStatus(String status){
+           this.status = status;
+       }
+    }
+
+
 
 
 }

@@ -1,5 +1,6 @@
 package ynzmz.server.auths;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.io.Decoders;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,11 @@ public class JwtTokenizerTest {
         assertThat(secretkey, is(new String(Decoders.BASE64.decode(base64EncodedSecretkey))));
     }
 
+
+    @Test
+    public void verifySignatureTest() {
+        String accessToken = getAccessToken(Calendar.MINUTE, 10);
+    }
     @Test
     public void generateAccessTokenTest() {
         Map<String,Object> claims = new HashMap<>();
@@ -63,5 +69,19 @@ public class JwtTokenizerTest {
         System.out.println(refreshToken);
 
         assertThat(refreshToken, notNullValue());
+    }
+
+    private String getAccessToken(int timeUnit, int timeAccount) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("memberId", 1);
+        claims.put("roles",List.of("USER"));
+
+        String subject = "test access token";
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(timeUnit, timeAccount);
+        Date expiration = calendar.getTime();
+        String accessToken = jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretkey);
+
+        return accessToken;
     }
 }

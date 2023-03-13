@@ -37,7 +37,7 @@ public class MemberService {
     public Member createMember(Member member){
         verifyExistsEmail(member.getEmail());
 
-        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        String encryptedPassword = passwordEncoding(member.getPassword());
         member.setPassword(encryptedPassword);
 
         List<String> roles = authorityUtils.createRoles(member.getEmail());
@@ -49,8 +49,8 @@ public class MemberService {
     public Member updateMember(Member member){
         Member findMember = findVerifiedMember(member.getMemberId());
 
-        Optional.ofNullable(member.getDisplayName());
-        Optional.ofNullable(member.getPassword());
+        Optional.ofNullable(member.getDisplayName()).ifPresent(findMember::setDisplayName);
+        Optional.ofNullable(member.getPassword()).ifPresent(password -> findMember.setPassword(passwordEncoding(password)));
         Optional.ofNullable(member.getIconImageUrl());
 
         return memberRepository.save(findMember);
@@ -69,6 +69,8 @@ public class MemberService {
     public void deleteMember(long memberId){
         Member findMember = findVerifiedMember(memberId);
         memberRepository.delete(findMember);
+
+
     }
 
     public Member findVerifiedMember(long memberId){
@@ -82,4 +84,10 @@ public class MemberService {
         if(member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
+
+    private String passwordEncoding(String password){
+        return passwordEncoder.encode(password);
+    }
+
+
 }

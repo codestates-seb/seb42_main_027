@@ -38,14 +38,14 @@ public class JwtTokenizer {
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateAccessToken(Map<String, Object> Claims,
+    public String generateAccessToken(Map<String, Object> claims,
                                       String subject,
                                       Date expiration,
                                       String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
         return Jwts.builder()
-                .setClaims(Claims) //JWT에 포함 시킬 Custom Claims를 추가. Custom Claims에는 주로 인증된 사용자와 관련된 정보를 추가
+                .setClaims(claims) //JWT에 포함 시킬 Custom Claims를 추가. Custom Claims에는 주로 인증된 사용자와 관련된 정보를 추가
                 .setSubject(subject) //제목추가
                 .setIssuedAt(Calendar.getInstance().getTime()) //jwt발행일자 파라미터타입 : java.util.date
                 .setExpiration(expiration) //만료날짜
