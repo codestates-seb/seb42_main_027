@@ -10,8 +10,10 @@ const fontSizes = {
 const colors = {
   black: '#000000',
   white: '#FFFFFF',
+  white_hover: '#DDDDDD',
   fontColor: '#565656',
   pointColor: '#6667AB',
+  pointColor_hover: '#525392',
   gray: '#B8B8B8',
   success: '#65E271',
   danger: '#EC3C3C',
