@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.tag.mappingtable.teacher.TeacherPlatformTag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherGradeTag;
+import ynzmz.server.tag.mappingtable.teacher.TeacherPlatformTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherSubjectTag;
 
 import javax.persistence.*;
@@ -22,7 +21,6 @@ public class Teacher {
     private String name;
     private String introduction;
     private String imageUrl;
-    private double starPointAverage;
     @ElementCollection(targetClass=String.class)
     @Column
     private List<String> profile = new ArrayList<>();
@@ -40,10 +38,6 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<TeacherPlatformTag> platformTags = new ArrayList<>();
-
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
-    private List<TeacherTag> teacherTags = new ArrayList<>();
 
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.REMOVE)
     @JsonManagedReference

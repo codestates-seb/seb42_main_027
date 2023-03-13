@@ -7,15 +7,13 @@ import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecturereview.dto.LectureReviewDto;
 import ynzmz.server.lecturereview.entity.LectureReview;
 import ynzmz.server.member.entity.Member;
-import ynzmz.server.tag.mappingtable.lecture.LectureTag;
-import ynzmz.server.tag.entity.Tag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherTag;
+import ynzmz.server.tag.Tag;
 import ynzmz.server.teacher.dto.TeacherDto;
 import ynzmz.server.teacher.entity.Teacher;
 import ynzmz.server.vote.lecturereview.comment.dto.LectureReviewCommentVoteDto;
 import ynzmz.server.vote.lecturereview.comment.entity.LectureReviewCommentVote;
-import ynzmz.server.vote.lecturereview.lecturereview.dto.LectureReviewVoteDto;
-import ynzmz.server.vote.lecturereview.lecturereview.entity.LectureReviewVote;
+import ynzmz.server.vote.lecturereview.dto.LectureReviewVoteDto;
+import ynzmz.server.vote.lecturereview.entity.LectureReviewVote;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +27,10 @@ public class StubData {
     public static final Teacher teacher = new Teacher();
     public static final Lecture lecture = new Lecture();
     public static final LectureReview LECTURE_REVIEW = new LectureReview();
-    public static final TeacherDto.InfoResponse teacherInfoResponse = new TeacherDto.InfoResponse();
-    public static final List<TeacherDto.InfoResponse> teacherInfoResponses = new ArrayList<>();
-    public static final LectureDto.InfoResponse lectureInfoResponse = new LectureDto.InfoResponse();
-    public static final List<LectureDto.InfoResponse> lectureInfoResponses = new ArrayList<>();
+    public static final TeacherDto.SimpleInfoResponse TEACHER_SIMPLE_INFO_RESPONSE = new TeacherDto.SimpleInfoResponse();
+    public static final List<TeacherDto.SimpleInfoResponse> TEACHER_SIMPLE_INFO_RESPONS = new ArrayList<>();
+    public static final LectureDto.SimpleInfoResponse LECTURE_SIMPLE_INFO_RESPONSE = new LectureDto.SimpleInfoResponse();
+    public static final List<LectureDto.SimpleInfoResponse> LECTURE_SIMPLE_INFO_RESPONS = new ArrayList<>();
     public static final LectureReviewDto.InfoResponse lectureReviewPostInfoResponse = new LectureReviewDto.InfoResponse();
     public static final List<LectureReviewDto.InfoResponse> lectureReviewPostInfoResponses = new ArrayList<>();
     public static final LectureReviewCommentDto.Response lectureReviewPostCommentResponse = new LectureReviewCommentDto.Response();
@@ -72,7 +70,7 @@ public class StubData {
         teacher.setIntroduction("국어 최고의 강사!");
         teacher.setTeacherTags(teacherTagsSample);
 
-        lecture.setName("수능 국어 완전 정복!");
+        lecture.setTitle("수능 국어 완전 정복!");
         lecture.setLectureId(1L);
         lecture.setIntroduction("3개월 만에 완전정복해보세요!");
         lecture.setTeacher(teacher);
@@ -89,23 +87,23 @@ public class StubData {
         LECTURE_REVIEW.setLecture(lecture);
         LECTURE_REVIEW.setMember(member);
 
-        teacherInfoResponse.setTeacherId(1L);
-        teacherInfoResponse.setName("홍길동");
-        teacherInfoResponse.setIntroduction("국어 최고의 강사!");
-        teacherInfoResponse.setTags(tagTypesSample);
+        TEACHER_SIMPLE_INFO_RESPONSE.setTeacherId(1L);
+        TEACHER_SIMPLE_INFO_RESPONSE.setName("홍길동");
+        TEACHER_SIMPLE_INFO_RESPONSE.setIntroduction("국어 최고의 강사!");
+        TEACHER_SIMPLE_INFO_RESPONSE.setTags(tagTypesSample);
 
-        teacherInfoResponses.add(teacherInfoResponse);
-        teacherInfoResponses.add(teacherInfoResponse);
+        TEACHER_SIMPLE_INFO_RESPONS.add(TEACHER_SIMPLE_INFO_RESPONSE);
+        TEACHER_SIMPLE_INFO_RESPONS.add(TEACHER_SIMPLE_INFO_RESPONSE);
 
-        lectureInfoResponse.setLectureId(1L);
-        lectureInfoResponse.setName("수능 국어 완전정복");
-        lectureInfoResponse.setIntroduction("3개월 만에 완전정복해보세요!");
-        lectureInfoResponse.setStarPointAverage(4.2);
-        lectureInfoResponse.setTags(tagTypesSample);
-        lectureInfoResponse.setTeacher(teacherInfoResponse);
+        LECTURE_SIMPLE_INFO_RESPONSE.setLectureId(1L);
+        LECTURE_SIMPLE_INFO_RESPONSE.setName("수능 국어 완전정복");
+        LECTURE_SIMPLE_INFO_RESPONSE.setIntroduction("3개월 만에 완전정복해보세요!");
+        LECTURE_SIMPLE_INFO_RESPONSE.setStarPointAverage(4.2);
+        LECTURE_SIMPLE_INFO_RESPONSE.setTags(tagTypesSample);
+        LECTURE_SIMPLE_INFO_RESPONSE.setTeacher(TEACHER_SIMPLE_INFO_RESPONSE);
 
-        lectureInfoResponses.add(lectureInfoResponse);
-        lectureInfoResponses.add(lectureInfoResponse);
+        LECTURE_SIMPLE_INFO_RESPONS.add(LECTURE_SIMPLE_INFO_RESPONSE);
+        LECTURE_SIMPLE_INFO_RESPONS.add(LECTURE_SIMPLE_INFO_RESPONSE);
 
 
         lectureReviewPostInfoResponse.setLectureReviewId(1L);
@@ -116,7 +114,7 @@ public class StubData {
         lectureReviewPostInfoResponse.setModifiedAt("2023.03.10.18:52:36");
         lectureReviewPostInfoResponse.setViewCount(1);
         lectureReviewPostInfoResponse.setVoteCount(0);
-        lectureReviewPostInfoResponse.setLecture(lectureInfoResponse);
+        lectureReviewPostInfoResponse.setLecture(LECTURE_SIMPLE_INFO_RESPONSE);
         lectureReviewPostInfoResponse.setMember(member);
 
         lectureReviewPostInfoResponses.add(lectureReviewPostInfoResponse);
@@ -127,7 +125,6 @@ public class StubData {
         lectureReviewPostCommentResponse.setVoteCount(0);
         lectureReviewPostCommentResponse.setCreatedAt("2023.03.10.18:52:36");
         lectureReviewPostCommentResponse.setModifiedAt("2023.03.10.18:52:36");
-        lectureReviewPostCommentResponse.setLectureReviewPostId(1L);
         lectureReviewPostCommentResponse.setMember(member);
 
         lectureReviewPostCommentResponses.add(lectureReviewPostCommentResponse);

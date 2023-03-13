@@ -1,8 +1,7 @@
 package ynzmz.server.teacher.mapper;
 
 import org.mapstruct.Mapper;
-import ynzmz.server.tag.entity.Tag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherTag;
+import ynzmz.server.tag.Tag;
 import ynzmz.server.teacher.dto.TeacherDto;
 import ynzmz.server.teacher.entity.Teacher;
 
@@ -13,16 +12,16 @@ import java.util.List;
 public interface TeacherMapper {
     Teacher teacherToTeacherPost(TeacherDto.Post teacherPost);
     Teacher teacherToTeacherPatch(TeacherDto.Patch teacherPatch);
-    default TeacherDto.InfoResponse teacherInfoResponseToTeacher(Teacher teacher){
+    default TeacherDto.SimpleInfoResponse teacherInfoResponseToTeacher(Teacher teacher){
         if ( teacher == null ) {
             return null;
         }
 
-        TeacherDto.InfoResponse infoResponse = new TeacherDto.InfoResponse();
+        TeacherDto.SimpleInfoResponse simpleInfoResponse = new TeacherDto.SimpleInfoResponse();
 
-        infoResponse.setTeacherId( teacher.getTeacherId() );
-        infoResponse.setName( teacher.getName() );
-        infoResponse.setIntroduction( teacher.getIntroduction() );
+        simpleInfoResponse.setTeacherId( teacher.getTeacherId() );
+        simpleInfoResponse.setName( teacher.getName() );
+        simpleInfoResponse.setIntroduction( teacher.getIntroduction() );
         List<TeacherTag> list = teacher.getTeacherTags();
 
         ArrayList<Tag.Type> responses = new ArrayList<>();
@@ -30,10 +29,10 @@ public interface TeacherMapper {
         for(TeacherTag teacherTag: list){
             responses.add(teacherTag.getTag().getType());
         }
-        infoResponse.setTags(responses);
+        simpleInfoResponse.setTags(responses);
 
-        return infoResponse;
+        return simpleInfoResponse;
     }
 
-    List<TeacherDto.InfoResponse> teacherInfoResponsesToTeachers(List<Teacher> teachers);
+    List<TeacherDto.SimpleInfoResponse> teacherInfoResponsesToTeachers(List<Teacher> teachers);
 }

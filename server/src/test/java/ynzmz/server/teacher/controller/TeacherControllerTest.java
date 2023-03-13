@@ -17,7 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import ynzmz.server.helper.StubData;
 import ynzmz.server.tag.service.TagService;
-import ynzmz.server.tag.service.TeacherTagService;
 import ynzmz.server.teacher.dto.TeacherDto;
 import ynzmz.server.teacher.entity.Teacher;
 import ynzmz.server.teacher.mapper.TeacherMapper;
@@ -64,7 +63,7 @@ class TeacherControllerTest {
         TeacherDto.Post mockPost = new TeacherDto.Post("홍길동", "국어 최고의 강사!", tagsSample);
         String jsonPost = gson.toJson(mockPost);
 
-        when(teacherMapper.teacherInfoResponseToTeacher(any())).thenReturn(teacherInfoResponse);
+        when(teacherMapper.teacherInfoResponseToTeacher(any())).thenReturn(TEACHER_SIMPLE_INFO_RESPONSE);
 
 
         ResultActions actions = mockMvc.perform(post("/teachers")
@@ -99,12 +98,12 @@ class TeacherControllerTest {
     @DisplayName("강사 정보 수정 테스트")
     void patchTeacher() throws Exception {
         TeacherDto.Patch mockPatch = new TeacherDto.Patch("홍길동", "국어 최고의 강사아님!", tagsSample);
-        teacherInfoResponse.setIntroduction("국어 최고의 강사아님!");
+        TEACHER_SIMPLE_INFO_RESPONSE.setIntroduction("국어 최고의 강사아님!");
         String jsonPatch = gson.toJson(mockPatch);
         long teacherId = 1L;
 
         when(teacherMapper.teacherToTeacherPatch(any())).thenReturn(new Teacher());
-        when(teacherMapper.teacherInfoResponseToTeacher(any())).thenReturn(teacherInfoResponse);
+        when(teacherMapper.teacherInfoResponseToTeacher(any())).thenReturn(TEACHER_SIMPLE_INFO_RESPONSE);
 
         ResultActions actions = mockMvc.perform(patch("/teachers/{teacher-id}",teacherId)
                 .content(jsonPatch)
@@ -140,7 +139,7 @@ class TeacherControllerTest {
     void getAllTeachers() throws Exception {
 
         when(teacherService.findTeachers(anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Teacher())), PageRequest.of(1,1),1));
-        when(teacherMapper.teacherInfoResponsesToTeachers(any())).thenReturn(teacherInfoResponses);
+        when(teacherMapper.teacherInfoResponsesToTeachers(any())).thenReturn(TEACHER_SIMPLE_INFO_RESPONS);
 
         ResultActions actions =
                 mockMvc.perform(
@@ -177,7 +176,7 @@ class TeacherControllerTest {
     void getTeachersByTag() throws Exception {
 
         when(teacherService.findTeachers(anyString(),anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Teacher())), PageRequest.of(1,1),1));
-        when(teacherMapper.teacherInfoResponsesToTeachers(any())).thenReturn(teacherInfoResponses);
+        when(teacherMapper.teacherInfoResponsesToTeachers(any())).thenReturn(TEACHER_SIMPLE_INFO_RESPONS);
 
         ResultActions actions =
                 mockMvc.perform(
@@ -218,7 +217,7 @@ class TeacherControllerTest {
         long teacherId = 1L;
 
         when(teacherService.findTeacherById(anyInt())).thenReturn(new Teacher());
-        when(teacherMapper.teacherInfoResponseToTeacher(any())).thenReturn(teacherInfoResponse);
+        when(teacherMapper.teacherInfoResponseToTeacher(any())).thenReturn(TEACHER_SIMPLE_INFO_RESPONSE);
 
         ResultActions actions = mockMvc.perform(get("/teachers/{teacher-id}",teacherId)
                 .accept(MediaType.APPLICATION_JSON)

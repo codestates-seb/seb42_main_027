@@ -11,8 +11,9 @@ import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecture.mapper.LectureMapper;
 import ynzmz.server.lecture.service.LectureService;
-import ynzmz.server.tag.entity.Tag;
-import ynzmz.server.tag.service.LectureTagService;
+import ynzmz.server.tag.entity.GradeTag;
+import ynzmz.server.tag.entity.PlatformTag;
+import ynzmz.server.tag.entity.SubjectTag;
 import ynzmz.server.tag.service.TagService;
 
 import java.util.List;
@@ -24,19 +25,21 @@ public class LectureController {
     private final LectureService lectureService;
     private final LectureMapper lectureMapper;
     private final TagService tagService;
-    private final LectureTagService lectureTagService;
     //강의 등록
     @PostMapping
     public ResponseEntity<?> postLecture(@RequestBody LectureDto.Post lecturePost){
         Lecture lecture = lectureMapper.lectureToLecturePost(lecturePost);
         Lecture createdLecture = lectureService.createdLecture(lecture);
 
-        //LectureTag 생성
-        List<Tag.Type> tagsByType = tagService.findTagsByType(lecturePost.getTags());
-        lectureTagService.createLectureTag(createdLecture,tagsByType);
+        //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )
+        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(lecturePost.getGradeTags());
+        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(lecturePost.getPlatformTags());
+        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(lecturePost.getSubjectTags());
 
+        //생성된 강사 맵핑테이블 생성
+        tagService.createLectureTag(createdLecture, gradeTags, platformTags, subjectTags);
 
-        LectureDto.InfoResponse response = lectureMapper.lectureInfoResponseToLecture(createdLecture);
+        LectureDto.SimpleInfoResponse response = lectureMapper.lectureInfoResponseToLecture(createdLecture);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
     //강의 수정
@@ -47,12 +50,17 @@ public class LectureController {
         lecture.setLectureId(lectureId);
         Lecture updateLecture = lectureService.updateLecture(lecture);
 
-        //LectureTag 수정 (삭제후 수정)
-        List<Tag.Type> tagsByType = tagService.findTagsByType(lecturePatch.getTags());
-        lectureTagService.deleteAllLectureTagByLecture(updateLecture);
-        lectureTagService.createLectureTag(updateLecture,tagsByType);
+        //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )
+        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(lecturePatch.getGradeTags());
+        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(lecturePatch.getPlatformTags());
+        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(lecturePatch.getSubjectTags());
 
-        LectureDto.InfoResponse response = lectureMapper.lectureInfoResponseToLecture(updateLecture);
+        //태그 수정방법 : 저장값 전부 삭제후 재등록
+        tagService.deleteAllLectureTagByLecture(updateLecture);
+        //맵핑테이블 생성
+        tagService.createLectureTag(updateLecture, gradeTags, platformTags, subjectTags);
+
+        LectureDto.SimpleInfoResponse response = lectureMapper.lectureInfoResponseToLecture(updateLecture);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -66,12 +74,12 @@ public class LectureController {
         if(tag == null) {
             Page<Lecture> lecturePage = lectureService.findLectures(page -1, size);
             List<Lecture> lectures = lecturePage.getContent();
-            List<LectureDto.InfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
+            List<LectureDto.SimpleInfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
             return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
         } else {
             Page<Lecture> lecturePage = lectureService.findLectures(tag,page -1, size);
             List<Lecture> lectures = lecturePage.getContent();
-            List<LectureDto.InfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
+            List<LectureDto.SimpleInfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
             return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
 
         }
@@ -85,7 +93,7 @@ public class LectureController {
 
         Page<Lecture> lecturePage = lectureService.findLecturesByTeacher(teacherId,page -1, size);
         List<Lecture> lectures = lecturePage.getContent();
-        List<LectureDto.InfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
+        List<LectureDto.SimpleInfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
 
         return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
 
@@ -96,7 +104,7 @@ public class LectureController {
     public ResponseEntity<?> getLecturesDetail(@PathVariable("lecture-id") long lectureId) {
 
         Lecture lecture = lectureService.findLectureById(lectureId);
-        LectureDto.InfoResponse response = lectureMapper.lectureInfoResponseToLecture(lecture);
+        LectureDto.SimpleInfoResponse response = lectureMapper.lectureInfoResponseToLecture(lecture);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
     //강의 삭제

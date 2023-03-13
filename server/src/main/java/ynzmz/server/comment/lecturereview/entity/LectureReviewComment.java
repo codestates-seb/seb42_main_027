@@ -5,12 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.lecturereview.entity.LectureReview;
 import ynzmz.server.member.entity.Member;
+import ynzmz.server.vote.VoteCount;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-public class LectureReviewComment {
+public class LectureReviewComment implements VoteCount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lectureReviewCommentId;
