@@ -4,7 +4,7 @@ import Input from 'components/UI/Input';
 import { useState } from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
-import { validateEmail } from 'components/login/loginRegex';
+import login from 'components/login/login';
 import BaseButton from '../components/UI/BaseButton';
 
 const { colors } = theme;
@@ -40,11 +40,21 @@ const Separator = styled.span`
   margin: 0 0.8rem;
 `;
 
+const FailLoginMessage = styled.p`
+  color: ${colors.danger};
+  margin-bottom: 1rem;
+`;
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordInputOpen, setIsPasswordInputOpen] = useState(false);
   const [failedLogin, setFailedLogin] = useState(false);
+
+  const pathData = {
+    email: '',
+    password: '',
+  };
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -60,6 +70,14 @@ function Login() {
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    pathData.email = email;
+    pathData.password = password;
+    try {
+      await login(pathData);
+    } catch (error) {
+      console.log(error);
+      setFailedLogin(true);
+    }
   };
 
   return (
@@ -109,6 +127,14 @@ function Login() {
             </BaseButton>
           </ButtonGroup>
         </Form>
+
+        {failedLogin ? (
+          <FailLoginMessage>
+            아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다.
+            입력하신 내용을 다시 확인해주세요.
+          </FailLoginMessage>
+        ) : null}
+
         <ButtonGroup>
           <PButton>이메일 찾기</PButton>
           <Separator>|</Separator>
