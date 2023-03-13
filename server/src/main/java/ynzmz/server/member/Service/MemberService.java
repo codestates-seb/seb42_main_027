@@ -1,6 +1,8 @@
 package ynzmz.server.member.Service;
 
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,21 +19,17 @@ import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
 @Service
+@Slf4j
 public class MemberService {
     private final MemberRepository memberRepository;
-    private final ApplicationEventPublisher publisher;
-
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
 
     public MemberService (MemberRepository memberRepository,
-                          ApplicationEventPublisher publisher,
                           PasswordEncoder passwordEncoder,
                           CustomAuthorityUtils authorityUtils){
         this.memberRepository = memberRepository;
-        this.publisher = publisher;
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
     }
@@ -45,9 +43,7 @@ public class MemberService {
         List<String> roles = authorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
 
-        Member savedMember = memberRepository.save(member);
-
-        return savedMember;
+        return memberRepository.save(member);
     }
 
     public Member updateMember(Member member){
@@ -55,15 +51,20 @@ public class MemberService {
 
         Optional.ofNullable(member.getDisplayName());
         Optional.ofNullable(member.getPassword());
+        Optional.ofNullable(member.getIconImageUrl());
 
         return memberRepository.save(findMember);
     }
 
 
-    public Page<Member> findMembers(int page, int size){
-        return memberRepository.findAll(PageRequest.of(page,size,
-                Sort.by("memberId").descending()));
+    public Member findMember(long memberId) {
+        return findVerifiedMember(memberId);
     }
+
+//    public Page<Member> findMembers(int page, int size){
+//        return memberRepository.findAll(PageRequest.of(page,size,
+//                Sort.by("memberId").descending()));
+//    }
 
     public void deleteMember(long memberId){
         Member findMember = findVerifiedMember(memberId);
