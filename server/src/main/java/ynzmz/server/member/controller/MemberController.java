@@ -14,6 +14,7 @@ import ynzmz.server.member.dto.MemberPostDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.mapper.MemberMapper;
 import ynzmz.server.member.repository.MemberRepository;
+import ynzmz.server.util.SingleResponseDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -22,36 +23,35 @@ import javax.validation.constraints.Positive;
 @RequestMapping("/members")
 @Slf4j
 @RequiredArgsConstructor
-@Validated
 public class MemberController {
 
     private final MemberMapper memberMapper;
     private final MemberService memberService;
 
     @PostMapping
-    public ResponseEntity postMember(@RequestBody @Valid MemberPostDto requestBody) {
+    public ResponseEntity<?> postMember(@RequestBody @Valid MemberPostDto requestBody) {
         Member member = memberMapper.memberPostDtoToMember(requestBody);
         Member createdMember = memberService.createMember(member);
         MemberDto response = memberMapper.memberToMemberResponse(createdMember);
 
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{member-id}")
-    public ResponseEntity patchMember(@PathVariable("member-id") @Positive long memberId, @RequestBody @Valid MemberPatchDto requestBody) {
+    public ResponseEntity<?> patchMember(@PathVariable("member-id") @Positive long memberId, @RequestBody @Valid MemberPatchDto requestBody) {
         requestBody.setMemberId(memberId);
         Member member = memberService.updateMember(memberMapper.memberPatchDtoToMember(requestBody));
         Member updatedMember = memberService.updateMember(member);
         MemberDto response = memberMapper.memberToMemberResponse(updatedMember);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     @GetMapping("/{member-id}")
-    public ResponseEntity getMember(@PathVariable("member-id") @Positive long memberId) {
+    public ResponseEntity<?> getMember(@PathVariable("member-id")  long memberId) {
         Member findMember = memberService.findMember(memberId);
         MemberDto response = memberMapper.memberToMemberResponse(findMember);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
 
     }
 }
