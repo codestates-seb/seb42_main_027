@@ -3,8 +3,7 @@ import Input from 'components/UI/Input';
 import { useState } from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
-import { validateEmail } from 'components/login/loginRegex';
-import { fetchLogin } from 'api';
+import login from 'components/login/login';
 import BaseButton from '../components/UI/BaseButton';
 
 const { colors } = theme;
@@ -40,10 +39,16 @@ const Separator = styled.span`
   margin: 0 0.8rem;
 `;
 
+const FailLoginMessage = styled.p`
+  color: ${colors.danger};
+  margin-bottom: 1rem;
+`;
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordInputOpen, setIsPasswordInputOpen] = useState(false);
+  const [failedLogin, setFailedLogin] = useState(false);
 
   const pathData = {
     email: '',
@@ -62,20 +67,17 @@ function Login() {
     setIsPasswordInputOpen(true);
   };
 
-  // const getLogin = async () => {
-  //   const response = await fetchLogin(pathData);
-  //   localStorage.setItem('token', response.data.jwt);
-  // };
-
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!email || !validateEmail(email))
-      window.alert('올바르지 않은 이메일 형식입니다.');
-    if (!password) window.alert('암호를 입력하세요.');
 
     pathData.email = email;
     pathData.password = password;
-    // getLogin();
+
+    try {
+      await login(pathData);
+    } catch (error) {
+      setFailedLogin(true);
+    }
   };
 
   return (
@@ -86,20 +88,19 @@ function Login() {
           <Input
             onChange={handleChangeEmail}
             type="email"
-            htmlFor="email"
-            label="Email"
             id="email"
+            label="Email"
           />
           {isPasswordInputOpen ? (
             <Input
               onChange={handleChangePassword}
               type="password"
-              htmlFor="password"
-              label="암호"
               id="password"
+              label="암호"
             />
           ) : null}
 
+          {/* 로그인 버튼 */}
           <ButtonGroup>
             {isPasswordInputOpen ? (
               <BaseButton
@@ -126,6 +127,14 @@ function Login() {
             </BaseButton>
           </ButtonGroup>
         </Form>
+
+        {failedLogin ? (
+          <FailLoginMessage>
+            아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다.
+            입력하신 내용을 다시 확인해주세요.
+          </FailLoginMessage>
+        ) : null}
+
         <ButtonGroup>
           <PButton>이메일 찾기</PButton>
           <Separator>|</Separator>
