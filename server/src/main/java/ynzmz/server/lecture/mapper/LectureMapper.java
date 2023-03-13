@@ -1,42 +1,22 @@
 package ynzmz.server.lecture.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.tag.Tag;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface LectureMapper {
     Lecture lectureToLecturePost(LectureDto.Post lecturePost);
     Lecture lectureToLecturePatch(LectureDto.Patch lecurePatch);
-
-    default LectureDto.SimpleInfoResponse lectureInfoResponseToLecture(Lecture lecture) {
-        if ( lecture == null ) {
-            return null;
-        }
-
-        LectureDto.SimpleInfoResponse simpleInfoResponse = new LectureDto.SimpleInfoResponse();
-
-        if ( lecture.getLectureId() != null ) {
-            simpleInfoResponse.setLectureId( lecture.getLectureId() );
-        }
-        simpleInfoResponse.setName( lecture.getTitle() );
-        simpleInfoResponse.setIntroduction( lecture.getIntroduction() );
-        simpleInfoResponse.setStarPointAverage( lecture.getStarPointAverage() );
-        List<LectureTag> list = lecture.getLectureTags();
-
-        ArrayList<Tag.Type> responses = new ArrayList<>();
-
-        for(LectureTag lectureTag : list){
-            responses.add(lectureTag.getTag().getType());
-        }
-        simpleInfoResponse.setTags(responses);
-
-        return simpleInfoResponse;
-    }
-
+    LectureDto.SimpleInfoResponse lectureInfoResponseToLecture(Lecture lecture);
     List<LectureDto.SimpleInfoResponse> lectureInfoResponsesToLectures(List<Lecture> lectures);
+    LectureDto.ListPageResponse lectureListPageResponseToLecture(Lecture lecture);
+    List<LectureDto.ListPageResponse> lectureListPageResponsesToLectures(List<Lecture> lectures);
+    LectureDto.DetailPageResponse lectureDetailPageResponseToLecture(Lecture lecture);
+    List<LectureDto.DetailPageResponse> lectureDetailPageResponsesToLectures(List<Lecture> lectures);
+    LectureDto.TeacherReviewDetailPageResponse lectureTeacherReviewDetailPageResponseToLecture(Lecture lecture);
+    List<LectureDto.TeacherReviewDetailPageResponse> lectureTeacherReviewDetailPageResponsesToLectures(List<Lecture> lectures);
 }

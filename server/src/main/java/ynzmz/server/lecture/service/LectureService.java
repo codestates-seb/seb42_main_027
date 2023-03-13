@@ -9,8 +9,10 @@ import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecture.repository.LectureRepository;
+import ynzmz.server.lecturereview.entity.LectureReview;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,7 +27,7 @@ public class LectureService {
     public Lecture updateLecture(Lecture lecture) {
         Lecture findLecture = findLectureById(lecture.getLectureId());
 
-        Optional.ofNullable(lecture.getName()).ifPresent(findLecture::setName);
+        Optional.ofNullable(lecture.getTitle()).ifPresent(findLecture::setTitle);
         Optional.ofNullable(lecture.getIntroduction()).ifPresent(findLecture::setIntroduction);
         Optional.ofNullable(lecture.getTeacher()).ifPresent(findLecture::setTeacher);
 
@@ -36,9 +38,9 @@ public class LectureService {
         return lectureRepository.findAll(PageRequest.of(page, size, Sort.by("lectureId").descending()));
     }
 
-    public Page<Lecture> findLectures(String tag, int page, int size) {
-        return lectureRepository.findByTagType(tag, PageRequest.of(page, size, Sort.by("lectureId").descending()));
-    }
+//    public Page<Lecture> findLectures(String tag, int page, int size) {
+//        return lectureRepository.findByTagType(tag, PageRequest.of(page, size, Sort.by("lectureId").descending()));
+//    }
 
     public Page<Lecture> findLecturesByTeacher(long teacherId, int page, int size) {
         return lectureRepository.findByTeacherId(teacherId, PageRequest.of(page, size, Sort.by("lectureId").descending()));
@@ -56,8 +58,17 @@ public class LectureService {
 
     //강의 평균 별점 저장
     @Transactional
-    public void lectureStarPointAverageUpdate(Lecture lecture, double starPointAverage){
+    public void setLectureStaPointAverageAndTotalReviewCount(Lecture lecture){
+        List<LectureReview> lectureReviews = lecture.getLectureReviews();
+        double starPoint = 0;
+        double starPointAverage;
+        for(LectureReview lectureReview : lectureReviews) {
+            starPoint += lectureReview.getStarPoint();
+        }
+        starPointAverage = starPoint / lectureReviews.size();
+        long totalReviewCount = lectureReviews.size();
         lecture.setStarPointAverage(starPointAverage);
+        lecture.setTotalReviewCount(totalReviewCount);
         lectureRepository.save(lecture);
     }
 

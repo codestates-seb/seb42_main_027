@@ -12,6 +12,7 @@ import ynzmz.server.lecturereview.dto.LectureReviewDto;
 import ynzmz.server.lecturereview.entity.LectureReview;
 import ynzmz.server.lecturereview.mapper.LectureReviewMapper;
 import ynzmz.server.lecturereview.sevice.LectureReviewService;
+import ynzmz.server.teacher.service.TeacherService;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import java.util.List;
 public class LectureReviewController {
     private final LectureReviewService lectureReviewService;
     private final LectureService lectureService;
+    private final TeacherService teacherService;
     private final LectureReviewMapper lectureReviewMapper;
     //리뷰작성
     @PostMapping
@@ -28,10 +30,10 @@ public class LectureReviewController {
         LectureReview lectureReview = lectureReviewMapper.lectureReviewToLectureReviewPost(lectureReviewPostPost);
         LectureReview createdLectureReview = lectureReviewService.createLectureReview(lectureReview);
 
-        //등록시 강의의 평균점수를 수정
-        double averageStarPoint = lectureReviewService.getLectureReviewAverageStarPoint(createdLectureReview);
-        lectureService.lectureStarPointAverageUpdate(createdLectureReview.getLecture(), averageStarPoint);
-
+        //리뷰 등록시 강의의 평균점수를 수정
+        lectureService.setLectureStaPointAverageAndTotalReviewCount(createdLectureReview.getLecture());
+        //리뷰 등록시 강사의 평균점수를 수정
+        teacherService.setTeacherStarPointAverageAndTotalReviewCount(createdLectureReview.getLecture().getTeacher());
 
         LectureReviewDto.InfoResponse response = lectureReviewMapper.lectureReviewInfoResponseToLectureReview(createdLectureReview);
 
@@ -45,9 +47,10 @@ public class LectureReviewController {
         lectureReview.setLectureReviewId(lectureReviewPostId);
         LectureReview updatedLectureReview = lectureReviewService.updateLectureReview(lectureReview);
 
-        //등록시 강의의 평균점수를 수정
-        double averageStarPoint = lectureReviewService.getLectureReviewAverageStarPoint(updatedLectureReview);
-        lectureService.lectureStarPointAverageUpdate(updatedLectureReview.getLecture(), averageStarPoint);
+        //리뷰 등록시 강의의 평균점수를 수정
+        lectureService.setLectureStaPointAverageAndTotalReviewCount(updatedLectureReview.getLecture());
+        //리뷰 등록시 강사의 평균점수를 수정
+        teacherService.setTeacherStarPointAverageAndTotalReviewCount(updatedLectureReview.getLecture().getTeacher());
 
         LectureReviewDto.InfoResponse response = lectureReviewMapper.lectureReviewInfoResponseToLectureReview(updatedLectureReview);
 

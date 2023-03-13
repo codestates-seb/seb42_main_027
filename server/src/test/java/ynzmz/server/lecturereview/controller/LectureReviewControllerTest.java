@@ -67,7 +67,7 @@ class LectureReviewControllerTest {
                 "2023.03.10.18:52:36");
         String jsonPost = gson.toJson(mockPost);
 
-        when(lectureReviewService.getLectureReviewAverageStarPoint(any())).thenReturn(4.5);
+        when(lectureReviewService.setLectureReviewAverageStarPoint(any())).thenReturn(4.5);
         when(lectureReviewService.createLectureReview(any())).thenReturn(LECTURE_REVIEW);
         when(lectureReviewMapper.lectureReviewInfoResponseToLectureReview(any())).thenReturn(lectureReviewPostInfoResponse);
 
@@ -134,7 +134,7 @@ class LectureReviewControllerTest {
 
         when(lectureReviewMapper.lectureReviewToLectureReviewPatch(any())).thenReturn(new LectureReview());
         when(lectureReviewService.updateLectureReview(any())).thenReturn(LECTURE_REVIEW);
-        when(lectureReviewService.getLectureReviewAverageStarPoint(any())).thenReturn(4.5);
+        when(lectureReviewService.setLectureReviewAverageStarPoint(any())).thenReturn(4.5);
         when(lectureReviewMapper.lectureReviewInfoResponseToLectureReview(any())).thenReturn(lectureReviewPostInfoResponse);
 
         ResultActions actions = mockMvc

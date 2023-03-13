@@ -15,7 +15,7 @@ public class LectureReviewDto {
     @AllArgsConstructor
     public static class Post{
         private String title;
-        private double starPoint;
+        private long starPoint;
         private String content;
         private long memberId;
         private long lectureId;
@@ -25,7 +25,7 @@ public class LectureReviewDto {
     @AllArgsConstructor
     public static class Patch{
         private String title;
-        private double starPoint;
+        private long starPoint;
         private String content;
         private String modifiedAt;
     }
@@ -34,7 +34,7 @@ public class LectureReviewDto {
 
         private long lectureReviewId;
         private String title;
-        private double starPoint;
+        private long starPoint;
         private String content;
         private String createdAt;
         private String modifiedAt;
@@ -50,7 +50,7 @@ public class LectureReviewDto {
 
         private long lectureReviewId;
         private String title;
-        private double starPoint;
+        private long starPoint;
         private String content;
         private String createdAt;
         private String modifiedAt;
@@ -66,7 +66,7 @@ public class LectureReviewDto {
 
         private long lectureReviewId;
         private String title;
-        private double starPoint;
+        private long starPoint;
         private String content;
         private String createdAt;
         private String modifiedAt;

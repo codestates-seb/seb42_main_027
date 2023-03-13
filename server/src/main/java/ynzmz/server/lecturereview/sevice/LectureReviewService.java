@@ -10,7 +10,6 @@ import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.lecturereview.entity.LectureReview;
 import ynzmz.server.lecturereview.repository.LectureReviewRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,12 +54,4 @@ public class LectureReviewService {
         return lectureReviewPost.orElseThrow(() -> new BusinessLogicException(ExceptionCode.LECTURE_REVIEW_NOT_FOUND));
     }
 
-    public double getLectureReviewAverageStarPoint(LectureReview lectureReview){
-        List<LectureReview> lectureReviews = lectureReviewRepository.findAllLecturesByLectureReview(lectureReview.getLecture().getLectureId());
-        double starPoint = 0;
-        for(LectureReview post : lectureReviews){
-            starPoint += post.getStarPoint();
-        }
-        return starPoint/ lectureReviews.size();
-    }
 }

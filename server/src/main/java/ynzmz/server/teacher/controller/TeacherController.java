@@ -35,9 +35,9 @@ public class TeacherController {
         Teacher createdTeacher = teacherService.createTeacher(teacher);
 
         //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )
-        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(teacherPost.getGradeTags());
-        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(teacherPost.getPlatformTags());
-        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(teacherPost.getSubjectTags());
+        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(teacherPost.getGradeTag());
+        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(teacherPost.getPlatformTag());
+        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(teacherPost.getSubjectTag());
 
         //생성된 강사 맵핑테이블 생성
         tagService.createTeacherTag(createdTeacher, gradeTags, platformTags, subjectTags);
@@ -54,9 +54,9 @@ public class TeacherController {
         Teacher updatedTeacher = teacherService.updateTeacher(teacher);
 
         //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )
-        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(teacherPatch.getGradeTags());
-        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(teacherPatch.getPlatformTags());
-        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(teacherPatch.getSubjectTags());
+        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(teacherPatch.getGradeTag());
+        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(teacherPatch.getPlatformTag());
+        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(teacherPatch.getSubjectTag());
 
         //태그 수정방법 : 저장값 전부 삭제후 재등록
         tagService.deleteAllTeacherTagByTeacher(updatedTeacher);
@@ -67,24 +67,21 @@ public class TeacherController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
-    //과목별 강사조회 + 강사 전체 조회
+    //강사 리스트 페이지  = 필터 과목별 강사조회 + 학년별 + 플랫폼별  + 강사 전체 조회
     @GetMapping
-    public ResponseEntity<?> getTeachersByTag(@RequestParam(value = "tag", required = false) String tag,
-                                     @RequestParam int page,
-                                     @RequestParam int size){
+    public ResponseEntity<?> getTeacherListPage(@RequestParam(required = false) String grade,
+                                                @RequestParam(required = false) String platform,
+                                                @RequestParam(required = false) String subject,
+                                                @RequestParam(required = false) String name,
+                                                @RequestParam(required = false) String sort,
+                                                @RequestParam int page,
+                                                @RequestParam int size){
 
-        if(tag == null) {
-            Page<Teacher> teacherPage = teacherService.findTeachers(page -1, size);
-            List<Teacher> teachers = teacherPage.getContent();
-            List<TeacherDto.SimpleInfoResponse> responses = teacherMapper.teacherInfoResponsesToTeachers(teachers);
-            return new ResponseEntity<>(new MultiResponseDto<>(responses, teacherPage), HttpStatus.OK);
-        } else {
-            Page<Teacher> teacherPage = teacherService.findTeachers(tag,page -1, size);
-            List<Teacher> teachers = teacherPage.getContent();
-            List<TeacherDto.SimpleInfoResponse> responses = teacherMapper.teacherInfoResponsesToTeachers(teachers);
-            return new ResponseEntity<>(new MultiResponseDto<>(responses, teacherPage), HttpStatus.OK);
-
-        }
+        if(sort == null) sort = "teacherId";
+        Page<Teacher> teacherPage = teacherService.findTeachers(grade,platform,subject,name,sort,page -1, size);
+        List<Teacher> teachers = teacherPage.getContent();
+        List<TeacherDto.SimpleInfoResponse> responses = teacherMapper.teacherInfoResponsesToTeachers(teachers);
+        return new ResponseEntity<>(new MultiResponseDto<>(responses, teacherPage), HttpStatus.OK);
     }
     //강사 상세조회
     @GetMapping("/{teacher-id}")

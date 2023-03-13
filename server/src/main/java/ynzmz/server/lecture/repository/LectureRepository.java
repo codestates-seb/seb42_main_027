@@ -9,8 +9,8 @@ import ynzmz.server.lecture.entity.Lecture;
 
 @Repository
 public interface LectureRepository extends JpaRepository<Lecture,Long> {
-    @Query("SELECT l FROM Lecture l JOIN l.lectureTags lt JOIN lt.tag tg where tg.type = :tag")
-    Page<Lecture> findByTagType(String tag, Pageable pageable);
+//    @Query("SELECT l FROM Lecture l JOIN l.lectureReviews lt JOIN lt.tag tg where tg.type = :tag")
+//    Page<Lecture> findByTagType(String tag, Pageable pageable);
 
     @Query("SELECT l FROM Lecture l JOIN l.teacher lt where lt.teacherId = :teacherId")
     Page<Lecture> findByTeacherId(long teacherId, Pageable pageable);

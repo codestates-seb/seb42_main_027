@@ -175,7 +175,6 @@ class TeacherControllerTest {
     @DisplayName("강사 태그별 조회")
     void getTeachersByTag() throws Exception {
 
-        when(teacherService.findTeachers(anyString(),anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Teacher())), PageRequest.of(1,1),1));
         when(teacherMapper.teacherInfoResponsesToTeachers(any())).thenReturn(TEACHER_SIMPLE_INFO_RESPONS);
 
         ResultActions actions =

@@ -20,9 +20,9 @@ public class LectureDto {
         private String title;
         private String introduction;
         private String status;
-        private List<String> gradeTags;
-        private List<String> subjectTags;
-        private List<String> platformTags;
+        private List<String> gradeTag;
+        private List<String> subjectTag;
+        private List<String> platformTag;
         private long teacherId;
     }
     //pathDto
@@ -32,9 +32,9 @@ public class LectureDto {
         private String title;
         private String introduction;
         private String status;
-        private List<String> gradeTags;
-        private List<String> subjectTags;
-        private List<String> platformTags;
+        private List<String> gradeTag;
+        private List<String> subjectTag;
+        private List<String> platformTag;
         private long teacherId;
     }
     //강의 전체조회
@@ -45,6 +45,7 @@ public class LectureDto {
         private String introduction;
         private Lecture.Status status;
         private double starPointAverage;
+        private long totalReviewCount;
         private List<LectureGradeTag> gradeTags;
         private List<LectureSubjectTag> subjectTags;
         private List<LecturePlatformTag> platformTags;
