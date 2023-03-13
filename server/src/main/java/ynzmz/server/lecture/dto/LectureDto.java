@@ -20,6 +20,10 @@ public class LectureDto {
     public static class Post{
         private String title;
         private String introduction;
+        private String status;
+        private List<LectureGradeTag> gradeTags;
+        private List<LectureSubjectTag> subjectTags;
+        private List<LecturePlatformTag> platformTags;
         private List<String> tags;
         private long teacherId;
     }
@@ -29,6 +33,10 @@ public class LectureDto {
     public static class Patch{
         private String title;
         private String introduction;
+        private String status;
+        private List<LectureGradeTag> gradeTags;
+        private List<LectureSubjectTag> subjectTags;
+        private List<LecturePlatformTag> platformTags;
         private List<String> tags;
         private long teacherId;
     }
