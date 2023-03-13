@@ -1,5 +1,4 @@
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable react/require-default-props */
 import styled from 'styled-components';
 
 type Props = {
@@ -23,7 +22,9 @@ function CharacterCard({ teacher }: Props) {
             <Span>{el.name}</Span>
             <Span>{el.belong}</Span>
             <Span>{el.subject}</Span>
-            <LargeSpan>{el.best}</LargeSpan>
+            <LargeSpan>
+              {el.best.length > 7 ? `${el.best.slice(0, 7)}...` : el.best}
+            </LargeSpan>
             <Span>⭐️ {el.grade}</Span>
           </CardContainer>
         );
