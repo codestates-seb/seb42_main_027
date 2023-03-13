@@ -9,6 +9,7 @@ type ButtonProps = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled: boolean;
   children: string;
+  buttonType: string;
 };
 
 const StyledButton = styled.button<ButtonProps>`
@@ -45,9 +46,17 @@ const StyledButton = styled.button<ButtonProps>`
   cursor: pointer;
 `;
 
-function BaseButton({ color, size, onClick, disabled, children }: ButtonProps) {
+function BaseButton({
+  buttonType,
+  color,
+  size,
+  onClick,
+  disabled,
+  children,
+}: ButtonProps) {
   return (
     <StyledButton
+      buttonType={buttonType}
       color={color}
       onClick={onClick}
       disabled={disabled}

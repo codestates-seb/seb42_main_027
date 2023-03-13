@@ -67,7 +67,7 @@ function Login() {
   //   localStorage.setItem('token', response.data.jwt);
   // };
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email || !validateEmail(email))
       window.alert('올바르지 않은 이메일 형식입니다.');
@@ -82,7 +82,7 @@ function Login() {
     <div>
       <Container>
         <Title>로그인</Title>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Input
             onChange={handleChangeEmail}
             type="email"
@@ -103,15 +103,16 @@ function Login() {
           <ButtonGroup>
             {isPasswordInputOpen ? (
               <BaseButton
+                buttonType="submit"
                 color="pointColor"
                 size="md"
                 disabled={false}
-                onClick={handleSubmit}
               >
                 로그인
               </BaseButton>
             ) : (
               <BaseButton
+                buttonType="button"
                 color="pointColor"
                 size="md"
                 onClick={handleClickNextBtn}
@@ -121,7 +122,12 @@ function Login() {
               </BaseButton>
             )}
 
-            <BaseButton color="white" size="md" disabled={false}>
+            <BaseButton
+              buttonType="button"
+              color="white"
+              size="md"
+              disabled={false}
+            >
               Google 로그인
             </BaseButton>
           </ButtonGroup>
