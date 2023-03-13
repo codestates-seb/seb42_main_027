@@ -9,8 +9,10 @@ import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecture.repository.LectureRepository;
+import ynzmz.server.lecturereview.entity.LectureReview;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,8 +58,17 @@ public class LectureService {
 
     //강의 평균 별점 저장
     @Transactional
-    public void lectureStarPointAverageUpdate(Lecture lecture, double starPointAverage){
+    public void setLectureStaPointAverageAndTotalReviewCount(Lecture lecture){
+        List<LectureReview> lectureReviews = lecture.getLectureReviews();
+        double starPoint = 0;
+        double starPointAverage;
+        for(LectureReview lectureReview : lectureReviews) {
+            starPoint += lectureReview.getStarPoint();
+        }
+        starPointAverage = starPoint / lectureReviews.size();
+        long totalReviewCount = lectureReviews.size();
         lecture.setStarPointAverage(starPointAverage);
+        lecture.setTotalReviewCount(totalReviewCount);
         lectureRepository.save(lecture);
     }
 

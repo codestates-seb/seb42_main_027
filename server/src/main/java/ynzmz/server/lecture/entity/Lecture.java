@@ -24,6 +24,7 @@ public class Lecture {
     private String introduction;
     private Status status;
     private double starPointAverage;
+    private long totalReviewCount;
 
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.REMOVE)
     @JsonManagedReference

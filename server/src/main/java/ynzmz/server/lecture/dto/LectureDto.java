@@ -45,6 +45,7 @@ public class LectureDto {
         private String introduction;
         private Lecture.Status status;
         private double starPointAverage;
+        private long totalReviewCount;
         private List<LectureGradeTag> gradeTags;
         private List<LectureSubjectTag> subjectTags;
         private List<LecturePlatformTag> platformTags;

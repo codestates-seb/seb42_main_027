@@ -21,6 +21,8 @@ public class Teacher {
     private String name;
     private String introduction;
     private String imageUrl;
+    private double starPointAverage;
+    private long totalReviewCount;
     @ElementCollection(targetClass=String.class)
     @Column
     private List<String> profile = new ArrayList<>();
