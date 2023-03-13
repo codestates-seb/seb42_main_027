@@ -44,24 +44,27 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordInputOpen, setIsPasswordInputOpen] = useState(false);
+  const [unableBtn, setUnableBtn] = useState(false);
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
+    if (email && validateEmail(email)) setUnableBtn(true);
+    console.log(email, unableBtn);
   };
 
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+    if (password) setUnableBtn(true);
+    console.log(password, unableBtn);
   };
 
   const handleClickNextBtn = () => {
     setIsPasswordInputOpen(true);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!email || !validateEmail(email)) {
-      window.alert('올바르지 않은 이메일 형식입니다.');
-    }
+
     if (!password) {
       window.alert('암호를 입력하세요.');
     }
@@ -71,7 +74,7 @@ function Login() {
     <div>
       <Container>
         <Title>로그인</Title>
-        <Form onSubmit={handleSubmit}>
+        <Form>
           <Input
             onChange={handleChangeEmail}
             type="email"
@@ -87,9 +90,15 @@ function Login() {
             />
           ) : null}
 
+          {/* 로그인 버튼 */}
           <ButtonGroup>
             {isPasswordInputOpen ? (
-              <BaseButton color="pointColor" size="md" disabled={false}>
+              <BaseButton
+                color="pointColor"
+                size="md"
+                disabled={!unableBtn}
+                onClick={handleSubmit}
+              >
                 로그인
               </BaseButton>
             ) : (

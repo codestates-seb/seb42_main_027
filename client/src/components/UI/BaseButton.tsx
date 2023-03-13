@@ -43,6 +43,10 @@ const StyledButton = styled.button<ButtonProps>`
   }};
   border-radius: 0.5rem;
   cursor: pointer;
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
 `;
 
 function BaseButton({ color, size, onClick, disabled, children }: ButtonProps) {
