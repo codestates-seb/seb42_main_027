@@ -44,18 +44,14 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordInputOpen, setIsPasswordInputOpen] = useState(false);
-  const [unableBtn, setUnableBtn] = useState(false);
+  const [failedLogin, setFailedLogin] = useState(false);
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-    if (email && validateEmail(email)) setUnableBtn(true);
-    console.log(email, unableBtn);
   };
 
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-    if (password) setUnableBtn(true);
-    console.log(password, unableBtn);
   };
 
   const handleClickNextBtn = () => {
@@ -64,10 +60,6 @@ function Login() {
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    if (!password) {
-      window.alert('암호를 입력하세요.');
-    }
   };
 
   return (
@@ -96,7 +88,7 @@ function Login() {
               <BaseButton
                 color="pointColor"
                 size="md"
-                disabled={!unableBtn}
+                disabled={false}
                 onClick={handleSubmit}
               >
                 로그인
