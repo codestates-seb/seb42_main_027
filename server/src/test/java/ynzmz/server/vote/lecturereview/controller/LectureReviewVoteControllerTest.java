@@ -1,4 +1,4 @@
-package ynzmz.server.vote.lecturereview.lecturereview.controller;
+package ynzmz.server.vote.lecturereview.controller;
 
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,8 +17,8 @@ import ynzmz.server.helper.StubData;
 import ynzmz.server.lecturereview.entity.LectureReview;
 import ynzmz.server.lecturereview.sevice.LectureReviewService;
 import ynzmz.server.member.service.MemberService;
-import ynzmz.server.vote.lecturereview.lecturereview.mapper.LectureReviewVoteMapper;
-import ynzmz.server.vote.lecturereview.lecturereview.service.LectureReviewVoteService;
+import ynzmz.server.vote.lecturereview.mapper.LectureReviewVoteMapper;
+import ynzmz.server.vote.lecturereview.service.LectureReviewVoteService;
 
 import java.util.List;
 
@@ -65,8 +65,8 @@ class LectureReviewVoteControllerTest {
 
         when(lectureReviewService.findLectureReviewById(anyLong())).thenReturn(new LectureReview());
         when(memberService.findMemberById(anyLong())).thenReturn(member);
-        when(lectureReviewVoteService.lectureReviewPostVoteUp(any(),any())).thenReturn(LECTURE_REVIEW_VOTE);
-        when(lectureReviewVoteMapper.lectureReviewPostVoteToLectureReviewPostResponse(any(),any())).thenReturn(lectureReviewPostVoteResponse);
+        when(lectureReviewVoteService.lectureReviewVoteUp(any(),any())).thenReturn(LECTURE_REVIEW_VOTE);
+        when(lectureReviewVoteMapper.lectureReviewVoteToLectureReviewResponse(any(),any())).thenReturn(lectureReviewPostVoteResponse);
 
         ResultActions actions = mockMvc.perform(post("/lecture-review-post-vote/{lecture-review-post-id}/up/{member-id}",
                 lectureReviewPostId,
@@ -102,8 +102,8 @@ class LectureReviewVoteControllerTest {
 
         when(lectureReviewService.findLectureReviewById(anyLong())).thenReturn(new LectureReview());
         when(memberService.findMemberById(anyLong())).thenReturn(member);
-        when(lectureReviewVoteService.lectureReviewPostVoteDown(any(),any())).thenReturn(LECTURE_REVIEW_VOTE);
-        when(lectureReviewVoteMapper.lectureReviewPostVoteToLectureReviewPostResponse(any(),any())).thenReturn(lectureReviewPostVoteResponse);
+        when(lectureReviewVoteService.lectureReviewVoteDown(any(),any())).thenReturn(LECTURE_REVIEW_VOTE);
+        when(lectureReviewVoteMapper.lectureReviewVoteToLectureReviewResponse(any(),any())).thenReturn(lectureReviewPostVoteResponse);
 
         ResultActions actions = mockMvc.perform(post("/lecture-review-post-vote/{lecture-review-post-id}/down/{member-id}",
                 lectureReviewPostId,

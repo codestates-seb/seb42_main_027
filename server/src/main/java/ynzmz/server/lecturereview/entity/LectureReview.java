@@ -7,6 +7,7 @@ import lombok.Setter;
 import ynzmz.server.comment.lecturereview.entity.LectureReviewComment;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.member.entity.Member;
+import ynzmz.server.vote.VoteCount;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-public class LectureReview {
+public class LectureReview extends VoteCount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long LectureReviewId;
@@ -24,7 +25,7 @@ public class LectureReview {
     private String createdAt;
     private String modifiedAt;
     private long viewCount;
-    private long voteCount;
+//    private long voteCount;
     @ManyToOne
     @JoinColumn(name = "lecture_id")
     @JsonBackReference

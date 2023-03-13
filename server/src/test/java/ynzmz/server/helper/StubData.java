@@ -14,8 +14,8 @@ import ynzmz.server.teacher.dto.TeacherDto;
 import ynzmz.server.teacher.entity.Teacher;
 import ynzmz.server.vote.lecturereview.comment.dto.LectureReviewCommentVoteDto;
 import ynzmz.server.vote.lecturereview.comment.entity.LectureReviewCommentVote;
-import ynzmz.server.vote.lecturereview.lecturereview.dto.LectureReviewVoteDto;
-import ynzmz.server.vote.lecturereview.lecturereview.entity.LectureReviewVote;
+import ynzmz.server.vote.lecturereview.dto.LectureReviewVoteDto;
+import ynzmz.server.vote.lecturereview.entity.LectureReviewVote;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +72,7 @@ public class StubData {
         teacher.setIntroduction("국어 최고의 강사!");
         teacher.setTeacherTags(teacherTagsSample);
 
-        lecture.setName("수능 국어 완전 정복!");
+        lecture.setTitle("수능 국어 완전 정복!");
         lecture.setLectureId(1L);
         lecture.setIntroduction("3개월 만에 완전정복해보세요!");
         lecture.setTeacher(teacher);
@@ -127,7 +127,6 @@ public class StubData {
         lectureReviewPostCommentResponse.setVoteCount(0);
         lectureReviewPostCommentResponse.setCreatedAt("2023.03.10.18:52:36");
         lectureReviewPostCommentResponse.setModifiedAt("2023.03.10.18:52:36");
-        lectureReviewPostCommentResponse.setLectureReviewPostId(1L);
         lectureReviewPostCommentResponse.setMember(member);
 
         lectureReviewPostCommentResponses.add(lectureReviewPostCommentResponse);

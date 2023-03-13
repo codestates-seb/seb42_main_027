@@ -1,11 +1,13 @@
-package ynzmz.server.vote.lecturereview.lecturereview.service;
+package ynzmz.server.vote.lecturereview.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ynzmz.server.comment.lecturereview.entity.LectureReviewComment;
 import ynzmz.server.lecturereview.entity.LectureReview;
 import ynzmz.server.member.entity.Member;
-import ynzmz.server.vote.lecturereview.lecturereview.entity.LectureReviewVote;
-import ynzmz.server.vote.lecturereview.lecturereview.repository.LectureReviewVoteRepository;
+import ynzmz.server.vote.VoteCount;
+import ynzmz.server.vote.lecturereview.entity.LectureReviewVote;
+import ynzmz.server.vote.lecturereview.repository.LectureReviewVoteRepository;
 
 import java.util.Optional;
 
@@ -15,9 +17,7 @@ public class LectureReviewVoteService {
 
     private final LectureReviewVoteRepository lectureReviewVoteRepository;
 
-    public LectureReviewVote lectureReviewPostVoteUp(LectureReview lectureReview, Member member) {
-
-        LectureReviewVote lectureReviewVote = findLectureReviewPostVote(lectureReview, member);// 현재 상태값 불러오기
+    public LectureReviewVote lectureReviewVoteUp(VoteCount lectureReview, LectureReviewVote lectureReviewVote) {
 
         if(lectureReviewVote.getVoteStatus().equals(LectureReviewVote.VoteStatus.UP)){ //만약에 UP 이면
             lectureReviewVote.setVoteStatus(LectureReviewVote.VoteStatus.NONE); // UP 취소로 동작 (NONE 으로 변경)
@@ -32,9 +32,7 @@ public class LectureReviewVoteService {
         return lectureReviewVoteRepository.save(lectureReviewVote);
     }
 
-    public LectureReviewVote lectureReviewPostVoteDown(LectureReview lectureReview, Member member) {
-
-        LectureReviewVote lectureReviewVote = findLectureReviewPostVote(lectureReview, member);// 현재 상태값 불러오기
+    public LectureReviewVote lectureReviewVoteDown(VoteCount lectureReview, LectureReviewVote lectureReviewVote) {
 
         if(lectureReviewVote.getVoteStatus().equals(LectureReviewVote.VoteStatus.DOWN)){ //만약에 DOWN 이면
             lectureReviewVote.setVoteStatus(LectureReviewVote.VoteStatus.NONE); // DOWN 취소로 동작 (NONE 으로 변경)
@@ -49,8 +47,13 @@ public class LectureReviewVoteService {
         return lectureReviewVoteRepository.save(lectureReviewVote);
     }
 
-    public LectureReviewVote findLectureReviewPostVote (LectureReview lectureReview, Member member){
-        Optional<LectureReviewVote> findLectureReviewPostVote = lectureReviewVoteRepository.findByLectureReviewAndMember(lectureReview, member);
-        return findLectureReviewPostVote.orElseGet(()-> new LectureReviewVote(lectureReview, member, LectureReviewVote.VoteStatus.NONE));
+    public LectureReviewVote findLectureReviewVoteTargetReview(LectureReview lectureReview, Member member){
+        Optional<LectureReviewVote> findLectureReviewPostVote = lectureReviewVoteRepository.findByLectureReviewAndMemberAndTarget(lectureReview, member, LectureReviewVote.Target.REVIEW);
+        return findLectureReviewPostVote.orElseGet(()-> new LectureReviewVote(lectureReview, member, LectureReviewVote.VoteStatus.NONE, LectureReviewVote.Target.REVIEW));
+    }
+
+    public LectureReviewVote findLectureReviewVoteTargetComment(LectureReviewComment lectureReviewComment, Member member){
+        Optional<LectureReviewVote> findLectureReviewPostVote = lectureReviewVoteRepository.findByLectureReviewCommentAndMemberAndTarget(lectureReviewComment, member, LectureReviewVote.Target.COMMENT);
+        return findLectureReviewPostVote.orElseGet(()-> new LectureReviewVote(lectureReviewComment, member, LectureReviewVote.VoteStatus.NONE, LectureReviewVote.Target.COMMENT));
     }
 }
