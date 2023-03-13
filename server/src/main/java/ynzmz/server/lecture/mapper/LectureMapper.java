@@ -3,8 +3,7 @@ package ynzmz.server.lecture.mapper;
 import org.mapstruct.Mapper;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.tag.mappingtable.lecture.LectureTag;
-import ynzmz.server.tag.entity.Tag;
+import ynzmz.server.tag.Tag;
 
 import java.util.ArrayList;
 import java.util.List;

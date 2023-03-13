@@ -8,9 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
-import ynzmz.server.tag.entity.Tag;
+import ynzmz.server.tag.entity.GradeTag;
+import ynzmz.server.tag.entity.PlatformTag;
+import ynzmz.server.tag.entity.SubjectTag;
 import ynzmz.server.tag.service.TagService;
-import ynzmz.server.tag.service.TeacherTagService;
 import ynzmz.server.teacher.dto.TeacherDto;
 import ynzmz.server.teacher.entity.Teacher;
 import ynzmz.server.teacher.mapper.TeacherMapper;
@@ -25,7 +26,6 @@ import java.util.List;
 public class TeacherController {
     private final TeacherService teacherService;
     private final TeacherMapper teacherMapper;
-    private final TeacherTagService teacherTagService;
     private final TagService tagService;
     //강사등록
     @PostMapping
@@ -34,9 +34,13 @@ public class TeacherController {
         Teacher teacher = teacherMapper.teacherToTeacherPost(teacherPost);
         Teacher createdTeacher = teacherService.createTeacher(teacher);
 
-        //TeacherTag 생성
-        List<Tag.Type> tagsByType = tagService.findTagsByType(teacherPost.getTags());
-        teacherTagService.createTeacherTag(createdTeacher,tagsByType);
+        //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )
+        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(teacherPost.getGradeTags());
+        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(teacherPost.getPlatformTags());
+        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(teacherPost.getSubjectTags());
+
+        //생성된 강사 맵핑테이블 생성
+        tagService.createTeacherTag(createdTeacher, gradeTags, platformTags, subjectTags);
 
         TeacherDto.SimpleInfoResponse response = teacherMapper.teacherInfoResponseToTeacher(teacher);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
@@ -49,10 +53,15 @@ public class TeacherController {
         teacher.setTeacherId(teacherId);
         Teacher updatedTeacher = teacherService.updateTeacher(teacher);
 
-        //TeacherTag 수정 (삭제후 수정)
-        List<Tag.Type> tagsByType = tagService.findTagsByType(teacherPatch.getTags());
-        teacherTagService.deleteAllTeacherTagByTeacher(updatedTeacher);
-        teacherTagService.createTeacherTag(updatedTeacher,tagsByType);
+        //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )
+        List<GradeTag.Grade> gradeTags = tagService.findGradeTags(teacherPatch.getGradeTags());
+        List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(teacherPatch.getPlatformTags());
+        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(teacherPatch.getSubjectTags());
+
+        //태그 수정방법 : 저장값 전부 삭제후 재등록
+        tagService.deleteAllTeacherTagByTeacher(updatedTeacher);
+        //생성된 강사 맵핑테이블 생성
+        tagService.createTeacherTag(updatedTeacher, gradeTags, platformTags, subjectTags);
 
         TeacherDto.SimpleInfoResponse response = teacherMapper.teacherInfoResponseToTeacher(updatedTeacher);
 

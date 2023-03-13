@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.tag.entity.Tag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherGradeTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherPlatformTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherSubjectTag;
@@ -23,10 +22,9 @@ public class TeacherDto {
         private List<String> profile;
         private List<String> analects;
         private String imageUrl;
-        private List<TeacherGradeTag> gradeTags;
-        private List<TeacherSubjectTag> subjectTags;
-        private List<TeacherPlatformTag> platformTags;
-        private List<String> tags;
+        private List<String> gradeTags;
+        private List<String> subjectTags;
+        private List<String> platformTags;
     }
     //강사수정
     @Getter @Setter
@@ -37,10 +35,9 @@ public class TeacherDto {
         private List<String> profile;
         private List<String> analects;
         private String imageUrl;
-        private List<TeacherGradeTag> gradeTags;
-        private List<TeacherSubjectTag> subjectTags;
-        private List<TeacherPlatformTag> platformTags;
-        private List<String> tags;
+        private List<String> gradeTags;
+        private List<String> subjectTags;
+        private List<String> platformTags;
     }
     //강사전체조회
     @Getter @Setter
@@ -54,7 +51,6 @@ public class TeacherDto {
         private List<TeacherGradeTag> gradeTags;
         private List<TeacherSubjectTag> subjectTags;
         private List<TeacherPlatformTag> platformTags;
-        private List<Tag.Type> tags;
     }
 
     //강사디테일조회
@@ -71,7 +67,6 @@ public class TeacherDto {
         private List<TeacherGradeTag> gradeTags;
         private List<TeacherSubjectTag> subjectTags;
         private List<TeacherPlatformTag> platformTags;
-        private List<Tag.Type> tags;
         private List<Lecture> lectures;
     }
 
@@ -92,7 +87,6 @@ public class TeacherDto {
         private List<TeacherGradeTag> gradeTags;
         private List<TeacherSubjectTag> subjectTags;
         private List<TeacherPlatformTag> platformTags;
-        private List<Tag.Type> tags;
         private List<LectureDto.TeacherReviewDetailPageResponse> lectures;
     }
     @Getter @Setter

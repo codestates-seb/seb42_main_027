@@ -2,13 +2,14 @@ package ynzmz.server.tag.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ynzmz.server.tag.Tag;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor
-public class SubjectTag {
+public class SubjectTag implements Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subjectTagId;

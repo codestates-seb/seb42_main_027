@@ -8,7 +8,6 @@ import ynzmz.server.lecturereview.entity.LectureReview;
 import ynzmz.server.tag.mappingtable.lecture.LectureGradeTag;
 import ynzmz.server.tag.mappingtable.lecture.LecturePlatformTag;
 import ynzmz.server.tag.mappingtable.lecture.LectureSubjectTag;
-import ynzmz.server.tag.mappingtable.lecture.LectureTag;
 import ynzmz.server.teacher.entity.Teacher;
 
 import javax.persistence.*;
@@ -35,8 +34,6 @@ public class Lecture {
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<LecturePlatformTag> platformTags = new ArrayList<>();
-    @OneToMany(mappedBy = "lecture")
-    private List<LectureTag> Tags = new ArrayList<>();
 
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.REMOVE)
     @JsonManagedReference

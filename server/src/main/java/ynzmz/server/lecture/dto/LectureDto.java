@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecturereview.entity.LectureReview;
-import ynzmz.server.tag.entity.Tag;
 import ynzmz.server.tag.mappingtable.lecture.LectureGradeTag;
 import ynzmz.server.tag.mappingtable.lecture.LecturePlatformTag;
 import ynzmz.server.tag.mappingtable.lecture.LectureSubjectTag;
@@ -21,10 +20,9 @@ public class LectureDto {
         private String title;
         private String introduction;
         private String status;
-        private List<LectureGradeTag> gradeTags;
-        private List<LectureSubjectTag> subjectTags;
-        private List<LecturePlatformTag> platformTags;
-        private List<String> tags;
+        private List<String> gradeTags;
+        private List<String> subjectTags;
+        private List<String> platformTags;
         private long teacherId;
     }
     //pathDto
@@ -34,10 +32,9 @@ public class LectureDto {
         private String title;
         private String introduction;
         private String status;
-        private List<LectureGradeTag> gradeTags;
-        private List<LectureSubjectTag> subjectTags;
-        private List<LecturePlatformTag> platformTags;
-        private List<String> tags;
+        private List<String> gradeTags;
+        private List<String> subjectTags;
+        private List<String> platformTags;
         private long teacherId;
     }
     //강의 전체조회
@@ -51,7 +48,6 @@ public class LectureDto {
         private List<LectureGradeTag> gradeTags;
         private List<LectureSubjectTag> subjectTags;
         private List<LecturePlatformTag> platformTags;
-        private List<Tag.Type> tags;
         private TeacherDto.SimpleInfoResponse teacher;
     }
 
@@ -71,7 +67,6 @@ public class LectureDto {
         private List<LectureGradeTag> gradeTags;
         private List<LectureSubjectTag> subjectTags;
         private List<LecturePlatformTag> platformTags;
-        private List<Tag.Type> tags;
         private List<LectureReview> lectureReviews;
     }
     @Getter @Setter

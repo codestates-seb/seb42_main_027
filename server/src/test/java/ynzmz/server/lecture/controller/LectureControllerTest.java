@@ -20,7 +20,6 @@ import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecture.mapper.LectureMapper;
 import ynzmz.server.lecture.service.LectureService;
-import ynzmz.server.tag.service.LectureTagService;
 import ynzmz.server.tag.service.TagService;
 
 import java.util.ArrayList;

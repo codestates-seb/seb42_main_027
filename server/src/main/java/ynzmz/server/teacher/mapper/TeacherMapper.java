@@ -1,8 +1,7 @@
 package ynzmz.server.teacher.mapper;
 
 import org.mapstruct.Mapper;
-import ynzmz.server.tag.entity.Tag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherTag;
+import ynzmz.server.tag.Tag;
 import ynzmz.server.teacher.dto.TeacherDto;
 import ynzmz.server.teacher.entity.Teacher;
 
