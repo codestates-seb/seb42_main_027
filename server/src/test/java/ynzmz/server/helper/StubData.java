@@ -1,21 +1,21 @@
 package ynzmz.server.helper;
 
-import ynzmz.server.comment.lecturereviewpost.dto.LectureReviewPostCommentDto;
-import ynzmz.server.comment.lecturereviewpost.entity.LectureReviewPostComment;
+import ynzmz.server.comment.lecturereview.dto.LectureReviewCommentDto;
+import ynzmz.server.comment.lecturereview.entity.LectureReviewComment;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.lecturereviewpost.dto.LectureReviewPostDto;
-import ynzmz.server.lecturereviewpost.entity.LectureReviewPost;
+import ynzmz.server.lecturereview.dto.LectureReviewDto;
+import ynzmz.server.lecturereview.entity.LectureReview;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.tag.mappingtable.lecture.LectureTag;
 import ynzmz.server.tag.entity.Tag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherTag;
 import ynzmz.server.teacher.dto.TeacherDto;
 import ynzmz.server.teacher.entity.Teacher;
-import ynzmz.server.vote.lecturereviewpost.comment.dto.LectureReviewPostCommentVoteDto;
-import ynzmz.server.vote.lecturereviewpost.comment.entity.LectureReviewPostCommentVote;
-import ynzmz.server.vote.lecturereviewpost.lecturereviewpost.dto.LectureReviewPostVoteDto;
-import ynzmz.server.vote.lecturereviewpost.lecturereviewpost.entity.LectureReviewPostVote;
+import ynzmz.server.vote.lecturereview.comment.dto.LectureReviewCommentVoteDto;
+import ynzmz.server.vote.lecturereview.comment.entity.LectureReviewCommentVote;
+import ynzmz.server.vote.lecturereview.lecturereview.dto.LectureReviewVoteDto;
+import ynzmz.server.vote.lecturereview.lecturereview.entity.LectureReviewVote;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,20 +28,20 @@ public class StubData {
     public static final Member member = new Member();
     public static final Teacher teacher = new Teacher();
     public static final Lecture lecture = new Lecture();
-    public static final LectureReviewPost lectureReviewPost = new LectureReviewPost();
+    public static final LectureReview LECTURE_REVIEW = new LectureReview();
     public static final TeacherDto.InfoResponse teacherInfoResponse = new TeacherDto.InfoResponse();
     public static final List<TeacherDto.InfoResponse> teacherInfoResponses = new ArrayList<>();
     public static final LectureDto.InfoResponse lectureInfoResponse = new LectureDto.InfoResponse();
     public static final List<LectureDto.InfoResponse> lectureInfoResponses = new ArrayList<>();
-    public static final LectureReviewPostDto.InfoResponse lectureReviewPostInfoResponse = new LectureReviewPostDto.InfoResponse();
-    public static final List<LectureReviewPostDto.InfoResponse> lectureReviewPostInfoResponses = new ArrayList<>();
-    public static final LectureReviewPostCommentDto.Response lectureReviewPostCommentResponse = new LectureReviewPostCommentDto.Response();
-    public static final List<LectureReviewPostCommentDto.Response> lectureReviewPostCommentResponses = new ArrayList<>();
-    public static final LectureReviewPostVote lectureReviewPostVote = new LectureReviewPostVote();
-    public static final LectureReviewPostVoteDto.Response lectureReviewPostVoteResponse = new LectureReviewPostVoteDto.Response();
-    public static final LectureReviewPostComment lectureReviewPostComment = new LectureReviewPostComment();
-    public static final LectureReviewPostCommentVote lectureReviewPostCommentVote = new LectureReviewPostCommentVote();
-    public static final LectureReviewPostCommentVoteDto.Response lectureReviewPostCommentVoteResponse = new LectureReviewPostCommentVoteDto.Response();
+    public static final LectureReviewDto.InfoResponse lectureReviewPostInfoResponse = new LectureReviewDto.InfoResponse();
+    public static final List<LectureReviewDto.InfoResponse> lectureReviewPostInfoResponses = new ArrayList<>();
+    public static final LectureReviewCommentDto.Response lectureReviewPostCommentResponse = new LectureReviewCommentDto.Response();
+    public static final List<LectureReviewCommentDto.Response> lectureReviewPostCommentResponses = new ArrayList<>();
+    public static final LectureReviewVote LECTURE_REVIEW_VOTE = new LectureReviewVote();
+    public static final LectureReviewVoteDto.Response lectureReviewPostVoteResponse = new LectureReviewVoteDto.Response();
+    public static final LectureReviewComment LECTURE_REVIEW_COMMENT = new LectureReviewComment();
+    public static final LectureReviewCommentVote LECTURE_REVIEW_COMMENT_VOTE = new LectureReviewCommentVote();
+    public static final LectureReviewCommentVoteDto.Response lectureReviewPostCommentVoteResponse = new LectureReviewCommentVoteDto.Response();
     public static void init(){
 
         tagsSample.add("국어");
@@ -78,16 +78,16 @@ public class StubData {
         lecture.setTeacher(teacher);
         lecture.setLectureTags(LECTURE_LECTURE_TAGS_SAMPLE);
 
-        lectureReviewPost.setLectureReviewPostId(1L);
-        lectureReviewPost.setTitle("이 강의 추천합니다!");
-        lectureReviewPost.setStarPoint(4.5);
-        lectureReviewPost.setContent("강의하시는데 ~~궁 ~~궁 해서 추천합니다");
-        lectureReviewPost.setCreatedAt("2023.03.10.18:52:36");
-        lectureReviewPost.setModifiedAt("2023.03.10.18:52:36");
-        lectureReviewPost.setViewCount(1);
-        lectureReviewPost.setVoteCount(0);
-        lectureReviewPost.setLecture(lecture);
-        lectureReviewPost.setMember(member);
+        LECTURE_REVIEW.setLectureReviewId(1L);
+        LECTURE_REVIEW.setTitle("이 강의 추천합니다!");
+        LECTURE_REVIEW.setStarPoint(4.5);
+        LECTURE_REVIEW.setContent("강의하시는데 ~~궁 ~~궁 해서 추천합니다");
+        LECTURE_REVIEW.setCreatedAt("2023.03.10.18:52:36");
+        LECTURE_REVIEW.setModifiedAt("2023.03.10.18:52:36");
+        LECTURE_REVIEW.setViewCount(1);
+        LECTURE_REVIEW.setVoteCount(0);
+        LECTURE_REVIEW.setLecture(lecture);
+        LECTURE_REVIEW.setMember(member);
 
         teacherInfoResponse.setTeacherId(1L);
         teacherInfoResponse.setName("홍길동");
@@ -108,7 +108,7 @@ public class StubData {
         lectureInfoResponses.add(lectureInfoResponse);
 
 
-        lectureReviewPostInfoResponse.setLectureReviewPostId(1L);
+        lectureReviewPostInfoResponse.setLectureReviewId(1L);
         lectureReviewPostInfoResponse.setTitle("이 강의 추천합니다!");
         lectureReviewPostInfoResponse.setStarPoint(4.5);
         lectureReviewPostInfoResponse.setContent("강의하시는데 ~~궁 ~~궁 해서 추천합니다");
@@ -122,7 +122,7 @@ public class StubData {
         lectureReviewPostInfoResponses.add(lectureReviewPostInfoResponse);
         lectureReviewPostInfoResponses.add(lectureReviewPostInfoResponse);
 
-        lectureReviewPostCommentResponse.setLectureReviewPostCommentId(1L);
+        lectureReviewPostCommentResponse.setLectureReviewCommentId(1L);
         lectureReviewPostCommentResponse.setContent("이사람 재대로 들은거 맞음?");
         lectureReviewPostCommentResponse.setVoteCount(0);
         lectureReviewPostCommentResponse.setCreatedAt("2023.03.10.18:52:36");
@@ -133,34 +133,34 @@ public class StubData {
         lectureReviewPostCommentResponses.add(lectureReviewPostCommentResponse);
         lectureReviewPostCommentResponses.add(lectureReviewPostCommentResponse);
 
-        lectureReviewPostVote.setLectureReviewPostVoteId(1L);
-        lectureReviewPostVote.setMember(member);
-        lectureReviewPostVote.setVoteStatus(LectureReviewPostVote.VoteStatus.UP);
-        lectureReviewPostVote.setLectureReviewPost(lectureReviewPost);
+        LECTURE_REVIEW_VOTE.setLectureReviewVoteId(1L);
+        LECTURE_REVIEW_VOTE.setMember(member);
+        LECTURE_REVIEW_VOTE.setVoteStatus(LectureReviewVote.VoteStatus.UP);
+        LECTURE_REVIEW_VOTE.setLectureReview(LECTURE_REVIEW);
 
-        lectureReviewPostVoteResponse.setVoteStatus(LectureReviewPostVote.VoteStatus.UP);
-        lectureReviewPostVoteResponse.setLectureReviewPostTotalCount(5);
+        lectureReviewPostVoteResponse.setVoteStatus(LectureReviewVote.VoteStatus.UP);
+        lectureReviewPostVoteResponse.setLectureReviewTotalCount(5);
         lectureReviewPostVoteResponse.setMemberId(1L);
-        lectureReviewPostVoteResponse.setLectureReviewPostId(1L);
+        lectureReviewPostVoteResponse.setLectureReviewId(1L);
 
-        lectureReviewPostComment.setLectureReviewPostCommentId(1L);
-        lectureReviewPostComment.setMember(member);
-        lectureReviewPostComment.setContent("이사람 재대로 들은거 맞음?");
-        lectureReviewPostComment.setVoteCount(0);
-        lectureReviewPostComment.setCreatedAt("2023.03.10.18:52:36");
-        lectureReviewPostComment.setModifiedAt("2023.03.10.18:52:36");
-        lectureReviewPostComment.setLectureReviewPost(lectureReviewPost);
-        lectureReviewPostComment.setMember(member);
+        LECTURE_REVIEW_COMMENT.setLectureReviewCommentId(1L);
+        LECTURE_REVIEW_COMMENT.setMember(member);
+        LECTURE_REVIEW_COMMENT.setContent("이사람 재대로 들은거 맞음?");
+        LECTURE_REVIEW_COMMENT.setVoteCount(0);
+        LECTURE_REVIEW_COMMENT.setCreatedAt("2023.03.10.18:52:36");
+        LECTURE_REVIEW_COMMENT.setModifiedAt("2023.03.10.18:52:36");
+        LECTURE_REVIEW_COMMENT.setLectureReview(LECTURE_REVIEW);
+        LECTURE_REVIEW_COMMENT.setMember(member);
 
 
-        lectureReviewPostCommentVote.setLectureReviewPostCommentVoteId(1L);
-        lectureReviewPostCommentVote.setVoteStatus(LectureReviewPostCommentVote.VoteStatus.UP);
-        lectureReviewPostCommentVote.setMember(member);
-        lectureReviewPostCommentVote.setLectureReviewPostComment(lectureReviewPostComment);
+        LECTURE_REVIEW_COMMENT_VOTE.setLectureReviewCommentVoteId(1L);
+        LECTURE_REVIEW_COMMENT_VOTE.setVoteStatus(LectureReviewCommentVote.VoteStatus.UP);
+        LECTURE_REVIEW_COMMENT_VOTE.setMember(member);
+        LECTURE_REVIEW_COMMENT_VOTE.setLectureReviewComment(LECTURE_REVIEW_COMMENT);
 
-        lectureReviewPostCommentVoteResponse.setVoteStatus(LectureReviewPostCommentVote.VoteStatus.UP);
-        lectureReviewPostCommentVoteResponse.setLectureReviewPostCommentId(1L);
+        lectureReviewPostCommentVoteResponse.setVoteStatus(LectureReviewCommentVote.VoteStatus.UP);
+        lectureReviewPostCommentVoteResponse.setLectureReviewCommentId(1L);
         lectureReviewPostCommentVoteResponse.setMemberId(1L);
-        lectureReviewPostCommentVoteResponse.setLectureReviewPostCommentTotalCount(5);
+        lectureReviewPostCommentVoteResponse.setLectureReviewCommentTotalCount(5);
     }
 }

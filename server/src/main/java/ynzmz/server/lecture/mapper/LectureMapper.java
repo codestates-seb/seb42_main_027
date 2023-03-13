@@ -24,7 +24,7 @@ public interface LectureMapper {
         if ( lecture.getLectureId() != null ) {
             infoResponse.setLectureId( lecture.getLectureId() );
         }
-        infoResponse.setName( lecture.getName() );
+        infoResponse.setName( lecture.getTitle() );
         infoResponse.setIntroduction( lecture.getIntroduction() );
         infoResponse.setStarPointAverage( lecture.getStarPointAverage() );
         List<LectureTag> list = lecture.getLectureTags();
