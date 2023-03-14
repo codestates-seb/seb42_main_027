@@ -16,14 +16,14 @@ public interface TeacherRepository extends JpaRepository<Teacher,Long> {
     Page<Teacher> findByGrade(String grade, Pageable pageable);
 
 
-    @Query("SELECT t FROM Teacher t " +
+    @Query("SELECT DISTINCT t FROM Teacher t " +
             "JOIN t.gradeTags tg " +
             "JOIN t.platformTags tp " +
             "JOIN  t.subjectTags ts " +
             "WHERE (:grade IS NULL OR tg.gradeTag.grade = :grade) " +
             "AND (:platform IS NULL OR tp.platformTag.platform = :platform) " +
             "AND (:subject IS NULL OR ts.subjectTag.subject = :subject) " +
-            "AND (:name IS NULL OR t.name LIKE :name)")
+            "AND (:name IS NULL OR t.name LIKE CONCAT('%', :name, '%'))")
     Page<Teacher> findAllByGradeAndPlatformAndSubjectAndName(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String name, Pageable pageable);
 //    Page<Teacher> findAllByTeacherGradeTagsAndPlatformTagsPlatformAndSubjectTagsSubjectAndName(String grade, String platform, String subject, String name, Pageable pageable);
 //    Page<Teacher> findByNameContainingIgnoreCase(String name, Pageable pageable);
