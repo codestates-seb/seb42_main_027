@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../theme';
+import sunIcon from '../../assets/images/sun.png';
+import MoonIcon from '../../assets/images/moon.png';
 
 function Toggle() {
   const [isOn, setisOn] = useState(false);
@@ -13,6 +15,12 @@ function Toggle() {
     <ToggleContainer onClick={toggleHandler}>
       <div className={`toggle-container ${isOn ? 'toggle--checked' : ''}`} />
       <div className={`toggle-circle ${isOn ? 'toggle--checked' : ''}`} />
+      <SunIconDiv>
+        <img src={sunIcon} alt="light mode" />
+      </SunIconDiv>
+      <MoonIconDiv>
+        <img src={MoonIcon} alt="dark mode" />
+      </MoonIconDiv>
     </ToggleContainer>
   );
 }
@@ -35,8 +43,9 @@ const ToggleContainer = styled.div`
 
   > .toggle-circle {
     position: absolute;
-    top: 2px;
-    left: 2px;
+    z-index: 1;
+    top: calc(100% / 12);
+    left: calc(4%);
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -46,6 +55,27 @@ const ToggleContainer = styled.div`
       left: 28px;
       transition: 0.5;
     }
+  }
+`;
+
+const SunIconDiv = styled.div`
+  position: absolute;
+  top: calc(100% / 6);
+  left: 30px;
+
+  > img {
+    width: 16px;
+    filter: invert(100%);
+  }
+`;
+
+const MoonIconDiv = styled.div`
+  position: absolute;
+  top: calc(100% / 5);
+  left: 5px;
+  > img {
+    width: 14px;
+    filter: invert(100%);
   }
 `;
 

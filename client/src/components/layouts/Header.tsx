@@ -1,18 +1,32 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from 'components/UI/Button';
 import Toggle from '../UI/Toggle';
 import theme from '../../theme';
 
 function Header() {
+  const [logIn, setLogIn] = useState(false);
+
+  const logInHandler = () => {
+    setLogIn(!logIn);
+  };
+
   return (
     <Container>
       <Left>
-        <Title>yanoljimalja</Title>
+        <Link to="/">
+          <Title>yanoljimalja</Title>
+        </Link>
         <UL>
           <LI>강사리뷰</LI>
           <LI>강의리뷰</LI>
-          <LI>질문게시판</LI>
-          <LI>자유게시판</LI>
+          <Link to="/qna">
+            <LI>질문게시판</LI>
+          </Link>
+          <Link to="/free">
+            <LI>자유게시판</LI>
+          </Link>
           <LI>이벤트</LI>
           <LI>스터디카페</LI>
         </UL>
@@ -21,10 +35,19 @@ function Header() {
         <ToggleDiv>
           <Toggle />
         </ToggleDiv>
-        <BtnDiv>
-          <Button.WhiteBtn>로그인</Button.WhiteBtn>
-          <Button.PointBtn>회원가입</Button.PointBtn>
-        </BtnDiv>
+        {logIn ? (
+          <BtnDiv>
+            <Button.WhiteBtn>내정보</Button.WhiteBtn>
+            <Button.PointBtn onClick={logInHandler}>로그아웃</Button.PointBtn>
+          </BtnDiv>
+        ) : (
+          <BtnDiv>
+            <Link to="/login">
+              <Button.WhiteBtn onClick={logInHandler}>로그인</Button.WhiteBtn>
+            </Link>
+            <Button.PointBtn>회원가입</Button.PointBtn>
+          </BtnDiv>
+        )}
       </Right>
     </Container>
   );
@@ -54,6 +77,10 @@ const UL = styled.ul`
   align-items: center;
   justify-content: space-between;
   margin: 0 ${theme.gap.px40} 0 ${theme.gap.px40};
+
+  > a {
+    display: flex;
+  }
 `;
 
 const LI = styled.li`
@@ -76,6 +103,9 @@ const BtnDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 176px;
+  > a {
+    display: flex;
+  }
 `;
 
 const Left = styled.div`
