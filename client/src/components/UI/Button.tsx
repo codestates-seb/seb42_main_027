@@ -11,7 +11,10 @@ const WhiteBtn = styled.button`
   background-color: ${theme.colors.white};
   border: 1px solid ${theme.colors.pointColor};
   border-radius: 13px;
-  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+    background-color: ${theme.colors.white_hover};
+  }
 `;
 
 const PointBtn = styled.button`
@@ -22,7 +25,10 @@ const PointBtn = styled.button`
   background-color: ${theme.colors.pointColor};
   border: 1px solid ${theme.colors.pointColor};
   border-radius: 13px;
-  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+    background-color: ${theme.colors.pointColor_hover};
+  }
 `;
 
 // Button 객체에 감싸서 반환
