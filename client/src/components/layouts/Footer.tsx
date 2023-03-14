@@ -22,13 +22,20 @@ function Footer() {
           </LI>
         </ul>
       </Section>
-      <div>Copyright (c) 2023. 야놀지말자. All rights reserved.</div>
+      <CopyRightDiv>
+        <div>Copyright (c) 2023. 야놀지말자. All rights reserved.</div>
+      </CopyRightDiv>
+      <div>
+        <a href="https://www.flaticon.com/icons" title="icons">
+          Icons created by Freepik - Flaticon
+        </a>
+      </div>
     </Container>
   );
 }
 
 const Container = styled.div`
-  height: 186px;
+  height: 207px;
   padding: 1.25rem;
   color: ${theme.colors.white};
   background-color: ${theme.colors.pointColor};
@@ -64,4 +71,7 @@ const GitHubLink = styled.div`
   }
 `;
 
+const CopyRightDiv = styled.div`
+  margin-bottom: calc(${theme.gap.px20} / 5);
+`;
 export default Footer;
