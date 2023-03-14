@@ -23,8 +23,7 @@ function SubjectMenu({ buttonOpen, setSubject }: Props) {
     '생명과학',
     '통합과학',
   ];
-  const subjectArr4: string[] = ['일본어', '아랍어', '중국어', '스페인어'];
-  const subjectArr5: string[] = ['프랑스어', '독일어', '베트남어', '한문'];
+  const subjectArr4: string[] = ['제2 외국어', '대학별고사'];
 
   const buttonClickHandler = (e: any) => {
     setSubject(e.target.value);
@@ -63,18 +62,8 @@ function SubjectMenu({ buttonOpen, setSubject }: Props) {
         })}
       </MenuSubContainer>
       <MenuSubContainer>
-        제2외국어 (1)
+        기타
         {subjectArr4.map((el, index) => {
-          return (
-            <MenuButton key={index} value={el} onClick={buttonClickHandler}>
-              {el}
-            </MenuButton>
-          );
-        })}
-      </MenuSubContainer>
-      <MenuSubContainer>
-        제2외국어 (2)
-        {subjectArr5.map((el, index) => {
           return (
             <MenuButton key={index} value={el} onClick={buttonClickHandler}>
               {el}
