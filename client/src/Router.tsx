@@ -24,8 +24,7 @@ function Router() {
           path="/ReviewPageDetail/:teacherId"
           element={<ReviewPageDetail />}
         />
-        <Route path="/createTeacher" element={<CreateTeacher />} />
-
+        <Route path="/ReviewPage/createTeacher" element={<CreateTeacher />} />
       </Routes>
       <Footer />
     </BrowserRouter>
