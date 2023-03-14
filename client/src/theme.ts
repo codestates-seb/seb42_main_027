@@ -40,9 +40,13 @@ const common = {
 
 // 요소 사이 기본 간격 설정. 기본 20px
 const gap = {
+  px10: '0.625rem',
   px20: '1.25rem',
   px40: '2.5rem',
   px60: '3.75rem',
+  px80: '5rem',
+  px100: '6.25rem',
+  px120: '7.5rem',
 };
 
 // theme 객체에 감싸서 반환한다.
