@@ -1,32 +1,58 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable react/no-array-index-key */
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { FlexContainer } from 'pages/Review/ReviewPage';
+import isLogin from 'utils/isLogin';
+import axios from 'axios';
 
 type Props = {
-  teacher: {
-    name: string;
-    belong: string;
-    subject: string;
-    img: string;
-    best: string;
-    grade: number;
+  teachers: {
+    gradeTags: string[];
+    imageUrl: string;
+    introduction: string;
+    name: string; // 강사명
+    platformTags: { platformTag: string }[];
+    starPointAverage: number;
+    subjectTags: { subjectTag: string }[];
+    teacherId: number;
+    totalReviewCount: number;
   }[];
 };
 
-function CharacterCard({ teacher }: Props) {
+function CharacterCard({ teachers }: Props) {
   return (
     <Container>
-      {teacher.map((el, index) => {
+      {teachers.map((el, index) => {
         return (
-          <CardContainer key={index}>
-            <Img src="http://placehold.it/200X200" alt="dummyImage" />
-            <Span>{el.name}</Span>
-            <Span>{el.belong}</Span>
-            <Span>{el.subject}</Span>
-            <LargeSpan>
-              {el.best.length > 7 ? `${el.best.slice(0, 7)}...` : el.best}
-            </LargeSpan>
-            <Span>⭐️ {el.grade}</Span>
-          </CardContainer>
+          <FlexContainer dir="col" key={index}>
+            <Link to={`/ReviewPageDetail/${el.teacherId}`}>
+              <CardContainer>
+                <Img src="http://placehold.it/200X200" alt="dummyImage" />
+                <Span>{el.name}</Span>
+                <Span>{el.platformTags[0].platformTag}</Span>
+                <Span>{el.subjectTags[0].subjectTag}</Span>
+                <LargeSpan>
+                  {el.introduction.length > 10
+                    ? `${el.introduction.slice(0, 10)}...`
+                    : el.introduction}
+                </LargeSpan>
+                <Span>⭐️ {el.starPointAverage}</Span>
+              </CardContainer>
+            </Link>
+            <FlexContainer display={!isLogin() ? 'flex' : 'none'}>
+              <button>수정</button>
+              <button
+                onClick={() => {
+                  axios.delete(
+                    `http://13.125.1.215:8080/teachers/${el.teacherId}`,
+                  );
+                }}
+              >
+                X
+              </button>
+            </FlexContainer>
+          </FlexContainer>
         );
       })}
     </Container>
