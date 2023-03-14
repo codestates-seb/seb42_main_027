@@ -1,4 +1,4 @@
-package ynzmz.server.eventBoard.entity;
+package ynzmz.server.events.eventBoard.entity;
 
 
 import lombok.Getter;
@@ -21,25 +21,25 @@ public class Event {
     private String title;
     private String hyperLink;
     private String date; //나중에 datetime으로 파싱
-    @Column
-    @Enumerated(EnumType.STRING)
-    private Source source;
-
-    public enum Source {
-        메가스터디("메가스터디"),
-        대성마이맥("대성마이맥"),
-        이투스("이투스"),
-        야놀지말자("야놀지말자");
-        private String sourceName;
-        Source(String sourceName){
-            this.sourceName = sourceName;
-        }
-        public String getSourceType(){
-            return sourceName;
-        }
-    }
+//    @Column
+//    @Enumerated(EnumType.STRING)
+//    private Source source;
+//
+//    public enum Source {
+//        메가스터디("메가스터디"),
+//        대성마이맥("대성마이맥"),
+//        이투스("이투스");
+//
+//        private String sourceName;
+//        Source(String sourceName){
+//            this.sourceName = sourceName;
+//        }
+//        public String getSourceType(){
+//            return sourceName;
+//        }
+//    }
     //enum 사용?
-
+    private String source;
 
 
 

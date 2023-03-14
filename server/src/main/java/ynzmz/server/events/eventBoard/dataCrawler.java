@@ -1,4 +1,4 @@
-package ynzmz.server.eventBoard;
+package ynzmz.server.events.eventBoard;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -29,12 +29,17 @@ public class dataCrawler {
 //            Document document = Jsoup.parse(new URL(megaUrl).openStream(),"euc-kr",megaUrl);
 
             Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
+            Elements megaeventsdate = document.getElementsByClass("date").select("span:nth-child(3)");
 
             for(Element element: megaeventsLink){
                 System.out.println(element.text() +","+ element.attr("abs:href"));
+
 //                System.out.println(element.select("a"));
 
 //                title = element.text() + element.attr("href");
+            }
+            for(Element element : megaeventsdate){
+                System.out.println(element.text().substring(7));
             }
 
 
