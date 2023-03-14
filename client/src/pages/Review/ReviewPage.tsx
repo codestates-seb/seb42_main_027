@@ -11,13 +11,18 @@ import { useEffect, useState } from 'react';
 
 function ReviewPage() {
   const [buttonOpen, setButtonOpen] = useState<boolean>(false);
-  const [subject, setSubject] = useState<string>('교과 목록');
-  const [sortTag, setSortTag] = useState<string>('');
+  const [subject, setSubject] = useState<string>('Filter');
+  const [grade, setGrade] = useState<string>('전체');
+  const [platform, setPlatform] = useState<string>('전체');
+  const [sortTag, setSortTag] = useState<string>('update');
   const [search, setSearch] = useState<string>('');
 
+  const [curPage, setCurPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(6);
+
   useEffect(() => {
-    console.log('change subject!');
-  }, [subject, sortTag, search]);
+    console.log('Rerendering!!');
+  }, [subject, sortTag, search, curPage, grade, platform]);
 
   return (
     <FlexContainer dir="col">
@@ -25,15 +30,26 @@ function ReviewPage() {
       <Carousel />
       <SortBar
         setSortTag={setSortTag}
-        subject={subject}
-        setSubject={setSubject}
         buttonOpen={buttonOpen}
         setButtonOpen={setButtonOpen}
       />
-      <SubjectMenu buttonOpen={buttonOpen} setSubject={setSubject} />
+      <SubjectMenu
+        buttonOpen={buttonOpen}
+        subject={subject}
+        grade={grade}
+        platform={platform}
+        setGrade={setGrade}
+        setSubject={setSubject}
+        setPlatform={setPlatform}
+      />
       <SearchBar search={search} setSearch={setSearch} />
       <CharacterCard teacher={dummy} />
-      <Pagenation size={48} currentPage={1} pageSize={6} />
+      <Pagenation
+        size={dummy.length + 20}
+        currentPage={curPage}
+        pageSize={pageSize}
+        setCurPage={setCurPage}
+      />
     </FlexContainer>
   );
 }
@@ -47,6 +63,8 @@ type Container = {
   align?: string;
   width?: string;
   height?: string;
+  backColor?: string;
+  borderRadius?: string;
 };
 
 type SubjectSelectButton = {
@@ -61,6 +79,8 @@ export const FlexContainer = styled.div<Container>`
   justify-content: ${props => props.justify || 'center'};
   align-items: ${props => props.align || 'center'};
   gap: ${props => props.gap || '1rem'};
+  background-color: ${props => props.backColor || 'none'};
+  border-radius: ${props => props.borderRadius || 'none'};
 `;
 
 const SubjectSelectButton = styled.div<SubjectSelectButton>`
