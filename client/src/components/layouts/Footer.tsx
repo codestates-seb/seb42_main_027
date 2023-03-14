@@ -14,7 +14,7 @@ function Footer() {
             <a href="https://github.com/codestates-seb/seb42_main_027">
               <GitHubLink>
                 <div>
-                  <GithubLogo width="16" height="auto" />
+                  <GithubLogo width="16" height="16" />
                 </div>
                 <div>GitHub Repository Link</div>
               </GitHubLink>
