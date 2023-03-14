@@ -4,6 +4,7 @@ const fontSizes = {
   base: '1rem',
   md: '1.25rem',
   lg: '1.5rem',
+  subTitle: '2rem',
 };
 
 // 자주 사용하는 색을 객체로 만들자.
@@ -13,8 +14,12 @@ const colors = {
   white_hover: '#DDDDDD',
   fontColor: '#565656',
   pointColor: '#6667AB',
+  pointColor_disabled: `#B2B3D5`,
   pointColor_hover: '#525392',
+  palePurple: '#E6E6EF',
+  lightGray: '#DDDDDD',
   gray: '#B8B8B8',
+  yellow: '#FFD54F',
   success: '#65E271',
   danger: '#EC3C3C',
 };
