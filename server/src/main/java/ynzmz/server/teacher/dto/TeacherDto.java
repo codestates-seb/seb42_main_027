@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.tag.dto.TeacherGradeTagDto;
+import ynzmz.server.tag.dto.TeacherPlatformTagDto;
+import ynzmz.server.tag.dto.TeacherSubjectTagDto;
 import ynzmz.server.tag.mappingtable.teacher.TeacherGradeTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherPlatformTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherSubjectTag;
@@ -48,9 +51,9 @@ public class TeacherDto {
         private String imageUrl;
         private double starPointAverage;
         private long totalReviewCount;
-        private List<TeacherGradeTag> gradeTags;
-        private List<TeacherSubjectTag> subjectTags;
-        private List<TeacherPlatformTag> platformTags;
+        private List<TeacherGradeTagDto.Response> gradeTags;
+        private List<TeacherSubjectTagDto.Response> subjectTags;
+        private List<TeacherPlatformTagDto.Response> platformTags;
     }
 
     //강사디테일조회

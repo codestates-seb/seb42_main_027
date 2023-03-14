@@ -39,6 +39,16 @@ public class TagService {
     private final LecturePlatformTagRepository lecturePlatformTagRepository;
     private final LectureSubjectTagRepository lectureSubjectTagRepository;
 
+    public GradeTag.Grade findGradeTag(String grade){
+        return GradeTag.Grade.valueOf(grade);
+    }
+    public PlatformTag.Platform findPlatformTag(String platform){
+        return PlatformTag.Platform.valueOf(platform);
+    }
+
+    public SubjectTag.Subject findSubjectTag(String subject) {
+        return SubjectTag.Subject.valueOf(subject);
+    }
     public List<GradeTag.Grade> findGradeTags(List<String> grades){
         List<GradeTag.Grade> gradeTags = new ArrayList<>();
         for(String grade : grades){

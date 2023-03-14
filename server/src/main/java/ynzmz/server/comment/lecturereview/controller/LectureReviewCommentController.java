@@ -12,7 +12,7 @@ import ynzmz.server.comment.lecturereview.service.LectureReviewCommentService;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
-import ynzmz.server.member.service.MemberService;
+
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("lecture-review-comment")
 @RequiredArgsConstructor
 public class LectureReviewCommentController {
-    private final MemberService memberService;
+    private final ynzmz.server.member.Service.MemberService memberService;
     private final LectureReviewPostCommentMapper lectureReviewPostCommentMapper;
     private final LectureReviewCommentService lectureReviewCommentService;
     @PostMapping
