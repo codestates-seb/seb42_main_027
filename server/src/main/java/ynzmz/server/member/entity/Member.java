@@ -26,7 +26,7 @@ public class Member {
     private String displayName;
     private String password;
     private String iconImageUrl;
-    private String createdAt;
+
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;

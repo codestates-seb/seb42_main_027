@@ -4,7 +4,6 @@ import lombok.Getter;
 
 public class BusinessLogicException extends RuntimeException {
 
-    private final ExceptionCode exceptionCode;
     @Getter
     private ExceptionCode exceptionCode;
 

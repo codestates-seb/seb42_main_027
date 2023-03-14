@@ -13,7 +13,7 @@ import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.lecturereview.entity.LectureReview;
 import ynzmz.server.lecturereview.sevice.LectureReviewService;
 import ynzmz.server.member.entity.Member;
-import ynzmz.server.member.service.MemberService;
+import ynzmz.server.member.Service.MemberService;
 import ynzmz.server.vote.lecturereview.dto.LectureReviewVoteDto;
 import ynzmz.server.vote.lecturereview.entity.LectureReviewVote;
 import ynzmz.server.vote.lecturereview.mapper.LectureReviewVoteMapper;
@@ -27,7 +27,7 @@ public class LectureReviewVoteController {
     private final LectureReviewService lectureReviewService;
     private final LectureReviewCommentService lectureReviewCommentService;
     private final LectureReviewVoteMapper lectureReviewVoteMapper;
-    private final MemberService memberService;
+    private final  MemberService memberService;
 
     @PostMapping("/{lecture-review-id}/up/{member-id}")
     public ResponseEntity<?> lectureReviewVoteUp(@PathVariable("lecture-review-id") long lectureReviewPostId,

@@ -4,6 +4,7 @@ package ynzmz.server.events.eventBoard.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import javax.persistence.Id;
 
 import javax.persistence.*;
 
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Setter
 public class Event {
     @Id
-    @AutoConfigureOrder
+//    @AutoConfigureOrder
     @GeneratedValue(strategy = GenerationType.AUTO)
     long eventId;
 
