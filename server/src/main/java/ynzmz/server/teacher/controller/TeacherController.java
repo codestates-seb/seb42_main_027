@@ -78,9 +78,22 @@ public class TeacherController {
                                                 @RequestParam int size){
 
         if(sort == null) sort = "teacherId";
-        Page<Teacher> teacherPage = teacherService.findTeachers(grade,platform,subject,name,sort,page -1, size);
+        GradeTag.Grade gradeTag;
+        PlatformTag.Platform platformTag;
+        SubjectTag.Subject subjectTag;
+        if(grade != null) {
+            gradeTag = tagService.findGradeTag(grade);
+        } else gradeTag = null;
+        if(platform != null) {
+            platformTag = tagService.findPlatformTag(platform);
+        } else  platformTag = null;
+        if(subject != null) {
+            subjectTag = tagService.findSubjectTag(subject);
+        } else subjectTag = null;
+
+        Page<Teacher> teacherPage = teacherService.findTeachers(gradeTag,platformTag,subjectTag,name,sort,page -1, size);
         List<Teacher> teachers = teacherPage.getContent();
-        List<TeacherDto.SimpleInfoResponse> responses = teacherMapper.teacherInfoResponsesToTeachers(teachers);
+        List<TeacherDto.ListPageResponse> responses = teacherMapper.teacherListPageResponsesToTeachers(teachers);
         return new ResponseEntity<>(new MultiResponseDto<>(responses, teacherPage), HttpStatus.OK);
     }
     //강사 상세조회
