@@ -48,12 +48,12 @@ public class YjEventService {
 
 
     //-------------------------------------------DELETE---------------------------------------------------------
-    public void deleteAll(){
-        eventRepository.deleteAll();
-    }
-    public void deleteEvent(Event event){
-        eventRepository.delete(event);
-    }
-}
+//    public void deleteAll(){
+//        eventRepository.deleteAll();
+//    }
+//    public void deleteEvent(Event event){
+//        eventRepository.delete(event);
+//    }
+//}
 
 }
