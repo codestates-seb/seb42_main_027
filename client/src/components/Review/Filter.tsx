@@ -45,4 +45,10 @@ const SubjectSelectButton = styled.button<SubjectSelectButton>`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #525392;
+    color: white;
+  }
 `;
