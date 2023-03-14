@@ -1,9 +1,16 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import Button from 'components/UI/Button';
 import Toggle from '../UI/Toggle';
 import theme from '../../theme';
 
 function Header() {
+  const [logIn, setLogIn] = useState(false);
+
+  const logInHandler = () => {
+    setLogIn(!logIn);
+  };
+
   return (
     <Container>
       <Left>
@@ -21,10 +28,17 @@ function Header() {
         <ToggleDiv>
           <Toggle />
         </ToggleDiv>
-        <BtnDiv>
-          <Button.WhiteBtn>로그인</Button.WhiteBtn>
-          <Button.PointBtn>회원가입</Button.PointBtn>
-        </BtnDiv>
+        {logIn ? (
+          <BtnDiv>
+            <Button.WhiteBtn>내정보</Button.WhiteBtn>
+            <Button.PointBtn onClick={logInHandler}>로그아웃</Button.PointBtn>
+          </BtnDiv>
+        ) : (
+          <BtnDiv>
+            <Button.WhiteBtn onClick={logInHandler}>로그인</Button.WhiteBtn>
+            <Button.PointBtn>회원가입</Button.PointBtn>
+          </BtnDiv>
+        )}
       </Right>
     </Container>
   );
