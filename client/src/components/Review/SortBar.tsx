@@ -6,21 +6,13 @@ import Button from 'components/UI/Button';
 import Filter from './Filter';
 
 type Props = {
-  setSortTag: React.Dispatch<React.SetStateAction<string>>;
-  subject: string;
-  setSubject: React.Dispatch<React.SetStateAction<string>>;
   buttonOpen: boolean;
+  setSortTag: React.Dispatch<React.SetStateAction<string>>;
   setButtonOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function SortBar({
-  setSubject,
-  setSortTag,
-  subject,
-  buttonOpen,
-  setButtonOpen,
-}: Props) {
-  const sortArr: string[] = ['Default', '평점', '가나다', '랜덤'];
+function SortBar({ setSortTag, buttonOpen, setButtonOpen }: Props) {
+  const sortArr: string[] = ['Update', '평점', '가나다', '랜덤'];
 
   const sortTagHandler = (e: any) => {
     setSortTag(e.target.value);
@@ -36,12 +28,7 @@ function SortBar({
           </PButton>
         );
       })}
-      <Filter
-        subject={subject}
-        setSubject={setSubject}
-        buttonOpen={buttonOpen}
-        setButtonOpen={setButtonOpen}
-      />
+      <Filter buttonOpen={buttonOpen} setButtonOpen={setButtonOpen} />
     </FlexContainer>
   );
 }
