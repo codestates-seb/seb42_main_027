@@ -4,7 +4,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
 import login from 'components/login/login';
-import isLogin from 'utils/isLogin';
 import BaseButton from '../components/UI/BaseButton';
 
 const { colors } = theme;
@@ -50,6 +49,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [isPasswordInputOpen, setIsPasswordInputOpen] = useState(false);
   const [failedLogin, setFailedLogin] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
   const pathData = {
     email: '',
@@ -70,6 +70,12 @@ function Login() {
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setLoginError(
+      '아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.',
+    );
+    if (!password) setLoginError('암호를 입력하세요.');
+    if (!email) setLoginError('이메일를 입력하세요.');
+
     pathData.email = email;
     pathData.password = password;
     try {
@@ -123,12 +129,7 @@ function Login() {
             </BaseButton>
           </ButtonGroup>
         </Form>
-        {failedLogin ? (
-          <FailLoginMessage>
-            아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다.
-            입력하신 내용을 다시 확인해주세요.
-          </FailLoginMessage>
-        ) : null}
+        {failedLogin ? <FailLoginMessage>{loginError}</FailLoginMessage> : null}
         <ButtonGroup>
           <PButton>이메일 찾기</PButton>
           <Separator>|</Separator>
