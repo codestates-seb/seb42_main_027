@@ -1,8 +1,5 @@
 import styled from 'styled-components';
 
-import Footer from './Footer';
-import Header from './Header';
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,13 +12,7 @@ type MainLayoutProps = {
 };
 
 function MainLayout({ children }: MainLayoutProps) {
-  return (
-    <Container>
-      <Header />
-      {children}
-      <Footer />
-    </Container>
-  );
+  return <Container>{children}</Container>;
 }
 
 export default MainLayout;
