@@ -77,6 +77,7 @@ public class TeacherController {
                                                 @RequestParam int page,
                                                 @RequestParam int size){
 
+        log.info("grade : " + grade + ", platform : " + platform + ", subject :  " + subject + ", name = " + name);
         if(sort == null) sort = "teacherId";
         GradeTag.Grade gradeTag;
         PlatformTag.Platform platformTag;
