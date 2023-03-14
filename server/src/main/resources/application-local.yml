@@ -8,7 +8,10 @@ spring:
     #    url: jdbc:mysql://localhost:3306/main027
     username: admin
     password: 12341234
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    database: mysql   # 추가 해준 부분
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
     show-sql: true
