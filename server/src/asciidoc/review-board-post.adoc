@@ -1,0 +1,89 @@
+= Main_Project_027
+:sectnums:
+:toc: left
+:toclevels: 4
+:toc-title: Table of Contents
+:source-highlighter: highlightjs
+:sectlinks:
+:pdf-fontsdir: src/asciidoc/fonts
+v1.0.0, 2023.03.10 19:30
+
+'''
+== 리뷰글
+
+=== 메인페이지 돌아가기
+* link:index.html[메인페이지]
+
+=== 강의 리뷰 등록
+.curl-request
+include::{snippets}/post-lecture-review-posts/curl-request.adoc[]
+.http-request
+include::{snippets}/post-lecture-review-posts/http-request.adoc[]
+.request-fields
+include::{snippets}/post-lecture-review-posts/request-fields.adoc[]
+.request-body
+include::{snippets}/post-lecture-review-posts/request-body.adoc[]
+.http-response
+include::{snippets}/post-lecture-review-posts/http-response.adoc[]
+.response-fields
+include::{snippets}/post-lecture-review-posts/response-fields.adoc[]
+.response-body
+include::{snippets}/post-lecture-review-posts/response-body.adoc[]
+=== 강의 리뷰 정보 수정
+.curl-request
+include::{snippets}/patch-lecture-review-posts/curl-request.adoc[]
+.path-parameters
+include::{snippets}/patch-lecture-review-posts/path-parameters.adoc[]
+.http-request
+include::{snippets}/patch-lecture-review-posts/http-request.adoc[]
+.request-fields
+include::{snippets}/patch-lecture-review-posts/request-fields.adoc[]
+.request-body
+include::{snippets}/patch-lecture-review-posts/request-body.adoc[]
+.http-response
+include::{snippets}/patch-lecture-review-posts/http-response.adoc[]
+.response-fields
+include::{snippets}/patch-lecture-review-posts/response-fields.adoc[]
+.response-body
+include::{snippets}/patch-lecture-review-posts/response-body.adoc[]
+=== 강의 리뷰 전체 조회 & 강사별 & 강의별 가능
+.curl-request
+include::{snippets}/get-lecture-review-posts/curl-request.adoc[]
+.request-parameters
+include::{snippets}/get-lecture-review-posts/request-parameters.adoc[]
+.http-request
+include::{snippets}/get-lecture-review-posts/http-request.adoc[]
+.request-body
+include::{snippets}/get-lecture-review-posts/request-body.adoc[]
+.http-response
+include::{snippets}/get-lecture-review-posts/http-response.adoc[]
+.response-fields
+include::{snippets}/get-lecture-review-posts/response-fields.adoc[]
+.response-body
+include::{snippets}/get-lecture-review-posts/response-body.adoc[]
+=== 강의 리뷰 상세 조회
+.curl-request
+include::{snippets}/get-lecture-review-post/curl-request.adoc[]
+.http-request
+include::{snippets}/get-lecture-review-post/http-request.adoc[]
+.request-body
+include::{snippets}/get-lecture-review-post/request-body.adoc[]
+.http-response
+include::{snippets}/get-lecture-review-post/http-response.adoc[]
+.response-fields
+include::{snippets}/get-lecture-review-post/response-fields.adoc[]
+.response-body
+include::{snippets}/get-lecture-review-post/response-body.adoc[]
+=== 강의 리뷰 삭제
+.curl-request
+include::{snippets}/delete-lecture-review-post/curl-request.adoc[]
+.path-parameters
+include::{snippets}/delete-lecture-review-post/path-parameters.adoc[]
+.http-request
+include::{snippets}/delete-lecture-review-post/http-request.adoc[]
+.request-body
+include::{snippets}/delete-lecture-review-post/request-body.adoc[]
+.http-response
+include::{snippets}/delete-lecture-review-post/http-response.adoc[]
+.response-body
+include::{snippets}/delete-lecture-review-post/response-body.adoc[]
