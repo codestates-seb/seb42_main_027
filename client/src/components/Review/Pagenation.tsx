@@ -7,28 +7,53 @@ type Props = {
   size: number; // 전체 강사 수
   currentPage: number; // 현재 페이지
   pageSize: number; // 한 페이지에 뿌릴 강사 수
+  setCurPage: React.Dispatch<React.SetStateAction<number>>;
   // sort:string; // 정렬 형태
   // word:string; // 검색어
 };
 
-function Pagenation({ size, currentPage, pageSize }: Props) {
+function Pagenation({ size, currentPage, pageSize, setCurPage }: Props) {
   const totalPage = Math.ceil(size / pageSize); // 전체 Page 개수
   const pageArr = [];
   for (let i = 1; i <= totalPage; i += 1) pageArr.push(i);
   return (
     <FlexContainer>
       <PagenationContainer>
-        <PageBox first={currentPage === 1}>⬅ prev</PageBox>
+        <PageBox
+          first={currentPage === 1}
+          onClick={() => {
+            if (currentPage > 1) {
+              setCurPage(currentPage - 1);
+            }
+          }}
+        >
+          ⬅ prev
+        </PageBox>
         <PageContainer>
           {pageArr.map((el, index) => {
             return (
-              <PageBox key={index} selected={currentPage === el}>
+              <PageBox
+                key={index}
+                selected={currentPage === el}
+                onClick={() => {
+                  setCurPage(Number(el));
+                }}
+              >
                 {el}
               </PageBox>
             );
           })}
         </PageContainer>
-        <PageBox last={currentPage === totalPage}>next ➡</PageBox>
+        <PageBox
+          last={currentPage === totalPage}
+          onClick={() => {
+            if (currentPage < totalPage) {
+              setCurPage(currentPage + 1);
+            }
+          }}
+        >
+          next ➡
+        </PageBox>
       </PagenationContainer>
     </FlexContainer>
   );

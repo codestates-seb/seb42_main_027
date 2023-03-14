@@ -5,15 +5,12 @@ import styled from 'styled-components';
 import { FlexContainer } from 'pages/Review/ReviewPage';
 
 type Props = {
-  subject: string;
   buttonOpen: boolean;
   setButtonOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setSubject: React.Dispatch<React.SetStateAction<string>>;
 };
 
-function Filter({ subject, setSubject, buttonOpen, setButtonOpen }: Props) {
+function Filter({ buttonOpen, setButtonOpen }: Props) {
   const subjectHandler = () => {
-    if (buttonOpen) setSubject('교과 목록');
     setButtonOpen(!buttonOpen);
   };
 
@@ -21,7 +18,7 @@ function Filter({ subject, setSubject, buttonOpen, setButtonOpen }: Props) {
     <FlexContainer gap="0.3rem">
       <GlobalStyle />
       <SubjectSelectButton isOpen={buttonOpen} onClick={subjectHandler}>
-        {subject}
+        Filter
       </SubjectSelectButton>
     </FlexContainer>
   );
@@ -48,4 +45,10 @@ const SubjectSelectButton = styled.button<SubjectSelectButton>`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #525392;
+    color: white;
+  }
 `;
