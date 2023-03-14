@@ -82,6 +82,9 @@ public class MemberService {
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
 
+
+
+
     public Member findMemberById(long memberId){
         Optional<Member> foundMember = memberRepository.findById(memberId);
         return foundMember.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
