@@ -6,7 +6,6 @@ public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "Member not found"),
     MEMBER_EXISTS(409, "Member exists"),
 
-    TEACHER_NOT_FOUND(404, "Teacher not found"),
     TEACHER_EXISTS(409, "Teacher exists"),
 
     QUESTION_NOT_FOUND(404, "Question not found"),
@@ -32,7 +31,6 @@ public enum ExceptionCode {
     EVENT_NOT_FOUND(404,"해당 아이디 관련 이벤트가 없습니다"),
     EVENT_NOT_YZ(600,"야놀지말자 이벤트가 아니라 수정할 수 없습니다");
 
-    INVALID_MEMBER_STATUS(400, "Invalid member status");
 
     // 권한이없을때
 

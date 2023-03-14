@@ -7,7 +7,6 @@ spring:
     username: admin
     password: 12341234
 
-
   jpa:
     hibernate:
       ddl-auto: update
