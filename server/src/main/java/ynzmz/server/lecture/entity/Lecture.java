@@ -35,7 +35,6 @@ public class Lecture {
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<LecturePlatformTag> platformTags = new ArrayList<>();
-
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<LectureReview> lectureReviews = new ArrayList<>();
@@ -43,6 +42,7 @@ public class Lecture {
     @JoinColumn(name = "teacher_id")
     @JsonBackReference
     private Teacher teacher;
+
 
     public enum Status {
         예정,

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.tag.entity.GradeTag;
+import ynzmz.server.tag.entity.PlatformTag;
+import ynzmz.server.tag.entity.SubjectTag;
 import ynzmz.server.teacher.entity.Teacher;
 import ynzmz.server.teacher.repository.TeacherRepository;
 
@@ -35,8 +38,8 @@ public class TeacherService {
         return teacherRepository.findAll(PageRequest.of(page, size, Sort.by("teacherId").descending()));
     }
 
-    public Page<Teacher> findTeachers(String grade, String platform, String subject, String name, String sort, int page, int size) {
-        return teacherRepository.findByGradeAndPlatformAndSubjectAndName(grade, platform, subject, name, PageRequest.of(page, size, Sort.by(sort).descending()));
+    public Page<Teacher> findTeachers(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String name, String sort, int page, int size) {
+        return teacherRepository.findAllByGradeAndPlatformAndSubjectAndName(grade, platform, subject, name, PageRequest.of(page, size, Sort.by(sort).descending()));
     }
 
     public void deleteTeacher(long teacherId) {
