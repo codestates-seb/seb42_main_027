@@ -8,27 +8,80 @@ import Carousel from 'components/Review/Carousel';
 import SubjectMenu from 'components/Review/SubjectMenu';
 import { dummy } from 'components/Review/CharacterDummy';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Button from 'components/UI/Button';
+import isLogin from 'utils/isLogin';
+import { Link } from 'react-router-dom';
+
+const PButton = Button.PointBtn;
+
+type Teachers = {
+  gradeTags: string[];
+  imageUrl: string;
+  introduction: string;
+  name: string; // 강사명
+  platformTags: { platformTag: string }[];
+  starPointAverage: number;
+  subjectTags: { subjectTag: string }[];
+  teacherId: number;
+  totalReviewCount: number;
+};
 
 function ReviewPage() {
   const [buttonOpen, setButtonOpen] = useState<boolean>(false);
-  const [subject, setSubject] = useState<string>('Filter');
+  const [subject, setSubject] = useState<string>('전체');
   const [grade, setGrade] = useState<string>('전체');
   const [platform, setPlatform] = useState<string>('전체');
-  const [sortTag, setSortTag] = useState<string>('update');
+  const [sortTag, setSortTag] = useState<string>('Update');
   const [search, setSearch] = useState<string>('');
+  const [reverse, setReverse] = useState<string>('');
+  const [teachers, setTeachers] = useState<Teachers[]>([]); // 서버에서 받아올 선생 정보
 
   const [curPage, setCurPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(6);
 
   useEffect(() => {
     console.log('Rerendering!!');
+
+    axios
+      .get(
+        `http://13.125.1.215:8080/teachers?${
+          subject !== '전체' ? `subject=${subject}&` : ''
+        }${sortTag !== 'Update' ? `sort=name&` : ''}${
+          grade !== '전체' ? `grade=${grade}&` : ''
+        }${search !== '' ? `name=${search}&` : ''}${
+          platform !== '전체' ? `platform=${platform}&` : ''
+        }page=${curPage}&size=${pageSize}`,
+      )
+      .then((res: any) => {
+        console.log(res.data.data);
+        setTeachers(res.data.data);
+      });
+
+    // fetch(`http://13.125.1.215:8080/teachers?page=${curPage}&size=${pageSize}`)
+    //   .then((res: any) => {
+    //     return res.json();
+    //   })
+    //   .then((data: any) => {
+    //     console.log(data);
+    //   });
   }, [subject, sortTag, search, curPage, grade, platform]);
 
   return (
     <FlexContainer dir="col">
       <GlobalStyle />
       <Carousel />
+      <FlexContainer
+        display={!isLogin() ? 'flex' : 'none'}
+        width="80%"
+        justify="right"
+      >
+        <Link to="createTeacher">
+          <PButton>강사 등록</PButton>
+        </Link>
+      </FlexContainer>
       <SortBar
+        sortTag={sortTag}
         setSortTag={setSortTag}
         buttonOpen={buttonOpen}
         setButtonOpen={setButtonOpen}
@@ -43,9 +96,10 @@ function ReviewPage() {
         setPlatform={setPlatform}
       />
       <SearchBar search={search} setSearch={setSearch} />
-      <CharacterCard teacher={dummy} />
+
+      <CharacterCard teachers={teachers} />
       <Pagenation
-        size={dummy.length + 20}
+        size={teachers.length}
         currentPage={curPage}
         pageSize={pageSize}
         setCurPage={setCurPage}
@@ -65,6 +119,8 @@ type Container = {
   height?: string;
   backColor?: string;
   borderRadius?: string;
+  display?: string;
+  wrap?: string;
 };
 
 type SubjectSelectButton = {
@@ -74,8 +130,9 @@ type SubjectSelectButton = {
 export const FlexContainer = styled.div<Container>`
   width: ${props => props.width};
   height: ${props => props.height};
-  display: flex;
+  display: ${props => props.display || 'flex'};
   flex-direction: ${props => (props.dir === 'col' ? 'column' : 'row')};
+  flex-wrap: ${props => props.wrap};
   justify-content: ${props => props.justify || 'center'};
   align-items: ${props => props.align || 'center'};
   gap: ${props => props.gap || '1rem'};
