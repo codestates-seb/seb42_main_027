@@ -6,6 +6,7 @@ import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.review.lecture.entity.LectureReview;
 import ynzmz.server.tag.dto.GradeTagDto;
 import ynzmz.server.tag.dto.PlatformTagDto;
@@ -21,7 +22,7 @@ import ynzmz.server.teacher.entity.Teacher;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-15T23:18:12+0900",
+    date = "2023-03-15T23:55:33+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -346,6 +347,58 @@ public class TeacherMapperImpl implements TeacherMapper {
         return list1;
     }
 
+    protected LectureDto.SimpleInfoResponse lectureToSimpleInfoResponse(Lecture lecture) {
+        if ( lecture == null ) {
+            return null;
+        }
+
+        LectureDto.SimpleInfoResponse simpleInfoResponse = new LectureDto.SimpleInfoResponse();
+
+        if ( lecture.getLectureId() != null ) {
+            simpleInfoResponse.setLectureId( lecture.getLectureId() );
+        }
+        simpleInfoResponse.setTitle( lecture.getTitle() );
+        simpleInfoResponse.setStarPointAverage( lecture.getStarPointAverage() );
+
+        return simpleInfoResponse;
+    }
+
+    protected LectureReviewDto.ListPageResponse lectureReviewToListPageResponse(LectureReview lectureReview) {
+        if ( lectureReview == null ) {
+            return null;
+        }
+
+        LectureReviewDto.ListPageResponse listPageResponse = new LectureReviewDto.ListPageResponse();
+
+        if ( lectureReview.getLectureReviewId() != null ) {
+            listPageResponse.setLectureReviewId( lectureReview.getLectureReviewId() );
+        }
+        listPageResponse.setTitle( lectureReview.getTitle() );
+        listPageResponse.setStarPoint( lectureReview.getStarPoint() );
+        listPageResponse.setContent( lectureReview.getContent() );
+        listPageResponse.setCreatedAt( lectureReview.getCreatedAt() );
+        listPageResponse.setModifiedAt( lectureReview.getModifiedAt() );
+        listPageResponse.setViewCount( lectureReview.getViewCount() );
+        listPageResponse.setVoteCount( lectureReview.getVoteCount() );
+        listPageResponse.setLecture( lectureToSimpleInfoResponse( lectureReview.getLecture() ) );
+        listPageResponse.setMember( lectureReview.getMember() );
+
+        return listPageResponse;
+    }
+
+    protected List<LectureReviewDto.ListPageResponse> lectureReviewListToListPageResponseList(List<LectureReview> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<LectureReviewDto.ListPageResponse> list1 = new ArrayList<LectureReviewDto.ListPageResponse>( list.size() );
+        for ( LectureReview lectureReview : list ) {
+            list1.add( lectureReviewToListPageResponse( lectureReview ) );
+        }
+
+        return list1;
+    }
+
     protected LectureDto.TeacherReviewDetailPageResponse lectureToTeacherReviewDetailPageResponse(Lecture lecture) {
         if ( lecture == null ) {
             return null;
@@ -358,10 +411,7 @@ public class TeacherMapperImpl implements TeacherMapper {
         }
         teacherReviewDetailPageResponse.setTitle( lecture.getTitle() );
         teacherReviewDetailPageResponse.setStatus( lecture.getStatus() );
-        List<LectureReview> list = lecture.getLectureReviews();
-        if ( list != null ) {
-            teacherReviewDetailPageResponse.setLectureReviews( new ArrayList<LectureReview>( list ) );
-        }
+        teacherReviewDetailPageResponse.setLectureReviews( lectureReviewListToListPageResponseList( lecture.getLectureReviews() ) );
 
         return teacherReviewDetailPageResponse;
     }

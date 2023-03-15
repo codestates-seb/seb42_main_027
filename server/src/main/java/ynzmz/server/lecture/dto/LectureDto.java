@@ -69,20 +69,20 @@ public class LectureDto {
         private List<GradeTagDto.Response> gradeTags;
         private List<SubjectTagDto.Response> subjectTags;
         private List<PlatformTagDto.Response> platformTags;
-        private List<LectureReview> lectureReviews;
+        private List<LectureReviewDto.ListPageResponse> lectureReviews;
     }
     @Getter @Setter
     public static class TeacherReviewDetailPageResponse{
         private long lectureId;
         private String title;
         private Lecture.Status status;
-        private List<LectureReview> lectureReviews;
+        private List<LectureReviewDto.ListPageResponse> lectureReviews;
     }
-    //강의 디테일조회
     @Getter @Setter
     public static class SimpleInfoResponse {
         private long lectureId;
         private String title;
         private double starPointAverage;
+
     }
 }

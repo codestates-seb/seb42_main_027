@@ -37,10 +37,6 @@ public class TeacherService {
         return teacherRepository.save(findTeacher);
     }
 
-//    public Page<Teacher> findTeachers(int page, int size) {
-//        return teacherRepository.findAll(PageRequest.of(page, size, Sort.by("teacherId").descending()));
-//    }
-
     public Page<Teacher> findTeachers(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String name, String sort, int page, int size) {
         return teacherRepository.findAllByGradeAndPlatformAndSubjectAndName(grade, platform, subject, name, PageRequest.of(page, size, Sort.by(sort)));
     }
@@ -66,11 +62,6 @@ public class TeacherService {
         teacher.setStarPointAverage(starPointAverage);
         teacher.setTotalReviewCount(totalReviewCount);
         teacherRepository.save(teacher);
-    }
-
-    public void setTotalReviewCount(Teacher teacher) {
-        List<Lecture> lectures = teacher.getLectures();
-        long totalReviewCount = lectures.size();
     }
 
     public Teacher findTeacherById(long teacherId){

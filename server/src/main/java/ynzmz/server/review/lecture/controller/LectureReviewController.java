@@ -30,9 +30,9 @@ public class LectureReviewController {
         LectureReview lectureReview = lectureReviewMapper.lectureReviewToLectureReviewPost(lectureReviewPostPost);
         LectureReview createdLectureReview = lectureReviewService.createLectureReview(lectureReview);
 
-        //리뷰 등록시 강의의 평균점수를 수정
+        //리뷰 등록시 강의의 평균점수를 수정 & 리뷰 총 갯수 수정
         lectureService.setLectureStaPointAverageAndTotalReviewCount(createdLectureReview.getLecture());
-        //리뷰 등록시 강사의 평균점수를 수정
+        //리뷰 등록시 강사의 평균점수를 수정 & 리뷰 총 갯수 수정
         teacherService.setTeacherStarPointAverageAndTotalReviewCount(createdLectureReview.getLecture().getTeacher());
 
         LectureReviewDto.InfoResponse response = lectureReviewMapper.lectureReviewInfoResponseToLectureReview(createdLectureReview);
@@ -75,20 +75,20 @@ public class LectureReviewController {
             //case1 :선생님 지정 x , 강의 지정 x 시 -> 리뷰 전체 조회
             Page<LectureReview> lectureReviewPostPage = lectureReviewService.findAllLectureReviews(page -1, size);
             List<LectureReview> lectureReviews = lectureReviewPostPage.getContent();
-            List<LectureReviewDto.InfoResponse> responses = lectureReviewMapper.lectureReviewInfoResponsesToLectureReviews(lectureReviews);
+            List<LectureReviewDto.ListPageResponse> responses = lectureReviewMapper.lectureReviewListPageResponsesToLectureReviews(lectureReviews);
             return new ResponseEntity<>(new MultiResponseDto<>(responses, lectureReviewPostPage), HttpStatus.OK);
         } else if( teacherId != 0 && lectureId == 0) {
             //case2 : 선생님 지정 o , 강의 지정 x 시 -> 강사의 리뷰 전체 조회
             Page<LectureReview> lectureReviewPostPage = lectureReviewService.findLectureReviewsByTeacher(teacherId, page -1, size);
             List<LectureReview> lectureReviews = lectureReviewPostPage.getContent();
-            List<LectureReviewDto.InfoResponse> responses = lectureReviewMapper.lectureReviewInfoResponsesToLectureReviews(lectureReviews);
+            List<LectureReviewDto.ListPageResponse> responses = lectureReviewMapper.lectureReviewListPageResponsesToLectureReviews(lectureReviews);
             return new ResponseEntity<>(new MultiResponseDto<>(responses, lectureReviewPostPage), HttpStatus.OK);
         } else {
              //* case3 :선생님 지정 x , 강의 지정 o 시 -> 강의 리뷰 전체 조회 ( 강사는 강의에 이미 포함되있는것 ) <br>
              //case4 : 선생님 지정 o , 강의 지정 o 시 -> case 3와 동일 <br>
             Page<LectureReview> lectureReviewPostPage = lectureReviewService.findLectureReviewsByLecture(lectureId, page -1, size);
             List<LectureReview> lectureReviews = lectureReviewPostPage.getContent();
-            List<LectureReviewDto.InfoResponse> responses = lectureReviewMapper.lectureReviewInfoResponsesToLectureReviews(lectureReviews);
+            List<LectureReviewDto.ListPageResponse> responses = lectureReviewMapper.lectureReviewListPageResponsesToLectureReviews(lectureReviews);
             return new ResponseEntity<>(new MultiResponseDto<>(responses, lectureReviewPostPage), HttpStatus.OK);
         }
     }
@@ -97,7 +97,7 @@ public class LectureReviewController {
     @GetMapping("/{lecture-review-post-id}")
     public ResponseEntity<?> getReviewDetail(@PathVariable("lecture-review-post-id") long lectureReviewId){
         LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewId);
-        LectureReviewDto.InfoResponse response = lectureReviewMapper.lectureReviewInfoResponseToLectureReview(lectureReview);
+        LectureReviewDto.DetailPageResponse response = lectureReviewMapper.lectureReviewDetailPageResponseToLectureReview(lectureReview);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
     //리뷰 삭제

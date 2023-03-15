@@ -92,7 +92,6 @@ public class LectureController {
         List<LectureDto.ListPageResponse> responses = lectureMapper.lectureListPageResponsesToLectures(lectures);
 
         return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
-
         }
 
     //강의 한건 디테일조회
