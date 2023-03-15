@@ -2,8 +2,8 @@ package ynzmz.server.vote.lecturereview.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ynzmz.server.comment.lecturereview.entity.LectureReviewComment;
-import ynzmz.server.lecturereview.entity.LectureReview;
+import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
+import ynzmz.server.review.lecture.entity.LectureReview;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.vote.VoteCount;
 import ynzmz.server.vote.lecturereview.entity.LectureReviewVote;

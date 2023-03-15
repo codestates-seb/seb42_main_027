@@ -20,13 +20,13 @@ import javax.validation.constraints.Positive;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/members")
 public class MemberController {
-
     private final MemberMapper memberMapper;
     private final MemberService memberService;
 
     @PostMapping
-    public ResponseEntity postMember(@RequestBody @Valid MemberPostDto requestBody){
+    public ResponseEntity<?> postMember(@RequestBody @Valid MemberPostDto requestBody){
         Member member = memberMapper.memberPostDtoToMember(requestBody);
         Member createdMember = memberService.createMember(member);
         MemberDto response=  memberMapper.memberToMemberResponse(createdMember);
@@ -35,7 +35,7 @@ public class MemberController {
     }
 
     @PatchMapping("/{member-id}")
-    public ResponseEntity patchMember(@PathVariable("member-id") @Positive long memberId, @RequestBody @Valid MemberPatchDto requestBody) {
+    public ResponseEntity<?> patchMember(@PathVariable("member-id") @Positive long memberId, @RequestBody @Valid MemberPatchDto requestBody) {
         requestBody.setMemberId(memberId);
         Member member = memberService.updateMember(memberMapper.memberPatchDtoToMember(requestBody));
         Member updatedMember = memberService.updateMember(member);
