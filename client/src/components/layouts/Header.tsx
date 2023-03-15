@@ -6,7 +6,12 @@ import Toggle from '../common/Toggle';
 import theme from '../../theme';
 
 function Header() {
-  const { isLogin } = useIsLoginStore();
+  const { isLogin, setIsLogin } = useIsLoginStore(state => state);
+
+  const logOutHandler = () => {
+    localStorage.removeItem('token');
+    setIsLogin(false);
+  };
 
   return (
     <Container>
@@ -37,14 +42,16 @@ function Header() {
         {isLogin ? (
           <BtnDiv>
             <Button.WhiteBtn>내정보</Button.WhiteBtn>
-            <Button.PointBtn>로그아웃</Button.PointBtn>
+            <Button.PointBtn onClick={logOutHandler}>로그아웃</Button.PointBtn>
           </BtnDiv>
         ) : (
           <BtnDiv>
             <Link to="/login">
               <Button.WhiteBtn>로그인</Button.WhiteBtn>
             </Link>
-            <Button.PointBtn>회원가입</Button.PointBtn>
+            <Link to="/signup">
+              <Button.PointBtn>회원가입</Button.PointBtn>
+            </Link>
           </BtnDiv>
         )}
       </Right>
@@ -71,6 +78,7 @@ const Title = styled.h1`
   font-weight: bold;
   color: ${theme.colors.pointColor};
   font-size: 35px;
+  margin-top: -0.1953125rem;
 `;
 
 const UL = styled.ul`
