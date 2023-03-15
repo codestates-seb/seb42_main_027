@@ -52,7 +52,7 @@ function Login() {
   const [loginError, setLoginError] = useState('');
 
   const pathData = {
-    email: '',
+    username: '',
     password: '',
   };
 
@@ -76,12 +76,13 @@ function Login() {
     if (!password) setLoginError('암호를 입력하세요.');
     if (!email) setLoginError('이메일를 입력하세요.');
 
-    pathData.email = email;
+    pathData.username = email;
     pathData.password = password;
     try {
       await login(pathData);
     } catch (error) {
       setFailedLogin(true);
+      console.error(error);
     }
   };
 

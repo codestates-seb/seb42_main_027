@@ -5,6 +5,7 @@ import Login from 'pages/Login';
 import QnABoard from 'pages/QnABoard/QnABoard';
 import FreeBoard from 'pages/FreeBoard/FreeBoard';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import SignUp from 'pages/SignUp';
 
 function Router() {
   return (
@@ -13,6 +14,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/qna" element={<QnABoard />} />
         <Route path="/free" element={<FreeBoard />} />
       </Routes>
