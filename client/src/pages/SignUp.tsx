@@ -70,6 +70,7 @@ function SignUp() {
         <Title>시작하기</Title>
         <SubTitle>지금 가입하고 국내 모든 인강 정보와 후기를 한눈에</SubTitle>
         <SubTitle>확인하세요.</SubTitle>
+
         <ButtonGroup>
           <TypeButton>
             <IconBiUser />

@@ -5,8 +5,9 @@ import styled from 'styled-components';
 import PButton from 'components/member/login/PButton';
 import Input from 'components/common/Input';
 import theme from 'theme';
-import login from 'components/login/login';
+import login from 'components/member/login/login';
 import { useIsLoginStore } from 'stores/loginStore';
+import { Container, Title } from 'components/member/memberStyledComponents';
 import BaseButton from '../components/common/BaseButton';
 
 const { colors } = theme;
@@ -72,7 +73,6 @@ function Login() {
       await login(pathData);
       navigate(-1);
       setIsLogin(true);
-      console.log(isLogin);
     } catch (error) {
       setFailedLogin(true);
       console.error(error);
