@@ -1,4 +1,4 @@
-package ynzmz.server.events.yjevent.mapper;
+package ynzmz.server.event.inner.mapper;
 
 import org.mapstruct.Mapper;
 

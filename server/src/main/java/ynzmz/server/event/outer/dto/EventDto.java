@@ -1,4 +1,4 @@
-package ynzmz.server.events.outerevent.dto;
+package ynzmz.server.event.outer.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

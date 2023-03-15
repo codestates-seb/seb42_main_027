@@ -1,4 +1,4 @@
-package ynzmz.server.events;
+package ynzmz.server.event;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

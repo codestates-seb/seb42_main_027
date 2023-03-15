@@ -1,4 +1,4 @@
-package ynzmz.server.events.outerevent;
+package ynzmz.server.event.outer;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
