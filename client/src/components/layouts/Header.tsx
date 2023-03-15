@@ -1,17 +1,11 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
+import isLogin from 'utils/isLogin';
 import Toggle from '../common/Toggle';
 import theme from '../../theme';
 
 function Header() {
-  const [logIn, setLogIn] = useState(false);
-
-  const logInHandler = () => {
-    setLogIn(!logIn);
-  };
-
   return (
     <Container>
       <Left>
@@ -38,15 +32,15 @@ function Header() {
         <ToggleDiv>
           <Toggle />
         </ToggleDiv>
-        {logIn ? (
+        {isLogin() ? (
           <BtnDiv>
             <Button.WhiteBtn>내정보</Button.WhiteBtn>
-            <Button.PointBtn onClick={logInHandler}>로그아웃</Button.PointBtn>
+            <Button.PointBtn>로그아웃</Button.PointBtn>
           </BtnDiv>
         ) : (
           <BtnDiv>
             <Link to="/login">
-              <Button.WhiteBtn onClick={logInHandler}>로그인</Button.WhiteBtn>
+              <Button.WhiteBtn>로그인</Button.WhiteBtn>
             </Link>
             <Button.PointBtn>회원가입</Button.PointBtn>
           </BtnDiv>
