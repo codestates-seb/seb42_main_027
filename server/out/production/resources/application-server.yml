@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:mysql://mainproject27team.c16y5acx5nnq.ap-northeast-2.rds.amazonaws.com:3306/mainproject?serverTimezone=Asia/Seoul
     username: admin
-    password: 12341234
+    password: TZJrQnSUmZGHc2Fm0Vjw
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,3 +13,16 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+
+mail:
+  address:
+    admin: likedubu@naver.com
+
+jwt:
+  #  key: ${JWT_SECRET_KEY}   # 민감한 정보는 시스템 환경 변수에서 로드한다.
+  key: davin1234123412341234123412341234
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420

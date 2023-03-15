@@ -9,7 +9,7 @@ import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecture.repository.LectureRepository;
-import ynzmz.server.lecturereview.entity.LectureReview;
+import ynzmz.server.review.lecture.entity.LectureReview;
 
 import javax.transaction.Transactional;
 import java.util.List;

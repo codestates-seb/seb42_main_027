@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ynzmz.server.comment.lecturereview.entity.LectureReviewComment;
-import ynzmz.server.lecturereview.entity.LectureReview;
+import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
+import ynzmz.server.review.lecture.entity.LectureReview;
 import ynzmz.server.member.entity.Member;
 
 import javax.persistence.*;

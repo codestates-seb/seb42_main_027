@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.lecturereview.entity.LectureReview;
+import ynzmz.server.review.lecture.entity.LectureReview;
 import ynzmz.server.tag.mappingtable.lecture.LectureGradeTag;
 import ynzmz.server.tag.mappingtable.lecture.LecturePlatformTag;
 import ynzmz.server.tag.mappingtable.lecture.LectureSubjectTag;
