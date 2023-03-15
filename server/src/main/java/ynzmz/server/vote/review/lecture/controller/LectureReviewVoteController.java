@@ -1,4 +1,4 @@
-package ynzmz.server.vote.lecturereview.controller;
+package ynzmz.server.vote.review.lecture.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,10 +14,10 @@ import ynzmz.server.review.lecture.entity.LectureReview;
 import ynzmz.server.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
-import ynzmz.server.vote.lecturereview.dto.LectureReviewVoteDto;
-import ynzmz.server.vote.lecturereview.entity.LectureReviewVote;
-import ynzmz.server.vote.lecturereview.mapper.LectureReviewVoteMapper;
-import ynzmz.server.vote.lecturereview.service.LectureReviewVoteService;
+import ynzmz.server.vote.review.lecture.dto.LectureReviewVoteDto;
+import ynzmz.server.vote.review.lecture.entity.LectureReviewVote;
+import ynzmz.server.vote.review.lecture.mapper.LectureReviewVoteMapper;
+import ynzmz.server.vote.review.lecture.service.LectureReviewVoteService;
 
 @RestController
 @RequestMapping("/vote/lecture-review")

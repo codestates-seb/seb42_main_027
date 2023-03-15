@@ -1,4 +1,4 @@
-package ynzmz.server.vote.lecturereview.entity;
+package ynzmz.server.vote.review.lecture.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;

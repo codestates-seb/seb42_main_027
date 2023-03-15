@@ -4,7 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.review.lecture.entity.LectureReview;
+import ynzmz.server.tag.dto.GradeTagDto;
+import ynzmz.server.tag.dto.PlatformTagDto;
+import ynzmz.server.tag.dto.SubjectTagDto;
 import ynzmz.server.tag.mappingtable.lecture.LectureGradeTag;
 import ynzmz.server.tag.mappingtable.lecture.LecturePlatformTag;
 import ynzmz.server.tag.mappingtable.lecture.LectureSubjectTag;
@@ -46,9 +50,9 @@ public class LectureDto {
         private Lecture.Status status;
         private double starPointAverage;
         private long totalReviewCount;
-        private List<LectureGradeTag> gradeTags;
-        private List<LectureSubjectTag> subjectTags;
-        private List<LecturePlatformTag> platformTags;
+        private List<GradeTagDto.Response> gradeTags;
+        private List<SubjectTagDto.Response> subjectTags;
+        private List<PlatformTagDto.Response> platformTags;
         private TeacherDto.SimpleInfoResponse teacher;
     }
 
@@ -65,9 +69,9 @@ public class LectureDto {
         private long starPoint3Count;
         private long starPoint2Count;
         private long starPoint1Count;
-        private List<LectureGradeTag> gradeTags;
-        private List<LectureSubjectTag> subjectTags;
-        private List<LecturePlatformTag> platformTags;
+        private List<GradeTagDto.Response> gradeTags;
+        private List<SubjectTagDto.Response> subjectTags;
+        private List<PlatformTagDto.Response> platformTags;
         private List<LectureReview> lectureReviews;
     }
     @Getter @Setter

@@ -109,7 +109,7 @@ public class TeacherController {
         Teacher teacher = teacherService.findTeacherById(teacherId);
         TeacherDto.ReviewDetailPageResponse response = teacherMapper.teacherReviewDetailPageResponseToTeacher(teacher);
 
-        //별점 5,4,3,2,1 점 총 갯수 추가
+        //강사의 총 별점 5,4,3,2,1 점 총 갯수 추가
         Map<String, Long> starPointCount = lectureReviewService.findStarPointCountByTeacher(teacher);
         response.setStarPointCount(starPointCount);
 

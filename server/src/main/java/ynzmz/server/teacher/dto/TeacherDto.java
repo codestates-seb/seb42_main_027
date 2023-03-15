@@ -4,15 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.lecture.dto.LectureDto;
-import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.tag.dto.TeacherGradeTagDto;
-import ynzmz.server.tag.dto.TeacherPlatformTagDto;
-import ynzmz.server.tag.dto.TeacherSubjectTagDto;
-import ynzmz.server.tag.mappingtable.teacher.TeacherGradeTag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherPlatformTag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherSubjectTag;
+import ynzmz.server.tag.dto.GradeTagDto;
+import ynzmz.server.tag.dto.PlatformTagDto;
+import ynzmz.server.tag.dto.SubjectTagDto;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,9 +48,9 @@ public class TeacherDto {
         private String imageUrl;
         private double starPointAverage;
         private long totalReviewCount;
-        private List<TeacherGradeTagDto.Response> gradeTags;
-        private List<TeacherSubjectTagDto.Response> subjectTags;
-        private List<TeacherPlatformTagDto.Response> platformTags;
+        private List<GradeTagDto.Response> gradeTags;
+        private List<SubjectTagDto.Response> subjectTags;
+        private List<PlatformTagDto.Response> platformTags;
     }
 
     //강사디테일조회
@@ -69,9 +64,9 @@ public class TeacherDto {
         private List<String> analects;
         private double starPointAverage;
         private long totalReviewCount;
-        private List<TeacherGradeTagDto.Response> gradeTags;
-        private List<TeacherSubjectTagDto.Response> subjectTags;
-        private List<TeacherPlatformTagDto.Response> platformTags;
+        private List<GradeTagDto.Response> gradeTags;
+        private List<SubjectTagDto.Response> subjectTags;
+        private List<PlatformTagDto.Response> platformTags;
         private List<LectureDto.ListPageResponse> lectures;
     }
 
@@ -84,16 +79,10 @@ public class TeacherDto {
         private List<String> profile;
         private List<String> analects;
         private double starPointAverage;
-
         private Map<String,Long> starPointCount;
-//        private long starPoint5Count;
-//        private long starPoint4Count;
-//        private long starPoint3Count;
-//        private long starPoint2Count;
-//        private long starPoint1Count;
-        private List<TeacherGradeTagDto.Response> gradeTags;
-        private List<TeacherSubjectTagDto.Response> subjectTags;
-        private List<TeacherPlatformTagDto.Response> platformTags;
+        private List<GradeTagDto.Response> gradeTags;
+        private List<SubjectTagDto.Response> subjectTags;
+        private List<PlatformTagDto.Response> platformTags;
         private List<LectureDto.TeacherReviewDetailPageResponse> lectures;
     }
     @Getter @Setter
