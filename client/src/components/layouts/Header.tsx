@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
-import isLogin from 'utils/isLogin';
+import { useIsLoginStore } from 'stores/loginStore';
 import Toggle from '../common/Toggle';
 import theme from '../../theme';
 
 function Header() {
+  const { isLogin } = useIsLoginStore();
+
   return (
     <Container>
       <Left>
@@ -32,7 +34,7 @@ function Header() {
         <ToggleDiv>
           <Toggle />
         </ToggleDiv>
-        {isLogin() ? (
+        {isLogin ? (
           <BtnDiv>
             <Button.WhiteBtn>내정보</Button.WhiteBtn>
             <Button.PointBtn>로그아웃</Button.PointBtn>
