@@ -54,11 +54,13 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   position: sticky;
+  top: 0;
   z-index: 1;
   height: 74px;
   padding: 1.25rem 2.5rem 1.25rem 2.5rem;
   border-top: medium solid ${theme.colors.pointColor};
   border-bottom: thin solid ${theme.colors.pointColor};
+  background-color: ${theme.colors.white};
 `;
 
 const Title = styled.h1`

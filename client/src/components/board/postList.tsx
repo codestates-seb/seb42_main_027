@@ -4,10 +4,22 @@ import styled from 'styled-components';
 import { dummyData } from './dummyData';
 import PostTitleBlock from './postTitleBlock';
 
+interface PostData {
+  id: number;
+  category: string;
+  username: string;
+  userimg: string;
+  title: string;
+  content: string;
+  view: string;
+  comment: string;
+  vote: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 function PostList() {
   const [isPending, setIsPending] = useState(false);
-
-  console.log(dummyData);
 
   return (
     <Container>
@@ -28,12 +40,11 @@ function PostList() {
             ) : (
               <div>
                 <h1>이곳에 게시글 목록이 나타납니다.</h1>
-                <PostTitleBlock />
-                {/* <div>
-                  {dummyData.map((obj, idx) => {
-                    return <PostTitleBlock key={idx} post={obj} />;
+                <div>
+                  {dummyData.map((ele: PostData) => {
+                    return <PostTitleBlock key={ele.id} ele={ele} />;
                   })}
-                </div> */}
+                </div>
               </div>
             )}
           </div>
@@ -43,6 +54,10 @@ function PostList() {
   );
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
 
 export default PostList;
