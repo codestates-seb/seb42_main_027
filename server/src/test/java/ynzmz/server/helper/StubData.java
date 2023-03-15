@@ -7,6 +7,9 @@ import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.review.lecture.entity.LectureReview;
 import ynzmz.server.member.entity.Member;
+import ynzmz.server.tag.dto.GradeTagDto;
+import ynzmz.server.tag.dto.PlatformTagDto;
+import ynzmz.server.tag.dto.SubjectTagDto;
 import ynzmz.server.teacher.dto.TeacherDto;
 import ynzmz.server.teacher.entity.Teacher;
 import ynzmz.server.vote.review.lecture.dto.LectureReviewVoteDto;
@@ -15,6 +18,10 @@ import ynzmz.server.vote.review.lecture.entity.LectureReviewVote;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ynzmz.server.tag.entity.GradeTag.Grade.*;
+import static ynzmz.server.tag.entity.PlatformTag.Platform.*;
+import static ynzmz.server.tag.entity.SubjectTag.Subject.*;
+
 public class StubData {
     public static final List<String> tagsSample = new ArrayList<>();
     public static final List<String> profileSample = new ArrayList<>();
@@ -22,12 +29,19 @@ public class StubData {
     public static final List<String> gradeTagStringSample = new ArrayList<>();
     public static final List<String> subjectTagStringSample = new ArrayList<>();
     public static final List<String> platformTagStringSample = new ArrayList<>();
+    public static final List<GradeTagDto.Response> gradeTagResponses = new ArrayList<>();
+    public static final List<SubjectTagDto.Response> subjectTagResponses = new ArrayList<>();
+    public static final List<PlatformTagDto.Response> platformTagResponses = new ArrayList<>();
     public static final Member member = new Member();
     public static final Teacher teacher = new Teacher();
     public static final Lecture lecture = new Lecture();
     public static final LectureReview LECTURE_REVIEW = new LectureReview();
-    public static final TeacherDto.SimpleInfoResponse TEACHER_SIMPLE_INFO_RESPONSE = new TeacherDto.SimpleInfoResponse();
-    public static final List<TeacherDto.SimpleInfoResponse> TEACHER_SIMPLE_INFO_RESPONS = new ArrayList<>();
+    public static final TeacherDto.SimpleInfoResponse teacherSimpleInfoResponse = new TeacherDto.SimpleInfoResponse();
+    public static final LectureDto.ListPageResponse lectureListPageResponse = new LectureDto.ListPageResponse();
+    public static final List<LectureDto.ListPageResponse> lectureListPageResponses = new ArrayList<>();
+    public static final TeacherDto.ListPageResponse teacherListPageResponse = new TeacherDto.ListPageResponse();
+    public static final TeacherDto.DetailPageResponse teacherDetailPageResponse = new TeacherDto.DetailPageResponse();
+    public static final List<TeacherDto.ListPageResponse> teacherListPageResponses = new ArrayList<>();
     public static final LectureDto.SimpleInfoResponse LECTURE_SIMPLE_INFO_RESPONSE = new LectureDto.SimpleInfoResponse();
     public static final List<LectureDto.SimpleInfoResponse> LECTURE_SIMPLE_INFO_RESPONS = new ArrayList<>();
     public static final LectureReviewDto.InfoResponse lectureReviewPostInfoResponse = new LectureReviewDto.InfoResponse();
@@ -68,14 +82,21 @@ public class StubData {
         platformTagStringSample.add("이투스");
         platformTagStringSample.add("EBS");
 
-//        teacherTagsSample.add(new TeacherTag(1L,teacher,new Tag(Tag.Type.국어)));
-//        teacherTagsSample.add(new TeacherTag(1L,teacher,new Tag(Tag.Type.고3)));
-//        teacherTagsSample.add(new TeacherTag(1L,teacher,new Tag(Tag.Type.메가스터디)));
-//
-//        LECTURE_LECTURE_TAGS_SAMPLE.add(new LectureTag(1L,lecture,new Tag(Tag.Type.국어)));
-//        LECTURE_LECTURE_TAGS_SAMPLE.add(new LectureTag(1L,lecture,new Tag(Tag.Type.고3)));
-//        LECTURE_LECTURE_TAGS_SAMPLE.add(new LectureTag(1L,lecture,new Tag(Tag.Type.메가스터디)));
-//
+        gradeTagResponses.add(new GradeTagDto.Response(고1));
+        gradeTagResponses.add(new GradeTagDto.Response(고2));
+        gradeTagResponses.add(new GradeTagDto.Response(고3));
+        gradeTagResponses.add(new GradeTagDto.Response(예비고1));
+        gradeTagResponses.add(new GradeTagDto.Response(예비고2));
+        gradeTagResponses.add(new GradeTagDto.Response(예비고3));
+
+        subjectTagResponses.add(new SubjectTagDto.Response(국어));
+        subjectTagResponses.add(new SubjectTagDto.Response(한국사));
+
+        platformTagResponses.add(new PlatformTagDto.Response(이투스));
+        platformTagResponses.add(new PlatformTagDto.Response(EBS));
+
+
+
 //        member.setMemberId(1L);
 //        member.setDisplayName("홍길동");
 //        member.setEmail("ghdrlfehd@gmail.com");
@@ -105,9 +126,50 @@ public class StubData {
 //        LECTURE_REVIEW.setLecture(lecture);
 //        LECTURE_REVIEW.setMember(member);
 //
-        TEACHER_SIMPLE_INFO_RESPONSE.setTeacherId(1L);
-        TEACHER_SIMPLE_INFO_RESPONSE.setName("홍길동");
-        TEACHER_SIMPLE_INFO_RESPONSE.setStarPointAverage(0.0);
+        teacherSimpleInfoResponse.setTeacherId(1L);
+        teacherSimpleInfoResponse.setName("홍길동");
+        teacherSimpleInfoResponse.setStarPointAverage(0.0);
+
+        lectureListPageResponse.setLectureId(1L);
+        lectureListPageResponse.setTitle("강의 타이틀명!");
+        lectureListPageResponse.setIntroduction("강의 간단 소개");
+        lectureListPageResponse.setStatus(Lecture.Status.진행중);
+        lectureListPageResponse.setStarPointAverage(4.7);
+        lectureListPageResponse.setTotalReviewCount(9);
+        lectureListPageResponse.setGradeTags(gradeTagResponses);
+        lectureListPageResponse.setSubjectTags(subjectTagResponses);
+        lectureListPageResponse.setPlatformTags(platformTagResponses);
+        lectureListPageResponse.setTeacher(teacherSimpleInfoResponse);
+
+        lectureListPageResponses.add(lectureListPageResponse);
+        lectureListPageResponses.add(lectureListPageResponse);
+
+        teacherListPageResponse.setTeacherId(1L);
+        teacherListPageResponse.setName("홍길동");
+        teacherListPageResponse.setIntroduction("홍길동 강사 간단 소개");
+        teacherListPageResponse.setImageUrl("이미지 url");
+        teacherListPageResponse.setStarPointAverage(4.2);
+        teacherListPageResponse.setTotalReviewCount(17);
+        teacherListPageResponse.setGradeTags(gradeTagResponses);
+        teacherListPageResponse.setSubjectTags(subjectTagResponses);
+        teacherListPageResponse.setPlatformTags(platformTagResponses);
+
+        teacherDetailPageResponse.setTeacherId(1L);
+        teacherDetailPageResponse.setName("홍길동");
+        teacherDetailPageResponse.setIntroduction("홍길동 강사 간단 소개");
+        teacherDetailPageResponse.setImageUrl("이미지 url");
+        teacherDetailPageResponse.setProfile(profileSample);
+        teacherDetailPageResponse.setAnalects(analectsSample);
+        teacherDetailPageResponse.setStarPointAverage(4.2);
+        teacherDetailPageResponse.setTotalReviewCount(17);
+        teacherDetailPageResponse.setGradeTags(gradeTagResponses);
+        teacherDetailPageResponse.setSubjectTags(subjectTagResponses);
+        teacherDetailPageResponse.setPlatformTags(platformTagResponses);
+        teacherDetailPageResponse.setLectures(lectureListPageResponses);
+
+        teacherListPageResponses.add(teacherListPageResponse);
+        teacherListPageResponses.add(teacherListPageResponse);
+
 
 //        TEACHER_SIMPLE_INFO_RESPONS.add(TEACHER_SIMPLE_INFO_RESPONSE);
 //        TEACHER_SIMPLE_INFO_RESPONS.add(TEACHER_SIMPLE_INFO_RESPONSE);

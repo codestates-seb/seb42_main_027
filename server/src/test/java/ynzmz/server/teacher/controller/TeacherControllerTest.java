@@ -78,7 +78,7 @@ class TeacherControllerTest {
                 .build();
         String jsonPost = gson.toJson(mockPost);
 
-        when(teacherMapper.teacherInfoResponseToTeacher(any())).thenReturn(TEACHER_SIMPLE_INFO_RESPONSE);
+        when(teacherMapper.teacherInfoResponseToTeacher(any())).thenReturn(teacherSimpleInfoResponse);
 
 
         ResultActions actions = mockMvc.perform(post("/teachers")
@@ -96,9 +96,9 @@ class TeacherControllerTest {
                                 fieldWithPath("profile").type(JsonFieldType.ARRAY).description("강사 약력 (List)"),
                                 fieldWithPath("analects").type(JsonFieldType.ARRAY).description("강사 어록 (List)"),
                                 fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("강사 이미지 url 경로"),
-                                fieldWithPath("gradeTag").type(JsonFieldType.ARRAY).description("강사 담당 학년 태그 (고정값 List)"),
-                                fieldWithPath("subjectTag").type(JsonFieldType.ARRAY).description("강사 담당 과목 태그 (고정값 List)"),
-                                fieldWithPath("platformTag").type(JsonFieldType.ARRAY).description("강사 소속 플랫폼 태그 (고정값 List)")
+                                fieldWithPath("gradeTag").type(JsonFieldType.ARRAY).description("강사 담당 학년 태그 (지정값 List)"),
+                                fieldWithPath("subjectTag").type(JsonFieldType.ARRAY).description("강사 담당 과목 태그 (지정값 List)"),
+                                fieldWithPath("platformTag").type(JsonFieldType.ARRAY).description("강사 소속 플랫폼 태그 (지정값 List)")
                         )
                 ),
                 responseFields(
@@ -130,14 +130,14 @@ class TeacherControllerTest {
         long teacherId = 1L;
 
         when(teacherMapper.teacherToTeacherPatch(any())).thenReturn(new Teacher());
-        when(teacherMapper.teacherInfoResponseToTeacher(any())).thenReturn(TEACHER_SIMPLE_INFO_RESPONSE);
+        when(teacherMapper.teacherInfoResponseToTeacher(any())).thenReturn(teacherSimpleInfoResponse);
 
         ResultActions actions = mockMvc.perform(patch("/teachers/{teacher-id}",teacherId)
                 .content(jsonPatch)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
         );
-        actions.andExpect(status().isOk()).andDo(document("patch-teachers",
+        actions.andExpect(status().isOk()).andDo(document("patch-teacher",
                 getRequestPreProcessor(),
                 getResponsePreProcessor(),
                 pathParameters(
@@ -147,15 +147,19 @@ class TeacherControllerTest {
                         List.of(
                                 fieldWithPath("name").type(JsonFieldType.STRING).description("강사 이름"),
                                 fieldWithPath("introduction").type(JsonFieldType.STRING).description("강사 소개"),
-                                fieldWithPath("tags").type(JsonFieldType.ARRAY).description("강사 키워드 태그 (고정값 List)")
+                                fieldWithPath("profile").type(JsonFieldType.ARRAY).description("강사 약력 (List)"),
+                                fieldWithPath("analects").type(JsonFieldType.ARRAY).description("강사 어록 (List)"),
+                                fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("강사 이미지 url 경로"),
+                                fieldWithPath("gradeTag").type(JsonFieldType.ARRAY).description("강사 담당 학년 태그 (지정값 List)"),
+                                fieldWithPath("subjectTag").type(JsonFieldType.ARRAY).description("강사 담당 과목 태그 (지정값 List)"),
+                                fieldWithPath("platformTag").type(JsonFieldType.ARRAY).description("강사 소속 플랫폼 태그 (지정값 List)")
                         )
                 ),
                 responseFields(
                         List.of(
                                 fieldWithPath("data.teacherId").type(JsonFieldType.NUMBER).description("강사 식별번호"),
                                 fieldWithPath("data.name").type(JsonFieldType.STRING).description("강사 이름"),
-                                fieldWithPath("data.introduction").type(JsonFieldType.STRING).description("강사 소개"),
-                                fieldWithPath("data.tags").type(JsonFieldType.ARRAY).description("강사 키워드 태그")
+                                fieldWithPath("data.starPointAverage").type(JsonFieldType.NUMBER).description("강사 평균 별점")
                         )
                 ))
         );
@@ -164,12 +168,19 @@ class TeacherControllerTest {
     @Test
     @DisplayName("강사 전체 조회")
     void getAllTeachers() throws Exception {
-
-        when(teacherMapper.teacherInfoResponsesToTeachers(any())).thenReturn(TEACHER_SIMPLE_INFO_RESPONS);
+        when(teacherService.findTeachers(any(),any(),any(),anyString(),anyString(),anyString(),anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Teacher())), PageRequest.of(1,1),1));
+        when(teacherService.findTeachers(any(),any(),any(),anyString(),anyString(),anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Teacher())), PageRequest.of(1,1),1));
+        when(teacherMapper.teacherListPageResponsesToTeachers(any())).thenReturn(teacherListPageResponses);
 
         ResultActions actions =
                 mockMvc.perform(
                         get("/teachers/")
+                                .param("grade", "고3")
+                                .param("platform", "이투스")
+                                .param("subject", "국어")
+                                .param("name", "홍길동")
+                                .param("sort", "starPointAverage")
+                                .param("reverse", "on")
                                 .param("page", "1")
                                 .param("size", "5")
                                 .accept(MediaType.APPLICATION_JSON)
@@ -179,6 +190,12 @@ class TeacherControllerTest {
                 getRequestPreProcessor(),
                 getResponsePreProcessor(),
                 requestParameters(
+                        parameterWithName("grade").description("강사 학년 태그 (지정값) (Optional)"),
+                        parameterWithName("platform").description("강사 플랫폼 태그 (지정값) (Optional)"),
+                        parameterWithName("subject").description("강사 과목 태그 (지정값) (Optional)"),
+                        parameterWithName("name").description("강사 이름"),
+                        parameterWithName("sort").description("정렬 지정값 (Optional) = [최신순:teacherId],[별점순:starPointAverage],[이름순:name]"),
+                        parameterWithName("reverse").description("쿼리 없으면 정순, 쿼리 있으면 역순 (Optional)"),
                         parameterWithName("page").description("요청 페이지"),
                         parameterWithName("size").description("요청 페이지당 출력개수")
                 ),
@@ -187,45 +204,12 @@ class TeacherControllerTest {
                                 fieldWithPath("data.[].teacherId").type(JsonFieldType.NUMBER).description("강사 식별번호"),
                                 fieldWithPath("data.[].name").type(JsonFieldType.STRING).description("강사 이름"),
                                 fieldWithPath("data.[].introduction").type(JsonFieldType.STRING).description("강사 소개"),
-                                fieldWithPath("data.[].tags").type(JsonFieldType.ARRAY).description("강사 키워드 태그"),
-                                fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지정보 - 현재 페이지"),
-                                fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("페이지정보 - 페이지당 출력 갯수"),
-                                fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("페이지정보 - 전체 질문글수"),
-                                fieldWithPath("pageInfo.totalPages").type(JsonFieldType.NUMBER).description("페이지정보 - 전체 페이지수")
-                        )
-                ))
-        );
-    }
-
-    @Test
-    @DisplayName("강사 태그별 조회")
-    void getTeachersByTag() throws Exception {
-
-        when(teacherMapper.teacherInfoResponsesToTeachers(any())).thenReturn(TEACHER_SIMPLE_INFO_RESPONS);
-
-        ResultActions actions =
-                mockMvc.perform(
-                        get("/teachers/")
-                                .param("tag", "국어")
-                                .param("page", "1")
-                                .param("size", "5")
-                                .accept(MediaType.APPLICATION_JSON)
-                                .contentType(MediaType.APPLICATION_JSON)
-                );
-        actions.andExpect(status().isOk()).andDo(document("get-teachers-tags",
-                getRequestPreProcessor(),
-                getResponsePreProcessor(),
-                requestParameters(
-                        parameterWithName("tag").description("강사 키워드 태그명"),
-                        parameterWithName("page").description("요청 페이지"),
-                        parameterWithName("size").description("요청 페이지당 출력개수")
-                ),
-                responseFields(
-                        List.of(
-                                fieldWithPath("data.[].teacherId").type(JsonFieldType.NUMBER).description("강사 식별번호"),
-                                fieldWithPath("data.[].name").type(JsonFieldType.STRING).description("강사 이름"),
-                                fieldWithPath("data.[].introduction").type(JsonFieldType.STRING).description("강사 소개"),
-                                fieldWithPath("data.[].tags").type(JsonFieldType.ARRAY).description("강사 키워드 태그"),
+                                fieldWithPath("data.[].imageUrl").type(JsonFieldType.STRING).description("강사 이미지 url"),
+                                fieldWithPath("data.[].starPointAverage").type(JsonFieldType.NUMBER).description("강사 평균 평점"),
+                                fieldWithPath("data.[].totalReviewCount").type(JsonFieldType.NUMBER).description("강사 리뷰 총 갯수"),
+                                fieldWithPath("data.[].gradeTags.[].gradeTag").type(JsonFieldType.STRING).description("강사 담당 학년 태그 (지정값 List)"),
+                                fieldWithPath("data.[].subjectTags.[].subjectTag").type(JsonFieldType.STRING).description("강사 담당 과목 태그 (지정값 List)"),
+                                fieldWithPath("data.[].platformTags.[].platformTag").type(JsonFieldType.STRING).description("강사 소속 플랫폼 태그 (지정값 List)"),
                                 fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지정보 - 현재 페이지"),
                                 fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("페이지정보 - 페이지당 출력 갯수"),
                                 fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("페이지정보 - 전체 질문글수"),
@@ -242,7 +226,7 @@ class TeacherControllerTest {
         long teacherId = 1L;
 
         when(teacherService.findTeacherById(anyInt())).thenReturn(new Teacher());
-        when(teacherMapper.teacherInfoResponseToTeacher(any())).thenReturn(TEACHER_SIMPLE_INFO_RESPONSE);
+        when(teacherMapper.teacherDetailPageResponseToTeacher(any())).thenReturn(teacherDetailPageResponse);
 
         ResultActions actions = mockMvc.perform(get("/teachers/{teacher-id}",teacherId)
                 .accept(MediaType.APPLICATION_JSON)
@@ -259,7 +243,26 @@ class TeacherControllerTest {
                                 fieldWithPath("data.teacherId").type(JsonFieldType.NUMBER).description("강사 식별번호"),
                                 fieldWithPath("data.name").type(JsonFieldType.STRING).description("강사 이름"),
                                 fieldWithPath("data.introduction").type(JsonFieldType.STRING).description("강사 소개"),
-                                fieldWithPath("data.tags").type(JsonFieldType.ARRAY).description("강사 키워드 태그")
+                                fieldWithPath("data.imageUrl").type(JsonFieldType.STRING).description("강사 이미지 url"),
+                                fieldWithPath("data.profile").type(JsonFieldType.ARRAY).description("강사 약력 (List)"),
+                                fieldWithPath("data.analects").type(JsonFieldType.ARRAY).description("강사 어록 (List)"),
+                                fieldWithPath("data.starPointAverage").type(JsonFieldType.NUMBER).description("강사 평균 평점"),
+                                fieldWithPath("data.totalReviewCount").type(JsonFieldType.NUMBER).description("강사 리뷰 총 갯수"),
+                                fieldWithPath("data.gradeTags.[].gradeTag").type(JsonFieldType.STRING).description("강사 담당 학년 태그 (지정값 List)"),
+                                fieldWithPath("data.subjectTags.[].subjectTag").type(JsonFieldType.STRING).description("강사 담당 과목 태그 (지정값 List)"),
+                                fieldWithPath("data.platformTags.[].platformTag").type(JsonFieldType.STRING).description("강사 소속 플랫폼 태그 (지정값 List)"),
+                                fieldWithPath("data.lectures.[].lectureId").type(JsonFieldType.NUMBER).description("강의 식별번호"),
+                                fieldWithPath("data.lectures.[].title").type(JsonFieldType.STRING).description("강의 타이틀명"),
+                                fieldWithPath("data.lectures.[].introduction").type(JsonFieldType.STRING).description("강의 소개"),
+                                fieldWithPath("data.lectures.[].status").type(JsonFieldType.STRING).description("강의 진행상태 (예정,진행중,완강)"),
+                                fieldWithPath("data.lectures.[].starPointAverage").type(JsonFieldType.NUMBER).description("강의 평균 평점"),
+                                fieldWithPath("data.lectures.[].totalReviewCount").type(JsonFieldType.NUMBER).description("강의 리뷰 총 갯수"),
+                                fieldWithPath("data.lectures.[].gradeTags.[].gradeTag").type(JsonFieldType.STRING).description("강의 학년 태그 (지정값 List)"),
+                                fieldWithPath("data.lectures.[].subjectTags.[].subjectTag").type(JsonFieldType.STRING).description("강의 과목 태그 (지정값 List)"),
+                                fieldWithPath("data.lectures.[].platformTags.[].platformTag").type(JsonFieldType.STRING).description("강의 플랫폼 태그 (지정값 List)"),
+                                fieldWithPath("data.lectures.[].teacher.teacherId").type(JsonFieldType.NUMBER).description("강사 식별번호"),
+                                fieldWithPath("data.lectures.[].teacher.name").type(JsonFieldType.STRING).description("강사 이름"),
+                                fieldWithPath("data.lectures.[].teacher.starPointAverage").type(JsonFieldType.NUMBER).description("강사 평균 평점")
                         )
                 ))
         );

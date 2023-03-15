@@ -31,21 +31,21 @@ include::{snippets}/post-teacher/response-fields.adoc[]
 include::{snippets}/post-teacher/response-body.adoc[]
 === 강사 정보 수정
 .curl-request
-include::{snippets}/patch-teachers/curl-request.adoc[]
+include::{snippets}/patch-teacher/curl-request.adoc[]
 .path-parameters
-include::{snippets}/patch-teachers/path-parameters.adoc[]
+include::{snippets}/patch-teacher/path-parameters.adoc[]
 .http-request
-include::{snippets}/patch-teachers/http-request.adoc[]
+include::{snippets}/patch-teacher/http-request.adoc[]
 .request-fields
-include::{snippets}/patch-teachers/request-fields.adoc[]
+include::{snippets}/patch-teacher/request-fields.adoc[]
 .request-body
-include::{snippets}/patch-teachers/request-body.adoc[]
+include::{snippets}/patch-teacher/request-body.adoc[]
 .http-response
-include::{snippets}/patch-teachers/http-response.adoc[]
+include::{snippets}/patch-teacher/http-response.adoc[]
 .response-fields
-include::{snippets}/patch-teachers/response-fields.adoc[]
+include::{snippets}/patch-teacher/response-fields.adoc[]
 .response-body
-include::{snippets}/patch-teachers/response-body.adoc[]
+include::{snippets}/patch-teacher/response-body.adoc[]
 === 강사 전체 조회
 .curl-request
 include::{snippets}/get-all-teachers/curl-request.adoc[]
@@ -61,21 +61,6 @@ include::{snippets}/get-all-teachers/http-response.adoc[]
 include::{snippets}/get-all-teachers/response-fields.adoc[]
 .response-body
 include::{snippets}/get-all-teachers/response-body.adoc[]
-=== 강사 태그별 전체 조회
-.curl-request
-include::{snippets}/get-teachers-tags/curl-request.adoc[]
-.request-parameters
-include::{snippets}/get-teachers-tags/request-parameters.adoc[]
-.http-request
-include::{snippets}/get-teachers-tags/http-request.adoc[]
-.request-body
-include::{snippets}/get-teachers-tags/request-body.adoc[]
-.http-response
-include::{snippets}/get-teachers-tags/http-response.adoc[]
-.response-fields
-include::{snippets}/get-teachers-tags/response-fields.adoc[]
-.response-body
-include::{snippets}/get-teachers-tags/response-body.adoc[]
 === 강사 상세 조회
 .curl-request
 include::{snippets}/get-teacher/curl-request.adoc[]
