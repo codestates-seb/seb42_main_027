@@ -21,11 +21,13 @@ function Router() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />}>
-          <Route path="/signup/select" element={<SelectSignUpType />} />
-          <Route path="/signup/student" element={<StudentSignUpForm />} />
-          <Route path="/signup/teacher" element={<TeacherSignUpForm />} />
+
+        <Route path="/signup/*" element={<SignUp />}>
+          <Route path="/signup/*" element={<SelectSignUpType />} />
+          <Route path="student" element={<StudentSignUpForm />} />
+          <Route path="teacher" element={<TeacherSignUpForm />} />
         </Route>
+
         <Route path="/qna" element={<QnABoard />} />
         <Route path="/free" element={<FreeBoard />} />
         <Route path="/ReviewPage" element={<ReviewPage />} />

@@ -1,8 +1,10 @@
 import styled from 'styled-components';
-import { BiUser } from 'react-icons/bi';
-import { FaChalkboardTeacher } from 'react-icons/fa';
 import theme from 'theme';
 import { Container, Title } from 'components/member/memberStyledComponents';
+import { Routes, Route } from 'react-router-dom';
+import SelectSignUpType from 'components/member/signup/SelectSignUpType';
+import StudentSignUpForm from 'components/member/signup/StudentSignUpForm';
+import TeacherSignUpForm from 'components/member/signup/TeacherSignUpForm';
 
 const { colors } = theme;
 
@@ -12,57 +14,6 @@ const SubTitle = styled.p`
   margin-bottom: 0.5rem;
 `;
 
-const ButtonGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-  width: 100%;
-  & button:first-child {
-    border-bottom: 0.1rem solid ${colors.gray};
-  }
-`;
-
-const TypeButton = styled.button`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0.8rem;
-  :hover {
-    opacity: 0.8;
-    cursor: pointer;
-  }
-`;
-
-const IconBiUser = styled(BiUser)`
-  color: ${colors.pointColor};
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-right: 1rem;
-`;
-
-const IconFaChalkboardTeacher = styled(FaChalkboardTeacher)`
-  color: ${colors.pointColor};
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-right: 1rem;
-`;
-
-const ButtonInfoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-`;
-
-const ButtonInfoTitle = styled.span`
-  color: ${colors.pointColor};
-  margin-bottom: 0.2rem;
-`;
-const ButtonInfoSubTitle = styled.span`
-  color: ${colors.gray};
-  font-size: 0.8rem;
-`;
-
 function SignUp() {
   return (
     <div>
@@ -70,23 +21,11 @@ function SignUp() {
         <Title>시작하기</Title>
         <SubTitle>지금 가입하고 국내 모든 인강 정보와 후기를 한눈에</SubTitle>
         <SubTitle>확인하세요.</SubTitle>
-
-        <ButtonGroup>
-          <TypeButton>
-            <IconBiUser />
-            <ButtonInfoContainer>
-              <ButtonInfoTitle>학생</ButtonInfoTitle>
-              <ButtonInfoSubTitle>학생 회원</ButtonInfoSubTitle>
-            </ButtonInfoContainer>
-          </TypeButton>
-          <TypeButton>
-            <IconFaChalkboardTeacher />
-            <ButtonInfoContainer>
-              <ButtonInfoTitle>교/강사 회원</ButtonInfoTitle>
-              <ButtonInfoSubTitle>학교/학원 등 선생님 회원</ButtonInfoSubTitle>
-            </ButtonInfoContainer>
-          </TypeButton>
-        </ButtonGroup>
+        <Routes>
+          <Route path="/" element={<SelectSignUpType />} />
+          <Route path="/signup/student" element={<StudentSignUpForm />} />
+          <Route path="/signup/teacher" element={<TeacherSignUpForm />} />
+        </Routes>
       </Container>
     </div>
   );
