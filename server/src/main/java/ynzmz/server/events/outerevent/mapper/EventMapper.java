@@ -1,8 +1,8 @@
-package ynzmz.server.events.eventboard.mapper;
+package ynzmz.server.events.outerevent.mapper;
 
 import org.mapstruct.Mapper;
-import ynzmz.server.events.eventboard.dto.EventDto;
-import ynzmz.server.events.eventboard.entity.Event;
+import ynzmz.server.events.outerevent.dto.EventDto;
+import ynzmz.server.events.outerevent.entity.Event;
 
 import java.util.List;
 

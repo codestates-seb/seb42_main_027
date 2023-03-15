@@ -1,4 +1,4 @@
-package ynzmz.server.events.eventboard.service;
+package ynzmz.server.events.outerevent.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -6,8 +6,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
-import ynzmz.server.events.eventboard.entity.Event;
-import ynzmz.server.events.eventboard.repository.EventRepository;
+import ynzmz.server.events.outerevent.entity.Event;
+import ynzmz.server.events.outerevent.repository.EventRepository;
 
 import java.util.Optional;
 

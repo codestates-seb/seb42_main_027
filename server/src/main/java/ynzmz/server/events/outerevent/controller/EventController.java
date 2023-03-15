@@ -1,4 +1,4 @@
-package ynzmz.server.events.eventboard.controller;
+package ynzmz.server.events.outerevent.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ynzmz.server.dto.MultiResponseDto;
-import ynzmz.server.events.eventboard.dto.EventDto;
-import ynzmz.server.events.eventboard.entity.Event;
-import ynzmz.server.events.eventboard.mapper.EventMapper;
-import ynzmz.server.events.eventboard.repository.EventRepository;
-import ynzmz.server.events.eventboard.service.EventService;
+import ynzmz.server.events.outerevent.dto.EventDto;
+import ynzmz.server.events.outerevent.entity.Event;
+import ynzmz.server.events.outerevent.mapper.EventMapper;
+import ynzmz.server.events.outerevent.repository.EventRepository;
+import ynzmz.server.events.outerevent.service.EventService;
 
 import java.util.List;
 

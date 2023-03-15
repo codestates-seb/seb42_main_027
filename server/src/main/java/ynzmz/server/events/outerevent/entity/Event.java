@@ -1,4 +1,4 @@
-package ynzmz.server.events.eventboard.entity;
+package ynzmz.server.events.outerevent.entity;
 
 
 import lombok.Getter;
