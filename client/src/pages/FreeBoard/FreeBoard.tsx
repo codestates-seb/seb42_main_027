@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from 'components/UI/Button';
+import Button from 'components/common/Button';
 import theme from '../../theme';
 
 function FreeBoard() {

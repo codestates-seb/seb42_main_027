@@ -10,7 +10,7 @@ function QnABoard() {
           <H2>질문게시판</H2>
           <p>학습 중 생긴 궁금증에 관해 질문하고 답변할 수 있는 공간입니다.</p>
         </Title>
-        <h1>QnABoard Page</h1>
+        <h1>QnABoard Page </h1>
       </Main>
     </Container>
   );

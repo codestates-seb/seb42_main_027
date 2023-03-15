@@ -18,6 +18,7 @@ function Toggle() {
       <SunIconDiv>
         <img src={sunIcon} alt="light mode" />
       </SunIconDiv>
+
       <MoonIconDiv>
         <img src={MoonIcon} alt="dark mode" />
       </MoonIconDiv>

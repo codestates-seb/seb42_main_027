@@ -20,7 +20,7 @@ const StyledButton = styled.button<ButtonProps>`
   font-size: ${props => {
     switch (props.size) {
       case 'sm':
-        return '0.875rem';
+        return '0.874rem';
       case 'md':
         return '1rem';
       case 'lg':
@@ -49,7 +49,7 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-function BaseButton({ color, size, onClick, disabled, children }: ButtonProps) {
+function BaseButton({ size, color, onClick, disabled, children }: ButtonProps) {
   return (
     <StyledButton
       color={color}
@@ -65,4 +65,5 @@ function BaseButton({ color, size, onClick, disabled, children }: ButtonProps) {
 BaseButton.defaultProps = {
   onClick: undefined,
 };
+
 export default BaseButton;

@@ -2,7 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FlexContainer } from 'pages/Review/ReviewPage';
+import { FlexContainer } from 'pages/review/ReviewPage';
 import isLogin from 'utils/isLogin';
 import axios from 'axios';
 
