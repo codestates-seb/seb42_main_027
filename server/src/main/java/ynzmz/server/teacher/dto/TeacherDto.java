@@ -12,7 +12,9 @@ import ynzmz.server.tag.mappingtable.teacher.TeacherGradeTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherPlatformTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherSubjectTag;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter @Setter
 public class TeacherDto {
@@ -67,10 +69,10 @@ public class TeacherDto {
         private List<String> analects;
         private double starPointAverage;
         private long totalReviewCount;
-        private List<TeacherGradeTag> gradeTags;
-        private List<TeacherSubjectTag> subjectTags;
-        private List<TeacherPlatformTag> platformTags;
-        private List<Lecture> lectures;
+        private List<TeacherGradeTagDto.Response> gradeTags;
+        private List<TeacherSubjectTagDto.Response> subjectTags;
+        private List<TeacherPlatformTagDto.Response> platformTags;
+        private List<LectureDto.ListPageResponse> lectures;
     }
 
     @Getter @Setter
@@ -82,14 +84,16 @@ public class TeacherDto {
         private List<String> profile;
         private List<String> analects;
         private double starPointAverage;
-        private long starPoint5Count;
-        private long starPoint4Count;
-        private long starPoint3Count;
-        private long starPoint2Count;
-        private long starPoint1Count;
-        private List<TeacherGradeTag> gradeTags;
-        private List<TeacherSubjectTag> subjectTags;
-        private List<TeacherPlatformTag> platformTags;
+
+        private Map<String,Long> starPointCount;
+//        private long starPoint5Count;
+//        private long starPoint4Count;
+//        private long starPoint3Count;
+//        private long starPoint2Count;
+//        private long starPoint1Count;
+        private List<TeacherGradeTagDto.Response> gradeTags;
+        private List<TeacherSubjectTagDto.Response> subjectTags;
+        private List<TeacherPlatformTagDto.Response> platformTags;
         private List<LectureDto.TeacherReviewDetailPageResponse> lectures;
     }
     @Getter @Setter

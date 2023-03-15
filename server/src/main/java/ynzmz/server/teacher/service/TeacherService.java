@@ -39,6 +39,10 @@ public class TeacherService {
     }
 
     public Page<Teacher> findTeachers(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String name, String sort, int page, int size) {
+        return teacherRepository.findAllByGradeAndPlatformAndSubjectAndName(grade, platform, subject, name, PageRequest.of(page, size, Sort.by(sort)));
+    }
+
+    public Page<Teacher> findTeachers(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String name, String sort,String reverse, int page, int size) {
         return teacherRepository.findAllByGradeAndPlatformAndSubjectAndName(grade, platform, subject, name, PageRequest.of(page, size, Sort.by(sort).descending()));
     }
 

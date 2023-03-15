@@ -12,15 +12,16 @@ import ynzmz.server.comment.review.lecture.service.LectureReviewCommentService;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
+import ynzmz.server.member.service.MemberService;
 
 
 import java.util.List;
 
 @RestController
-@RequestMapping("lecture-review-comment")
+@RequestMapping("/lectures/reviews/comments")
 @RequiredArgsConstructor
 public class LectureReviewCommentController {
-    private final ynzmz.server.member.Service.MemberService memberService;
+    private final MemberService memberService;
     private final LectureReviewPostCommentMapper lectureReviewPostCommentMapper;
     private final LectureReviewCommentService lectureReviewCommentService;
     @PostMapping

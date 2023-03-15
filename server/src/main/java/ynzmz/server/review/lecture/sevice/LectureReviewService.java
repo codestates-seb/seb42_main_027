@@ -9,7 +9,11 @@ import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.review.lecture.entity.LectureReview;
 import ynzmz.server.review.lecture.repository.LectureReviewRepository;
+import ynzmz.server.teacher.entity.Teacher;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -52,6 +56,38 @@ public class LectureReviewService {
     public LectureReview findLectureReviewById(long lectureReviewId) {
         Optional<LectureReview> lectureReviewPost = lectureReviewRepository.findById(lectureReviewId);
         return lectureReviewPost.orElseThrow(() -> new BusinessLogicException(ExceptionCode.LECTURE_REVIEW_NOT_FOUND));
+    }
+
+    public Map<String,Long> findStarPointCountByTeacher(Teacher teacher) {
+        List<LectureReview> lectureReviews = lectureReviewRepository.findAllLecturesByTeacherId(teacher.getTeacherId());
+
+        Map<String, Long> starPointCount = new HashMap<>();
+        long five = 0;
+        long four = 0;
+        long three = 0;
+        long two = 0;
+        long one = 0;
+        for( LectureReview lectureReview : lectureReviews) {
+            int lectureReviewStarPoint = lectureReview.getStarPoint();
+            switch (lectureReviewStarPoint) {
+                case 5: five++;
+                        break;
+                case 4: four++;
+                        break;
+                case 3: three++;
+                        break;
+                case 2: two++;
+                        break;
+                case 1: one++;
+                        break;
+            }
+        }
+        starPointCount.put("5점갯수",five);
+        starPointCount.put("4점갯수",four);
+        starPointCount.put("3점갯수",three);
+        starPointCount.put("2점갯수",two);
+        starPointCount.put("1점갯수",one);
+        return starPointCount;
     }
 
 }

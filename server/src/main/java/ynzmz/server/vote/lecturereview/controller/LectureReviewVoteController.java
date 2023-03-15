@@ -13,7 +13,7 @@ import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.review.lecture.entity.LectureReview;
 import ynzmz.server.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.member.entity.Member;
-import ynzmz.server.member.Service.MemberService;
+import ynzmz.server.member.service.MemberService;
 import ynzmz.server.vote.lecturereview.dto.LectureReviewVoteDto;
 import ynzmz.server.vote.lecturereview.entity.LectureReviewVote;
 import ynzmz.server.vote.lecturereview.mapper.LectureReviewVoteMapper;

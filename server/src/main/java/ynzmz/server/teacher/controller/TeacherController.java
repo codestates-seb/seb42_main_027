@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.review.lecture.entity.LectureReview;
+import ynzmz.server.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;
@@ -18,6 +20,7 @@ import ynzmz.server.teacher.mapper.TeacherMapper;
 import ynzmz.server.teacher.service.TeacherService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/teachers")
@@ -27,6 +30,7 @@ public class TeacherController {
     private final TeacherService teacherService;
     private final TeacherMapper teacherMapper;
     private final TagService tagService;
+    private final LectureReviewService lectureReviewService;
     //강사등록
     @PostMapping
     public ResponseEntity<?> postTeacher(@RequestBody TeacherDto.Post teacherPost){
@@ -67,41 +71,48 @@ public class TeacherController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
-    //강사 리스트 페이지  = 필터 과목별 강사조회 + 학년별 + 플랫폼별  + 강사 전체 조회
+    //강사 리스트 페이지  = 필터 과목별 강사조회 + 학년별 + 플랫폼별  + 강사 전체 조회 + 정순 역순
     @GetMapping
     public ResponseEntity<?> getTeacherListPage(@RequestParam(required = false) String grade,
                                                 @RequestParam(required = false) String platform,
                                                 @RequestParam(required = false) String subject,
                                                 @RequestParam(required = false) String name,
                                                 @RequestParam(required = false) String sort,
+                                                @RequestParam(required = false) String reverse,
                                                 @RequestParam int page,
-                                                @RequestParam int size){
-
-        log.info("grade : " + grade + ", platform : " + platform + ", subject :  " + subject + ", name = " + name);
+                                                @RequestParam int size) {
         if(sort == null) sort = "teacherId";
-        GradeTag.Grade gradeTag;
-        PlatformTag.Platform platformTag;
-        SubjectTag.Subject subjectTag;
-        if(grade != null) {
-            gradeTag = tagService.findGradeTag(grade);
-        } else gradeTag = null;
-        if(platform != null) {
-            platformTag = tagService.findPlatformTag(platform);
-        } else  platformTag = null;
-        if(subject != null) {
-            subjectTag = tagService.findSubjectTag(subject);
-        } else subjectTag = null;
 
-        Page<Teacher> teacherPage = teacherService.findTeachers(gradeTag,platformTag,subjectTag,name,sort,page -1, size);
+        GradeTag.Grade gradeTag = (grade != null) ? tagService.findGradeTag(grade) : null;
+        PlatformTag.Platform platformTag = (platform != null) ? tagService.findPlatformTag(platform) : null;
+        SubjectTag.Subject subjectTag = (subject != null) ? tagService.findSubjectTag(subject) : null;
+
+        Page<Teacher> teacherPage = (reverse != null)
+                ? teacherService.findTeachers(gradeTag, platformTag, subjectTag, name, sort, reverse,page - 1, size)
+                : teacherService.findTeachers(gradeTag, platformTag, subjectTag, name, sort,page - 1, size);
+
         List<Teacher> teachers = teacherPage.getContent();
         List<TeacherDto.ListPageResponse> responses = teacherMapper.teacherListPageResponsesToTeachers(teachers);
         return new ResponseEntity<>(new MultiResponseDto<>(responses, teacherPage), HttpStatus.OK);
     }
+
     //강사 상세조회
     @GetMapping("/{teacher-id}")
     public ResponseEntity<?> getTeacherDetail(@PathVariable("teacher-id") long teacherId){
         Teacher teacher = teacherService.findTeacherById(teacherId);
-        TeacherDto.SimpleInfoResponse response = teacherMapper.teacherInfoResponseToTeacher(teacher);
+        TeacherDto.DetailPageResponse response = teacherMapper.teacherDetailPageResponseToTeacher(teacher);
+        return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
+    }
+    //강사 상세조회 ( 강사의 리뷰페이지 별도 )
+    @GetMapping("/{teacher-id}/review")
+    public ResponseEntity<?> getTeacherDetailReview(@PathVariable("teacher-id") long teacherId){
+        Teacher teacher = teacherService.findTeacherById(teacherId);
+        TeacherDto.ReviewDetailPageResponse response = teacherMapper.teacherReviewDetailPageResponseToTeacher(teacher);
+
+        //별점 5,4,3,2,1 점 총 갯수 추가
+        Map<String, Long> starPointCount = lectureReviewService.findStarPointCountByTeacher(teacher);
+        response.setStarPointCount(starPointCount);
+
         return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
     //강사 삭제
