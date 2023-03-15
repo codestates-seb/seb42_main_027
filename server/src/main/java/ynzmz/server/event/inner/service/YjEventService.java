@@ -17,8 +17,8 @@ public class YjEventService {
     YjEventRepository yjEventRepository;
 
     //--------------------------------------------CREATE--------------------------------------------------------
-    public void creatEvent(YjEvent event){
-        yjEventRepository.save(event);
+    public YjEvent createEvent(YjEvent event){
+        return yjEventRepository.save(event);
     }
 
 

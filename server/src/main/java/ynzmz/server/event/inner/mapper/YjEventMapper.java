@@ -6,11 +6,13 @@ import ynzmz.server.event.inner.entity.YjEvent;
 
 @Mapper(componentModel = "spring")
 public interface YjEventMapper {
-    YjEventDto.Post yjEventToYjEventPost(YjEvent e);
-    YjEventDto.Patch yjEventToYjEventPatch(YjEvent e);
+    YjEvent yjEventPostToYjEvent(YjEventDto.Post p);
 
-    YjEventDto.Response yjEventToYjEventResponse(YjEvent e);
 
-    YjEvent yjEventResponseToYjEvent(YjEventDto.Response r);
+    YjEvent yjEventPatchToYjEvent(YjEventDto.Patch p);
+
+    YjEvent YjEventResponseToyjEvent(YjEventDto.Response r);
+
+
 
 }
