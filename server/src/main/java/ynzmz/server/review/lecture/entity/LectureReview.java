@@ -20,7 +20,7 @@ public class LectureReview implements VoteCount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long LectureReviewId;
     private String title;
-    private long starPoint;
+    private int starPoint;
     private String content;
     private String createdAt;
     private String modifiedAt;

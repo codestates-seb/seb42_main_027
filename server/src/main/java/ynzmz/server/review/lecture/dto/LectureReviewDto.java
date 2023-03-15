@@ -3,8 +3,10 @@ package ynzmz.server.review.lecture.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import ynzmz.server.comment.review.lecture.dto.LectureReviewCommentDto;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.lecture.dto.LectureDto;
+import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.teacher.dto.TeacherDto;
 
@@ -59,7 +61,7 @@ public class LectureReviewDto {
         private TeacherDto.SimpleInfoResponse teacher;
         private LectureDto.SimpleInfoResponse lecture;
         private Member member;
-        private List<LectureReviewComment> comments;
+        private List<LectureReviewCommentDto.Response> comments;
     }
     @Getter @Setter
     public static class InfoResponse{

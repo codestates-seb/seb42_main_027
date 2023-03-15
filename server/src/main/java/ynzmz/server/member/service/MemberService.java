@@ -1,4 +1,4 @@
-package ynzmz.server.member.Service;
+package ynzmz.server.member.service;
 
 
 import org.springframework.context.ApplicationEventPublisher;

@@ -1,8 +1,8 @@
-package ynzmz.server.vote.lecturereview.mapper;
+package ynzmz.server.vote.review.lecture.mapper;
 
 import org.mapstruct.Mapper;
-import ynzmz.server.vote.lecturereview.dto.LectureReviewVoteDto;
-import ynzmz.server.vote.lecturereview.entity.LectureReviewVote;
+import ynzmz.server.vote.review.lecture.dto.LectureReviewVoteDto;
+import ynzmz.server.vote.review.lecture.entity.LectureReviewVote;
 
 @Mapper(componentModel = "spring")
 public interface LectureReviewVoteMapper {
