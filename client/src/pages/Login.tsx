@@ -4,6 +4,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
 import login from 'components/login/login';
+import { useNavigate } from 'react-router';
 import BaseButton from '../components/UI/BaseButton';
 
 const { colors } = theme;
@@ -51,6 +52,7 @@ function Login() {
   const [failedLogin, setFailedLogin] = useState(false);
   const [loginError, setLoginError] = useState('');
 
+  const navigate = useNavigate();
   const pathData = {
     username: '',
     password: '',
@@ -80,6 +82,7 @@ function Login() {
     pathData.password = password;
     try {
       await login(pathData);
+      navigate(-1);
     } catch (error) {
       setFailedLogin(true);
       console.error(error);
