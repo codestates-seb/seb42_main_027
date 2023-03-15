@@ -70,37 +70,38 @@ class LectureReviewCommentControllerTest {
         when(memberService.findMemberById(anyLong())).thenReturn(member);
         when(lectureReviewPostCommentMapper.lectureReviewCommentResponseToLectureReviewComment(any())).thenReturn(lectureReviewPostCommentResponse);
 
-        ResultActions actions = mockMvc.perform(post("/lecture-review-post-comment")
+        ResultActions actions = mockMvc.perform(post("/lectures/reviews/comments")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonPost)
         );
-        actions.andExpect(status().isCreated()).andDo(document("post-lecture-review-post-comment",
+        actions.andExpect(status().isCreated()).andDo(document("post-lecture-review-comment",
                 getRequestPreProcessor(),
                 getResponsePreProcessor(),
                 requestFields(
                         List.of(
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("댓글 내용"),
                                 fieldWithPath("createdAt").type(JsonFieldType.STRING).description("작성시간 [서버는 string 으로 관리]"),
-                                fieldWithPath("lectureReviewPostId").type(JsonFieldType.NUMBER).description("댓글 작성하는 리뷰글 식별번호"),
+                                fieldWithPath("lectureReviewId").type(JsonFieldType.NUMBER).description("댓글 작성하는 리뷰글 식별번호"),
                                 fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("댓글 작성 회원 식별번호")
                         )
                 ),
                 responseFields(
                         List.of(
-                                fieldWithPath("data.lectureReviewPostCommentId").type(JsonFieldType.NUMBER).description("댓글 식별번호"),
+                                fieldWithPath("data.lectureReviewCommentId").type(JsonFieldType.NUMBER).description("댓글 식별번호"),
                                 fieldWithPath("data.content").type(JsonFieldType.STRING).description("댓글 내용"),
                                 fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("작성시간 [서버는 string 으로 관리]"),
                                 fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("수정시간 [서버는 string 으로 관리]"),
                                 fieldWithPath("data.voteCount").type(JsonFieldType.NUMBER).description("댓글 추천수"),
-                                fieldWithPath("data.lectureReviewPostId").type(JsonFieldType.NUMBER).description("댓글 작성하는 리뷰글 식별번호"),
 
                                 fieldWithPath("data.member.memberId").type(JsonFieldType.NUMBER).description("작성자 회원 식별번호"),
                                 fieldWithPath("data.member.email").type(JsonFieldType.STRING).description("작성자 이메일"),
                                 fieldWithPath("data.member.displayName").type(JsonFieldType.STRING).description("작성자 이름"),
                                 fieldWithPath("data.member.password").type(JsonFieldType.STRING).description("작성자 비밀번호(이건 없엘예정)"),
                                 fieldWithPath("data.member.iconImageUrl").type(JsonFieldType.STRING).description("작성자 아이콘 Url"),
-                                fieldWithPath("data.member.createdAt").type(JsonFieldType.STRING).description("작성자 가입시간 [서버는 string 으로 관리]")
+                                fieldWithPath("data.member.createdAt").type(JsonFieldType.STRING).description("작성자 가입시간 [서버는 string 으로 관리]"),
+                                fieldWithPath("data.member.roles").type(JsonFieldType.ARRAY).description("작성자 권한"),
+                                fieldWithPath("data.member.memberStatus").type(JsonFieldType.STRING).description("작성자 상태값")
                         )
                 ))
         );
@@ -113,21 +114,21 @@ class LectureReviewCommentControllerTest {
         LectureReviewCommentDto.Patch mockPatch = new LectureReviewCommentDto.Patch("이사람 재대로 들은거 맞음?",
                 "2023.03.10.18:52:36");
         String jsonPatch = gson.toJson(mockPatch);
-        long lectureReviewPostCommentId = 1L;
+        long lectureReviewCommentId = 1L;
 
         when(lectureReviewPostCommentMapper.lectureReviewCommentToLectureReviewCommentPatch(any())).thenReturn(new LectureReviewComment());
         when(lectureReviewPostCommentMapper.lectureReviewCommentResponseToLectureReviewComment(any())).thenReturn(lectureReviewPostCommentResponse);
 
-        ResultActions actions = mockMvc.perform(patch("/lecture-review-post-comment/{lecture-review-post-comment-id}",lectureReviewPostCommentId)
+        ResultActions actions = mockMvc.perform(patch("/lectures/reviews/comments/{lecture-review-comment-id}",lectureReviewCommentId)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonPatch)
         );
-        actions.andExpect(status().isOk()).andDo(document("patch-lecture-review-post-comment",
+        actions.andExpect(status().isOk()).andDo(document("patch-lecture-review-comment",
                 getRequestPreProcessor(),
                 getResponsePreProcessor(),
                 pathParameters(
-                        parameterWithName("lecture-review-post-comment-id").description("리뷰 댓글 식별번호")
+                        parameterWithName("lecture-review-comment-id").description("리뷰 댓글 식별번호")
                 ),
                 requestFields(
                         List.of(
@@ -137,19 +138,20 @@ class LectureReviewCommentControllerTest {
                 ),
                 responseFields(
                         List.of(
-                                fieldWithPath("data.lectureReviewPostCommentId").type(JsonFieldType.NUMBER).description("댓글 식별번호"),
+                                fieldWithPath("data.lectureReviewCommentId").type(JsonFieldType.NUMBER).description("댓글 식별번호"),
                                 fieldWithPath("data.content").type(JsonFieldType.STRING).description("댓글 내용"),
                                 fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("작성시간 [서버는 string 으로 관리]"),
                                 fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("수정시간 [서버는 string 으로 관리]"),
                                 fieldWithPath("data.voteCount").type(JsonFieldType.NUMBER).description("댓글 추천수"),
-                                fieldWithPath("data.lectureReviewPostId").type(JsonFieldType.NUMBER).description("댓글 작성하는 리뷰글 식별번호"),
 
                                 fieldWithPath("data.member.memberId").type(JsonFieldType.NUMBER).description("작성자 회원 식별번호"),
                                 fieldWithPath("data.member.email").type(JsonFieldType.STRING).description("작성자 이메일"),
                                 fieldWithPath("data.member.displayName").type(JsonFieldType.STRING).description("작성자 이름"),
                                 fieldWithPath("data.member.password").type(JsonFieldType.STRING).description("작성자 비밀번호(이건 없엘예정)"),
                                 fieldWithPath("data.member.iconImageUrl").type(JsonFieldType.STRING).description("작성자 아이콘 Url"),
-                                fieldWithPath("data.member.createdAt").type(JsonFieldType.STRING).description("작성자 가입시간 [서버는 string 으로 관리]")
+                                fieldWithPath("data.member.createdAt").type(JsonFieldType.STRING).description("작성자 가입시간 [서버는 string 으로 관리]"),
+                                fieldWithPath("data.member.roles").type(JsonFieldType.ARRAY).description("작성자 권한"),
+                                fieldWithPath("data.member.memberStatus").type(JsonFieldType.STRING).description("작성자 상태값")
                         )
                 ))
         );
@@ -164,30 +166,29 @@ class LectureReviewCommentControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        get("/lecture-review-post-comment")
-                                .param("filter", "lectureReviewPostCommentId")
-                                .param("lectureReviewPostId", "1")
+                        get("/lectures/reviews/comments")
+                                .param("filter", "lectureReviewCommentId")
+                                .param("lectureReviewId", "1")
                                 .param("page", "1")
                                 .param("size", "5")
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
                 );
-        actions.andExpect(status().isOk()).andDo(document("get-lecture-review-post-comments",
+        actions.andExpect(status().isOk()).andDo(document("get-lecture-review-comments",
                 getRequestPreProcessor(),
                 getResponsePreProcessor(),
                 requestParameters(
                         parameterWithName("filter").description("지정된 필터 양식 (정리필요) "),
-                        parameterWithName("lectureReviewPostId").description("조회할 댓글들의 강의 식별번호"),
+                        parameterWithName("lectureReviewId").description("조회할 댓글들의 강의 식별번호"),
                         parameterWithName("page").description("요청 페이지"),
                         parameterWithName("size").description("요청 페이지당 출력개수")
                 ),
                 responseFields(
-                        fieldWithPath("data.[].lectureReviewPostCommentId").type(JsonFieldType.NUMBER).description("댓글 식별번호"),
+                        fieldWithPath("data.[].lectureReviewCommentId").type(JsonFieldType.NUMBER).description("댓글 식별번호"),
                         fieldWithPath("data.[].content").type(JsonFieldType.STRING).description("댓글 내용"),
                         fieldWithPath("data.[].createdAt").type(JsonFieldType.STRING).description("작성시간 [서버는 string 으로 관리]"),
                         fieldWithPath("data.[].modifiedAt").type(JsonFieldType.STRING).description("수정시간 [서버는 string 으로 관리]"),
                         fieldWithPath("data.[].voteCount").type(JsonFieldType.NUMBER).description("댓글 추천수"),
-                        fieldWithPath("data.[].lectureReviewPostId").type(JsonFieldType.NUMBER).description("댓글 작성하는 리뷰글 식별번호"),
 
                         fieldWithPath("data.[].member.memberId").type(JsonFieldType.NUMBER).description("작성자 회원 식별번호"),
                         fieldWithPath("data.[].member.email").type(JsonFieldType.STRING).description("작성자 이메일"),
@@ -195,6 +196,9 @@ class LectureReviewCommentControllerTest {
                         fieldWithPath("data.[].member.password").type(JsonFieldType.STRING).description("작성자 비밀번호(이건 없엘예정)"),
                         fieldWithPath("data.[].member.iconImageUrl").type(JsonFieldType.STRING).description("작성자 아이콘 Url"),
                         fieldWithPath("data.[].member.createdAt").type(JsonFieldType.STRING).description("작성자 가입시간 [서버는 string 으로 관리]"),
+                        fieldWithPath("data.[].member.roles").type(JsonFieldType.ARRAY).description("작성자 권한"),
+                        fieldWithPath("data.[].member.memberStatus").type(JsonFieldType.STRING).description("작성자 상태값"),
+
                         fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지정보 - 현재 페이지"),
                         fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("페이지정보 - 페이지당 출력 갯수"),
                         fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("페이지정보 - 전체 질문글수"),
@@ -206,17 +210,17 @@ class LectureReviewCommentControllerTest {
     @Test
     @DisplayName("리뷰 댓글 삭제 테스트")
     void deleteLectureReviewPostComment() throws Exception {
-        long lectureReviewPostCommentId = 1L;
+        long lectureReviewCommentId = 1L;
 
-        ResultActions actions = mockMvc.perform(delete("/lecture-review-post-comment/{lecture-review-post-comment-id}",lectureReviewPostCommentId)
+        ResultActions actions = mockMvc.perform(delete("/lectures/reviews/comments/{lecture-review-comment-id}",lectureReviewCommentId)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
         );
-        actions.andExpect(status().isOk()).andDo(document("delete-lecture-review-post-comment",
+        actions.andExpect(status().isOk()).andDo(document("delete-lecture-review-comment",
                 getRequestPreProcessor(),
                 getResponsePreProcessor(),
                 pathParameters(
-                        parameterWithName("lecture-review-post-comment-id").description("리뷰 댓글 식별번호")
+                        parameterWithName("lecture-review-comment-id").description("리뷰 댓글 식별번호")
                 )
         ));
     }

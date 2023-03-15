@@ -2,7 +2,6 @@ package ynzmz.server.helper;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ynzmz.server.comment.review.lecture.dto.LectureReviewCommentDto;
-import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.review.lecture.dto.LectureReviewDto;
@@ -55,17 +54,13 @@ public class StubData {
     public static final TeacherDto.DetailPageResponse teacherDetailPageResponse = new TeacherDto.DetailPageResponse();
     public static final TeacherDto.ReviewDetailPageResponse teacherReviewDetailPageResponse = new TeacherDto.ReviewDetailPageResponse();
     public static final List<TeacherDto.ListPageResponse> teacherListPageResponses = new ArrayList<>();
-    public static final List<LectureDto.SimpleInfoResponse> LECTURE_SIMPLE_INFO_RESPONS = new ArrayList<>();
     public static final LectureReviewDto.InfoResponse lectureReviewPostInfoResponse = new LectureReviewDto.InfoResponse();
-    public static final List<LectureReviewDto.InfoResponse> lectureReviewPostInfoResponses = new ArrayList<>();
     public static final LectureReviewDto.DetailPageResponse lectureReviewDetailPageResponse = new LectureReviewDto.DetailPageResponse();
     public static final LectureReviewCommentDto.Response lectureReviewPostCommentResponse = new LectureReviewCommentDto.Response();
     public static final List<LectureReviewCommentDto.Response> lectureReviewPostCommentResponses = new ArrayList<>();
-    public static final LectureReviewVote LECTURE_REVIEW_VOTE = new LectureReviewVote();
-    public static final LectureReviewVoteDto.Response lectureReviewPostVoteResponse = new LectureReviewVoteDto.Response();
-    public static final LectureReviewComment LECTURE_REVIEW_COMMENT = new LectureReviewComment();
-//    public static final LectureReviewCommentVote LECTURE_REVIEW_COMMENT_VOTE = new LectureReviewCommentVote();
-//    public static final LectureReviewCommentVoteDto.Response lectureReviewPostCommentVoteResponse = new LectureReviewCommentVoteDto.Response();
+    public static final LectureReviewVote lectureReviewVote = new LectureReviewVote();
+    public static final LectureReviewVoteDto.Response lectureReviewVoteResponse = new LectureReviewVoteDto.Response();
+    public static final LectureReviewVoteDto.Response lectureReviewCommentVoteResponse = new LectureReviewVoteDto.Response();
     public static void init(){
 
         tagsSample.add("국어");
@@ -282,15 +277,22 @@ public class StubData {
 //
 //
 //
-//        LECTURE_REVIEW_VOTE.setLectureReviewVoteId(1L);
-//        LECTURE_REVIEW_VOTE.setMember(member);
-//        LECTURE_REVIEW_VOTE.setVoteStatus(LectureReviewVote.VoteStatus.UP);
-//        LECTURE_REVIEW_VOTE.setLectureReview(LECTURE_REVIEW);
-//
-//        lectureReviewPostVoteResponse.setVoteStatus(LectureReviewVote.VoteStatus.UP);
-//        lectureReviewPostVoteResponse.setLectureReviewTotalCount(5);
-//        lectureReviewPostVoteResponse.setMemberId(1L);
-//        lectureReviewPostVoteResponse.setLectureReviewId(1L);
+        lectureReviewVote.setLectureReviewVoteId(1L);
+        lectureReviewVote.setMember(member);
+        lectureReviewVote.setVoteStatus(LectureReviewVote.VoteStatus.UP);
+        lectureReviewVote.setLectureReview(lectureReview);
+
+        lectureReviewVoteResponse.setVoteStatus(LectureReviewVote.VoteStatus.UP);
+        lectureReviewVoteResponse.setTarget(LectureReviewVote.Target.REVIEW);
+        lectureReviewVoteResponse.setLectureReviewId(1L);
+        lectureReviewVoteResponse.setLectureReviewTotalCount(5);
+        lectureReviewVoteResponse.setMemberId(1L);
+
+        lectureReviewCommentVoteResponse.setVoteStatus(LectureReviewVote.VoteStatus.UP);
+        lectureReviewCommentVoteResponse.setTarget(LectureReviewVote.Target.COMMENT);
+        lectureReviewCommentVoteResponse.setLectureReviewCommentId(1L);
+        lectureReviewCommentVoteResponse.setLectureReviewCommentTotalCount(7);
+        lectureReviewCommentVoteResponse.setMemberId(1L);
 //
 //        LECTURE_REVIEW_COMMENT.setLectureReviewCommentId(1L);
 //        LECTURE_REVIEW_COMMENT.setMember(member);
