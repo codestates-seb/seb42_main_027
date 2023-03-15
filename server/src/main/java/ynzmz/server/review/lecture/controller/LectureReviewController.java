@@ -94,8 +94,8 @@ public class LectureReviewController {
     }
 
     //리뷰 1건 상세조회
-    @GetMapping("/{lecture-review-post-id}")
-    public ResponseEntity<?> getReviewDetail(@PathVariable("lecture-review-post-id") long lectureReviewId){
+    @GetMapping("/{lecture-review-id}")
+    public ResponseEntity<?> getReviewDetail(@PathVariable("lecture-review-id") long lectureReviewId){
         LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewId);
         LectureReviewDto.DetailPageResponse response = lectureReviewMapper.lectureReviewDetailPageResponseToLectureReview(lectureReview);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);

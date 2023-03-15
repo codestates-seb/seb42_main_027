@@ -1,5 +1,6 @@
 package ynzmz.server.teacher.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -82,6 +83,7 @@ public class TeacherDto {
         private List<String> profile;
         private List<String> analects;
         private double starPointAverage;
+        private long totalReviewCount;
         private Map<String,Long> starPointCount;
         private List<GradeTagDto.Response> gradeTags;
         private List<SubjectTagDto.Response> subjectTags;

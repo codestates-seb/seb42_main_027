@@ -1,6 +1,8 @@
 package ynzmz.server.lecture.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.lecture.entity.Lecture;
@@ -21,6 +23,7 @@ public class LectureDto {
     //postDto
     @Getter
     @AllArgsConstructor
+    @Builder
     public static class Post{
         private String title;
         private String introduction;
@@ -33,6 +36,7 @@ public class LectureDto {
     //pathDto
     @Getter
     @AllArgsConstructor
+    @Builder
     public static class Patch{
         private String title;
         private String introduction;
@@ -65,6 +69,7 @@ public class LectureDto {
         private Lecture.Status status;
         private TeacherDto.SimpleInfoResponse teacher;
         private double starPointAverage;
+        private long totalReviewCount;
         private Map<String,Long> starPointCount;
         private List<GradeTagDto.Response> gradeTags;
         private List<SubjectTagDto.Response> subjectTags;

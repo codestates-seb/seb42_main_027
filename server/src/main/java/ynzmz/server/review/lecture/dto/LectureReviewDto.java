@@ -1,6 +1,7 @@
 package ynzmz.server.review.lecture.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.comment.review.lecture.dto.LectureReviewCommentDto;
@@ -15,6 +16,7 @@ import java.util.List;
 public class LectureReviewDto {
     @Getter
     @AllArgsConstructor
+    @Builder
     public static class Post{
         private String title;
         private long starPoint;
@@ -25,6 +27,7 @@ public class LectureReviewDto {
     }
     @Getter
     @AllArgsConstructor
+    @Builder
     public static class Patch{
         private String title;
         private long starPoint;

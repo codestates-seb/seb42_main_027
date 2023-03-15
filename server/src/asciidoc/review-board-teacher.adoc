@@ -76,6 +76,21 @@ include::{snippets}/get-teacher/http-response.adoc[]
 include::{snippets}/get-teacher/response-fields.adoc[]
 .response-body
 include::{snippets}/get-teacher/response-body.adoc[]
+=== 강사 리뷰 상세 조회
+.curl-request
+include::{snippets}/get-teacher-review/curl-request.adoc[]
+.path-parameters
+include::{snippets}/get-teacher-review/path-parameters.adoc[]
+.http-request
+include::{snippets}/get-teacher-review/http-request.adoc[]
+.request-body
+include::{snippets}/get-teacher-review/request-body.adoc[]
+.http-response
+include::{snippets}/get-teacher-review/http-response.adoc[]
+.response-fields
+include::{snippets}/get-teacher-review/response-fields.adoc[]
+.response-body
+include::{snippets}/get-teacher-review/response-body.adoc[]
 === 강사 삭제
 .curl-request
 include::{snippets}/delete-teacher/curl-request.adoc[]

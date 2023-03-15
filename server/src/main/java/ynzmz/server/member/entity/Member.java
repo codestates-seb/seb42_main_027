@@ -26,10 +26,7 @@ public class Member {
     private String displayName;
     private String password;
     private String iconImageUrl;
-
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
+    private String createdAt;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
