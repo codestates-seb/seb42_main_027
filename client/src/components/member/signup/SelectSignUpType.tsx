@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { BiUser } from 'react-icons/bi';
 import { FaChalkboardTeacher } from 'react-icons/fa';
 import theme from 'theme';
+import { Link } from 'react-router-dom';
 
 const { colors } = theme;
 

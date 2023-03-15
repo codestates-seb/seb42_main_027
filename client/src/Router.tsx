@@ -22,8 +22,8 @@ function Router() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
 
-        <Route path="/signup/*" element={<SignUp />}>
-          <Route path="/signup/*" element={<SelectSignUpType />} />
+        <Route path="signup/*" element={<SignUp />}>
+          <Route path="" element={<SelectSignUpType />} />
           <Route path="student" element={<StudentSignUpForm />} />
           <Route path="teacher" element={<TeacherSignUpForm />} />
         </Route>
