@@ -1,4 +1,4 @@
-package ynzmz.server.vote.lecturereview.service;
+package ynzmz.server.vote.review.lecture.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -6,8 +6,8 @@ import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.review.lecture.entity.LectureReview;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.vote.VoteCount;
-import ynzmz.server.vote.lecturereview.entity.LectureReviewVote;
-import ynzmz.server.vote.lecturereview.repository.LectureReviewVoteRepository;
+import ynzmz.server.vote.review.lecture.entity.LectureReviewVote;
+import ynzmz.server.vote.review.lecture.repository.LectureReviewVoteRepository;
 
 import java.util.Optional;
 

@@ -9,8 +9,13 @@ import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.review.lecture.entity.LectureReview;
 import ynzmz.server.review.lecture.repository.LectureReviewRepository;
+import ynzmz.server.teacher.entity.Teacher;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -52,6 +57,21 @@ public class LectureReviewService {
     public LectureReview findLectureReviewById(long lectureReviewId) {
         Optional<LectureReview> lectureReviewPost = lectureReviewRepository.findById(lectureReviewId);
         return lectureReviewPost.orElseThrow(() -> new BusinessLogicException(ExceptionCode.LECTURE_REVIEW_NOT_FOUND));
+    }
+
+    public Map<String,Long> findStarPointCountByTeacher(Teacher teacher) {
+        List<LectureReview> lectureReviews = lectureReviewRepository.findAllLecturesByTeacherId(teacher.getTeacherId());
+
+        Map<String, Long> starPointCount = new HashMap<>();
+        for(int i = 1; i <= 5; i++) starPointCount.put(i + "점갯수",0L);
+
+        for( LectureReview lectureReview : lectureReviews) {
+            int lectureReviewStarPoint = lectureReview.getStarPoint();
+            String key = lectureReviewStarPoint + "점갯수";
+            starPointCount.put(key, starPointCount.get(key) + 1);
+        }
+
+        return starPointCount;
     }
 
 }

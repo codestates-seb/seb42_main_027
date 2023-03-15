@@ -1,9 +1,9 @@
-package ynzmz.server.vote.lecturereview.dto;
+package ynzmz.server.vote.review.lecture.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ynzmz.server.vote.lecturereview.entity.LectureReviewVote;
+import ynzmz.server.vote.review.lecture.entity.LectureReviewVote;
 
 public class LectureReviewVoteDto {
 
