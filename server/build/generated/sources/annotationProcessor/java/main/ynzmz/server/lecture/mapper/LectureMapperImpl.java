@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.review.lecture.entity.LectureReview;
+import ynzmz.server.tag.dto.GradeTagDto;
+import ynzmz.server.tag.dto.PlatformTagDto;
+import ynzmz.server.tag.dto.SubjectTagDto;
 import ynzmz.server.tag.mappingtable.lecture.LectureGradeTag;
 import ynzmz.server.tag.mappingtable.lecture.LecturePlatformTag;
 import ynzmz.server.tag.mappingtable.lecture.LectureSubjectTag;
@@ -15,7 +18,7 @@ import ynzmz.server.teacher.entity.Teacher;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-15T17:06:08+0900",
+    date = "2023-03-15T23:18:12+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -102,18 +105,9 @@ public class LectureMapperImpl implements LectureMapper {
         listPageResponse.setStatus( lecture.getStatus() );
         listPageResponse.setStarPointAverage( lecture.getStarPointAverage() );
         listPageResponse.setTotalReviewCount( lecture.getTotalReviewCount() );
-        List<LectureGradeTag> list = lecture.getGradeTags();
-        if ( list != null ) {
-            listPageResponse.setGradeTags( new ArrayList<LectureGradeTag>( list ) );
-        }
-        List<LectureSubjectTag> list1 = lecture.getSubjectTags();
-        if ( list1 != null ) {
-            listPageResponse.setSubjectTags( new ArrayList<LectureSubjectTag>( list1 ) );
-        }
-        List<LecturePlatformTag> list2 = lecture.getPlatformTags();
-        if ( list2 != null ) {
-            listPageResponse.setPlatformTags( new ArrayList<LecturePlatformTag>( list2 ) );
-        }
+        listPageResponse.setGradeTags( lectureGradeTagListToResponseList( lecture.getGradeTags() ) );
+        listPageResponse.setSubjectTags( lectureSubjectTagListToResponseList( lecture.getSubjectTags() ) );
+        listPageResponse.setPlatformTags( lecturePlatformTagListToResponseList( lecture.getPlatformTags() ) );
         listPageResponse.setTeacher( teacherToSimpleInfoResponse( lecture.getTeacher() ) );
 
         return listPageResponse;
@@ -149,18 +143,9 @@ public class LectureMapperImpl implements LectureMapper {
         detailPageResponse.setStatus( lecture.getStatus() );
         detailPageResponse.setTeacher( teacherToSimpleInfoResponse( lecture.getTeacher() ) );
         detailPageResponse.setStarPointAverage( lecture.getStarPointAverage() );
-        List<LectureGradeTag> list = lecture.getGradeTags();
-        if ( list != null ) {
-            detailPageResponse.setGradeTags( new ArrayList<LectureGradeTag>( list ) );
-        }
-        List<LectureSubjectTag> list1 = lecture.getSubjectTags();
-        if ( list1 != null ) {
-            detailPageResponse.setSubjectTags( new ArrayList<LectureSubjectTag>( list1 ) );
-        }
-        List<LecturePlatformTag> list2 = lecture.getPlatformTags();
-        if ( list2 != null ) {
-            detailPageResponse.setPlatformTags( new ArrayList<LecturePlatformTag>( list2 ) );
-        }
+        detailPageResponse.setGradeTags( lectureGradeTagListToResponseList( lecture.getGradeTags() ) );
+        detailPageResponse.setSubjectTags( lectureSubjectTagListToResponseList( lecture.getSubjectTags() ) );
+        detailPageResponse.setPlatformTags( lecturePlatformTagListToResponseList( lecture.getPlatformTags() ) );
         List<LectureReview> list3 = lecture.getLectureReviews();
         if ( list3 != null ) {
             detailPageResponse.setLectureReviews( new ArrayList<LectureReview>( list3 ) );
@@ -216,6 +201,45 @@ public class LectureMapperImpl implements LectureMapper {
         }
 
         return list;
+    }
+
+    protected List<GradeTagDto.Response> lectureGradeTagListToResponseList(List<LectureGradeTag> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<GradeTagDto.Response> list1 = new ArrayList<GradeTagDto.Response>( list.size() );
+        for ( LectureGradeTag lectureGradeTag : list ) {
+            list1.add( LectureGradeTagResponseToLectureGradeTag( lectureGradeTag ) );
+        }
+
+        return list1;
+    }
+
+    protected List<SubjectTagDto.Response> lectureSubjectTagListToResponseList(List<LectureSubjectTag> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<SubjectTagDto.Response> list1 = new ArrayList<SubjectTagDto.Response>( list.size() );
+        for ( LectureSubjectTag lectureSubjectTag : list ) {
+            list1.add( LectureSubjectTagResponseToLectureSubjectTag( lectureSubjectTag ) );
+        }
+
+        return list1;
+    }
+
+    protected List<PlatformTagDto.Response> lecturePlatformTagListToResponseList(List<LecturePlatformTag> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<PlatformTagDto.Response> list1 = new ArrayList<PlatformTagDto.Response>( list.size() );
+        for ( LecturePlatformTag lecturePlatformTag : list ) {
+            list1.add( LecturePlatformTagResponseToLecturePlatformTag( lecturePlatformTag ) );
+        }
+
+        return list1;
     }
 
     protected TeacherDto.SimpleInfoResponse teacherToSimpleInfoResponse(Teacher teacher) {

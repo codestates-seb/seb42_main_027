@@ -25,6 +25,4 @@ public interface TeacherRepository extends JpaRepository<Teacher,Long> {
             "AND (:subject IS NULL OR ts.subjectTag.subject = :subject) " +
             "AND (:name IS NULL OR t.name LIKE CONCAT('%', :name, '%'))")
     Page<Teacher> findAllByGradeAndPlatformAndSubjectAndName(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String name, Pageable pageable);
-//    Page<Teacher> findAllByTeacherGradeTagsAndPlatformTagsPlatformAndSubjectTagsSubjectAndName(String grade, String platform, String subject, String name, Pageable pageable);
-//    Page<Teacher> findByNameContainingIgnoreCase(String name, Pageable pageable);
 }

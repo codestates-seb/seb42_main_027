@@ -32,6 +32,16 @@ public interface LectureMapper {
     LectureDto.TeacherReviewDetailPageResponse lectureTeacherReviewDetailPageResponseToLecture(Lecture lecture);
     List<LectureDto.TeacherReviewDetailPageResponse> lectureTeacherReviewDetailPageResponsesToLectures(List<Lecture> lectures);
 
+    default GradeTag.Grade map(GradeTag gradeTag) {
+        return gradeTag.getGrade();
+    }
+    default SubjectTag.Subject map(SubjectTag subjectTag) {
+        return subjectTag.getSubject();
+    }
+    default PlatformTag.Platform map(PlatformTag platformTag) {
+        return platformTag.getPlatform();
+    }
+
     default GradeTagDto.Response LectureGradeTagResponseToLectureGradeTag(LectureGradeTag lectureGradeTag) {
         if ( lectureGradeTag == null ) return null;
 

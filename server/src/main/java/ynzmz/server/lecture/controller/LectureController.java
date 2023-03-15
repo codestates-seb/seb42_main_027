@@ -67,23 +67,30 @@ public class LectureController {
 
     //과목별 강의조회 + 강의 전체 조회
     @GetMapping
-    public ResponseEntity<?> getLectureByTag(@RequestParam(value = "tag", required = false) String tag,
-                                                  @RequestParam int page,
-                                                  @RequestParam int size){
+    public ResponseEntity<?> getLectureListPage(@RequestParam(required = false) String grade,
+                                                @RequestParam(required = false) String platform,
+                                                @RequestParam(required = false) String subject,
+                                                @RequestParam(required = false) String title,
+                                                @RequestParam(required = false) String sort,
+                                                @RequestParam(required = false) String reverse,
+                                                @RequestParam int page,
+                                                @RequestParam int size){
+        if(sort == null) sort = "lectureId";
 
-        if(tag == null) {
-            Page<Lecture> lecturePage = lectureService.findLectures(page -1, size);
-            List<Lecture> lectures = lecturePage.getContent();
-            List<LectureDto.SimpleInfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
-            return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
-        } else {
-            Page<Lecture> lecturePage = lectureService.findLectures(page -1, size);
-            List<Lecture> lectures = lecturePage.getContent();
-            List<LectureDto.SimpleInfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
-            return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
+        GradeTag.Grade gradeTag = (grade != null) ? tagService.findGradeTag(grade) : null;
+        PlatformTag.Platform platformTag = (platform != null) ? tagService.findPlatformTag(platform) : null;
+        SubjectTag.Subject subjectTag = (subject != null) ? tagService.findSubjectTag(subject) : null;
+
+        Page<Lecture> lecturePage = (reverse != null)
+                ? lectureService.findLectures(gradeTag, platformTag, subjectTag, title, sort, reverse,page - 1, size)
+                : lectureService.findLectures(gradeTag, platformTag, subjectTag, title, sort,page - 1, size);
+
+        List<Lecture> lectures = lecturePage.getContent();
+        List<LectureDto.ListPageResponse> responses = lectureMapper.lectureListPageResponsesToLectures(lectures);
+
+        return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
 
         }
-    }
 
     //강사별 강의조회
     @GetMapping("/teacher")
