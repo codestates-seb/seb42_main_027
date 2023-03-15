@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from 'components/UI/Button';
-import Toggle from '../UI/Toggle';
+import Button from 'components/common/Button';
+import Toggle from '../common/Toggle';
 import theme from '../../theme';
 
 function Header() {
@@ -29,6 +29,7 @@ function Header() {
           <Link to="/free">
             <LI>자유게시판</LI>
           </Link>
+
           <LI>이벤트</LI>
           <LI>스터디카페</LI>
         </UL>

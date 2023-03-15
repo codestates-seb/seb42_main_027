@@ -1,11 +1,11 @@
 import PButton from 'components/login/PButton';
-import Input from 'components/UI/Input';
+import Input from 'components/common/Input';
 import { useState } from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
 import login from 'components/login/login';
 import { useNavigate } from 'react-router';
-import BaseButton from '../components/UI/BaseButton';
+import BaseButton from '../components/common/BaseButton';
 
 const { colors } = theme;
 

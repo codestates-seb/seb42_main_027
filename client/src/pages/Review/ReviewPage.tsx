@@ -1,15 +1,15 @@
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
-import SortBar from 'components/Review/SortBar';
-import SearchBar from 'components/Review/SearchBar';
-import Pagenation from 'components/Review/Pagenation';
-import CharacterCard from 'components/Review/CharacterCard';
-import Carousel from 'components/Review/Carousel';
-import SubjectMenu from 'components/Review/SubjectMenu';
-import { dummy } from 'components/Review/CharacterDummy';
+import SortBar from 'components/review/SortBar';
+import SearchBar from 'components/review/SearchBar';
+import Pagenation from 'components/review/Pagenation';
+import CharacterCard from 'components/review/CharacterCard';
+import Carousel from 'components/review/Carousel';
+import SubjectMenu from 'components/review/SubjectMenu';
+import { dummy } from 'components/review/CharacterDummy';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Button from 'components/UI/Button';
+import Button from 'components/common/Button';
 import isLogin from 'utils/isLogin';
 import { Link } from 'react-router-dom';
 
