@@ -8,6 +8,8 @@ public enum ExceptionCode {
 
     TEACHER_EXISTS(409, "Teacher exists"),
 
+    TEACHER_NOT_FOUND(404, "TEACHER_NOT_FOUND"),
+
     QUESTION_NOT_FOUND(404, "Question not found"),
     QUESTION_EXISTS(409, "Question exists"),
 
