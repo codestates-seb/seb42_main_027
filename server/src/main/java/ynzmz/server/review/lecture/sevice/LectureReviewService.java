@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -62,31 +63,14 @@ public class LectureReviewService {
         List<LectureReview> lectureReviews = lectureReviewRepository.findAllLecturesByTeacherId(teacher.getTeacherId());
 
         Map<String, Long> starPointCount = new HashMap<>();
-        long five = 0;
-        long four = 0;
-        long three = 0;
-        long two = 0;
-        long one = 0;
+        for(int i = 1; i <= 5; i++) starPointCount.put(i + "점갯수",0L);
+
         for( LectureReview lectureReview : lectureReviews) {
             int lectureReviewStarPoint = lectureReview.getStarPoint();
-            switch (lectureReviewStarPoint) {
-                case 5: five++;
-                        break;
-                case 4: four++;
-                        break;
-                case 3: three++;
-                        break;
-                case 2: two++;
-                        break;
-                case 1: one++;
-                        break;
-            }
+            String key = lectureReviewStarPoint + "점갯수";
+            starPointCount.put(key, starPointCount.get(key) + 1);
         }
-        starPointCount.put("5점갯수",five);
-        starPointCount.put("4점갯수",four);
-        starPointCount.put("3점갯수",three);
-        starPointCount.put("2점갯수",two);
-        starPointCount.put("1점갯수",one);
+
         return starPointCount;
     }
 
