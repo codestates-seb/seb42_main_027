@@ -5,6 +5,7 @@ spring:
     url: jdbc:mysql://database-1.coluq7bvskjj.ap-northeast-2.rds.amazonaws.com/mainproject?serverTimezone=Asia/Seoul
     username: admin
     password: 12341234
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
