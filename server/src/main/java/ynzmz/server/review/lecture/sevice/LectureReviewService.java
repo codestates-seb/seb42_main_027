@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
+import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.review.lecture.entity.LectureReview;
 import ynzmz.server.review.lecture.repository.LectureReviewRepository;
 import ynzmz.server.teacher.entity.Teacher;
@@ -15,7 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -60,8 +60,14 @@ public class LectureReviewService {
     }
 
     public Map<String,Long> findStarPointCountByTeacher(Teacher teacher) {
-        List<LectureReview> lectureReviews = lectureReviewRepository.findAllLecturesByTeacherId(teacher.getTeacherId());
+        return getStarPointCount(lectureReviewRepository.findAllByTeacherId(teacher.getTeacherId()));
+    }
 
+    public Map<String,Long> findStarPointCountByLecture(Lecture lecture) {
+        return getStarPointCount(lectureReviewRepository.findAllByLectureId(lecture.getLectureId()));
+    }
+
+    private static Map<String, Long> getStarPointCount(List<LectureReview> lectureReviews) {
         Map<String, Long> starPointCount = new HashMap<>();
         for(int i = 1; i <= 5; i++) starPointCount.put(i + "점갯수",0L);
 
@@ -70,7 +76,6 @@ public class LectureReviewService {
             String key = lectureReviewStarPoint + "점갯수";
             starPointCount.put(key, starPointCount.get(key) + 1);
         }
-
         return starPointCount;
     }
 

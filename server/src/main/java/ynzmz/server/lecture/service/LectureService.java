@@ -39,9 +39,6 @@ public class LectureService {
         return lectureRepository.save(findLecture);
     }
 
-    public Page<Lecture> findLectures(int page, int size) {
-        return lectureRepository.findAll(PageRequest.of(page, size, Sort.by("lectureId").descending()));
-    }
 
     public Page<Lecture> findLectures(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String title, String sort, int page, int size) {
         return lectureRepository.findAllByGradeAndPlatformAndSubjectAndTitle(grade, platform, subject, title, PageRequest.of(page, size, Sort.by(sort)));

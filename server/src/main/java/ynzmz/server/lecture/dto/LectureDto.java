@@ -15,6 +15,7 @@ import ynzmz.server.tag.mappingtable.lecture.LectureSubjectTag;
 import ynzmz.server.teacher.dto.TeacherDto;
 
 import java.util.List;
+import java.util.Map;
 
 public class LectureDto {
     //postDto
@@ -64,11 +65,7 @@ public class LectureDto {
         private Lecture.Status status;
         private TeacherDto.SimpleInfoResponse teacher;
         private double starPointAverage;
-        private long starPoint5Count;
-        private long starPoint4Count;
-        private long starPoint3Count;
-        private long starPoint2Count;
-        private long starPoint1Count;
+        private Map<String,Long> starPointCount;
         private List<GradeTagDto.Response> gradeTags;
         private List<SubjectTagDto.Response> subjectTags;
         private List<PlatformTagDto.Response> platformTags;

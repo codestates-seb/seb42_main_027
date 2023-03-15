@@ -11,12 +11,14 @@ import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecture.mapper.LectureMapper;
 import ynzmz.server.lecture.service.LectureService;
+import ynzmz.server.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;
 import ynzmz.server.tag.service.TagService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/lectures")
@@ -25,6 +27,7 @@ public class LectureController {
     private final LectureService lectureService;
     private final LectureMapper lectureMapper;
     private final TagService tagService;
+    private final LectureReviewService lectureReviewService;
     //강의 등록
     @PostMapping
     public ResponseEntity<?> postLecture(@RequestBody LectureDto.Post lecturePost){
@@ -92,39 +95,21 @@ public class LectureController {
 
         }
 
-    //강사별 강의조회
-    @GetMapping("/teacher")
-    public ResponseEntity<?> getLecturesByTeacher(@RequestParam(value = "teacher", required = false) long teacherId,
-                                     @RequestParam int page,
-                                     @RequestParam int size) {
-
-        Page<Lecture> lecturePage = lectureService.findLecturesByTeacher(teacherId,page -1, size);
-        List<Lecture> lectures = lecturePage.getContent();
-        List<LectureDto.SimpleInfoResponse> responses = lectureMapper.lectureInfoResponsesToLectures(lectures);
-
-        return new ResponseEntity<>(new MultiResponseDto<>(responses, lecturePage), HttpStatus.OK);
-
-    }
-
     //강의 한건 디테일조회
     @GetMapping("/{lecture-id}")
     public ResponseEntity<?> getLecturesDetail(@PathVariable("lecture-id") long lectureId) {
-
         Lecture lecture = lectureService.findLectureById(lectureId);
-        LectureDto.SimpleInfoResponse response = lectureMapper.lectureInfoResponseToLecture(lecture);
+        LectureDto.DetailPageResponse response = lectureMapper.lectureDetailPageResponseToLecture(lecture);
+
+        Map<String, Long> starPointCount = lectureReviewService.findStarPointCountByLecture(lecture);
+        response.setStarPointCount(starPointCount);
+
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
     //강의 삭제
     @DeleteMapping("/{lecture-id}")
     public void deleteLecture(@PathVariable("lecture-id") long lectureId) {
         lectureService.deleteLecture(lectureId);
-    }
-
-    @GetMapping("/test")
-    public ResponseEntity<?> gettest() {
-        String s = "완료";
-
-        return new ResponseEntity<>(new SingleResponseDto<>(s),HttpStatus.OK);
     }
 
 
