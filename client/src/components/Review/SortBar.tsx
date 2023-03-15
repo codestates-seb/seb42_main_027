@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
-import { FlexContainer } from 'pages/review/ReviewPage';
+import { FlexContainer } from 'pages/Review/ReviewPage';
 import Filter from './Filter';
 
 type Props = {
