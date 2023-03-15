@@ -112,4 +112,13 @@ public class LectureController {
     public void deleteLecture(@PathVariable("lecture-id") long lectureId) {
         lectureService.deleteLecture(lectureId);
     }
+
+    @GetMapping("/test")
+    public ResponseEntity<?> gettest() {
+        String s = "완료";
+
+        return new ResponseEntity<>(new SingleResponseDto<>(s),HttpStatus.OK);
+    }
+
+
 }
