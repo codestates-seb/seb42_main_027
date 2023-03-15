@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
-import PButton from 'components/login/PButton';
+import PButton from 'components/member/login/PButton';
 import Input from 'components/common/Input';
 import theme from 'theme';
-import login from 'components/login/login';
+import login from 'components/member/login/login';
 import BaseButton from '../components/common/BaseButton';
 
 const { colors } = theme;
