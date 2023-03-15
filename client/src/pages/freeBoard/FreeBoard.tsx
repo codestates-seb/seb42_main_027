@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
-import theme from '../../theme';
+import theme from 'theme';
+
+import PostList from 'components/board/postList';
+import GoBackMenu from 'components/board/goBackMenu';
 
 function FreeBoard() {
   return (
@@ -11,10 +14,11 @@ function FreeBoard() {
           <H2>자유게시판</H2>
           <p>다양한 이야기를 자유롭게 나누는 공간입니다.</p>
         </Title>
+        <GoBackMenu />
         <Button.WriteBtn>작성하기</Button.WriteBtn>
         <Button.SubMenuBtn className="selected">전체</Button.SubMenuBtn>
         <Button.SubMenuBtn>일상</Button.SubMenuBtn>
-        <h1>FreeBoard Page</h1>
+        <PostList />
       </Main>
     </Container>
   );
@@ -24,7 +28,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
 `;
 
 const Main = styled.div`

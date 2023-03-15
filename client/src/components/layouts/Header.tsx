@@ -1,15 +1,16 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
+import { useIsLoginStore } from 'stores/loginStore';
 import Toggle from '../common/Toggle';
 import theme from '../../theme';
 
 function Header() {
-  const [logIn, setLogIn] = useState(false);
+  const { isLogin, setIsLogin } = useIsLoginStore(state => state);
 
-  const logInHandler = () => {
-    setLogIn(!logIn);
+  const logOutHandler = () => {
+    localStorage.removeItem('token');
+    setIsLogin(false);
   };
 
   return (
@@ -38,17 +39,19 @@ function Header() {
         <ToggleDiv>
           <Toggle />
         </ToggleDiv>
-        {logIn ? (
+        {isLogin ? (
           <BtnDiv>
             <Button.WhiteBtn>내정보</Button.WhiteBtn>
-            <Button.PointBtn onClick={logInHandler}>로그아웃</Button.PointBtn>
+            <Button.PointBtn onClick={logOutHandler}>로그아웃</Button.PointBtn>
           </BtnDiv>
         ) : (
           <BtnDiv>
             <Link to="/login">
-              <Button.WhiteBtn onClick={logInHandler}>로그인</Button.WhiteBtn>
+              <Button.WhiteBtn>로그인</Button.WhiteBtn>
             </Link>
-            <Button.PointBtn>회원가입</Button.PointBtn>
+            <Link to="/signup">
+              <Button.PointBtn>회원가입</Button.PointBtn>
+            </Link>
           </BtnDiv>
         )}
       </Right>
@@ -60,11 +63,13 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   position: sticky;
+  top: 0;
   z-index: 1;
   height: 74px;
   padding: 1.25rem 2.5rem 1.25rem 2.5rem;
   border-top: medium solid ${theme.colors.pointColor};
   border-bottom: thin solid ${theme.colors.pointColor};
+  background-color: ${theme.colors.white};
 `;
 
 const Title = styled.h1`
@@ -73,6 +78,7 @@ const Title = styled.h1`
   font-weight: bold;
   color: ${theme.colors.pointColor};
   font-size: 35px;
+  margin-top: -0.1953125rem;
 `;
 
 const UL = styled.ul`
