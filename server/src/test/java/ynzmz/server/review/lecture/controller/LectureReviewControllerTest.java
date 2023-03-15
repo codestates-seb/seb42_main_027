@@ -1,41 +1,10 @@
-package ynzmz.server.lecturereview.controller;
+package ynzmz.server.review.lecture.controller;
 
-import com.google.gson.Gson;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
-import org.springframework.http.MediaType;
-import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import ynzmz.server.helper.StubData;
 import ynzmz.server.lecture.controller.LectureController;
-import ynzmz.server.lecture.service.LectureService;
-import ynzmz.server.review.lecture.dto.LectureReviewDto;
-import ynzmz.server.review.lecture.entity.LectureReview;
-import ynzmz.server.review.lecture.mapper.LectureReviewMapper;
-import ynzmz.server.review.lecture.sevice.LectureReviewService;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ynzmz.server.helper.StubData.*;
-import static ynzmz.server.utils.ApiDocumentUtils.getRequestPreProcessor;
-import static ynzmz.server.utils.ApiDocumentUtils.getResponsePreProcessor;
 
 @WebMvcTest(controllers = LectureController.class)
 @AutoConfigureRestDocs

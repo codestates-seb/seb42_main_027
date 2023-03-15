@@ -1,39 +1,9 @@
-package ynzmz.server.vote.lecturereview.comment.controller;
+package ynzmz.server.vote.review.lecture.controller;
 
-import com.google.gson.Gson;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
-import org.springframework.http.MediaType;
-import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
-import ynzmz.server.comment.review.lecture.service.LectureReviewCommentService;
-import ynzmz.server.helper.StubData;
-import ynzmz.server.member.service.MemberService;
-import ynzmz.server.vote.review.lecture.controller.LectureReviewVoteController;
-
-import java.util.List;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ynzmz.server.helper.StubData.*;
-import static ynzmz.server.utils.ApiDocumentUtils.getRequestPreProcessor;
-import static ynzmz.server.utils.ApiDocumentUtils.getResponsePreProcessor;
 
 @WebMvcTest(controllers = LectureReviewVoteController.class)
 @AutoConfigureRestDocs

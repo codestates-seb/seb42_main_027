@@ -1,6 +1,7 @@
 package ynzmz.server.teacher.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.lecture.dto.LectureDto;
@@ -16,6 +17,7 @@ public class TeacherDto {
     //강사등록
     @Getter
     @AllArgsConstructor
+    @Builder
     public static class Post {
         private String name;
         private String introduction;
@@ -27,8 +29,9 @@ public class TeacherDto {
         private List<String> platformTag;
     }
     //강사수정
-    @Getter @Setter
+    @Getter
     @AllArgsConstructor
+    @Builder
     public static class Patch {
         private String name;
         private String introduction;

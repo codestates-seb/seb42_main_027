@@ -17,6 +17,11 @@ import java.util.List;
 
 public class StubData {
     public static final List<String> tagsSample = new ArrayList<>();
+    public static final List<String> profileSample = new ArrayList<>();
+    public static final List<String> analectsSample = new ArrayList<>();
+    public static final List<String> gradeTagStringSample = new ArrayList<>();
+    public static final List<String> subjectTagStringSample = new ArrayList<>();
+    public static final List<String> platformTagStringSample = new ArrayList<>();
     public static final Member member = new Member();
     public static final Teacher teacher = new Teacher();
     public static final Lecture lecture = new Lecture();
@@ -40,10 +45,29 @@ public class StubData {
         tagsSample.add("고3");
         tagsSample.add("메가스터디");
 
-//        tagTypesSample.add(Tag.Type.국어);
-//        tagTypesSample.add(Tag.Type.고3);
-//        tagTypesSample.add(Tag.Type.메가스터디);
-//
+        profileSample.add("서울대학교 국어국문학과 학사");
+        profileSample.add("전 메가스터디 국어 강사");
+        profileSample.add("현 이투스 국어 강사");
+        profileSample.add("간단 경력 리스트 입력");
+
+        analectsSample.add("잠은 죽어서 자야한다");
+        analectsSample.add("자가진단 빨리하자");
+        analectsSample.add("14급 15급 공무원 하면 딱 맞을새끼들 빠가새끼들 빨리때리치워");
+        analectsSample.add("어록 리스트 입력");
+
+        gradeTagStringSample.add("고1");
+        gradeTagStringSample.add("고2");
+        gradeTagStringSample.add("고3");
+        gradeTagStringSample.add("예비고1");
+        gradeTagStringSample.add("예비고2");
+        gradeTagStringSample.add("예비고3");
+
+        subjectTagStringSample.add("국어");
+        subjectTagStringSample.add("한국사");
+
+        platformTagStringSample.add("이투스");
+        platformTagStringSample.add("EBS");
+
 //        teacherTagsSample.add(new TeacherTag(1L,teacher,new Tag(Tag.Type.국어)));
 //        teacherTagsSample.add(new TeacherTag(1L,teacher,new Tag(Tag.Type.고3)));
 //        teacherTagsSample.add(new TeacherTag(1L,teacher,new Tag(Tag.Type.메가스터디)));
@@ -81,11 +105,10 @@ public class StubData {
 //        LECTURE_REVIEW.setLecture(lecture);
 //        LECTURE_REVIEW.setMember(member);
 //
-//        TEACHER_SIMPLE_INFO_RESPONSE.setTeacherId(1L);
-//        TEACHER_SIMPLE_INFO_RESPONSE.setName("홍길동");
-//        TEACHER_SIMPLE_INFO_RESPONSE.setIntroduction("국어 최고의 강사!");
-//        TEACHER_SIMPLE_INFO_RESPONSE.setTags(tagTypesSample);
-//
+        TEACHER_SIMPLE_INFO_RESPONSE.setTeacherId(1L);
+        TEACHER_SIMPLE_INFO_RESPONSE.setName("홍길동");
+        TEACHER_SIMPLE_INFO_RESPONSE.setStarPointAverage(0.0);
+
 //        TEACHER_SIMPLE_INFO_RESPONS.add(TEACHER_SIMPLE_INFO_RESPONSE);
 //        TEACHER_SIMPLE_INFO_RESPONS.add(TEACHER_SIMPLE_INFO_RESPONSE);
 //
