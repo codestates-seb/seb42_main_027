@@ -2,11 +2,11 @@ import Header from 'components/layouts/Header';
 import Footer from 'components/layouts/Footer';
 import Main from 'pages/MainPage';
 import Login from 'pages/Login';
-import QnABoard from 'pages/QnABoard/QnABoard';
-import FreeBoard from 'pages/FreeBoard/FreeBoard';
-import ReviewPage from 'pages/Review/ReviewPage';
-import ReviewPageDetail from 'pages/Review/ReviewPageDetail';
-import CreateTeacher from 'pages/Review/CreateTeacher';
+import QnABoard from 'pages/qnABoard/QnABoard';
+import FreeBoard from 'pages/freeBoard/FreeBoard';
+import ReviewPage from 'pages/review/ReviewPage';
+import ReviewPageDetail from 'pages/review/ReviewPageDetail';
+import CreateTeacher from 'pages/review/CreateTeacher';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignUp from 'pages/SignUp';
