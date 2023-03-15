@@ -6,24 +6,10 @@ import PButton from 'components/member/login/PButton';
 import Input from 'components/common/Input';
 import theme from 'theme';
 import login from 'components/member/login/login';
+import { Container, Title } from 'components/member/memberStyledComponents';
 import BaseButton from '../components/common/BaseButton';
 
 const { colors } = theme;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-  margin: 0 auto;
-`;
-
-const Title = styled.h1`
-  color: ${theme.colors.pointColor};
-  font-size: 2rem;
-  margin-bottom: 1rem;
-`;
 
 const Form = styled.form`
   display: flex;

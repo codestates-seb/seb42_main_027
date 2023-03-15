@@ -1,24 +1,10 @@
 import styled from 'styled-components';
 import { BiUser } from 'react-icons/bi';
-import { FaChalkboardTeacher, FaUserAlt } from 'react-icons/fa';
+import { FaChalkboardTeacher } from 'react-icons/fa';
 import theme from 'theme';
+import { Container, Title } from 'components/member/memberStyledComponents';
 
 const { colors } = theme;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-  margin: 0 auto;
-`;
-
-const Title = styled.h1`
-  color: ${colors.pointColor};
-  font-size: 2rem;
-  margin-bottom: 1rem;
-`;
 
 const SubTitle = styled.p`
   color: ${colors.pointColor};
@@ -85,7 +71,6 @@ function SignUp() {
         <SubTitle>지금 가입하고 국내 모든 인강 정보와 후기를 한눈에</SubTitle>
         <SubTitle>확인하세요.</SubTitle>
         <ButtonGroup>
-          {/* 타입버튼 */}
           <TypeButton>
             <IconBiUser />
             <ButtonInfoContainer>
