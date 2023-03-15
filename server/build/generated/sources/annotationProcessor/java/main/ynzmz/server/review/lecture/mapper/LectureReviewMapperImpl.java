@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
+import ynzmz.server.comment.review.lecture.dto.LectureReviewCommentDto;
+import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.review.lecture.dto.LectureReviewDto;
@@ -11,8 +13,8 @@ import ynzmz.server.review.lecture.entity.LectureReview;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-15T17:06:08+0900",
-    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
+    date = "2023-03-16T04:16:25+0900",
+    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.16.1 (Oracle Corporation)"
 )
 @Component
 public class LectureReviewMapperImpl implements LectureReviewMapper {
@@ -26,7 +28,7 @@ public class LectureReviewMapperImpl implements LectureReviewMapper {
         LectureReview lectureReview = new LectureReview();
 
         lectureReview.setTitle( reviewPostPost.getTitle() );
-        lectureReview.setStarPoint( reviewPostPost.getStarPoint() );
+        lectureReview.setStarPoint( (int) reviewPostPost.getStarPoint() );
         lectureReview.setContent( reviewPostPost.getContent() );
         lectureReview.setCreatedAt( reviewPostPost.getCreatedAt() );
 
@@ -42,11 +44,88 @@ public class LectureReviewMapperImpl implements LectureReviewMapper {
         LectureReview lectureReview = new LectureReview();
 
         lectureReview.setTitle( reviewPostPatch.getTitle() );
-        lectureReview.setStarPoint( reviewPostPatch.getStarPoint() );
+        lectureReview.setStarPoint( (int) reviewPostPatch.getStarPoint() );
         lectureReview.setContent( reviewPostPatch.getContent() );
         lectureReview.setModifiedAt( reviewPostPatch.getModifiedAt() );
 
         return lectureReview;
+    }
+
+    @Override
+    public LectureReviewDto.ListPageResponse lectureReviewListPageResponseToLectureReview(LectureReview lectureReview) {
+        if ( lectureReview == null ) {
+            return null;
+        }
+
+        LectureReviewDto.ListPageResponse listPageResponse = new LectureReviewDto.ListPageResponse();
+
+        if ( lectureReview.getLectureReviewId() != null ) {
+            listPageResponse.setLectureReviewId( lectureReview.getLectureReviewId() );
+        }
+        listPageResponse.setTitle( lectureReview.getTitle() );
+        listPageResponse.setStarPoint( lectureReview.getStarPoint() );
+        listPageResponse.setContent( lectureReview.getContent() );
+        listPageResponse.setCreatedAt( lectureReview.getCreatedAt() );
+        listPageResponse.setModifiedAt( lectureReview.getModifiedAt() );
+        listPageResponse.setViewCount( lectureReview.getViewCount() );
+        listPageResponse.setVoteCount( lectureReview.getVoteCount() );
+        listPageResponse.setLecture( lectureToSimpleInfoResponse( lectureReview.getLecture() ) );
+        listPageResponse.setMember( lectureReview.getMember() );
+
+        return listPageResponse;
+    }
+
+    @Override
+    public List<LectureReviewDto.ListPageResponse> lectureReviewListPageResponsesToLectureReviews(List<LectureReview> lectureReviews) {
+        if ( lectureReviews == null ) {
+            return null;
+        }
+
+        List<LectureReviewDto.ListPageResponse> list = new ArrayList<LectureReviewDto.ListPageResponse>( lectureReviews.size() );
+        for ( LectureReview lectureReview : lectureReviews ) {
+            list.add( lectureReviewListPageResponseToLectureReview( lectureReview ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public LectureReviewDto.DetailPageResponse lectureReviewDetailPageResponseToLectureReview(LectureReview lectureReview) {
+        if ( lectureReview == null ) {
+            return null;
+        }
+
+        LectureReviewDto.DetailPageResponse detailPageResponse = new LectureReviewDto.DetailPageResponse();
+
+        if ( lectureReview.getLectureReviewId() != null ) {
+            detailPageResponse.setLectureReviewId( lectureReview.getLectureReviewId() );
+        }
+        detailPageResponse.setTitle( lectureReview.getTitle() );
+        detailPageResponse.setStarPoint( lectureReview.getStarPoint() );
+        detailPageResponse.setContent( lectureReview.getContent() );
+        detailPageResponse.setCreatedAt( lectureReview.getCreatedAt() );
+        detailPageResponse.setModifiedAt( lectureReview.getModifiedAt() );
+        detailPageResponse.setViewCount( lectureReview.getViewCount() );
+        detailPageResponse.setVoteCount( lectureReview.getVoteCount() );
+        detailPageResponse.setLecture( lectureToSimpleInfoResponse( lectureReview.getLecture() ) );
+        detailPageResponse.setMember( lectureReview.getMember() );
+        detailPageResponse.setComments( lectureReviewCommentListToResponseList( lectureReview.getComments() ) );
+
+        return detailPageResponse;
+    }
+
+    @Override
+    public List<LectureReviewDto.DetailPageResponse> lectureReviewDetailPageResponsesToLectureReviews(List<LectureReview> lectureReviews) {
+        if ( lectureReviews == null ) {
+            return null;
+        }
+
+        List<LectureReviewDto.DetailPageResponse> list = new ArrayList<LectureReviewDto.DetailPageResponse>( lectureReviews.size() );
+        for ( LectureReview lectureReview : lectureReviews ) {
+            list.add( lectureReviewDetailPageResponseToLectureReview( lectureReview ) );
+        }
+
+        return list;
     }
 
     @Override
@@ -101,5 +180,35 @@ public class LectureReviewMapperImpl implements LectureReviewMapper {
         simpleInfoResponse.setStarPointAverage( lecture.getStarPointAverage() );
 
         return simpleInfoResponse;
+    }
+
+    protected LectureReviewCommentDto.Response lectureReviewCommentToResponse(LectureReviewComment lectureReviewComment) {
+        if ( lectureReviewComment == null ) {
+            return null;
+        }
+
+        LectureReviewCommentDto.Response response = new LectureReviewCommentDto.Response();
+
+        response.setLectureReviewCommentId( lectureReviewComment.getLectureReviewCommentId() );
+        response.setContent( lectureReviewComment.getContent() );
+        response.setCreatedAt( lectureReviewComment.getCreatedAt() );
+        response.setModifiedAt( lectureReviewComment.getModifiedAt() );
+        response.setVoteCount( lectureReviewComment.getVoteCount() );
+        response.setMember( lectureReviewComment.getMember() );
+
+        return response;
+    }
+
+    protected List<LectureReviewCommentDto.Response> lectureReviewCommentListToResponseList(List<LectureReviewComment> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<LectureReviewCommentDto.Response> list1 = new ArrayList<LectureReviewCommentDto.Response>( list.size() );
+        for ( LectureReviewComment lectureReviewComment : list ) {
+            list1.add( lectureReviewCommentToResponse( lectureReviewComment ) );
+        }
+
+        return list1;
     }
 }
