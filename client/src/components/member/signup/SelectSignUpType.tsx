@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { BiUser } from 'react-icons/bi';
 import { FaChalkboardTeacher } from 'react-icons/fa';
 import theme from 'theme';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const { colors } = theme;
 
@@ -59,16 +59,27 @@ const ButtonInfoSubTitle = styled.span`
 `;
 
 function SelectSignUpType() {
+  const navigate = useNavigate();
+
+  const handleStudentBtnClick = () => {
+    navigate('student');
+  };
+
+  const handleTeacherBtnClick = () => {
+    navigate('teacher');
+  };
+
   return (
     <ButtonGroup>
-      <TypeButton>
+      <TypeButton onClick={handleStudentBtnClick}>
         <IconBiUser />
         <ButtonInfoContainer>
           <ButtonInfoTitle>학생</ButtonInfoTitle>
           <ButtonInfoSubTitle>학생 회원</ButtonInfoSubTitle>
         </ButtonInfoContainer>
       </TypeButton>
-      <TypeButton>
+
+      <TypeButton onClick={handleTeacherBtnClick}>
         <IconFaChalkboardTeacher />
         <ButtonInfoContainer>
           <ButtonInfoTitle>교/강사 회원</ButtonInfoTitle>

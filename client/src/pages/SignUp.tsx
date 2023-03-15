@@ -23,8 +23,8 @@ function SignUp() {
         <SubTitle>확인하세요.</SubTitle>
         <Routes>
           <Route path="/" element={<SelectSignUpType />} />
-          <Route path="/signup/student" element={<StudentSignUpForm />} />
-          <Route path="/signup/teacher" element={<TeacherSignUpForm />} />
+          <Route path="student" element={<StudentSignUpForm />} />
+          <Route path="teacher" element={<TeacherSignUpForm />} />
         </Routes>
       </Container>
     </div>
