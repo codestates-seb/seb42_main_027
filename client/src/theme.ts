@@ -24,6 +24,12 @@ const colors = {
   danger: '#EC3C3C',
 };
 
+// 아이콘 컬러 변경시 사용할 필터값 정리
+const filterColors = {
+  pointColor:
+    'invert(45%) sepia(17%) saturate(1352%) hue-rotate(201deg) brightness(89%) contrast(87%);',
+};
+
 export const radius = {
   $md: '0.8rem',
 };
@@ -58,6 +64,7 @@ const gap = {
 const theme = {
   fontSizes,
   colors,
+  filterColors,
   common,
   gap,
 };
