@@ -12,6 +12,7 @@ import TeacherSignUpForm from 'components/member/signup/TeacherSignUpForm';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignUp from 'pages/SignUp';
+import SelectSignUpType from 'components/member/signup/SelectSignUpType';
 
 function Router() {
   return (
@@ -21,6 +22,7 @@ function Router() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />}>
+          <Route path="/signup/select" element={<SelectSignUpType />} />
           <Route path="/signup/student" element={<StudentSignUpForm />} />
           <Route path="/signup/teacher" element={<TeacherSignUpForm />} />
         </Route>
