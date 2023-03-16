@@ -70,6 +70,7 @@ function StudentSignUpForm() {
           id="phone-num"
           label="전화번호"
         />
+        <SignUpInfo>- 를 제외하고 작성해주세요.</SignUpInfo>
       </Container>
       <Container>
         <Input
