@@ -85,6 +85,7 @@ function Login() {
         <Title>로그인</Title>
         <Form>
           <Input
+            value={email}
             onChange={handleChangeEmail}
             type="email"
             id="email"
@@ -92,6 +93,7 @@ function Login() {
           />
           {isPasswordInputOpen ? (
             <Input
+              value={password}
               onChange={handleChangePassword}
               type="password"
               id="password"
