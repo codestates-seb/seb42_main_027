@@ -136,6 +136,7 @@ type Container = {
   borderRadius?: string;
   display?: string;
   wrap?: string;
+  grow?: number;
 };
 
 type SubjectSelectButton = {
@@ -153,6 +154,7 @@ export const FlexContainer = styled.div<Container>`
   gap: ${props => props.gap || '1rem'};
   background-color: ${props => props.backColor || 'none'};
   border-radius: ${props => props.borderRadius || 'none'};
+  flex-grow: ${props => props.grow};
 `;
 
 const SubjectSelectButton = styled.div<SubjectSelectButton>`
