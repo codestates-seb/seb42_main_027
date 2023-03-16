@@ -7,7 +7,7 @@ import ynzmz.server.event.inner.entity.YjEvent;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-16T15:34:07+0900",
+    date = "2023-03-16T15:57:35+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -21,11 +21,6 @@ public class YjEventMapperImpl implements YjEventMapper {
 
         YjEvent yjEvent = new YjEvent();
 
-        yjEvent.setEventId( p.getEventId() );
-        yjEvent.setImageUrl( p.getImageUrl() );
-        yjEvent.setTitle( p.getTitle() );
-        yjEvent.setDate( p.getDate() );
-
         return yjEvent;
     }
 
@@ -37,11 +32,6 @@ public class YjEventMapperImpl implements YjEventMapper {
 
         YjEvent yjEvent = new YjEvent();
 
-        yjEvent.setEventId( p.getEventId() );
-        yjEvent.setImageUrl( p.getImageUrl() );
-        yjEvent.setTitle( p.getTitle() );
-        yjEvent.setDate( p.getDate() );
-
         return yjEvent;
     }
 
@@ -52,11 +42,6 @@ public class YjEventMapperImpl implements YjEventMapper {
         }
 
         YjEvent yjEvent = new YjEvent();
-
-        yjEvent.setEventId( r.getEventId() );
-        yjEvent.setImageUrl( r.getImageUrl() );
-        yjEvent.setTitle( r.getTitle() );
-        yjEvent.setDate( r.getDate() );
 
         return yjEvent;
     }
