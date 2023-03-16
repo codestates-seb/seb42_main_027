@@ -6,7 +6,7 @@ import org.hibernate.annotations.Parameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ynzmz.server.member.Service.MemberService;
+import ynzmz.server.member.service.MemberService;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.dto.MemberPatchDto;
 import ynzmz.server.member.dto.MemberPostDto;
