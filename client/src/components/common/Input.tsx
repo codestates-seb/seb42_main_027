@@ -13,7 +13,6 @@ const StyleInput = styled.input`
   border: 1px solid ${colors.gray};
   padding: 0.4rem 1rem;
   border-radius: 0.5rem;
-  width: 20rem;
   margin-bottom: 1rem;
   color: ${colors.fontColor};
 `;

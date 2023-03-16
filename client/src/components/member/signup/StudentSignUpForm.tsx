@@ -13,8 +13,15 @@ const Form = styled.form`
 `;
 
 const Container = styled.div`
+  width: 100%;
   border-bottom: 0.1rem solid ${colors.gray};
   margin-bottom: 1rem;
+`;
+
+const SignUpInfo = styled.p`
+  color: ${colors.gray};
+  margin: 1rem 0;
+  font-size: 0.9rem;
 `;
 
 function StudentSignUpForm() {
@@ -97,11 +104,11 @@ function StudentSignUpForm() {
       <BaseButton color="pointColor" size="md" disabled={false}>
         가입하기
       </BaseButton>
-      <p>
+      <SignUpInfo>
         유효한 주민등록번호를 입력하십시오. 새 기기나 웹 브라우저에 로그인할 때
         해당 주민등록번호를 사용하여 신원을 확인합니다. 메시지 또는 데이터
         요금이 적용될 수 있습니다.
-      </p>
+      </SignUpInfo>
     </Form>
   );
 }
