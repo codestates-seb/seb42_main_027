@@ -56,8 +56,10 @@ public class MemberService {
     public Member updateMember(Member member){
         Member findMember = findVerifiedMember(member.getMemberId());
 
-        Optional.ofNullable(member.getDisplayName());
-        Optional.ofNullable(member.getPassword());
+        Optional.ofNullable(member.getPhoneNumber()).ifPresent(findMember::setPhoneNumber);
+        Optional.ofNullable(member.getDisplayName()).ifPresent(findMember::setDisplayName);
+        Optional.ofNullable(member.getPassword()).ifPresent(password-> findMember.setPassword(passwordEncoding(password)));
+        Optional.ofNullable(member.getIconImageUrl()).ifPresent(findMember::setIconImageUrl);
 
         return memberRepository.save(findMember);
     }
@@ -102,6 +104,11 @@ public class MemberService {
         if(member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
+
+    private String passwordEncoding(String password) {
+        return passwordEncoder.encode(password);
+    }
+
 
 
 
