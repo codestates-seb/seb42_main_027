@@ -1,9 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import GlobalStyle from 'GlobalStyles';
 import { Routes, Route, Link } from 'react-router-dom';
-import { useParams } from 'react-router';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { FlexContainer } from './ReviewPage';
 import Information from './TeacherDetail/Information';
@@ -11,25 +9,12 @@ import Lectures from './TeacherDetail/Lectures';
 import TeacherReview from './TeacherDetail/TeacherReview';
 
 function ReviewPageDetail() {
-  const { teacherId } = useParams();
   const [selected, setSelected] = useState<string>('강사 소개');
-  const [data, setData] = useState<object>({});
 
-  useEffect(() => {
-    axios
-      .get(`http://13.125.1.215:8080/teachers/${teacherId}`)
-      .then((res: any) => {
-        return res.data.data;
-      })
-      .then(data => {
-        console.log(data);
-        setData(data);
-      });
-  }, []);
   return (
-    <FlexContainer dir="col" justify="start" height="100vh">
+    <FlexContainer width="100vw" dir="col" justify="flex-start">
       <GlobalStyle />
-      <FlexContainer width="100vw" gap="0">
+      <FlexContainer width="100%" gap="0">
         <StyledLink
           to=""
           check={selected === '강사 소개' ? 'true' : 'false'}
