@@ -11,7 +11,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 2673
+Content-Length: 4780
 
 {
   "data" : {
@@ -45,8 +45,24 @@ Content-Length: 2673
       "gradeTag" : "예비고2"
     }, {
       "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
     } ],
     "subjectTags" : [ {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
       "subjectTag" : "국어"
     }, {
       "subjectTag" : "한국사"
@@ -55,8 +71,70 @@ Content-Length: 2673
       "platformTag" : "이투스"
     }, {
       "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
     } ],
     "lectureReviews" : [ {
+      "lectureReviewId" : 1,
+      "title" : "이 강의 추천합니다!",
+      "starPoint" : 5,
+      "content" : "강의하시는데 ~~궁 ~~궁 해서 추천합니다",
+      "createdAt" : "2023.03.10.18:52:36",
+      "modifiedAt" : "2023.03.10.18:52:36",
+      "viewCount" : 1,
+      "voteCount" : 0,
+      "teacher" : {
+        "teacherId" : 1,
+        "name" : "홍길동",
+        "starPointAverage" : 0.0
+      },
+      "lecture" : {
+        "lectureId" : 1,
+        "title" : "강의 이름!",
+        "starPointAverage" : 0.0
+      },
+      "member" : {
+        "memberId" : 1,
+        "email" : "ghdrlfehd@gmail.com",
+        "displayName" : "홍길동",
+        "password" : "1111",
+        "iconImageUrl" : "IconUrl",
+        "createdAt" : "2023.03.10.18:52:36",
+        "roles" : [ ],
+        "memberStatus" : "MEMBER_ACTIVE"
+      }
+    }, {
+      "lectureReviewId" : 1,
+      "title" : "이 강의 추천합니다!",
+      "starPoint" : 5,
+      "content" : "강의하시는데 ~~궁 ~~궁 해서 추천합니다",
+      "createdAt" : "2023.03.10.18:52:36",
+      "modifiedAt" : "2023.03.10.18:52:36",
+      "viewCount" : 1,
+      "voteCount" : 0,
+      "teacher" : {
+        "teacherId" : 1,
+        "name" : "홍길동",
+        "starPointAverage" : 0.0
+      },
+      "lecture" : {
+        "lectureId" : 1,
+        "title" : "강의 이름!",
+        "starPointAverage" : 0.0
+      },
+      "member" : {
+        "memberId" : 1,
+        "email" : "ghdrlfehd@gmail.com",
+        "displayName" : "홍길동",
+        "password" : "1111",
+        "iconImageUrl" : "IconUrl",
+        "createdAt" : "2023.03.10.18:52:36",
+        "roles" : [ ],
+        "memberStatus" : "MEMBER_ACTIVE"
+      }
+    }, {
       "lectureReviewId" : 1,
       "title" : "이 강의 추천합니다!",
       "starPoint" : 5,
