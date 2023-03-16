@@ -3,6 +3,7 @@ import Input from 'components/common/Input';
 import { useState } from 'react';
 import theme from 'theme';
 import BaseButton from 'components/common/BaseButton';
+import { validatePhoneNum } from './signUpRegex';
 
 const { colors } = theme;
 
@@ -27,6 +28,7 @@ const SignUpInfo = styled.p`
 function StudentSignUpForm() {
   const [userName, setUserName] = useState('');
   const [phoneNum, setPhoneNum] = useState('');
+  const [isPhoneNumSuccess, setIsPhoneNumSuccess] = useState(false);
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -37,6 +39,7 @@ function StudentSignUpForm() {
   };
   const handleChangePhoneNum = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPhoneNum(e.target.value);
+    setIsPhoneNumSuccess(validatePhoneNum(phoneNum));
   };
   const handleChangeDisplayName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDisplayName(e.target.value);
@@ -63,6 +66,7 @@ function StudentSignUpForm() {
           id="user-name"
           label="이름"
         />
+
         <Input
           value={phoneNum}
           onChange={handleChangePhoneNum}

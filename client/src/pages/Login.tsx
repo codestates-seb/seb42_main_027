@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import PButton from 'components/member/login/PButton';
 import Input from 'components/common/Input';
 import theme from 'theme';
-import login from 'components/member/login/login';
+import login from 'apis/login';
 import { useIsLoginStore } from 'stores/loginStore';
 import { Container, Title } from 'components/member/memberStyledComponents';
+import getUserInfo from 'apis/getUserInfo';
 import BaseButton from '../components/common/BaseButton';
 
 const { colors } = theme;
@@ -43,7 +45,7 @@ function Login() {
 
   const navigate = useNavigate();
   const pathData = {
-    username: '',
+    email: '',
     password: '',
   };
 
@@ -59,6 +61,15 @@ function Login() {
     setIsPasswordInputOpen(true);
   };
 
+  const fetchUserInfo = async () => {
+    try {
+      const response = await getUserInfo();
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setLoginError(
@@ -67,12 +78,13 @@ function Login() {
     if (!password) setLoginError('암호를 입력하세요.');
     if (!email) setLoginError('이메일를 입력하세요.');
 
-    pathData.username = email;
+    pathData.email = email;
     pathData.password = password;
     try {
       await login(pathData);
       navigate(-1);
       setIsLogin(true);
+      fetchUserInfo();
     } catch (error) {
       setFailedLogin(true);
       console.error(error);

@@ -15,6 +15,8 @@ const StyleInput = styled.input`
   border-radius: 0.5rem;
   margin-bottom: 1rem;
   color: ${colors.fontColor};
+  background-color: ${colors.danger};
+  opacity: 40%;
 `;
 
 type InputProps = {
