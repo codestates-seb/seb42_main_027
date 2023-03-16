@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("lecture-review-comment")
 @RequiredArgsConstructor
 public class LectureReviewCommentController {
-    private final ynzmz.server.member.Service.MemberService memberService;
+    private final ynzmz.server.member.service.MemberService memberService;
     private final LectureReviewPostCommentMapper lectureReviewPostCommentMapper;
     private final LectureReviewCommentService lectureReviewCommentService;
     @PostMapping
