@@ -4,6 +4,8 @@ import Main from 'pages/MainPage';
 import Login from 'pages/Login';
 import QnABoard from 'pages/qnABoard/QnABoard';
 import FreeBoard from 'pages/freeBoard/FreeBoard';
+import PostList from 'components/board/postList';
+import PostContent from 'components/board/postContent';
 import ReviewPage from 'pages/review/ReviewPage';
 import ReviewPageDetail from 'pages/review/ReviewPageDetail';
 import CreateTeacher from 'pages/review/CreateTeacher';
@@ -32,7 +34,13 @@ function Router() {
         </Route>
 
         <Route path="/qna" element={<QnABoard />} />
-        <Route path="/free" element={<FreeBoard />} />
+
+        <Route path="free/*" element={<FreeBoard />}>
+          <Route path="write" element={<PostList />} />
+          <Route path="write" element={<PostContent />} />
+          <Route path="edit" element={<PostContent />} />
+        </Route>
+
 
         <Route path="/ReviewPage" element={<ReviewPage />} />
         <Route path="/ReviewPage/createTeacher" element={<CreateTeacher />} />

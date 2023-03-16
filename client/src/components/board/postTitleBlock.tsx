@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import theme from 'theme';
+import { FaUserCircle } from 'react-icons/fa';
+import { AiOutlineEye } from 'react-icons/ai';
+import { BiCommentDetail, BiLike } from 'react-icons/bi';
 
 interface PostData {
   id: number;
@@ -24,18 +27,29 @@ function PostTitleBlock(ele: Props) {
   const data = ele;
 
   return (
-    <Container>
+    <Container className={data.ele.category === '공지' ? 'notice' : ''}>
       <Category>{data.ele.category}</Category>
       <Title>{data.ele.title}</Title>
       <UserData>
-        <div>{data.ele.userimg}</div>
+        <ProfileImg>
+          <FaUserCircle className="user-profile-img" />
+        </ProfileImg>
         <div>{data.ele.username}</div>
         <div>{data.ele.createdAt}</div>
       </UserData>
       <Count>
-        <div>{data.ele.view}</div>
-        <div>{data.ele.comment}</div>
-        <div>{data.ele.vote}</div>
+        <div>
+          <AiOutlineEye />
+          {data.ele.view}
+        </div>
+        <div>
+          <BiCommentDetail />
+          {data.ele.comment}
+        </div>
+        <div>
+          <BiLike />
+          {data.ele.vote}
+        </div>
       </Count>
     </Container>
   );
@@ -49,6 +63,10 @@ const Container = styled.div`
   height: 100px;
   padding: 1rem ${theme.gap.px20};
   border-bottom: 1px solid ${theme.colors.gray};
+
+  &.notice {
+    background-color: ${theme.colors.palePurple};
+  }
 `;
 
 const Category = styled.div`
@@ -62,6 +80,7 @@ const Category = styled.div`
   font-size: ${theme.fontSizes.sm};
   font-weight: bold;
   color: ${theme.colors.pointColor};
+  background-color: ${theme.colors.white};
   margin-bottom: 4px;
 `;
 
@@ -78,6 +97,19 @@ const Title = styled.div`
 
 const UserData = styled.div`
   display: flex;
+`;
+
+const ProfileImg = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+
+  > .user-profile-img {
+    width: ;
+    filter: ${theme.filterColors.pointColor};
+  }
 `;
 
 const Count = styled.div`

@@ -64,6 +64,20 @@ const SubMenuBtn = styled.button`
   }
 `;
 
+const FilterBtn = styled.button`
+  width: 5rem;
+  height: 2.5rem;
+  text-align: center;
+  color: ${theme.colors.black};
+  background-color: ${theme.colors.white};
+  border: 1px solid ${theme.colors.gray};
+  border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+    border: 1px solid ${theme.colors.black};
+  }
+`;
+
 // Button 객체에 감싸서 반환
 const Button = {
   DefaultBtn,
@@ -71,6 +85,7 @@ const Button = {
   PointBtn,
   WriteBtn,
   SubMenuBtn,
+  FilterBtn,
 };
 
 export default Button;
