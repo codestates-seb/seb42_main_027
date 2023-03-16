@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.member.dto.MemberDto;
@@ -38,6 +39,15 @@ public class MemberController {
         Member member = memberService.updateMember(memberMapper.memberPatchDtoToMember(requestBody));
         Member updatedMember = memberService.updateMember(member);
         MemberDto response=  memberMapper.memberToMemberResponse(updatedMember);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{member-id}")
+    public ResponseEntity<?> getMember(@PathVariable("member-id") @Positive long memberId){
+        Member findMember = memberService.findMemberById(memberId);
+        MemberDto response = memberMapper.memberToMemberResponse(findMember);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

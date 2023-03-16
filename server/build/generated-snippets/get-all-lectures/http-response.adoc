@@ -11,7 +11,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 1643
+Content-Length: 4725
 
 {
   "data" : [ {
@@ -33,13 +33,33 @@ Content-Length: 1643
       "gradeTag" : "예비고2"
     }, {
       "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
     } ],
     "subjectTags" : [ {
       "subjectTag" : "국어"
     }, {
       "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
     } ],
     "platformTags" : [ {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
       "platformTag" : "이투스"
     }, {
       "platformTag" : "EBS"
@@ -68,13 +88,143 @@ Content-Length: 1643
       "gradeTag" : "예비고2"
     }, {
       "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
     } ],
     "subjectTags" : [ {
       "subjectTag" : "국어"
     }, {
       "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
     } ],
     "platformTags" : [ {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    } ],
+    "teacher" : {
+      "teacherId" : 1,
+      "name" : "홍길동",
+      "starPointAverage" : 0.0
+    }
+  }, {
+    "lectureId" : 1,
+    "title" : "강의 타이틀명!",
+    "introduction" : "강의 간단 소개",
+    "status" : "진행중",
+    "starPointAverage" : 4.7,
+    "totalReviewCount" : 9,
+    "gradeTags" : [ {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    } ],
+    "subjectTags" : [ {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    } ],
+    "platformTags" : [ {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    } ],
+    "teacher" : {
+      "teacherId" : 1,
+      "name" : "홍길동",
+      "starPointAverage" : 0.0
+    }
+  }, {
+    "lectureId" : 1,
+    "title" : "강의 타이틀명!",
+    "introduction" : "강의 간단 소개",
+    "status" : "진행중",
+    "starPointAverage" : 4.7,
+    "totalReviewCount" : 9,
+    "gradeTags" : [ {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    } ],
+    "subjectTags" : [ {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    } ],
+    "platformTags" : [ {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
       "platformTag" : "이투스"
     }, {
       "platformTag" : "EBS"

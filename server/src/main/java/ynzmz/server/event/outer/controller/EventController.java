@@ -19,7 +19,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/event")
+@RequestMapping("/outer-event")
 @RequiredArgsConstructor
 public class EventController {
     private final EventRepository eventRepository;

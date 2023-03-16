@@ -9,6 +9,7 @@ import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.event.outer.entity.Event;
 import ynzmz.server.event.outer.repository.EventRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,8 +19,12 @@ public class EventService {
 EventRepository eventRepository;
 
 //--------------------------------------------CREATE--------------------------------------------------------
-    public void creatEvent(Event event){
-eventRepository.save(event);
+    public Event createEvent(Event event){
+        return eventRepository.save(event);
+    }
+
+    public List<Event> CreateEvents(List<Event> e){
+        return eventRepository.saveAll(e);
     }
 
 

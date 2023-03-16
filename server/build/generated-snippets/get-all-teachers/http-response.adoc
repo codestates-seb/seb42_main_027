@@ -11,7 +11,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 1439
+Content-Length: 14741
 
 {
   "data" : [ {
@@ -33,13 +33,73 @@ Content-Length: 1439
       "gradeTag" : "예비고2"
     }, {
       "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
     } ],
     "subjectTags" : [ {
       "subjectTag" : "국어"
     }, {
       "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
     } ],
     "platformTags" : [ {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
       "platformTag" : "이투스"
     }, {
       "platformTag" : "EBS"
@@ -63,13 +123,613 @@ Content-Length: 1439
       "gradeTag" : "예비고2"
     }, {
       "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
     } ],
     "subjectTags" : [ {
       "subjectTag" : "국어"
     }, {
       "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
     } ],
     "platformTags" : [ {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    } ]
+  }, {
+    "teacherId" : 1,
+    "name" : "홍길동",
+    "introduction" : "홍길동 강사 간단 소개",
+    "imageUrl" : "이미지 url",
+    "starPointAverage" : 4.2,
+    "totalReviewCount" : 17,
+    "gradeTags" : [ {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    } ],
+    "subjectTags" : [ {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    } ],
+    "platformTags" : [ {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    } ]
+  }, {
+    "teacherId" : 1,
+    "name" : "홍길동",
+    "introduction" : "홍길동 강사 간단 소개",
+    "imageUrl" : "이미지 url",
+    "starPointAverage" : 4.2,
+    "totalReviewCount" : 17,
+    "gradeTags" : [ {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    } ],
+    "subjectTags" : [ {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    } ],
+    "platformTags" : [ {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    } ]
+  }, {
+    "teacherId" : 1,
+    "name" : "홍길동",
+    "introduction" : "홍길동 강사 간단 소개",
+    "imageUrl" : "이미지 url",
+    "starPointAverage" : 4.2,
+    "totalReviewCount" : 17,
+    "gradeTags" : [ {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    } ],
+    "subjectTags" : [ {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    } ],
+    "platformTags" : [ {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    } ]
+  }, {
+    "teacherId" : 1,
+    "name" : "홍길동",
+    "introduction" : "홍길동 강사 간단 소개",
+    "imageUrl" : "이미지 url",
+    "starPointAverage" : 4.2,
+    "totalReviewCount" : 17,
+    "gradeTags" : [ {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    } ],
+    "subjectTags" : [ {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    } ],
+    "platformTags" : [ {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    } ]
+  }, {
+    "teacherId" : 1,
+    "name" : "홍길동",
+    "introduction" : "홍길동 강사 간단 소개",
+    "imageUrl" : "이미지 url",
+    "starPointAverage" : 4.2,
+    "totalReviewCount" : 17,
+    "gradeTags" : [ {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    } ],
+    "subjectTags" : [ {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    } ],
+    "platformTags" : [ {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    } ]
+  }, {
+    "teacherId" : 1,
+    "name" : "홍길동",
+    "introduction" : "홍길동 강사 간단 소개",
+    "imageUrl" : "이미지 url",
+    "starPointAverage" : 4.2,
+    "totalReviewCount" : 17,
+    "gradeTags" : [ {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    }, {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    } ],
+    "subjectTags" : [ {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    }, {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    } ],
+    "platformTags" : [ {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    }, {
       "platformTag" : "이투스"
     }, {
       "platformTag" : "EBS"

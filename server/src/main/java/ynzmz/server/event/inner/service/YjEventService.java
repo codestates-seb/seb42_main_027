@@ -17,8 +17,8 @@ public class YjEventService {
     YjEventRepository yjEventRepository;
 
     //--------------------------------------------CREATE--------------------------------------------------------
-    public void creatEvent(YjEvent event){
-        yjEventRepository.save(event);
+    public YjEvent createEvent(YjEvent event){
+        return yjEventRepository.save(event);
     }
 
 
@@ -32,27 +32,28 @@ public class YjEventService {
     public Page<YjEvent> findAllEvents(int page, int size){
         return yjEventRepository.findAll(PageRequest.of(page,size, Sort.by("eventId")));
     }
-//-------------------------------------------UPDATE---------------------------------------------------------
-//    public void updateEvent(Event event){//추후 고유 이벤트 내용이 확정되면 이야기 하는 것으로
-//        Optional<String> yzevent = Optional.of(event.getSource().getSourceType()).orElseThrow(()-> new BusinessLogicException())
-//       Event foundEvent = findEvent(event.getEventId());
-//
-//       Optional.ofNullable(event.getDate()).ifPresent(foundEvent::setDate);
-//       Optional.ofNullable(event.getTitle()).
-//
-//    }
-//
+    //-------------------------------------------UPDATE---------------------------------------------------------
+    public YjEvent updateEvent(YjEvent yjevent){//추후 고유 이벤트 내용이 확정되면 이야기 하는 것으로
+        YjEvent findEvent = findEvent(yjevent.getEventId());
+        Optional.ofNullable(yjevent.getTitle()).ifPresent(findEvent::setTitle);
+        Optional.ofNullable(yjevent.getDate()).ifPresent(findEvent::setDate);
+        Optional.ofNullable(yjevent.getDate()).ifPresent(findEvent::setDate);
+        Optional.ofNullable(yjevent.getContent()).ifPresent(findEvent::setContent);
+    return yjEventRepository.save(findEvent);
+
+    }
 
 
 
 
-    //-------------------------------------------DELETE---------------------------------------------------------
-//    public void deleteAll(){
-//        eventRepository.deleteAll();
-//    }
-//    public void deleteEvent(Event event){
-//        eventRepository.delete(event);
-//    }
-//}
 
+    // -------------------------------------------DELETE---------------------------------------------------------
+    public void deleteAll(){
+        yjEventRepository.deleteAll();
+    }
+    public void deleteEvent(YjEvent event){
+        yjEventRepository.delete(event);
+    }
 }
+
+
