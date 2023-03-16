@@ -62,6 +62,7 @@ function BaseButton({ size, color, onClick, disabled, children }: ButtonProps) {
     </StyledButton>
   );
 }
+
 BaseButton.defaultProps = {
   onClick: undefined,
 };

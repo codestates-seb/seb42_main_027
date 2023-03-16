@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 type LoginParams = {
-  username: string;
+  email: string;
   password: string;
 };
 
