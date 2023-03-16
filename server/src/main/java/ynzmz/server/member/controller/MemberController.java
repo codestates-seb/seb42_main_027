@@ -89,12 +89,12 @@ public class MemberController {
     }
 
     //내가쓴 질문조회
-    @GetMapping("/{member-id}/question")
-    public ResponseEntity<?> getMemberQuestion(@PathVariable("member-id") @Positive long memberId){
-        Member findMember = memberService.findMemberById(memberId);
-        MemberQuestionResponseDto response = memberMapper.memberToMemberQuestionResponse(findMember);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+//    @GetMapping("/{member-id}/question")
+//    public ResponseEntity<?> getMemberQuestion(@PathVariable("member-id") @Positive long memberId){
+//        Member findMember = memberService.findMemberById(memberId);
+//        MemberQuestionResponseDto response = memberMapper.memberToMemberQuestionResponse(findMember);
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 
 
 }
