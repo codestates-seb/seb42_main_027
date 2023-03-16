@@ -28,18 +28,40 @@ const SignUpInfo = styled.p`
 function StudentSignUpForm() {
   const [userName, setUserName] = useState('');
   const [phoneNum, setPhoneNum] = useState('');
-  const [isPhoneNumSuccess, setIsPhoneNumSuccess] = useState(false);
+  const [isPhoneNumSuccess, setIsPhoneNumSuccess] = useState({
+    isSuccess: '',
+    errorMessage: '',
+  });
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const colorSelector = (value: string) => {
+    if (value === '') {
+      return undefined;
+    }
+    if (value === 'true') {
+      return 'success';
+    }
+    return 'danger';
+  };
+
+  console.log(isPhoneNumSuccess);
 
   const handleChangeUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(e.target.value);
   };
   const handleChangePhoneNum = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPhoneNum(e.target.value);
-    setIsPhoneNumSuccess(validatePhoneNum(phoneNum));
+    if (validatePhoneNum(e.target.value)) {
+      setIsPhoneNumSuccess({ isSuccess: 'true', errorMessage: '' });
+    } else {
+      setIsPhoneNumSuccess({
+        isSuccess: 'false',
+        errorMessage: '형직에 맞지 않는 번호입니다.',
+      });
+    }
   };
   const handleChangeDisplayName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDisplayName(e.target.value);
@@ -73,8 +95,9 @@ function StudentSignUpForm() {
           type=""
           id="phone-num"
           label="전화번호"
+          color={colorSelector(isPhoneNumSuccess.isSuccess)}
+          errorMessage={isPhoneNumSuccess.errorMessage}
         />
-        <SignUpInfo>- 를 제외하고 작성해주세요.</SignUpInfo>
       </Container>
       <Container>
         <Input

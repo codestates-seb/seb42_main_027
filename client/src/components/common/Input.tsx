@@ -25,6 +25,7 @@ const StyleInput = styled.input`
         return 'white';
     }
   }};
+
   border: 1px solid
     ${({ color }) => {
       switch (color) {
@@ -36,16 +37,20 @@ const StyleInput = styled.input`
           return gray;
       }
     }};
-  color: ${({ color }) => {
-    switch (color) {
-      case 'danger':
-        return danger;
-      case 'success':
-        return success;
-      default:
-        return fontColor;
-    }
-  }};
+
+  :-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px inset
+      ${({ color }) => {
+        switch (color) {
+          case 'danger':
+            return `rgba(${dangerRGB}, 0.2)`;
+          case 'success':
+            return `rgba(${successRGB}, 0.2)`;
+          default:
+            return 'white';
+        }
+      }};
+  }
 `;
 
 const StyleErrorMessage = styled.p`
