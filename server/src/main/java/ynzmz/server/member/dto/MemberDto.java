@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 public class MemberDto{
+    private String username;
     private Long memberId;
     private String email;
     private String password;

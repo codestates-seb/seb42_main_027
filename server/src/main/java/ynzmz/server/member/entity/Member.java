@@ -18,6 +18,8 @@ import java.util.List;
 @Getter @Setter
 @NoArgsConstructor
 public class Member {
+
+    private String username;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
