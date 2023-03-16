@@ -5,17 +5,32 @@ import { FlexContainer } from 'pages/review/ReviewPage';
 import Filter from './Filter';
 
 type Props = {
+  reverse: string;
   sortTag: string;
   buttonOpen: boolean;
   setSortTag: React.Dispatch<React.SetStateAction<string>>;
   setButtonOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setReverse: React.Dispatch<React.SetStateAction<string>>;
 };
 
-function SortBar({ setSortTag, buttonOpen, sortTag, setButtonOpen }: Props) {
-  const sortArr: string[] = ['Update', '평점', '가나다', '랜덤'];
+function SortBar({
+  reverse,
+  setReverse,
+  setSortTag,
+  buttonOpen,
+  sortTag,
+  setButtonOpen,
+}: Props) {
+  const sortArr: string[] = ['최신순', '평점순', '이름순', '랜덤'];
 
   const sortTagHandler = (e: any) => {
     setSortTag(e.target.value);
+  };
+
+  const reverseTagHandler = (e: any) => {
+    if (reverse === '역순') {
+      setReverse('정순');
+    } else setReverse('역순');
   };
 
   return (
@@ -33,6 +48,9 @@ function SortBar({ setSortTag, buttonOpen, sortTag, setButtonOpen }: Props) {
           </PointBtn>
         );
       })}
+      <PointBtn isSelected={reverse === '역순'} onClick={reverseTagHandler}>
+        {reverse === '역순' ? '역순' : '정순'}
+      </PointBtn>
       <Filter buttonOpen={buttonOpen} setButtonOpen={setButtonOpen} />
     </FlexContainer>
   );

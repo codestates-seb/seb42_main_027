@@ -37,7 +37,7 @@ function SubjectMenu({
     '생명과학',
     '통합과학',
   ];
-  const subjectArr4: string[] = ['제2 외국어', '대학별고사'];
+  const subjectArr4: string[] = ['제2외국어', '대학별고사'];
   const subjectArr5: string[] = [
     '예비중1',
     '중1',

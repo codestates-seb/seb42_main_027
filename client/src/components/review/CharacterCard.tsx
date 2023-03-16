@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { FlexContainer } from 'pages/review/ReviewPage';
 import isLogin from 'utils/isLogin';
 import axios from 'axios';
+import PButton from 'components/member/login/PButton';
 
 type Props = {
   teachers: {
@@ -40,16 +41,20 @@ function CharacterCard({ teachers }: Props) {
                 <Span>⭐️ {el.starPointAverage}</Span>
               </CardContainer>
             </Link>
-            <FlexContainer display={!isLogin() ? 'flex' : 'none'}>
-              <button>수정</button>
+            <FlexContainer display={isLogin() ? 'flex' : 'none'}>
+              <Link to={`updateTeacher/${el.teacherId}`}>
+                <button>수정</button>
+              </Link>
               <button
                 onClick={() => {
-                  axios.delete(
-                    `http://13.125.1.215:8080/teachers/${el.teacherId}`,
-                  );
+                  axios
+                    .delete(`http://13.125.1.215:8080/teachers/${el.teacherId}`)
+                    .then(() => {
+                      window.location.reload();
+                    });
                 }}
               >
-                X
+                삭제
               </button>
             </FlexContainer>
           </FlexContainer>
