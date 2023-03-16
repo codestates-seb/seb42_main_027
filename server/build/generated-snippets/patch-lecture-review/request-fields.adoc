@@ -1,0 +1,20 @@
+|===
+|Path|Type|Description
+
+|`+title+`
+|`+String+`
+|리뷰글 제목
+
+|`+starPoint+`
+|`+Number+`
+|리뷰글 평점
+
+|`+content+`
+|`+String+`
+|리뷰글 내용
+
+|`+modifiedAt+`
+|`+String+`
+|작성시간 [서버는 string 으로 관리]
+
+|===

@@ -1,0 +1,35 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 498
+
+{
+  "data" : {
+    "lectureReviewCommentId" : 1,
+    "content" : "이사람 재대로 들은거 맞음?",
+    "createdAt" : "2023.03.10.18:52:36",
+    "modifiedAt" : "2023.03.10.18:52:36",
+    "voteCount" : 0,
+    "member" : {
+      "memberId" : 1,
+      "email" : "ghdrlfehd@gmail.com",
+      "displayName" : "홍길동",
+      "password" : "1111",
+      "iconImageUrl" : "IconUrl",
+      "createdAt" : "2023.03.10.18:52:36",
+      "roles" : [ ],
+      "memberStatus" : "MEMBER_ACTIVE"
+    }
+  }
+}
+----

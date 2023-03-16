@@ -1,0 +1,36 @@
+|===
+|Path|Type|Description
+
+|`+name+`
+|`+String+`
+|강사 이름
+
+|`+introduction+`
+|`+String+`
+|강사 소개
+
+|`+profile+`
+|`+Array+`
+|강사 약력 (List)
+
+|`+analects+`
+|`+Array+`
+|강사 어록 (List)
+
+|`+imageUrl+`
+|`+String+`
+|강사 이미지 url 경로
+
+|`+gradeTag+`
+|`+Array+`
+|강사 담당 학년 태그 (지정값 List)
+
+|`+subjectTag+`
+|`+Array+`
+|강사 담당 과목 태그 (지정값 List)
+
+|`+platformTag+`
+|`+Array+`
+|강사 소속 플랫폼 태그 (지정값 List)
+
+|===

@@ -1,0 +1,96 @@
+|===
+|Path|Type|Description
+
+|`+data.teacherId+`
+|`+Number+`
+|강사 식별번호
+
+|`+data.name+`
+|`+String+`
+|강사 이름
+
+|`+data.introduction+`
+|`+String+`
+|강사 소개
+
+|`+data.imageUrl+`
+|`+String+`
+|강사 이미지 url
+
+|`+data.profile+`
+|`+Array+`
+|강사 약력 (List)
+
+|`+data.analects+`
+|`+Array+`
+|강사 어록 (List)
+
+|`+data.starPointAverage+`
+|`+Number+`
+|강사 평균 평점
+
+|`+data.totalReviewCount+`
+|`+Number+`
+|강사 리뷰 총 갯수
+
+|`+data.gradeTags.[].gradeTag+`
+|`+String+`
+|강사 담당 학년 태그 (지정값 List)
+
+|`+data.subjectTags.[].subjectTag+`
+|`+String+`
+|강사 담당 과목 태그 (지정값 List)
+
+|`+data.platformTags.[].platformTag+`
+|`+String+`
+|강사 소속 플랫폼 태그 (지정값 List)
+
+|`+data.lectures.[].lectureId+`
+|`+Number+`
+|강의 식별번호
+
+|`+data.lectures.[].title+`
+|`+String+`
+|강의 타이틀명
+
+|`+data.lectures.[].introduction+`
+|`+String+`
+|강의 소개
+
+|`+data.lectures.[].status+`
+|`+String+`
+|강의 진행상태 (예정,진행중,완강)
+
+|`+data.lectures.[].starPointAverage+`
+|`+Number+`
+|강의 평균 평점
+
+|`+data.lectures.[].totalReviewCount+`
+|`+Number+`
+|강의 리뷰 총 갯수
+
+|`+data.lectures.[].gradeTags.[].gradeTag+`
+|`+String+`
+|강의 학년 태그 (지정값 List)
+
+|`+data.lectures.[].subjectTags.[].subjectTag+`
+|`+String+`
+|강의 과목 태그 (지정값 List)
+
+|`+data.lectures.[].platformTags.[].platformTag+`
+|`+String+`
+|강의 플랫폼 태그 (지정값 List)
+
+|`+data.lectures.[].teacher.teacherId+`
+|`+Number+`
+|강사 식별번호
+
+|`+data.lectures.[].teacher.name+`
+|`+String+`
+|강사 이름
+
+|`+data.lectures.[].teacher.starPointAverage+`
+|`+Number+`
+|강사 평균 평점
+
+|===

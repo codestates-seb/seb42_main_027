@@ -1,0 +1,8 @@
+.+/teachers/{teacher-id}+
+|===
+|Parameter|Description
+
+|`+teacher-id+`
+|강사 식별번호
+
+|===
