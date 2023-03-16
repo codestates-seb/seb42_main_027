@@ -9,10 +9,13 @@ import ReviewPageDetail from 'pages/review/ReviewPageDetail';
 import CreateTeacher from 'pages/review/CreateTeacher';
 import StudentSignUpForm from 'components/member/signup/StudentSignUpForm';
 import TeacherSignUpForm from 'components/member/signup/TeacherSignUpForm';
-
+import UpdateTeacher from 'pages/review/UpdateTeacher';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignUp from 'pages/SignUp';
 import SelectSignUpType from 'components/member/signup/SelectSignUpType';
+import Information from 'pages/review/TeacherDetail/Information';
+import Lectures from 'pages/review/TeacherDetail/Lectures';
+import TeacherReview from 'pages/review/TeacherDetail/TeacherReview';
 
 function Router() {
   return (
@@ -30,12 +33,21 @@ function Router() {
 
         <Route path="/qna" element={<QnABoard />} />
         <Route path="/free" element={<FreeBoard />} />
+
         <Route path="/ReviewPage" element={<ReviewPage />} />
-        <Route
-          path="/ReviewPageDetail/:teacherId"
-          element={<ReviewPageDetail />}
-        />
         <Route path="/ReviewPage/createTeacher" element={<CreateTeacher />} />
+        <Route
+          path="/ReviewPage/updateTeacher/:teacherId"
+          element={<UpdateTeacher />}
+        />
+        <Route
+          path="ReviewPageDetail/:teacherId/*"
+          element={<ReviewPageDetail />}
+        >
+          <Route path="" element={<Information />} />
+          <Route path="lectures" element={<Lectures />} />
+          <Route path="teacherReview" element={<TeacherReview />} />
+        </Route>
       </Routes>
       <Footer />
     </BrowserRouter>
