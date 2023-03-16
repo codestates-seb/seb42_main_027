@@ -83,7 +83,15 @@ public class TeacherController {
                                                 @RequestParam(required = false) String reverse,
                                                 @RequestParam int page,
                                                 @RequestParam int size) {
-        if(sort == null) sort = "teacherId";
+        if(sort == null) {
+            sort = "teacherId";
+        } else if(sort.equals("최신순")) {
+            sort = "teacherId";
+        } else if(sort.equals("평점순")) {
+            sort = "starPointAverage";
+        } else if(sort.equals("이름순")) {
+            sort = "name";
+        }
 
         GradeTag.Grade gradeTag = (grade != null) ? tagService.findGradeTag(grade) : null;
         PlatformTag.Platform platformTag = (platform != null) ? tagService.findPlatformTag(platform) : null;

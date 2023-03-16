@@ -7,6 +7,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.Arrays;
+
 @Configuration
 @RequiredArgsConstructor
 public class SecurityCorsConfig {
@@ -15,7 +17,7 @@ public class SecurityCorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 //        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*"); // 이거 위에꺼랑 겹치면안됨
+        config.addAllowedOrigin("*");
         config.addExposedHeader("Authorization");
         config.addAllowedHeader("*");
         config.addAllowedMethod("GET");
