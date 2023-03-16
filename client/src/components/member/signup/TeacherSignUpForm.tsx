@@ -1,8 +1,10 @@
-import styled from 'styled-components';
-import Input from 'components/common/Input';
 import { useState } from 'react';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import theme from 'theme';
+import Input from 'components/common/Input';
 import BaseButton from 'components/common/BaseButton';
+import postSignUp from 'apis/postSignUp';
 import {
   validatePhoneNum,
   validateEmail,
@@ -60,6 +62,9 @@ function TeacherSignUpForm() {
     isSuccess: '',
     errorMessage: '',
   });
+
+  const navigate = useNavigate();
+  const currentTime = new Date().toString();
 
   const colorSelector = (value: string) => {
     if (value === '') {
@@ -183,6 +188,35 @@ function TeacherSignUpForm() {
       });
     }
   };
+  const pathData = {
+    userName: '',
+    phoneNum: '',
+    displayName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    createdAt: '',
+    userState: '',
+  };
+
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    pathData.userName = userName;
+    pathData.phoneNum = phoneNum;
+    pathData.displayName = displayName;
+    pathData.email = email;
+    pathData.password = password;
+    pathData.confirmPassword = confirmPassword;
+    pathData.createdAt = currentTime;
+    pathData.userState = 'teacher';
+    try {
+      await postSignUp(pathData);
+      console.log('가입 성공~!');
+      navigate('login');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Form>
@@ -246,13 +280,18 @@ function TeacherSignUpForm() {
           errorMessage={isConfirmPasswordSuccess.errorMessage}
         />
       </Container>
-      <BaseButton color="pointColor" size="md" disabled={false}>
+      <BaseButton
+        onClick={handleSubmit}
+        color="pointColor"
+        size="md"
+        disabled={false}
+      >
         가입하기
       </BaseButton>
       <SignUpInfo>
-        유효한 주민등록번호를 입력하십시오. 새 기기나 웹 브라우저에 로그인할 때
-        해당 주민등록번호를 사용하여 신원을 확인합니다. 메시지 또는 데이터
-        요금이 적용될 수 있습니다.
+        유효한 전화번호를 입력하십시오. 새 기기나 웹 브라우저에 로그인할 때 해당
+        전화번호를 사용하여 신원을 확인합니다. 메시지 또는 데이터 요금이 적용될
+        수 있습니다.
       </SignUpInfo>
     </Form>
   );
