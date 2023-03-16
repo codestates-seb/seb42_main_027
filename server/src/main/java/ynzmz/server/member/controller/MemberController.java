@@ -33,10 +33,15 @@ public class MemberController {
 
     @PostMapping
     public ResponseEntity<?> postMember(@RequestBody @Valid MemberPostDto requestBody){
+        if (!requestBody.getPassword().equals(requestBody.getConfirmPassword())) {
+            return ResponseEntity.badRequest().body("패스워드와 패스워드 확인이 일치하지 않습니다.");
+        }
         Member member = memberMapper.memberPostDtoToMember(requestBody);
         member.setMemberState(Member.MemberState.STUDENT);
         Member createdMember = memberService.createMember(member);
         MemberDto response=  memberMapper.memberToMemberResponse(createdMember);
+
+
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
