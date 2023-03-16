@@ -54,41 +54,37 @@ function CreateTeacher() {
   };
 
   useEffect(() => {
-    console.log(platformTag);
-  }, [platformTag]);
+    console.log('Rerendering!');
+  }, []);
 
   const createHandler = () => {
-    const data = {
-      name,
-      subjectTag,
-      gradeTag,
-      platformTag,
-      introduction,
-      profile: profile.split('\n'),
-      analects: analects.split('\n'),
-      imageUrl,
-    };
+    if (
+      !name ||
+      !subjectTag.length ||
+      !gradeTag.length ||
+      !platformTag.length ||
+      !introduction ||
+      !profile.length ||
+      !analects.length ||
+      !imageUrl
+    ) {
+      alert('빈 곳을 채워주세요!');
+    } else {
+      const data = {
+        name,
+        subjectTag,
+        gradeTag,
+        platformTag,
+        introduction,
+        profile: profile.split('\n'),
+        analects: analects.split('\n'),
+        imageUrl,
+      };
 
-    axios.post(`http://13.125.1.215:8080/teachers`, { data }).then(res => {
-      console.log(res);
-      navigate('/');
-    });
-
-    // fetch('http://13.125.1.215:8080/teachers', {
-    //   credentials: 'include',
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     data,
-    //   }),
-    // }).then(res => {
-    //   if (!res.ok) {
-    //     throw Error('could not fetch the data for that resource');
-    //   }
-    //   return res.json();
-    // });
+      axios.post(`http://13.125.1.215:8080/teachers`, data).then(res => {
+        navigate(-1);
+      });
+    }
   };
 
   return (
@@ -178,6 +174,7 @@ function CreateTeacher() {
                         <input
                           id={el}
                           value={el}
+                          readOnly
                           type="checkbox"
                           onClick={platformClickHandler}
                         />
@@ -239,7 +236,7 @@ function CreateTeacher() {
 
 export default CreateTeacher;
 
-const UpdateContainer = styled.div`
+export const UpdateContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -248,7 +245,7 @@ const UpdateContainer = styled.div`
   gap: 2rem;
 `;
 
-const ColumDiv = styled.div`
+export const ColumDiv = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -256,20 +253,20 @@ const ColumDiv = styled.div`
   gap: 0.5rem;
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 1rem;
   border: 1px solid black;
 `;
-const Textarea = styled.textarea`
+export const Textarea = styled.textarea`
   width: 100%;
   padding: 0.5rem;
   height: 7rem;
   margin-bottom: 1rem;
 `;
 
-const UploadButton = styled.button`
+export const UploadButton = styled.button`
   width: fit-content;
   height: 2.5rem;
   padding: 0 0.6rem;
@@ -282,7 +279,7 @@ const UploadButton = styled.button`
   }
 `;
 
-const CardContainer = styled.div`
+export const CardContainer = styled.div`
   width: 100%;
   padding: 0.5rem;
   padding-bottom: 1rem;
@@ -297,18 +294,18 @@ const CardContainer = styled.div`
   gap: 1rem;
 `;
 
-const Img = styled.img`
+export const Img = styled.img`
   width: 25rem;
   height: 15rem;
   border-radius: 0.5rem;
   background-color: #b8b8b8;
 `;
 
-const Span = styled.span`
+export const Span = styled.span`
   font-weight: bold;
 `;
 
-const LargeSpan = styled.div`
+export const LargeSpan = styled.div`
   width: 100%;
   margin: 1rem 0;
   font-size: large;
