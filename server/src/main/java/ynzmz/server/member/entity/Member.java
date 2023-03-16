@@ -33,6 +33,26 @@ public class Member {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
+
+
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private MemberState memberState = MemberState.STUDENT;
+
+
+
+    public enum MemberState{
+        STUDENT("학생"),
+        TEACHER("강사");
+
+        @Getter
+        private String memberState;
+
+        MemberState(String memberState) {
+            this.memberState = memberState;
+        }
+    }
+
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;

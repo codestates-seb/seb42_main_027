@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Transactional
@@ -47,6 +49,7 @@ public class MemberService {
 
         Member savedMember = memberRepository.save(member);
 
+
         return savedMember;
     }
 
@@ -65,8 +68,26 @@ public class MemberService {
                 Sort.by("memberId").descending()));
     }
 
-    public void deleteMember(long memberId){
+    public Member findMemberById(long memberId){
+        Optional<Member> foundMember = memberRepository.findById(memberId);
+        return foundMember.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+    }
+
+//    public boolean deleteMember(long memberId){
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        Member findMember = findVerifiedMember(memberId);
+//        if(Objects.equals(findMember.getEmail(),username)){
+//            memberRepository.deleteById(memberId);
+//        } else {
+//            throw new BusinessLogicException(ExceptionCode.NOT_IMPLEMENTATION);
+//        }
+//        Optional<Member> deleteMember = memberRepository.findById(memberId);
+//        return deleteMember.isEmpty();
+//    }
+
+    public void deleteMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
+
         memberRepository.delete(findMember);
     }
 
@@ -85,8 +106,5 @@ public class MemberService {
 
 
 
-    public Member findMemberById(long memberId){
-        Optional<Member> foundMember = memberRepository.findById(memberId);
-        return foundMember.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-    }
+
 }

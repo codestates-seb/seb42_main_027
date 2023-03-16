@@ -17,6 +17,7 @@ public class MemberDto{
     private String password;
     private String displayName;
     private String IconImageUrl;
+    private String memberState;
     private LocalDateTime createdAt;
 
 
