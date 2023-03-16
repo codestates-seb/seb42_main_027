@@ -11,9 +11,9 @@ import ynzmz.server.teacher.entity.Teacher;
 import javax.persistence.*;
 
 @Entity
-@Builder
 @Getter
 @AllArgsConstructor @NoArgsConstructor
+@Builder
 public class TeacherPlatformTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

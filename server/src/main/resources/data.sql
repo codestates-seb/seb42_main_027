@@ -30,6 +30,9 @@ SELECT * FROM (
                   UNION SELECT '통합과학'
                   UNION SELECT '제2외국어'
                   UNION SELECT '대학별고사'
+                  UNION SELECT '사탐'
+                  UNION SELECT '과탐'
+                  UNION SELECT '기타'
               ) s
 WHERE NOT EXISTS (SELECT 1 FROM subject_tag WHERE subject_tag.subject = s.subject);
 

@@ -10,11 +10,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
+import ynzmz.server.member.dto.LoginMemberVoteInfo;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.repository.MemberRepository;
+import ynzmz.server.question.answer.entity.Answer;
+import ynzmz.server.question.question.entity.Question;
 import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
+import ynzmz.server.vote.question.answer.dto.LoginUserAnswerVoteResponseDto;
+import ynzmz.server.vote.question.answer.entity.AnswerVote;
+import ynzmz.server.vote.question.question.entity.QuestionVote;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Transactional
@@ -82,11 +90,48 @@ public class MemberService {
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
 
-
-
-
     public Member findMemberById(long memberId){
         Optional<Member> foundMember = memberRepository.findById(memberId);
         return foundMember.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+    }
+    public Member findMemberByEmail(String memberEmail) {
+        Optional<Member> memberOptional = memberRepository.findByEmail(memberEmail);
+        return memberOptional.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+    }
+
+    public void memberValidation(Member loginMember, long memberId) {
+        if (loginMember.getMemberId() != memberId) throw new BusinessLogicException(ExceptionCode.INVALID_MEMBER_STATUS);
+    }
+
+    //해당 게시글에서 게시글&답변에 추천여부 확인
+    public LoginMemberVoteInfo setMemberVoteStatus(Member member, Question question) {
+        LoginMemberVoteInfo loginMemberVoteInfo = new LoginMemberVoteInfo();
+
+        loginMemberVoteInfo.setMemberId(member.getMemberId() );
+        loginMemberVoteInfo.setEmail(member.getEmail() );
+        loginMemberVoteInfo.setQuestionId( question.getQuestionId() );
+
+        ArrayList<LoginUserAnswerVoteResponseDto> loginUserAnswerVoteResponseDtos = new ArrayList<>();
+        List<QuestionVote> questionVotes = member.getQuestionVotes();
+        List<AnswerVote> answerVotes = member.getAnswerVotes();
+        List<Answer> questionAnswers = question.getAnswers();
+
+        for(QuestionVote questionVote : questionVotes) {
+            if(Objects.equals(questionVote.getQuestion().getQuestionId(), question.getQuestionId())) {
+                loginMemberVoteInfo.setQuestionvoteStatus(questionVote.getVoteStatus());
+                break;
+            }
+        }
+
+        for (Answer questionAnswer : questionAnswers) {
+            for (AnswerVote answerVote : answerVotes) {
+                if(Objects.equals(questionAnswer.getAnswerId(), answerVote.getAnswer().getAnswerId())){
+                    LoginUserAnswerVoteResponseDto loginUserAnswerVote = new LoginUserAnswerVoteResponseDto(answerVote.getAnswer().getAnswerId(), answerVote.getVoteStatus());
+                    loginUserAnswerVoteResponseDtos.add(loginUserAnswerVote);
+                }
+            }
+        }
+        loginMemberVoteInfo.setAnswerVoteStatus(loginUserAnswerVoteResponseDtos);
+        return loginMemberVoteInfo;
     }
 }

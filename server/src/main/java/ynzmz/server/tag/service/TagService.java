@@ -3,12 +3,14 @@ package ynzmz.server.tag.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.question.question.entity.Question;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;
 import ynzmz.server.tag.mappingtable.lecture.LectureGradeTag;
 import ynzmz.server.tag.mappingtable.lecture.LecturePlatformTag;
 import ynzmz.server.tag.mappingtable.lecture.LectureSubjectTag;
+import ynzmz.server.tag.mappingtable.question.QuestionSubjectTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherGradeTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherPlatformTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherSubjectTag;
@@ -16,6 +18,7 @@ import ynzmz.server.tag.repository.*;
 import ynzmz.server.tag.repository.lecture.LectureGradeTagRepository;
 import ynzmz.server.tag.repository.lecture.LecturePlatformTagRepository;
 import ynzmz.server.tag.repository.lecture.LectureSubjectTagRepository;
+import ynzmz.server.tag.repository.question.QuestionSubjectTagRepository;
 import ynzmz.server.tag.repository.teacher.TeacherGradeTagRepository;
 import ynzmz.server.tag.repository.teacher.TeacherPlatformTagRepository;
 import ynzmz.server.tag.repository.teacher.TeacherSubjectTagRepository;
@@ -38,6 +41,8 @@ public class TagService {
     private final LectureGradeTagRepository lectureGradeTagRepository;
     private final LecturePlatformTagRepository lecturePlatformTagRepository;
     private final LectureSubjectTagRepository lectureSubjectTagRepository;
+
+    private final QuestionSubjectTagRepository questionSubjectTagRepository;
 
     public GradeTag.Grade findGradeTag(String grade){
         return GradeTag.Grade.valueOf(grade);
@@ -101,11 +106,28 @@ public class TagService {
         }
     }
 
+    public void createQuestionTag(Question question,
+                                  List<SubjectTag.Subject> subjects){
+        for(SubjectTag.Subject subject : subjects){
+            SubjectTag findSubjectTag = subjectTagRepository.findTagBySubject(subject);
+            QuestionSubjectTag questionSubjectTag = QuestionSubjectTag.builder()
+                    .question(question)
+                    .subjectTag(findSubjectTag)
+                    .build();
+            questionSubjectTagRepository.save(questionSubjectTag);
+        }
+    }
+
     @Transactional
     public void deleteAllTeacherTagByTeacher(Teacher teacher) {
         teacherGradeTagRepository.deleteAllTeacherGradeTagByTeacher(teacher);
         teacherPlatformTagRepository.deleteAllTeacherPlatformTagByTeacher(teacher);
         teacherSubjectTagRepository.deleteAllTeacherSubjectTagByTeacher(teacher);
+    }
+
+    @Transactional
+    public void deleteAllQuestionTagByQuestion(Question question) {
+        questionSubjectTagRepository.deleteAllTeacherGradeTagByQuestion(question);
     }
 
     public void createLectureTag(Lecture lecture,

@@ -1,9 +1,14 @@
 package ynzmz.server.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import ynzmz.server.question.answer.entity.Answer;
+import ynzmz.server.question.question.entity.Question;
+import ynzmz.server.vote.question.answer.entity.AnswerVote;
+import ynzmz.server.vote.question.question.entity.QuestionVote;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,6 +51,20 @@ public class Member {
            this.status = status;
        }
     }
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<Answer> answers = new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<QuestionVote> questionVotes = new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<AnswerVote> answerVotes = new ArrayList<>();
 
 
 }
