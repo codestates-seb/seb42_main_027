@@ -4,6 +4,8 @@ SELECT * FROM (
   UNION SELECT '대성마이맥'
   UNION SELECT '이투스'
   UNION SELECT 'EBS'
+  UNION SELECT '에듀윌'
+  UNION SELECT '기타'
 ) p
 WHERE NOT EXISTS (SELECT 1 FROM platform_tag WHERE platform_tag.platform = p.platform);
 
@@ -27,13 +29,7 @@ SELECT * FROM (
                   UNION SELECT '생명과학'
                   UNION SELECT '통합과학'
                   UNION SELECT '제2외국어'
-                  UNION SELECT '일본어'
-                  UNION SELECT '아랍어'
-                  UNION SELECT '중국어'
-                  UNION SELECT '스페인어'
-                  UNION SELECT '프랑스어'
-                  UNION SELECT '독일어'
-                  UNION SELECT '베트남어'
+                  UNION SELECT '대학별고사'
               ) s
 WHERE NOT EXISTS (SELECT 1 FROM subject_tag WHERE subject_tag.subject = s.subject);
 

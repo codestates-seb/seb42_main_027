@@ -39,6 +39,8 @@ public class TeacherController {
         Teacher createdTeacher = teacherService.createTeacher(teacher);
 
         //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )
+        log.info(teacherPost.getGradeTag().toString());
+
         List<GradeTag.Grade> gradeTags = tagService.findGradeTags(teacherPost.getGradeTag());
         List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(teacherPost.getPlatformTag());
         List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(teacherPost.getSubjectTag());
