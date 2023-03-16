@@ -4,6 +4,7 @@ import jdk.jfr.Name;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.parameters.P;
 import ynzmz.server.member.entity.Member;
 
 import javax.validation.constraints.AssertTrue;
@@ -18,6 +19,9 @@ public class MemberPostDto {
 
     @NotBlank(message = "이름은 필수 입력 값입니다.")
     private String username;
+    @NotBlank(message = "휴대폰번호는 필수 입력 값입니다.")
+    @Pattern(regexp = "(010-([0-9]{3,4})-([0-9]{4})$)", message = "휴대폰번호는 000-0000-0000 형식으로 입력해주세요.")
+    private String phoneNumber;
 
     @NotBlank(message = "이메일은 필수 입력 값입니다.")
     @Email(message = "이메일 형식으로 작성해주세요.")

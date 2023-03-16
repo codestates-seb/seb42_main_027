@@ -20,6 +20,8 @@ import java.util.List;
 public class Member {
 
     private String username;
+
+    private String phoneNumber;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;

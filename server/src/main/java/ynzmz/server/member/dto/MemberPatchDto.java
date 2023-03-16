@@ -11,6 +11,8 @@ import javax.validation.constraints.NotBlank;
 public class MemberPatchDto {
 
     private long memberId;
+    private String phoneNumber;
+
     private String password;
     private String displayName;
 
