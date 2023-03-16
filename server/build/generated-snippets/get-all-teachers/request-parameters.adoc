@@ -1,0 +1,28 @@
+|===
+|Parameter|Description
+
+|`+grade+`
+|강사 학년 태그 (지정값) (Optional)
+
+|`+platform+`
+|강사 플랫폼 태그 (지정값) (Optional)
+
+|`+subject+`
+|강사 과목 태그 (지정값) (Optional)
+
+|`+name+`
+|강사 이름 (유사값 검색 '홍' 검색시 홍길동 나옴)
+
+|`+sort+`
+|정렬 지정값 (Optional) = [최신순:teacherId],[별점순:starPointAverage],[이름순:name]
+
+|`+reverse+`
+|쿼리 없으면 정순, 쿼리 있으면 역순 (Optional)
+
+|`+page+`
+|요청 페이지
+
+|`+size+`
+|요청 페이지당 출력개수
+
+|===

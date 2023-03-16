@@ -1,0 +1,12 @@
+|===
+|Path|Type|Description
+
+|`+content+`
+|`+String+`
+|댓글 내용
+
+|`+modifiedAt+`
+|`+String+`
+|수정시간 [서버는 string 으로 관리]
+
+|===

@@ -49,12 +49,12 @@ public class LectureReviewCommentController {
     //강의별 댓글 조회 (필터기능)
     @GetMapping
     public ResponseEntity<?> getLectureReviewComments(@RequestParam(value = "filter", required = false) String filter,
-                                                      @RequestParam long lectureReviewPostId,
+                                                      @RequestParam long lectureReviewId,
                                                       @RequestParam int page,
                                                       @RequestParam int size) {
 
         if (filter == null) filter = "lectureReviewCommentId";
-        Page<LectureReviewComment> pageLectureReviewPostComments = lectureReviewCommentService.getLectureReviewComments(lectureReviewPostId, filter, page - 1, size);
+        Page<LectureReviewComment> pageLectureReviewPostComments = lectureReviewCommentService.getLectureReviewComments(lectureReviewId, filter, page - 1, size);
         List<LectureReviewComment> lectureReviewComments = pageLectureReviewPostComments.getContent();
 
         List<LectureReviewCommentDto.Response> responses = lectureReviewPostCommentMapper.lectureReviewCommentResponsesToLectureReviewComments(lectureReviewComments);

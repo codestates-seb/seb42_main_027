@@ -1,0 +1,13 @@
+[source,http,options="nowrap"]
+----
+PATCH /lectures/reviews/comments/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Content-Length: 97
+Host: localhost:8080
+
+{
+  "content" : "이사람 재대로 들은거 맞음?",
+  "modifiedAt" : "2023.03.10.18:52:36"
+}
+----

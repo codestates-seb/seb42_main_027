@@ -10,6 +10,10 @@ import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecture.repository.LectureRepository;
 import ynzmz.server.review.lecture.entity.LectureReview;
+import ynzmz.server.tag.entity.GradeTag;
+import ynzmz.server.tag.entity.PlatformTag;
+import ynzmz.server.tag.entity.SubjectTag;
+import ynzmz.server.teacher.entity.Teacher;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -29,18 +33,20 @@ public class LectureService {
 
         Optional.ofNullable(lecture.getTitle()).ifPresent(findLecture::setTitle);
         Optional.ofNullable(lecture.getIntroduction()).ifPresent(findLecture::setIntroduction);
+        Optional.ofNullable(lecture.getStatus()).ifPresent(findLecture::setStatus);
         Optional.ofNullable(lecture.getTeacher()).ifPresent(findLecture::setTeacher);
 
         return lectureRepository.save(findLecture);
     }
 
-    public Page<Lecture> findLectures(int page, int size) {
-        return lectureRepository.findAll(PageRequest.of(page, size, Sort.by("lectureId").descending()));
+
+    public Page<Lecture> findLectures(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String title, String sort, int page, int size) {
+        return lectureRepository.findAllByGradeAndPlatformAndSubjectAndTitle(grade, platform, subject, title, PageRequest.of(page, size, Sort.by(sort)));
     }
 
-//    public Page<Lecture> findLectures(String tag, int page, int size) {
-//        return lectureRepository.findByTagType(tag, PageRequest.of(page, size, Sort.by("lectureId").descending()));
-//    }
+    public Page<Lecture> findLectures(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String title, String sort,String reverse, int page, int size) {
+        return lectureRepository.findAllByGradeAndPlatformAndSubjectAndTitle(grade, platform, subject, title, PageRequest.of(page, size, Sort.by(sort).descending()));
+    }
 
     public Page<Lecture> findLecturesByTeacher(long teacherId, int page, int size) {
         return lectureRepository.findByTeacherId(teacherId, PageRequest.of(page, size, Sort.by("lectureId").descending()));

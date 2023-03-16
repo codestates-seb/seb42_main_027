@@ -1,0 +1,44 @@
+[source,options="nowrap"]
+----
+{
+  "data" : [ {
+    "lectureReviewCommentId" : 1,
+    "content" : "이사람 재대로 들은거 맞음?",
+    "createdAt" : "2023.03.10.18:52:36",
+    "modifiedAt" : "2023.03.10.18:52:36",
+    "voteCount" : 0,
+    "member" : {
+      "memberId" : 1,
+      "email" : "ghdrlfehd@gmail.com",
+      "displayName" : "홍길동",
+      "password" : "1111",
+      "iconImageUrl" : "IconUrl",
+      "createdAt" : "2023.03.10.18:52:36",
+      "roles" : [ ],
+      "memberStatus" : "MEMBER_ACTIVE"
+    }
+  }, {
+    "lectureReviewCommentId" : 1,
+    "content" : "이사람 재대로 들은거 맞음?",
+    "createdAt" : "2023.03.10.18:52:36",
+    "modifiedAt" : "2023.03.10.18:52:36",
+    "voteCount" : 0,
+    "member" : {
+      "memberId" : 1,
+      "email" : "ghdrlfehd@gmail.com",
+      "displayName" : "홍길동",
+      "password" : "1111",
+      "iconImageUrl" : "IconUrl",
+      "createdAt" : "2023.03.10.18:52:36",
+      "roles" : [ ],
+      "memberStatus" : "MEMBER_ACTIVE"
+    }
+  } ],
+  "pageInfo" : {
+    "page" : 2,
+    "size" : 1,
+    "totalElements" : 2,
+    "totalPages" : 2
+  }
+}
+----

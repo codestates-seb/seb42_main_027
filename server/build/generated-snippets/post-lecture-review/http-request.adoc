@@ -1,0 +1,17 @@
+[source,http,options="nowrap"]
+----
+POST /lectures/reviews HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Content-Length: 163
+Host: localhost:8080
+
+{
+  "title" : "리뷰글 제목",
+  "starPoint" : 5,
+  "content" : "리뷰글 내용",
+  "memberId" : 1,
+  "lectureId" : 1,
+  "createdAt" : "2023.03.10.18:52:36"
+}
+----

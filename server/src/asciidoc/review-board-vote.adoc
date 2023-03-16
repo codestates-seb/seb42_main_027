@@ -6,71 +6,77 @@
 :source-highlighter: highlightjs
 :sectlinks:
 :pdf-fontsdir: src/asciidoc/fonts
-v1.0.0, 2023.03.10 19:30
+v2.0.0, 2023.03.16 04:00
 
 '''
-== 추천
-=== 메인페이지 돌아가기
+.페이지 이동
+****
 * link:index.html[메인페이지]
-
+* link:review-board-teacher.html[리뷰게시판 - 강사 API]
+* link:review-board-lecture.html[리뷰게시판 - 강의 API]
+* link:review-board-review[리뷰게시판 - 리뷰 API]
+* link:review-board-comment.html[리뷰게시판 - 댓글 API]
+* link:review-board-vote.html[리뷰게시판 - 추천 API]
+****
+== 추천 API
 === 리뷰 추천 UP
 .curl-request
-include::{snippets}/lecture-review-post-vote-up/curl-request.adoc[]
+include::{snippets}/lecture-review-vote-up/curl-request.adoc[]
 .path-parameters
-include::{snippets}/lecture-review-post-vote-up/path-parameters.adoc[]
+include::{snippets}/lecture-review-vote-up/path-parameters.adoc[]
 .http-request
-include::{snippets}/lecture-review-post-vote-up/http-request.adoc[]
+include::{snippets}/lecture-review-vote-up/http-request.adoc[]
 .request-body
-include::{snippets}/lecture-review-post-vote-up/request-body.adoc[]
+include::{snippets}/lecture-review-vote-up/request-body.adoc[]
 .http-response
-include::{snippets}/lecture-review-post-vote-up/http-response.adoc[]
+include::{snippets}/lecture-review-vote-up/http-response.adoc[]
 .response-fields
-include::{snippets}/lecture-review-post-vote-up/response-fields.adoc[]
+include::{snippets}/lecture-review-vote-up/response-fields.adoc[]
 .response-body
-include::{snippets}/lecture-review-post-vote-up/response-body.adoc[]
+include::{snippets}/lecture-review-vote-up/response-body.adoc[]
 === 리뷰 추천 DOWN
 .curl-request
-include::{snippets}/lecture-review-post-vote-down/curl-request.adoc[]
+include::{snippets}/lecture-review-vote-down/curl-request.adoc[]
 .path-parameters
-include::{snippets}/lecture-review-post-vote-down/path-parameters.adoc[]
+include::{snippets}/lecture-review-vote-down/path-parameters.adoc[]
 .http-request
-include::{snippets}/lecture-review-post-vote-down/http-request.adoc[]
+include::{snippets}/lecture-review-vote-down/http-request.adoc[]
 .request-body
-include::{snippets}/lecture-review-post-vote-down/request-body.adoc[]
+include::{snippets}/lecture-review-vote-down/request-body.adoc[]
 .http-response
-include::{snippets}/lecture-review-post-vote-down/http-response.adoc[]
+include::{snippets}/lecture-review-vote-down/http-response.adoc[]
 .response-fields
-include::{snippets}/lecture-review-post-vote-down/response-fields.adoc[]
+include::{snippets}/lecture-review-vote-down/response-fields.adoc[]
 .response-body
-include::{snippets}/lecture-review-post-vote-down/response-body.adoc[]
+include::{snippets}/lecture-review-vote-down/response-body.adoc[]
 
 === 리뷰 댓글 추천 UP
 .curl-request
-include::{snippets}/lecture-review-post-comment-vote-up/curl-request.adoc[]
+include::{snippets}/lecture-review-comment-vote-up/curl-request.adoc[]
 .path-parameters
-include::{snippets}/lecture-review-post-comment-vote-up/path-parameters.adoc[]
+include::{snippets}/lecture-review-comment-vote-up/path-parameters.adoc[]
 .http-request
-include::{snippets}/lecture-review-post-comment-vote-up/http-request.adoc[]
+include::{snippets}/lecture-review-comment-vote-up/http-request.adoc[]
 .request-body
-include::{snippets}/lecture-review-post-comment-vote-up/request-body.adoc[]
+include::{snippets}/lecture-review-comment-vote-up/request-body.adoc[]
 .http-response
-include::{snippets}/lecture-review-post-comment-vote-up/http-response.adoc[]
+include::{snippets}/lecture-review-comment-vote-up/http-response.adoc[]
 .response-fields
-include::{snippets}/lecture-review-post-comment-vote-up/response-fields.adoc[]
+include::{snippets}/lecture-review-comment-vote-up/response-fields.adoc[]
 .response-body
-include::{snippets}/lecture-review-post-comment-vote-up/response-body.adoc[]
+include::{snippets}/lecture-review-comment-vote-up/response-body.adoc[]
 === 리뷰 댓글 추천 DOWN
 .curl-request
-include::{snippets}/lecture-review-post-comment-vote-down/curl-request.adoc[]
+include::{snippets}/lecture-review-comment-vote-down/curl-request.adoc[]
 .path-parameters
-include::{snippets}/lecture-review-post-comment-vote-down/path-parameters.adoc[]
+include::{snippets}/lecture-review-comment-vote-down/path-parameters.adoc[]
 .http-request
-include::{snippets}/lecture-review-post-comment-vote-down/http-request.adoc[]
+include::{snippets}/lecture-review-comment-vote-down/http-request.adoc[]
 .request-body
-include::{snippets}/lecture-review-post-comment-vote-down/request-body.adoc[]
+include::{snippets}/lecture-review-comment-vote-down/request-body.adoc[]
 .http-response
-include::{snippets}/lecture-review-post-comment-vote-down/http-response.adoc[]
+include::{snippets}/lecture-review-comment-vote-down/http-response.adoc[]
 .response-fields
-include::{snippets}/lecture-review-post-comment-vote-down/response-fields.adoc[]
+include::{snippets}/lecture-review-comment-vote-down/response-fields.adoc[]
 .response-body
-include::{snippets}/lecture-review-post-comment-vote-down/response-body.adoc[]
+include::{snippets}/lecture-review-comment-vote-down/response-body.adoc[]

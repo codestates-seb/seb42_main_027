@@ -24,13 +24,20 @@ public interface LectureMapper {
     Lecture lectureToLecturePost(LectureDto.Post lecturePost);
     Lecture lectureToLecturePatch(LectureDto.Patch lecurePatch);
     LectureDto.SimpleInfoResponse lectureInfoResponseToLecture(Lecture lecture);
-    List<LectureDto.SimpleInfoResponse> lectureInfoResponsesToLectures(List<Lecture> lectures);
     LectureDto.ListPageResponse lectureListPageResponseToLecture(Lecture lecture);
     List<LectureDto.ListPageResponse> lectureListPageResponsesToLectures(List<Lecture> lectures);
     LectureDto.DetailPageResponse lectureDetailPageResponseToLecture(Lecture lecture);
-    List<LectureDto.DetailPageResponse> lectureDetailPageResponsesToLectures(List<Lecture> lectures);
     LectureDto.TeacherReviewDetailPageResponse lectureTeacherReviewDetailPageResponseToLecture(Lecture lecture);
-    List<LectureDto.TeacherReviewDetailPageResponse> lectureTeacherReviewDetailPageResponsesToLectures(List<Lecture> lectures);
+
+    default GradeTag.Grade map(GradeTag gradeTag) {
+        return gradeTag.getGrade();
+    }
+    default SubjectTag.Subject map(SubjectTag subjectTag) {
+        return subjectTag.getSubject();
+    }
+    default PlatformTag.Platform map(PlatformTag platformTag) {
+        return platformTag.getPlatform();
+    }
 
     default GradeTagDto.Response LectureGradeTagResponseToLectureGradeTag(LectureGradeTag lectureGradeTag) {
         if ( lectureGradeTag == null ) return null;

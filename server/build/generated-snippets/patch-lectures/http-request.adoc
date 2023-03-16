@@ -1,0 +1,18 @@
+[source,http,options="nowrap"]
+----
+PATCH /lectures/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Content-Length: 284
+Host: localhost:8080
+
+{
+  "title" : "강의 이름!",
+  "introduction" : "강의 소개",
+  "status" : "진행중",
+  "gradeTag" : [ "고1", "고2", "고3", "예비고1", "예비고2", "예비고3" ],
+  "subjectTag" : [ "국어", "한국사" ],
+  "platformTag" : [ "이투스", "EBS" ],
+  "teacherId" : 1
+}
+----

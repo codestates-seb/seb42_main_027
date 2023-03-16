@@ -1,0 +1,11 @@
+.+/vote/lecture/review/comment/{lecture-review-comment-id}/down/{member-id}+
+|===
+|Parameter|Description
+
+|`+lecture-review-comment-id+`
+|추천대상 리뷰 댓글 식별번호
+
+|`+member-id+`
+|추천 누르는 회원 식별번호 ( 로그인기능 합치면 필요없을수도있음 )
+
+|===

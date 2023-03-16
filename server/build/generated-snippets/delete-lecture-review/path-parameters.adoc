@@ -1,0 +1,8 @@
+.+/lectures/reviews/{lecture-review-id}+
+|===
+|Parameter|Description
+
+|`+lecture-review-id+`
+|리뷰글 식별번호
+
+|===

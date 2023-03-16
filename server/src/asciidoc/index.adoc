@@ -6,13 +6,15 @@
 :source-highlighter: highlightjs
 :sectlinks:
 :pdf-fontsdir: src/asciidoc/fonts
-v1.0.0, 2023.03.10 19:30
+v2.0.0, 2023.03.16 04:00
 
 '''
-== API
-=== 리뷰 게시판
+== API 명세서
+****
+* link:index.html[메인페이지]
 * link:review-board-teacher.html[리뷰게시판 - 강사 API]
 * link:review-board-lecture.html[리뷰게시판 - 강의 API]
-* link:review-board-post.html[리뷰게시판 - 리뷰 API]
+* link:review-board-review[리뷰게시판 - 리뷰 API]
 * link:review-board-comment.html[리뷰게시판 - 댓글 API]
 * link:review-board-vote.html[리뷰게시판 - 추천 API]
+****

@@ -1,0 +1,8 @@
+.+/lectures/reviews/comments/{lecture-review-comment-id}+
+|===
+|Parameter|Description
+
+|`+lecture-review-comment-id+`
+|리뷰 댓글 식별번호
+
+|===

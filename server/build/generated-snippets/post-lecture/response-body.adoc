@@ -1,0 +1,10 @@
+[source,options="nowrap"]
+----
+{
+  "data" : {
+    "lectureId" : 1,
+    "title" : "강의 이름!",
+    "starPointAverage" : 0.0
+  }
+}
+----

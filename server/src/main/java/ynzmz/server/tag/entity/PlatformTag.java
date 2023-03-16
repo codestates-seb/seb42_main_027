@@ -25,6 +25,8 @@ public class PlatformTag {
         메가스터디,
         대성마이맥,
         이투스,
-        EBS
+        EBS,
+        에듀윌,
+        기타
     }
 }

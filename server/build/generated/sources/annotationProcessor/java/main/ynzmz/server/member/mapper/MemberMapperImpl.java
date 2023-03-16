@@ -1,6 +1,5 @@
 package ynzmz.server.member.mapper;
 
-import java.time.LocalDateTime;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 import ynzmz.server.member.dto.MemberDto;
@@ -10,8 +9,8 @@ import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-15T17:21:02+0900",
-    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.16.1 (Oracle Corporation)"
+    date = "2023-03-16T02:00:37+0900",
+    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
 public class MemberMapperImpl implements MemberMapper {
@@ -56,7 +55,7 @@ public class MemberMapperImpl implements MemberMapper {
         String email = null;
         String password = null;
         String displayName = null;
-        LocalDateTime createdAt = null;
+        String createdAt = null;
 
         memberId = member.getMemberId();
         email = member.getEmail();

@@ -1,0 +1,72 @@
+[source,options="nowrap"]
+----
+{
+  "data" : [ {
+    "teacherId" : 1,
+    "name" : "홍길동",
+    "introduction" : "홍길동 강사 간단 소개",
+    "imageUrl" : "이미지 url",
+    "starPointAverage" : 4.2,
+    "totalReviewCount" : 17,
+    "gradeTags" : [ {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    } ],
+    "subjectTags" : [ {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    } ],
+    "platformTags" : [ {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    } ]
+  }, {
+    "teacherId" : 1,
+    "name" : "홍길동",
+    "introduction" : "홍길동 강사 간단 소개",
+    "imageUrl" : "이미지 url",
+    "starPointAverage" : 4.2,
+    "totalReviewCount" : 17,
+    "gradeTags" : [ {
+      "gradeTag" : "고1"
+    }, {
+      "gradeTag" : "고2"
+    }, {
+      "gradeTag" : "고3"
+    }, {
+      "gradeTag" : "예비고1"
+    }, {
+      "gradeTag" : "예비고2"
+    }, {
+      "gradeTag" : "예비고3"
+    } ],
+    "subjectTags" : [ {
+      "subjectTag" : "국어"
+    }, {
+      "subjectTag" : "한국사"
+    } ],
+    "platformTags" : [ {
+      "platformTag" : "이투스"
+    }, {
+      "platformTag" : "EBS"
+    } ]
+  } ],
+  "pageInfo" : {
+    "page" : 2,
+    "size" : 1,
+    "totalElements" : 2,
+    "totalPages" : 2
+  }
+}
+----

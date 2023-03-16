@@ -20,7 +20,7 @@ import ynzmz.server.vote.review.lecture.mapper.LectureReviewVoteMapper;
 import ynzmz.server.vote.review.lecture.service.LectureReviewVoteService;
 
 @RestController
-@RequestMapping("/vote/lecture-review")
+@RequestMapping("/vote/lecture/review")
 @RequiredArgsConstructor
 public class LectureReviewVoteController {
     private final LectureReviewVoteService lectureReviewVoteService;

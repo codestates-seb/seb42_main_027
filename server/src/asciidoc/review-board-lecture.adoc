@@ -6,28 +6,34 @@
 :source-highlighter: highlightjs
 :sectlinks:
 :pdf-fontsdir: src/asciidoc/fonts
-v1.0.0, 2023.03.10 19:30
+v2.0.0, 2023.03.16 04:00
 
 '''
-== 강의
-=== 메인페이지 돌아가기
+.페이지 이동
+****
 * link:index.html[메인페이지]
-
+* link:review-board-teacher.html[리뷰게시판 - 강사 API]
+* link:review-board-lecture.html[리뷰게시판 - 강의 API]
+* link:review-board-review[리뷰게시판 - 리뷰 API]
+* link:review-board-comment.html[리뷰게시판 - 댓글 API]
+* link:review-board-vote.html[리뷰게시판 - 추천 API]
+****
+== 강의 API
 === 강의 등록
 .curl-request
-include::{snippets}/post-lectures/curl-request.adoc[]
+include::{snippets}/post-lecture/curl-request.adoc[]
 .http-request
-include::{snippets}/post-lectures/http-request.adoc[]
+include::{snippets}/post-lecture/http-request.adoc[]
 .request-fields
-include::{snippets}/post-lectures/request-fields.adoc[]
+include::{snippets}/post-lecture/request-fields.adoc[]
 .request-body
-include::{snippets}/post-lectures/request-body.adoc[]
+include::{snippets}/post-lecture/request-body.adoc[]
 .http-response
-include::{snippets}/post-lectures/http-response.adoc[]
+include::{snippets}/post-lecture/http-response.adoc[]
 .response-fields
-include::{snippets}/post-lectures/response-fields.adoc[]
+include::{snippets}/post-lecture/response-fields.adoc[]
 .response-body
-include::{snippets}/post-lectures/response-body.adoc[]
+include::{snippets}/post-lecture/response-body.adoc[]
 === 강의 정보 수정
 .curl-request
 include::{snippets}/patch-lectures/curl-request.adoc[]
@@ -60,36 +66,6 @@ include::{snippets}/get-all-lectures/http-response.adoc[]
 include::{snippets}/get-all-lectures/response-fields.adoc[]
 .response-body
 include::{snippets}/get-all-lectures/response-body.adoc[]
-=== 강의 태그별 전체 조회
-.curl-request
-include::{snippets}/get-lectures-tags/curl-request.adoc[]
-.request-parameters
-include::{snippets}/get-lectures-tags/request-parameters.adoc[]
-.http-request
-include::{snippets}/get-lectures-tags/http-request.adoc[]
-.request-body
-include::{snippets}/get-lectures-tags/request-body.adoc[]
-.http-response
-include::{snippets}/get-lectures-tags/http-response.adoc[]
-.response-fields
-include::{snippets}/get-lectures-tags/response-fields.adoc[]
-.response-body
-include::{snippets}/get-lectures-tags/response-body.adoc[]
-=== 강의 강사별 전체 조회
-.curl-request
-include::{snippets}/get-lectures-teacher/curl-request.adoc[]
-.request-parameters
-include::{snippets}/get-lectures-teacher/request-parameters.adoc[]
-.http-request
-include::{snippets}/get-lectures-teacher/http-request.adoc[]
-.request-body
-include::{snippets}/get-lectures-teacher/request-body.adoc[]
-.http-response
-include::{snippets}/get-lectures-teacher/http-response.adoc[]
-.response-fields
-include::{snippets}/get-lectures-teacher/response-fields.adoc[]
-.response-body
-include::{snippets}/get-lectures-teacher/response-body.adoc[]
 === 강의 상세 조회
 .curl-request
 include::{snippets}/get-lecture/curl-request.adoc[]

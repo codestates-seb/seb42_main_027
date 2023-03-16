@@ -1,6 +1,8 @@
 package ynzmz.server.lecture.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.lecture.entity.Lecture;
@@ -15,11 +17,13 @@ import ynzmz.server.tag.mappingtable.lecture.LectureSubjectTag;
 import ynzmz.server.teacher.dto.TeacherDto;
 
 import java.util.List;
+import java.util.Map;
 
 public class LectureDto {
     //postDto
     @Getter
     @AllArgsConstructor
+    @Builder
     public static class Post{
         private String title;
         private String introduction;
@@ -32,6 +36,7 @@ public class LectureDto {
     //pathDto
     @Getter
     @AllArgsConstructor
+    @Builder
     public static class Patch{
         private String title;
         private String introduction;
@@ -64,28 +69,25 @@ public class LectureDto {
         private Lecture.Status status;
         private TeacherDto.SimpleInfoResponse teacher;
         private double starPointAverage;
-        private long starPoint5Count;
-        private long starPoint4Count;
-        private long starPoint3Count;
-        private long starPoint2Count;
-        private long starPoint1Count;
+        private long totalReviewCount;
+        private Map<String,Long> starPointCount;
         private List<GradeTagDto.Response> gradeTags;
         private List<SubjectTagDto.Response> subjectTags;
         private List<PlatformTagDto.Response> platformTags;
-        private List<LectureReview> lectureReviews;
+        private List<LectureReviewDto.ListPageResponse> lectureReviews;
     }
     @Getter @Setter
     public static class TeacherReviewDetailPageResponse{
         private long lectureId;
         private String title;
         private Lecture.Status status;
-        private List<LectureReview> lectureReviews;
+        private List<LectureReviewDto.ListPageResponse> lectureReviews;
     }
-    //강의 디테일조회
     @Getter @Setter
     public static class SimpleInfoResponse {
         private long lectureId;
         private String title;
         private double starPointAverage;
+
     }
 }

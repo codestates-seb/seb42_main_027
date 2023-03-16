@@ -39,6 +39,8 @@ public class TeacherController {
         Teacher createdTeacher = teacherService.createTeacher(teacher);
 
         //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )
+        log.info(teacherPost.getGradeTag().toString());
+
         List<GradeTag.Grade> gradeTags = tagService.findGradeTags(teacherPost.getGradeTag());
         List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(teacherPost.getPlatformTag());
         List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(teacherPost.getSubjectTag());
@@ -81,7 +83,15 @@ public class TeacherController {
                                                 @RequestParam(required = false) String reverse,
                                                 @RequestParam int page,
                                                 @RequestParam int size) {
-        if(sort == null) sort = "teacherId";
+        if(sort == null) {
+            sort = "teacherId";
+        } else if(sort.equals("최신순")) {
+            sort = "teacherId";
+        } else if(sort.equals("평점순")) {
+            sort = "starPointAverage";
+        } else if(sort.equals("이름순")) {
+            sort = "name";
+        }
 
         GradeTag.Grade gradeTag = (grade != null) ? tagService.findGradeTag(grade) : null;
         PlatformTag.Platform platformTag = (platform != null) ? tagService.findPlatformTag(platform) : null;

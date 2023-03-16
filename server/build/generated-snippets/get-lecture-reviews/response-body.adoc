@@ -1,0 +1,12 @@
+[source,options="nowrap"]
+----
+{
+  "data" : [ ],
+  "pageInfo" : {
+    "page" : 2,
+    "size" : 1,
+    "totalElements" : 2,
+    "totalPages" : 2
+  }
+}
+----

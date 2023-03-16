@@ -1,0 +1,14 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/lectures/reviews' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -d '{
+  "title" : "리뷰글 제목",
+  "starPoint" : 5,
+  "content" : "리뷰글 내용",
+  "memberId" : 1,
+  "lectureId" : 1,
+  "createdAt" : "2023.03.10.18:52:36"
+}'
+----

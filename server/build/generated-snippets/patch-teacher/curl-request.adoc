@@ -1,0 +1,16 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/teachers/1' -i -X PATCH \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -d '{
+  "name" : "홍길동",
+  "introduction" : "강사 간단 소개!",
+  "profile" : [ "서울대학교 국어국문학과 학사", "전 메가스터디 국어 강사", "현 이투스 국어 강사", "간단 경력 리스트 입력" ],
+  "analects" : [ "잠은 죽어서 자야한다", "자가진단 빨리하자", "14급 15급 공무원 하면 딱 맞을새끼들 빠가새끼들 빨리때리치워", "어록 리스트 입력" ],
+  "imageUrl" : "이미지경로Url",
+  "gradeTag" : [ "고1", "고2", "고3", "예비고1", "예비고2", "예비고3" ],
+  "subjectTag" : [ "국어", "한국사" ],
+  "platformTag" : [ "이투스", "EBS" ]
+}'
+----

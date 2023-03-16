@@ -1,0 +1,14 @@
+[source,options="nowrap"]
+----
+{
+  "data" : {
+    "voteStatus" : "UP",
+    "target" : "COMMENT",
+    "lectureReviewId" : 0,
+    "lectureReviewCommentId" : 1,
+    "memberId" : 1,
+    "lectureReviewTotalCount" : 0,
+    "lectureReviewCommentTotalCount" : 7
+  }
+}
+----
