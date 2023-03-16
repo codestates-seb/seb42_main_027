@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import axios from 'axios';
 
 import PButton from 'components/member/login/PButton';
 import Input from 'components/common/Input';

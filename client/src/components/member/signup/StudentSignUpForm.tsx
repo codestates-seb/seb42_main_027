@@ -3,7 +3,11 @@ import Input from 'components/common/Input';
 import { useState } from 'react';
 import theme from 'theme';
 import BaseButton from 'components/common/BaseButton';
-import { validatePhoneNum } from './signUpRegex';
+import {
+  validatePhoneNum,
+  validateEmail,
+  validatePassword,
+} from '../../../utils/regex';
 
 const { colors } = theme;
 
@@ -27,15 +31,35 @@ const SignUpInfo = styled.p`
 
 function StudentSignUpForm() {
   const [userName, setUserName] = useState('');
+  const [isUserNameSuccess, setIsUserNameSuccess] = useState({
+    isSuccess: '',
+    errorMessage: '',
+  });
   const [phoneNum, setPhoneNum] = useState('');
   const [isPhoneNumSuccess, setIsPhoneNumSuccess] = useState({
     isSuccess: '',
     errorMessage: '',
   });
   const [displayName, setDisplayName] = useState('');
+  const [isDisplayNameSuccess, setIsDisplayNameSuccess] = useState({
+    isSuccess: '',
+    errorMessage: '',
+  });
   const [email, setEmail] = useState('');
+  const [isEmailSuccess, setIsEmailSuccess] = useState({
+    isSuccess: '',
+    errorMessage: '',
+  });
   const [password, setPassword] = useState('');
+  const [isPasswordSuccess, setIsPasswordSuccess] = useState({
+    isSuccess: '',
+    errorMessage: '',
+  });
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isConfirmPasswordSuccess, setIsConfirmPasswordSuccess] = useState({
+    isSuccess: '',
+    errorMessage: '',
+  });
 
   const colorSelector = (value: string) => {
     if (value === '') {
@@ -47,14 +71,33 @@ function StudentSignUpForm() {
     return 'danger';
   };
 
-  console.log(isPhoneNumSuccess);
-
   const handleChangeUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(e.target.value);
+    const { value } = e.target;
+    setUserName(value);
+    if (value.length === 0) {
+      setIsUserNameSuccess({
+        isSuccess: 'false',
+        errorMessage: '필수 정보입니다.',
+      });
+    } else if (value.length >= 2 && value.length < 5) {
+      setIsUserNameSuccess({ isSuccess: 'true', errorMessage: '' });
+    } else {
+      setIsUserNameSuccess({
+        isSuccess: 'false',
+        errorMessage: '2글자 이상 5글자 미만으로 입력해주세요.',
+      });
+    }
   };
+
   const handleChangePhoneNum = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPhoneNum(e.target.value);
-    if (validatePhoneNum(e.target.value)) {
+    const { value } = e.target;
+    setPhoneNum(value);
+    if (value.length === 0) {
+      setIsPhoneNumSuccess({
+        isSuccess: 'false',
+        errorMessage: '필수 정보입니다.',
+      });
+    } else if (validatePhoneNum(value)) {
       setIsPhoneNumSuccess({ isSuccess: 'true', errorMessage: '' });
     } else {
       setIsPhoneNumSuccess({
@@ -63,19 +106,82 @@ function StudentSignUpForm() {
       });
     }
   };
+
   const handleChangeDisplayName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDisplayName(e.target.value);
+    const { value } = e.target;
+    setDisplayName(value);
+    if (value.length === 0) {
+      setIsDisplayNameSuccess({
+        isSuccess: 'false',
+        errorMessage: '필수 정보입니다.',
+      });
+    } else if (value.length >= 2 && value.length < 5) {
+      setIsDisplayNameSuccess({ isSuccess: 'true', errorMessage: '' });
+    } else {
+      setIsDisplayNameSuccess({
+        isSuccess: 'false',
+        errorMessage: '2글자 이상 5글자 미만으로 입력해주세요.',
+      });
+    }
   };
+
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+    const { value } = e.target;
+
+    setEmail(value);
+    if (value.length === 0) {
+      setIsEmailSuccess({
+        isSuccess: 'false',
+        errorMessage: '필수 정보입니다.',
+      });
+    } else if (validateEmail(value)) {
+      setIsEmailSuccess({ isSuccess: 'true', errorMessage: '' });
+    } else {
+      setIsEmailSuccess({
+        isSuccess: 'false',
+        errorMessage: '이메일 형식이 올바르지 않습니다.',
+      });
+    }
   };
+
   const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
+    const { value } = e.target;
+
+    setPassword(value);
+    if (value.length === 0) {
+      setIsPasswordSuccess({
+        isSuccess: 'false',
+        errorMessage: '필수 정보입니다.',
+      });
+    } else if (validatePassword(value)) {
+      setIsPasswordSuccess({ isSuccess: 'true', errorMessage: '' });
+    } else {
+      setIsPasswordSuccess({
+        isSuccess: 'false',
+        errorMessage: '8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.',
+      });
+    }
   };
+
   const handleChangeConfirmPassword = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setConfirmPassword(e.target.value);
+    const { value } = e.target;
+
+    setConfirmPassword(value);
+    if (value.length === 0) {
+      setIsConfirmPasswordSuccess({
+        isSuccess: 'false',
+        errorMessage: '필수 정보입니다.',
+      });
+    } else if (password === value) {
+      setIsConfirmPasswordSuccess({ isSuccess: 'true', errorMessage: '' });
+    } else {
+      setIsConfirmPasswordSuccess({
+        isSuccess: 'false',
+        errorMessage: '암호가 일치하지 않습니다.',
+      });
+    }
   };
 
   return (
@@ -87,6 +193,8 @@ function StudentSignUpForm() {
           type="text"
           id="user-name"
           label="이름"
+          color={colorSelector(isUserNameSuccess.isSuccess)}
+          errorMessage={isUserNameSuccess.errorMessage}
         />
 
         <Input
@@ -95,6 +203,7 @@ function StudentSignUpForm() {
           type=""
           id="phone-num"
           label="전화번호"
+          placeholder="'-'를 제외하고 입력하세요."
           color={colorSelector(isPhoneNumSuccess.isSuccess)}
           errorMessage={isPhoneNumSuccess.errorMessage}
         />
@@ -106,6 +215,8 @@ function StudentSignUpForm() {
           type="text"
           id="display-name"
           label="닉네임"
+          color={colorSelector(isDisplayNameSuccess.isSuccess)}
+          errorMessage={isDisplayNameSuccess.errorMessage}
         />
         <Input
           value={email}
@@ -113,13 +224,17 @@ function StudentSignUpForm() {
           type="email"
           id="email"
           label="Email"
+          color={colorSelector(isEmailSuccess.isSuccess)}
+          errorMessage={isEmailSuccess.errorMessage}
         />
         <Input
           value={password}
           onChange={handleChangePassword}
-          type="text"
+          type="password"
           id="password"
           label="암호"
+          color={colorSelector(isPasswordSuccess.isSuccess)}
+          errorMessage={isPasswordSuccess.errorMessage}
         />
         <Input
           value={confirmPassword}
@@ -127,6 +242,8 @@ function StudentSignUpForm() {
           type="password"
           id="confirm-password"
           label="암호 확인"
+          color={colorSelector(isConfirmPasswordSuccess.isSuccess)}
+          errorMessage={isConfirmPasswordSuccess.errorMessage}
         />
       </Container>
       <BaseButton color="pointColor" size="md" disabled={false}>
