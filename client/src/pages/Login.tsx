@@ -39,7 +39,7 @@ function Login() {
   const [isPasswordInputOpen, setIsPasswordInputOpen] = useState(false);
   const [failedLogin, setFailedLogin] = useState(false);
   const [loginError, setLoginError] = useState('');
-  const { isLogin, setIsLogin } = useIsLoginStore(state => state);
+  const { setIsLogin } = useIsLoginStore(state => state);
 
   const navigate = useNavigate();
   const pathData = {
