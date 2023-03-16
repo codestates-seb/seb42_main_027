@@ -3,20 +3,19 @@ package ynzmz.server.member.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.Parameter;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.dto.MultiResponseDto;
+import ynzmz.server.member.dto.response.MemberQuestionResponseDto;
+import ynzmz.server.member.dto.response.MemberReviewResponseDto;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.dto.MemberPatchDto;
 import ynzmz.server.member.dto.MemberPostDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.mapper.MemberMapper;
-import ynzmz.server.member.repository.MemberRepository;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -80,6 +79,22 @@ public class MemberController {
         memberService.deleteMember(memberId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    //내가쓴 강의리뷰조회
+    @GetMapping("/{member-id}/review")
+    public ResponseEntity<?> getMemberReview(@PathVariable("member-id") @Positive long memberId){
+        Member findMember = memberService.findMemberById(memberId);
+        MemberReviewResponseDto response = memberMapper.memberToMemberReviewResponse(findMember);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    //내가쓴 질문조회
+    @GetMapping("/{member-id}/question")
+    public ResponseEntity<?> getMemberQuestion(@PathVariable("member-id") @Positive long memberId){
+        Member findMember = memberService.findMemberById(memberId);
+        MemberQuestionResponseDto response = memberMapper.memberToMemberQuestionResponse(findMember);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 
