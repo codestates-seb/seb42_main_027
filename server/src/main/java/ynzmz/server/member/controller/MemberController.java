@@ -36,6 +36,7 @@ public class MemberController {
 
         Member createdMember = memberService.createMember(member);
         MemberDto.Response response=  memberMapper.memberToMemberResponse(createdMember);
+        member.setCreatedAt(requestBody.getCreatedAt());
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
