@@ -39,12 +39,12 @@ public class QuestionController {
     private final AnswerMapper answerMapper;
     private final MemberService memberService;
     private final AnswerService answerService;
-
     private final TagService tagService;
 
     @PostMapping
     public ResponseEntity<?> postQuestion(@Valid @RequestBody QuestionDto.Post questionPost){
         Question requestQuestion = questionMapper.questionPostToQuestion(questionPost);
+        //토큰에서 memberId 확인
         requestQuestion.setMember(loginMemberFindByToken());
 
         Question createdQuestion = questionService.createQuestion(requestQuestion);

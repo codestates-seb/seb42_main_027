@@ -26,23 +26,23 @@ public class LectureReviewCommentController {
     private final LectureReviewCommentService lectureReviewCommentService;
     @PostMapping
     public ResponseEntity<?> createLectureReviewComment(@RequestBody LectureReviewCommentDto.Post postDto) {
-        LectureReviewComment lectureReviewComment = lectureReviewPostCommentMapper.lectureReviewCommentToLectureReviewCommentPost(postDto);
+        LectureReviewComment lectureReviewComment = lectureReviewPostCommentMapper.lectureReviewCommentPostToLectureReviewComment(postDto);
         Member member = memberService.findMemberById(postDto.getMemberId());
         lectureReviewComment.setMember(member);
 
         LectureReviewComment createLectureReviewComment = lectureReviewCommentService.createLectureReviewComment(lectureReviewComment);
-        LectureReviewCommentDto.Response response = lectureReviewPostCommentMapper.lectureReviewCommentResponseToLectureReviewComment(createLectureReviewComment);
+        LectureReviewCommentDto.Response response = lectureReviewPostCommentMapper.lectureReviewCommentToLectureReviewCommentResponse(createLectureReviewComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{lecture-review-comment-id}")
     public ResponseEntity<?> updateLectureReviewComment(@RequestBody LectureReviewCommentDto.Patch patchDto,
                                                         @PathVariable("lecture-review-comment-id") long lectureReviewPostCommentId) {
-        LectureReviewComment lectureReviewComment = lectureReviewPostCommentMapper.lectureReviewCommentToLectureReviewCommentPatch(patchDto);
+        LectureReviewComment lectureReviewComment = lectureReviewPostCommentMapper.lectureReviewCommentPatchToLectureReviewComment(patchDto);
         lectureReviewComment.setLectureReviewCommentId(lectureReviewPostCommentId);
 
         LectureReviewComment updateLectureReviewComment = lectureReviewCommentService.updateLectureReviewComment(lectureReviewComment);
-        LectureReviewCommentDto.Response response = lectureReviewPostCommentMapper.lectureReviewCommentResponseToLectureReviewComment(updateLectureReviewComment);
+        LectureReviewCommentDto.Response response = lectureReviewPostCommentMapper.lectureReviewCommentToLectureReviewCommentResponse(updateLectureReviewComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
@@ -57,7 +57,7 @@ public class LectureReviewCommentController {
         Page<LectureReviewComment> pageLectureReviewPostComments = lectureReviewCommentService.getLectureReviewComments(lectureReviewId, filter, page - 1, size);
         List<LectureReviewComment> lectureReviewComments = pageLectureReviewPostComments.getContent();
 
-        List<LectureReviewCommentDto.Response> responses = lectureReviewPostCommentMapper.lectureReviewCommentResponsesToLectureReviewComments(lectureReviewComments);
+        List<LectureReviewCommentDto.Response> responses = lectureReviewPostCommentMapper.lectureReviewCommentsToLectureReviewCommentResponses(lectureReviewComments);
 
         return new ResponseEntity<>(new MultiResponseDto<>(responses, pageLectureReviewPostComments), HttpStatus.OK);
     }

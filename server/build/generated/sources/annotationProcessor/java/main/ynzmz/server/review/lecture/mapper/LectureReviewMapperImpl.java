@@ -20,7 +20,7 @@ import ynzmz.server.review.lecture.entity.LectureReview;
 public class LectureReviewMapperImpl implements LectureReviewMapper {
 
     @Override
-    public LectureReview lectureReviewToLectureReviewPost(LectureReviewDto.Post reviewPostPost) {
+    public LectureReview lectureReviewPostToLectureReview(LectureReviewDto.Post reviewPostPost) {
         if ( reviewPostPost == null ) {
             return null;
         }
@@ -36,7 +36,7 @@ public class LectureReviewMapperImpl implements LectureReviewMapper {
     }
 
     @Override
-    public LectureReview lectureReviewToLectureReviewPatch(LectureReviewDto.Patch reviewPostPatch) {
+    public LectureReview lectureReviewPatchToLectureReview(LectureReviewDto.Patch reviewPostPatch) {
         if ( reviewPostPatch == null ) {
             return null;
         }
@@ -52,7 +52,7 @@ public class LectureReviewMapperImpl implements LectureReviewMapper {
     }
 
     @Override
-    public LectureReviewDto.ListPageResponse lectureReviewListPageResponseToLectureReview(LectureReview lectureReview) {
+    public LectureReviewDto.ListPageResponse lectureReviewToLectureReviewListPageResponse(LectureReview lectureReview) {
         if ( lectureReview == null ) {
             return null;
         }
@@ -76,21 +76,21 @@ public class LectureReviewMapperImpl implements LectureReviewMapper {
     }
 
     @Override
-    public List<LectureReviewDto.ListPageResponse> lectureReviewListPageResponsesToLectureReviews(List<LectureReview> lectureReviews) {
+    public List<LectureReviewDto.ListPageResponse> lectureReviewsToLectureReviewListPageResponses(List<LectureReview> lectureReviews) {
         if ( lectureReviews == null ) {
             return null;
         }
 
         List<LectureReviewDto.ListPageResponse> list = new ArrayList<LectureReviewDto.ListPageResponse>( lectureReviews.size() );
         for ( LectureReview lectureReview : lectureReviews ) {
-            list.add( lectureReviewListPageResponseToLectureReview( lectureReview ) );
+            list.add( lectureReviewToLectureReviewListPageResponse( lectureReview ) );
         }
 
         return list;
     }
 
     @Override
-    public LectureReviewDto.DetailPageResponse lectureReviewDetailPageResponseToLectureReview(LectureReview lectureReview) {
+    public LectureReviewDto.DetailPageResponse lectureReviewToLectureReviewDetailPageResponse(LectureReview lectureReview) {
         if ( lectureReview == null ) {
             return null;
         }
@@ -122,14 +122,14 @@ public class LectureReviewMapperImpl implements LectureReviewMapper {
 
         List<LectureReviewDto.DetailPageResponse> list = new ArrayList<LectureReviewDto.DetailPageResponse>( lectureReviews.size() );
         for ( LectureReview lectureReview : lectureReviews ) {
-            list.add( lectureReviewDetailPageResponseToLectureReview( lectureReview ) );
+            list.add( lectureReviewToLectureReviewDetailPageResponse( lectureReview ) );
         }
 
         return list;
     }
 
     @Override
-    public LectureReviewDto.InfoResponse lectureReviewInfoResponseToLectureReview(LectureReview lectureReview) {
+    public LectureReviewDto.InfoResponse lectureReviewToLectureReviewInfoResponse(LectureReview lectureReview) {
         if ( lectureReview == null ) {
             return null;
         }
@@ -160,7 +160,7 @@ public class LectureReviewMapperImpl implements LectureReviewMapper {
 
         List<LectureReviewDto.InfoResponse> list = new ArrayList<LectureReviewDto.InfoResponse>( lectureReviews.size() );
         for ( LectureReview lectureReview : lectureReviews ) {
-            list.add( lectureReviewInfoResponseToLectureReview( lectureReview ) );
+            list.add( lectureReviewToLectureReviewInfoResponse( lectureReview ) );
         }
 
         return list;

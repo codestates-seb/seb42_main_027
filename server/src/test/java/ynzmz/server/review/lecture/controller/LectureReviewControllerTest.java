@@ -9,8 +9,6 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
@@ -26,7 +24,6 @@ import ynzmz.server.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.teacher.service.TeacherService;
 import ynzmz.server.utils.SecurityTestConfig;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.*;
@@ -79,7 +76,7 @@ class LectureReviewControllerTest {
         String jsonPost = gson.toJson(mockPost);
 
         when(lectureReviewService.createLectureReview(any())).thenReturn(lectureReview);
-        when(lectureReviewMapper.lectureReviewInfoResponseToLectureReview(any())).thenReturn(lectureReviewPostInfoResponse);
+        when(lectureReviewMapper.lectureReviewToLectureReviewInfoResponse(any())).thenReturn(lectureReviewPostInfoResponse);
 
         ResultActions actions = mockMvc.perform(post("/lectures/reviews")
                 .accept(MediaType.APPLICATION_JSON)
@@ -141,9 +138,9 @@ class LectureReviewControllerTest {
         String jsonPatch = gson.toJson(mockPatch);
         long lectureReviewPostId = 1L;
 
-        when(lectureReviewMapper.lectureReviewToLectureReviewPatch(any())).thenReturn(new LectureReview());
+        when(lectureReviewMapper.lectureReviewPatchToLectureReview(any())).thenReturn(new LectureReview());
         when(lectureReviewService.updateLectureReview(any())).thenReturn(lectureReview);
-        when(lectureReviewMapper.lectureReviewInfoResponseToLectureReview(any())).thenReturn(lectureReviewPostInfoResponse);
+        when(lectureReviewMapper.lectureReviewToLectureReviewInfoResponse(any())).thenReturn(lectureReviewPostInfoResponse);
 
         ResultActions actions = mockMvc
                 .perform(patch("/lectures/reviews/{lecture-review-id}",lectureReviewPostId)
@@ -263,7 +260,7 @@ class LectureReviewControllerTest {
         long lectureReviewPostId = 1L;
 
         when(lectureReviewService.findLectureReviewById(anyInt())).thenReturn(new LectureReview());
-        when(lectureReviewMapper.lectureReviewDetailPageResponseToLectureReview(any())).thenReturn(lectureReviewDetailPageResponse);
+        when(lectureReviewMapper.lectureReviewToLectureReviewDetailPageResponse(any())).thenReturn(lectureReviewDetailPageResponse);
 
         ResultActions actions = mockMvc.perform(get("/lectures/reviews/{lecture-review-id}",lectureReviewPostId)
                 .accept(MediaType.APPLICATION_JSON)

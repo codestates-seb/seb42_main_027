@@ -66,9 +66,9 @@ class LectureReviewCommentControllerTest {
                 "2023.03.10.18:52:36",1L,1L);
         String jsonPost = gson.toJson(mockPost);
 
-        when(lectureReviewPostCommentMapper.lectureReviewCommentToLectureReviewCommentPost(any())).thenReturn(new LectureReviewComment());
+        when(lectureReviewPostCommentMapper.lectureReviewCommentPostToLectureReviewComment(any())).thenReturn(new LectureReviewComment());
         when(memberService.findMemberById(anyLong())).thenReturn(member);
-        when(lectureReviewPostCommentMapper.lectureReviewCommentResponseToLectureReviewComment(any())).thenReturn(lectureReviewPostCommentResponse);
+        when(lectureReviewPostCommentMapper.lectureReviewCommentToLectureReviewCommentResponse(any())).thenReturn(lectureReviewPostCommentResponse);
 
         ResultActions actions = mockMvc.perform(post("/lectures/reviews/comments")
                 .accept(MediaType.APPLICATION_JSON)
@@ -116,8 +116,8 @@ class LectureReviewCommentControllerTest {
         String jsonPatch = gson.toJson(mockPatch);
         long lectureReviewCommentId = 1L;
 
-        when(lectureReviewPostCommentMapper.lectureReviewCommentToLectureReviewCommentPatch(any())).thenReturn(new LectureReviewComment());
-        when(lectureReviewPostCommentMapper.lectureReviewCommentResponseToLectureReviewComment(any())).thenReturn(lectureReviewPostCommentResponse);
+        when(lectureReviewPostCommentMapper.lectureReviewCommentPatchToLectureReviewComment(any())).thenReturn(new LectureReviewComment());
+        when(lectureReviewPostCommentMapper.lectureReviewCommentToLectureReviewCommentResponse(any())).thenReturn(lectureReviewPostCommentResponse);
 
         ResultActions actions = mockMvc.perform(patch("/lectures/reviews/comments/{lecture-review-comment-id}",lectureReviewCommentId)
                 .accept(MediaType.APPLICATION_JSON)
@@ -162,7 +162,7 @@ class LectureReviewCommentControllerTest {
     void getLectureReviewPostComments() throws Exception {
 
         when(lectureReviewCommentService.getLectureReviewComments(anyLong(),anyString(),anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new LectureReviewComment())), PageRequest.of(1,1),1));
-        when(lectureReviewPostCommentMapper.lectureReviewCommentResponsesToLectureReviewComments(any())).thenReturn(lectureReviewPostCommentResponses);
+        when(lectureReviewPostCommentMapper.lectureReviewCommentsToLectureReviewCommentResponses(any())).thenReturn(lectureReviewPostCommentResponses);
 
         ResultActions actions =
                 mockMvc.perform(

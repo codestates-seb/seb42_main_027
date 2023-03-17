@@ -78,7 +78,7 @@ class TeacherControllerTest {
                 .build();
         String jsonPost = gson.toJson(mockPost);
 
-        when(teacherMapper.teacherInfoResponseToTeacher(any())).thenReturn(teacherSimpleInfoResponse);
+        when(teacherMapper.teacherToTeacherSimpleInfoResponse(any())).thenReturn(teacherSimpleInfoResponse);
 
 
         ResultActions actions = mockMvc.perform(post("/teachers")
@@ -129,8 +129,8 @@ class TeacherControllerTest {
         String jsonPatch = gson.toJson(mockPatch);
         long teacherId = 1L;
 
-        when(teacherMapper.teacherToTeacherPatch(any())).thenReturn(new Teacher());
-        when(teacherMapper.teacherInfoResponseToTeacher(any())).thenReturn(teacherSimpleInfoResponse);
+        when(teacherMapper.teacherPatchToTeacher(any())).thenReturn(new Teacher());
+        when(teacherMapper.teacherToTeacherSimpleInfoResponse(any())).thenReturn(teacherSimpleInfoResponse);
 
         ResultActions actions = mockMvc.perform(patch("/teachers/{teacher-id}",teacherId)
                 .content(jsonPatch)
@@ -170,7 +170,7 @@ class TeacherControllerTest {
     void getAllTeachers() throws Exception {
         when(teacherService.findTeachers(any(),any(),any(),anyString(),anyString(),anyString(),anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Teacher())), PageRequest.of(1,1),1));
         when(teacherService.findTeachers(any(),any(),any(),anyString(),anyString(),anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Teacher())), PageRequest.of(1,1),1));
-        when(teacherMapper.teacherListPageResponsesToTeachers(any())).thenReturn(teacherListPageResponses);
+        when(teacherMapper.teachersToTeacherListPageResponses(any())).thenReturn(teacherListPageResponses);
 
         ResultActions actions =
                 mockMvc.perform(
@@ -226,7 +226,7 @@ class TeacherControllerTest {
         long teacherId = 1L;
 
         when(teacherService.findTeacherById(anyInt())).thenReturn(new Teacher());
-        when(teacherMapper.teacherDetailPageResponseToTeacher(any())).thenReturn(teacherDetailPageResponse);
+        when(teacherMapper.teacherToTeacherDetailPageResponse(any())).thenReturn(teacherDetailPageResponse);
 
         ResultActions actions = mockMvc.perform(get("/teachers/{teacher-id}",teacherId)
                 .accept(MediaType.APPLICATION_JSON)
@@ -275,7 +275,7 @@ class TeacherControllerTest {
         long teacherId = 1L;
 
         when(teacherService.findTeacherById(anyInt())).thenReturn(new Teacher());
-        when(teacherMapper.teacherReviewDetailPageResponseToTeacher(any())).thenReturn(teacherReviewDetailPageResponse);
+        when(teacherMapper.teacherToTeacherReviewDetailPageResponse(any())).thenReturn(teacherReviewDetailPageResponse);
         when(lectureReviewService.findStarPointCountByTeacher(any())).thenReturn(starPointCount);
 
         ResultActions actions = mockMvc.perform(get("/teachers/{teacher-id}/review",teacherId)

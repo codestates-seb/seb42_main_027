@@ -18,14 +18,13 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TeacherMapper {
-    Teacher teacherToTeacherPost(TeacherDto.Post teacherPost);
-    Teacher teacherToTeacherPatch(TeacherDto.Patch teacherPatch);
-    TeacherDto.SimpleInfoResponse teacherInfoResponseToTeacher(Teacher teacher);
-    List<TeacherDto.SimpleInfoResponse> teacherInfoResponsesToTeachers(List<Teacher> teachers);
-    TeacherDto.ListPageResponse teacherListPageResponseToTeacher(Teacher teacher);
-    List<TeacherDto.ListPageResponse> teacherListPageResponsesToTeachers(List<Teacher> teachers);
-    TeacherDto.DetailPageResponse teacherDetailPageResponseToTeacher(Teacher teacher);
-    TeacherDto.ReviewDetailPageResponse teacherReviewDetailPageResponseToTeacher(Teacher teacher);
+    Teacher teacherPostToTeacher(TeacherDto.Post teacherPost);
+    Teacher teacherPatchToTeacher(TeacherDto.Patch teacherPatch);
+    TeacherDto.SimpleInfoResponse teacherToTeacherSimpleInfoResponse(Teacher teacher);
+    TeacherDto.ListPageResponse teacherToTeacherListPageResponse(Teacher teacher);
+    List<TeacherDto.ListPageResponse> teachersToTeacherListPageResponses(List<Teacher> teachers);
+    TeacherDto.DetailPageResponse teacherToTeacherDetailPageResponse(Teacher teacher);
+    TeacherDto.ReviewDetailPageResponse teacherToTeacherReviewDetailPageResponse(Teacher teacher);
     default GradeTag.Grade map(GradeTag gradeTag) {
         return gradeTag.getGrade();
     }
@@ -36,7 +35,7 @@ public interface TeacherMapper {
         return platformTag.getPlatform();
     }
 
-    default GradeTagDto.Response gradeTagResponseToTeacherGradeTag(TeacherGradeTag teacherGradeTag) {
+    default GradeTagDto.Response teacherGradeTagToGradeTagResponse(TeacherGradeTag teacherGradeTag) {
         if ( teacherGradeTag == null ) return null;
 
         GradeTagDto.Response response = new GradeTagDto.Response();
@@ -45,7 +44,7 @@ public interface TeacherMapper {
         return response;
     }
 
-    default PlatformTagDto.Response platformTagResponseToTeacherPlatformTag(TeacherPlatformTag teacherPlatformTag) {
+    default PlatformTagDto.Response teacherPlatformTagToPlatformTagResponse(TeacherPlatformTag teacherPlatformTag) {
         if ( teacherPlatformTag == null ) return null;
 
         PlatformTagDto.Response response = new PlatformTagDto.Response();
@@ -55,7 +54,7 @@ public interface TeacherMapper {
         return response;
     }
 
-    default SubjectTagDto.Response subjectTagResponseToTeacherSubjectTag(TeacherSubjectTag teacherSubjectTag) {
+    default SubjectTagDto.Response teacherSubjectTagToSubjectTagResponse(TeacherSubjectTag teacherSubjectTag) {
         if ( teacherSubjectTag == null ) return null;
 
         SubjectTagDto.Response response = new SubjectTagDto.Response();

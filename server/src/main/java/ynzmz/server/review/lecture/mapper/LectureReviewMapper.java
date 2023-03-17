@@ -9,12 +9,10 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface LectureReviewMapper {
-    LectureReview lectureReviewToLectureReviewPost(LectureReviewDto.Post reviewPostPost);
-    LectureReview lectureReviewToLectureReviewPatch(LectureReviewDto.Patch reviewPostPatch);
-    LectureReviewDto.ListPageResponse lectureReviewListPageResponseToLectureReview(LectureReview lectureReview);
-    List<LectureReviewDto.ListPageResponse> lectureReviewListPageResponsesToLectureReviews(List<LectureReview> lectureReviews);
-    LectureReviewDto.DetailPageResponse lectureReviewDetailPageResponseToLectureReview(LectureReview lectureReview);
-    List<LectureReviewDto.DetailPageResponse> lectureReviewDetailPageResponsesToLectureReviews(List<LectureReview> lectureReviews);
-    LectureReviewDto.InfoResponse lectureReviewInfoResponseToLectureReview(LectureReview lectureReview);
-    List<LectureReviewDto.InfoResponse> lectureReviewInfoResponsesToLectureReviews(List<LectureReview> lectureReviews);
+    LectureReview lectureReviewPostToLectureReview(LectureReviewDto.Post reviewPostPost);
+    LectureReview lectureReviewPatchToLectureReview(LectureReviewDto.Patch reviewPostPatch);
+    LectureReviewDto.ListPageResponse lectureReviewToLectureReviewListPageResponse(LectureReview lectureReview);
+    List<LectureReviewDto.ListPageResponse> lectureReviewsToLectureReviewListPageResponses(List<LectureReview> lectureReviews);
+    LectureReviewDto.DetailPageResponse lectureReviewToLectureReviewDetailPageResponse(LectureReview lectureReview);
+    LectureReviewDto.InfoResponse lectureReviewToLectureReviewInfoResponse(LectureReview lectureReview);
 }
