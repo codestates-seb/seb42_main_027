@@ -3,15 +3,18 @@ import { useEffect } from 'react';
 import { useIsLoginStore } from 'stores/loginStore';
 import isLogin from 'utils/isLogin';
 import getUserInfo from 'apis/getUserInfo';
+import useUserInfoStore from 'stores/userInfoStore';
 import GlobalStyle from './GlobalStyles';
 import Router from './Router';
 
 function App() {
-  const { setIsLogin } = useIsLoginStore();
+  const { setIsLoginInStore } = useIsLoginStore();
+
+  const email = localStorage.getItem('email');
 
   const fetchUserInfo = async () => {
     try {
-      const response = await getUserInfo();
+      const response = await getUserInfo(email);
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -21,8 +24,9 @@ function App() {
 
   useEffect(() => {
     if (isLogin()) {
-      setIsLogin(true);
+      setIsLoginInStore(true);
       fetchUserInfo();
+      console.log();
     }
   }, []);
 

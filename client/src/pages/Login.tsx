@@ -40,7 +40,7 @@ function Login() {
   const [isPasswordInputOpen, setIsPasswordInputOpen] = useState(false);
   const [failedLogin, setFailedLogin] = useState(false);
   const [loginError, setLoginError] = useState('');
-  const { setIsLogin } = useIsLoginStore(state => state);
+  const { setIsLoginInStore } = useIsLoginStore(state => state);
 
   const navigate = useNavigate();
   const pathData = {
@@ -62,7 +62,8 @@ function Login() {
 
   const fetchUserInfo = async () => {
     try {
-      const response = await getUserInfo();
+      const response = await getUserInfo(email);
+      localStorage.setItem('email', email);
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -82,7 +83,7 @@ function Login() {
     try {
       await login(pathData);
       navigate(-1);
-      setIsLogin(true);
+      setIsLoginInStore(true);
       fetchUserInfo();
     } catch (error) {
       setFailedLogin(true);

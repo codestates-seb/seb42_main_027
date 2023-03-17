@@ -1,18 +1,18 @@
 import axios from 'axios';
 
 type SignUpParams = {
-  userName: string;
-  phoneNum: string;
+  username: string;
+  phoneNumber: string;
   displayName: string;
   email: string;
   password: string;
   confirmPassword: string;
-  createdAt: string;
-  userState: string;
+  // createdAt: string;
+  // userState: string;
 };
 
 const postSignUp = async (pathData: SignUpParams) => {
-  await axios.post('http://13.125.1.215:8080/members', pathData);
+  await axios.post('https://65e1-119-65-189-55.jp.ngrok.io/members', pathData);
 };
 
 export default postSignUp;

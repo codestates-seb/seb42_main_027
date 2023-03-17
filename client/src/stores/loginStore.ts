@@ -1,11 +1,11 @@
 import { create } from 'zustand';
 
 type useIsLoginStoreProps = {
-  isLogin: boolean;
-  setIsLogin: (state: boolean) => void;
+  isLoginInStore: boolean;
+  setIsLoginInStore: (state: boolean) => void;
 };
 
 export const useIsLoginStore = create<useIsLoginStoreProps>(set => ({
-  isLogin: false,
-  setIsLogin: state => set(() => ({ isLogin: state })),
+  isLoginInStore: false,
+  setIsLoginInStore: state => set(() => ({ isLoginInStore: state })),
 }));
