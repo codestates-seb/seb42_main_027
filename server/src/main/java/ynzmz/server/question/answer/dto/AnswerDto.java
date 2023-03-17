@@ -1,6 +1,7 @@
 package ynzmz.server.question.answer.dto;
 
 import lombok.*;
+import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.question.answer.entity.Answer;
 import ynzmz.server.question.question.dto.QuestionDto;
@@ -42,7 +43,7 @@ public class AnswerDto {
         private String createdAt;
         private String modifiedAt;
         private Answer.AdoptStatus adoptStatus;
-        private Member member;
+        private MemberDto.SimpleInfoResponse member;
         private QuestionDto.ListPageResponse question;
     }
 }
