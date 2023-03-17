@@ -7,9 +7,8 @@ import lombok.Setter;
 import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
-import ynzmz.server.vote.qna.answer.entity.AnswerVote;
-import ynzmz.server.vote.qna.question.entity.QuestionVote;
-import ynzmz.server.vote.review.lecture.entity.LectureReviewVote;
+import ynzmz.server.vote.qna.entity.QnaVote;
+import ynzmz.server.vote.review.lecture.entity.ReviewVote;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -86,13 +85,10 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     @JsonManagedReference
-    private List<LectureReviewVote> lectureReviewVotes = new ArrayList<>();
+    private List<ReviewVote> reviewVotes = new ArrayList<>();
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     @JsonManagedReference
-    private List<QuestionVote> questionVotes = new ArrayList<>();
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
-    private List<AnswerVote> answerVotes = new ArrayList<>();
+    private List<QnaVote> qnaVotes = new ArrayList<>();
 
     //양방향 맵핑 더 추가되야할것
     //리뷰게시판의 추천상태 테이블

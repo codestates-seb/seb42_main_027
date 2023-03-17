@@ -3,15 +3,16 @@ package ynzmz.server.vote.review.lecture.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ynzmz.server.vote.review.lecture.entity.LectureReviewVote;
+import ynzmz.server.vote.Vote;
+import ynzmz.server.vote.review.lecture.entity.ReviewVote;
 
-public class LectureReviewVoteDto {
+public class ReviewVoteDto {
 
     @Getter @Setter
     @NoArgsConstructor
     public static class Response{
-        private LectureReviewVote.VoteStatus voteStatus;
-        private LectureReviewVote.Target target;
+        private Vote.Status Status;
+        private Vote.Target target;
         private long lectureReviewId;
         private long lectureReviewCommentId;
         private long memberId;

@@ -6,13 +6,14 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.member.entity.Member;
+import ynzmz.server.vote.Vote;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-public class Answer {
+public class Answer implements Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;

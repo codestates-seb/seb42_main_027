@@ -20,7 +20,6 @@ public class AnswerDto {
     @Setter
     @AllArgsConstructor
     public static class Patch {
-        private Long answerId;
         private String content;
 
     }

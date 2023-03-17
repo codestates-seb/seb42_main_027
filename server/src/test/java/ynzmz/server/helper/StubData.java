@@ -12,8 +12,8 @@ import ynzmz.server.tag.dto.PlatformTagDto;
 import ynzmz.server.tag.dto.SubjectTagDto;
 import ynzmz.server.teacher.dto.TeacherDto;
 import ynzmz.server.teacher.entity.Teacher;
-import ynzmz.server.vote.review.lecture.dto.LectureReviewVoteDto;
-import ynzmz.server.vote.review.lecture.entity.LectureReviewVote;
+import ynzmz.server.vote.review.lecture.dto.ReviewVoteDto;
+import ynzmz.server.vote.review.lecture.entity.ReviewVote;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,9 +58,9 @@ public class StubData {
     public static final LectureReviewDto.DetailPageResponse lectureReviewDetailPageResponse = new LectureReviewDto.DetailPageResponse();
     public static final LectureReviewCommentDto.Response lectureReviewPostCommentResponse = new LectureReviewCommentDto.Response();
     public static final List<LectureReviewCommentDto.Response> lectureReviewPostCommentResponses = new ArrayList<>();
-    public static final LectureReviewVote lectureReviewVote = new LectureReviewVote();
-    public static final LectureReviewVoteDto.Response lectureReviewVoteResponse = new LectureReviewVoteDto.Response();
-    public static final LectureReviewVoteDto.Response lectureReviewCommentVoteResponse = new LectureReviewVoteDto.Response();
+    public static final ReviewVote REVIEW_VOTE = new ReviewVote();
+    public static final ReviewVoteDto.Response lectureReviewVoteResponse = new ReviewVoteDto.Response();
+    public static final ReviewVoteDto.Response lectureReviewCommentVoteResponse = new ReviewVoteDto.Response();
     public static void init(){
 
         tagsSample.add("국어");
@@ -277,19 +277,19 @@ public class StubData {
 //
 //
 //
-        lectureReviewVote.setLectureReviewVoteId(1L);
-        lectureReviewVote.setMember(member);
-        lectureReviewVote.setVoteStatus(LectureReviewVote.VoteStatus.UP);
-        lectureReviewVote.setLectureReview(lectureReview);
+        REVIEW_VOTE.setReviewVoteId(1L);
+        REVIEW_VOTE.setMember(member);
+        REVIEW_VOTE.setStatus(ReviewVote.VoteStatus.UP);
+        REVIEW_VOTE.setLectureReview(lectureReview);
 
-        lectureReviewVoteResponse.setVoteStatus(LectureReviewVote.VoteStatus.UP);
-        lectureReviewVoteResponse.setTarget(LectureReviewVote.Target.REVIEW);
+        lectureReviewVoteResponse.setVoteStatus(ReviewVote.VoteStatus.UP);
+        lectureReviewVoteResponse.setTarget(ReviewVote.Target.REVIEW);
         lectureReviewVoteResponse.setLectureReviewId(1L);
         lectureReviewVoteResponse.setLectureReviewTotalCount(5);
         lectureReviewVoteResponse.setMemberId(1L);
 
-        lectureReviewCommentVoteResponse.setVoteStatus(LectureReviewVote.VoteStatus.UP);
-        lectureReviewCommentVoteResponse.setTarget(LectureReviewVote.Target.COMMENT);
+        lectureReviewCommentVoteResponse.setVoteStatus(ReviewVote.VoteStatus.UP);
+        lectureReviewCommentVoteResponse.setTarget(ReviewVote.Target.COMMENT);
         lectureReviewCommentVoteResponse.setLectureReviewCommentId(1L);
         lectureReviewCommentVoteResponse.setLectureReviewCommentTotalCount(7);
         lectureReviewCommentVoteResponse.setMemberId(1L);

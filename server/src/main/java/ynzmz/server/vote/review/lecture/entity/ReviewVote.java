@@ -7,20 +7,21 @@ import lombok.Setter;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.member.entity.Member;
+import ynzmz.server.vote.Vote;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-public class LectureReviewVote {
+public class ReviewVote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long lectureReviewVoteId;
+    private Long reviewVoteId;
     @Enumerated(EnumType.STRING)
-    private VoteStatus voteStatus;
+    private Vote.Status status;
     @Enumerated(EnumType.STRING)
-    private Target target;
+    private Vote.Target target;
     @ManyToOne
     @JoinColumn(name = "lecture_review_id")
     @JsonBackReference
@@ -34,28 +35,18 @@ public class LectureReviewVote {
     @JoinColumn(name = "member_id")
     @JsonBackReference
     private Member member;
-    public LectureReviewVote(LectureReview lectureReview, Member member, VoteStatus voteStatus, Target target){
+    public ReviewVote(LectureReview lectureReview, Member member, Vote.Status status, Vote.Target target){
         this.lectureReview = lectureReview;
         this.member = member;
-        this.voteStatus = voteStatus;
+        this.status = status;
         this.target = target;
     }
 
-    public LectureReviewVote(LectureReviewComment lectureReviewComment, Member member, VoteStatus voteStatus, Target target){
+    public ReviewVote(LectureReviewComment lectureReviewComment, Member member, Vote.Status status, Vote.Target target){
         this.lectureReviewComment = lectureReviewComment;
         this.member = member;
-        this.voteStatus = voteStatus;
+        this.status = status;
         this.target = target;
     }
 
-    public enum Target{
-        REVIEW,
-        COMMENT
-    }
-
-    public enum VoteStatus{
-        UP,
-        NONE,
-        DOWN
-    }
 }

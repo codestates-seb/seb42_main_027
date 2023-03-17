@@ -14,19 +14,19 @@ import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
-import ynzmz.server.vote.review.lecture.dto.LectureReviewVoteDto;
-import ynzmz.server.vote.review.lecture.entity.LectureReviewVote;
-import ynzmz.server.vote.review.lecture.mapper.LectureReviewVoteMapper;
-import ynzmz.server.vote.review.lecture.service.LectureReviewVoteService;
+import ynzmz.server.vote.review.lecture.dto.ReviewVoteDto;
+import ynzmz.server.vote.review.lecture.entity.ReviewVote;
+import ynzmz.server.vote.review.lecture.mapper.ReviewVoteMapper;
+import ynzmz.server.vote.review.lecture.service.ReviewVoteService;
 
 @RestController
 @RequestMapping("/votes/reviews/lectures")
 @RequiredArgsConstructor
-public class LectureReviewVoteController {
-    private final LectureReviewVoteService lectureReviewVoteService;
+public class ReviewVoteController {
+    private final ReviewVoteService reviewVoteService;
     private final LectureReviewService lectureReviewService;
     private final LectureReviewCommentService lectureReviewCommentService;
-    private final LectureReviewVoteMapper lectureReviewVoteMapper;
+    private final ReviewVoteMapper reviewVoteMapper;
     private final  MemberService memberService;
 
     @PostMapping("/{lecture-review-id}/up/{member-id}")
@@ -35,11 +35,11 @@ public class LectureReviewVoteController {
 
         LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewPostId);
         Member member = memberService.findMemberById(memberId);
-        LectureReviewVote lectureReviewVote = lectureReviewVoteService.findLectureReviewVoteTargetReview(lectureReview, member);// 현재 상태값 불러오기
+        ReviewVote reviewVote = reviewVoteService.findLectureReviewVoteTargetReview(lectureReview, member);// 현재 상태값 불러오기
 
-        LectureReviewVote voteUplectureReviewVote = lectureReviewVoteService.lectureReviewVoteUp(lectureReview, lectureReviewVote);
+        ReviewVote voteUplectureReviewVote = reviewVoteService.lectureReviewVoteUp(lectureReview, reviewVote);
 
-        LectureReviewVoteDto.Response response = lectureReviewVoteMapper.lectureReviewVoteToLectureReviewResponse(voteUplectureReviewVote);
+        ReviewVoteDto.Response response = reviewVoteMapper.lectureReviewVoteToLectureReviewResponse(voteUplectureReviewVote);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -49,40 +49,40 @@ public class LectureReviewVoteController {
                                                    @PathVariable("member-id") long memberId) {
         LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewPostId);
         Member member = memberService.findMemberById(memberId);
-        LectureReviewVote lectureReviewVote = lectureReviewVoteService.findLectureReviewVoteTargetReview(lectureReview, member);// 현재 상태값 불러오기
+        ReviewVote reviewVote = reviewVoteService.findLectureReviewVoteTargetReview(lectureReview, member);// 현재 상태값 불러오기
 
-        LectureReviewVote voteDownlectureReviewVote = lectureReviewVoteService.lectureReviewVoteDown(lectureReview, lectureReviewVote);
+        ReviewVote voteDownlectureReviewVote = reviewVoteService.lectureReviewVoteDown(lectureReview, reviewVote);
 
-        LectureReviewVoteDto.Response response = lectureReviewVoteMapper.lectureReviewVoteToLectureReviewResponse(voteDownlectureReviewVote);
+        ReviewVoteDto.Response response = reviewVoteMapper.lectureReviewVoteToLectureReviewResponse(voteDownlectureReviewVote);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
-    @PostMapping("/comment/{lecture-review-comment-id}/up/{member-id}")
+    @PostMapping("/comments/{lecture-review-comment-id}/up/{member-id}")
     public ResponseEntity<?> lectureReviewCommentVoteUp(@PathVariable("lecture-review-comment-id") long lectureReviewCommentId,
                                                         @PathVariable("member-id") long memberId) {
 
         LectureReviewComment lectureReviewComment = lectureReviewCommentService.findLectureReviewCommentById(lectureReviewCommentId);
         Member member = memberService.findMemberById(memberId);
-        LectureReviewVote lectureReviewVote = lectureReviewVoteService.findLectureReviewVoteTargetComment(lectureReviewComment, member);// 현재 상태값 불러오기
+        ReviewVote reviewVote = reviewVoteService.findLectureReviewVoteTargetComment(lectureReviewComment, member);// 현재 상태값 불러오기
 
-        LectureReviewVote voteUplectureReviewVote = lectureReviewVoteService.lectureReviewVoteUp(lectureReviewComment, lectureReviewVote);
+        ReviewVote voteUplectureReviewVote = reviewVoteService.lectureReviewVoteUp(lectureReviewComment, reviewVote);
 
-        LectureReviewVoteDto.Response response = lectureReviewVoteMapper.lectureReviewVoteToLectureReviewResponse(voteUplectureReviewVote);
+        ReviewVoteDto.Response response = reviewVoteMapper.lectureReviewVoteToLectureReviewResponse(voteUplectureReviewVote);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
-    @PostMapping("/comment/{lecture-review-comment-id}/down/{member-id}")
+    @PostMapping("/comments/{lecture-review-comment-id}/down/{member-id}")
     public ResponseEntity<?> lectureReviewCommentVoteDown(@PathVariable("lecture-review-comment-id") long lectureReviewCommentId,
                                                           @PathVariable("member-id") long memberId) {
         LectureReviewComment lectureReviewComment = lectureReviewCommentService.findLectureReviewCommentById(lectureReviewCommentId);
         Member member = memberService.findMemberById(memberId);
-        LectureReviewVote lectureReviewVote = lectureReviewVoteService.findLectureReviewVoteTargetComment(lectureReviewComment, member);// 현재 상태값 불러오기
+        ReviewVote reviewVote = reviewVoteService.findLectureReviewVoteTargetComment(lectureReviewComment, member);// 현재 상태값 불러오기
 
-        LectureReviewVote voteDownlectureReviewVote = lectureReviewVoteService.lectureReviewVoteDown(lectureReviewComment, lectureReviewVote);
+        ReviewVote voteDownlectureReviewVote = reviewVoteService.lectureReviewVoteDown(lectureReviewComment, reviewVote);
 
-        LectureReviewVoteDto.Response response = lectureReviewVoteMapper.lectureReviewVoteToLectureReviewResponse(voteDownlectureReviewVote);
+        ReviewVoteDto.Response response = reviewVoteMapper.lectureReviewVoteToLectureReviewResponse(voteDownlectureReviewVote);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }

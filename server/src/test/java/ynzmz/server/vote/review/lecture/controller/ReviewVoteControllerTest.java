@@ -22,8 +22,8 @@ import ynzmz.server.member.service.MemberService;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.utils.SecurityTestConfig;
-import ynzmz.server.vote.review.lecture.mapper.LectureReviewVoteMapper;
-import ynzmz.server.vote.review.lecture.service.LectureReviewVoteService;
+import ynzmz.server.vote.review.lecture.mapper.ReviewVoteMapper;
+import ynzmz.server.vote.review.lecture.service.ReviewVoteService;
 
 import java.util.List;
 
@@ -38,24 +38,24 @@ import static ynzmz.server.helper.StubData.*;
 import static ynzmz.server.utils.ApiDocumentUtils.getRequestPreProcessor;
 import static ynzmz.server.utils.ApiDocumentUtils.getResponsePreProcessor;
 
-@WebMvcTest(controllers = LectureReviewVoteController.class)
+@WebMvcTest(controllers = ReviewVoteController.class)
 @AutoConfigureRestDocs
 @MockBean(JpaMetamodelMappingContext.class)
 @WithMockUser
 @Import(SecurityTestConfig.class)
-class LectureReviewVoteControllerTest {
+class ReviewVoteControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
     private Gson gson;
     @MockBean
-    private LectureReviewVoteService lectureReviewVoteService;
+    private ReviewVoteService reviewVoteService;
     @MockBean
     private LectureReviewService lectureReviewService;
     @MockBean
     private LectureReviewCommentService lectureReviewCommentService;
     @MockBean
-    private LectureReviewVoteMapper lectureReviewVoteMapper;
+    private ReviewVoteMapper reviewVoteMapper;
     @MockBean
     private  MemberService memberService;
 
@@ -71,8 +71,8 @@ class LectureReviewVoteControllerTest {
 
         when(lectureReviewService.findLectureReviewById(anyLong())).thenReturn(lectureReview);
         when(memberService.findMemberById(anyLong())).thenReturn(member);
-        when(lectureReviewVoteService.lectureReviewVoteUp(any(),any())).thenReturn(lectureReviewVote);
-        when(lectureReviewVoteMapper.lectureReviewVoteToLectureReviewResponse(any())).thenReturn(lectureReviewVoteResponse);
+        when(reviewVoteService.lectureReviewVoteUp(any(),any())).thenReturn(REVIEW_VOTE);
+        when(reviewVoteMapper.lectureReviewVoteToLectureReviewResponse(any())).thenReturn(lectureReviewVoteResponse);
 
         ResultActions actions = mockMvc.perform(post("/vote/lecture/review/{lecture-review-id}/up/{member-id}",
                 lectureReviewPostId,
@@ -111,8 +111,8 @@ class LectureReviewVoteControllerTest {
 
         when(lectureReviewService.findLectureReviewById(anyLong())).thenReturn(new LectureReview());
         when(memberService.findMemberById(anyLong())).thenReturn(member);
-        when(lectureReviewVoteService.lectureReviewVoteDown(any(),any())).thenReturn(lectureReviewVote);
-        when(lectureReviewVoteMapper.lectureReviewVoteToLectureReviewResponse(any())).thenReturn(lectureReviewVoteResponse);
+        when(reviewVoteService.lectureReviewVoteDown(any(),any())).thenReturn(REVIEW_VOTE);
+        when(reviewVoteMapper.lectureReviewVoteToLectureReviewResponse(any())).thenReturn(lectureReviewVoteResponse);
 
         ResultActions actions = mockMvc.perform(post("/vote/lecture/review/{lecture-review-id}/down/{member-id}",
                 lectureReviewPostId,
@@ -149,8 +149,8 @@ class LectureReviewVoteControllerTest {
 
         when(lectureReviewCommentService.findLectureReviewCommentById(anyLong())).thenReturn(new LectureReviewComment());
         when(memberService.findMemberById(anyLong())).thenReturn(member);
-        when(lectureReviewVoteService.lectureReviewVoteDown(any(),any())).thenReturn(lectureReviewVote);
-        when(lectureReviewVoteMapper.lectureReviewVoteToLectureReviewResponse(any())).thenReturn(lectureReviewCommentVoteResponse);
+        when(reviewVoteService.lectureReviewVoteDown(any(),any())).thenReturn(REVIEW_VOTE);
+        when(reviewVoteMapper.lectureReviewVoteToLectureReviewResponse(any())).thenReturn(lectureReviewCommentVoteResponse);
 
         ResultActions actions = mockMvc.perform(post("/vote/lecture/review/comment/{lecture-review-comment-id}/up/{member-id}",
                 lectureReviewPostCommentId,
@@ -187,8 +187,8 @@ class LectureReviewVoteControllerTest {
 
         when(lectureReviewCommentService.findLectureReviewCommentById(anyLong())).thenReturn(new LectureReviewComment());
         when(memberService.findMemberById(anyLong())).thenReturn(member);
-        when(lectureReviewVoteService.lectureReviewVoteDown(any(),any())).thenReturn(lectureReviewVote);
-        when(lectureReviewVoteMapper.lectureReviewVoteToLectureReviewResponse(any())).thenReturn(lectureReviewCommentVoteResponse);
+        when(reviewVoteService.lectureReviewVoteDown(any(),any())).thenReturn(REVIEW_VOTE);
+        when(reviewVoteMapper.lectureReviewVoteToLectureReviewResponse(any())).thenReturn(lectureReviewCommentVoteResponse);
 
         ResultActions actions = mockMvc.perform(post("/vote/lecture/review/comment/{lecture-review-comment-id}/down/{member-id}",
                 lectureReviewPostCommentId,

@@ -33,29 +33,33 @@ public class AnswerController {
     public ResponseEntity<?> postAnswer(@Valid @RequestBody AnswerDto.Post answerPost){
 
         Answer postDtoToAnswer = answerMapper.answerPostDtoToAnswer(answerPost);
-        String loginMemberId = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
+        // 토큰에서 유저 email 확인
+        String loginMemberId = SecurityContextHolder.getContext().getAuthentication().getName();
         postDtoToAnswer.setMember(memberService.findMemberByEmail(loginMemberId));
-        postDtoToAnswer.setQuestion(questionService.findQuestion(answerPost.getQuestionId()));
+        postDtoToAnswer.setQuestion(questionService.findQuestionById(answerPost.getQuestionId()));
 
-        Answer answer = answerService.createAnswer(postDtoToAnswer);
-        AnswerDto.InfoResponse response = answerMapper.answerToAnswerInfoResponse(answer);
+        Answer createAnswer = answerService.createAnswer(postDtoToAnswer);
+        AnswerDto.InfoResponse response = answerMapper.answerToAnswerInfoResponse(createAnswer);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{answer-id}")
     public ResponseEntity<?> patchAnswer(@PathVariable("answer-id") long answerId, @RequestBody AnswerDto.Patch answerPatch) {
-        answerPatch.setAnswerId(answerId);
-        memberService.memberValidation(loginMemberFindByToken(), answerService.findAnswer(answerId).getMember().getMemberId()); //본인검증
+        //수정시 본인인지 확인
+        memberService.memberValidation(loginMemberFindByToken(), answerService.findAnswerById(answerId).getMember().getMemberId());
 
-        Answer answer = answerService.updateAnswer(answerMapper.answerPatchDtoToAnswer(answerPatch));
-        AnswerDto.InfoResponse response = answerMapper.answerToAnswerInfoResponse(answer);
+        Answer answer = answerMapper.answerPatchDtoToAnswer(answerPatch);
+        answer.setAnswerId(answerId);
+
+        Answer updateAnswer = answerService.updateAnswer(answer);
+        AnswerDto.InfoResponse response = answerMapper.answerToAnswerInfoResponse(updateAnswer);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     @GetMapping("/{answer-id}")
     public ResponseEntity<?> getAnswer(@PathVariable("answer-id")long answerId) {
-        Answer answer = answerService.findAnswer(answerId);
+        Answer answer = answerService.findAnswerById(answerId);
         AnswerDto.InfoResponse response = answerMapper.answerToAnswerInfoResponse(answer);
         return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
