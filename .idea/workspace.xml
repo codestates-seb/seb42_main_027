@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="feat: 질문글,게시글 추천기능 추가">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="feat: 질문답변게시판 댓글기능 추가" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,6 +78,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/mino/codestates/seb42_main_027/server/src/main/java/ynzmz/server/comment",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -88,6 +87,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment" />
+    </key>
+  </component>
   <component name="RunManager" selected="Spring Boot.ServerApplication">
     <configuration name="server [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -259,7 +263,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679046913990</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="feat: 질문답변게시판 댓글기능 추가">
+      <created>1679061979452</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1679061979452</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -312,6 +323,7 @@
     <MESSAGE value="fix: 병합준비" />
     <MESSAGE value="refactor: 병합 및 패키지구조변경" />
     <MESSAGE value="feat: 질문글,게시글 추천기능 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 질문글,게시글 추천기능 추가" />
+    <MESSAGE value="feat: 질문답변게시판 댓글기능 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 질문답변게시판 댓글기능 추가" />
   </component>
 </project>

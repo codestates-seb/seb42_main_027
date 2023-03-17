@@ -31,8 +31,8 @@ public class QnaCommentDto {
         private String createdAt;
         private String modifiedAt;
         private long voteCount;
-        private QuestionDto.SimpleInfoResponse question;
-        private AnswerDto.SimpleInfoResponse answer;
         private MemberDto.SimpleInfoResponse member;
+//        private QuestionDto.SimpleInfoResponse question;
+//        private AnswerDto.SimpleInfoResponse answer;
     }
 }

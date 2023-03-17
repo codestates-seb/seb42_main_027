@@ -1,6 +1,7 @@
 package ynzmz.server.board.qna.question.dto;
 
 import lombok.*;
+import ynzmz.server.comment.qna.dto.QnaCommentDto;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.board.qna.answer.dto.AnswerDto;
@@ -77,7 +78,8 @@ public class QuestionDto {
         private long voteCount;
         private long answerCount;
         private List<SubjectTagDto.Response> subjectTags;
-        private List<AnswerDto.SimpleInfoResponse> answers;
+        private List<AnswerDto.Response> answers;
+        private List<QnaCommentDto.Response> comments;
         private MemberDto.VoteInfo loginUserInfo;
     }
 
