@@ -1,6 +1,0 @@
-[source,bash]
-----
-$ curl 'http://localhost:8080/lectures/1' -i -X DELETE \
-    -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Accept: application/json'
-----

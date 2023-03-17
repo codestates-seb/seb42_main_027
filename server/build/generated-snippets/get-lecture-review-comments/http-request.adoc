@@ -1,8 +1,0 @@
-[source,http,options="nowrap"]
-----
-GET /lectures/reviews/comments?filter=lectureReviewCommentId&lectureReviewId=1&page=1&size=5 HTTP/1.1
-Content-Type: application/json;charset=UTF-8
-Accept: application/json
-Host: localhost:8080
-
-----

@@ -1,6 +1,0 @@
-[source,bash]
-----
-$ curl 'http://localhost:8080/lectures/?grade=%EA%B3%A03&platform=%EC%9D%B4%ED%88%AC%EC%8A%A4&subject=%EA%B5%AD%EC%96%B4&title=%EA%B0%95%EC%9D%98%EC%A0%9C%EB%AA%A9&sort=starPointAverage&reverse=on&page=1&size=5' -i -X GET \
-    -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Accept: application/json'
-----
