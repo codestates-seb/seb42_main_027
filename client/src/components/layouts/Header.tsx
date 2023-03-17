@@ -6,11 +6,12 @@ import Toggle from '../common/Toggle';
 import theme from '../../theme';
 
 function Header() {
-  const { isLogin, setIsLogin } = useIsLoginStore(state => state);
+  const { isLoginInStore, setIsLoginInStore } = useIsLoginStore(state => state);
 
   const logOutHandler = () => {
     localStorage.removeItem('token');
-    setIsLogin(false);
+    localStorage.removeItem('email');
+    setIsLoginInStore(false);
   };
 
   return (
@@ -39,7 +40,7 @@ function Header() {
         <ToggleDiv>
           <Toggle />
         </ToggleDiv>
-        {isLogin ? (
+        {isLoginInStore ? (
           <BtnDiv>
             <Button.WhiteBtn>내정보</Button.WhiteBtn>
             <Button.PointBtn onClick={logOutHandler}>로그아웃</Button.PointBtn>
@@ -64,7 +65,7 @@ const Container = styled.div`
   justify-content: space-between;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 10;
   height: 74px;
   padding: 1.25rem 2.5rem 1.25rem 2.5rem;
   border-top: medium solid ${theme.colors.pointColor};

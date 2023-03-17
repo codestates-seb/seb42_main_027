@@ -8,11 +8,21 @@ import { HiPencil } from 'react-icons/hi';
 import { MdMenuOpen } from 'react-icons/md';
 
 function FreeBoardMenu() {
-  const [selectMenu, isSelectMenu] = useState('0');
+  const [selectMenu, setSelectMenu] = useState('0');
+  const [sortMenuOpen, setSortMenuOpen] = useState(false);
+  const [selectSort, setSelectSort] = useState('최신순');
 
   const menuSelectHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e.target instanceof Element) {
-      isSelectMenu(e.target.id);
+      setSelectMenu(e.target.id);
+    }
+  };
+  const sortMenuOpenHandler = () => {
+    setSortMenuOpen(!sortMenuOpen);
+  };
+  const sortSelectHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (e.target instanceof Element) {
+      setSelectSort(e.target.id);
     }
   };
   return (
@@ -90,10 +100,40 @@ function FreeBoardMenu() {
           </Button.SubMenuBtn>
         )}
       </Category>
-      <Button.FilterBtn>
-        <MdMenuOpen />
-        최신순
-      </Button.FilterBtn>
+      <FilterDiv>
+        <FilterOpenBtn
+          onBlur={sortMenuOpenHandler}
+          onClick={sortMenuOpenHandler}
+        >
+          <MdMenuOpen />
+          <div>{selectSort}</div>
+        </FilterOpenBtn>
+        {sortMenuOpen ? (
+          <SortModal>
+            <FilterSelectBtn
+              id="최신순"
+              className={selectSort === '최신순' ? 'selected' : ''}
+              onMouseDown={sortSelectHandler}
+            >
+              최신순
+            </FilterSelectBtn>
+            <FilterSelectBtn
+              id="추천순"
+              className={selectSort === '추천순' ? 'selected' : ''}
+              onMouseDown={sortSelectHandler}
+            >
+              추천순
+            </FilterSelectBtn>
+            <FilterSelectBtn
+              id="조회순"
+              className={selectSort === '조회순' ? 'selected' : ''}
+              onMouseDown={sortSelectHandler}
+            >
+              조회순
+            </FilterSelectBtn>
+          </SortModal>
+        ) : null}
+      </FilterDiv>
     </MenuDiv>
   );
 }
@@ -108,5 +148,45 @@ const MenuDiv = styled.div`
 `;
 
 const Category = styled.div``;
+
+const FilterDiv = styled.div`
+  position: relative;
+`;
+
+const FilterOpenBtn = styled(Button.FilterBtn)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const FilterSelectBtn = styled(Button.DefaultBtn)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding: ${theme.gap.px10} ${theme.gap.px20};
+  font-size: ${theme.fontSizes.sm};
+
+  &.selected {
+    color: ${theme.colors.pointColor};
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: ${theme.colors.pointColor};
+  }
+`;
+
+const SortModal = styled.div`
+  position: absolute;
+  z-index: 1;
+  left: -70px;
+  top: 50px;
+  width: ${theme.gap.px150};
+  background-color: ${theme.colors.white};
+  border: 1px solid ${theme.colors.lightGray};
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+`;
 
 export default FreeBoardMenu;
