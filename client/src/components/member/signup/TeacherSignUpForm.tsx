@@ -195,8 +195,8 @@ function TeacherSignUpForm() {
     email: '',
     password: '',
     confirmPassword: '',
-    // createdAt: '',
-    // userState: '',
+    createdAt: '',
+    state: '',
   };
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -207,8 +207,8 @@ function TeacherSignUpForm() {
     pathData.email = email;
     pathData.password = password;
     pathData.confirmPassword = confirmPassword;
-    // pathData.createdAt = currentTime;
-    // pathData.userState = 'teacher';
+    pathData.createdAt = currentTime;
+    pathData.state = 'TEACHER';
     try {
       await postSignUp(pathData);
       console.log('가입 성공~!');

@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 type SignUpParams = {
   username: string;
   phoneNumber: string;
@@ -7,12 +9,12 @@ type SignUpParams = {
   email: string;
   password: string;
   confirmPassword: string;
-  // createdAt: string;
-  // userState: string;
+  createdAt: string;
+  state: string;
 };
 
 const postSignUp = async (pathData: SignUpParams) => {
-  await axios.post('https://65e1-119-65-189-55.jp.ngrok.io/members', pathData);
+  await axios.post(`${apiUrl}/members`, pathData);
 };
 
 export default postSignUp;

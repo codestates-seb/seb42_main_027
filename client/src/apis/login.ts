@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 type LoginParams = {
   email: string;
   password: string;
@@ -11,7 +13,7 @@ type AuthResponse = {
 
 const login = async (pathData: LoginParams): Promise<void> => {
   const response = await axios.post<AuthResponse>(
-    'https://65e1-119-65-189-55.jp.ngrok.io/auth/login',
+    `${apiUrl}/auth/login`,
     pathData,
   );
   localStorage.setItem('token', response.data.token);
