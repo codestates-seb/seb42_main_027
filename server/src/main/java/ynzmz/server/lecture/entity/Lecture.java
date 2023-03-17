@@ -43,7 +43,6 @@ public class Lecture {
     @JsonBackReference
     private Teacher teacher;
 
-
     public enum Status {
         예정,
         진행중,

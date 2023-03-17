@@ -16,6 +16,8 @@ import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;
 import ynzmz.server.tag.service.TagService;
+import ynzmz.server.teacher.entity.Teacher;
+import ynzmz.server.teacher.service.TeacherService;
 
 import java.util.List;
 import java.util.Map;
@@ -25,6 +27,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class LectureController {
     private final LectureService lectureService;
+    private final TeacherService teacherService;
     private final LectureMapper lectureMapper;
     private final TagService tagService;
     private final LectureReviewService lectureReviewService;
@@ -32,6 +35,9 @@ public class LectureController {
     @PostMapping
     public ResponseEntity<?> postLecture(@RequestBody LectureDto.Post lecturePost){
         Lecture lecture = lectureMapper.lecturePostToLecture(lecturePost);
+        Teacher teacher = teacherService.findTeacherById(lecturePost.getTeacherId());
+        lecture.setTeacher(teacher);
+
         Lecture createdLecture = lectureService.createdLecture(lecture);
 
         //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )

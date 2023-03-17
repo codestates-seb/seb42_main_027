@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/answer")
+@RequestMapping("/answers")
 @RequiredArgsConstructor
 public class AnswerController {
     private final QuestionService questionService;
@@ -61,7 +61,7 @@ public class AnswerController {
     }
 
     //내가쓴 댓글조회
-    @GetMapping("/{member-id}/answer")
+    @GetMapping("/{member-id}/answers")
     public ResponseEntity<?> getMemberAnswer(@PathVariable("member-id") long memberId, @RequestParam int page, @RequestParam int size) {
 
         //페이지네이션 으로 질문글전체조회와 리스폰값 명세 통일(요청사항)

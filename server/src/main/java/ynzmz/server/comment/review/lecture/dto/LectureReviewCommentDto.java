@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 
 public class LectureReviewCommentDto {
@@ -31,6 +32,6 @@ public class LectureReviewCommentDto {
         private String createdAt;
         private String modifiedAt;
         private long voteCount;
-        private Member member;
+        private MemberDto.SimpleInfoResponse member;
     }
 }
