@@ -46,7 +46,9 @@ public class Member {
 
     public enum State {
         STUDENT("학생"),
-        TEACHER("강사");
+        TEACHER("강사"),
+        ADMIN("관리자");
+
         @Getter
         private String memberState;
 
