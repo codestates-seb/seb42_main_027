@@ -1,6 +1,0 @@
-[source,bash]
-----
-$ http POST 'http://localhost:8080/vote/lecture/review/comment/1/up/1' \
-    'Content-Type:application/json;charset=UTF-8' \
-    'Accept:application/json'
-----

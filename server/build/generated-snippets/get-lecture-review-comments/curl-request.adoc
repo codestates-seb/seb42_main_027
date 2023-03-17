@@ -1,6 +1,0 @@
-[source,bash]
-----
-$ curl 'http://localhost:8080/lectures/reviews/comments?filter=lectureReviewCommentId&lectureReviewId=1&page=1&size=5' -i -X GET \
-    -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Accept: application/json'
-----

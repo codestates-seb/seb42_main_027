@@ -19,7 +19,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/outer-event")
+@RequestMapping("/outer-events")
 @RequiredArgsConstructor
 public class EventController {
     private final EventRepository eventRepository;
@@ -34,5 +34,5 @@ public class EventController {
         List<EventDto.Response>response = eventMapper.eventToEventResponses(events);
 
         return new ResponseEntity<>(new MultiResponseDto<>(response,pagedEvent), HttpStatus.OK);
-    } // patch,post, 개인 이벤트창은 프런트랑 논의해야함
+    }
 }

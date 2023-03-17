@@ -1,6 +1,7 @@
 package ynzmz.server.event.outer.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,7 @@ public class EventDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    @Builder
     public static class Post {
 
         String imageUrl;
@@ -20,6 +22,7 @@ public class EventDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    @Builder
     public static class Response {
 
         String imageUrl;
