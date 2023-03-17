@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class YjEvent {
+public class Our {
     @Id
     @AutoConfigureOrder
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -13,13 +13,14 @@ import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
+import ynzmz.server.vote.VoteCount;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/comments/frees")
 @RequiredArgsConstructor
-public class FreeCommentController {
+public class FreeCommentController  {
     private final MemberService memberService;
     private final FreeCommentMapper freeCommentMapper;
     private final FreeCommentService freeCommentService;

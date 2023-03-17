@@ -26,7 +26,7 @@ public class FreeCommentDto {
         private String modifiedAt;
     }
     @Setter @Getter
-    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Response{
 
         private Long freeCommentId;
