@@ -9,6 +9,7 @@ import login from 'apis/login';
 import { useIsLoginStore } from 'stores/loginStore';
 import { Container, Title } from 'components/member/memberStyledComponents';
 import getUserInfo from 'apis/getUserInfo';
+import useUserInfoStore from 'stores/userInfoStore';
 import BaseButton from '../components/common/BaseButton';
 
 const { colors } = theme;
@@ -41,7 +42,7 @@ function Login() {
   const [failedLogin, setFailedLogin] = useState(false);
   const [loginError, setLoginError] = useState('');
   const { setIsLoginInStore } = useIsLoginStore(state => state);
-
+  const { userInfo, setUserInfo } = useUserInfoStore(state => state);
   const navigate = useNavigate();
   const pathData = {
     email: '',

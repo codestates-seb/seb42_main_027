@@ -8,14 +8,15 @@ import GlobalStyle from './GlobalStyles';
 import Router from './Router';
 
 function App() {
-  const { setIsLoginInStore } = useIsLoginStore();
+  const { isLoginInStore, setIsLoginInStore } = useIsLoginStore();
+  const { userInfo, setUserInfo } = useUserInfoStore(state => state);
 
   const email = localStorage.getItem('email');
 
   const fetchUserInfo = async () => {
     try {
       const response = await getUserInfo(email);
-      console.log(response);
+      setUserInfo(response);
     } catch (error) {
       console.error(error);
       console.log('정보를 가져오지 못했습니다.');
@@ -26,7 +27,6 @@ function App() {
     if (isLogin()) {
       setIsLoginInStore(true);
       fetchUserInfo();
-      console.log();
     }
   }, []);
 
