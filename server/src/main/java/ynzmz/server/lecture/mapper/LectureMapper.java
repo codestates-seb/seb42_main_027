@@ -13,21 +13,17 @@ import ynzmz.server.tag.entity.SubjectTag;
 import ynzmz.server.tag.mappingtable.lecture.LectureGradeTag;
 import ynzmz.server.tag.mappingtable.lecture.LecturePlatformTag;
 import ynzmz.server.tag.mappingtable.lecture.LectureSubjectTag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherGradeTag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherPlatformTag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherSubjectTag;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface LectureMapper {
-    Lecture lectureToLecturePost(LectureDto.Post lecturePost);
-    Lecture lectureToLecturePatch(LectureDto.Patch lecurePatch);
-    LectureDto.SimpleInfoResponse lectureInfoResponseToLecture(Lecture lecture);
-    LectureDto.ListPageResponse lectureListPageResponseToLecture(Lecture lecture);
-    List<LectureDto.ListPageResponse> lectureListPageResponsesToLectures(List<Lecture> lectures);
-    LectureDto.DetailPageResponse lectureDetailPageResponseToLecture(Lecture lecture);
-    LectureDto.TeacherReviewDetailPageResponse lectureTeacherReviewDetailPageResponseToLecture(Lecture lecture);
+    Lecture lecturePostToLecture(LectureDto.Post lecturePost);
+    Lecture lecturePatchToLecture(LectureDto.Patch lecurePatch);
+    LectureDto.SimpleInfoResponse lectureToLectureInfoResponse(Lecture lecture);
+    LectureDto.ListPageResponse lectureToLectureListPageResponse(Lecture lecture);
+    List<LectureDto.ListPageResponse> lecturesToLectureListPageResponses(List<Lecture> lectures);
+    LectureDto.DetailPageResponse lectureToLectureDetailPageResponse(Lecture lecture);
 
     default GradeTag.Grade map(GradeTag gradeTag) {
         return gradeTag.getGrade();
@@ -39,7 +35,7 @@ public interface LectureMapper {
         return platformTag.getPlatform();
     }
 
-    default GradeTagDto.Response LectureGradeTagResponseToLectureGradeTag(LectureGradeTag lectureGradeTag) {
+    default GradeTagDto.Response lectureGradeTagToGradeTagResponse(LectureGradeTag lectureGradeTag) {
         if ( lectureGradeTag == null ) return null;
 
         GradeTagDto.Response response = new GradeTagDto.Response();
@@ -48,7 +44,7 @@ public interface LectureMapper {
         return response;
     }
 
-    default PlatformTagDto.Response LecturePlatformTagResponseToLecturePlatformTag(LecturePlatformTag lecturePlatformTag) {
+    default PlatformTagDto.Response lecturePlatformTagToPlatformTagResponse(LecturePlatformTag lecturePlatformTag) {
         if ( lecturePlatformTag == null ) return null;
 
         PlatformTagDto.Response response = new PlatformTagDto.Response();
@@ -58,7 +54,7 @@ public interface LectureMapper {
         return response;
     }
 
-    default SubjectTagDto.Response LectureSubjectTagResponseToLectureSubjectTag(LectureSubjectTag lectureSubjectTag) {
+    default SubjectTagDto.Response lectureSubjectTagToSubjectTagResponse(LectureSubjectTag lectureSubjectTag) {
         if ( lectureSubjectTag == null ) return null;
 
         SubjectTagDto.Response response = new SubjectTagDto.Response();

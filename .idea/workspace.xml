@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="45d9a31d-0999-411e-9128-8c3b5aa2b4a5" name="변경" comment="fix: memberState Response 반영 수정">
+      <change beforePath="$PROJECT_DIR$/server/.gradle/7.6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.6.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gradle/7.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.6.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gradle/7.6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.6.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gradle/7.6.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.6.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/controller/MemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/controller/MemberController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/LoginMemberVoteInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberPatchDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberPostDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/response/MemberReviewResponseDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/entity/Member$MemberStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/entity/Member$MemberStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/entity/Member$State.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/entity/Member$State.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/entity/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/entity/Member.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/mapper/MemberMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/mapper/MemberMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/mapper/MemberMapperImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/mapper/MemberMapperImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/service/MemberService.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/service/MemberService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/controller/QuestionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/controller/QuestionController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/dto/QuestionDto$DetailPageResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/dto/QuestionDto$DetailPageResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/comment/review/lecture/mapper/LectureReviewPostCommentMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/comment/review/lecture/mapper/LectureReviewPostCommentMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/lecture/mapper/LectureMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/lecture/mapper/LectureMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/member/mapper/MemberMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/member/mapper/MemberMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/question/answer/mapper/AnswerMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/question/answer/mapper/AnswerMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/question/question/mapper/QuestionMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/question/question/mapper/QuestionMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/review/lecture/mapper/LectureReviewMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/review/lecture/mapper/LectureReviewMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/teacher/mapper/TeacherMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/teacher/mapper/TeacherMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/question/answer/mapper/AnswerVoteMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/question/answer/mapper/AnswerVoteMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/question/question/mapper/QuestionVoteMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/question/question/mapper/QuestionVoteMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/review/lecture/mapper/LectureReviewVoteMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/review/lecture/mapper/LectureReviewVoteMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/MemberController.class.uniqueId0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/MemberDto.class.uniqueId1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/MemberMapper.class.uniqueId2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/MemberMapperImpl.class.uniqueId4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/compileTransaction/stash-dir/MemberMapperImpl.java.uniqueId3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/controller/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/dto/LoginMemberVoteInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/dto/MemberDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/dto/MemberPatchDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/dto/MemberPostDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/dto/response/MemberReviewResponseDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/entity/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/entity/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/mapper/MemberMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/mapper/MemberMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/service/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/question/controller/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/question/controller/QuestionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/question/dto/QuestionDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/question/dto/QuestionDto.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/server">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/server">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="server" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Be_KMH" />
+      </map>
+    </option>
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2N7i5BqJ5pvKFOgA9qz1IRGyJ1i" />
+  <component name="ProjectViewState">
+    <option name="compactDirectories" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+    <option name="sortByType" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;f388e2a0991e057a0316947c380806f0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Spring Boot.ServerApplication">
+    <configuration name="server [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/server" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="server.test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="server.test" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="server.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ynzmz.server.ServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.server [build]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="45d9a31d-0999-411e-9128-8c3b5aa2b4a5" name="변경" comment="" />
+      <created>1679021335764</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679021335764</updated>
+      <workItem from="1679021336888" duration="781000" />
+    </task>
+    <task id="LOCAL-00001" summary="fix: 자유게시판 병합전">
+      <created>1679021705391</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1679021705391</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix: 3/17 BeDev+ 민호 코드">
+      <created>1679021903134</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1679021903134</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix: 3/17 BeDev+ 민호 코드">
+      <created>1679021909064</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1679021909064</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix: 3/17 BeDev+ 민호 코드">
+      <created>1679022427609</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1679022427609</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fix: 3/17 BeDev+ 민호 코드">
+      <created>1679022446290</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1679022446290</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fix: memberState Response 반영 수정">
+      <created>1679023978761</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1679023978761</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/BeDev" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix: 자유게시판 병합전" />
+    <MESSAGE value="fix: 3/17 BeDev+ 민호 코드" />
+    <MESSAGE value="fix: memberState Response 반영 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: memberState Response 반영 수정" />
+  </component>
+</project>

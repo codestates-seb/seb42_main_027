@@ -9,9 +9,8 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface LectureReviewPostCommentMapper {
-    LectureReviewComment lectureReviewCommentToLectureReviewCommentPost(LectureReviewCommentDto.Post lectureReviewPostCommentPostDto);
-    LectureReviewComment lectureReviewCommentToLectureReviewCommentPatch(LectureReviewCommentDto.Patch lectureReviewPostCommentPatchDto);
-    LectureReviewCommentDto.Response lectureReviewCommentResponseToLectureReviewComment(LectureReviewComment lectureReviewComment);
-
-    List<LectureReviewCommentDto.Response> lectureReviewCommentResponsesToLectureReviewComments(List<LectureReviewComment> lectureReviewComments);
+    LectureReviewComment lectureReviewCommentPostToLectureReviewComment(LectureReviewCommentDto.Post lectureReviewPostCommentPostDto);
+    LectureReviewComment lectureReviewCommentPatchToLectureReviewComment(LectureReviewCommentDto.Patch lectureReviewPostCommentPatchDto);
+    LectureReviewCommentDto.Response lectureReviewCommentToLectureReviewCommentResponse(LectureReviewComment lectureReviewComment);
+    List<LectureReviewCommentDto.Response> lectureReviewCommentsToLectureReviewCommentResponses(List<LectureReviewComment> lectureReviewComments);
 }

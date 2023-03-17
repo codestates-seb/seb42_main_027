@@ -1,7 +1,6 @@
 package ynzmz.server.lecture.controller;
 
 import com.google.gson.Gson;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +24,6 @@ import ynzmz.server.lecture.mapper.LectureMapper;
 import ynzmz.server.lecture.service.LectureService;
 import ynzmz.server.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.tag.service.TagService;
-import ynzmz.server.teacher.entity.Teacher;
 import ynzmz.server.utils.SecurityTestConfig;
 
 import java.util.ArrayList;
@@ -81,7 +79,7 @@ class LectureControllerTest {
                 .build();
         String jsonPost = gson.toJson(mockPost);
 
-        when(lectureMapper.lectureInfoResponseToLecture(any())).thenReturn(lectureSimpleInfoResponse);
+        when(lectureMapper.lectureToLectureInfoResponse(any())).thenReturn(lectureSimpleInfoResponse);
 
 
         ResultActions actions = mockMvc.perform(post("/lectures")
@@ -128,8 +126,8 @@ class LectureControllerTest {
         String jsonPatch = gson.toJson(mockPatch);
         long lectureId = 1L;
 
-        when(lectureMapper.lectureToLecturePatch(any())).thenReturn(new Lecture());
-        when(lectureMapper.lectureInfoResponseToLecture(any())).thenReturn(lectureSimpleInfoResponse);
+        when(lectureMapper.lecturePatchToLecture(any())).thenReturn(new Lecture());
+        when(lectureMapper.lectureToLectureInfoResponse(any())).thenReturn(lectureSimpleInfoResponse);
 
         ResultActions actions = mockMvc.perform(patch("/lectures/{lectures-id}",lectureId)
                 .content(jsonPatch)
@@ -171,7 +169,7 @@ class LectureControllerTest {
 
         when(lectureService.findLectures(any(),any(),any(),anyString(),anyString(),anyString(),anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Lecture())), PageRequest.of(1,1),1));
         when(lectureService.findLectures(any(),any(),any(),anyString(),anyString(),anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new Lecture())), PageRequest.of(1,1),1));
-        when(lectureMapper.lectureListPageResponsesToLectures(any())).thenReturn(lectureListPageResponses);
+        when(lectureMapper.lecturesToLectureListPageResponses(any())).thenReturn(lectureListPageResponses);
 
         ResultActions actions =
                 mockMvc.perform(
@@ -228,7 +226,7 @@ class LectureControllerTest {
     void getLecturesDetail() throws Exception {
         long lectureId = 1L;
 
-        when(lectureMapper.lectureDetailPageResponseToLecture(any())).thenReturn(lectureDetailPageResponse);
+        when(lectureMapper.lectureToLectureDetailPageResponse(any())).thenReturn(lectureDetailPageResponse);
         when(lectureReviewService.findStarPointCountByLecture(any())).thenReturn(starPointCount);
 
 

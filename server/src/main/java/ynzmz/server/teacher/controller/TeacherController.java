@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
-import ynzmz.server.review.lecture.entity.LectureReview;
 import ynzmz.server.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
@@ -35,11 +34,10 @@ public class TeacherController {
     @PostMapping
     public ResponseEntity<?> postTeacher(@RequestBody TeacherDto.Post teacherPost){
         //태그를 받았을때 태그객체 생성 및 저장 필요
-        Teacher teacher = teacherMapper.teacherToTeacherPost(teacherPost);
+        Teacher teacher = teacherMapper.teacherPostToTeacher(teacherPost);
         Teacher createdTeacher = teacherService.createTeacher(teacher);
 
         //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )
-        log.info(teacherPost.getGradeTag().toString());
 
         List<GradeTag.Grade> gradeTags = tagService.findGradeTags(teacherPost.getGradeTag());
         List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(teacherPost.getPlatformTag());
@@ -48,14 +46,14 @@ public class TeacherController {
         //생성된 강사 맵핑테이블 생성
         tagService.createTeacherTag(createdTeacher, gradeTags, platformTags, subjectTags);
 
-        TeacherDto.SimpleInfoResponse response = teacherMapper.teacherInfoResponseToTeacher(teacher);
+        TeacherDto.SimpleInfoResponse response = teacherMapper.teacherToTeacherSimpleInfoResponse(teacher);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
     //강사수정
     @PatchMapping("/{teacher-id}")
     public ResponseEntity<?> patchTeacher(@PathVariable("teacher-id") long teacherId,
                              @RequestBody TeacherDto.Patch teacherPatch) {
-        Teacher teacher = teacherMapper.teacherToTeacherPatch(teacherPatch);
+        Teacher teacher = teacherMapper.teacherPatchToTeacher(teacherPatch);
         teacher.setTeacherId(teacherId);
         Teacher updatedTeacher = teacherService.updateTeacher(teacher);
 
@@ -69,7 +67,7 @@ public class TeacherController {
         //생성된 강사 맵핑테이블 생성
         tagService.createTeacherTag(updatedTeacher, gradeTags, platformTags, subjectTags);
 
-        TeacherDto.SimpleInfoResponse response = teacherMapper.teacherInfoResponseToTeacher(updatedTeacher);
+        TeacherDto.SimpleInfoResponse response = teacherMapper.teacherToTeacherSimpleInfoResponse(updatedTeacher);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -83,15 +81,9 @@ public class TeacherController {
                                                 @RequestParam(required = false) String reverse,
                                                 @RequestParam int page,
                                                 @RequestParam int size) {
-        if(sort == null) {
-            sort = "teacherId";
-        } else if(sort.equals("최신순")) {
-            sort = "teacherId";
-        } else if(sort.equals("평점순")) {
-            sort = "starPointAverage";
-        } else if(sort.equals("이름순")) {
-            sort = "name";
-        }
+
+        sort = (sort == null || sort.equals("최신순"))
+                ? "teacherId" : sort.equals("평점순") ? "starPointAverage" : sort.equals("이름순") ? "name" : "teacherId";
 
         GradeTag.Grade gradeTag = (grade != null) ? tagService.findGradeTag(grade) : null;
         PlatformTag.Platform platformTag = (platform != null) ? tagService.findPlatformTag(platform) : null;
@@ -102,7 +94,7 @@ public class TeacherController {
                 : teacherService.findTeachers(gradeTag, platformTag, subjectTag, name, sort,page - 1, size);
 
         List<Teacher> teachers = teacherPage.getContent();
-        List<TeacherDto.ListPageResponse> responses = teacherMapper.teacherListPageResponsesToTeachers(teachers);
+        List<TeacherDto.ListPageResponse> responses = teacherMapper.teachersToTeacherListPageResponses(teachers);
         return new ResponseEntity<>(new MultiResponseDto<>(responses, teacherPage), HttpStatus.OK);
     }
 
@@ -110,14 +102,14 @@ public class TeacherController {
     @GetMapping("/{teacher-id}")
     public ResponseEntity<?> getTeacherDetail(@PathVariable("teacher-id") long teacherId){
         Teacher teacher = teacherService.findTeacherById(teacherId);
-        TeacherDto.DetailPageResponse response = teacherMapper.teacherDetailPageResponseToTeacher(teacher);
+        TeacherDto.DetailPageResponse response = teacherMapper.teacherToTeacherDetailPageResponse(teacher);
         return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
     //강사 상세조회 ( 강사의 리뷰페이지 별도 )
     @GetMapping("/{teacher-id}/review")
     public ResponseEntity<?> getTeacherDetailReview(@PathVariable("teacher-id") long teacherId){
         Teacher teacher = teacherService.findTeacherById(teacherId);
-        TeacherDto.ReviewDetailPageResponse response = teacherMapper.teacherReviewDetailPageResponseToTeacher(teacher);
+        TeacherDto.ReviewDetailPageResponse response = teacherMapper.teacherToTeacherReviewDetailPageResponse(teacher);
 
         //강사의 총 별점 5,4,3,2,1 점 총 갯수 추가
         Map<String, Long> starPointCount = lectureReviewService.findStarPointCountByTeacher(teacher);
