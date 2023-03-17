@@ -6,21 +6,18 @@ import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 import ynzmz.server.member.dto.MemberDto;
-import ynzmz.server.member.dto.MemberPatchDto;
-import ynzmz.server.member.dto.MemberPostDto;
-import ynzmz.server.member.dto.response.MemberReviewResponseDto;
 import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-17T12:31:23+0900",
+    date = "2023-03-17T14:08:15+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
 public class MemberMapperImpl implements MemberMapper {
 
     @Override
-    public Member memberPostDtoToMember(MemberPostDto memberPostDto) {
+    public Member memberPostToMember(MemberDto.Post memberPostDto) {
         if ( memberPostDto == null ) {
             return null;
         }
@@ -32,6 +29,7 @@ public class MemberMapperImpl implements MemberMapper {
         member.setEmail( memberPostDto.getEmail() );
         member.setDisplayName( memberPostDto.getDisplayName() );
         member.setPassword( memberPostDto.getPassword() );
+        member.setCreatedAt( memberPostDto.getCreatedAt() );
         if ( memberPostDto.getState() != null ) {
             member.setState( Enum.valueOf( Member.State.class, memberPostDto.getState() ) );
         }
@@ -40,7 +38,7 @@ public class MemberMapperImpl implements MemberMapper {
     }
 
     @Override
-    public Member memberPatchDtoToMember(MemberPatchDto memberPatchDto) {
+    public Member memberPatchToMember(MemberDto.Patch memberPatchDto) {
         if ( memberPatchDto == null ) {
             return null;
         }
@@ -48,7 +46,6 @@ public class MemberMapperImpl implements MemberMapper {
         Member member = new Member();
 
         member.setPhoneNumber( memberPatchDto.getPhoneNumber() );
-        member.setMemberId( memberPatchDto.getMemberId() );
         member.setDisplayName( memberPatchDto.getDisplayName() );
         member.setPassword( memberPatchDto.getPassword() );
         member.setIconImageUrl( memberPatchDto.getIconImageUrl() );
@@ -57,7 +54,7 @@ public class MemberMapperImpl implements MemberMapper {
     }
 
     @Override
-    public MemberDto memberToMemberResponse(Member member) {
+    public MemberDto.Response memberToMemberResponse(Member member) {
         if ( member == null ) {
             return null;
         }
@@ -66,7 +63,6 @@ public class MemberMapperImpl implements MemberMapper {
         String phoneNumber = null;
         Long memberId = null;
         String email = null;
-        String password = null;
         String displayName = null;
         String state = null;
         LocalDateTime createdAt = null;
@@ -75,7 +71,6 @@ public class MemberMapperImpl implements MemberMapper {
         phoneNumber = member.getPhoneNumber();
         memberId = member.getMemberId();
         email = member.getEmail();
-        password = member.getPassword();
         displayName = member.getDisplayName();
         if ( member.getState() != null ) {
             state = member.getState().name();
@@ -86,35 +81,58 @@ public class MemberMapperImpl implements MemberMapper {
 
         String iconImageUrl = null;
 
-        MemberDto memberDto = new MemberDto( username, phoneNumber, memberId, email, password, displayName, iconImageUrl, state, createdAt );
+        MemberDto.Response response = new MemberDto.Response( username, phoneNumber, memberId, email, displayName, iconImageUrl, state, createdAt );
 
-        memberDto.setIconImageUrl( member.getIconImageUrl() );
+        response.setIconImageUrl( member.getIconImageUrl() );
 
-        return memberDto;
+        return response;
     }
 
     @Override
-    public MemberReviewResponseDto memberToMemberReviewResponse(Member member) {
-        if ( member == null ) {
+    public MemberDto.SimpleInfoResponse memberToMemberSimpleInfoResponse(MemberDto.SimpleInfoResponse simpleInfoResponse) {
+        if ( simpleInfoResponse == null ) {
             return null;
         }
 
-        MemberReviewResponseDto memberReviewResponseDto = new MemberReviewResponseDto();
+        Long memberId = null;
+        String displayName = null;
+        String state = null;
 
-        return memberReviewResponseDto;
+        memberId = simpleInfoResponse.getMemberId();
+        displayName = simpleInfoResponse.getDisplayName();
+        state = simpleInfoResponse.getState();
+
+        String iconImageUrl = null;
+
+        MemberDto.SimpleInfoResponse simpleInfoResponse1 = new MemberDto.SimpleInfoResponse( memberId, displayName, iconImageUrl, state );
+
+        simpleInfoResponse1.setIconImageUrl( simpleInfoResponse.getIconImageUrl() );
+
+        return simpleInfoResponse1;
     }
 
     @Override
-    public List<MemberDto> memberToMemberResponses(List<Member> members) {
+    public List<MemberDto.Response> memberToMemberResponses(List<Member> members) {
         if ( members == null ) {
             return null;
         }
 
-        List<MemberDto> list = new ArrayList<MemberDto>( members.size() );
+        List<MemberDto.Response> list = new ArrayList<MemberDto.Response>( members.size() );
         for ( Member member : members ) {
             list.add( memberToMemberResponse( member ) );
         }
 
         return list;
+    }
+
+    @Override
+    public MemberDto.MyLectureReview memberToMemberMyLectureReview(Member member) {
+        if ( member == null ) {
+            return null;
+        }
+
+        MemberDto.MyLectureReview myLectureReview = new MemberDto.MyLectureReview();
+
+        return myLectureReview;
     }
 }

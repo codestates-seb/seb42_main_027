@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.error.exception.BusinessLogicException;
-import ynzmz.server.member.dto.LoginMemberVoteInfo;
+import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.question.answer.dto.AnswerDto;
@@ -109,7 +109,7 @@ public class QuestionController {
             Question question = questionService.findQuestion(questionId);
             questionService.setViewCount(question); //조회수기능  1번당 1씩 올라가게 (임시)
 
-            LoginMemberVoteInfo loginMemberVoteInfo = memberService.setMemberVoteStatus(loginMember, question);
+            MemberDto.VoteInfo loginMemberVoteInfo = memberService.setMemberVoteStatus(loginMember, question);
             QuestionDto.DetailPageResponse response = questionMapper.questionToQuestionDetailPageResponse(question);
             response.setLoginUserInfo(loginMemberVoteInfo);
 

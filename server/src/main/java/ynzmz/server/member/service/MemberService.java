@@ -5,13 +5,12 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
-import ynzmz.server.member.dto.LoginMemberVoteInfo;
+import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.question.answer.entity.Answer;
@@ -123,8 +122,8 @@ public class MemberService {
     }
 
     //해당 게시글에서 게시글&답변에 추천여부 확인
-    public LoginMemberVoteInfo setMemberVoteStatus(Member member, Question question) {
-        LoginMemberVoteInfo loginMemberVoteInfo = new LoginMemberVoteInfo();
+    public MemberDto.VoteInfo setMemberVoteStatus(Member member, Question question) {
+        MemberDto.VoteInfo loginMemberVoteInfo = new MemberDto.VoteInfo();
 
         loginMemberVoteInfo.setMemberId(member.getMemberId() );
         loginMemberVoteInfo.setEmail(member.getEmail() );

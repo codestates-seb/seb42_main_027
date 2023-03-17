@@ -8,11 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.dto.MultiResponseDto;
-import ynzmz.server.member.dto.response.MemberReviewResponseDto;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.member.dto.MemberDto;
-import ynzmz.server.member.dto.MemberPatchDto;
-import ynzmz.server.member.dto.MemberPostDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.mapper.MemberMapper;
 
@@ -30,26 +27,26 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping
-    public ResponseEntity<?> postMember(@RequestBody @Valid MemberPostDto requestBody){
+    public ResponseEntity<?> postMember(@RequestBody @Valid MemberDto.Post requestBody){
         if (!requestBody.getPassword().equals(requestBody.getConfirmPassword())) {
             return ResponseEntity.badRequest().body("패스워드와 패스워드 확인이 일치하지 않습니다.");
         }
-        Member member = memberMapper.memberPostDtoToMember(requestBody);
+        Member member = memberMapper.memberPostToMember(requestBody);
         member.setState(Enum.valueOf( Member.State.class, requestBody.getState() ));
 
         Member createdMember = memberService.createMember(member);
-
-        MemberDto response=  memberMapper.memberToMemberResponse(createdMember);
+        MemberDto.Response response=  memberMapper.memberToMemberResponse(createdMember);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{member-id}")
-    public ResponseEntity<?> patchMember(@PathVariable("member-id") @Positive long memberId, @RequestBody @Valid MemberPatchDto requestBody) {
-        requestBody.setMemberId(memberId);
-        Member member = memberService.updateMember(memberMapper.memberPatchDtoToMember(requestBody));
+    public ResponseEntity<?> patchMember(@PathVariable("member-id") @Positive long memberId, @RequestBody @Valid MemberDto.Patch requestBody) {
+        Member member = memberMapper.memberPatchToMember(requestBody);
+        member.setMemberId(memberId);
+
         Member updatedMember = memberService.updateMember(member);
-        MemberDto response=  memberMapper.memberToMemberResponse(updatedMember);
+        MemberDto.Response response=  memberMapper.memberToMemberResponse(updatedMember);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -58,7 +55,7 @@ public class MemberController {
     @GetMapping("/{email}")
     public ResponseEntity<?> getMember(@PathVariable("email") @Positive String email){
         Member findMember = memberService.findMemberByEmail(email);
-        MemberDto response = memberMapper.memberToMemberResponse(findMember);
+        MemberDto.Response response = memberMapper.memberToMemberResponse(findMember);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -84,7 +81,7 @@ public class MemberController {
     @GetMapping("/{member-id}/review")
     public ResponseEntity<?> getMemberReview(@PathVariable("member-id") @Positive long memberId){
         Member findMember = memberService.findMemberById(memberId);
-        MemberReviewResponseDto response = memberMapper.memberToMemberReviewResponse(findMember);
+        MemberDto.MyLectureReview response = memberMapper.memberToMemberMyLectureReview(findMember);
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
