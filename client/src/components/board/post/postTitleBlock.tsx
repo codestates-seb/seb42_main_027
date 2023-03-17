@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from 'theme';
 import { FaUserCircle } from 'react-icons/fa';
@@ -29,7 +30,9 @@ function PostTitleBlock(ele: Props) {
   return (
     <Container className={data.ele.category === '공지' ? 'notice' : ''}>
       <Category>{data.ele.category}</Category>
-      <Title>{data.ele.title}</Title>
+      <Link to="articles">
+        <Title>{data.ele.title}</Title>
+      </Link>
       <UserData>
         <ProfileImg>
           <FaUserCircle className="user-profile-img" />

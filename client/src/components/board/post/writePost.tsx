@@ -3,7 +3,7 @@ import theme from 'theme';
 
 import GoBackMenu from './goBackMenu';
 
-function PostContent() {
+function WritePost() {
   return (
     <Container>
       <GoBackMenu />
@@ -18,4 +18,4 @@ const Container = styled.div`
   width: 100%;
 `;
 
-export default PostContent;
+export default WritePost;

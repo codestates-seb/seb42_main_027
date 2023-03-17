@@ -58,6 +58,7 @@ const gap = {
   px80: '5rem',
   px100: '6.25rem',
   px120: '7.5rem',
+  px150: '9.375rem',
 };
 
 // theme 객체에 감싸서 반환한다.

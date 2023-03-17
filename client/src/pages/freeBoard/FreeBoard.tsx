@@ -3,8 +3,9 @@ import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from 'theme';
 
-import PostList from 'components/board/postList';
-import PostContent from 'components/board/postContent';
+import PostList from 'components/board/post/postList';
+import WritePost from 'components/board/post/writePost';
+import PostContentFree from 'components/board/post/postConentFree';
 
 function FreeBoard() {
   return (
@@ -16,8 +17,9 @@ function FreeBoard() {
         </Title>
         <Routes>
           <Route path="/" element={<PostList />} />
-          <Route path="write" element={<PostContent />} />
-          <Route path="edit" element={<PostContent />} />
+          <Route path="write" element={<WritePost />} />
+          <Route path="edit" element={<WritePost />} />
+          <Route path="articles" element={<PostContentFree />} />
         </Routes>
       </Main>
     </Container>

@@ -44,7 +44,7 @@ const ToggleContainer = styled.div`
 
   > .toggle-circle {
     position: absolute;
-    z-index: 1;
+    z-index: 10;
     top: calc(100% / 12);
     left: calc(4%);
     width: 20px;

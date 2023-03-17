@@ -35,6 +35,7 @@ const WriteBtn = styled.button`
   width: 5.625rem;
   height: 2.5rem;
   text-align: center;
+  font-size: ${theme.fontSizes.sm};
   color: ${theme.colors.white};
   background-color: ${theme.colors.pointColor};
   border: 1px solid ${theme.colors.pointColor};
@@ -68,6 +69,7 @@ const FilterBtn = styled.button`
   width: 5rem;
   height: 2.5rem;
   text-align: center;
+  font-size: ${theme.fontSizes.sm};
   color: ${theme.colors.black};
   background-color: ${theme.colors.white};
   border: 1px solid ${theme.colors.gray};

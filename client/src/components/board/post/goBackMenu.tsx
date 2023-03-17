@@ -19,6 +19,7 @@ const Container = styled.div`
   width: 100%;
   height: 60px;
   padding: ${theme.gap.px20};
+  border-bottom: 1px solid ${theme.colors.gray};
 
   > .arrow-left {
     width: 17.33px;
