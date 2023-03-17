@@ -10,30 +10,26 @@ import { useIsLoginStore } from 'stores/loginStore';
 
 function WriteComment() {
   const { isLogin, setIsLogin } = useIsLoginStore(state => state);
+
   return (
     <Container>
-      {isLogin ? (
-        <Main>
-          <InputDiv>
-            <FaUserCircle />
+      <Main>
+        <InputDiv>
+          <FaUserCircle />
+
+          {isLogin ? (
             <input />
-          </InputDiv>
-          <CommentBtn>댓글 쓰기</CommentBtn>
-        </Main>
-      ) : (
-        <Main>
-          <InputDiv>
-            <FaUserCircle />
+          ) : (
             <GuideDiv>
               <AiOutlineExclamationCircle />
               <div>
                 댓글을 쓰려면 <Link to="/login">로그인</Link>이 필요합니다.
               </div>
             </GuideDiv>
-          </InputDiv>
-          <CommentBtn className="disabled">댓글 쓰기</CommentBtn>
-        </Main>
-      )}
+          )}
+        </InputDiv>
+        <CommentBtn className={isLogin ? '' : 'disabled'}>댓글 쓰기</CommentBtn>
+      </Main>
     </Container>
   );
 }

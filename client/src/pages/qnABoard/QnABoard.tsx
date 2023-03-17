@@ -1,6 +1,10 @@
-import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+
 import styled from 'styled-components';
-import theme from '../../theme';
+import theme from 'theme';
+
+import PostList from 'components/board/post/postList';
+import WritePost from 'components/board/post/writePost';
 
 function QnABoard() {
   return (
@@ -10,7 +14,12 @@ function QnABoard() {
           <H2>질문게시판</H2>
           <p>학습 중 생긴 궁금증에 관해 질문하고 답변할 수 있는 공간입니다.</p>
         </Title>
-        <h1>QnABoard Page </h1>
+        <Routes>
+          <Route path="/" element={<PostList />} />
+          <Route path="write" element={<WritePost />} />
+          <Route path="edit" element={<WritePost />} />
+          {/* <Route path="articles" element={<PostContentQna />} /> */}
+        </Routes>
       </Main>
     </Container>
   );
@@ -32,7 +41,6 @@ const Main = styled.div`
   height: 100%;
   max-width: 62.5%;
   margin: 0 auto;
-  border: 1px solid ${theme.colors.gray};
 `;
 
 const Title = styled.div`

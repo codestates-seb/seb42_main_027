@@ -1,13 +1,15 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router';
 import styled from 'styled-components';
 
-import { dummyData } from './dummyData';
+import { dummyData, dummyData2 } from './dummyData';
 import FreeBoardMenu from './boardMenu';
 import PostTitleBlock from './postTitleBlock';
 
 interface PostData {
   id: number;
   category: string;
+  selected?: boolean;
   username: string;
   userimg: string;
   title: string;
@@ -21,6 +23,14 @@ interface PostData {
 
 function PostList() {
   const [isPending, setIsPending] = useState(false);
+  const urlData = useLocation().pathname;
+  let listData: any;
+
+  if (urlData === '/free') {
+    listData = dummyData;
+  } else if (urlData === '/qna') {
+    listData = dummyData2;
+  }
 
   return (
     <Container>
@@ -29,11 +39,11 @@ function PostList() {
         <h1>로딩페이지가 들어갈 자리입니다.</h1>
       ) : (
         <div>
-          {dummyData.length === 0 ? (
+          {listData.length === 0 ? (
             <h1>작성된 게시물이 없습니다.</h1>
           ) : (
             <div>
-              {dummyData.map((ele: PostData) => {
+              {listData.map((ele: PostData) => {
                 return <PostTitleBlock key={ele.id} ele={ele} />;
               })}
             </div>

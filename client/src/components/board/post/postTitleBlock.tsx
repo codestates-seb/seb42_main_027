@@ -8,6 +8,7 @@ import { BiCommentDetail, BiLike } from 'react-icons/bi';
 interface PostData {
   id: number;
   category: string;
+  selected?: boolean;
   username: string;
   userimg: string;
   title: string;
@@ -29,7 +30,10 @@ function PostTitleBlock(ele: Props) {
 
   return (
     <Container className={data.ele.category === '공지' ? 'notice' : ''}>
-      <Category>{data.ele.category}</Category>
+      <Top>
+        <Category>{data.ele.category}</Category>
+        {data.ele.selected ? <SelectedAnswer>답변채택</SelectedAnswer> : null}
+      </Top>
       <Link to="articles">
         <Title>{data.ele.title}</Title>
       </Link>
@@ -72,6 +76,11 @@ const Container = styled.div`
   }
 `;
 
+const Top = styled.div`
+  display: flex;
+  margin-bottom: 4px;
+`;
+
 const Category = styled.div`
   display: flex;
   justify-content: center;
@@ -84,7 +93,21 @@ const Category = styled.div`
   font-weight: bold;
   color: ${theme.colors.pointColor};
   background-color: ${theme.colors.white};
-  margin-bottom: 4px;
+`;
+
+const SelectedAnswer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+  border: 1px solid ${theme.colors.pointColor};
+  border-radius: 5px;
+  font-size: ${theme.fontSizes.sm};
+  font-weight: bold;
+  color: ${theme.colors.white};
+  background-color: ${theme.colors.pointColor};
+  padding: 3px 8px;
+  margin-left: 5px;
 `;
 
 const Title = styled.div`
