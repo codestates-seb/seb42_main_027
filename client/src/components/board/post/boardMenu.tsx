@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import styled from 'styled-components';
 import theme from 'theme';
@@ -11,6 +11,8 @@ function FreeBoardMenu() {
   const [selectMenu, setSelectMenu] = useState('0');
   const [sortMenuOpen, setSortMenuOpen] = useState(false);
   const [selectSort, setSelectSort] = useState('최신순');
+
+  const urlData = useLocation().pathname;
 
   const menuSelectHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e.target instanceof Element) {
@@ -33,73 +35,196 @@ function FreeBoardMenu() {
           작성하기
         </Button.WriteBtn>
       </Link>
-      <Category>
-        {selectMenu === '0' ? (
-          <Button.SubMenuBtn
-            id="0"
-            className="selected"
-            onClick={menuSelectHandler}
-          >
-            전체
-          </Button.SubMenuBtn>
-        ) : (
-          <Button.SubMenuBtn id="0" onClick={menuSelectHandler}>
-            전체
-          </Button.SubMenuBtn>
-        )}
-        {selectMenu === '1' ? (
-          <Button.SubMenuBtn
-            id="1"
-            className="selected"
-            onClick={menuSelectHandler}
-          >
-            공지
-          </Button.SubMenuBtn>
-        ) : (
-          <Button.SubMenuBtn id="1" onClick={menuSelectHandler}>
-            공지
-          </Button.SubMenuBtn>
-        )}
-        {selectMenu === '2' ? (
-          <Button.SubMenuBtn
-            id="2"
-            className="selected"
-            onClick={menuSelectHandler}
-          >
-            일상
-          </Button.SubMenuBtn>
-        ) : (
-          <Button.SubMenuBtn id="2" onClick={menuSelectHandler}>
-            일상
-          </Button.SubMenuBtn>
-        )}
-        {selectMenu === '3' ? (
-          <Button.SubMenuBtn
-            id="3"
-            className="selected"
-            onClick={menuSelectHandler}
-          >
-            정보
-          </Button.SubMenuBtn>
-        ) : (
-          <Button.SubMenuBtn id="3" onClick={menuSelectHandler}>
-            정보
-          </Button.SubMenuBtn>
-        )}
-        {selectMenu === '4' ? (
-          <Button.SubMenuBtn
-            id="4"
-            className="selected"
-            onClick={menuSelectHandler}
-          >
-            유머
-          </Button.SubMenuBtn>
-        ) : (
-          <Button.SubMenuBtn id="4" onClick={menuSelectHandler}>
-            유머
-          </Button.SubMenuBtn>
-        )}
-      </Category>
+      {urlData === '/free' ? (
+        <Category>
+          {selectMenu === '0' ? (
+            <Button.SubMenuBtn
+              id="0"
+              className="selected"
+              onClick={menuSelectHandler}
+            >
+              전체
+            </Button.SubMenuBtn>
+          ) : (
+            <Button.SubMenuBtn id="0" onClick={menuSelectHandler}>
+              전체
+            </Button.SubMenuBtn>
+          )}
+          {selectMenu === '1' ? (
+            <Button.SubMenuBtn
+              id="1"
+              className="selected"
+              onClick={menuSelectHandler}
+            >
+              공지
+            </Button.SubMenuBtn>
+          ) : (
+            <Button.SubMenuBtn id="1" onClick={menuSelectHandler}>
+              공지
+            </Button.SubMenuBtn>
+          )}
+          {selectMenu === '2' ? (
+            <Button.SubMenuBtn
+              id="2"
+              className="selected"
+              onClick={menuSelectHandler}
+            >
+              일상
+            </Button.SubMenuBtn>
+          ) : (
+            <Button.SubMenuBtn id="2" onClick={menuSelectHandler}>
+              일상
+            </Button.SubMenuBtn>
+          )}
+          {selectMenu === '3' ? (
+            <Button.SubMenuBtn
+              id="3"
+              className="selected"
+              onClick={menuSelectHandler}
+            >
+              정보
+            </Button.SubMenuBtn>
+          ) : (
+            <Button.SubMenuBtn id="3" onClick={menuSelectHandler}>
+              정보
+            </Button.SubMenuBtn>
+          )}
+          {selectMenu === '4' ? (
+            <Button.SubMenuBtn
+              id="4"
+              className="selected"
+              onClick={menuSelectHandler}
+            >
+              유머
+            </Button.SubMenuBtn>
+          ) : (
+            <Button.SubMenuBtn id="4" onClick={menuSelectHandler}>
+              유머
+            </Button.SubMenuBtn>
+          )}
+        </Category>
+      ) : null}
+      {urlData === '/qna' ? (
+        <Category>
+          {selectMenu === '0' ? (
+            <Button.SubMenuBtn
+              id="0"
+              className="selected"
+              onClick={menuSelectHandler}
+            >
+              전체
+            </Button.SubMenuBtn>
+          ) : (
+            <Button.SubMenuBtn id="0" onClick={menuSelectHandler}>
+              전체
+            </Button.SubMenuBtn>
+          )}
+          {selectMenu === '1' ? (
+            <Button.SubMenuBtn
+              id="1"
+              className="selected"
+              onClick={menuSelectHandler}
+            >
+              공지
+            </Button.SubMenuBtn>
+          ) : (
+            <Button.SubMenuBtn id="1" onClick={menuSelectHandler}>
+              공지
+            </Button.SubMenuBtn>
+          )}
+          {selectMenu === '2' ? (
+            <Button.SubMenuBtn
+              id="2"
+              className="selected"
+              onClick={menuSelectHandler}
+            >
+              국어
+            </Button.SubMenuBtn>
+          ) : (
+            <Button.SubMenuBtn id="2" onClick={menuSelectHandler}>
+              국어
+            </Button.SubMenuBtn>
+          )}
+          {selectMenu === '3' ? (
+            <Button.SubMenuBtn
+              id="3"
+              className="selected"
+              onClick={menuSelectHandler}
+            >
+              영어
+            </Button.SubMenuBtn>
+          ) : (
+            <Button.SubMenuBtn id="3" onClick={menuSelectHandler}>
+              영어
+            </Button.SubMenuBtn>
+          )}
+          {selectMenu === '4' ? (
+            <Button.SubMenuBtn
+              id="4"
+              className="selected"
+              onClick={menuSelectHandler}
+            >
+              수학
+            </Button.SubMenuBtn>
+          ) : (
+            <Button.SubMenuBtn id="4" onClick={menuSelectHandler}>
+              수학
+            </Button.SubMenuBtn>
+          )}
+          {selectMenu === '5' ? (
+            <Button.SubMenuBtn
+              id="5"
+              className="selected"
+              onClick={menuSelectHandler}
+            >
+              사탐
+            </Button.SubMenuBtn>
+          ) : (
+            <Button.SubMenuBtn id="5" onClick={menuSelectHandler}>
+              사탐
+            </Button.SubMenuBtn>
+          )}
+          {selectMenu === '6' ? (
+            <Button.SubMenuBtn
+              id="6"
+              className="selected"
+              onClick={menuSelectHandler}
+            >
+              과탐
+            </Button.SubMenuBtn>
+          ) : (
+            <Button.SubMenuBtn id="6" onClick={menuSelectHandler}>
+              과탐
+            </Button.SubMenuBtn>
+          )}
+          {selectMenu === '7' ? (
+            <Button.SubMenuBtn
+              id="7"
+              className="selected"
+              onClick={menuSelectHandler}
+            >
+              국사
+            </Button.SubMenuBtn>
+          ) : (
+            <Button.SubMenuBtn id="7" onClick={menuSelectHandler}>
+              국사
+            </Button.SubMenuBtn>
+          )}
+          {selectMenu === '8' ? (
+            <Button.SubMenuBtn
+              id="8"
+              className="selected"
+              onClick={menuSelectHandler}
+            >
+              기타
+            </Button.SubMenuBtn>
+          ) : (
+            <Button.SubMenuBtn id="8" onClick={menuSelectHandler}>
+              기타
+            </Button.SubMenuBtn>
+          )}
+        </Category>
+      ) : null}
       <FilterDiv>
         <FilterOpenBtn
           onBlur={sortMenuOpenHandler}
@@ -143,7 +268,7 @@ const MenuDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 100px;
+  min-height: 100px;
   border-bottom: 1px solid ${theme.colors.gray};
 `;
 

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from 'theme';
 import Button from 'components/common/Button';
-import { FaUserCircle } from 'react-icons/fa';
+import ProfileIcon from 'assets/icons/defaultProfileIcon';
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
 
 import { useIsLoginStore } from 'stores/loginStore';
@@ -12,28 +12,26 @@ function WriteComment() {
   const { isLoginInStore } = useIsLoginStore(state => state);
   return (
     <Container>
-      {isLoginInStore ? (
-        <Main>
-          <InputDiv>
-            <FaUserCircle />
+      <Main>
+        <InputDiv>
+          <ProfileIcon.Default />
+          {isLoginInStore ? (
             <input />
-          </InputDiv>
-          <CommentBtn>댓글 쓰기</CommentBtn>
-        </Main>
-      ) : (
-        <Main>
-          <InputDiv>
-            <FaUserCircle />
+          ) : (
             <GuideDiv>
               <AiOutlineExclamationCircle />
               <div>
                 댓글을 쓰려면 <Link to="/login">로그인</Link>이 필요합니다.
               </div>
             </GuideDiv>
-          </InputDiv>
-          <CommentBtn className="disabled">댓글 쓰기</CommentBtn>
-        </Main>
-      )}
+          )}
+        </InputDiv>
+        <SubmitDiv>
+          <CommentBtn className={isLoginInStore ? '' : 'disabled'}>
+            댓글 쓰기
+          </CommentBtn>
+        </SubmitDiv>
+      </Main>
     </Container>
   );
 }
@@ -41,8 +39,7 @@ function WriteComment() {
 const Container = styled.div`
   display: flex;
   width: 100%;
-  min-height: 253px;
-  border-bottom: 1px solid ${theme.colors.gray};
+  min-height: 206px;
 `;
 
 const Main = styled.div`
@@ -50,7 +47,6 @@ const Main = styled.div`
   flex-direction: column;
   width: 100%;
   margin: ${theme.gap.px20};
-  margin-bottom: calc(${theme.gap.px60} + 7px);
   border: 1px solid ${theme.colors.gray};
   border-radius: 5px;
 `;
@@ -59,6 +55,13 @@ const InputDiv = styled.div`
   display: flex;
   margin: ${theme.gap.px20};
   margin-bottom: 13px;
+`;
+
+const SubmitDiv = styled.div`
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin-right: ${theme.gap.px20};
 `;
 
 const CommentBtn = styled(Button.WriteBtn)`

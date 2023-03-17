@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from 'theme';
-import { FaUserCircle } from 'react-icons/fa';
-import { AiOutlineEye } from 'react-icons/ai';
-import { BiCommentDetail, BiLike } from 'react-icons/bi';
+import ProfileIcon from 'assets/icons/defaultProfileIcon';
+import CountIcon from 'assets/icons/countIcon';
 
 interface PostData {
   id: number;
   category: string;
+  selected?: boolean;
   username: string;
   userimg: string;
   title: string;
@@ -29,28 +29,31 @@ function PostTitleBlock(ele: Props) {
 
   return (
     <Container className={data.ele.category === '공지' ? 'notice' : ''}>
-      <Category>{data.ele.category}</Category>
+      <Top>
+        <Category>{data.ele.category}</Category>
+        {data.ele.selected ? <SelectedAnswer>답변채택</SelectedAnswer> : null}
+      </Top>
       <Link to="articles">
         <Title>{data.ele.title}</Title>
       </Link>
       <UserData>
         <ProfileImg>
-          <FaUserCircle className="user-profile-img" />
+          <ProfileIcon.Mini />
         </ProfileImg>
         <div>{data.ele.username}</div>
         <div>{data.ele.createdAt}</div>
       </UserData>
       <Count>
         <div>
-          <AiOutlineEye />
+          <CountIcon.View />
           {data.ele.view}
         </div>
         <div>
-          <BiCommentDetail />
+          <CountIcon.Comment />
           {data.ele.comment}
         </div>
         <div>
-          <BiLike />
+          <CountIcon.Vote />
           {data.ele.vote}
         </div>
       </Count>
@@ -72,6 +75,11 @@ const Container = styled.div`
   }
 `;
 
+const Top = styled.div`
+  display: flex;
+  margin-bottom: 4px;
+`;
+
 const Category = styled.div`
   display: flex;
   justify-content: center;
@@ -84,7 +92,21 @@ const Category = styled.div`
   font-weight: bold;
   color: ${theme.colors.pointColor};
   background-color: ${theme.colors.white};
-  margin-bottom: 4px;
+`;
+
+const SelectedAnswer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+  border: 1px solid ${theme.colors.pointColor};
+  border-radius: 5px;
+  font-size: ${theme.fontSizes.sm};
+  font-weight: bold;
+  color: ${theme.colors.white};
+  background-color: ${theme.colors.pointColor};
+  padding: 3px 8px;
+  margin-left: 5px;
 `;
 
 const Title = styled.div`
@@ -108,11 +130,6 @@ const ProfileImg = styled.div`
   align-items: center;
   width: 16px;
   height: 16px;
-
-  > .user-profile-img {
-    width: ;
-    filter: ${theme.filterColors.pointColor};
-  }
 `;
 
 const Count = styled.div`
@@ -120,6 +137,7 @@ const Count = styled.div`
   position: absolute;
   right: ${theme.gap.px20};
   bottom: 1rem;
+  color: ${theme.colors.gray};
 `;
 
 export default PostTitleBlock;
