@@ -2,12 +2,22 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import GlobalStyle from 'GlobalStyles';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import styled from 'styled-components';
 import axios from 'axios';
 import { FlexContainer } from './ReviewPage';
+import {
+  UpdateContainer,
+  ColumDiv,
+  Input,
+  Textarea,
+  CardContainer,
+  UploadButton,
+  Img,
+  Span,
+} from './CreateTeacher';
 
-function CreateTeacher() {
+function UpdateTeacher() {
   const [name, setName] = useState<string>('');
   const [platformTag, setPlatformTag] = useState<string[]>([]);
   const [subjectTag, setSubjectTag] = useState<string[]>([]);
@@ -16,8 +26,10 @@ function CreateTeacher() {
   const [profile, setProfile] = useState<string>('');
   const [analects, setAnalects] = useState<string>('');
   const [imageUrl, setImageUrl] = useState<string>('none');
+  const [starPointAverage, setStarPointAverage] = useState<number>(4.2);
 
   const navigate = useNavigate();
+  const { teacherId } = useParams();
 
   const subjectArr: string[][] = [
     ['국어', '영어', '수학', '한국사'],
@@ -54,10 +66,42 @@ function CreateTeacher() {
   };
 
   useEffect(() => {
-    console.log('Rerendering!');
+    axios
+      .get(`http://13.125.1.215:8080/teachers/${teacherId}`)
+      .then((res: any) => {
+        console.log(res.data.data);
+        return res.data.data;
+      })
+      .then(data => {
+        setName(data.name);
+        setIntroduction(data.introduction);
+        setImageUrl(data.imageUrl);
+        setStarPointAverage(data.starPointAverage);
+
+        setProfile(data.profile.join('\n'));
+        setAnalects(data.analects.join('\n'));
+
+        setGradeTag(
+          data.gradeTags.map((el: any) => {
+            return el.gradeTag;
+          }),
+        );
+
+        setSubjectTag(
+          data.subjectTags.map((el: any) => {
+            return el.subjectTag;
+          }),
+        );
+
+        setPlatformTag(
+          data.platformTags.map((el: any) => {
+            return el.platformTag;
+          }),
+        );
+      });
   }, []);
 
-  const createHandler = () => {
+  const updateHandler = () => {
     if (
       !name ||
       !subjectTag.length ||
@@ -81,12 +125,32 @@ function CreateTeacher() {
         imageUrl,
       };
 
-      axios.post(`http://13.125.1.215:8080/teachers`, data).then(res => {
-        navigate(-1);
-      });
+      axios
+        .patch(`http://13.125.1.215:8080/teachers/${teacherId}`, data)
+        .then(res => {
+          console.log(res);
+          navigate(-1);
+        });
+
+      // fetch('http://13.125.1.215:8080/teachers', {
+      //   credentials: 'include',
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({
+      //     data,
+      //   }),
+      // }).then(res => {
+      //   if (!res.ok) {
+      //     throw Error('could not fetch the data for that resource');
+      //   }
+      //   return res.json();
+      // });
     }
   };
-
+  console.log(gradeTag);
+  console.log(subjectTag);
   return (
     <UpdateContainer>
       <GlobalStyle />
@@ -119,6 +183,8 @@ function CreateTeacher() {
                           id={el}
                           value={el}
                           type="checkbox"
+                          readOnly
+                          checked={subjectTag.includes(el)}
                           onClick={subjectClickHandler}
                         />
                         <label htmlFor={el}>{el}</label>
@@ -147,6 +213,8 @@ function CreateTeacher() {
                           id={el}
                           value={el}
                           type="checkbox"
+                          readOnly
+                          checked={gradeTag.includes(el)}
                           onClick={gradeClickHandler}
                         />
                         <label htmlFor={el}>{el}</label>
@@ -174,8 +242,9 @@ function CreateTeacher() {
                         <input
                           id={el}
                           value={el}
-                          readOnly
                           type="checkbox"
+                          readOnly
+                          checked={platformTag.includes(el)}
                           onClick={platformClickHandler}
                         />
                         <label htmlFor={el}>{el}</label>
@@ -217,97 +286,21 @@ function CreateTeacher() {
               }}
             />
           </ColumDiv>
-          <Span>⭐️ 신입</Span>
+          <Span>⭐️ {starPointAverage}</Span>
         </CardContainer>
       </FlexContainer>
       <FlexContainer>
-        <UploadButton onClick={createHandler}>강사 등록</UploadButton>
+        <UploadButton onClick={updateHandler}>강사 수정</UploadButton>
         <UploadButton
           onClick={() => {
             navigate(-1);
           }}
         >
-          등록 취소
+          수정 취소
         </UploadButton>
       </FlexContainer>
     </UpdateContainer>
   );
 }
 
-export default CreateTeacher;
-
-export const UpdateContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  gap: 2rem;
-`;
-
-export const ColumDiv = styled.div`
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  gap: 0.5rem;
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border: 1px solid black;
-`;
-export const Textarea = styled.textarea`
-  width: 100%;
-  padding: 0.5rem;
-  height: 7rem;
-  margin-bottom: 1rem;
-`;
-
-export const UploadButton = styled.button`
-  width: fit-content;
-  height: 2.5rem;
-  padding: 0 0.6rem;
-  background-color: #1295ff;
-  color: white;
-  border: none;
-  cursor: pointer;
-  :hover {
-    background-color: #0088ff;
-  }
-`;
-
-export const CardContainer = styled.div`
-  width: 100%;
-  padding: 0.5rem;
-  padding-bottom: 1rem;
-  background-color: white;
-  border: 0.3rem solid #6667ab;
-  border-radius: 1.2rem;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-`;
-
-export const Img = styled.img`
-  width: 25rem;
-  height: 15rem;
-  border-radius: 0.5rem;
-  background-color: #b8b8b8;
-`;
-
-export const Span = styled.span`
-  font-weight: bold;
-`;
-
-export const LargeSpan = styled.div`
-  width: 100%;
-  margin: 1rem 0;
-  font-size: large;
-  font-weight: bold;
-`;
+export default UpdateTeacher;

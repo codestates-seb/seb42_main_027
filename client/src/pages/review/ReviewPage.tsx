@@ -6,7 +6,7 @@ import Pagenation from 'components/review/Pagenation';
 import CharacterCard from 'components/review/CharacterCard';
 import Carousel from 'components/review/Carousel';
 import SubjectMenu from 'components/review/SubjectMenu';
-import { dummy } from 'components/review/CharacterDummy';
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from 'components/common/Button';
@@ -32,9 +32,9 @@ function ReviewPage() {
   const [subject, setSubject] = useState<string>('전체');
   const [grade, setGrade] = useState<string>('전체');
   const [platform, setPlatform] = useState<string>('전체');
-  const [sortTag, setSortTag] = useState<string>('Update');
+  const [sortTag, setSortTag] = useState<string>('최신순');
   const [search, setSearch] = useState<string>('');
-  const [reverse, setReverse] = useState<string>('');
+  const [reverse, setReverse] = useState<string>('정순');
   const [teachers, setTeachers] = useState<Teachers[]>([]); // 서버에서 받아올 선생 정보
 
   const [curPage, setCurPage] = useState<number>(1);
@@ -47,10 +47,12 @@ function ReviewPage() {
       .get(
         `http://13.125.1.215:8080/teachers?${
           subject !== '전체' ? `subject=${subject}&` : ''
-        }${sortTag !== 'Update' ? `sort=name&` : ''}${
+        }${sortTag !== '최신순' ? `sort=${sortTag}&` : ''}${
           grade !== '전체' ? `grade=${grade}&` : ''
         }${search !== '' ? `name=${search}&` : ''}${
           platform !== '전체' ? `platform=${platform}&` : ''
+        }${
+          reverse !== '정순' ? `reverse=on&` : ''
         }page=${curPage}&size=${pageSize}`,
       )
       .then((res: any) => {
@@ -58,21 +60,32 @@ function ReviewPage() {
         setTeachers(res.data.data);
       });
 
-    // fetch(`http://13.125.1.215:8080/teachers?page=${curPage}&size=${pageSize}`)
+    // fetch(
+    //   `http://13.125.1.215:8080/teachers?page=${curPage}&size=${pageSize}`,
+    //   {
+    //     method: 'GET',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'User-Agent': 'ngrok-skip-browser-warning',
+    //       Accept: 'application/json',
+    //     },
+    //   },
+    // )
     //   .then((res: any) => {
     //     return res.json();
     //   })
     //   .then((data: any) => {
     //     console.log(data);
+    //     setTeachers(data.data);
     //   });
-  }, [subject, sortTag, search, curPage, grade, platform]);
+  }, [subject, sortTag, search, curPage, grade, platform, reverse]);
 
   return (
     <FlexContainer dir="col">
       <GlobalStyle />
       <Carousel />
       <FlexContainer
-        display={!isLogin() ? 'flex' : 'none'}
+        display={isLogin() ? 'flex' : 'none'}
         width="80%"
         justify="right"
       >
@@ -81,6 +94,8 @@ function ReviewPage() {
         </Link>
       </FlexContainer>
       <SortBar
+        reverse={reverse}
+        setReverse={setReverse}
         sortTag={sortTag}
         setSortTag={setSortTag}
         buttonOpen={buttonOpen}
@@ -121,6 +136,7 @@ type Container = {
   borderRadius?: string;
   display?: string;
   wrap?: string;
+  grow?: number;
 };
 
 type SubjectSelectButton = {
@@ -138,6 +154,7 @@ export const FlexContainer = styled.div<Container>`
   gap: ${props => props.gap || '1rem'};
   background-color: ${props => props.backColor || 'none'};
   border-radius: ${props => props.borderRadius || 'none'};
+  flex-grow: ${props => props.grow};
 `;
 
 const SubjectSelectButton = styled.div<SubjectSelectButton>`
