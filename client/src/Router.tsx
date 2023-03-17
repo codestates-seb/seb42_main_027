@@ -34,10 +34,15 @@ function Router() {
           <Route path="teacher" element={<TeacherSignUpForm />} />
         </Route>
 
-        <Route path="/qna" element={<QnABoard />} />
+        <Route path="qna/*" element={<QnABoard />}>
+          <Route path="" element={<PostList />} />
+          <Route path="write" element={<WritePost />} />
+          <Route path="edit" element={<WritePost />} />
+          <Route path="articles" element={<PostContentFree />} />
+        </Route>
 
         <Route path="free/*" element={<FreeBoard />}>
-          <Route path="write" element={<PostList />} />
+          <Route path="" element={<PostList />} />
           <Route path="write" element={<WritePost />} />
           <Route path="edit" element={<WritePost />} />
           <Route path="articles" element={<PostContentFree />} />
