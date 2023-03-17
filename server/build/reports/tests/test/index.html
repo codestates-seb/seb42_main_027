@@ -26,7 +26,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">0</div>
+<div class="counter">8</div>
 <p>failures</p>
 </div>
 </td>
@@ -38,7 +38,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.507s</div>
+<div class="counter">0.450s</div>
 <p>duration</p>
 </div>
 </td>
@@ -47,8 +47,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox success" id="successRate">
-<div class="percent">100%</div>
+<div class="infoBox failures" id="successRate">
+<div class="percent">66%</div>
 <p>successful</p>
 </div>
 </td>
@@ -58,13 +58,53 @@
 <div id="tabs">
 <ul class="tabLinks">
 <li>
-<a href="#tab0">Packages</a>
+<a href="#tab0">Failed tests</a>
 </li>
 <li>
-<a href="#tab1">Classes</a>
+<a href="#tab1">Packages</a>
+</li>
+<li>
+<a href="#tab2">Classes</a>
 </li>
 </ul>
 <div id="tab0" class="tab">
+<h2>Failed tests</h2>
+<ul class="linkList">
+<li>
+<a href="classes/ynzmz.server.comment.review.lecture.controller.LectureReviewCommentControllerTest.html">LectureReviewCommentControllerTest</a>.
+<a href="classes/ynzmz.server.comment.review.lecture.controller.LectureReviewCommentControllerTest.html#createLectureReviewPostComment()">리뷰글 댓글 등록 테스트</a>
+</li>
+<li>
+<a href="classes/ynzmz.server.comment.review.lecture.controller.LectureReviewCommentControllerTest.html">LectureReviewCommentControllerTest</a>.
+<a href="classes/ynzmz.server.comment.review.lecture.controller.LectureReviewCommentControllerTest.html#getLectureReviewPostComments()">강의별 리뷰 댓글 전체조회 테스트</a>
+</li>
+<li>
+<a href="classes/ynzmz.server.comment.review.lecture.controller.LectureReviewCommentControllerTest.html">LectureReviewCommentControllerTest</a>.
+<a href="classes/ynzmz.server.comment.review.lecture.controller.LectureReviewCommentControllerTest.html#updateLectureReviewPostComment()">리뷰글 댓글 수정 테스트</a>
+</li>
+<li>
+<a href="classes/ynzmz.server.lecture.controller.LectureControllerTest.html">LectureControllerTest</a>.
+<a href="classes/ynzmz.server.lecture.controller.LectureControllerTest.html#getLecturesDetail()">강의 상세 조회 테스트</a>
+</li>
+<li>
+<a href="classes/ynzmz.server.review.lecture.controller.LectureReviewControllerTest.html">LectureReviewControllerTest</a>.
+<a href="classes/ynzmz.server.review.lecture.controller.LectureReviewControllerTest.html#getReviewPostDetail()">리뷰글 상세 조회 테스트</a>
+</li>
+<li>
+<a href="classes/ynzmz.server.review.lecture.controller.LectureReviewControllerTest.html">LectureReviewControllerTest</a>.
+<a href="classes/ynzmz.server.review.lecture.controller.LectureReviewControllerTest.html#patchReviewPost()">강의 리뷰 수정 테스트</a>
+</li>
+<li>
+<a href="classes/ynzmz.server.review.lecture.controller.LectureReviewControllerTest.html">LectureReviewControllerTest</a>.
+<a href="classes/ynzmz.server.review.lecture.controller.LectureReviewControllerTest.html#postReviewPost()">강의 리뷰 등록 테스트</a>
+</li>
+<li>
+<a href="classes/ynzmz.server.teacher.controller.TeacherControllerTest.html">TeacherControllerTest</a>.
+<a href="classes/ynzmz.server.teacher.controller.TeacherControllerTest.html#getTeacherReviewDetail()">강사 리뷰 디테일 페이지 조회</a>
+</li>
+</ul>
+</div>
+<div id="tab1" class="tab">
 <h2>Packages</h2>
 <table>
 <thead>
@@ -85,48 +125,48 @@
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0.056s</td>
+<td>0.001s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
-<td class="success">
+<td class="failures">
 <a href="packages/ynzmz.server.comment.review.lecture.controller.html">ynzmz.server.comment.review.lecture.controller</a>
 </td>
 <td>4</td>
+<td>3</td>
 <td>0</td>
-<td>0</td>
-<td>0.188s</td>
-<td class="success">100%</td>
+<td>0.196s</td>
+<td class="failures">25%</td>
 </tr>
 <tr>
-<td class="success">
+<td class="failures">
 <a href="packages/ynzmz.server.lecture.controller.html">ynzmz.server.lecture.controller</a>
 </td>
 <td>5</td>
+<td>1</td>
 <td>0</td>
-<td>0</td>
-<td>0.080s</td>
-<td class="success">100%</td>
+<td>0.079s</td>
+<td class="failures">80%</td>
 </tr>
 <tr>
-<td class="success">
+<td class="failures">
 <a href="packages/ynzmz.server.review.lecture.controller.html">ynzmz.server.review.lecture.controller</a>
 </td>
 <td>4</td>
-<td>0</td>
+<td>3</td>
 <td>0</td>
 <td>0.047s</td>
-<td class="success">100%</td>
+<td class="failures">25%</td>
 </tr>
 <tr>
-<td class="success">
+<td class="failures">
 <a href="packages/ynzmz.server.teacher.controller.html">ynzmz.server.teacher.controller</a>
 </td>
 <td>6</td>
+<td>1</td>
 <td>0</td>
-<td>0</td>
-<td>0.106s</td>
-<td class="success">100%</td>
+<td>0.099s</td>
+<td class="failures">83%</td>
 </tr>
 <tr>
 <td class="success">
@@ -135,13 +175,13 @@
 <td>4</td>
 <td>0</td>
 <td>0</td>
-<td>0.030s</td>
+<td>0.028s</td>
 <td class="success">100%</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="tab1" class="tab">
+<div id="tab2" class="tab">
 <h2>Classes</h2>
 <table>
 <thead>
@@ -162,48 +202,48 @@
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0.056s</td>
+<td>0.001s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
-<td class="success">
+<td class="failures">
 <a href="classes/ynzmz.server.comment.review.lecture.controller.LectureReviewCommentControllerTest.html">ynzmz.server.comment.review.lecture.controller.LectureReviewCommentControllerTest</a>
 </td>
 <td>4</td>
+<td>3</td>
 <td>0</td>
-<td>0</td>
-<td>0.188s</td>
-<td class="success">100%</td>
+<td>0.196s</td>
+<td class="failures">25%</td>
 </tr>
 <tr>
-<td class="success">
+<td class="failures">
 <a href="classes/ynzmz.server.lecture.controller.LectureControllerTest.html">ynzmz.server.lecture.controller.LectureControllerTest</a>
 </td>
 <td>5</td>
+<td>1</td>
 <td>0</td>
-<td>0</td>
-<td>0.080s</td>
-<td class="success">100%</td>
+<td>0.079s</td>
+<td class="failures">80%</td>
 </tr>
 <tr>
-<td class="success">
+<td class="failures">
 <a href="classes/ynzmz.server.review.lecture.controller.LectureReviewControllerTest.html">ynzmz.server.review.lecture.controller.LectureReviewControllerTest</a>
 </td>
 <td>4</td>
-<td>0</td>
+<td>3</td>
 <td>0</td>
 <td>0.047s</td>
-<td class="success">100%</td>
+<td class="failures">25%</td>
 </tr>
 <tr>
-<td class="success">
+<td class="failures">
 <a href="classes/ynzmz.server.teacher.controller.TeacherControllerTest.html">ynzmz.server.teacher.controller.TeacherControllerTest</a>
 </td>
 <td>6</td>
+<td>1</td>
 <td>0</td>
-<td>0</td>
-<td>0.106s</td>
-<td class="success">100%</td>
+<td>0.099s</td>
+<td class="failures">83%</td>
 </tr>
 <tr>
 <td class="success">
@@ -212,7 +252,7 @@
 <td>4</td>
 <td>0</td>
 <td>0</td>
-<td>0.030s</td>
+<td>0.028s</td>
 <td class="success">100%</td>
 </tr>
 </tbody>
@@ -226,7 +266,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.6.1</a> at 2023. 3. 16. 오후 3:34:25</p>
+<a href="http://www.gradle.org">Gradle 7.6.1</a> at 2023. 3. 17. 오전 11:22:45</p>
 </div>
 </div>
 </body>
