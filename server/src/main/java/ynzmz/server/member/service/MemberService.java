@@ -48,6 +48,8 @@ public class MemberService {
     public Member createMember(Member member){
         verifyExistsEmail(member.getEmail());
 
+//        verifyExistsDisplayName(member.getDisplayName());
+
         String encryptedPassword = passwordEncoder.encode(member.getPassword());
         member.setPassword(encryptedPassword);
 
@@ -64,7 +66,7 @@ public class MemberService {
         Member findMember = findVerifiedMember(member.getMemberId());
 
         Optional.ofNullable(member.getPhoneNumber()).ifPresent(findMember::setPhoneNumber);
-        Optional.ofNullable(member.getDisplayName()).ifPresent(findMember::setDisplayName);
+//        Optional.ofNullable(member.getDisplayName()).ifPresent(findMember::setDisplayName);
         Optional.ofNullable(member.getPassword()).ifPresent(password-> findMember.setPassword(passwordEncoding(password)));
         Optional.ofNullable(member.getIconImageUrl()).ifPresent(findMember::setIconImageUrl);
 
@@ -86,6 +88,8 @@ public class MemberService {
         Optional<Member> foundMember = memberRepository.findByEmail(email);
         return foundMember.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
+
+
 //    public boolean deleteMember(long memberId){
 //        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 //        Member findMember = findVerifiedMember(memberId);
@@ -116,6 +120,12 @@ public class MemberService {
         if(member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
+
+//    public void verifyExistsDisplayName(String displayName){
+//        Optional<Member> member = memberRepository.findByDisplayName(displayName);
+//        if(member.isPresent())
+//            throw new BusinessLogicException(ExceptionCode.DISPLAY_EXISTS);
+//    }
 
     public void memberValidation(Member loginMember, long memberId) {
         if (loginMember.getMemberId() != memberId) throw new BusinessLogicException(ExceptionCode.INVALID_MEMBER_STATUS);

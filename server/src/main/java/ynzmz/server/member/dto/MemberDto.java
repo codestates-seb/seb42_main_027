@@ -14,6 +14,7 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,11 @@ public class MemberDto{
         private String displayName;
         private String State;
         private String createdAt;
+
+        public Post() {
+            this.createdAt = LocalDateTime.now().toString();
+        }
+
         @AssertTrue(message = "패스워드가 일치하지 않습니다.")
         private boolean isPasswordConfirmed() {
             return password.equals(confirmPassword);
@@ -82,7 +88,7 @@ public class MemberDto{
         private String displayName;
         private String IconImageUrl;
         private String state;
-        private LocalDateTime createdAt;
+        private String createdAt;
     }
 
     @Getter

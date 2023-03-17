@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +31,12 @@ public class Member {
     private String phoneNumber;
     @Column(unique = true)
     private String email;
+    @Column(unique = true)
     private String displayName;
     private String password;
     private String iconImageUrl;
     private String createdAt;
+
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();

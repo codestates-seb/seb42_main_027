@@ -18,6 +18,7 @@ public enum ExceptionCode {
 
     POST_NOT_FOUND(404, "Post not found"),
     POST_EXISTS(404, "Post not found"),
+    DISPLAY_EXISTS(409, "DisplayName exists"),
 
     //추후 추가 가능 --> 기능 봐서
 
