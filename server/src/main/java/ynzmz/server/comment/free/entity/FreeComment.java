@@ -15,13 +15,13 @@ import javax.persistence.*;
 public class FreeComment implements VoteCount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long lectureReviewCommentId;
+    private Long freeCommentId;
     private String content;
     private String createdAt;
     private String modifiedAt;
     private long voteCount;
     @ManyToOne
-    @JoinColumn(name = "free_post_id")
+    @JoinColumn(name = "free_comment_post_id")
     @JsonBackReference
     private Free free;
     @ManyToOne

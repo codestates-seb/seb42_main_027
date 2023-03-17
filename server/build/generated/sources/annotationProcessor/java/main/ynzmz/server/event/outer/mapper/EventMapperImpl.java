@@ -9,8 +9,8 @@ import ynzmz.server.event.outer.entity.Event;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-15T23:18:12+0900",
-    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
+    date = "2023-03-17T14:52:05+0900",
+    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.16.1 (Oracle Corporation)"
 )
 @Component
 public class EventMapperImpl implements EventMapper {
@@ -21,21 +21,15 @@ public class EventMapperImpl implements EventMapper {
             return null;
         }
 
-        String imageUrl = null;
-        String title = null;
-        String hyperLink = null;
-        String date = null;
-        String source = null;
+        EventDto.Post.PostBuilder post = EventDto.Post.builder();
 
-        imageUrl = event.getImageUrl();
-        title = event.getTitle();
-        hyperLink = event.getHyperLink();
-        date = event.getDate();
-        source = event.getSource();
+        post.imageUrl( event.getImageUrl() );
+        post.title( event.getTitle() );
+        post.hyperLink( event.getHyperLink() );
+        post.date( event.getDate() );
+        post.source( event.getSource() );
 
-        EventDto.Post post = new EventDto.Post( imageUrl, title, hyperLink, date, source );
-
-        return post;
+        return post.build();
     }
 
     @Override
@@ -44,21 +38,15 @@ public class EventMapperImpl implements EventMapper {
             return null;
         }
 
-        String imageUrl = null;
-        String title = null;
-        String hyperLink = null;
-        String date = null;
-        String source = null;
+        EventDto.Response.ResponseBuilder response = EventDto.Response.builder();
 
-        imageUrl = event.getImageUrl();
-        title = event.getTitle();
-        hyperLink = event.getHyperLink();
-        date = event.getDate();
-        source = event.getSource();
+        response.imageUrl( event.getImageUrl() );
+        response.title( event.getTitle() );
+        response.hyperLink( event.getHyperLink() );
+        response.date( event.getDate() );
+        response.source( event.getSource() );
 
-        EventDto.Response response = new EventDto.Response( imageUrl, title, hyperLink, date, source );
-
-        return response;
+        return response.build();
     }
 
     @Override

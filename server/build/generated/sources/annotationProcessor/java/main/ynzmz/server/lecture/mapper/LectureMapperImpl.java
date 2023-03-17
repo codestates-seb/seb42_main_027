@@ -19,8 +19,8 @@ import ynzmz.server.teacher.entity.Teacher;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-16T11:45:20+0900",
-    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
+    date = "2023-03-17T14:52:05+0900",
+    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.16.1 (Oracle Corporation)"
 )
 @Component
 public class LectureMapperImpl implements LectureMapper {

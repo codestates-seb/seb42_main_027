@@ -12,7 +12,7 @@ import ynzmz.server.event.inner.repository.YjEventRepository;
 import ynzmz.server.event.inner.service.YjEventService;
 
 @RestController
-@RequestMapping("/inner-event")
+@RequestMapping("/inner-events")
 @RequiredArgsConstructor
 public class YjEventController {
 

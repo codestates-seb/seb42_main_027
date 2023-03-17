@@ -9,9 +9,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface FreePostCommentMapper {
-    FreeComment lectureReviewCommentToLectureReviewCommentPost(FreeCommentDto.Post lectureReviewPostCommentPostDto);
-    FreeComment lectureReviewCommentToLectureReviewCommentPatch(FreeCommentDto.Patch lectureReviewPostCommentPatchDto);
-    FreeCommentDto.Response lectureReviewCommentResponseToLectureReviewComment(FreeComment freeComment);
+    FreeComment FreeCommentToFreeCommentPost(FreeCommentDto.Post FreeCommentPostDto);
+    FreeComment FreeCommentToFreeCommentPatch(FreeCommentDto.Patch FreeCommentPatchDto);
+    FreeCommentDto.Response FreeCommentResponseToFreeComment(FreeComment freeComment);
 
-    List<FreeCommentDto.Response> lectureReviewCommentResponsesToLectureReviewComments(List<FreeComment> freeComments);
+    List<FreeCommentDto.Response> FreeCommentResponsesToFreeComments(List<FreeComment> freeComments);
 }

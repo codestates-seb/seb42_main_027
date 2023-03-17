@@ -8,6 +8,6 @@ import ynzmz.server.comment.free.entity.FreeComment;
 
 @Repository
 public interface FreeCommentRepository extends JpaRepository<FreeComment,Long> {
-    Page<FreeComment> findLectureReviewCommentsByLectureReviewLectureReviewId(long lectureReviewId, Pageable pageable);
+    Page<FreeComment> findFreeCommentsByFreeId(long FreeId, Pageable pageable);
 
 }

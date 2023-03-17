@@ -17,7 +17,7 @@ import ynzmz.server.member.service.MemberService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lectures/reviews/comments")
+@RequestMapping("/frees/comments")
 @RequiredArgsConstructor
 public class FreeCommentController {
     private final MemberService memberService;
@@ -25,44 +25,44 @@ public class FreeCommentController {
     private final FreeCommentService freeCommentService;
     @PostMapping
     public ResponseEntity<?> createFreeReviewComment(@RequestBody FreeCommentDto.Post postDto) {
-        FreeComment freeComment = freePostCommentMapper.lectureReviewCommentToLectureReviewCommentPost(postDto);
+        FreeComment freeComment = freePostCommentMapper.FreeCommentToFreeCommentPost(postDto);
         Member member = memberService.findMemberById(postDto.getMemberId());
         freeComment.setMember(member);
 
         FreeComment createFreeComment = freeCommentService.creatFreeReviewComment(freeComment);
-        FreeCommentDto.Response response = freePostCommentMapper.lectureReviewCommentResponseToLectureReviewComment(createFreeComment);
+        FreeCommentDto.Response response = freePostCommentMapper.FreeCommentResponseToFreeComment(createFreeComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{lecture-review-comment-id}")
+    @PatchMapping("/{free-comment-id}")
     public ResponseEntity<?> updateFreeReviewComment(@RequestBody FreeCommentDto.Patch patchDto,
-                                                        @PathVariable("lecture-review-comment-id") long lectureReviewPostCommentId) {
-        FreeComment freeComment = freePostCommentMapper.lectureReviewCommentToLectureReviewCommentPatch(patchDto);
-        freeComment.setLectureReviewCommentId(lectureReviewPostCommentId);
+                                                        @PathVariable("free-comment-id") long freePostCommentId) {
+        FreeComment freeComment = freePostCommentMapper.FreeCommentToFreeCommentPatch(patchDto);
+        freeComment.setFreeCommentId(freePostCommentId);
 
-        FreeComment updateFreeComment = freeCommentService.updateFreeReviewComment(freeComment);
-        FreeCommentDto.Response response = freePostCommentMapper.lectureReviewCommentResponseToLectureReviewComment(updateFreeComment);
+        FreeComment updateFreeComment = freeCommentService.updateFreeComment(freeComment);
+        FreeCommentDto.Response response = freePostCommentMapper.FreeCommentResponseToFreeComment(updateFreeComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     //강의별 댓글 조회 (필터기능)
     @GetMapping
     public ResponseEntity<?> getFreeReviewComments(@RequestParam(value = "filter", required = false) String filter,
-                                                      @RequestParam long lectureReviewId,
+                                                      @RequestParam long freeId,
                                                       @RequestParam int page,
                                                       @RequestParam int size) {
 
-        if (filter == null) filter = "lectureReviewCommentId";
-        Page<FreeComment> pageLectureReviewPostComments = freeCommentService.getFreeReviewComments(lectureReviewId, filter, page - 1, size);
-        List<FreeComment> freeComments = pageLectureReviewPostComments.getContent();
+        if (filter == null) filter = "freeCommentId";
+        Page<FreeComment> pageFreePostComments = freeCommentService.getFreeReviewComments(freeId, filter, page - 1, size);
+        List<FreeComment> freeComments = pageFreePostComments.getContent();
 
-        List<FreeCommentDto.Response> responses = freePostCommentMapper.lectureReviewCommentResponsesToLectureReviewComments(freeComments);
+        List<FreeCommentDto.Response> responses = freePostCommentMapper.FreeCommentResponsesToFreeComments(freeComments);
 
-        return new ResponseEntity<>(new MultiResponseDto<>(responses, pageLectureReviewPostComments), HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(responses, pageFreePostComments), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{lecture-review-comment-id}")
-    public void deleteFreeReviewComment(@PathVariable("lecture-review-comment-id") long lectureReviewCommentId) {
-        freeCommentService.deleteFreeReviewComment(lectureReviewCommentId);
+    @DeleteMapping("/{free-comment-id}")
+    public void deleteFreeReviewComment(@PathVariable("free-comment-id") long freeCommentId) {
+        freeCommentService.deleteFreeReviewComment(freeCommentId);
     }
 }

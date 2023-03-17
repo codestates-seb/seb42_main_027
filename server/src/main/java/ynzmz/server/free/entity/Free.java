@@ -53,7 +53,7 @@ public class Free implements VoteCount {
     @JsonBackReference
     @JoinColumn(name = "member_id")
     private Member member;
-    @OneToMany(mappedBy = "freeReview", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "free", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<FreeComment> comments = new ArrayList<>();
 

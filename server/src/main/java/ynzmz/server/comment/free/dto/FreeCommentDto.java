@@ -15,7 +15,7 @@ public class FreeCommentDto {
     public static class Post{
         private String content;
         private String createdAt;
-        private long lectureReviewId;
+        private long freeCommentId;
         private long memberId;
     }
 
@@ -29,7 +29,7 @@ public class FreeCommentDto {
     @NoArgsConstructor
     public static class Response{
 
-        private Long FreeCommentId;
+        private Long freeCommentId;
         private String content;
         private String createdAt;
         private String modifiedAt;

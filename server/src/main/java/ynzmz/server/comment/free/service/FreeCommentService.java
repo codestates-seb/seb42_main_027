@@ -22,8 +22,8 @@ public class FreeCommentService {
         return freeCommentRepository.save(freeComment);
     }
 
-    public FreeComment updateFreeReviewComment(FreeComment freeComment){
-        FreeComment findFreeComment = findFreeReviewCommentById(freeComment.getLectureReviewCommentId());
+    public FreeComment updateFreeComment(FreeComment freeComment){
+        FreeComment findFreeComment = findFreeCommentById(freeComment.getFreeCommentId());
 
         Optional.ofNullable(freeComment.getContent()).ifPresent(findFreeComment::setContent);
         Optional.ofNullable(freeComment.getModifiedAt()).ifPresent(findFreeComment::setModifiedAt);
@@ -31,16 +31,16 @@ public class FreeCommentService {
         return freeCommentRepository.save(findFreeComment);
     }
 
-    public Page<FreeComment> getFreeReviewComments(long lectureReviewId, String filter, int page, int size) {
-        return freeCommentRepository.findLectureReviewCommentsByLectureReviewLectureReviewId(lectureReviewId, PageRequest.of(page, size, Sort.by(filter).descending()));
+    public Page<FreeComment> getFreeReviewComments(long FreeId, String filter, int page, int size) {
+        return freeCommentRepository.findFreeCommentsByFreeId(FreeId, PageRequest.of(page, size, Sort.by(filter).descending()));
     }
 
-    public void deleteFreeReviewComment(long lectureReviewCommentId) {
-        freeCommentRepository.deleteById(lectureReviewCommentId);
+    public void deleteFreeReviewComment(long FreeId) {
+        freeCommentRepository.deleteById(FreeId);
     }
 
-    public FreeComment findFreeReviewCommentById(long lectureReviewCommentId) {
-        Optional<FreeComment> lectureReviewPostComment = freeCommentRepository.findById(lectureReviewCommentId);
-        return lectureReviewPostComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.LECTURE_REVIEW_COMMENT_NOT_FOUND));
+    public FreeComment findFreeCommentById(long FreeId) {
+        Optional<FreeComment> FreeComment = freeCommentRepository.findById(FreeId);
+        return FreeComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.FREE_NOT_FOUND));
     }
 }
