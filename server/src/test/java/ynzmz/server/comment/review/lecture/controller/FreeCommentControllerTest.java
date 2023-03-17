@@ -43,7 +43,7 @@ import static ynzmz.server.utils.ApiDocumentUtils.getResponsePreProcessor;
 @MockBean(JpaMetamodelMappingContext.class)
 @WithMockUser
 @Import(SecurityTestConfig.class)
-class LectureReviewCommentControllerTest {
+class FreeCommentControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired

@@ -1,13 +1,18 @@
 package ynzmz.server.free.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import ynzmz.server.comment.free.entity.FreeComment;
+import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.vote.VoteCount;
 
 import javax.persistence.*;
 import javax.swing.text.AbstractDocument;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -48,6 +53,9 @@ public class Free implements VoteCount {
     @JsonBackReference
     @JoinColumn(name = "member_id")
     private Member member;
+    @OneToMany(mappedBy = "freeReview", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<FreeComment> comments = new ArrayList<>();
 
 //    private
 
