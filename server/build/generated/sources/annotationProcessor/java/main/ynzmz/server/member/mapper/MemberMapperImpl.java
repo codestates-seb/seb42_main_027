@@ -8,11 +8,12 @@ import org.springframework.stereotype.Component;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.dto.MemberPatchDto;
 import ynzmz.server.member.dto.MemberPostDto;
+import ynzmz.server.member.dto.response.MemberReviewResponseDto;
 import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-17T00:34:55+0900",
+    date = "2023-03-17T12:03:23+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -79,7 +80,9 @@ public class MemberMapperImpl implements MemberMapper {
         if ( member.getMemberState() != null ) {
             memberState = member.getMemberState().name();
         }
-        createdAt = member.getCreatedAt();
+        if ( member.getCreatedAt() != null ) {
+            createdAt = LocalDateTime.parse( member.getCreatedAt() );
+        }
 
         String iconImageUrl = null;
 
@@ -88,6 +91,17 @@ public class MemberMapperImpl implements MemberMapper {
         memberDto.setIconImageUrl( member.getIconImageUrl() );
 
         return memberDto;
+    }
+
+    @Override
+    public MemberReviewResponseDto memberToMemberReviewResponse(Member member) {
+        if ( member == null ) {
+            return null;
+        }
+
+        MemberReviewResponseDto memberReviewResponseDto = new MemberReviewResponseDto();
+
+        return memberReviewResponseDto;
     }
 
     @Override

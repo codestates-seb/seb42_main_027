@@ -20,5 +20,10 @@
         <module name="ynzmz.server.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="server" target="11" />
+      <module name="server.main" target="11" />
+      <module name="server.test" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

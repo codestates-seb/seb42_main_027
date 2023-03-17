@@ -86,7 +86,6 @@ public class MemberService {
         Optional<Member> foundMember = memberRepository.findByEmail(email);
         return foundMember.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
-
 //    public boolean deleteMember(long memberId){
 //        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 //        Member findMember = findVerifiedMember(memberId);
@@ -97,6 +96,7 @@ public class MemberService {
 //        }
 //        Optional<Member> deleteMember = memberRepository.findById(memberId);
 //        return deleteMember.isEmpty();
+
 //    }
 
     public void deleteMember(long memberId) {
@@ -115,15 +115,6 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByEmail(email);
         if(member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
-    }
-
-    public Member findMemberById(long memberId){
-        Optional<Member> foundMember = memberRepository.findById(memberId);
-        return foundMember.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-    }
-    public Member findMemberByEmail(String memberEmail) {
-        Optional<Member> memberOptional = memberRepository.findByEmail(memberEmail);
-        return memberOptional.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
     public void memberValidation(Member loginMember, long memberId) {
