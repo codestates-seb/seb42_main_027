@@ -41,7 +41,6 @@ function Router() {
           <Route path="edit" element={<PostContent />} />
         </Route>
 
-
         <Route path="/ReviewPage" element={<ReviewPage />} />
         <Route path="/ReviewPage/createTeacher" element={<CreateTeacher />} />
         <Route

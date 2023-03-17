@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
-
 type LoginParams = {
   email: string;
   password: string;

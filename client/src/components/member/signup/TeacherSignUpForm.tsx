@@ -65,7 +65,6 @@ function TeacherSignUpForm() {
 
   const navigate = useNavigate();
   const currentTime = new Date().toString();
-
   const colorSelector = (value: string) => {
     if (value === '') {
       return undefined;
