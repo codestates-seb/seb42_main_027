@@ -6,7 +6,7 @@ import QnABoard from 'pages/qnABoard/QnABoard';
 import FreeBoard from 'pages/freeBoard/FreeBoard';
 import PostList from 'components/board/post/postList';
 import WritePost from 'components/board/post/writePost';
-import PostContentFree from 'components/board/post/postConentFree';
+import PostContent from 'components/board/post/freeBoardPostContent';
 import ReviewPage from 'pages/review/ReviewPage';
 import ReviewPageDetail from 'pages/review/ReviewPageDetail';
 import CreateTeacher from 'pages/review/CreateTeacher';
@@ -38,14 +38,13 @@ function Router() {
           <Route path="" element={<PostList />} />
           <Route path="write" element={<WritePost />} />
           <Route path="edit" element={<WritePost />} />
-          <Route path="articles" element={<PostContentFree />} />
+          {/* <Route path="articles" element={<PostContent />} /> */}
         </Route>
 
         <Route path="free/*" element={<FreeBoard />}>
           <Route path="" element={<PostList />} />
           <Route path="write" element={<WritePost />} />
-          <Route path="edit" element={<WritePost />} />
-          <Route path="articles" element={<PostContentFree />} />
+          <Route path="articles" element={<PostContent />} />
         </Route>
 
         <Route path="/ReviewPage" element={<ReviewPage />} />
