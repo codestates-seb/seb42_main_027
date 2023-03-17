@@ -1,6 +1,5 @@
 package ynzmz.server.member.mapper;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -10,8 +9,8 @@ import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-17T16:21:24+0900",
-    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
+    date = "2023-03-17T16:40:19+0900",
+    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
 public class MemberMapperImpl implements MemberMapper {
@@ -65,7 +64,7 @@ public class MemberMapperImpl implements MemberMapper {
         String email = null;
         String displayName = null;
         String state = null;
-        LocalDateTime createdAt = null;
+        String createdAt = null;
 
         username = member.getUsername();
         phoneNumber = member.getPhoneNumber();
@@ -75,9 +74,7 @@ public class MemberMapperImpl implements MemberMapper {
         if ( member.getState() != null ) {
             state = member.getState().name();
         }
-        if ( member.getCreatedAt() != null ) {
-            createdAt = LocalDateTime.parse( member.getCreatedAt() );
-        }
+        createdAt = member.getCreatedAt();
 
         String iconImageUrl = null;
 

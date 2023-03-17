@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ynzmz.server.question.question.entity.Question;
+import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.tag.entity.SubjectTag;
 
 import javax.persistence.*;

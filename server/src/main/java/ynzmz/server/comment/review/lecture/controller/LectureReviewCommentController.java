@@ -18,7 +18,7 @@ import ynzmz.server.member.service.MemberService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lectures/reviews/comments")
+@RequestMapping("/comments/reviews/lectures")
 @RequiredArgsConstructor
 public class LectureReviewCommentController {
     private final MemberService memberService;

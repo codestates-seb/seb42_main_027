@@ -3,7 +3,7 @@ package ynzmz.server.comment.review.lecture.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
-import ynzmz.server.review.lecture.entity.LectureReview;
+import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.vote.VoteCount;
 

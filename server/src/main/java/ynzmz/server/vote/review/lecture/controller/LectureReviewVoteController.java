@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.comment.review.lecture.service.LectureReviewCommentService;
 import ynzmz.server.dto.SingleResponseDto;
-import ynzmz.server.review.lecture.entity.LectureReview;
-import ynzmz.server.review.lecture.sevice.LectureReviewService;
+import ynzmz.server.board.review.lecture.entity.LectureReview;
+import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.vote.review.lecture.dto.LectureReviewVoteDto;
@@ -20,7 +20,7 @@ import ynzmz.server.vote.review.lecture.mapper.LectureReviewVoteMapper;
 import ynzmz.server.vote.review.lecture.service.LectureReviewVoteService;
 
 @RestController
-@RequestMapping("/vote/lecture/review")
+@RequestMapping("/votes/reviews/lectures")
 @RequiredArgsConstructor
 public class LectureReviewVoteController {
     private final LectureReviewVoteService lectureReviewVoteService;

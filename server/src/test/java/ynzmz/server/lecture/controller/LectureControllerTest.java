@@ -22,7 +22,7 @@ import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecture.mapper.LectureMapper;
 import ynzmz.server.lecture.service.LectureService;
-import ynzmz.server.review.lecture.sevice.LectureReviewService;
+import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.tag.service.TagService;
 import ynzmz.server.utils.SecurityTestConfig;
 

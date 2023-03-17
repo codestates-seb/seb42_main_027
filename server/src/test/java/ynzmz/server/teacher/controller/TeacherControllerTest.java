@@ -18,7 +18,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import ynzmz.server.helper.StubData;
-import ynzmz.server.review.lecture.sevice.LectureReviewService;
+import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.tag.service.TagService;
 import ynzmz.server.teacher.dto.TeacherDto;
 import ynzmz.server.teacher.entity.Teacher;

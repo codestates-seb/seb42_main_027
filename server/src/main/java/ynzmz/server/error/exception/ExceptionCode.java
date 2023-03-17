@@ -5,20 +5,15 @@ import lombok.Getter;
 public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "Member not found"),
     MEMBER_EXISTS(409, "Member exists"),
-
     TEACHER_EXISTS(409, "Teacher exists"),
-
     TEACHER_NOT_FOUND(404, "TEACHER_NOT_FOUND"),
-
     QUESTION_NOT_FOUND(404, "Question not found"),
     QUESTION_EXISTS(409, "Question exists"),
-
     ANSWER_NOT_FOUND(404, "Answer not found"),
     ANSWER_CHANGE_ORDER(403, "Answer exists"),
-
     POST_NOT_FOUND(404, "Post not found"),
     POST_EXISTS(404, "Post not found"),
-    DISPLAY_EXISTS(409, "DisplayName exists"),
+    DISPLAY_NAME_EXISTS(409, "DisplayName exists"),
 
     //추후 추가 가능 --> 기능 봐서
 
@@ -34,14 +29,13 @@ public enum ExceptionCode {
     FREE_REVIEW_COMMENT_NOT_FOUND(404, "자유게시글 아이디 리뷰글 댓글이 없습니다."),
     FREE_NOT_FOUND(404,"자유게시글이 존재하지 않습니다");
 
-
     // 권한이없을때
 
     @Getter
-    private int status;
+    private final int status;
 
     @Getter
-    private String message;
+    private final String message;
 
     ExceptionCode(int code, String message) {
         this.status = code;

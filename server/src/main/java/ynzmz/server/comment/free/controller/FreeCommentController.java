@@ -17,7 +17,7 @@ import ynzmz.server.member.service.MemberService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/frees/comments")
+@RequestMapping("/comments/frees")
 @RequiredArgsConstructor
 public class FreeCommentController {
     private final MemberService memberService;

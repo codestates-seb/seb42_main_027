@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ynzmz.server.question.answer.entity.Answer;
-import ynzmz.server.question.question.entity.Question;
-import ynzmz.server.review.lecture.entity.LectureReview;
-import ynzmz.server.vote.question.answer.entity.AnswerVote;
-import ynzmz.server.vote.question.question.entity.QuestionVote;
+import ynzmz.server.board.qna.answer.entity.Answer;
+import ynzmz.server.board.qna.question.entity.Question;
+import ynzmz.server.board.review.lecture.entity.LectureReview;
+import ynzmz.server.vote.qna.answer.entity.AnswerVote;
+import ynzmz.server.vote.qna.question.entity.QuestionVote;
 import ynzmz.server.vote.review.lecture.entity.LectureReviewVote;
 
 import javax.persistence.Entity;
@@ -16,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

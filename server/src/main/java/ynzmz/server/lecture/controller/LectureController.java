@@ -11,7 +11,7 @@ import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecture.mapper.LectureMapper;
 import ynzmz.server.lecture.service.LectureService;
-import ynzmz.server.review.lecture.sevice.LectureReviewService;
+import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;

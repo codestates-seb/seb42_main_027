@@ -3,7 +3,7 @@ package ynzmz.server.tag.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.question.question.entity.Question;
+import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
-import ynzmz.server.review.lecture.entity.LectureReview;
+import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.member.entity.Member;
 
 import javax.persistence.*;

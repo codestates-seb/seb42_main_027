@@ -15,12 +15,13 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import ynzmz.server.board.review.lecture.controller.LectureReviewController;
 import ynzmz.server.helper.StubData;
 import ynzmz.server.lecture.service.LectureService;
-import ynzmz.server.review.lecture.dto.LectureReviewDto;
-import ynzmz.server.review.lecture.entity.LectureReview;
-import ynzmz.server.review.lecture.mapper.LectureReviewMapper;
-import ynzmz.server.review.lecture.sevice.LectureReviewService;
+import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
+import ynzmz.server.board.review.lecture.entity.LectureReview;
+import ynzmz.server.board.review.lecture.mapper.LectureReviewMapper;
+import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.teacher.service.TeacherService;
 import ynzmz.server.utils.SecurityTestConfig;
 

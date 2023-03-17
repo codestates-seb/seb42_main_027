@@ -3,7 +3,7 @@ package ynzmz.server.vote.review.lecture.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
-import ynzmz.server.review.lecture.entity.LectureReview;
+import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.vote.review.lecture.entity.LectureReviewVote;
 

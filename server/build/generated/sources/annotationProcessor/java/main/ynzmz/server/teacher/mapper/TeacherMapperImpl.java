@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
+import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
+import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.review.lecture.dto.LectureReviewDto;
-import ynzmz.server.review.lecture.entity.LectureReview;
 import ynzmz.server.tag.dto.GradeTagDto;
 import ynzmz.server.tag.dto.PlatformTagDto;
 import ynzmz.server.tag.dto.SubjectTagDto;
@@ -22,8 +22,8 @@ import ynzmz.server.teacher.entity.Teacher;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-17T16:21:24+0900",
-    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
+    date = "2023-03-17T16:40:19+0900",
+    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
 public class TeacherMapperImpl implements TeacherMapper {
