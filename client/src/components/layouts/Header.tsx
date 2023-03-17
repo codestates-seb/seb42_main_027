@@ -10,6 +10,7 @@ function Header() {
 
   const logOutHandler = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('email');
     setIsLoginInStore(false);
   };
 

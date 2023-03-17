@@ -8,8 +8,8 @@ import GlobalStyle from './GlobalStyles';
 import Router from './Router';
 
 function App() {
-  const { isLoginInStore, setIsLoginInStore } = useIsLoginStore();
-  const { userInfo, setUserInfo } = useUserInfoStore(state => state);
+  const { setIsLoginInStore } = useIsLoginStore();
+  const { setUserInfo } = useUserInfoStore(state => state);
 
   const email = localStorage.getItem('email');
 
