@@ -80,6 +80,48 @@ const FilterBtn = styled.button`
   }
 `;
 
+const UDWhiteBtn = styled(FilterBtn)`
+  width: 2.5rem;
+  height: 1.25rem;
+  font-size: ${theme.fontSizes.xs};
+  &:hover {
+    cursor: pointer;
+    border: 1px solid ${theme.colors.black};
+  }
+  &:active {
+    cursor: pointer;
+    background-color: ${theme.colors.lightGray};
+  }
+`;
+
+const VoteUpBtn = styled(FilterBtn)`
+  width: 20px;
+  height: 20px;
+  border-radius: 0 5px 5px 0;
+  &:hover {
+    cursor: pointer;
+    border: 1px solid ${theme.colors.black};
+  }
+  &:active {
+    cursor: pointer;
+    background-color: ${theme.colors.lightGray};
+  }
+`;
+
+const VoteDownBtn = styled(VoteUpBtn)`
+  border-radius: 5px 0 0 5px;
+`;
+
+const RecommentBtn = styled.button`
+  font-size: ${theme.fontSizes.sm};
+  color: ${theme.colors.pointColor};
+  &:hover {
+    cursor: pointer;
+    color: ${theme.colors.pointColor_hover};
+    text-decoration: underline;
+  }
+`;
+
 // Button 객체에 감싸서 반환
 const Button = {
   DefaultBtn,
@@ -88,6 +130,10 @@ const Button = {
   WriteBtn,
   SubMenuBtn,
   FilterBtn,
+  UDWhiteBtn,
+  VoteUpBtn,
+  VoteDownBtn,
+  RecommentBtn,
 };
 
 export default Button;
