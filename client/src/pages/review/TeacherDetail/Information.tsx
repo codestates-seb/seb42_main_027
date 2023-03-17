@@ -22,18 +22,18 @@ type Data = {
 };
 
 const defaultData = {
-  gradeTags: ['1'],
+  gradeTags: ['string'],
   imageUrl: 'string;',
   introduction: 'string;',
   name: 'string;',
-  platformTags: [{ platformTag: 's' }],
+  platformTags: [{ platformTag: 'string' }],
   starPointAverage: 5,
   subjectTags: [{ subjectTag: 'string' }],
   teacherId: 5,
   totalReviewCount: 5,
-  lectures: 'string',
-  analects: ['1'],
-  profile: ['1'],
+  lectures: [],
+  analects: ['string'],
+  profile: ['string'],
 };
 
 function Information() {
@@ -55,7 +55,9 @@ function Information() {
 
   return (
     <Container>
-      {isPending ? null : (
+      {isPending ? (
+        <FlexContainer height="100vh" />
+      ) : (
         <div>
           <GlobalStyle />
           <FlexContainer width="100vw">
@@ -128,7 +130,7 @@ function Information() {
 
 export default Information;
 
-const Container = styled.div`
+export const Container = styled.div`
   padding: 3rem;
 `;
 

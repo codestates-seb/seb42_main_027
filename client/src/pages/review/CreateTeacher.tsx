@@ -188,7 +188,7 @@ function CreateTeacher() {
           </ColumDiv>
 
           <ColumDiv>
-            <label htmlFor="profile">경력</label>
+            <label htmlFor="profile">프로필</label>
             <Textarea
               id="profile"
               value={profile}
@@ -281,8 +281,7 @@ export const UploadButton = styled.button`
 
 export const CardContainer = styled.div`
   width: 100%;
-  padding: 0.5rem;
-  padding-bottom: 1rem;
+  padding: 2rem 0.5rem;
   background-color: white;
   border: 0.3rem solid #6667ab;
   border-radius: 1.2rem;
