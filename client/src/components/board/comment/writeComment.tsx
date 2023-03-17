@@ -9,10 +9,10 @@ import { AiOutlineExclamationCircle } from 'react-icons/ai';
 import { useIsLoginStore } from 'stores/loginStore';
 
 function WriteComment() {
-  const { isLogin, setIsLogin } = useIsLoginStore(state => state);
+  const { isLoginInStore } = useIsLoginStore(state => state);
   return (
     <Container>
-      {isLogin ? (
+      {isLoginInStore ? (
         <Main>
           <InputDiv>
             <FaUserCircle />
