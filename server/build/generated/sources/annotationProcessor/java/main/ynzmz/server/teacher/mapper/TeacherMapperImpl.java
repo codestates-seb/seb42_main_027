@@ -22,7 +22,7 @@ import ynzmz.server.teacher.entity.Teacher;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-16T18:39:12+0900",
+    date = "2023-03-17T11:21:59+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -87,20 +87,6 @@ public class TeacherMapperImpl implements TeacherMapper {
         simpleInfoResponse.setStarPointAverage( teacher.getStarPointAverage() );
 
         return simpleInfoResponse;
-    }
-
-    @Override
-    public List<TeacherDto.SimpleInfoResponse> teacherInfoResponsesToTeachers(List<Teacher> teachers) {
-        if ( teachers == null ) {
-            return null;
-        }
-
-        List<TeacherDto.SimpleInfoResponse> list = new ArrayList<TeacherDto.SimpleInfoResponse>( teachers.size() );
-        for ( Teacher teacher : teachers ) {
-            list.add( teacherToTeacherSimpleInfoResponse( teacher ) );
-        }
-
-        return list;
     }
 
     @Override

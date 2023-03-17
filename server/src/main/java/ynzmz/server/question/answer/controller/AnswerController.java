@@ -11,10 +11,7 @@ import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
-import ynzmz.server.question.answer.dto.AnswerInfoResponseDto;
-import ynzmz.server.question.answer.dto.AnswerPatchDto;
-import ynzmz.server.question.answer.dto.AnswerPostDto;
-import ynzmz.server.question.answer.dto.AnswerResponseDto;
+import ynzmz.server.question.answer.dto.AnswerDto;
 import ynzmz.server.question.answer.entity.Answer;
 import ynzmz.server.question.answer.mapper.AnswerMapper;
 import ynzmz.server.question.answer.service.AnswerService;
@@ -33,25 +30,25 @@ public class AnswerController {
     private final AnswerService answerService;
 
     @PostMapping
-    public ResponseEntity<?> postAnswer(@Valid @RequestBody AnswerPostDto answerPostDto){
+    public ResponseEntity<?> postAnswer(@Valid @RequestBody AnswerDto.Post answerPost){
 
-        Answer postDtoToAnswer = answerMapper.answerPostDtoToAnswer(answerPostDto);
+        Answer postDtoToAnswer = answerMapper.answerPostDtoToAnswer(answerPost);
         String loginMemberId = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
         postDtoToAnswer.setMember(memberService.findMemberByEmail(loginMemberId));
-        postDtoToAnswer.setQuestion(questionService.findQuestion(answerPostDto.getQuestionId()));
+        postDtoToAnswer.setQuestion(questionService.findQuestion(answerPost.getQuestionId()));
 
         Answer answer = answerService.createAnswer(postDtoToAnswer);
-        AnswerInfoResponseDto response = answerMapper.answerToAnswerInfoResponse(answer);
+        AnswerDto.InfoResponse response = answerMapper.answerToAnswerInfoResponse(answer);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{answer-id}")
-    public ResponseEntity<?> patchAnswer(@PathVariable("answer-id") long answerId, @RequestBody AnswerPatchDto answerPatchDto) {
-        answerPatchDto.setAnswerId(answerId);
+    public ResponseEntity<?> patchAnswer(@PathVariable("answer-id") long answerId, @RequestBody AnswerDto.Patch answerPatch) {
+        answerPatch.setAnswerId(answerId);
         memberService.memberValidation(loginMemberFindByToken(), answerService.findAnswer(answerId).getMember().getMemberId()); //본인검증
 
-        Answer answer = answerService.updateAnswer(answerMapper.answerPatchDtoToAnswer(answerPatchDto));
-        AnswerInfoResponseDto response = answerMapper.answerToAnswerInfoResponse(answer);
+        Answer answer = answerService.updateAnswer(answerMapper.answerPatchDtoToAnswer(answerPatch));
+        AnswerDto.InfoResponse response = answerMapper.answerToAnswerInfoResponse(answer);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -59,7 +56,7 @@ public class AnswerController {
     @GetMapping("/{answer-id}")
     public ResponseEntity<?> getAnswer(@PathVariable("answer-id")long answerId) {
         Answer answer = answerService.findAnswer(answerId);
-        AnswerInfoResponseDto response = answerMapper.answerToAnswerInfoResponse(answer);
+        AnswerDto.InfoResponse response = answerMapper.answerToAnswerInfoResponse(answer);
         return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
 
@@ -70,7 +67,7 @@ public class AnswerController {
         //페이지네이션 으로 질문글전체조회와 리스폰값 명세 통일(요청사항)
         Page<Answer> pageAnswers = answerService.findAnswersByMemberId(memberId, page, size);
         List<Answer> answers = pageAnswers.getContent();
-        List<AnswerInfoResponseDto> responses = answerMapper.answerToAnswerResponses(answers);
+        List<AnswerDto.InfoResponse> responses = answerMapper.answersToAnswerInfoResponses(answers);
 
         return new ResponseEntity<>(new MultiResponseDto<>(responses, pageAnswers), HttpStatus.OK);
     }
@@ -79,7 +76,7 @@ public class AnswerController {
     public ResponseEntity<?> getAnswers(@RequestParam int page, @RequestParam int size){
         Page<Answer> pageAnswers = answerService.findAnswers(page,size);
         List<Answer> answers = pageAnswers.getContent();
-        List<AnswerResponseDto> response = answerMapper.answersToAnswerResponses(answers);
+        List<AnswerDto.Response> response = answerMapper.answersToAnswerResponses(answers);
         return new ResponseEntity<>(new MultiResponseDto<>(response, pageAnswers),HttpStatus.OK);
     }
 

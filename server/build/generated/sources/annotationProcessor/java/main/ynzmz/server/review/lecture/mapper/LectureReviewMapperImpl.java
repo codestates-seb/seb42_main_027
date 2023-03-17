@@ -13,7 +13,7 @@ import ynzmz.server.review.lecture.entity.LectureReview;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-16T18:39:12+0900",
+    date = "2023-03-17T11:21:59+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -115,20 +115,6 @@ public class LectureReviewMapperImpl implements LectureReviewMapper {
     }
 
     @Override
-    public List<LectureReviewDto.DetailPageResponse> lectureReviewDetailPageResponsesToLectureReviews(List<LectureReview> lectureReviews) {
-        if ( lectureReviews == null ) {
-            return null;
-        }
-
-        List<LectureReviewDto.DetailPageResponse> list = new ArrayList<LectureReviewDto.DetailPageResponse>( lectureReviews.size() );
-        for ( LectureReview lectureReview : lectureReviews ) {
-            list.add( lectureReviewToLectureReviewDetailPageResponse( lectureReview ) );
-        }
-
-        return list;
-    }
-
-    @Override
     public LectureReviewDto.InfoResponse lectureReviewToLectureReviewInfoResponse(LectureReview lectureReview) {
         if ( lectureReview == null ) {
             return null;
@@ -150,20 +136,6 @@ public class LectureReviewMapperImpl implements LectureReviewMapper {
         infoResponse.setMember( lectureReview.getMember() );
 
         return infoResponse;
-    }
-
-    @Override
-    public List<LectureReviewDto.InfoResponse> lectureReviewInfoResponsesToLectureReviews(List<LectureReview> lectureReviews) {
-        if ( lectureReviews == null ) {
-            return null;
-        }
-
-        List<LectureReviewDto.InfoResponse> list = new ArrayList<LectureReviewDto.InfoResponse>( lectureReviews.size() );
-        for ( LectureReview lectureReview : lectureReviews ) {
-            list.add( lectureReviewToLectureReviewInfoResponse( lectureReview ) );
-        }
-
-        return list;
     }
 
     protected LectureDto.SimpleInfoResponse lectureToSimpleInfoResponse(Lecture lecture) {

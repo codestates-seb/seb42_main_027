@@ -15,6 +15,7 @@ import ynzmz.server.question.answer.entity.Answer;
 import ynzmz.server.question.answer.service.AnswerService;
 import ynzmz.server.question.question.entity.Question;
 import ynzmz.server.question.question.repository.QuestionRepository;
+import ynzmz.server.tag.entity.SubjectTag;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,9 +53,15 @@ public class QuestionService {
         return deleteQuestion.isEmpty();
     }
 
-    public Page<Question> findQuestions(int page, int size) {
-        return questionRepository.findAll(PageRequest.of(page, size, Sort.by("questionId").descending()));
+    public Page<Question> findQuestions(SubjectTag.Subject subject,String title,String sort, int page, int size) {
+        return questionRepository.findAllByGradeAndPlatformAndSubjectAndName(subject,title,PageRequest.of(page, size, Sort.by(sort)));
     }
+
+    public Page<Question> findQuestions(SubjectTag.Subject subject,String title,String sort,String reverse, int page, int size) {
+        return questionRepository.findAllByGradeAndPlatformAndSubjectAndName(subject,title,PageRequest.of(page, size, Sort.by(sort).descending()));
+    }
+
+
     public Page<Question> findQuestionsByMemberId(long memberId, int page, int size) {
         return questionRepository.findByMemberId(memberId, PageRequest.of(page, size, Sort.by("questionId").descending()));
     }
@@ -64,6 +71,7 @@ public class QuestionService {
         return optionalQuestion.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
     }
 
+    @Transactional
     public void setViewCount(Question question) {
         question.setViewCount(question.getViewCount() + 1);
         questionRepository.save(question);
@@ -100,13 +108,4 @@ public class QuestionService {
         log.warn("게시글 쓴사람이 아닌데 채택요청함");
         throw new BusinessLogicException(ExceptionCode.NOT_IMPLEMENTATION);
     }
-
-    // 검색해서 찾기 기능
-    public Page<Question> searchQuestion(String filterValue, int page, int size){
-        return questionRepository.findAll(PageRequest.of(page, size, Sort.by(filterValue).descending()));
-    }
-    public Page<Question> searchQuestion(String title,String filterValue, int page, int size){
-        return questionRepository.findByTitleContainingIgnoreCase(title, PageRequest.of(page, size, Sort.by(filterValue).descending()));
-    }
-
 }

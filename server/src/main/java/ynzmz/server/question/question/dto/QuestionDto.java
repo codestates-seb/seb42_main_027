@@ -3,7 +3,7 @@ package ynzmz.server.question.question.dto;
 import lombok.*;
 import ynzmz.server.member.dto.LoginMemberVoteInfo;
 import ynzmz.server.member.entity.Member;
-import ynzmz.server.question.answer.dto.AnswerInfoResponseDto;
+import ynzmz.server.question.answer.dto.AnswerDto;
 import ynzmz.server.tag.dto.SubjectTagDto;
 
 import java.util.List;
@@ -77,7 +77,7 @@ public class QuestionDto {
         private long voteCount;
         private long answerCount;
         private List<SubjectTagDto.Response> subjectTags;
-        private List<AnswerInfoResponseDto> answers;
+        private List<AnswerDto.InfoResponse> answers;
         private LoginMemberVoteInfo loginUserInfo;
     }
 }
