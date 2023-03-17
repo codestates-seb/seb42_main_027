@@ -32,8 +32,8 @@ public class AnswerService {
 
     public Answer updateAnswer(Answer answer){
         Answer findAnswer = findAnswerById(answer.getAnswerId());
-        Optional.ofNullable(answer.getContent())
-                .ifPresent(findAnswer::setContent);
+        Optional.ofNullable(answer.getContent()).ifPresent(findAnswer::setContent);
+        Optional.ofNullable(answer.getModifiedAt()).ifPresent(findAnswer::setModifiedAt);
         return answerRepository.save(findAnswer);
     }
     public boolean deleteAnswer(long answerId, Member member) {

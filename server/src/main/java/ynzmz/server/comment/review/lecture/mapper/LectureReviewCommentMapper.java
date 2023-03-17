@@ -8,7 +8,7 @@ import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface LectureReviewPostCommentMapper {
+public interface LectureReviewCommentMapper {
     LectureReviewComment lectureReviewCommentPostToLectureReviewComment(LectureReviewCommentDto.Post lectureReviewPostCommentPostDto);
     LectureReviewComment lectureReviewCommentPatchToLectureReviewComment(LectureReviewCommentDto.Patch lectureReviewPostCommentPatchDto);
     LectureReviewCommentDto.Response lectureReviewCommentToLectureReviewCommentResponse(LectureReviewComment lectureReviewComment);

@@ -4,52 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="refactor: 병합 및 패키지구조변경">
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/dto/LoginUserAnswerVoteResponseDto.java" afterDir="false" />
+    <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="feat: 질문글,게시글 추천기능 추가">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/asciidoc/review-board-vote.html" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/asciidoc/review-board-vote.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/entity/Free.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/entity/Free.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/controller/AnswerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/controller/AnswerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/dto/AnswerDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/dto/AnswerDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/entity/Answer.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/entity/Answer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/service/AnswerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/service/AnswerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/question/controller/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/question/controller/QuestionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/question/entity/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/question/entity/Question.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/question/service/QuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/question/service/QuestionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/review/lecture/entity/LectureReview.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/review/lecture/entity/LectureReview.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/entity/FreeComment.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/entity/FreeComment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/review/lecture/entity/LectureReviewComment.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/review/lecture/entity/LectureReviewComment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/dto/MemberDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/entity/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/entity/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/service/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/VoteCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/Vote.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/answer/controller/AnswerVoteController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/answer/dto/AnswerVoteResponseDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/answer/dto/LoginUserAnswerVoteResponseDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/answer/entity/AnswerVote.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/answer/mapper/AnswerVoteMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/answer/repository/AnswerVoteRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/answer/service/AnswerVoteService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/question/controller/QuestionVoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/controller/QnaVoteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/question/dto/QuestionVoteResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/dto/QnaVoteDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/question/entity/QuestionVote.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/entity/QnaVote.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/question/mapper/QuestionVoteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/mapper/QnaVoteMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/question/repository/QuestionVoteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/repository/QnaVoteRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/question/service/QuestionVoteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/service/QnaVoteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/controller/LectureReviewVoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/controller/ReviewVoteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/dto/LectureReviewVoteDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/dto/ReviewVoteDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/entity/LectureReviewVote.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/entity/ReviewVote.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/mapper/LectureReviewVoteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/mapper/ReviewVoteMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/repository/LectureReviewVoteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/repository/ReviewVoteRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/service/LectureReviewVoteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/service/ReviewVoteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/java/ynzmz/server/helper/StubData.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/ynzmz/server/helper/StubData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/java/ynzmz/server/vote/review/lecture/controller/LectureReviewVoteControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/ynzmz/server/vote/review/lecture/controller/ReviewVoteControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -289,7 +245,21 @@
       <option name="project" value="LOCAL" />
       <updated>1679039265457</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="feat: 질문글,게시글 추천기능 추가">
+      <created>1679046905055</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1679046905055</updated>
+    </task>
+    <task id="LOCAL-00013" summary="feat: 질문글,게시글 추천기능 추가">
+      <created>1679046913990</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1679046913990</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,6 +311,7 @@
     <MESSAGE value="fix: 강의등록시 Teacher 연결 안되는거 수정" />
     <MESSAGE value="fix: 병합준비" />
     <MESSAGE value="refactor: 병합 및 패키지구조변경" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: 병합 및 패키지구조변경" />
+    <MESSAGE value="feat: 질문글,게시글 추천기능 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 질문글,게시글 추천기능 추가" />
   </component>
 </project>

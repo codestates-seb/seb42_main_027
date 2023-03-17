@@ -77,7 +77,20 @@ public class QuestionDto {
         private long voteCount;
         private long answerCount;
         private List<SubjectTagDto.Response> subjectTags;
-        private List<AnswerDto.InfoResponse> answers;
+        private List<AnswerDto.SimpleInfoResponse> answers;
         private MemberDto.VoteInfo loginUserInfo;
+    }
+
+    @Getter
+    @Setter
+    public static class SimpleInfoResponse {
+        private Long questionId;
+        private String title;
+        private MemberDto.SimpleInfoResponse member;
+        private String createdAt;
+        private String modifiedAt;
+        private long viewCount;
+        private long voteCount;
+        private List<SubjectTagDto.Response> subjectTags;
     }
 }

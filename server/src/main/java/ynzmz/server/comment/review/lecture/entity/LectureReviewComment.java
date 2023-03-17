@@ -20,7 +20,7 @@ public class LectureReviewComment implements Vote {
     private String modifiedAt;
     private long voteCount;
     @ManyToOne
-    @JoinColumn(name = "lecture_review_post_id")
+    @JoinColumn(name = "lecture_review_id")
     @JsonBackReference
     private LectureReview lectureReview;
     @ManyToOne

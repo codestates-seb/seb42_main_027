@@ -145,30 +145,30 @@ public class QuestionMapperImpl implements QuestionMapper {
         return list1;
     }
 
-    protected AnswerDto.InfoResponse answerToInfoResponse(Answer answer) {
+    protected AnswerDto.SimpleInfoResponse answerToInfoResponse(Answer answer) {
         if ( answer == null ) {
             return null;
         }
 
-        AnswerDto.InfoResponse infoResponse = new AnswerDto.InfoResponse();
+        AnswerDto.SimpleInfoResponse simpleInfoResponse = new AnswerDto.SimpleInfoResponse();
 
-        infoResponse.setAnswerId( answer.getAnswerId() );
-        infoResponse.setMember( answer.getMember() );
-        infoResponse.setContent( answer.getContent() );
-        infoResponse.setVoteCount( (int) answer.getVoteCount() );
-        infoResponse.setCreatedAt( answer.getCreatedAt() );
-        infoResponse.setModifiedAt( answer.getModifiedAt() );
-        infoResponse.setAdoptStatus( answer.getAdoptStatus() );
+        simpleInfoResponse.setAnswerId( answer.getAnswerId() );
+        simpleInfoResponse.setMember( answer.getMember() );
+        simpleInfoResponse.setContent( answer.getContent() );
+        simpleInfoResponse.setVoteCount( (int) answer.getVoteCount() );
+        simpleInfoResponse.setCreatedAt( answer.getCreatedAt() );
+        simpleInfoResponse.setModifiedAt( answer.getModifiedAt() );
+        simpleInfoResponse.setAdoptStatus( answer.getAdoptStatus() );
 
-        return infoResponse;
+        return simpleInfoResponse;
     }
 
-    protected List<AnswerDto.InfoResponse> answerListToInfoResponseList(List<Answer> list) {
+    protected List<AnswerDto.SimpleInfoResponse> answerListToInfoResponseList(List<Answer> list) {
         if ( list == null ) {
             return null;
         }
 
-        List<AnswerDto.InfoResponse> list1 = new ArrayList<AnswerDto.InfoResponse>( list.size() );
+        List<AnswerDto.SimpleInfoResponse> list1 = new ArrayList<AnswerDto.SimpleInfoResponse>( list.size() );
         for ( Answer answer : list ) {
             list1.add( answerToInfoResponse( answer ) );
         }

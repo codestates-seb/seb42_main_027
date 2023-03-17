@@ -79,7 +79,8 @@ public class QuestionService {
 
     public void adoptAnswer(long questionId, Answer answer, Member member) {
 
-        Question question = checkTheAuthorOfTheQuestion(member, questionId);         //질문글 등록한사람 본인이 답변채택 할수있어야함.
+        //질문글 등록한사람 본인이 답변채택 할수있어야함.
+        Question question = checkTheAuthorOfTheQuestion(member, questionId);
         if (question.getAdoptAnswerId() == 0L) { //만약 채택되있는게 없으면 신청한걸로 채택
             question.setAdoptAnswerId(answer.getAnswerId());
             answer.setAdoptStatus(Answer.AdoptStatus.TRUE);

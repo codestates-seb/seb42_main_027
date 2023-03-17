@@ -49,22 +49,22 @@ public class AnswerMapperImpl implements AnswerMapper {
     }
 
     @Override
-    public AnswerDto.InfoResponse answerToAnswerInfoResponse(Answer answer) {
+    public AnswerDto.SimpleInfoResponse answerToAnswerInfoResponse(Answer answer) {
         if ( answer == null ) {
             return null;
         }
 
-        AnswerDto.InfoResponse infoResponse = new AnswerDto.InfoResponse();
+        AnswerDto.SimpleInfoResponse simpleInfoResponse = new AnswerDto.SimpleInfoResponse();
 
-        infoResponse.setAnswerId( answer.getAnswerId() );
-        infoResponse.setMember( answer.getMember() );
-        infoResponse.setContent( answer.getContent() );
-        infoResponse.setVoteCount( (int) answer.getVoteCount() );
-        infoResponse.setCreatedAt( answer.getCreatedAt() );
-        infoResponse.setModifiedAt( answer.getModifiedAt() );
-        infoResponse.setAdoptStatus( answer.getAdoptStatus() );
+        simpleInfoResponse.setAnswerId( answer.getAnswerId() );
+        simpleInfoResponse.setMember( answer.getMember() );
+        simpleInfoResponse.setContent( answer.getContent() );
+        simpleInfoResponse.setVoteCount( (int) answer.getVoteCount() );
+        simpleInfoResponse.setCreatedAt( answer.getCreatedAt() );
+        simpleInfoResponse.setModifiedAt( answer.getModifiedAt() );
+        simpleInfoResponse.setAdoptStatus( answer.getAdoptStatus() );
 
-        return infoResponse;
+        return simpleInfoResponse;
     }
 
     @Override
@@ -82,12 +82,12 @@ public class AnswerMapperImpl implements AnswerMapper {
     }
 
     @Override
-    public List<AnswerDto.InfoResponse> answersToAnswerInfoResponses(List<Answer> answers) {
+    public List<AnswerDto.SimpleInfoResponse> answersToAnswerInfoResponses(List<Answer> answers) {
         if ( answers == null ) {
             return null;
         }
 
-        List<AnswerDto.InfoResponse> list = new ArrayList<AnswerDto.InfoResponse>( answers.size() );
+        List<AnswerDto.SimpleInfoResponse> list = new ArrayList<AnswerDto.SimpleInfoResponse>( answers.size() );
         for ( Answer answer : answers ) {
             list.add( answerToAnswerInfoResponse( answer ) );
         }

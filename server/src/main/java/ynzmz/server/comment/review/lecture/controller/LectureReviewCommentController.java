@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.comment.review.lecture.dto.LectureReviewCommentDto;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
-import ynzmz.server.comment.review.lecture.mapper.LectureReviewPostCommentMapper;
+import ynzmz.server.comment.review.lecture.mapper.LectureReviewCommentMapper;
 import ynzmz.server.comment.review.lecture.service.LectureReviewCommentService;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
@@ -22,27 +22,27 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LectureReviewCommentController {
     private final MemberService memberService;
-    private final LectureReviewPostCommentMapper lectureReviewPostCommentMapper;
+    private final LectureReviewCommentMapper lectureReviewCommentMapper;
     private final LectureReviewCommentService lectureReviewCommentService;
     @PostMapping
     public ResponseEntity<?> createLectureReviewComment(@RequestBody LectureReviewCommentDto.Post postDto) {
-        LectureReviewComment lectureReviewComment = lectureReviewPostCommentMapper.lectureReviewCommentPostToLectureReviewComment(postDto);
+        LectureReviewComment lectureReviewComment = lectureReviewCommentMapper.lectureReviewCommentPostToLectureReviewComment(postDto);
         Member member = memberService.findMemberById(postDto.getMemberId());
         lectureReviewComment.setMember(member);
 
         LectureReviewComment createLectureReviewComment = lectureReviewCommentService.createLectureReviewComment(lectureReviewComment);
-        LectureReviewCommentDto.Response response = lectureReviewPostCommentMapper.lectureReviewCommentToLectureReviewCommentResponse(createLectureReviewComment);
+        LectureReviewCommentDto.Response response = lectureReviewCommentMapper.lectureReviewCommentToLectureReviewCommentResponse(createLectureReviewComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{lecture-review-comment-id}")
     public ResponseEntity<?> updateLectureReviewComment(@RequestBody LectureReviewCommentDto.Patch patchDto,
                                                         @PathVariable("lecture-review-comment-id") long lectureReviewPostCommentId) {
-        LectureReviewComment lectureReviewComment = lectureReviewPostCommentMapper.lectureReviewCommentPatchToLectureReviewComment(patchDto);
+        LectureReviewComment lectureReviewComment = lectureReviewCommentMapper.lectureReviewCommentPatchToLectureReviewComment(patchDto);
         lectureReviewComment.setLectureReviewCommentId(lectureReviewPostCommentId);
 
         LectureReviewComment updateLectureReviewComment = lectureReviewCommentService.updateLectureReviewComment(lectureReviewComment);
-        LectureReviewCommentDto.Response response = lectureReviewPostCommentMapper.lectureReviewCommentToLectureReviewCommentResponse(updateLectureReviewComment);
+        LectureReviewCommentDto.Response response = lectureReviewCommentMapper.lectureReviewCommentToLectureReviewCommentResponse(updateLectureReviewComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
@@ -57,7 +57,7 @@ public class LectureReviewCommentController {
         Page<LectureReviewComment> pageLectureReviewPostComments = lectureReviewCommentService.getLectureReviewComments(lectureReviewId, filter, page - 1, size);
         List<LectureReviewComment> lectureReviewComments = pageLectureReviewPostComments.getContent();
 
-        List<LectureReviewCommentDto.Response> responses = lectureReviewPostCommentMapper.lectureReviewCommentsToLectureReviewCommentResponses(lectureReviewComments);
+        List<LectureReviewCommentDto.Response> responses = lectureReviewCommentMapper.lectureReviewCommentsToLectureReviewCommentResponses(lectureReviewComments);
 
         return new ResponseEntity<>(new MultiResponseDto<>(responses, pageLectureReviewPostComments), HttpStatus.OK);
     }

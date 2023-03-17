@@ -39,7 +39,7 @@ public class AnswerController {
         postDtoToAnswer.setQuestion(questionService.findQuestionById(answerPost.getQuestionId()));
 
         Answer createAnswer = answerService.createAnswer(postDtoToAnswer);
-        AnswerDto.InfoResponse response = answerMapper.answerToAnswerInfoResponse(createAnswer);
+        AnswerDto.SimpleInfoResponse response = answerMapper.answerToAnswerInfoResponse(createAnswer);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
@@ -52,7 +52,7 @@ public class AnswerController {
         answer.setAnswerId(answerId);
 
         Answer updateAnswer = answerService.updateAnswer(answer);
-        AnswerDto.InfoResponse response = answerMapper.answerToAnswerInfoResponse(updateAnswer);
+        AnswerDto.SimpleInfoResponse response = answerMapper.answerToAnswerInfoResponse(updateAnswer);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -60,7 +60,7 @@ public class AnswerController {
     @GetMapping("/{answer-id}")
     public ResponseEntity<?> getAnswer(@PathVariable("answer-id")long answerId) {
         Answer answer = answerService.findAnswerById(answerId);
-        AnswerDto.InfoResponse response = answerMapper.answerToAnswerInfoResponse(answer);
+        AnswerDto.SimpleInfoResponse response = answerMapper.answerToAnswerInfoResponse(answer);
         return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
 
@@ -71,7 +71,7 @@ public class AnswerController {
         //페이지네이션 으로 질문글전체조회와 리스폰값 명세 통일(요청사항)
         Page<Answer> pageAnswers = answerService.findAnswersByMemberId(memberId, page, size);
         List<Answer> answers = pageAnswers.getContent();
-        List<AnswerDto.InfoResponse> responses = answerMapper.answersToAnswerInfoResponses(answers);
+        List<AnswerDto.SimpleInfoResponse> responses = answerMapper.answersToAnswerInfoResponses(answers);
 
         return new ResponseEntity<>(new MultiResponseDto<>(responses, pageAnswers), HttpStatus.OK);
     }

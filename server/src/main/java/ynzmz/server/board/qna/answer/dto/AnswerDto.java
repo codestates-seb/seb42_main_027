@@ -3,7 +3,6 @@ package ynzmz.server.board.qna.answer.dto;
 import lombok.*;
 import ynzmz.server.board.qna.question.dto.QuestionDto;
 import ynzmz.server.member.dto.MemberDto;
-import ynzmz.server.member.entity.Member;
 import ynzmz.server.board.qna.answer.entity.Answer;
 
 public class AnswerDto {
@@ -11,9 +10,9 @@ public class AnswerDto {
     @AllArgsConstructor
     @Builder
     public static class Post {
-        private long questionId;
         private String content;
         private String createdAt;
+        private long questionId;
     }
 
     @Getter
@@ -21,15 +20,16 @@ public class AnswerDto {
     @AllArgsConstructor
     public static class Patch {
         private String content;
+        private String modifiedAt;
 
     }
     @Getter @Setter
-    public static class InfoResponse {
-        private Long answerId;
-        private QuestionDto.InfoResponse questionId;
-        private Member member; // 질문자 회원정보
+    public static class SimpleInfoResponse {
+        private long answerId;
+        private QuestionDto.SimpleInfoResponse questionId;
+        private MemberDto.SimpleInfoResponse member; // 질문자 회원정보
         private String content;
-        private int voteCount;
+        private long voteCount;
         private String createdAt;
         private String modifiedAt;
         private Answer.AdoptStatus adoptStatus;
@@ -38,7 +38,7 @@ public class AnswerDto {
     public static class Response {
         private Long answerId;
         private String content;
-        private int voteCount;
+        private long voteCount;
         private String createdAt;
         private String modifiedAt;
         private Answer.AdoptStatus adoptStatus;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.tag.mappingtable.question.QuestionSubjectTag;
@@ -37,6 +38,10 @@ public class Question implements Vote {
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<Answer> answers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<QnaComment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     @JsonManagedReference

@@ -15,7 +15,7 @@ import ynzmz.server.member.entity.Member;
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
-public class LectureReviewPostCommentMapperImpl implements LectureReviewPostCommentMapper {
+public class LectureReviewCommentMapperImpl implements LectureReviewCommentMapper {
 
     @Override
     public LectureReviewComment lectureReviewCommentPostToLectureReviewComment(LectureReviewCommentDto.Post lectureReviewPostCommentPostDto) {

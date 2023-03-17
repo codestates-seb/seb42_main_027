@@ -158,14 +158,15 @@ public class QuestionController {
      * @return ResponseEntity
      */
     @PostMapping("{question-id}/adopt-answer/{answer-id}")
-    public ResponseEntity<?> adoptAnswerToQuestion(@PathVariable("question-id") long questionId, @PathVariable("answer-id") long answerId) {
+    public ResponseEntity<?> adoptAnswerToQuestion(@PathVariable("question-id") long questionId,
+                                                   @PathVariable("answer-id") long answerId) {
 
         //답변 채택시 update 된 답변의 정보만 response 요청
         Member member = loginMemberFindByToken();
         Answer answer = answerService.findAnswerById(answerId);
         questionService.adoptAnswer(questionId, answer, member);
         Answer adoptedAnswer = answerService.findAnswerById(answerId);
-        AnswerDto.InfoResponse response = answerMapper.answerToAnswerInfoResponse(adoptedAnswer);
+        AnswerDto.SimpleInfoResponse response = answerMapper.answerToAnswerInfoResponse(adoptedAnswer);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
