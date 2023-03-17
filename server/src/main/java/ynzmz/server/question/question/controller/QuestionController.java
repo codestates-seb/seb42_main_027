@@ -14,7 +14,7 @@ import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.member.dto.LoginMemberVoteInfo;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
-import ynzmz.server.question.answer.dto.AnswerInfoResponseDto;
+import ynzmz.server.question.answer.dto.AnswerDto;
 import ynzmz.server.question.answer.entity.Answer;
 import ynzmz.server.question.answer.mapper.AnswerMapper;
 import ynzmz.server.question.answer.service.AnswerService;
@@ -48,7 +48,7 @@ public class QuestionController {
         requestQuestion.setMember(loginMemberFindByToken());
 
         Question createdQuestion = questionService.createQuestion(requestQuestion);
-
+        //postDto 에서 태그 저장
         List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(questionPost.getSubjectTag());
         tagService.createQuestionTag(createdQuestion, subjectTags);
 
@@ -59,16 +59,15 @@ public class QuestionController {
 
     @PatchMapping("/{question-id}")
     public ResponseEntity<?> patchQuestion(@PathVariable("question-id") long questionId, @Valid @RequestBody QuestionDto.Patch questionPatch){
-        // 본인조건확인
-        memberService.memberValidation(loginMemberFindByToken(), questionService.findQuestion(questionId).getMember().getMemberId()); // 작성자 & 로그인된 회원 검증
+        //토큰에서 memberId 확인 & 본인이 쓴 게시물인지 확인
+        memberService.memberValidation(loginMemberFindByToken(), questionService.findQuestion(questionId).getMember().getMemberId());
 
         Question question = questionMapper.questionPatcToQuestion(questionPatch);
         question.setQuestionId(questionId);
-
         Question updateQuestion = questionService.updateQuestion(question);
-
+        //기존 태그 삭제
         tagService.deleteAllQuestionTagByQuestion(updateQuestion);
-
+        //postDto 에서 태그 저장
         List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(questionPatch.getSubjectTag());
         tagService.createQuestionTag(updateQuestion, subjectTags);
 
@@ -77,46 +76,56 @@ public class QuestionController {
         return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
 
+    //질문글 검색 리스트페이지 = 과목태그별 + 정렬 + 정순 역순
+    @GetMapping
+    public ResponseEntity<?> getQuestions(@RequestParam(required = false) String subject,
+                                          @RequestParam(required = false) String title,
+                                          @RequestParam(required = false) String sort,
+                                          @RequestParam(required = false) String reverse,
+                                          @RequestParam int page,
+                                          @RequestParam int size){
+        sort = (sort == null || sort.equals("최신순"))
+                ? "questionId" : sort.equals("조회순") ? "viewCount" : sort.equals("추천순") ? "voteCount" : "questionId";
 
+        SubjectTag.Subject subjectTag = (subject != null) ? tagService.findSubjectTag(subject) : null;
+
+        Page<Question> questionPage = (reverse != null)
+                ? questionService.findQuestions(subjectTag, title, sort, reverse, page, size)
+                : questionService.findQuestions(subjectTag, title, sort, page, size);
+
+
+        List<Question> questions = questionPage.getContent();
+        List<QuestionDto.ListPageResponse> responses = questionMapper.questionToQuestionListPageResponses(questions);
+
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,questionPage), HttpStatus.OK);
+    }
+
+    //질문글 상세페이지
     @GetMapping("/{question-id}")
     public ResponseEntity<?> getQuestion(@PathVariable("question-id") long questionId) {
         try {
+            //로그인된 회원일경우 (해당 글 & 댓글 추천여부 같이반환)
             Member loginMember = loginMemberFindByToken();
-
             Question question = questionService.findQuestion(questionId);
-
-
             questionService.setViewCount(question); //조회수기능  1번당 1씩 올라가게 (임시)
+
             LoginMemberVoteInfo loginMemberVoteInfo = memberService.setMemberVoteStatus(loginMember, question);
             QuestionDto.DetailPageResponse response = questionMapper.questionToQuestionDetailPageResponse(question);
             response.setLoginUserInfo(loginMemberVoteInfo);
 
-
             return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
         } catch (BusinessLogicException e) {
+            //로그인 안된 회원일 경우 (해당 글 & 댓글 추천상태값 없음)
             Question question = questionService.findQuestion(questionId);
+            questionService.setViewCount(question); //조회수기능  1번당 1씩 올라가게 (임시)
 
             QuestionDto.DetailPageResponse response = questionMapper.questionToQuestionDetailPageResponse(question);
-            Member loginMember2 = new Member();
-            loginMember2.setMemberId(null);
-            loginMember2.setQuestions(null);
-            loginMember2.setEmail(null);
-            LoginMemberVoteInfo loginMemberVoteInfo = memberService.setMemberVoteStatus(loginMember2, question);
-            response.setLoginUserInfo(loginMemberVoteInfo);
+            response.setLoginUserInfo(null);
 
             return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
         }
     }
 
-    //질문글 검색 리스트페이지
-    @GetMapping
-    public ResponseEntity<?> getQuestions(@RequestParam int page,@RequestParam int size){
-        Page<Question> pageQuestions = questionService.findQuestions(page,size);
-        List<Question> questions = pageQuestions.getContent();
-        List<QuestionDto.ListPageResponse> responses = questionMapper.questionToQuestionListPageResponses(questions);
-
-        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageQuestions), HttpStatus.OK);
-    }
 
     //내가쓴글 조회
     @GetMapping("/{member-id}/question")
@@ -156,44 +165,14 @@ public class QuestionController {
         Answer answer = answerService.findAnswer(answerId);
         questionService.adoptAnswer(questionId, answer, member);
         Answer adoptedAnswer = answerService.findAnswer(answerId);
-        AnswerInfoResponseDto response = answerMapper.answerToAnswerInfoResponse(adoptedAnswer);
+        AnswerDto.InfoResponse response = answerMapper.answerToAnswerInfoResponse(adoptedAnswer);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
-
     //로그인된 사용자 확인
     private Member loginMemberFindByToken(){
         String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
         return memberService.findMemberByEmail(loginEmail);
     }
-
-    //게시글 전체조회 검색&필터기능
-    @GetMapping("/search")
-    public ResponseEntity<?> searchQuestion(@RequestParam(value = "title" , required = false) String title,
-                                            @RequestParam(value = "filter", required = false) String filter,
-                                            @RequestParam int page, @RequestParam int size) {
-
-        // createdAt , viewCount , voteCount
-        if(filter == null) filter = "questionId";
-        //필터기능을 메서드로 만들고 -> 검색내용이 있으면 필터기능에 검색값 넣고 리턴 , 검색값 없으면 전체 리턴
-
-        if(title == null) {
-            //여기가 검색안했을때
-            Page<Question> pageQuestions = questionService.searchQuestion(filter, page, size);
-            List<Question> questions = pageQuestions.getContent();
-            List<QuestionDto.ListPageResponse> responses = questionMapper.questionToQuestionListPageResponses(questions);
-
-            return new ResponseEntity<>(new MultiResponseDto<>(responses, pageQuestions), HttpStatus.OK);
-        }else {
-            //여기가 제목 검색값 있을때
-            Page<Question> pageQuestions = questionService.searchQuestion(title, filter, page, size);
-            List<Question> questions = pageQuestions.getContent();
-            List<QuestionDto.ListPageResponse> responses = questionMapper.questionToQuestionListPageResponses(questions);
-
-            return new ResponseEntity<>(new MultiResponseDto<>(responses, pageQuestions), HttpStatus.OK);
-        }
-
-    }
-
 }
 

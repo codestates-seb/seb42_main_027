@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.025s</div>
+<div class="counter">0.028s</div>
 <p>duration</p>
 </div>
 </td>
@@ -81,13 +81,13 @@
 <tr>
 <td class="success">리뷰 댓글 추천 DOWN 테스트</td>
 <td class="success">lectureReviewCommentVoteDownPost()</td>
-<td class="success">0.006s</td>
+<td class="success">0.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">리뷰 댓글 추천 UP 테스트</td>
 <td class="success">lectureReviewCommentVoteUpPost()</td>
-<td class="success">0.008s</td>
+<td class="success">0.009s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -99,7 +99,7 @@
 <tr>
 <td class="success">강의 리뷰글 추천 UP 테스트</td>
 <td class="success">lectureReviewVoteUpPost()</td>
-<td class="success">0.005s</td>
+<td class="success">0.006s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -107,12 +107,12 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2023-03-17 11:54:08.440  INFO 10172 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [ynzmz.server.vote.review.lecture.controller.LectureReviewVoteControllerTest], using SpringBootContextLoader
-2023-03-17 11:54:08.440  INFO 10172 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [ynzmz.server.vote.review.lecture.controller.LectureReviewVoteControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2023-03-17 11:54:08.440  INFO 10172 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [ynzmz.server.vote.review.lecture.controller.LectureReviewVoteControllerTest]: LectureReviewVoteControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2023-03-17 11:54:08.443  INFO 10172 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ynzmz.server.ServerApplication for test class ynzmz.server.vote.review.lecture.controller.LectureReviewVoteControllerTest
-2023-03-17 11:54:08.444  INFO 10172 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-2023-03-17 11:54:08.444  INFO 10172 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@61736817, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@194ef183, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@71f01211, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@5fd81b2c, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@2591f310, org.springframework.test.context.support.DirtiesContextTestExecutionListener@4bbddcc8, org.springframework.test.context.transaction.TransactionalTestExecutionListener@3aac3f34, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@25325236, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@f912cf3, org.springframework.test.context.event.EventPublishingTestExecutionListener@2aeffa55, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@716125a3, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@46756a5b, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@408530d2, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@156d47c5, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@6d5934f6, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@13acb4, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@69f90fc4]
+<pre>2023-03-17 11:22:44.812  INFO 8158 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [ynzmz.server.vote.review.lecture.controller.LectureReviewVoteControllerTest], using SpringBootContextLoader
+2023-03-17 11:22:44.813  INFO 8158 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [ynzmz.server.vote.review.lecture.controller.LectureReviewVoteControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-03-17 11:22:44.813  INFO 8158 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [ynzmz.server.vote.review.lecture.controller.LectureReviewVoteControllerTest]: LectureReviewVoteControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-03-17 11:22:44.816  INFO 8158 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ynzmz.server.ServerApplication for test class ynzmz.server.vote.review.lecture.controller.LectureReviewVoteControllerTest
+2023-03-17 11:22:44.816  INFO 8158 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-03-17 11:22:44.816  INFO 8158 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7aaf260f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@739e76e6, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@789a9354, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@27153ba2, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@2489ee11, org.springframework.test.context.support.DirtiesContextTestExecutionListener@24209520, org.springframework.test.context.transaction.TransactionalTestExecutionListener@80ca2c3, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6ca404b, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@6dd8dfe5, org.springframework.test.context.event.EventPublishingTestExecutionListener@4d71deeb, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@2006673c, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@749aa36f, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@5f966dee, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@1c537671, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@fffdd40, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@2e5f860b, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@42ca6733]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -122,19 +122,19 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.7.9)
 
-2023-03-17 11:54:08.453  INFO 10172 --- [    Test worker] .v.r.l.c.LectureReviewVoteControllerTest : Starting LectureReviewVoteControllerTest using Java 11.0.17 on gimminhoui-MacBookPro.local with PID 10172 (started by mino in /Users/mino/codestates/seb42_main_027/server)
-2023-03-17 11:54:08.453  INFO 10172 --- [    Test worker] .v.r.l.c.LectureReviewVoteControllerTest : The following 1 profile is active: &quot;server&quot;
-2023-03-17 11:54:08.619  WARN 10172 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+2023-03-17 11:22:44.825  INFO 8158 --- [    Test worker] .v.r.l.c.LectureReviewVoteControllerTest : Starting LectureReviewVoteControllerTest using Java 11.0.17 on gimminhoui-MacBookPro.local with PID 8158 (started by mino in /Users/mino/codestates/seb42_main_027/server)
+2023-03-17 11:22:44.825  INFO 8158 --- [    Test worker] .v.r.l.c.LectureReviewVoteControllerTest : The following 1 profile is active: &quot;server&quot;
+2023-03-17 11:22:44.997  WARN 8158 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: 674f09de-062b-4430-aa90-a18b9860031d
+Using generated security password: 50918c02-443e-444f-955e-07b6a9ad8a3b
 
 This generated password is for development use only. Your security configuration must be updated before running your application in production.
 
-2023-03-17 11:54:08.634  INFO 10172 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7f05d2bf, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@196e494d, org.springframework.security.web.context.SecurityContextPersistenceFilter@69f564ab, org.springframework.security.web.header.HeaderWriterFilter@16e17e6b, org.springframework.security.web.authentication.logout.LogoutFilter@7d726fa1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@550afff7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4805d11b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2213c8fe, org.springframework.security.web.session.SessionManagementFilter@46a6368f, org.springframework.security.web.access.ExceptionTranslationFilter@4f2e6db7]
-2023-03-17 11:54:08.648  INFO 10172 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2023-03-17 11:54:08.648  INFO 10172 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2023-03-17 11:54:08.649  INFO 10172 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2023-03-17 11:54:08.652  INFO 10172 --- [    Test worker] .v.r.l.c.LectureReviewVoteControllerTest : Started LectureReviewVoteControllerTest in 0.207 seconds (JVM running for 7.211)
+2023-03-17 11:22:45.013  INFO 8158 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@a538a7f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@24d90d03, org.springframework.security.web.context.SecurityContextPersistenceFilter@325e1229, org.springframework.security.web.header.HeaderWriterFilter@431a9a71, org.springframework.security.web.authentication.logout.LogoutFilter@4584940b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@396eceda, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2e300294, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6b13d558, org.springframework.security.web.session.SessionManagementFilter@3e62fe4d, org.springframework.security.web.access.ExceptionTranslationFilter@26f5a9d9]
+2023-03-17 11:22:45.028  INFO 8158 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-03-17 11:22:45.028  INFO 8158 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-03-17 11:22:45.029  INFO 8158 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2023-03-17 11:22:45.033  INFO 8158 --- [    Test worker] .v.r.l.c.LectureReviewVoteControllerTest : Started LectureReviewVoteControllerTest in 0.216 seconds (JVM running for 7.46)
 </pre>
 </span>
 </div>
@@ -146,7 +146,7 @@ This generated password is for development use only. Your security configuration
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.6.1</a> at 2023. 3. 17. 오전 11:54:08</p>
+<a href="http://www.gradle.org">Gradle 7.6.1</a> at 2023. 3. 17. 오전 11:22:45</p>
 </div>
 </div>
 </body>

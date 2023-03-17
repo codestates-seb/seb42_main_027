@@ -23,9 +23,7 @@ public class Answer {
     @Column
     @ColumnDefault("0")
     private long voteCount;
-    @CreatedDate
     private String createdAt;
-    @LastModifiedDate
     private String modifiedAt;
     @Enumerated(EnumType.STRING)
     private AdoptStatus adoptStatus = AdoptStatus.FALSE;

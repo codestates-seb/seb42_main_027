@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
-import ynzmz.server.question.answer.dto.AnswerInfoResponseDto;
-import ynzmz.server.question.answer.dto.AnswerPatchDto;
-import ynzmz.server.question.answer.dto.AnswerPostDto;
-import ynzmz.server.question.answer.dto.AnswerResponseDto;
+import ynzmz.server.question.answer.dto.AnswerDto;
 import ynzmz.server.question.answer.entity.Answer;
 import ynzmz.server.question.question.dto.QuestionDto;
 import ynzmz.server.question.question.entity.Question;
@@ -16,14 +13,14 @@ import ynzmz.server.tag.mappingtable.question.QuestionSubjectTag;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-17T11:53:59+0900",
+    date = "2023-03-17T11:21:59+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
 public class AnswerMapperImpl implements AnswerMapper {
 
     @Override
-    public Answer answerPostDtoToAnswer(AnswerPostDto answerPostDto) {
+    public Answer answerPostDtoToAnswer(AnswerDto.Post answerPostDto) {
         if ( answerPostDto == null ) {
             return null;
         }
@@ -31,12 +28,13 @@ public class AnswerMapperImpl implements AnswerMapper {
         Answer answer = new Answer();
 
         answer.setContent( answerPostDto.getContent() );
+        answer.setCreatedAt( answerPostDto.getCreatedAt() );
 
         return answer;
     }
 
     @Override
-    public Answer answerPatchDtoToAnswer(AnswerPatchDto answerPatchDto) {
+    public Answer answerPatchDtoToAnswer(AnswerDto.Patch answerPatchDto) {
         if ( answerPatchDto == null ) {
             return null;
         }
@@ -50,45 +48,45 @@ public class AnswerMapperImpl implements AnswerMapper {
     }
 
     @Override
-    public AnswerInfoResponseDto answerToAnswerInfoResponse(Answer answer) {
+    public AnswerDto.InfoResponse answerToAnswerInfoResponse(Answer answer) {
         if ( answer == null ) {
             return null;
         }
 
-        AnswerInfoResponseDto.AnswerInfoResponseDtoBuilder answerInfoResponseDto = AnswerInfoResponseDto.builder();
+        AnswerDto.InfoResponse infoResponse = new AnswerDto.InfoResponse();
 
-        answerInfoResponseDto.answerId( answer.getAnswerId() );
-        answerInfoResponseDto.member( answer.getMember() );
-        answerInfoResponseDto.content( answer.getContent() );
-        answerInfoResponseDto.voteCount( (int) answer.getVoteCount() );
-        answerInfoResponseDto.createdAt( answer.getCreatedAt() );
-        answerInfoResponseDto.modifiedAt( answer.getModifiedAt() );
-        answerInfoResponseDto.adoptStatus( answer.getAdoptStatus() );
+        infoResponse.setAnswerId( answer.getAnswerId() );
+        infoResponse.setMember( answer.getMember() );
+        infoResponse.setContent( answer.getContent() );
+        infoResponse.setVoteCount( (int) answer.getVoteCount() );
+        infoResponse.setCreatedAt( answer.getCreatedAt() );
+        infoResponse.setModifiedAt( answer.getModifiedAt() );
+        infoResponse.setAdoptStatus( answer.getAdoptStatus() );
 
-        return answerInfoResponseDto.build();
+        return infoResponse;
     }
 
     @Override
-    public List<AnswerResponseDto> answersToAnswerResponses(List<Answer> answers) {
+    public List<AnswerDto.Response> answersToAnswerResponses(List<Answer> answers) {
         if ( answers == null ) {
             return null;
         }
 
-        List<AnswerResponseDto> list = new ArrayList<AnswerResponseDto>( answers.size() );
+        List<AnswerDto.Response> list = new ArrayList<AnswerDto.Response>( answers.size() );
         for ( Answer answer : answers ) {
-            list.add( answerToAnswerResponseDto( answer ) );
+            list.add( answerToResponse( answer ) );
         }
 
         return list;
     }
 
     @Override
-    public List<AnswerInfoResponseDto> answerToAnswerResponses(List<Answer> answers) {
+    public List<AnswerDto.InfoResponse> answersToAnswerInfoResponses(List<Answer> answers) {
         if ( answers == null ) {
             return null;
         }
 
-        List<AnswerInfoResponseDto> list = new ArrayList<AnswerInfoResponseDto>( answers.size() );
+        List<AnswerDto.InfoResponse> list = new ArrayList<AnswerDto.InfoResponse>( answers.size() );
         for ( Answer answer : answers ) {
             list.add( answerToAnswerInfoResponse( answer ) );
         }
@@ -143,22 +141,22 @@ public class AnswerMapperImpl implements AnswerMapper {
         return listPageResponse;
     }
 
-    protected AnswerResponseDto answerToAnswerResponseDto(Answer answer) {
+    protected AnswerDto.Response answerToResponse(Answer answer) {
         if ( answer == null ) {
             return null;
         }
 
-        AnswerResponseDto answerResponseDto = new AnswerResponseDto();
+        AnswerDto.Response response = new AnswerDto.Response();
 
-        answerResponseDto.setAnswerId( answer.getAnswerId() );
-        answerResponseDto.setContent( answer.getContent() );
-        answerResponseDto.setVoteCount( (int) answer.getVoteCount() );
-        answerResponseDto.setCreatedAt( answer.getCreatedAt() );
-        answerResponseDto.setModifiedAt( answer.getModifiedAt() );
-        answerResponseDto.setAdoptStatus( answer.getAdoptStatus() );
-        answerResponseDto.setMember( answer.getMember() );
-        answerResponseDto.setQuestion( questionToListPageResponse( answer.getQuestion() ) );
+        response.setAnswerId( answer.getAnswerId() );
+        response.setContent( answer.getContent() );
+        response.setVoteCount( (int) answer.getVoteCount() );
+        response.setCreatedAt( answer.getCreatedAt() );
+        response.setModifiedAt( answer.getModifiedAt() );
+        response.setAdoptStatus( answer.getAdoptStatus() );
+        response.setMember( answer.getMember() );
+        response.setQuestion( questionToListPageResponse( answer.getQuestion() ) );
 
-        return answerResponseDto;
+        return response;
     }
 }

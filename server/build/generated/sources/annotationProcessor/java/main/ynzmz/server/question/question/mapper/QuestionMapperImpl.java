@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
-import ynzmz.server.question.answer.dto.AnswerInfoResponseDto;
+import ynzmz.server.question.answer.dto.AnswerDto;
 import ynzmz.server.question.answer.entity.Answer;
 import ynzmz.server.question.question.dto.QuestionDto;
 import ynzmz.server.question.question.entity.Question;
@@ -13,7 +13,7 @@ import ynzmz.server.tag.mappingtable.question.QuestionSubjectTag;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-17T11:53:59+0900",
+    date = "2023-03-17T11:21:59+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -90,7 +90,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         detailPageResponse.setViewCount( question.getViewCount() );
         detailPageResponse.setVoteCount( question.getVoteCount() );
         detailPageResponse.setSubjectTags( questionSubjectTagListToResponseList( question.getSubjectTags() ) );
-        detailPageResponse.setAnswers( answerListToAnswerInfoResponseDtoList( question.getAnswers() ) );
+        detailPageResponse.setAnswers( answerListToInfoResponseList( question.getAnswers() ) );
 
         return detailPageResponse;
     }
@@ -145,32 +145,32 @@ public class QuestionMapperImpl implements QuestionMapper {
         return list1;
     }
 
-    protected AnswerInfoResponseDto answerToAnswerInfoResponseDto(Answer answer) {
+    protected AnswerDto.InfoResponse answerToInfoResponse(Answer answer) {
         if ( answer == null ) {
             return null;
         }
 
-        AnswerInfoResponseDto.AnswerInfoResponseDtoBuilder answerInfoResponseDto = AnswerInfoResponseDto.builder();
+        AnswerDto.InfoResponse infoResponse = new AnswerDto.InfoResponse();
 
-        answerInfoResponseDto.answerId( answer.getAnswerId() );
-        answerInfoResponseDto.member( answer.getMember() );
-        answerInfoResponseDto.content( answer.getContent() );
-        answerInfoResponseDto.voteCount( (int) answer.getVoteCount() );
-        answerInfoResponseDto.createdAt( answer.getCreatedAt() );
-        answerInfoResponseDto.modifiedAt( answer.getModifiedAt() );
-        answerInfoResponseDto.adoptStatus( answer.getAdoptStatus() );
+        infoResponse.setAnswerId( answer.getAnswerId() );
+        infoResponse.setMember( answer.getMember() );
+        infoResponse.setContent( answer.getContent() );
+        infoResponse.setVoteCount( (int) answer.getVoteCount() );
+        infoResponse.setCreatedAt( answer.getCreatedAt() );
+        infoResponse.setModifiedAt( answer.getModifiedAt() );
+        infoResponse.setAdoptStatus( answer.getAdoptStatus() );
 
-        return answerInfoResponseDto.build();
+        return infoResponse;
     }
 
-    protected List<AnswerInfoResponseDto> answerListToAnswerInfoResponseDtoList(List<Answer> list) {
+    protected List<AnswerDto.InfoResponse> answerListToInfoResponseList(List<Answer> list) {
         if ( list == null ) {
             return null;
         }
 
-        List<AnswerInfoResponseDto> list1 = new ArrayList<AnswerInfoResponseDto>( list.size() );
+        List<AnswerDto.InfoResponse> list1 = new ArrayList<AnswerDto.InfoResponse>( list.size() );
         for ( Answer answer : list ) {
-            list1.add( answerToAnswerInfoResponseDto( answer ) );
+            list1.add( answerToInfoResponse( answer ) );
         }
 
         return list1;
