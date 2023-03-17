@@ -19,6 +19,8 @@ import SelectSignUpType from 'components/member/signup/SelectSignUpType';
 import Information from 'pages/review/TeacherDetail/Information';
 import Lectures from 'pages/review/TeacherDetail/Lectures';
 import TeacherReview from 'pages/review/TeacherDetail/TeacherReview';
+import UpdateLecture from 'pages/review/TeacherDetail/UpdateLecture';
+import CreateLecture from 'pages/review/TeacherDetail/CreateLecture';
 
 function Router() {
   return (
@@ -60,6 +62,11 @@ function Router() {
         >
           <Route path="" element={<Information />} />
           <Route path="lectures" element={<Lectures />} />
+          <Route path="lectures/createLecture" element={<CreateLecture />} />
+          <Route
+            path="lectures/updateLecture/:lectureId"
+            element={<UpdateLecture />}
+          />
           <Route path="teacherReview" element={<TeacherReview />} />
         </Route>
       </Routes>
