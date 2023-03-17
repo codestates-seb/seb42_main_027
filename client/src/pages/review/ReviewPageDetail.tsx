@@ -1,20 +1,33 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import GlobalStyle from 'GlobalStyles';
-import { Routes, Route, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Routes, Route, Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FlexContainer } from './ReviewPage';
 import Information from './TeacherDetail/Information';
 import Lectures from './TeacherDetail/Lectures';
 import TeacherReview from './TeacherDetail/TeacherReview';
+import CreateLecture from './TeacherDetail/CreateLecture';
+import UpdateLecture from './TeacherDetail/UpdateLecture';
 
 function ReviewPageDetail() {
-  const [selected, setSelected] = useState<string>('강사 소개');
+  const [selected, setSelected] = useState<string>('');
+  const param = useParams();
+
+  useEffect(() => {
+    for (const key in param) {
+      if (param[key] === 'lectures') setSelected('개설 강좌');
+      else if (param[key] === 'teacherReview') setSelected('수강 후기');
+      else setSelected('강사 소개');
+    }
+  }, [selected]);
 
   return (
-    <FlexContainer width="100vw" dir="col" justify="flex-start">
+    <FlexContainer width="100%" dir="col">
       <GlobalStyle />
-      <FlexContainer width="100%" gap="0">
+      <FlexContainer width="100%" gap="0" align="start">
         <StyledLink
           to=""
           check={selected === '강사 소개' ? 'true' : 'false'}
@@ -46,6 +59,11 @@ function ReviewPageDetail() {
       <Routes>
         <Route path="" element={<Information />} />
         <Route path="lectures" element={<Lectures />} />
+        <Route path="lectures/createLecture" element={<CreateLecture />} />
+        <Route
+          path="lectures/updateLecture/:lectureId"
+          element={<UpdateLecture />}
+        />
         <Route path="teacherReview" element={<TeacherReview />} />
       </Routes>
     </FlexContainer>
