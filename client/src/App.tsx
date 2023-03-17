@@ -3,16 +3,20 @@ import { useEffect } from 'react';
 import { useIsLoginStore } from 'stores/loginStore';
 import isLogin from 'utils/isLogin';
 import getUserInfo from 'apis/getUserInfo';
+import useUserInfoStore from 'stores/userInfoStore';
 import GlobalStyle from './GlobalStyles';
 import Router from './Router';
 
 function App() {
-  const { setIsLogin } = useIsLoginStore();
+  const { setIsLoginInStore } = useIsLoginStore();
+  const { setUserInfo } = useUserInfoStore(state => state);
+
+  const email = localStorage.getItem('email');
 
   const fetchUserInfo = async () => {
     try {
-      const response = await getUserInfo();
-      console.log(response);
+      const response = await getUserInfo(email);
+      setUserInfo(response);
     } catch (error) {
       console.error(error);
       console.log('정보를 가져오지 못했습니다.');
@@ -21,7 +25,7 @@ function App() {
 
   useEffect(() => {
     if (isLogin()) {
-      setIsLogin(true);
+      setIsLoginInStore(true);
       fetchUserInfo();
     }
   }, []);

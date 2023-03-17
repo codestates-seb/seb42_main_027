@@ -1,18 +1,20 @@
 import axios from 'axios';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 type SignUpParams = {
-  userName: string;
-  phoneNum: string;
+  username: string;
+  phoneNumber: string;
   displayName: string;
   email: string;
   password: string;
   confirmPassword: string;
   createdAt: string;
-  userState: string;
+  state: string;
 };
 
 const postSignUp = async (pathData: SignUpParams) => {
-  await axios.post('http://13.125.1.215:8080/members', pathData);
+  await axios.post(`${apiUrl}/members`, pathData);
 };
 
 export default postSignUp;

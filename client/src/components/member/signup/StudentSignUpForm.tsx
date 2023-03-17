@@ -190,26 +190,26 @@ function StudentSignUpForm() {
   };
 
   const pathData = {
-    userName: '',
-    phoneNum: '',
+    username: '',
+    phoneNumber: '',
     displayName: '',
     email: '',
     password: '',
     confirmPassword: '',
     createdAt: '',
-    userState: '',
+    state: '',
   };
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    pathData.userName = userName;
-    pathData.phoneNum = phoneNum;
+    pathData.username = userName;
+    pathData.phoneNumber = phoneNum;
     pathData.displayName = displayName;
     pathData.email = email;
     pathData.password = password;
     pathData.confirmPassword = confirmPassword;
     pathData.createdAt = currentTime;
-    pathData.userState = 'student';
+    pathData.state = 'STUDENT';
     try {
       await postSignUp(pathData);
       console.log('가입 성공~!');
