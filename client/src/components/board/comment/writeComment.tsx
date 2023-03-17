@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from 'theme';
 import Button from 'components/common/Button';
-import { FaUserCircle } from 'react-icons/fa';
+import ProfileIcon from 'assets/icons/defaultProfileIcon';
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
 
 import { useIsLoginStore } from 'stores/loginStore';
@@ -15,8 +15,7 @@ function WriteComment() {
     <Container>
       <Main>
         <InputDiv>
-          <FaUserCircle />
-
+          <ProfileIcon.Default />
           {isLogin ? (
             <input />
           ) : (
@@ -28,7 +27,11 @@ function WriteComment() {
             </GuideDiv>
           )}
         </InputDiv>
-        <CommentBtn className={isLogin ? '' : 'disabled'}>댓글 쓰기</CommentBtn>
+        <SubmitDiv>
+          <CommentBtn className={isLogin ? '' : 'disabled'}>
+            댓글 쓰기
+          </CommentBtn>
+        </SubmitDiv>
       </Main>
     </Container>
   );
@@ -37,8 +40,7 @@ function WriteComment() {
 const Container = styled.div`
   display: flex;
   width: 100%;
-  min-height: 253px;
-  border-bottom: 1px solid ${theme.colors.gray};
+  min-height: 206px;
 `;
 
 const Main = styled.div`
@@ -46,7 +48,6 @@ const Main = styled.div`
   flex-direction: column;
   width: 100%;
   margin: ${theme.gap.px20};
-  margin-bottom: calc(${theme.gap.px60} + 7px);
   border: 1px solid ${theme.colors.gray};
   border-radius: 5px;
 `;
@@ -55,6 +56,13 @@ const InputDiv = styled.div`
   display: flex;
   margin: ${theme.gap.px20};
   margin-bottom: 13px;
+`;
+
+const SubmitDiv = styled.div`
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin-right: ${theme.gap.px20};
 `;
 
 const CommentBtn = styled(Button.WriteBtn)`

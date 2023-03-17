@@ -5,7 +5,7 @@ import theme from 'theme';
 
 import PostList from 'components/board/post/postList';
 import WritePost from 'components/board/post/writePost';
-import PostContentFree from 'components/board/post/postConentFree';
+import PostContentFree from 'components/board/post/freeBoardPostContent';
 
 function FreeBoard() {
   return (
@@ -18,8 +18,8 @@ function FreeBoard() {
         <Routes>
           <Route path="/" element={<PostList />} />
           <Route path="write" element={<WritePost />} />
-          <Route path="edit" element={<WritePost />} />
           <Route path="articles" element={<PostContentFree />} />
+          <Route path="articles/edit" element={<WritePost />} />
         </Routes>
       </Main>
     </Container>
