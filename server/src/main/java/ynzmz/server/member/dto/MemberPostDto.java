@@ -11,6 +11,7 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -20,7 +21,7 @@ public class MemberPostDto {
     @NotBlank(message = "이름은 필수 입력 값입니다.")
     private String username;
     @NotBlank(message = "휴대폰번호는 필수 입력 값입니다.")
-    @Pattern(regexp = "(010-([0-9]{3,4})-([0-9]{4})$)", message = "휴대폰번호는 000-0000-0000 형식으로 입력해주세요.")
+    @Pattern(regexp = "(^[0-9]{10,11}$)", message = "휴대폰번호는 10~11 길이의 숫자로 입력해주세요.")
     private String phoneNumber;
 
     @NotBlank(message = "이메일은 필수 입력 값입니다.")
@@ -45,5 +46,6 @@ public class MemberPostDto {
     private boolean isPasswordConfirmed() {
         return password.equals(confirmPassword);
     }
+
 
 }

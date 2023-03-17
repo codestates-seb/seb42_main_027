@@ -75,6 +75,11 @@ public class MemberService {
         return foundMember.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
+    public Member findMemberByEmail(String email){
+        Optional<Member> foundMember = memberRepository.findByEmail(email);
+        return foundMember.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+    }
+
 //    public boolean deleteMember(long memberId){
 //        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 //        Member findMember = findVerifiedMember(memberId);
