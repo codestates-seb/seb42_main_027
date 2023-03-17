@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,14 +56,17 @@ public class MemberService {
 
         Member savedMember = memberRepository.save(member);
 
+
         return savedMember;
     }
 
     public Member updateMember(Member member){
         Member findMember = findVerifiedMember(member.getMemberId());
 
-        Optional.ofNullable(member.getDisplayName());
-        Optional.ofNullable(member.getPassword());
+        Optional.ofNullable(member.getPhoneNumber()).ifPresent(findMember::setPhoneNumber);
+        Optional.ofNullable(member.getDisplayName()).ifPresent(findMember::setDisplayName);
+        Optional.ofNullable(member.getPassword()).ifPresent(password-> findMember.setPassword(passwordEncoding(password)));
+        Optional.ofNullable(member.getIconImageUrl()).ifPresent(findMember::setIconImageUrl);
 
         return memberRepository.save(findMember);
     }
@@ -73,8 +77,31 @@ public class MemberService {
                 Sort.by("memberId").descending()));
     }
 
-    public void deleteMember(long memberId){
+    public Member findMemberById(long memberId){
+        Optional<Member> foundMember = memberRepository.findById(memberId);
+        return foundMember.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+    }
+
+    public Member findMemberByEmail(String email){
+        Optional<Member> foundMember = memberRepository.findByEmail(email);
+        return foundMember.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+    }
+
+//    public boolean deleteMember(long memberId){
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        Member findMember = findVerifiedMember(memberId);
+//        if(Objects.equals(findMember.getEmail(),username)){
+//            memberRepository.deleteById(memberId);
+//        } else {
+//            throw new BusinessLogicException(ExceptionCode.NOT_IMPLEMENTATION);
+//        }
+//        Optional<Member> deleteMember = memberRepository.findById(memberId);
+//        return deleteMember.isEmpty();
+//    }
+
+    public void deleteMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
+
         memberRepository.delete(findMember);
     }
 
@@ -134,4 +161,13 @@ public class MemberService {
         loginMemberVoteInfo.setAnswerVoteStatus(loginUserAnswerVoteResponseDtos);
         return loginMemberVoteInfo;
     }
+    private String passwordEncoding(String password) {
+        return passwordEncoder.encode(password);
+    }
+
+
+
+
+
+
 }

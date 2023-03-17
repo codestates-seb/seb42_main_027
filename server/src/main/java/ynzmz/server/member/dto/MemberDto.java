@@ -12,12 +12,15 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 public class MemberDto{
+    private String username;
+    private String phoneNumber;
     private Long memberId;
     private String email;
     private String password;
     private String displayName;
     private String IconImageUrl;
-    private String createdAt;
+    private String memberState;
+    private LocalDateTime createdAt;
 
 
 }

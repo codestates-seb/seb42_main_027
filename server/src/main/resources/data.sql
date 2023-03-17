@@ -52,3 +52,5 @@ SELECT * FROM (
                   UNION SELECT '예비고3'
               ) g
 WHERE NOT EXISTS (SELECT 1 FROM grade_tag WHERE grade_tag.grade = g.grade);
+
+
