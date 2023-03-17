@@ -1,17 +1,13 @@
 package ynzmz.server.member.dto;
 
-import jdk.jfr.Name;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.parameters.P;
-import ynzmz.server.member.entity.Member;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -40,12 +36,11 @@ public class MemberPostDto {
     @NotBlank(message = "닉네임은 필수 입력 값입니다.")
     private String displayName;
 
-    private String memberState;
+    private String State;
 
     @AssertTrue(message = "패스워드가 일치하지 않습니다.")
     private boolean isPasswordConfirmed() {
         return password.equals(confirmPassword);
     }
-
 
 }

@@ -45,6 +45,7 @@ public class MemberService {
         this.authorityUtils = authorityUtils;
     }
 
+    @Transactional
     public Member createMember(Member member){
         verifyExistsEmail(member.getEmail());
 

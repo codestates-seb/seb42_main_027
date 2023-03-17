@@ -13,7 +13,7 @@ import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-17T12:03:23+0900",
+    date = "2023-03-17T12:31:23+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -32,8 +32,8 @@ public class MemberMapperImpl implements MemberMapper {
         member.setEmail( memberPostDto.getEmail() );
         member.setDisplayName( memberPostDto.getDisplayName() );
         member.setPassword( memberPostDto.getPassword() );
-        if ( memberPostDto.getMemberState() != null ) {
-            member.setMemberState( Enum.valueOf( Member.MemberState.class, memberPostDto.getMemberState() ) );
+        if ( memberPostDto.getState() != null ) {
+            member.setState( Enum.valueOf( Member.State.class, memberPostDto.getState() ) );
         }
 
         return member;
@@ -68,7 +68,7 @@ public class MemberMapperImpl implements MemberMapper {
         String email = null;
         String password = null;
         String displayName = null;
-        String memberState = null;
+        String state = null;
         LocalDateTime createdAt = null;
 
         username = member.getUsername();
@@ -77,8 +77,8 @@ public class MemberMapperImpl implements MemberMapper {
         email = member.getEmail();
         password = member.getPassword();
         displayName = member.getDisplayName();
-        if ( member.getMemberState() != null ) {
-            memberState = member.getMemberState().name();
+        if ( member.getState() != null ) {
+            state = member.getState().name();
         }
         if ( member.getCreatedAt() != null ) {
             createdAt = LocalDateTime.parse( member.getCreatedAt() );
@@ -86,7 +86,7 @@ public class MemberMapperImpl implements MemberMapper {
 
         String iconImageUrl = null;
 
-        MemberDto memberDto = new MemberDto( username, phoneNumber, memberId, email, password, displayName, iconImageUrl, memberState, createdAt );
+        MemberDto memberDto = new MemberDto( username, phoneNumber, memberId, email, password, displayName, iconImageUrl, state, createdAt );
 
         memberDto.setIconImageUrl( member.getIconImageUrl() );
 

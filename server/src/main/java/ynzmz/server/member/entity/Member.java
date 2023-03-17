@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 import ynzmz.server.question.answer.entity.Answer;
 import ynzmz.server.question.question.entity.Question;
 import ynzmz.server.vote.question.answer.entity.AnswerVote;
@@ -15,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,21 +38,17 @@ public class Member {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
-
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private MemberState memberState = MemberState.STUDENT;
+    private State state;
 
-
-
-    public enum MemberState{
+    public enum State {
         STUDENT("학생"),
         TEACHER("강사");
-
         @Getter
         private String memberState;
 
-        MemberState(String memberState) {
+        State(String memberState) {
             this.memberState = memberState;
         }
     }

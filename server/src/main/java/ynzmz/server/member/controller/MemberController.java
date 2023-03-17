@@ -35,11 +35,11 @@ public class MemberController {
             return ResponseEntity.badRequest().body("패스워드와 패스워드 확인이 일치하지 않습니다.");
         }
         Member member = memberMapper.memberPostDtoToMember(requestBody);
-        member.setMemberState(Member.MemberState.STUDENT);
+        member.setState(Enum.valueOf( Member.State.class, requestBody.getState() ));
+
         Member createdMember = memberService.createMember(member);
+
         MemberDto response=  memberMapper.memberToMemberResponse(createdMember);
-
-
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
