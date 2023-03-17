@@ -13,8 +13,6 @@ import Button from 'components/common/Button';
 import isLogin from 'utils/isLogin';
 import { Link } from 'react-router-dom';
 
-const PButton = Button.PointBtn;
-
 type Teachers = {
   gradeTags: string[];
   imageUrl: string;
@@ -85,7 +83,7 @@ function ReviewPage() {
       <GlobalStyle />
       <Carousel />
       <FlexContainer
-        display={isLogin() ? 'flex' : 'none'}
+        display={!isLogin() ? 'flex' : 'none'}
         width="80%"
         justify="right"
       >
@@ -174,3 +172,5 @@ const SubjectSelectButton = styled.div<SubjectSelectButton>`
   align-items: center;
   cursor: pointer;
 `;
+
+const PButton = Button.PointBtn;

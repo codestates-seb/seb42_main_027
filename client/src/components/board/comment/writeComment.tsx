@@ -9,14 +9,13 @@ import { AiOutlineExclamationCircle } from 'react-icons/ai';
 import { useIsLoginStore } from 'stores/loginStore';
 
 function WriteComment() {
-  const { isLogin, setIsLogin } = useIsLoginStore(state => state);
-
+  const { isLoginInStore } = useIsLoginStore(state => state);
   return (
     <Container>
       <Main>
         <InputDiv>
           <ProfileIcon.Default />
-          {isLogin ? (
+          {isLoginInStore ? (
             <input />
           ) : (
             <GuideDiv>
@@ -28,7 +27,7 @@ function WriteComment() {
           )}
         </InputDiv>
         <SubmitDiv>
-          <CommentBtn className={isLogin ? '' : 'disabled'}>
+          <CommentBtn className={isLoginInStore ? '' : 'disabled'}>
             댓글 쓰기
           </CommentBtn>
         </SubmitDiv>

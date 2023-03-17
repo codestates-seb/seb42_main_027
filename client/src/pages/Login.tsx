@@ -9,6 +9,7 @@ import login from 'apis/login';
 import { useIsLoginStore } from 'stores/loginStore';
 import { Container, Title } from 'components/member/memberStyledComponents';
 import getUserInfo from 'apis/getUserInfo';
+import useUserInfoStore from 'stores/userInfoStore';
 import BaseButton from '../components/common/BaseButton';
 
 const { colors } = theme;
@@ -40,8 +41,8 @@ function Login() {
   const [isPasswordInputOpen, setIsPasswordInputOpen] = useState(false);
   const [failedLogin, setFailedLogin] = useState(false);
   const [loginError, setLoginError] = useState('');
-  const { setIsLogin } = useIsLoginStore(state => state);
-
+  const { setIsLoginInStore } = useIsLoginStore(state => state);
+  const { userInfo, setUserInfo } = useUserInfoStore(state => state);
   const navigate = useNavigate();
   const pathData = {
     email: '',
@@ -62,7 +63,8 @@ function Login() {
 
   const fetchUserInfo = async () => {
     try {
-      const response = await getUserInfo();
+      const response = await getUserInfo(email);
+      localStorage.setItem('email', email);
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -82,7 +84,7 @@ function Login() {
     try {
       await login(pathData);
       navigate(-1);
-      setIsLogin(true);
+      setIsLoginInStore(true);
       fetchUserInfo();
     } catch (error) {
       setFailedLogin(true);
