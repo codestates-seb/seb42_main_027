@@ -24,9 +24,13 @@
       <configuration />
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
+  <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/../../server/build/classes/java/main" />
     <exclude-output />
+    <content url="file://$MODULE_DIR$/../../server/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../server/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../server/src/main/resources" type="java-resource" />
+    </content>
     <content url="file://$MODULE_DIR$/../../server/src/main">
       <sourceFolder url="file://$MODULE_DIR$/../../server/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../server/src/main/resources" type="java-resource" />

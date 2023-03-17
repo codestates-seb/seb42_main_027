@@ -21,11 +21,11 @@
       <configuration />
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
+  <component name="NewModuleRootManager">
     <output-test url="file://$MODULE_DIR$/../../server/build/classes/java/test" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../server/build/generated/sources/annotationProcessor/java/test">
-      <sourceFolder url="file://$MODULE_DIR$/../../server/build/generated/sources/annotationProcessor/java/test" isTestSource="true" generated="true" />
+    <content url="file://$MODULE_DIR$/../../server/src/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../server/src/test/java" isTestSource="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../server/src/test">
       <sourceFolder url="file://$MODULE_DIR$/../../server/src/test/java" isTestSource="true" />
@@ -141,4 +141,5 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.objenesis:objenesis:3.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.platform:junit-platform-engine:1.8.2" level="project" />
   </component>
+  <component name="TestModuleProperties" production-module="server.main" />
 </module>
