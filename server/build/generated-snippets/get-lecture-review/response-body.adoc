@@ -28,7 +28,11 @@
       "iconImageUrl" : "IconUrl",
       "createdAt" : "2023.03.10.18:52:36",
       "roles" : [ ],
-      "memberStatus" : "MEMBER_ACTIVE"
+      "memberStatus" : "MEMBER_ACTIVE",
+      "questions" : [ ],
+      "answers" : [ ],
+      "questionVotes" : [ ],
+      "answerVotes" : [ ]
     },
     "comments" : [ {
       "lectureReviewCommentId" : 1,
@@ -44,7 +48,11 @@
         "iconImageUrl" : "IconUrl",
         "createdAt" : "2023.03.10.18:52:36",
         "roles" : [ ],
-        "memberStatus" : "MEMBER_ACTIVE"
+        "memberStatus" : "MEMBER_ACTIVE",
+        "questions" : [ ],
+        "answers" : [ ],
+        "questionVotes" : [ ],
+        "answerVotes" : [ ]
       }
     }, {
       "lectureReviewCommentId" : 1,
@@ -60,7 +68,11 @@
         "iconImageUrl" : "IconUrl",
         "createdAt" : "2023.03.10.18:52:36",
         "roles" : [ ],
-        "memberStatus" : "MEMBER_ACTIVE"
+        "memberStatus" : "MEMBER_ACTIVE",
+        "questions" : [ ],
+        "answers" : [ ],
+        "questionVotes" : [ ],
+        "answerVotes" : [ ]
       }
     }, {
       "lectureReviewCommentId" : 1,
@@ -76,7 +88,11 @@
         "iconImageUrl" : "IconUrl",
         "createdAt" : "2023.03.10.18:52:36",
         "roles" : [ ],
-        "memberStatus" : "MEMBER_ACTIVE"
+        "memberStatus" : "MEMBER_ACTIVE",
+        "questions" : [ ],
+        "answers" : [ ],
+        "questionVotes" : [ ],
+        "answerVotes" : [ ]
       }
     }, {
       "lectureReviewCommentId" : 1,
@@ -92,7 +108,11 @@
         "iconImageUrl" : "IconUrl",
         "createdAt" : "2023.03.10.18:52:36",
         "roles" : [ ],
-        "memberStatus" : "MEMBER_ACTIVE"
+        "memberStatus" : "MEMBER_ACTIVE",
+        "questions" : [ ],
+        "answers" : [ ],
+        "questionVotes" : [ ],
+        "answerVotes" : [ ]
       }
     }, {
       "lectureReviewCommentId" : 1,
@@ -108,7 +128,11 @@
         "iconImageUrl" : "IconUrl",
         "createdAt" : "2023.03.10.18:52:36",
         "roles" : [ ],
-        "memberStatus" : "MEMBER_ACTIVE"
+        "memberStatus" : "MEMBER_ACTIVE",
+        "questions" : [ ],
+        "answers" : [ ],
+        "questionVotes" : [ ],
+        "answerVotes" : [ ]
       }
     }, {
       "lectureReviewCommentId" : 1,
@@ -124,7 +148,11 @@
         "iconImageUrl" : "IconUrl",
         "createdAt" : "2023.03.10.18:52:36",
         "roles" : [ ],
-        "memberStatus" : "MEMBER_ACTIVE"
+        "memberStatus" : "MEMBER_ACTIVE",
+        "questions" : [ ],
+        "answers" : [ ],
+        "questionVotes" : [ ],
+        "answerVotes" : [ ]
       }
     } ]
   }

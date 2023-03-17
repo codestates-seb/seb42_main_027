@@ -11,7 +11,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 4780
+Content-Length: 5228
 
 {
   "data" : {
@@ -103,7 +103,11 @@ Content-Length: 4780
         "iconImageUrl" : "IconUrl",
         "createdAt" : "2023.03.10.18:52:36",
         "roles" : [ ],
-        "memberStatus" : "MEMBER_ACTIVE"
+        "memberStatus" : "MEMBER_ACTIVE",
+        "questions" : [ ],
+        "answers" : [ ],
+        "questionVotes" : [ ],
+        "answerVotes" : [ ]
       }
     }, {
       "lectureReviewId" : 1,
@@ -132,7 +136,11 @@ Content-Length: 4780
         "iconImageUrl" : "IconUrl",
         "createdAt" : "2023.03.10.18:52:36",
         "roles" : [ ],
-        "memberStatus" : "MEMBER_ACTIVE"
+        "memberStatus" : "MEMBER_ACTIVE",
+        "questions" : [ ],
+        "answers" : [ ],
+        "questionVotes" : [ ],
+        "answerVotes" : [ ]
       }
     }, {
       "lectureReviewId" : 1,
@@ -161,7 +169,11 @@ Content-Length: 4780
         "iconImageUrl" : "IconUrl",
         "createdAt" : "2023.03.10.18:52:36",
         "roles" : [ ],
-        "memberStatus" : "MEMBER_ACTIVE"
+        "memberStatus" : "MEMBER_ACTIVE",
+        "questions" : [ ],
+        "answers" : [ ],
+        "questionVotes" : [ ],
+        "answerVotes" : [ ]
       }
     }, {
       "lectureReviewId" : 1,
@@ -190,7 +202,11 @@ Content-Length: 4780
         "iconImageUrl" : "IconUrl",
         "createdAt" : "2023.03.10.18:52:36",
         "roles" : [ ],
-        "memberStatus" : "MEMBER_ACTIVE"
+        "memberStatus" : "MEMBER_ACTIVE",
+        "questions" : [ ],
+        "answers" : [ ],
+        "questionVotes" : [ ],
+        "answerVotes" : [ ]
       }
     } ]
   }

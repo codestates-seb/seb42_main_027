@@ -19,7 +19,7 @@ import ynzmz.server.teacher.entity.Teacher;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-16T18:39:12+0900",
+    date = "2023-03-17T11:53:59+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -137,24 +137,6 @@ public class LectureMapperImpl implements LectureMapper {
         detailPageResponse.setLectureReviews( lectureReviewListToListPageResponseList( lecture.getLectureReviews() ) );
 
         return detailPageResponse;
-    }
-
-    @Override
-    public LectureDto.TeacherReviewDetailPageResponse lectureTeacherReviewDetailPageResponseToLecture(Lecture lecture) {
-        if ( lecture == null ) {
-            return null;
-        }
-
-        LectureDto.TeacherReviewDetailPageResponse teacherReviewDetailPageResponse = new LectureDto.TeacherReviewDetailPageResponse();
-
-        if ( lecture.getLectureId() != null ) {
-            teacherReviewDetailPageResponse.setLectureId( lecture.getLectureId() );
-        }
-        teacherReviewDetailPageResponse.setTitle( lecture.getTitle() );
-        teacherReviewDetailPageResponse.setStatus( lecture.getStatus() );
-        teacherReviewDetailPageResponse.setLectureReviews( lectureReviewListToListPageResponseList( lecture.getLectureReviews() ) );
-
-        return teacherReviewDetailPageResponse;
     }
 
     protected List<GradeTagDto.Response> lectureGradeTagListToResponseList(List<LectureGradeTag> list) {

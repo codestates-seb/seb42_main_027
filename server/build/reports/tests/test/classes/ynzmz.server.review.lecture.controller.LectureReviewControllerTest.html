@@ -29,7 +29,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">0</div>
+<div class="counter">3</div>
 <p>failures</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.047s</div>
+<div class="counter">0.041s</div>
 <p>duration</p>
 </div>
 </td>
@@ -50,8 +50,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox success" id="successRate">
-<div class="percent">100%</div>
+<div class="infoBox failures" id="successRate">
+<div class="percent">25%</div>
 <p>successful</p>
 </div>
 </td>
@@ -61,13 +61,392 @@
 <div id="tabs">
 <ul class="tabLinks">
 <li>
-<a href="#tab0">Tests</a>
+<a href="#tab0">Failed tests</a>
 </li>
 <li>
-<a href="#tab1">Standard output</a>
+<a href="#tab1">Tests</a>
+</li>
+<li>
+<a href="#tab2">Standard output</a>
 </li>
 </ul>
 <div id="tab0" class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="getReviewPostDetail()"></a>
+<h3 class="failures">리뷰글 상세 조회 테스트</h3>
+<span class="code">
+<pre>org.springframework.restdocs.snippet.SnippetException: The following parts of the payload were not documented:
+{
+  &quot;data&quot; : {
+    &quot;member&quot; : {
+      &quot;questions&quot; : [ ],
+      &quot;answers&quot; : [ ],
+      &quot;questionVotes&quot; : [ ],
+      &quot;answerVotes&quot; : [ ]
+    },
+    &quot;comments&quot; : [ {
+      &quot;member&quot; : {
+        &quot;questions&quot; : [ ],
+        &quot;answers&quot; : [ ],
+        &quot;questionVotes&quot; : [ ],
+        &quot;answerVotes&quot; : [ ]
+      }
+    }, {
+      &quot;member&quot; : {
+        &quot;questions&quot; : [ ],
+        &quot;answers&quot; : [ ],
+        &quot;questionVotes&quot; : [ ],
+        &quot;answerVotes&quot; : [ ]
+      }
+    }, {
+      &quot;member&quot; : {
+        &quot;questions&quot; : [ ],
+        &quot;answers&quot; : [ ],
+        &quot;questionVotes&quot; : [ ],
+        &quot;answerVotes&quot; : [ ]
+      }
+    }, {
+      &quot;member&quot; : {
+        &quot;questions&quot; : [ ],
+        &quot;answers&quot; : [ ],
+        &quot;questionVotes&quot; : [ ],
+        &quot;answerVotes&quot; : [ ]
+      }
+    }, {
+      &quot;member&quot; : {
+        &quot;questions&quot; : [ ],
+        &quot;answers&quot; : [ ],
+        &quot;questionVotes&quot; : [ ],
+        &quot;answerVotes&quot; : [ ]
+      }
+    }, {
+      &quot;member&quot; : {
+        &quot;questions&quot; : [ ],
+        &quot;answers&quot; : [ ],
+        &quot;questionVotes&quot; : [ ],
+        &quot;answerVotes&quot; : [ ]
+      }
+    } ]
+  }
+}
+	at app//org.springframework.restdocs.payload.AbstractFieldsSnippet.validateFieldDocumentation(AbstractFieldsSnippet.java:218)
+	at app//org.springframework.restdocs.payload.AbstractFieldsSnippet.createModel(AbstractFieldsSnippet.java:160)
+	at app//org.springframework.restdocs.snippet.TemplatedSnippet.document(TemplatedSnippet.java:78)
+	at app//org.springframework.restdocs.generate.RestDocumentationGenerator.handle(RestDocumentationGenerator.java:191)
+	at app//org.springframework.restdocs.mockmvc.RestDocumentationResultHandler.handle(RestDocumentationResultHandler.java:52)
+	at app//org.springframework.test.web.servlet.MockMvc$1.andDo(MockMvc.java:219)
+	at app//ynzmz.server.review.lecture.controller.LectureReviewControllerTest.getReviewPostDetail(LectureReviewControllerTest.java:269)
+	at java.base@11.0.17/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@11.0.17/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base@11.0.17/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@11.0.17/java.lang.reflect.Method.invoke(Method.java:566)
+	at app//org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+	at app//org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@11.0.17/java.util.ArrayList.forEach(ArrayList.java:1541)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@11.0.17/java.util.ArrayList.forEach(ArrayList.java:1541)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:53)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62)
+	at java.base@11.0.17/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@11.0.17/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base@11.0.17/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@11.0.17/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at com.sun.proxy.$Proxy2.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="patchReviewPost()"></a>
+<h3 class="failures">강의 리뷰 수정 테스트</h3>
+<span class="code">
+<pre>org.springframework.restdocs.snippet.SnippetException: The following parts of the payload were not documented:
+{
+  &quot;data&quot; : {
+    &quot;member&quot; : {
+      &quot;questions&quot; : [ ],
+      &quot;answers&quot; : [ ],
+      &quot;questionVotes&quot; : [ ],
+      &quot;answerVotes&quot; : [ ]
+    }
+  }
+}
+	at app//org.springframework.restdocs.payload.AbstractFieldsSnippet.validateFieldDocumentation(AbstractFieldsSnippet.java:218)
+	at app//org.springframework.restdocs.payload.AbstractFieldsSnippet.createModel(AbstractFieldsSnippet.java:160)
+	at app//org.springframework.restdocs.snippet.TemplatedSnippet.document(TemplatedSnippet.java:78)
+	at app//org.springframework.restdocs.generate.RestDocumentationGenerator.handle(RestDocumentationGenerator.java:191)
+	at app//org.springframework.restdocs.mockmvc.RestDocumentationResultHandler.handle(RestDocumentationResultHandler.java:52)
+	at app//org.springframework.test.web.servlet.MockMvc$1.andDo(MockMvc.java:219)
+	at app//ynzmz.server.review.lecture.controller.LectureReviewControllerTest.patchReviewPost(LectureReviewControllerTest.java:151)
+	at java.base@11.0.17/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@11.0.17/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base@11.0.17/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@11.0.17/java.lang.reflect.Method.invoke(Method.java:566)
+	at app//org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+	at app//org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@11.0.17/java.util.ArrayList.forEach(ArrayList.java:1541)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@11.0.17/java.util.ArrayList.forEach(ArrayList.java:1541)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:53)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62)
+	at java.base@11.0.17/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@11.0.17/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base@11.0.17/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@11.0.17/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at com.sun.proxy.$Proxy2.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="postReviewPost()"></a>
+<h3 class="failures">강의 리뷰 등록 테스트</h3>
+<span class="code">
+<pre>org.springframework.restdocs.snippet.SnippetException: The following parts of the payload were not documented:
+{
+  &quot;data&quot; : {
+    &quot;member&quot; : {
+      &quot;questions&quot; : [ ],
+      &quot;answers&quot; : [ ],
+      &quot;questionVotes&quot; : [ ],
+      &quot;answerVotes&quot; : [ ]
+    }
+  }
+}
+	at app//org.springframework.restdocs.payload.AbstractFieldsSnippet.validateFieldDocumentation(AbstractFieldsSnippet.java:218)
+	at app//org.springframework.restdocs.payload.AbstractFieldsSnippet.createModel(AbstractFieldsSnippet.java:160)
+	at app//org.springframework.restdocs.snippet.TemplatedSnippet.document(TemplatedSnippet.java:78)
+	at app//org.springframework.restdocs.generate.RestDocumentationGenerator.handle(RestDocumentationGenerator.java:191)
+	at app//org.springframework.restdocs.mockmvc.RestDocumentationResultHandler.handle(RestDocumentationResultHandler.java:52)
+	at app//org.springframework.test.web.servlet.MockMvc$1.andDo(MockMvc.java:219)
+	at app//ynzmz.server.review.lecture.controller.LectureReviewControllerTest.postReviewPost(LectureReviewControllerTest.java:86)
+	at java.base@11.0.17/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@11.0.17/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base@11.0.17/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@11.0.17/java.lang.reflect.Method.invoke(Method.java:566)
+	at app//org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+	at app//org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@11.0.17/java.util.ArrayList.forEach(ArrayList.java:1541)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@11.0.17/java.util.ArrayList.forEach(ArrayList.java:1541)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:53)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62)
+	at java.base@11.0.17/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@11.0.17/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base@11.0.17/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@11.0.17/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at com.sun.proxy.$Proxy2.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</pre>
+</span>
+</div>
+</div>
+<div id="tab1" class="tab">
 <h2>Tests</h2>
 <table>
 <thead>
@@ -85,34 +464,34 @@
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">리뷰글 상세 조회 테스트</td>
-<td class="success">getReviewPostDetail()</td>
-<td class="success">0.016s</td>
-<td class="success">passed</td>
+<td class="failures">리뷰글 상세 조회 테스트</td>
+<td class="failures">getReviewPostDetail()</td>
+<td class="failures">0.012s</td>
+<td class="failures">failed</td>
 </tr>
 <tr>
-<td class="success">강의 리뷰 수정 테스트</td>
-<td class="success">patchReviewPost()</td>
-<td class="success">0.012s</td>
-<td class="success">passed</td>
+<td class="failures">강의 리뷰 수정 테스트</td>
+<td class="failures">patchReviewPost()</td>
+<td class="failures">0.011s</td>
+<td class="failures">failed</td>
 </tr>
 <tr>
-<td class="success">강의 리뷰 등록 테스트</td>
-<td class="success">postReviewPost()</td>
-<td class="success">0.013s</td>
-<td class="success">passed</td>
+<td class="failures">강의 리뷰 등록 테스트</td>
+<td class="failures">postReviewPost()</td>
+<td class="failures">0.012s</td>
+<td class="failures">failed</td>
 </tr>
 </table>
 </div>
-<div id="tab1" class="tab">
+<div id="tab2" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2023-03-16 15:34:24.794  INFO 15988 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [ynzmz.server.review.lecture.controller.LectureReviewControllerTest], using SpringBootContextLoader
-2023-03-16 15:34:24.795  INFO 15988 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [ynzmz.server.review.lecture.controller.LectureReviewControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2023-03-16 15:34:24.795  INFO 15988 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [ynzmz.server.review.lecture.controller.LectureReviewControllerTest]: LectureReviewControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2023-03-16 15:34:24.797  INFO 15988 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ynzmz.server.ServerApplication for test class ynzmz.server.review.lecture.controller.LectureReviewControllerTest
-2023-03-16 15:34:24.798  INFO 15988 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-2023-03-16 15:34:24.798  INFO 15988 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@23c6556b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@631990cc, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@222e4377, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3310bb28, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@22eccd2c, org.springframework.test.context.support.DirtiesContextTestExecutionListener@ddca64d, org.springframework.test.context.transaction.TransactionalTestExecutionListener@5d39797a, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6bc6400e, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@2f0765f7, org.springframework.test.context.event.EventPublishingTestExecutionListener@47814094, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@51e513b7, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@87affb5, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@1c461b90, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@518e6d6c, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@280fa441, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@77d771a2, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@5be17e53]
+<pre>2023-03-17 11:54:07.852  INFO 10172 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [ynzmz.server.review.lecture.controller.LectureReviewControllerTest], using SpringBootContextLoader
+2023-03-17 11:54:07.852  INFO 10172 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [ynzmz.server.review.lecture.controller.LectureReviewControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-03-17 11:54:07.852  INFO 10172 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [ynzmz.server.review.lecture.controller.LectureReviewControllerTest]: LectureReviewControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-03-17 11:54:07.856  INFO 10172 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration ynzmz.server.ServerApplication for test class ynzmz.server.review.lecture.controller.LectureReviewControllerTest
+2023-03-17 11:54:07.856  INFO 10172 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-03-17 11:54:07.856  INFO 10172 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@301da01d, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@8004b2d, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@63031e98, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@b521697, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@569242a8, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5cc12274, org.springframework.test.context.transaction.TransactionalTestExecutionListener@274d10aa, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3c304c7a, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@78f3ce56, org.springframework.test.context.event.EventPublishingTestExecutionListener@2df491be, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@62f30cea, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@5c1ecf52, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@3a792bf9, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@33093469, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@4967fabe, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@6329d89f, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@10fc01e0]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -122,19 +501,130 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.7.9)
 
-2023-03-16 15:34:24.811  INFO 15988 --- [    Test worker] y.s.r.l.c.LectureReviewControllerTest    : Starting LectureReviewControllerTest using Java 11.0.17 on gimminhoui-MacBookPro.local with PID 15988 (started by mino in /Users/mino/codestates/seb42_main_027/server)
-2023-03-16 15:34:24.812  INFO 15988 --- [    Test worker] y.s.r.l.c.LectureReviewControllerTest    : The following 1 profile is active: &quot;server&quot;
-2023-03-16 15:34:24.991  WARN 15988 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+2023-03-17 11:54:07.866  INFO 10172 --- [    Test worker] y.s.r.l.c.LectureReviewControllerTest    : Starting LectureReviewControllerTest using Java 11.0.17 on gimminhoui-MacBookPro.local with PID 10172 (started by mino in /Users/mino/codestates/seb42_main_027/server)
+2023-03-17 11:54:07.866  INFO 10172 --- [    Test worker] y.s.r.l.c.LectureReviewControllerTest    : The following 1 profile is active: &quot;server&quot;
+2023-03-17 11:54:08.042  WARN 10172 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: 5cc7cb22-aeac-4de3-a593-82a81cc92c8f
+Using generated security password: 4c3e694f-2890-4ab2-8d87-e626b76e5a5d
 
 This generated password is for development use only. Your security configuration must be updated before running your application in production.
 
-2023-03-16 15:34:25.006  INFO 15988 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@45db8ba6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6c826924, org.springframework.security.web.context.SecurityContextPersistenceFilter@3db2388e, org.springframework.security.web.header.HeaderWriterFilter@2bbc6496, org.springframework.security.web.authentication.logout.LogoutFilter@26b3eb48, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@493557d7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1e512b3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2809e7ab, org.springframework.security.web.session.SessionManagementFilter@52cb399d, org.springframework.security.web.access.ExceptionTranslationFilter@35283b74]
-2023-03-16 15:34:25.022  INFO 15988 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2023-03-16 15:34:25.022  INFO 15988 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2023-03-16 15:34:25.022  INFO 15988 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
-2023-03-16 15:34:25.027  INFO 15988 --- [    Test worker] y.s.r.l.c.LectureReviewControllerTest    : Started LectureReviewControllerTest in 0.227 seconds (JVM running for 6.361)
+2023-03-17 11:54:08.058  INFO 10172 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@42017162, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@66049424, org.springframework.security.web.context.SecurityContextPersistenceFilter@32c503d3, org.springframework.security.web.header.HeaderWriterFilter@2079ce51, org.springframework.security.web.authentication.logout.LogoutFilter@221b9c2b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5626cb89, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@38c38c5a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@8eb1297, org.springframework.security.web.session.SessionManagementFilter@1692d173, org.springframework.security.web.access.ExceptionTranslationFilter@c0d114b]
+2023-03-17 11:54:08.073  INFO 10172 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-03-17 11:54:08.073  INFO 10172 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-03-17 11:54:08.073  INFO 10172 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2023-03-17 11:54:08.077  INFO 10172 --- [    Test worker] y.s.r.l.c.LectureReviewControllerTest    : Started LectureReviewControllerTest in 0.22 seconds (JVM running for 6.636)
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /lectures/reviews
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Accept:&quot;application/json&quot;, Content-Length:&quot;132&quot;]
+             Body = {&quot;title&quot;:&quot;리뷰글 제목&quot;,&quot;starPoint&quot;:5,&quot;content&quot;:&quot;리뷰글 내용&quot;,&quot;memberId&quot;:1,&quot;lectureId&quot;:1,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;}
+    Session Attrs = {SPRING_SECURITY_CONTEXT=SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=user, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]], Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]]}
+
+Handler:
+             Type = ynzmz.server.review.lecture.controller.LectureReviewController
+           Method = ynzmz.server.review.lecture.controller.LectureReviewController#postLectureReview(Post)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [Vary:&quot;Origin&quot;, &quot;Access-Control-Request-Method&quot;, &quot;Access-Control-Request-Headers&quot;, Content-Type:&quot;application/json&quot;, X-Content-Type-Options:&quot;nosniff&quot;, X-XSS-Protection:&quot;1; mode=block&quot;, Cache-Control:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;, Pragma:&quot;no-cache&quot;, Expires:&quot;0&quot;, X-Frame-Options:&quot;DENY&quot;]
+     Content type = application/json
+             Body = {&quot;data&quot;:{&quot;lectureReviewId&quot;:1,&quot;title&quot;:&quot;리뷰글 제목&quot;,&quot;starPoint&quot;:5,&quot;content&quot;:&quot;리뷰글 내용&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;modifiedAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;viewCount&quot;:1,&quot;voteCount&quot;:0,&quot;lecture&quot;:{&quot;lectureId&quot;:1,&quot;title&quot;:&quot;강의 이름!&quot;,&quot;starPointAverage&quot;:0.0},&quot;member&quot;:{&quot;memberId&quot;:1,&quot;email&quot;:&quot;ghdrlfehd@gmail.com&quot;,&quot;displayName&quot;:&quot;홍길동&quot;,&quot;password&quot;:&quot;1111&quot;,&quot;iconImageUrl&quot;:&quot;IconUrl&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;roles&quot;:[],&quot;memberStatus&quot;:&quot;MEMBER_ACTIVE&quot;,&quot;questions&quot;:[],&quot;answers&quot;:[],&quot;questionVotes&quot;:[],&quot;answerVotes&quot;:[]}}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = PATCH
+      Request URI = /lectures/reviews/1
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Accept:&quot;application/json&quot;, Content-Length:&quot;106&quot;]
+             Body = {&quot;title&quot;:&quot;리뷰글 제목&quot;,&quot;starPoint&quot;:5,&quot;content&quot;:&quot;리뷰글 내용&quot;,&quot;modifiedAt&quot;:&quot;2023.03.10.18:52:36&quot;}
+    Session Attrs = {SPRING_SECURITY_CONTEXT=SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=user, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]], Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]]}
+
+Handler:
+             Type = ynzmz.server.review.lecture.controller.LectureReviewController
+           Method = ynzmz.server.review.lecture.controller.LectureReviewController#patchLectureReview(long, Patch)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Vary:&quot;Origin&quot;, &quot;Access-Control-Request-Method&quot;, &quot;Access-Control-Request-Headers&quot;, Content-Type:&quot;application/json&quot;, X-Content-Type-Options:&quot;nosniff&quot;, X-XSS-Protection:&quot;1; mode=block&quot;, Cache-Control:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;, Pragma:&quot;no-cache&quot;, Expires:&quot;0&quot;, X-Frame-Options:&quot;DENY&quot;]
+     Content type = application/json
+             Body = {&quot;data&quot;:{&quot;lectureReviewId&quot;:1,&quot;title&quot;:&quot;리뷰글 제목&quot;,&quot;starPoint&quot;:5,&quot;content&quot;:&quot;리뷰글 내용&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;modifiedAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;viewCount&quot;:1,&quot;voteCount&quot;:0,&quot;lecture&quot;:{&quot;lectureId&quot;:1,&quot;title&quot;:&quot;강의 이름!&quot;,&quot;starPointAverage&quot;:0.0},&quot;member&quot;:{&quot;memberId&quot;:1,&quot;email&quot;:&quot;ghdrlfehd@gmail.com&quot;,&quot;displayName&quot;:&quot;홍길동&quot;,&quot;password&quot;:&quot;1111&quot;,&quot;iconImageUrl&quot;:&quot;IconUrl&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;roles&quot;:[],&quot;memberStatus&quot;:&quot;MEMBER_ACTIVE&quot;,&quot;questions&quot;:[],&quot;answers&quot;:[],&quot;questionVotes&quot;:[],&quot;answerVotes&quot;:[]}}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /lectures/reviews/1
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Accept:&quot;application/json&quot;]
+             Body = null
+    Session Attrs = {SPRING_SECURITY_CONTEXT=SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=user, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]], Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]]}
+
+Handler:
+             Type = ynzmz.server.review.lecture.controller.LectureReviewController
+           Method = ynzmz.server.review.lecture.controller.LectureReviewController#getReviewDetail(long)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Vary:&quot;Origin&quot;, &quot;Access-Control-Request-Method&quot;, &quot;Access-Control-Request-Headers&quot;, Content-Type:&quot;application/json&quot;, X-Content-Type-Options:&quot;nosniff&quot;, X-XSS-Protection:&quot;1; mode=block&quot;, Cache-Control:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;, Pragma:&quot;no-cache&quot;, Expires:&quot;0&quot;, X-Frame-Options:&quot;DENY&quot;]
+     Content type = application/json
+             Body = {&quot;data&quot;:{&quot;lectureReviewId&quot;:1,&quot;title&quot;:&quot;리뷰글 제목&quot;,&quot;starPoint&quot;:5,&quot;content&quot;:&quot;리뷰글 내용&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;modifiedAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;viewCount&quot;:1,&quot;voteCount&quot;:0,&quot;teacher&quot;:{&quot;teacherId&quot;:1,&quot;name&quot;:&quot;홍길동&quot;,&quot;starPointAverage&quot;:0.0},&quot;lecture&quot;:{&quot;lectureId&quot;:1,&quot;title&quot;:&quot;강의 이름!&quot;,&quot;starPointAverage&quot;:0.0},&quot;member&quot;:{&quot;memberId&quot;:1,&quot;email&quot;:&quot;ghdrlfehd@gmail.com&quot;,&quot;displayName&quot;:&quot;홍길동&quot;,&quot;password&quot;:&quot;1111&quot;,&quot;iconImageUrl&quot;:&quot;IconUrl&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;roles&quot;:[],&quot;memberStatus&quot;:&quot;MEMBER_ACTIVE&quot;,&quot;questions&quot;:[],&quot;answers&quot;:[],&quot;questionVotes&quot;:[],&quot;answerVotes&quot;:[]},&quot;comments&quot;:[{&quot;lectureReviewCommentId&quot;:1,&quot;content&quot;:&quot;이사람 재대로 들은거 맞음?&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;modifiedAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;voteCount&quot;:0,&quot;member&quot;:{&quot;memberId&quot;:1,&quot;email&quot;:&quot;ghdrlfehd@gmail.com&quot;,&quot;displayName&quot;:&quot;홍길동&quot;,&quot;password&quot;:&quot;1111&quot;,&quot;iconImageUrl&quot;:&quot;IconUrl&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;roles&quot;:[],&quot;memberStatus&quot;:&quot;MEMBER_ACTIVE&quot;,&quot;questions&quot;:[],&quot;answers&quot;:[],&quot;questionVotes&quot;:[],&quot;answerVotes&quot;:[]}},{&quot;lectureReviewCommentId&quot;:1,&quot;content&quot;:&quot;이사람 재대로 들은거 맞음?&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;modifiedAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;voteCount&quot;:0,&quot;member&quot;:{&quot;memberId&quot;:1,&quot;email&quot;:&quot;ghdrlfehd@gmail.com&quot;,&quot;displayName&quot;:&quot;홍길동&quot;,&quot;password&quot;:&quot;1111&quot;,&quot;iconImageUrl&quot;:&quot;IconUrl&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;roles&quot;:[],&quot;memberStatus&quot;:&quot;MEMBER_ACTIVE&quot;,&quot;questions&quot;:[],&quot;answers&quot;:[],&quot;questionVotes&quot;:[],&quot;answerVotes&quot;:[]}},{&quot;lectureReviewCommentId&quot;:1,&quot;content&quot;:&quot;이사람 재대로 들은거 맞음?&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;modifiedAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;voteCount&quot;:0,&quot;member&quot;:{&quot;memberId&quot;:1,&quot;email&quot;:&quot;ghdrlfehd@gmail.com&quot;,&quot;displayName&quot;:&quot;홍길동&quot;,&quot;password&quot;:&quot;1111&quot;,&quot;iconImageUrl&quot;:&quot;IconUrl&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;roles&quot;:[],&quot;memberStatus&quot;:&quot;MEMBER_ACTIVE&quot;,&quot;questions&quot;:[],&quot;answers&quot;:[],&quot;questionVotes&quot;:[],&quot;answerVotes&quot;:[]}},{&quot;lectureReviewCommentId&quot;:1,&quot;content&quot;:&quot;이사람 재대로 들은거 맞음?&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;modifiedAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;voteCount&quot;:0,&quot;member&quot;:{&quot;memberId&quot;:1,&quot;email&quot;:&quot;ghdrlfehd@gmail.com&quot;,&quot;displayName&quot;:&quot;홍길동&quot;,&quot;password&quot;:&quot;1111&quot;,&quot;iconImageUrl&quot;:&quot;IconUrl&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;roles&quot;:[],&quot;memberStatus&quot;:&quot;MEMBER_ACTIVE&quot;,&quot;questions&quot;:[],&quot;answers&quot;:[],&quot;questionVotes&quot;:[],&quot;answerVotes&quot;:[]}},{&quot;lectureReviewCommentId&quot;:1,&quot;content&quot;:&quot;이사람 재대로 들은거 맞음?&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;modifiedAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;voteCount&quot;:0,&quot;member&quot;:{&quot;memberId&quot;:1,&quot;email&quot;:&quot;ghdrlfehd@gmail.com&quot;,&quot;displayName&quot;:&quot;홍길동&quot;,&quot;password&quot;:&quot;1111&quot;,&quot;iconImageUrl&quot;:&quot;IconUrl&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;roles&quot;:[],&quot;memberStatus&quot;:&quot;MEMBER_ACTIVE&quot;,&quot;questions&quot;:[],&quot;answers&quot;:[],&quot;questionVotes&quot;:[],&quot;answerVotes&quot;:[]}},{&quot;lectureReviewCommentId&quot;:1,&quot;content&quot;:&quot;이사람 재대로 들은거 맞음?&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;modifiedAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;voteCount&quot;:0,&quot;member&quot;:{&quot;memberId&quot;:1,&quot;email&quot;:&quot;ghdrlfehd@gmail.com&quot;,&quot;displayName&quot;:&quot;홍길동&quot;,&quot;password&quot;:&quot;1111&quot;,&quot;iconImageUrl&quot;:&quot;IconUrl&quot;,&quot;createdAt&quot;:&quot;2023.03.10.18:52:36&quot;,&quot;roles&quot;:[],&quot;memberStatus&quot;:&quot;MEMBER_ACTIVE&quot;,&quot;questions&quot;:[],&quot;answers&quot;:[],&quot;questionVotes&quot;:[],&quot;answerVotes&quot;:[]}}]}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
 </pre>
 </span>
 </div>
@@ -146,7 +636,7 @@ This generated password is for development use only. Your security configuration
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.6.1</a> at 2023. 3. 16. 오후 3:34:25</p>
+<a href="http://www.gradle.org">Gradle 7.6.1</a> at 2023. 3. 17. 오전 11:54:08</p>
 </div>
 </div>
 </body>
