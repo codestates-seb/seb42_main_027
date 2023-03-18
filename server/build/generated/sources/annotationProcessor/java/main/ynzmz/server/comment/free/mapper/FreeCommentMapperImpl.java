@@ -10,7 +10,7 @@ import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-18T03:22:45+0900",
+    date = "2023-03-18T11:52:08+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -24,7 +24,6 @@ public class FreeCommentMapperImpl implements FreeCommentMapper {
 
         FreeComment freeComment = new FreeComment();
 
-        freeComment.setFreeCommentId( FreeCommentPostDto.getFreeCommentId() );
         freeComment.setContent( FreeCommentPostDto.getContent() );
         freeComment.setCreatedAt( FreeCommentPostDto.getCreatedAt() );
 
@@ -51,21 +50,21 @@ public class FreeCommentMapperImpl implements FreeCommentMapper {
             return null;
         }
 
-        Long freeCommentId = null;
         String content = null;
         String createdAt = null;
         String modifiedAt = null;
         long voteCount = 0L;
         Member member = null;
 
-        freeCommentId = freeComment.getFreeCommentId();
         content = freeComment.getContent();
         createdAt = freeComment.getCreatedAt();
         modifiedAt = freeComment.getModifiedAt();
         voteCount = freeComment.getVoteCount();
         member = freeComment.getMember();
 
-        FreeCommentDto.Response response = new FreeCommentDto.Response( freeCommentId, content, createdAt, modifiedAt, voteCount, member );
+        Long freeId = null;
+
+        FreeCommentDto.Response response = new FreeCommentDto.Response( freeId, content, createdAt, modifiedAt, voteCount, member );
 
         return response;
     }
