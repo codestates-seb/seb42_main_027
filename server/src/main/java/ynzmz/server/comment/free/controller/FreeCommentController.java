@@ -25,18 +25,18 @@ public class FreeCommentController  {
     private final FreeCommentMapper freeCommentMapper;
     private final FreeCommentService freeCommentService;
     @PostMapping
-    public ResponseEntity<?> createFreeReviewComment(@RequestBody FreeCommentDto.Post postDto) {
+    public ResponseEntity<?> createFreeComment(@RequestBody FreeCommentDto.Post postDto) {
         FreeComment freeComment = freeCommentMapper.freeCommentPostToFreeComment(postDto);
         Member member = memberService.findMemberById(postDto.getMemberId());
         freeComment.setMember(member);
 
-        FreeComment createFreeComment = freeCommentService.creatFreeReviewComment(freeComment);
+        FreeComment createFreeComment = freeCommentService.creatFreeComment(freeComment);
         FreeCommentDto.Response response = freeCommentMapper.freeCommentToFreeCommentResponse(createFreeComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{free-comment-id}")
-    public ResponseEntity<?> updateFreeReviewComment(@RequestBody FreeCommentDto.Patch patchDto,
+    public ResponseEntity<?> updateFreeComment(@RequestBody FreeCommentDto.Patch patchDto,
                                                         @PathVariable("free-comment-id") long freePostCommentId) {
         FreeComment freeComment = freeCommentMapper.freeCommentPatchToFreeComment(patchDto);
         freeComment.setFreeCommentId(freePostCommentId);
@@ -48,7 +48,7 @@ public class FreeCommentController  {
 
 //게시글별 코멘트 받아오기
     @GetMapping
-    public ResponseEntity<?> getFreeReviewComments(@RequestParam(value = "filter", required = false) String filter,
+    public ResponseEntity<?> getFreeComments(@RequestParam(value = "filter", required = false) String filter,
                                                       @RequestParam long freeId,
                                                       @RequestParam int page,
                                                       @RequestParam int size) {
@@ -56,7 +56,7 @@ public class FreeCommentController  {
         if (filter == null){
             filter = "freeCommentId";
         }
-        Page<FreeComment> pageFreePostComments = freeCommentService.getFreeReviewComments(freeId, filter, page - 1, size);
+        Page<FreeComment> pageFreePostComments = freeCommentService.getFrees(freeId, filter, page - 1, size);
         List<FreeComment> freeComments = pageFreePostComments.getContent();
 
         List<FreeCommentDto.Response> responses = freeCommentMapper.freeCommentToFreeCommentsResponses(freeComments);
@@ -65,7 +65,7 @@ public class FreeCommentController  {
     }
 
     @DeleteMapping("/{free-comment-id}")
-    public void deleteFreeReviewComment(@PathVariable("free-comment-id") long freeCommentId) {
-        freeCommentService.deleteFreeReviewComment(freeCommentId);
+    public void deleteFreeComment(@PathVariable("free-comment-id") long freeCommentId) {
+        freeCommentService.deleteFreeComment(freeCommentId);
     }
 }

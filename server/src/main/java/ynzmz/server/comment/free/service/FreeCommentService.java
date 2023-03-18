@@ -18,7 +18,7 @@ public class FreeCommentService {
 
     private final FreeCommentRepository freeCommentRepository;
 
-    public FreeComment creatFreeReviewComment(FreeComment freeComment){
+    public FreeComment creatFreeComment(FreeComment freeComment){
         return freeCommentRepository.save(freeComment);
     }
 
@@ -31,11 +31,11 @@ public class FreeCommentService {
         return freeCommentRepository.save(findFreeComment);
     }
 
-    public Page<FreeComment> getFreeReviewComments(long FreeId, String filter, int page, int size) {
+    public Page<FreeComment> getFrees(long FreeId, String filter, int page, int size) {
         return freeCommentRepository.findFreeCommentsByFreeId(FreeId, PageRequest.of(page, size, Sort.by(filter).descending()));
     }
 
-    public void deleteFreeReviewComment(long FreeId) {
+    public void deleteFreeComment(long FreeId) {
         freeCommentRepository.deleteById(FreeId);
     }
 
