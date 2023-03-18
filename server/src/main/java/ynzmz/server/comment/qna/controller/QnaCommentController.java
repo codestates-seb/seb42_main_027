@@ -33,7 +33,7 @@ public class QnaCommentController {
         qnaComment.setQuestion(questionService.findQuestionById(questionId));
         qnaComment.setTarget(QnaComment.Target.Question);
 
-        QnaComment createComment = qnaCommentService.createLectureReviewComment(qnaComment);
+        QnaComment createComment = qnaCommentService.createQnaComment(qnaComment);
         QnaCommentDto.Response response = qnaCommentMapper.qnaCommentToQnaCommentResponse(createComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
@@ -47,7 +47,7 @@ public class QnaCommentController {
         qnaComment.setAnswer(answerService.findAnswerById(answerId));
         qnaComment.setTarget(QnaComment.Target.Answer);
 
-        QnaComment createComment = qnaCommentService.createLectureReviewComment(qnaComment);
+        QnaComment createComment = qnaCommentService.createQnaComment(qnaComment);
         QnaCommentDto.Response response = qnaCommentMapper.qnaCommentToQnaCommentResponse(createComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }

@@ -8,6 +8,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,7 @@ import java.util.Map;
 
 @Getter
 @Component
+@Slf4j
 public class JwtTokenizer {
 
     @Value("${jwt.key}")
@@ -49,6 +51,7 @@ public class JwtTokenizer {
                 .setSubject(subject) //제목추가
                 .setIssuedAt(Calendar.getInstance().getTime()) //jwt발행일자 파라미터타입 : java.util.date
                 .setExpiration(expiration) //만료날짜
+                .signWith(key) // 서명을위한 key
                 .compact(); //jwt생성후 직렬화
     }
 
@@ -63,9 +66,11 @@ public class JwtTokenizer {
                 .compact(); //별도의 Custom Claims 필요없음. AccessToken을 새로발급해주는 것이므로. 갱신개념
     }
 
-
+    //JWT 를 파싱하여 Claim 정보를 추출
     public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey){
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+
+        log.info("key : " + key.toString());
 
         Jws<Claims> claims = Jwts.parserBuilder()
                 .setSigningKey(key)

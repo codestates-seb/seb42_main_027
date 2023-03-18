@@ -8,6 +8,5 @@ import ynzmz.server.comment.qna.entity.QnaComment;
 
 @Repository
 public interface QnaCommentRepository extends JpaRepository<QnaComment,Long> {
-    Page<QnaComment> findLectureReviewCommentsByLectureReviewLectureReviewId(long lectureReviewId, Pageable pageable);
 
 }

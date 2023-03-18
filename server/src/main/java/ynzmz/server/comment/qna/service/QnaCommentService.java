@@ -1,9 +1,6 @@
 package ynzmz.server.comment.qna.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.comment.qna.repository.QnaCommentRepository;
@@ -18,7 +15,7 @@ public class QnaCommentService {
 
     private final QnaCommentRepository qnaCommentRepository;
 
-    public QnaComment createLectureReviewComment(QnaComment qnaComment){
+    public QnaComment createQnaComment(QnaComment qnaComment){
         return qnaCommentRepository.save(qnaComment);
     }
 
@@ -31,8 +28,8 @@ public class QnaCommentService {
         return qnaCommentRepository.save(findQnaComment);
     }
 
-    public void deleteQnaComment(long lectureReviewCommentId) {
-        qnaCommentRepository.deleteById(lectureReviewCommentId);
+    public void deleteQnaComment(long qnaCommentId) {
+        qnaCommentRepository.deleteById(qnaCommentId);
     }
 
     public QnaComment findQnaCommentById(long qnaCommentId) {

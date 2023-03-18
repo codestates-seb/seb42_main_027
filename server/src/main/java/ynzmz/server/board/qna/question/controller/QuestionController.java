@@ -129,7 +129,9 @@ public class QuestionController {
 
     //내가쓴글 조회
     @GetMapping("/{member-id}/question")
-    public ResponseEntity<?> getMemberQuestion(@PathVariable("member-id") long memberId, @RequestParam int page, @RequestParam int size) {
+    public ResponseEntity<?> getMemberQuestion(@PathVariable("member-id") long memberId,
+                                               @RequestParam int page,
+                                               @RequestParam int size) {
 
         memberService.memberValidation(loginMemberFindByToken(), memberId); // 작성자 & 로그인된 회원 검증
 
