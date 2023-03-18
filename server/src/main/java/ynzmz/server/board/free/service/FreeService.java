@@ -1,6 +1,7 @@
 package ynzmz.server.board.free.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FreeService {
 
     private final FreeRepository repository;
@@ -22,8 +24,8 @@ public class FreeService {
         return repository.save(free);
     }
     //--------------------------------------------READ----------------------------------------------------------
-    public Free findFreeById(long id){
-        return repository.findById(id).orElseThrow(()-> new BusinessLogicException(ExceptionCode.FREE_NOT_FOUND));
+    public Free findFreeById(long freeId){
+        return repository.findById(freeId).orElseThrow(()-> new BusinessLogicException(ExceptionCode.FREE_NOT_FOUND));
 
     }
 

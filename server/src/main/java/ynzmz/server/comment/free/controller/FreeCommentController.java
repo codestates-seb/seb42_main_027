@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ynzmz.server.board.free.entity.Free;
+import ynzmz.server.board.free.service.FreeService;
 import ynzmz.server.comment.free.dto.FreeCommentDto;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.comment.free.mapper.FreeCommentMapper;
@@ -24,11 +26,15 @@ public class FreeCommentController  {
     private final MemberService memberService;
     private final FreeCommentMapper freeCommentMapper;
     private final FreeCommentService freeCommentService;
+    private final FreeService freeService;
     @PostMapping
     public ResponseEntity<?> createFreeComment(@RequestBody FreeCommentDto.Post postDto) {
         FreeComment freeComment = freeCommentMapper.freeCommentPostToFreeComment(postDto);
         Member member = memberService.findMemberById(postDto.getMemberId());
+        Free free = freeService.findFreeById(postDto.getFreeId());
         freeComment.setMember(member);
+        freeComment.setFree(free);
+        freeComment.setFreeDisplayId(free.getFreeId());
 
         FreeComment createFreeComment = freeCommentService.creatFreeComment(freeComment);
         FreeCommentDto.Response response = freeCommentMapper.freeCommentToFreeCommentResponse(createFreeComment);
