@@ -47,22 +47,22 @@ public class FreeCommentController  {
     }
 
 //게시글별 코멘트 받아오기
-    @GetMapping
-    public ResponseEntity<?> getFreeComments(@RequestParam(value = "filter", required = false) String filter,
-                                                      @RequestParam long freeId,
-                                                      @RequestParam int page,
-                                                      @RequestParam int size) {
-
-        if (filter == null){
-            filter = "freeCommentId";
-        }
-        Page<FreeComment> pageFreePostComments = freeCommentService.getFrees(freeId, filter, page - 1, size);
-        List<FreeComment> freeComments = pageFreePostComments.getContent();
-
-        List<FreeCommentDto.Response> responses = freeCommentMapper.freeCommentToFreeCommentsResponses(freeComments);
-
-        return new ResponseEntity<>(new MultiResponseDto<>(responses, pageFreePostComments), HttpStatus.OK);
-    }
+//    @GetMapping
+//    public ResponseEntity<?> getFreeComments(@RequestParam(value = "filter", required = false) String filter,
+//                                                      @RequestParam long freeId,
+//                                                      @RequestParam int page,
+//                                                      @RequestParam int size) {
+//
+//        if (filter == null){
+//            filter = "freeCommentId";
+//        }
+//        Page<FreeComment> pageFreePostComments = freeCommentService.getFrees(freeId, filter, page - 1, size);
+//        List<FreeComment> freeComments = pageFreePostComments.getContent();
+//
+//        List<FreeCommentDto.Response> responses = freeCommentMapper.freeCommentToFreeCommentsResponses(freeComments);
+//
+//        return new ResponseEntity<>(new MultiResponseDto<>(responses, pageFreePostComments), HttpStatus.OK);
+//    }
 
     @DeleteMapping("/{free-comment-id}")
     public void deleteFreeComment(@PathVariable("free-comment-id") long freeCommentId) {

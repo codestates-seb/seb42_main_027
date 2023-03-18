@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.Nullable;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.member.entity.Member;
@@ -17,6 +20,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Slf4j
+@ToString
 public class Free implements VoteCount {
 
     // id: 1,
@@ -40,7 +45,7 @@ public class Free implements VoteCount {
 
     @Id
     @GeneratedValue
-    private long Id;
+    private long freeId;
 
     private String title;
     private String content;//추후 변경 가능
@@ -52,9 +57,11 @@ public class Free implements VoteCount {
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "member_id")
+    @Nullable
     private Member member;
     @OneToMany(mappedBy = "free", cascade = CascadeType.REMOVE)
     @JsonManagedReference
+    @Nullable
     private List<FreeComment> comments = new ArrayList<>();
 
 //    private

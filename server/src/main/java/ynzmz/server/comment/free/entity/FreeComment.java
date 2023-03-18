@@ -23,7 +23,7 @@ public class FreeComment implements VoteCount {
     @ColumnDefault("0")
     private long voteCount;
     @ManyToOne
-    @JoinColumn(name = "free_comment_post_id")
+    @JoinColumn(name = "free_id")//아마?
     @JsonBackReference
     private Free free;
     @ManyToOne

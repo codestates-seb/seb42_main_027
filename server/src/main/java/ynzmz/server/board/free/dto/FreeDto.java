@@ -1,9 +1,6 @@
 package ynzmz.server.board.free.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import ynzmz.server.comment.free.dto.FreeCommentDto;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.member.entity.Member;
@@ -13,11 +10,12 @@ import java.util.List;
 public class FreeDto {
 @Getter
 @Setter
-@Builder @AllArgsConstructor
+@Builder @AllArgsConstructor @ToString
     public static class post{
-        long Id;
         String title;
         String content;//추후 변경 가능
+
+        String createdAt;
 
     }
     @Getter
@@ -25,16 +23,17 @@ public class FreeDto {
     @AllArgsConstructor
     public static class patch
     {
-        private long Id;
+        private long freeId;
         private String title;
         private String content;//추후 변경 가능
+        private String modifiedAt;
     }
 
     @Getter
     @Setter
     @Builder @AllArgsConstructor
     public static class ListResponse{
-        long Id;
+        long freeId;
         String title;
         String content;//추후 변경 가능
         long viewCount;
@@ -50,7 +49,7 @@ public class FreeDto {
     @Setter
     @Builder @AllArgsConstructor
     public static class DetailResponse{
-        long Id;
+        long freeId;
         String title;
         String content;//추후 변경 가능
         long viewCount;

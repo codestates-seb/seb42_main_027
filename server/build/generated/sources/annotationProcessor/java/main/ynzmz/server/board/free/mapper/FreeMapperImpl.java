@@ -9,7 +9,7 @@ import ynzmz.server.board.free.entity.Free;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-18T03:22:45+0900",
+    date = "2023-03-18T17:45:15+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -23,13 +23,9 @@ public class FreeMapperImpl implements FreeMapper {
 
         Free free = new Free();
 
-        free.setId( p.getId() );
         free.setTitle( p.getTitle() );
         free.setContent( p.getContent() );
-        free.setViewCount( p.getViewCount() );
-        free.setVoteCount( p.getVoteCount() );
         free.setCreatedAt( p.getCreatedAt() );
-        free.setModifiedAt( p.getModifiedAt() );
 
         return free;
     }
@@ -42,9 +38,10 @@ public class FreeMapperImpl implements FreeMapper {
 
         Free free = new Free();
 
-        free.setId( p.getId() );
+        free.setFreeId( p.getFreeId() );
         free.setTitle( p.getTitle() );
         free.setContent( p.getContent() );
+        free.setModifiedAt( p.getModifiedAt() );
 
         return free;
     }
@@ -57,6 +54,7 @@ public class FreeMapperImpl implements FreeMapper {
 
         FreeDto.DetailResponse.DetailResponseBuilder detailResponse = FreeDto.DetailResponse.builder();
 
+        detailResponse.freeId( free.getFreeId() );
         detailResponse.title( free.getTitle() );
         detailResponse.content( free.getContent() );
         detailResponse.viewCount( free.getViewCount() );
@@ -76,6 +74,7 @@ public class FreeMapperImpl implements FreeMapper {
 
         FreeDto.ListResponse.ListResponseBuilder listResponse = FreeDto.ListResponse.builder();
 
+        listResponse.freeId( free.getFreeId() );
         listResponse.title( free.getTitle() );
         listResponse.content( free.getContent() );
         listResponse.viewCount( free.getViewCount() );

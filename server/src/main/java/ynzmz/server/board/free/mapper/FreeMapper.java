@@ -2,6 +2,7 @@ package ynzmz.server.board.free.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.beans.factory.annotation.Autowired;
 import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.board.free.dto.FreeDto;
 

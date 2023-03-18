@@ -30,17 +30,17 @@ public class FreeCommentService {
 
         return freeCommentRepository.save(findFreeComment);
     }
+//
+//    public Page<FreeComment> getFrees(long freeId, String filter, int page, int size) {
+//        return freeCommentRepository.findFreeCommentsByFreeId(freeId, PageRequest.of(page, size, Sort.by(filter).descending()));
+//    }
 
-    public Page<FreeComment> getFrees(long FreeId, String filter, int page, int size) {
-        return freeCommentRepository.findFreeCommentsByFreeId(FreeId, PageRequest.of(page, size, Sort.by(filter).descending()));
+    public void deleteFreeComment(long freeId) {
+        freeCommentRepository.deleteById(freeId);
     }
 
-    public void deleteFreeComment(long FreeId) {
-        freeCommentRepository.deleteById(FreeId);
-    }
-
-    public FreeComment findFreeCommentById(long FreeId) {
-        Optional<FreeComment> FreeComment = freeCommentRepository.findById(FreeId);
+    public FreeComment findFreeCommentById(long freeId) {
+        Optional<FreeComment> FreeComment = freeCommentRepository.findById(freeId);
         return FreeComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.FREE_NOT_FOUND));
     }
 }

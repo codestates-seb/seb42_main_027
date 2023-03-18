@@ -1,9 +1,11 @@
 package ynzmz.server.board.free.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.board.free.dto.FreeDto;
@@ -19,14 +21,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/boards/frees")
 @RequiredArgsConstructor
+@Slf4j
 public class FreeController {
-    FreeService freeService;
-    FreeMapper freeMapper;
+    private final FreeService freeService;
+    private final FreeMapper freeMapper;
 
 
-    @PostMapping
+    @PostMapping(produces =  MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> postFree(@RequestBody FreeDto.post post){
+        log.info(post.toString());
         Free free = freeMapper.freePostToFree(post);
+        log.info(free.toString());
         freeService.createFree(free);
         FreeDto.DetailResponse Response = freeMapper.freeToFreeDetailResponse(free);
         return new ResponseEntity<>(new SingleResponseDto<>(Response),HttpStatus.CREATED);
@@ -52,7 +57,7 @@ public class FreeController {
     @PatchMapping("/{free-id}")
     public ResponseEntity<?> patchFree(@PathVariable("free-id")long id, @RequestBody FreeDto.patch freepatch){
         Free free = freeMapper.freePatchToFree(freepatch);
-        free.setId(id);
+        free.setFreeId(id);
         Free newFree = freeService.updateFree(free);
         FreeDto.DetailResponse freeDetailResponse = freeMapper.freeToFreeDetailResponse(free);
 
