@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import theme from 'theme';
 
 import PostList from 'components/board/post/postList';
-import WritePost from 'components/board/post/writePost';
+import WritePost from 'components/board/post/postWrite';
 
 function QnABoard() {
   return (

@@ -7,7 +7,7 @@ import ProfileIcon from 'assets/icons/defaultProfileIcon';
 import CountIcon from 'assets/icons/countIcon';
 
 import WriteComment from '../comment/writeComment';
-import RecommentList from '../comment/recommentList';
+import RecommentList from './recommentList';
 
 function CommentBlock() {
   const [openRecom, setOpenRecom] = useState(false);
