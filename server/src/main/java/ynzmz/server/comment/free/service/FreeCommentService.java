@@ -43,4 +43,15 @@ public class FreeCommentService {
         Optional<FreeComment> FreeComment = freeCommentRepository.findById(freeId);
         return FreeComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.FREE_NOT_FOUND));
     }
+
+    public void getSimilarityMember(FreeComment freeComment){
+        if (freeComment.getMember() == freeComment.getFree().getMember())
+        {
+            freeComment.setMemberSim(true);
+        }
+        else
+        {
+            freeComment.setMemberSim(false);
+        }
+    }
 }

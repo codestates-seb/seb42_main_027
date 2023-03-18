@@ -19,6 +19,8 @@ public class FreeComment implements VoteCount {
     private String content;
     private String createdAt;
     private String modifiedAt;
+
+    private long freeDisplayId;
     @Column
     @ColumnDefault("0")
     private long voteCount;
@@ -30,6 +32,10 @@ public class FreeComment implements VoteCount {
     @JoinColumn(name = "member_id")
     @JsonBackReference
     private Member member;
+
+    @Column
+    @ColumnDefault("false")
+    private boolean memberSim;
 
 
 }

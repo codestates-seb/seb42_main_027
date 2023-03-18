@@ -15,6 +15,8 @@ public class FreeDto {
         String title;
         String content;//추후 변경 가능
 
+        String category;
+
         String createdAt;
 
     }
@@ -25,7 +27,8 @@ public class FreeDto {
     {
         private long freeId;
         private String title;
-        private String content;//추후 변경 가능
+        private String content;
+        private String category;
         private String modifiedAt;
     }
 
@@ -41,7 +44,7 @@ public class FreeDto {
         String createdAt;
         String modifiedAt;
         Member member;
-        List<FreeCommentDto.Response> commentsList;
+        int commentsListNum;
 //댓글 개수 필요함? 필요함
     }
 
@@ -52,6 +55,7 @@ public class FreeDto {
         long freeId;
         String title;
         String content;//추후 변경 가능
+        String category;
         long viewCount;
         long voteCount;
         String createdAt;

@@ -44,11 +44,12 @@ public class Free implements VoteCount {
     //15개씩 페이지네이션
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long freeId;
 
     private String title;
     private String content;//추후 변경 가능
+    private String category;
     private long viewCount;
     private long voteCount;
     private String createdAt;
@@ -64,6 +65,8 @@ public class Free implements VoteCount {
     @Nullable
     private List<FreeComment> comments = new ArrayList<>();
 
+
+    private int commentsListNum = comments.size();
 //    private
 
 

@@ -9,7 +9,7 @@ import ynzmz.server.board.free.entity.Free;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-18T17:45:15+0900",
+    date = "2023-03-18T22:46:51+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -25,6 +25,7 @@ public class FreeMapperImpl implements FreeMapper {
 
         free.setTitle( p.getTitle() );
         free.setContent( p.getContent() );
+        free.setCategory( p.getCategory() );
         free.setCreatedAt( p.getCreatedAt() );
 
         return free;
@@ -41,6 +42,7 @@ public class FreeMapperImpl implements FreeMapper {
         free.setFreeId( p.getFreeId() );
         free.setTitle( p.getTitle() );
         free.setContent( p.getContent() );
+        free.setCategory( p.getCategory() );
         free.setModifiedAt( p.getModifiedAt() );
 
         return free;
@@ -57,6 +59,7 @@ public class FreeMapperImpl implements FreeMapper {
         detailResponse.freeId( free.getFreeId() );
         detailResponse.title( free.getTitle() );
         detailResponse.content( free.getContent() );
+        detailResponse.category( free.getCategory() );
         detailResponse.viewCount( free.getViewCount() );
         detailResponse.voteCount( free.getVoteCount() );
         detailResponse.createdAt( free.getCreatedAt() );
@@ -82,6 +85,7 @@ public class FreeMapperImpl implements FreeMapper {
         listResponse.createdAt( free.getCreatedAt() );
         listResponse.modifiedAt( free.getModifiedAt() );
         listResponse.member( free.getMember() );
+        listResponse.commentsListNum( free.getCommentsListNum() );
 
         return listResponse.build();
     }
