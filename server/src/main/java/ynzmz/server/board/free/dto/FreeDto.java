@@ -18,10 +18,7 @@ public class FreeDto {
         long Id;
         String title;
         String content;//추후 변경 가능
-        long viewCount;
-        long voteCount;
-        String createdAt;
-        String modifiedAt;
+
     }
     @Getter
     @Setter

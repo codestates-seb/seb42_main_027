@@ -24,6 +24,14 @@ public class FreeController {
     FreeMapper freeMapper;
 
 
+    @PostMapping
+    public ResponseEntity<?> postFree(@RequestBody FreeDto.post post){
+        Free free = freeMapper.freePostToFree(post);
+        freeService.createFree(free);
+        FreeDto.DetailResponse Response = freeMapper.freeToFreeDetailResponse(free);
+        return new ResponseEntity<>(new SingleResponseDto<>(Response),HttpStatus.CREATED);
+    }
+
 
     @GetMapping("/{free-id}")
     public ResponseEntity<?> getDetailFree(@PathVariable("free-id") long Id){
