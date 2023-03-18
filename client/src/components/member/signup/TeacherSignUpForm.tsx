@@ -210,8 +210,7 @@ function TeacherSignUpForm() {
     pathData.state = 'TEACHER';
     try {
       await postSignUp(pathData);
-      console.log('가입 성공~!');
-      navigate('login');
+      navigate('/login');
     } catch (error) {
       console.error(error);
     }
