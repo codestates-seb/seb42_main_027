@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 import styled from 'styled-components';
 import theme from 'theme';
@@ -6,47 +6,55 @@ import Button from 'components/common/Button';
 import ProfileIcon from 'assets/icons/defaultProfileIcon';
 import CountIcon from 'assets/icons/countIcon';
 
-import GoBackMenu from './goBackMenu';
-import CommentList from '../comment/freeBoardCommentList';
+import WriteComment from '../comment/writeComment';
+import RecommentList from './recommentList';
 
-function PostContent() {
+function CommentBlock() {
+  const [openRecom, setOpenRecom] = useState(false);
+
+  const openRecomHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // if (e.target instanceof Element) {
+    //   console.log(e.target.log);
+    // }
+    setOpenRecom(!openRecom);
+  };
+
   return (
     <Container>
-      <GoBackMenu />
       <TitleDiv>
-        <Top>
-          <Category>일상</Category>
-          <UDBtnDiv>
-            <Link to="edit">
-              <Button.UDWhiteBtn>수정</Button.UDWhiteBtn>
-            </Link>
-            <Button.UDWhiteBtn>삭제</Button.UDWhiteBtn>
-          </UDBtnDiv>
-        </Top>
-        <H2>이곳에 제목이 들어갑니다.</H2>
         <Writer>
           <ProfileIcon.Default />
           <div>닉네임 약 1시간 전</div>
-          <View>
-            <CountIcon.View />
-            36
-          </View>
+          <Category>작성자</Category>
         </Writer>
+        <UDBtnDiv>
+          <Button.UDWhiteBtn>수정</Button.UDWhiteBtn>
+          <Button.UDWhiteBtn>삭제</Button.UDWhiteBtn>
+        </UDBtnDiv>
       </TitleDiv>
       <MainDiv>
-        <div>여기에 게시물 내용이 들어갑니다.</div>
-        <VoteDiv>
-          <Button.VoteDownBtn>
-            <CountIcon.VoteDown />
-          </Button.VoteDownBtn>
-          <VoteCount>0</VoteCount>
-          <Button.VoteUpBtn>
-            <CountIcon.VoteUp />
-          </Button.VoteUpBtn>
-        </VoteDiv>
+        <TextDiv>여기에 댓글 내용이 들어갑니다.</TextDiv>
+        <BottomDiv>
+          <Button.RecommentBtn onClick={openRecomHandler}>
+            댓글 쓰기
+          </Button.RecommentBtn>
+          <VoteDiv>
+            <Button.VoteDownBtn>
+              <CountIcon.VoteDown />
+            </Button.VoteDownBtn>
+            <VoteCount>0</VoteCount>
+            <Button.VoteUpBtn>
+              <CountIcon.VoteUp />
+            </Button.VoteUpBtn>
+          </VoteDiv>
+        </BottomDiv>
       </MainDiv>
-      <CommentCnt>n개의 댓글</CommentCnt>
-      <CommentList />
+      {openRecom ? (
+        <WriteRecomDiv>
+          <WriteComment />
+        </WriteRecomDiv>
+      ) : null}
+      <RecommentList />
     </Container>
   );
 }
@@ -55,37 +63,20 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding: ${theme.gap.px20};
+  padding-bottom: 0;
+  border-bottom: 1px solid ${theme.colors.gray};
 `;
 
 const TitleDiv = styled.div`
   display: flex;
-  flex-direction: column;
-  padding: ${theme.gap.px20};
-  border-bottom: 1px solid ${theme.colors.gray};
-`;
-
-const Top = styled.div`
-  display: flex;
   justify-content: space-between;
-  margin-bottom: ${theme.gap.px10};
-`;
-
-const H2 = styled.h2`
-  font-weight: bold;
-  font-size: ${theme.fontSizes.subTitle};
   margin-bottom: ${theme.gap.px20};
 `;
 
 const Writer = styled.div`
   display: flex;
   align-items: center;
-  position: relative;
-`;
-const View = styled.div`
-  display: flex;
-  position: absolute;
-  right: 0;
-  bottom: 0;
 `;
 
 const Category = styled.div`
@@ -100,7 +91,6 @@ const Category = styled.div`
   font-weight: bold;
   color: ${theme.colors.pointColor};
   background-color: ${theme.colors.white};
-  margin-bottom: 4px;
 `;
 
 const UDBtnDiv = styled.div`
@@ -113,14 +103,21 @@ const UDBtnDiv = styled.div`
 const MainDiv = styled.div`
   display: flex;
   flex-direction: column;
-  padding: ${theme.gap.px20};
-  border-bottom: 1px solid ${theme.colors.gray};
+  margin-bottom: ${theme.gap.px20};
+`;
+
+const TextDiv = styled.div`
+  display: flex;
+  margin-bottom: ${theme.gap.px20};
+`;
+
+const BottomDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const VoteDiv = styled.div`
   display: flex;
-  justify-content: right;
-  margin-bottom: ${theme.gap.px120};
 `;
 
 const VoteCount = styled.div`
@@ -134,9 +131,9 @@ const VoteCount = styled.div`
   border-bottom: 1px solid ${theme.colors.gray};
 `;
 
-const CommentCnt = styled.div`
-  padding: ${theme.gap.px20};
-  border-bottom: 1px solid ${theme.colors.gray};
+const WriteRecomDiv = styled.div`
+  padding-left: ${theme.gap.px20};
+  border-top: 1px dashed ${theme.colors.gray};
 `;
 
-export default PostContent;
+export default CommentBlock;

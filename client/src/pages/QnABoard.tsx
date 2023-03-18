@@ -4,22 +4,21 @@ import styled from 'styled-components';
 import theme from 'theme';
 
 import PostList from 'components/board/post/postList';
-import WritePost from 'components/board/post/writePost';
-import PostContentFree from 'components/board/post/freeBoardPostContent';
+import WritePost from 'components/board/post/postWrite';
 
-function FreeBoard() {
+function QnABoard() {
   return (
     <Container>
       <Main>
         <Title>
-          <H2>자유게시판</H2>
-          <p>다양한 이야기를 자유롭게 나누는 공간입니다.</p>
+          <H2>질문게시판</H2>
+          <p>학습 중 생긴 궁금증에 관해 질문하고 답변할 수 있는 공간입니다.</p>
         </Title>
         <Routes>
           <Route path="/" element={<PostList />} />
           <Route path="write" element={<WritePost />} />
-          <Route path="articles" element={<PostContentFree />} />
-          <Route path="articles/edit" element={<WritePost />} />
+          <Route path="edit" element={<WritePost />} />
+          {/* <Route path="articles" element={<PostContentQna />} /> */}
         </Routes>
       </Main>
     </Container>
@@ -30,6 +29,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
 `;
 
 const Main = styled.div`
@@ -57,4 +57,4 @@ const H2 = styled.h2`
   margin-bottom: ${theme.gap.px10};
 `;
 
-export default FreeBoard;
+export default QnABoard;
