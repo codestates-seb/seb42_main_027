@@ -16,9 +16,9 @@ function FreeBoard() {
           <p>다양한 이야기를 자유롭게 나누는 공간입니다.</p>
         </Title>
         <Routes>
-          <Route path="/" element={<PostList />} />
-          <Route path="write" element={<WritePost />} />
+          <Route path="" element={<PostList />} />
           <Route path="articles" element={<PostContent />} />
+          <Route path="articles/write" element={<WritePost />} />
           <Route path="articles/edit" element={<WritePost />} />
         </Routes>
       </Main>

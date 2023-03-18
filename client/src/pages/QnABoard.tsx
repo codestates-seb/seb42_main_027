@@ -15,10 +15,10 @@ function QnABoard() {
           <p>학습 중 생긴 궁금증에 관해 질문하고 답변할 수 있는 공간입니다.</p>
         </Title>
         <Routes>
-          <Route path="/" element={<PostList />} />
-          <Route path="write" element={<WritePost />} />
-          <Route path="edit" element={<WritePost />} />
-          {/* <Route path="articles" element={<PostContentQna />} /> */}
+          <Route path="" element={<PostList />} />
+          {/* <Route path="articles" element={<PostContent />} /> */}
+          <Route path="articles/write" element={<WritePost />} />
+          <Route path="articles/edit" element={<WritePost />} />
         </Routes>
       </Main>
     </Container>
