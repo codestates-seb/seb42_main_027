@@ -5,7 +5,7 @@ import theme from 'theme';
 
 import PostList from 'components/board/post/postList';
 import WritePost from 'components/board/post/writePost';
-import PostContentFree from 'components/board/post/freeBoardPostContent';
+import PostContentFree from 'components/board/post/postContent';
 
 function FreeBoard() {
   return (

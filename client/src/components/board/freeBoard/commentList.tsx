@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import theme from 'theme';
 
-import WriteComment from './writeComment';
-import CommentBlock from './freeBoardCommentBlock';
+import WriteComment from '../comment/writeComment';
+import CommentBlock from './commentBlock';
 
 function CommentList() {
   return (

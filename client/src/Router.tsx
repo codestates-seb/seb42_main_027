@@ -6,7 +6,7 @@ import QnABoard from 'pages/qnABoard/QnABoard';
 import FreeBoard from 'pages/freeBoard/FreeBoard';
 import PostList from 'components/board/post/postList';
 import WritePost from 'components/board/post/writePost';
-import PostContent from 'components/board/post/freeBoardPostContent';
+import PostContent from 'components/board/post/postContent';
 import ReviewPage from 'pages/review/ReviewPage';
 import ReviewPageDetail from 'pages/review/ReviewPageDetail';
 import CreateTeacher from 'pages/review/CreateTeacher';
