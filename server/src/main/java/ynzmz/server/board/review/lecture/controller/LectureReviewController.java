@@ -42,7 +42,7 @@ public class LectureReviewController {
         LectureReview createdLectureReview = lectureReviewService.createLectureReview(lectureReview);
 
         //리뷰 등록시 강의의 평균점수를 수정 & 리뷰 총 갯수 수정
-        lectureService.setLectureStaPointAverageAndTotalReviewCount(createdLectureReview.getLecture());
+        lectureService.setLectureStarPointAverageAndTotalReviewCount(createdLectureReview.getLecture());
         //리뷰 등록시 강사의 평균점수를 수정 & 리뷰 총 갯수 수정
         teacherService.setTeacherStarPointAverageAndTotalReviewCount(createdLectureReview.getLecture().getTeacher());
 
@@ -59,7 +59,7 @@ public class LectureReviewController {
         LectureReview updatedLectureReview = lectureReviewService.updateLectureReview(lectureReview);
 
         //리뷰 등록시 강의의 평균점수를 수정
-        lectureService.setLectureStaPointAverageAndTotalReviewCount(updatedLectureReview.getLecture());
+        lectureService.setLectureStarPointAverageAndTotalReviewCount(updatedLectureReview.getLecture());
         //리뷰 등록시 강사의 평균점수를 수정
         teacherService.setTeacherStarPointAverageAndTotalReviewCount(updatedLectureReview.getLecture().getTeacher());
 

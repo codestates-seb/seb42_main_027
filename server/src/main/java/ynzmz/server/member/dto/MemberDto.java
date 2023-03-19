@@ -40,6 +40,7 @@ public class MemberDto{
         private String confirmPassword;
         @NotBlank(message = "닉네임은 필수 입력 값입니다.")
         private String displayName;
+        private String iconImageUrl;
         private String State;
         private String createdAt;
 
@@ -72,7 +73,7 @@ public class MemberDto{
     public static class SimpleInfoResponse{
         private Long memberId;
         private String displayName;
-        private String IconImageUrl;
+        private String iconImageUrl;
         private String state;
     }
     @Getter
@@ -84,7 +85,7 @@ public class MemberDto{
         private Long memberId;
         private String email;
         private String displayName;
-        private String IconImageUrl;
+        private String iconImageUrl;
         private String state;
         private String createdAt;
     }

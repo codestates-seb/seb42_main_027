@@ -139,7 +139,7 @@ public class MemberController {
                                         @Positive @RequestParam int size){
         Page<Free> pageFrees = freeService.findFreeByMemberId(memberId,page-1,size);
         List<Free> myFrees = pageFrees.getContent();
-        List<FreeDto.ListResponse> responses = freeMapper.freeTofreeListResponse(myFrees);
+        List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(myFrees);
         return new ResponseEntity<>(new MultiResponseDto<>(responses,pageFrees),HttpStatus.OK);
     }
 

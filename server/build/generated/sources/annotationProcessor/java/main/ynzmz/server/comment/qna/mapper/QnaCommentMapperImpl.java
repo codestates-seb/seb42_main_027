@@ -13,7 +13,7 @@ import ynzmz.server.recomment.qna.entity.QnaReComment;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-19T18:53:58+0900",
+    date = "2023-03-19T19:18:30+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -87,19 +87,17 @@ public class QnaCommentMapperImpl implements QnaCommentMapper {
 
         Long memberId = null;
         String displayName = null;
+        String iconImageUrl = null;
         String state = null;
 
         memberId = member.getMemberId();
         displayName = member.getDisplayName();
+        iconImageUrl = member.getIconImageUrl();
         if ( member.getState() != null ) {
             state = member.getState().name();
         }
 
-        String iconImageUrl = null;
-
         MemberDto.SimpleInfoResponse simpleInfoResponse = new MemberDto.SimpleInfoResponse( memberId, displayName, iconImageUrl, state );
-
-        simpleInfoResponse.setIconImageUrl( member.getIconImageUrl() );
 
         return simpleInfoResponse;
     }

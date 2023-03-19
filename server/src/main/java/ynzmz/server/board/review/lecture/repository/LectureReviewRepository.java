@@ -12,8 +12,8 @@ import java.util.List;
 @Repository
 public interface LectureReviewRepository extends JpaRepository<LectureReview,Long> {
 
-//    @Query("SELECT lr FROM LectureReview  lr WHERE lr.member.memberId = :memberId")
-//    Page<LectureReview> findByMemberId(long memberId,Pageable pageable); //다빈 추가
+    @Query("SELECT lr FROM LectureReview  lr WHERE lr.member.memberId = :memberId")
+    Page<LectureReview> findByMemberId(long memberId,Pageable pageable); //다빈 추가
 
     @Query("SELECT lr FROM LectureReview lr JOIN lr.lecture lrl WHERE lrl.lectureId = :lectureId")
     List<LectureReview> findAllByLectureId(long lectureId);

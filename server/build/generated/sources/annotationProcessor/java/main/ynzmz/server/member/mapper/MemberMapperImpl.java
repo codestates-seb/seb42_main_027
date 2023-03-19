@@ -9,7 +9,7 @@ import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-19T18:53:58+0900",
+    date = "2023-03-19T19:18:30+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -28,6 +28,7 @@ public class MemberMapperImpl implements MemberMapper {
         member.setEmail( memberPostDto.getEmail() );
         member.setDisplayName( memberPostDto.getDisplayName() );
         member.setPassword( memberPostDto.getPassword() );
+        member.setIconImageUrl( memberPostDto.getIconImageUrl() );
         member.setCreatedAt( memberPostDto.getCreatedAt() );
         if ( memberPostDto.getState() != null ) {
             member.setState( Enum.valueOf( Member.State.class, memberPostDto.getState() ) );
@@ -63,6 +64,7 @@ public class MemberMapperImpl implements MemberMapper {
         Long memberId = null;
         String email = null;
         String displayName = null;
+        String iconImageUrl = null;
         String state = null;
         String createdAt = null;
 
@@ -71,16 +73,13 @@ public class MemberMapperImpl implements MemberMapper {
         memberId = member.getMemberId();
         email = member.getEmail();
         displayName = member.getDisplayName();
+        iconImageUrl = member.getIconImageUrl();
         if ( member.getState() != null ) {
             state = member.getState().name();
         }
         createdAt = member.getCreatedAt();
 
-        String iconImageUrl = null;
-
         MemberDto.Response response = new MemberDto.Response( username, phoneNumber, memberId, email, displayName, iconImageUrl, state, createdAt );
-
-        response.setIconImageUrl( member.getIconImageUrl() );
 
         return response;
     }
@@ -93,17 +92,15 @@ public class MemberMapperImpl implements MemberMapper {
 
         Long memberId = null;
         String displayName = null;
+        String iconImageUrl = null;
         String state = null;
 
         memberId = simpleInfoResponse.getMemberId();
         displayName = simpleInfoResponse.getDisplayName();
+        iconImageUrl = simpleInfoResponse.getIconImageUrl();
         state = simpleInfoResponse.getState();
 
-        String iconImageUrl = null;
-
         MemberDto.SimpleInfoResponse simpleInfoResponse1 = new MemberDto.SimpleInfoResponse( memberId, displayName, iconImageUrl, state );
-
-        simpleInfoResponse1.setIconImageUrl( simpleInfoResponse.getIconImageUrl() );
 
         return simpleInfoResponse1;
     }
@@ -120,16 +117,5 @@ public class MemberMapperImpl implements MemberMapper {
         }
 
         return list;
-    }
-
-    @Override
-    public MemberDto.MyLectureReview memberToMemberMyLectureReview(Member member) {
-        if ( member == null ) {
-            return null;
-        }
-
-        MemberDto.MyLectureReview myLectureReview = new MemberDto.MyLectureReview();
-
-        return myLectureReview;
     }
 }
