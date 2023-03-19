@@ -20,7 +20,7 @@ public interface AnswerMapper {
 //    @Mapping(source = "question", target = "questionId", qualifiedByName = "setQuestionId")
 //    @Mapping(source = "member.questions", target = "member.myQuestionCount", qualifiedByName = "countQuestions")
 //    @Mapping(source = "member.answers", target = "member.myAnswerCount", qualifiedByName = "countAnswers")
-    AnswerDto.InfoResponse answerToAnswerInfoResponse(Answer answer);
+    AnswerDto.SimpleInfoResponse answerToAnswerInfoResponse(Answer answer);
     @Named("countQuestions")
     default long countQuestions(List<Question> questions) { return questions.size(); }
     @Named("countAnswers")
@@ -29,7 +29,7 @@ public interface AnswerMapper {
     default long setQuestionId(Question question) { return question.getQuestionId(); }
 
     List<AnswerDto.Response> answersToAnswerResponses(List<Answer> answers);
-    List<AnswerDto.InfoResponse> answersToAnswerInfoResponses(List<Answer> answers);
+    List<AnswerDto.SimpleInfoResponse> answersToAnswerInfoResponses(List<Answer> answers);
 
     default SubjectTag.Subject map(SubjectTag subjectTag) {
         return subjectTag.getSubject();

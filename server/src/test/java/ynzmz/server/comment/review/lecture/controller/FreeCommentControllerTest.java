@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import ynzmz.server.comment.review.lecture.dto.LectureReviewCommentDto;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
-import ynzmz.server.comment.review.lecture.mapper.LectureReviewPostCommentMapper;
+import ynzmz.server.comment.review.lecture.mapper.LectureReviewCommentMapper;
 import ynzmz.server.comment.review.lecture.service.LectureReviewCommentService;
 import ynzmz.server.helper.StubData;
 import ynzmz.server.member.service.MemberService;
@@ -51,7 +51,7 @@ class FreeCommentControllerTest {
     @MockBean
     private MemberService memberService;
     @MockBean
-    private LectureReviewPostCommentMapper lectureReviewPostCommentMapper;
+    private LectureReviewCommentMapper lectureReviewCommentMapper;
     @MockBean
     private LectureReviewCommentService lectureReviewCommentService;
 
@@ -66,9 +66,9 @@ class FreeCommentControllerTest {
                 "2023.03.10.18:52:36",1L,1L);
         String jsonPost = gson.toJson(mockPost);
 
-        when(lectureReviewPostCommentMapper.lectureReviewCommentPostToLectureReviewComment(any())).thenReturn(new LectureReviewComment());
+        when(lectureReviewCommentMapper.lectureReviewCommentPostToLectureReviewComment(any())).thenReturn(new LectureReviewComment());
         when(memberService.findMemberById(anyLong())).thenReturn(member);
-        when(lectureReviewPostCommentMapper.lectureReviewCommentToLectureReviewCommentResponse(any())).thenReturn(lectureReviewPostCommentResponse);
+        when(lectureReviewCommentMapper.lectureReviewCommentToLectureReviewCommentResponse(any())).thenReturn(lectureReviewPostCommentResponse);
 
         ResultActions actions = mockMvc.perform(post("/lectures/reviews/comments")
                 .accept(MediaType.APPLICATION_JSON)
@@ -116,8 +116,8 @@ class FreeCommentControllerTest {
         String jsonPatch = gson.toJson(mockPatch);
         long lectureReviewCommentId = 1L;
 
-        when(lectureReviewPostCommentMapper.lectureReviewCommentPatchToLectureReviewComment(any())).thenReturn(new LectureReviewComment());
-        when(lectureReviewPostCommentMapper.lectureReviewCommentToLectureReviewCommentResponse(any())).thenReturn(lectureReviewPostCommentResponse);
+        when(lectureReviewCommentMapper.lectureReviewCommentPatchToLectureReviewComment(any())).thenReturn(new LectureReviewComment());
+        when(lectureReviewCommentMapper.lectureReviewCommentToLectureReviewCommentResponse(any())).thenReturn(lectureReviewPostCommentResponse);
 
         ResultActions actions = mockMvc.perform(patch("/lectures/reviews/comments/{lecture-review-comment-id}",lectureReviewCommentId)
                 .accept(MediaType.APPLICATION_JSON)
@@ -162,7 +162,7 @@ class FreeCommentControllerTest {
     void getLectureReviewPostComments() throws Exception {
 
         when(lectureReviewCommentService.getLectureReviewComments(anyLong(),anyString(),anyInt(),anyInt())).thenReturn(new PageImpl<>(new ArrayList<>(List.of(new LectureReviewComment())), PageRequest.of(1,1),1));
-        when(lectureReviewPostCommentMapper.lectureReviewCommentsToLectureReviewCommentResponses(any())).thenReturn(lectureReviewPostCommentResponses);
+        when(lectureReviewCommentMapper.lectureReviewCommentsToLectureReviewCommentResponses(any())).thenReturn(lectureReviewPostCommentResponses);
 
         ResultActions actions =
                 mockMvc.perform(

@@ -21,7 +21,6 @@ public class LectureReviewDto {
         private String title;
         private long starPoint;
         private String content;
-        private long memberId;
         private long lectureId;
         private String createdAt;
     }

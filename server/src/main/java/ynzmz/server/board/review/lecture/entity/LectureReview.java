@@ -7,7 +7,7 @@ import lombok.Setter;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.member.entity.Member;
-import ynzmz.server.vote.VoteCount;
+import ynzmz.server.vote.Vote;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-public class LectureReview implements VoteCount {
+public class LectureReview implements Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long LectureReviewId;

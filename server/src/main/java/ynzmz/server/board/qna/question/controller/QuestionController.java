@@ -60,7 +60,7 @@ public class QuestionController {
     @PatchMapping("/{question-id}")
     public ResponseEntity<?> patchQuestion(@PathVariable("question-id") long questionId, @Valid @RequestBody QuestionDto.Patch questionPatch){
         //토큰에서 memberId 확인 & 본인이 쓴 게시물인지 확인
-        memberService.memberValidation(loginMemberFindByToken(), questionService.findQuestion(questionId).getMember().getMemberId());
+        memberService.memberValidation(loginMemberFindByToken(), questionService.findQuestionById(questionId).getMember().getMemberId());
 
         Question question = questionMapper.questionPatcToQuestion(questionPatch);
         question.setQuestionId(questionId);
@@ -106,7 +106,7 @@ public class QuestionController {
         try {
             //로그인된 회원일경우 (해당 글 & 댓글 추천여부 같이반환)
             Member loginMember = loginMemberFindByToken();
-            Question question = questionService.findQuestion(questionId);
+            Question question = questionService.findQuestionById(questionId);
             questionService.setViewCount(question); //조회수기능  1번당 1씩 올라가게 (임시)
 
             MemberDto.VoteInfo loginMemberVoteInfo = memberService.setMemberVoteStatus(loginMember, question);
@@ -116,7 +116,7 @@ public class QuestionController {
             return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
         } catch (BusinessLogicException e) {
             //로그인 안된 회원일 경우 (해당 글 & 댓글 추천상태값 없음)
-            Question question = questionService.findQuestion(questionId);
+            Question question = questionService.findQuestionById(questionId);
             questionService.setViewCount(question); //조회수기능  1번당 1씩 올라가게 (임시)
 
             QuestionDto.DetailPageResponse response = questionMapper.questionToQuestionDetailPageResponse(question);
@@ -129,7 +129,9 @@ public class QuestionController {
 
     //내가쓴글 조회
     @GetMapping("/{member-id}/question")
-    public ResponseEntity<?> getMemberQuestion(@PathVariable("member-id") long memberId, @RequestParam int page, @RequestParam int size) {
+    public ResponseEntity<?> getMemberQuestion(@PathVariable("member-id") long memberId,
+                                               @RequestParam int page,
+                                               @RequestParam int size) {
 
         memberService.memberValidation(loginMemberFindByToken(), memberId); // 작성자 & 로그인된 회원 검증
 
@@ -158,14 +160,15 @@ public class QuestionController {
      * @return ResponseEntity
      */
     @PostMapping("{question-id}/adopt-answer/{answer-id}")
-    public ResponseEntity<?> adoptAnswerToQuestion(@PathVariable("question-id") long questionId, @PathVariable("answer-id") long answerId) {
+    public ResponseEntity<?> adoptAnswerToQuestion(@PathVariable("question-id") long questionId,
+                                                   @PathVariable("answer-id") long answerId) {
 
         //답변 채택시 update 된 답변의 정보만 response 요청
         Member member = loginMemberFindByToken();
-        Answer answer = answerService.findAnswer(answerId);
+        Answer answer = answerService.findAnswerById(answerId);
         questionService.adoptAnswer(questionId, answer, member);
-        Answer adoptedAnswer = answerService.findAnswer(answerId);
-        AnswerDto.InfoResponse response = answerMapper.answerToAnswerInfoResponse(adoptedAnswer);
+        Answer adoptedAnswer = answerService.findAnswerById(answerId);
+        AnswerDto.SimpleInfoResponse response = answerMapper.answerToAnswerInfoResponse(adoptedAnswer);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }

@@ -2,8 +2,6 @@ package ynzmz.server.member.service;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,9 +17,8 @@ import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
-import ynzmz.server.vote.qna.answer.dto.LoginUserAnswerVoteResponseDto;
-import ynzmz.server.vote.qna.answer.entity.AnswerVote;
-import ynzmz.server.vote.qna.question.entity.QuestionVote;
+import ynzmz.server.vote.qna.dto.LoginUserAnswerVoteResponseDto;
+import ynzmz.server.vote.qna.entity.QnaVote;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,25 +142,25 @@ public class MemberService {
         loginMemberVoteInfo.setQuestionId( question.getQuestionId() );
 
         ArrayList<LoginUserAnswerVoteResponseDto> loginUserAnswerVoteResponseDtos = new ArrayList<>();
-        List<QuestionVote> questionVotes = member.getQuestionVotes();
-        List<AnswerVote> answerVotes = member.getAnswerVotes();
+        List<QnaVote> qnaVotes = member.getQnaVotes();
+        List<QnaVote> answerVotes = member.getQnaVotes();
         List<Answer> questionAnswers = question.getAnswers();
 
-        for(QuestionVote questionVote : questionVotes) {
-            if(Objects.equals(questionVote.getQuestion().getQuestionId(), question.getQuestionId())) {
-                loginMemberVoteInfo.setQuestionvoteStatus(questionVote.getVoteStatus());
+        for(QnaVote qnaVote : qnaVotes) {
+            if(Objects.equals(qnaVote.getQuestion().getQuestionId(), question.getQuestionId())) {
+                loginMemberVoteInfo.setQuestionvoteStatus(qnaVote.getVoteStatus());
                 break;
             }
         }
 
-        for (Answer questionAnswer : questionAnswers) {
-            for (AnswerVote answerVote : answerVotes) {
-                if(Objects.equals(questionAnswer.getAnswerId(), answerVote.getAnswer().getAnswerId())){
-                    LoginUserAnswerVoteResponseDto loginUserAnswerVote = new LoginUserAnswerVoteResponseDto(answerVote.getAnswer().getAnswerId(), answerVote.getVoteStatus());
-                    loginUserAnswerVoteResponseDtos.add(loginUserAnswerVote);
-                }
-            }
-        }
+//        for (Answer questionAnswer : questionAnswers) {
+//            for (AnswerVote answerVote : answerVotes) {
+//                if(Objects.equals(questionAnswer.getAnswerId(), answerVote.getAnswer().getAnswerId())){
+//                    LoginUserAnswerVoteResponseDto loginUserAnswerVote = new LoginUserAnswerVoteResponseDto(answerVote.getAnswer().getAnswerId(), answerVote.getVoteStatus());
+//                    loginUserAnswerVoteResponseDtos.add(loginUserAnswerVote);
+//                }
+//            }
+//        }
         loginMemberVoteInfo.setAnswerVoteStatus(loginUserAnswerVoteResponseDtos);
         return loginMemberVoteInfo;
     }
