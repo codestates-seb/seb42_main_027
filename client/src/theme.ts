@@ -68,6 +68,7 @@ const theme = {
   filterColors,
   common,
   gap,
+  radius,
 };
 
 export default theme;
