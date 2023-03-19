@@ -11,11 +11,16 @@ import ynzmz.server.board.qna.question.dto.QuestionDto;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.qna.question.mapper.QuestionMapper;
 import ynzmz.server.board.qna.question.service.QuestionService;
+import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
+import ynzmz.server.board.review.lecture.entity.LectureReview;
+import ynzmz.server.board.review.lecture.mapper.LectureReviewMapper;
+import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.mapper.MemberMapper;
+import ynzmz.server.vote.review.lecture.entity.ReviewVote;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -29,7 +34,9 @@ import java.util.List;
 public class MemberController {
     private final MemberMapper memberMapper;
     private final QuestionService questionService;
+    private final LectureReviewService lectureReviewService;
     private final QuestionMapper questionMapper;
+    private final LectureReviewMapper lectureReviewMapper;
     private final MemberService memberService;
 
     @PostMapping
@@ -84,14 +91,6 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    //내가쓴 강의리뷰조회
-//    @GetMapping("/{member-id}/review")
-//    public ResponseEntity<?> getMemberReview(@PathVariable("member-id") @Positive long memberId){
-//        Member findMember = memberService.findMemberById(memberId);
-//        MemberDto.MyLectureReview response = memberMapper.memberToMemberMyLectureReview(findMember);
-//        return new ResponseEntity<>(response,HttpStatus.OK);
-//    }
-
     //내가쓴 질문글조회
     @GetMapping("/{member-id}/questions")
     public ResponseEntity<?> getMyQuestions(@PathVariable("member-id")
@@ -99,12 +98,22 @@ public class MemberController {
                                             @Positive @RequestParam int page,
                                         @Positive @RequestParam int size) {
         Page<Question> pageQuestions = questionService.findQuestionsByMemberId(memberId,page-1, size);
-        List<Question> questions = pageQuestions.getContent();
-        List<QuestionDto.ListPageResponse> responses = questionMapper.questionToQuestionListPageResponses(questions); //통일
+        List<Question> myQuestions = pageQuestions.getContent();
+        List<QuestionDto.ListPageResponse> responses = questionMapper.questionToQuestionListPageResponses(myQuestions); //통일
         return new ResponseEntity<>(new MultiResponseDto<>(responses,pageQuestions),HttpStatus.OK);
     }
-    //직접주입하지말고 변수를 만들어서 변수를한번
 
+    //내가쓴 강의리뷰조회
+//    @GetMapping("/{member-id}/reviews")
+//    public ResponseEntity<?> getMyReviews(@PathVariable("member-id")
+//                                                  long memberId,
+//                                              @Positive @RequestParam int page,
+//                                              @Positive @RequestParam int size){
+//        Page<LectureReview> pageLectureReviews = lectureReviewService.findLectureReviewsByMemberId(memberId, page-1,size);
+//        List<LectureReview> myLectureReviews = pageLectureReviews.getContent();
+//        List<LectureReviewDto.InfoResponse> responses = lectureReviewMapper.lectureReviewToLectureReviewInfoResponses(myLectureReviews);
+//        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageLectureReviews),HttpStatus.OK);
+//    }
     //내가쓴 질문조회
 //    @GetMapping("/{member-id}/question")
 //    public ResponseEntity<?> getMemberQuestion(@PathVariable("member-id") @Positive long memberId){
