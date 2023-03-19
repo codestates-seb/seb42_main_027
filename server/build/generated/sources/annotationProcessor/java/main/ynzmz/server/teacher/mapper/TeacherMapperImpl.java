@@ -22,7 +22,7 @@ import ynzmz.server.teacher.entity.Teacher;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-18T20:01:56+0900",
+    date = "2023-03-19T18:38:53+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component

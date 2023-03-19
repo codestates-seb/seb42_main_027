@@ -6,176 +6,28 @@
   <component name="ChangeListManager">
     <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="fix: 병합준비">
       <change beforePath="$PROJECT_DIR$/.idea/modules/server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/server.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/server.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/server.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/comment/review/lecture/controller/LectureReviewCommentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/comment/review/lecture/controller/LectureReviewCommentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/event/inner/controller/YjEventController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/event/inner/dto/YjEventDto$Patch.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/event/inner/dto/YjEventDto$Post.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/event/inner/dto/YjEventDto$Response.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/event/inner/dto/YjEventDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/event/inner/mapper/YjEventMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/lecture/controller/LectureController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/lecture/controller/LectureController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/lecture/mapper/LectureMapperImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/lecture/mapper/LectureMapperImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto$MyLectureReview.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto$MyLectureReview.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto$Patch.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto$Patch.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto$Post.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto$Post.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto$Response.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto$Response.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto$SimpleInfoResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto$SimpleInfoResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto$VoteInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto$VoteInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/dto/MemberDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/entity/Member$MemberStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/entity/Member$MemberStatus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/entity/Member$State.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/entity/Member$State.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/entity/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/entity/Member.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/mapper/MemberMapperImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/mapper/MemberMapperImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/service/MemberService.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/member/service/MemberService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/controller/AnswerController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/dto/AnswerDto$InfoResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/dto/AnswerDto$Patch.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/dto/AnswerDto$Post$PostBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/dto/AnswerDto$Post.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/dto/AnswerDto$Response.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/dto/AnswerDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/dto/AnswerPatchDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/dto/AnswerPostDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/entity/Answer$AdoptStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/entity/Answer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/mapper/AnswerMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/mapper/AnswerMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/repository/AnswerRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/answer/service/AnswerService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/controller/QuestionController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/dto/QuestionDto$DetailPageResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/dto/QuestionDto$InfoResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/dto/QuestionDto$ListPageResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/dto/QuestionDto$Patch$PatchBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/dto/QuestionDto$Patch.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/dto/QuestionDto$Post$PostBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/dto/QuestionDto$Post.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/dto/QuestionDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/entity/Question.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/mapper/QuestionMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/mapper/QuestionMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/repository/QuestionRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/question/question/service/QuestionService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/review/lecture/controller/LectureReviewController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/review/lecture/mapper/LectureReviewMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/review/lecture/mapper/LectureReviewMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/tag/mappingtable/question/QuestionSubjectTag$QuestionSubjectTagBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/tag/mappingtable/question/QuestionSubjectTag$QuestionSubjectTagBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/tag/mappingtable/question/QuestionSubjectTag.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/tag/mappingtable/question/QuestionSubjectTag.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/tag/repository/question/QuestionSubjectTagRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/tag/repository/question/QuestionSubjectTagRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/tag/service/TagService.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/tag/service/TagService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/teacher/controller/TeacherController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/teacher/controller/TeacherController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/teacher/mapper/TeacherMapperImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/teacher/mapper/TeacherMapperImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/answer/controller/AnswerVoteController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/answer/dto/AnswerVoteResponseDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/answer/dto/LoginUserAnswerVoteResponseDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/answer/entity/AnswerVote$VoteStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/answer/entity/AnswerVote.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/answer/mapper/AnswerVoteMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/answer/mapper/AnswerVoteMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/answer/repository/AnswerVoteRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/answer/service/AnswerVoteService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/question/controller/QuestionVoteController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/question/dto/QuestionVoteResponseDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/question/entity/QuestionVote$VoteStatus.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/question/entity/QuestionVote.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/question/mapper/QuestionVoteMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/question/mapper/QuestionVoteMapperImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/question/repository/QuestionVoteRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/vote/question/question/service/QuestionVoteService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/comment/review/lecture/mapper/LectureReviewPostCommentMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/comment/review/lecture/mapper/LectureReviewPostCommentMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/event/inner/mapper/YjEventMapperImpl.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/event/outer/mapper/EventMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/lecture/mapper/LectureMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/lecture/mapper/LectureMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/member/mapper/MemberMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/member/mapper/MemberMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/question/answer/mapper/AnswerMapperImpl.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/question/question/mapper/QuestionMapperImpl.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/review/lecture/mapper/LectureReviewMapperImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/teacher/mapper/TeacherMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/teacher/mapper/TeacherMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/question/answer/mapper/AnswerVoteMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/qna/answer/mapper/AnswerVoteMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/question/question/mapper/QuestionVoteMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/qna/question/mapper/QuestionVoteMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/review/lecture/mapper/LectureReviewVoteMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/review/lecture/mapper/LectureReviewVoteMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/server/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/controller/FreeCommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/controller/FreeCommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/entity/FreeComment.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/entity/FreeComment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/review/lecture/controller/LectureReviewCommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/review/lecture/controller/LectureReviewCommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/review/lecture/entity/LectureReviewComment.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/review/lecture/entity/LectureReviewComment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/error/exception/ExceptionCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/error/exception/ExceptionCode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/event/DataCrawlingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/DataCrawlingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/event/inner/controller/YjEventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/our/controller/YjEventController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/event/inner/dto/YjEventDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/our/dto/YjEventDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/event/inner/entity/YjEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/our/entity/YjEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/event/inner/mapper/YjEventMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/our/mapper/YjEventMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/event/inner/repository/YjEventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/our/repository/YjEventRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/event/inner/service/YjEventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/our/service/YjEventService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/event/outer/DataCrawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/their/DataCrawler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/event/outer/controller/EventController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/their/controller/EventController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/event/outer/dto/EventDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/their/dto/EventDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/event/outer/entity/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/their/entity/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/event/outer/mapper/EventMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/their/mapper/EventMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/event/outer/repository/EventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/their/repository/EventRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/event/outer/service/EventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/their/service/EventService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/free/controller/FreeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/controller/FreeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/free/dto/FreeDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/dto/FreeDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/free/entity/Free.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/entity/Free.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/free/mapper/FreeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/mapper/FreeMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/free/repository/FreeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/repository/FreeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/free/service/FreeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/service/FreeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/lecture/controller/LectureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/lecture/controller/LectureController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/lecture/dto/LectureDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/lecture/dto/LectureDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/lecture/entity/Lecture.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/lecture/entity/Lecture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/lecture/service/LectureService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/lecture/service/LectureService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/dto/MemberDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/entity/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/entity/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/service/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/answer/controller/AnswerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/controller/AnswerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/answer/dto/AnswerDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/dto/AnswerDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/answer/entity/Answer.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/entity/Answer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/answer/mapper/AnswerMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/mapper/AnswerMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/answer/repository/AnswerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/repository/AnswerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/answer/service/AnswerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/service/AnswerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/question/controller/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/question/controller/QuestionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/question/dto/QuestionDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/question/dto/QuestionDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/question/entity/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/question/entity/Question.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/question/mapper/QuestionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/question/mapper/QuestionMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/question/repository/QuestionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/question/repository/QuestionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/question/question/service/QuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/question/service/QuestionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/review/lecture/controller/LectureReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/review/lecture/controller/LectureReviewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/review/lecture/dto/LectureReviewDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/review/lecture/dto/LectureReviewDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/review/lecture/entity/LectureReview.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/review/lecture/entity/LectureReview.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/review/lecture/mapper/LectureReviewMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/review/lecture/mapper/LectureReviewMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/review/lecture/repository/LectureReviewRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/review/lecture/repository/LectureReviewRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/review/lecture/sevice/LectureReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/review/lecture/sevice/LectureReviewService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/tag/mappingtable/question/QuestionSubjectTag.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/tag/mappingtable/question/QuestionSubjectTag.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/tag/repository/question/QuestionSubjectTagRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/tag/repository/question/QuestionSubjectTagRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/tag/service/TagService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/tag/service/TagService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/teacher/controller/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/teacher/controller/TeacherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/question/answer/controller/AnswerVoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/answer/controller/AnswerVoteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/question/answer/dto/AnswerVoteResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/answer/dto/AnswerVoteResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/question/answer/dto/LoginUserAnswerVoteResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/answer/dto/LoginUserAnswerVoteResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/question/answer/entity/AnswerVote.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/answer/entity/AnswerVote.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/question/answer/mapper/AnswerVoteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/answer/mapper/AnswerVoteMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/question/answer/repository/AnswerVoteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/answer/repository/AnswerVoteRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/question/answer/service/AnswerVoteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/answer/service/AnswerVoteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/question/question/controller/QuestionVoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/question/controller/QuestionVoteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/question/question/dto/QuestionVoteResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/question/dto/QuestionVoteResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/question/question/entity/QuestionVote.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/question/entity/QuestionVote.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/question/question/mapper/QuestionVoteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/question/mapper/QuestionVoteMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/question/question/repository/QuestionVoteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/question/repository/QuestionVoteRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/question/question/service/QuestionVoteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/question/service/QuestionVoteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/controller/LectureReviewVoteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/controller/LectureReviewVoteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/entity/LectureReviewVote.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/entity/LectureReviewVote.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/repository/LectureReviewVoteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/repository/LectureReviewVoteRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/service/LectureReviewVoteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/review/lecture/service/LectureReviewVoteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/java/ynzmz/server/helper/StubData.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/ynzmz/server/helper/StubData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/java/ynzmz/server/lecture/controller/LectureControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/ynzmz/server/lecture/controller/LectureControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/java/ynzmz/server/review/lecture/controller/LectureReviewControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/ynzmz/server/review/lecture/controller/LectureReviewControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/java/ynzmz/server/teacher/controller/TeacherControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/ynzmz/server/teacher/controller/TeacherControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/java/ynzmz/server/vote/review/lecture/controller/LectureReviewVoteControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/ynzmz/server/vote/review/lecture/controller/LectureReviewVoteControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,6 +52,17 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="server" type="f1a62948:ProjectNode" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="server" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="server" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
             </expand>
             <select />
           </tree_state>
@@ -210,10 +73,14 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="BeDev" />
+        <entry key="$PROJECT_DIR$" value="Be_KMH(플라이웨이적용테스트)" />
       </map>
     </option>
     <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-autoconfigure/2.7.9/627fb7d59e7dabbbc5ff2805ddad07fe7279c6a0/spring-boot-autoconfigure-2.7.9-sources.jar!/org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/5.7.7/eee144b2bcb6c0dcc0f03c769bf0db5e9ffe69da/spring-security-core-5.7.7-sources.jar!/org/springframework/security/authentication/UsernamePasswordAuthenticationToken.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
@@ -228,25 +95,25 @@
     <option name="showVisibilityIcons" value="true" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Git.Branch.Popup.ShowAllRemotes": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "spring.configuration.checksum": "f388e2a0991e057a0316947c380806f0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;f388e2a0991e057a0316947c380806f0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Spring Boot.ServerApplication">
     <configuration name="server [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
