@@ -2,6 +2,8 @@ package ynzmz.server.member.mapper;
 
 
 import org.mapstruct.Mapper;
+import ynzmz.server.board.qna.question.dto.QuestionDto;
+import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.member.dto.*;
 import ynzmz.server.member.entity.Member;
 
@@ -17,5 +19,6 @@ public interface MemberMapper {
     List<MemberDto.Response> memberToMemberResponses(List<Member> members);
     MemberDto.MyLectureReview memberToMemberMyLectureReview(Member member);
 //    MemberQuestionResponseDto memberToMemberQuestionResponse(Member member);
+//    List<QuestionDto.SimpleInfoResponse> memberToMemberMyQuestions(List<Question> questions);
 
 }

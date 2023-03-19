@@ -7,6 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ynzmz.server.board.qna.question.dto.QuestionDto;
+import ynzmz.server.board.qna.question.entity.Question;
+import ynzmz.server.board.qna.question.mapper.QuestionMapper;
+import ynzmz.server.board.qna.question.service.QuestionService;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.member.dto.MemberDto;
@@ -24,6 +28,8 @@ import java.util.List;
 @Setter
 public class MemberController {
     private final MemberMapper memberMapper;
+    private final QuestionService questionService;
+    private final QuestionMapper questionMapper;
     private final MemberService memberService;
 
     @PostMapping
@@ -79,12 +85,25 @@ public class MemberController {
     }
 
     //내가쓴 강의리뷰조회
-    @GetMapping("/{member-id}/review")
-    public ResponseEntity<?> getMemberReview(@PathVariable("member-id") @Positive long memberId){
-        Member findMember = memberService.findMemberById(memberId);
-        MemberDto.MyLectureReview response = memberMapper.memberToMemberMyLectureReview(findMember);
-        return new ResponseEntity<>(response,HttpStatus.OK);
+//    @GetMapping("/{member-id}/review")
+//    public ResponseEntity<?> getMemberReview(@PathVariable("member-id") @Positive long memberId){
+//        Member findMember = memberService.findMemberById(memberId);
+//        MemberDto.MyLectureReview response = memberMapper.memberToMemberMyLectureReview(findMember);
+//        return new ResponseEntity<>(response,HttpStatus.OK);
+//    }
+
+    //내가쓴 질문글조회
+    @GetMapping("/{member-id}/questions")
+    public ResponseEntity<?> getMyQuestions(@PathVariable("member-id")
+                                                long memberId,
+                                            @Positive @RequestParam int page,
+                                        @Positive @RequestParam int size) {
+        Page<Question> pageQuestions = questionService.findQuestionsByMemberId(memberId,page-1, size);
+        List<Question> questions = pageQuestions.getContent();
+        List<QuestionDto.ListPageResponse> responses = questionMapper.questionToQuestionListPageResponses(questions); //통일
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageQuestions),HttpStatus.OK);
     }
+    //직접주입하지말고 변수를 만들어서 변수를한번
 
     //내가쓴 질문조회
 //    @GetMapping("/{member-id}/question")
