@@ -49,6 +49,7 @@ public class JwtTokenizer {
                 .setSubject(subject) //제목추가
                 .setIssuedAt(Calendar.getInstance().getTime()) //jwt발행일자 파라미터타입 : java.util.date
                 .setExpiration(expiration) //만료날짜
+                .signWith(key)
                 .compact(); //jwt생성후 직렬화
     }
 
