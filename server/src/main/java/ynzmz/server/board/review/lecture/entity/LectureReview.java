@@ -18,7 +18,7 @@ import java.util.List;
 public class LectureReview implements Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long LectureReviewId;
+    private Long lectureReviewId;
     private String title;
     private int starPoint;
     private String content;

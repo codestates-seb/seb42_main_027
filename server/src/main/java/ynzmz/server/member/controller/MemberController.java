@@ -103,17 +103,17 @@ public class MemberController {
         return new ResponseEntity<>(new MultiResponseDto<>(responses,pageQuestions),HttpStatus.OK);
     }
 
-    //내가쓴 강의리뷰조회
-//    @GetMapping("/{member-id}/reviews")
-//    public ResponseEntity<?> getMyReviews(@PathVariable("member-id")
-//                                                  long memberId,
-//                                              @Positive @RequestParam int page,
-//                                              @Positive @RequestParam int size){
-//        Page<LectureReview> pageLectureReviews = lectureReviewService.findLectureReviewsByMemberId(memberId, page-1,size);
-//        List<LectureReview> myLectureReviews = pageLectureReviews.getContent();
-//        List<LectureReviewDto.InfoResponse> responses = lectureReviewMapper.lectureReviewToLectureReviewInfoResponses(myLectureReviews);
-//        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageLectureReviews),HttpStatus.OK);
-//    }
+//    내가쓴 강의리뷰조회
+    @GetMapping("/{member-id}/reviews")
+    public ResponseEntity<?> getMyReviews(@PathVariable("member-id")
+                                                  long memberId,
+                                              @Positive @RequestParam int page,
+                                              @Positive @RequestParam int size){
+        Page<LectureReview> pageLectureReviews = lectureReviewService.findLectureReviewsByMemberId(memberId, page-1,size);
+        List<LectureReview> myLectureReviews = pageLectureReviews.getContent();
+        List<LectureReviewDto.InfoResponse> responses = lectureReviewMapper.lectureReviewToLectureReviewInfoResponses(myLectureReviews);
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageLectureReviews),HttpStatus.OK);
+    }
     //내가쓴 질문조회
 //    @GetMapping("/{member-id}/question")
 //    public ResponseEntity<?> getMemberQuestion(@PathVariable("member-id") @Positive long memberId){
