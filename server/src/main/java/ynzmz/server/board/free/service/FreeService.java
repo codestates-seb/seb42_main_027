@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ynzmz.server.board.free.repository.FreeRepository;
+import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.board.free.entity.Free;
@@ -25,6 +26,10 @@ public class FreeService {
     public Free findFreeById(long id){
         return repository.findById(id).orElseThrow(()-> new BusinessLogicException(ExceptionCode.FREE_NOT_FOUND));
 
+    }
+
+    public Page<Free> findFreeByMemberId(long memberId, int page, int size) {
+        return repository.findByMemberId(memberId,PageRequest.of(page,size,Sort.by("Id")));
     }
 
     public Page<Free> findAllFree(int page){

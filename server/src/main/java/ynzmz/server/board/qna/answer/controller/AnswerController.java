@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.qna.question.service.QuestionService;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
@@ -34,6 +35,7 @@ public class AnswerController {
 
         Answer postDtoToAnswer = answerMapper.answerPostDtoToAnswer(answerPost);
         // 토큰에서 유저 email 확인
+//        postDtoToAnswer.setMember(loginMemberFindByToken());
         String loginMemberId = SecurityContextHolder.getContext().getAuthentication().getName();
         postDtoToAnswer.setMember(memberService.findMemberByEmail(loginMemberId));
         postDtoToAnswer.setQuestion(questionService.findQuestionById(answerPost.getQuestionId()));

@@ -1,12 +1,22 @@
 package ynzmz.server.member.controller;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.*;
+import ynzmz.server.board.free.dto.FreeDto;
+import ynzmz.server.board.free.entity.Free;
+import ynzmz.server.board.free.mapper.FreeMapper;
+import ynzmz.server.board.free.service.FreeService;
+import ynzmz.server.board.qna.answer.dto.AnswerDto;
+import ynzmz.server.board.qna.answer.entity.Answer;
+import ynzmz.server.board.qna.answer.mapper.AnswerMapper;
+import ynzmz.server.board.qna.answer.service.AnswerService;
 import ynzmz.server.board.qna.question.dto.QuestionDto;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.qna.question.mapper.QuestionMapper;
@@ -23,8 +33,10 @@ import ynzmz.server.member.mapper.MemberMapper;
 import ynzmz.server.vote.review.lecture.entity.ReviewVote;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import java.util.List;
+import java.util.PrimitiveIterator;
 
 @RestController
 @Slf4j
@@ -32,12 +44,16 @@ import java.util.List;
 @RequestMapping("/members")
 @Setter
 public class MemberController {
+    private final MemberService memberService;
     private final MemberMapper memberMapper;
     private final QuestionService questionService;
-    private final LectureReviewService lectureReviewService;
     private final QuestionMapper questionMapper;
+    private final LectureReviewService lectureReviewService;
     private final LectureReviewMapper lectureReviewMapper;
-    private final MemberService memberService;
+    private final FreeService freeService;
+    private final FreeMapper freeMapper;
+    private final AnswerService answerService;
+    private final AnswerMapper answerMapper;
 
     @PostMapping
     public ResponseEntity<?> postMember(@RequestBody @Valid MemberDto.Post requestBody){
@@ -114,13 +130,29 @@ public class MemberController {
         List<LectureReviewDto.InfoResponse> responses = lectureReviewMapper.lectureReviewToLectureReviewInfoResponses(myLectureReviews);
         return new ResponseEntity<>(new MultiResponseDto<>(responses,pageLectureReviews),HttpStatus.OK);
     }
-    //내가쓴 질문조회
-//    @GetMapping("/{member-id}/question")
-//    public ResponseEntity<?> getMemberQuestion(@PathVariable("member-id") @Positive long memberId){
-//        Member findMember = memberService.findMemberById(memberId);
-//        MemberQuestionResponseDto response = memberMapper.memberToMemberQuestionResponse(findMember);
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
 
+    //내가쓴 자유게시판글 조회
+    @GetMapping("/{member-id}/frees")
+    public ResponseEntity<?> getMyFrees(@PathVariable("member-id")
+                                            long memberId,
+                                        @Positive @RequestParam int page,
+                                        @Positive @RequestParam int size){
+        Page<Free> pageFrees = freeService.findFreeByMemberId(memberId,page-1,size);
+        List<Free> myFrees = pageFrees.getContent();
+        List<FreeDto.ListResponse> responses = freeMapper.freeTofreeListResponse(myFrees);
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageFrees),HttpStatus.OK);
+    }
+
+    //내가쓴 답변글 조회
+    @GetMapping("/{member-id}/answers")
+    public ResponseEntity<?> getMyAnswers(@PathVariable("member-id")
+                                          long memberId,
+                                          @Positive @RequestParam int page,
+                                          @Positive @RequestParam int size){
+        Page<Answer> pageAnswers = answerService.findAnswersByMemberId(memberId,page-1,size);
+        List<Answer> myAnswers = pageAnswers.getContent();
+        List<AnswerDto.SimpleInfoResponse> responses = answerMapper.answersToAnswerInfoResponses(myAnswers);
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageAnswers),HttpStatus.OK);
+    }
 
 }
