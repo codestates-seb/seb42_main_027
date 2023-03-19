@@ -31,9 +31,9 @@ public class AnswerService {
     }
 
     public Answer updateAnswer(Answer answer){
-        Answer findAnswer = findAnswer(answer.getAnswerId());
-        Optional.ofNullable(answer.getContent())
-                .ifPresent(findAnswer::setContent);
+        Answer findAnswer = findAnswerById(answer.getAnswerId());
+        Optional.ofNullable(answer.getContent()).ifPresent(findAnswer::setContent);
+        Optional.ofNullable(answer.getModifiedAt()).ifPresent(findAnswer::setModifiedAt);
         return answerRepository.save(findAnswer);
     }
     public boolean deleteAnswer(long answerId, Member member) {
@@ -55,14 +55,14 @@ public class AnswerService {
         return answerRepository.findByMemberId(memberId, PageRequest.of(page, size, Sort.by("answerId").descending()));
     }
 
-    public Answer findAnswer(long answerId) {
+    public Answer findAnswerById(long answerId) {
         Optional<Answer> optionalQuestion = answerRepository.findById(answerId);
 
-        return optionalQuestion.orElseThrow(()-> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+        return optionalQuestion.orElseThrow(()-> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
     }
 
     public void adoptAnswer(long answerId) {
-        Answer answer = findAnswer(answerId);
+        Answer answer = findAnswerById(answerId);
 
     }
 

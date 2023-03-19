@@ -8,14 +8,18 @@ import ynzmz.server.board.qna.answer.dto.AnswerDto;
 import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.board.qna.question.dto.QuestionDto;
 import ynzmz.server.board.qna.question.entity.Question;
+import ynzmz.server.comment.qna.dto.QnaCommentDto;
+import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
+import ynzmz.server.recomment.qna.dto.QnaReCommentDto;
+import ynzmz.server.recomment.qna.entity.QnaReComment;
 import ynzmz.server.tag.dto.SubjectTagDto;
 import ynzmz.server.tag.mappingtable.question.QuestionSubjectTag;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-19T18:38:53+0900",
+    date = "2023-03-19T16:34:36+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -43,29 +47,32 @@ public class AnswerMapperImpl implements AnswerMapper {
 
         Answer answer = new Answer();
 
-        answer.setAnswerId( answerPatchDto.getAnswerId() );
         answer.setContent( answerPatchDto.getContent() );
+        answer.setModifiedAt( answerPatchDto.getModifiedAt() );
 
         return answer;
     }
 
     @Override
-    public AnswerDto.InfoResponse answerToAnswerInfoResponse(Answer answer) {
+    public AnswerDto.SimpleInfoResponse answerToAnswerInfoResponse(Answer answer) {
         if ( answer == null ) {
             return null;
         }
 
-        AnswerDto.InfoResponse infoResponse = new AnswerDto.InfoResponse();
+        AnswerDto.SimpleInfoResponse simpleInfoResponse = new AnswerDto.SimpleInfoResponse();
 
-        infoResponse.setAnswerId( answer.getAnswerId() );
-        infoResponse.setMember( answer.getMember() );
-        infoResponse.setContent( answer.getContent() );
-        infoResponse.setVoteCount( (int) answer.getVoteCount() );
-        infoResponse.setCreatedAt( answer.getCreatedAt() );
-        infoResponse.setModifiedAt( answer.getModifiedAt() );
-        infoResponse.setAdoptStatus( answer.getAdoptStatus() );
+        if ( answer.getAnswerId() != null ) {
+            simpleInfoResponse.setAnswerId( answer.getAnswerId() );
+        }
+        simpleInfoResponse.setQuestion( questionToSimpleInfoResponse( answer.getQuestion() ) );
+        simpleInfoResponse.setMember( memberToSimpleInfoResponse( answer.getMember() ) );
+        simpleInfoResponse.setContent( answer.getContent() );
+        simpleInfoResponse.setVoteCount( answer.getVoteCount() );
+        simpleInfoResponse.setCreatedAt( answer.getCreatedAt() );
+        simpleInfoResponse.setModifiedAt( answer.getModifiedAt() );
+        simpleInfoResponse.setAdoptStatus( answer.getAdoptStatus() );
 
-        return infoResponse;
+        return simpleInfoResponse;
     }
 
     @Override
@@ -83,12 +90,12 @@ public class AnswerMapperImpl implements AnswerMapper {
     }
 
     @Override
-    public List<AnswerDto.InfoResponse> answersToAnswerInfoResponses(List<Answer> answers) {
+    public List<AnswerDto.SimpleInfoResponse> answersToAnswerInfoResponses(List<Answer> answers) {
         if ( answers == null ) {
             return null;
         }
 
-        List<AnswerDto.InfoResponse> list = new ArrayList<AnswerDto.InfoResponse>( answers.size() );
+        List<AnswerDto.SimpleInfoResponse> list = new ArrayList<AnswerDto.SimpleInfoResponse>( answers.size() );
         for ( Answer answer : answers ) {
             list.add( answerToAnswerInfoResponse( answer ) );
         }
@@ -145,26 +152,83 @@ public class AnswerMapperImpl implements AnswerMapper {
         return list1;
     }
 
-    protected QuestionDto.ListPageResponse questionToListPageResponse(Question question) {
+    protected QuestionDto.SimpleInfoResponse questionToSimpleInfoResponse(Question question) {
         if ( question == null ) {
             return null;
         }
 
-        QuestionDto.ListPageResponse listPageResponse = new QuestionDto.ListPageResponse();
+        QuestionDto.SimpleInfoResponse simpleInfoResponse = new QuestionDto.SimpleInfoResponse();
 
-        listPageResponse.setQuestionId( question.getQuestionId() );
-        listPageResponse.setTitle( question.getTitle() );
-        listPageResponse.setContent( question.getContent() );
-        listPageResponse.setCreatedAt( question.getCreatedAt() );
-        listPageResponse.setModifiedAt( question.getModifiedAt() );
-        listPageResponse.setViewCount( question.getViewCount() );
-        listPageResponse.setVoteCount( question.getVoteCount() );
-        listPageResponse.setAnswerCount( question.getAnswerCount() );
-        listPageResponse.setAdoptAnswerId( question.getAdoptAnswerId() );
-        listPageResponse.setMember( question.getMember() );
-        listPageResponse.setSubjectTags( questionSubjectTagListToResponseList( question.getSubjectTags() ) );
+        simpleInfoResponse.setQuestionId( question.getQuestionId() );
+        simpleInfoResponse.setTitle( question.getTitle() );
+        simpleInfoResponse.setMember( memberToSimpleInfoResponse( question.getMember() ) );
+        simpleInfoResponse.setCreatedAt( question.getCreatedAt() );
+        simpleInfoResponse.setModifiedAt( question.getModifiedAt() );
+        simpleInfoResponse.setViewCount( question.getViewCount() );
+        simpleInfoResponse.setVoteCount( question.getVoteCount() );
+        simpleInfoResponse.setSubjectTags( questionSubjectTagListToResponseList( question.getSubjectTags() ) );
 
-        return listPageResponse;
+        return simpleInfoResponse;
+    }
+
+    protected QnaReCommentDto.Response qnaReCommentToResponse(QnaReComment qnaReComment) {
+        if ( qnaReComment == null ) {
+            return null;
+        }
+
+        QnaReCommentDto.Response response = new QnaReCommentDto.Response();
+
+        response.setContent( qnaReComment.getContent() );
+        response.setCreatedAt( qnaReComment.getCreatedAt() );
+        response.setModifiedAt( qnaReComment.getModifiedAt() );
+        response.setVoteCount( qnaReComment.getVoteCount() );
+        response.setMember( memberToSimpleInfoResponse( qnaReComment.getMember() ) );
+
+        return response;
+    }
+
+    protected List<QnaReCommentDto.Response> qnaReCommentListToResponseList(List<QnaReComment> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<QnaReCommentDto.Response> list1 = new ArrayList<QnaReCommentDto.Response>( list.size() );
+        for ( QnaReComment qnaReComment : list ) {
+            list1.add( qnaReCommentToResponse( qnaReComment ) );
+        }
+
+        return list1;
+    }
+
+    protected QnaCommentDto.Response qnaCommentToResponse(QnaComment qnaComment) {
+        if ( qnaComment == null ) {
+            return null;
+        }
+
+        QnaCommentDto.Response response = new QnaCommentDto.Response();
+
+        response.setQnaCommentId( qnaComment.getQnaCommentId() );
+        response.setContent( qnaComment.getContent() );
+        response.setCreatedAt( qnaComment.getCreatedAt() );
+        response.setModifiedAt( qnaComment.getModifiedAt() );
+        response.setVoteCount( qnaComment.getVoteCount() );
+        response.setMember( memberToSimpleInfoResponse( qnaComment.getMember() ) );
+        response.setQnaReComments( qnaReCommentListToResponseList( qnaComment.getQnaReComments() ) );
+
+        return response;
+    }
+
+    protected List<QnaCommentDto.Response> qnaCommentListToResponseList(List<QnaComment> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<QnaCommentDto.Response> list1 = new ArrayList<QnaCommentDto.Response>( list.size() );
+        for ( QnaComment qnaComment : list ) {
+            list1.add( qnaCommentToResponse( qnaComment ) );
+        }
+
+        return list1;
     }
 
     protected AnswerDto.Response answerToResponse(Answer answer) {
@@ -176,12 +240,12 @@ public class AnswerMapperImpl implements AnswerMapper {
 
         response.setAnswerId( answer.getAnswerId() );
         response.setContent( answer.getContent() );
-        response.setVoteCount( (int) answer.getVoteCount() );
+        response.setVoteCount( answer.getVoteCount() );
         response.setCreatedAt( answer.getCreatedAt() );
         response.setModifiedAt( answer.getModifiedAt() );
         response.setAdoptStatus( answer.getAdoptStatus() );
         response.setMember( memberToSimpleInfoResponse( answer.getMember() ) );
-        response.setQuestion( questionToListPageResponse( answer.getQuestion() ) );
+        response.setComments( qnaCommentListToResponseList( answer.getComments() ) );
 
         return response;
     }

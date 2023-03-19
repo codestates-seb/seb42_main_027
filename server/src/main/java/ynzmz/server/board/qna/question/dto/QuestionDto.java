@@ -1,6 +1,7 @@
 package ynzmz.server.board.qna.question.dto;
 
 import lombok.*;
+import ynzmz.server.comment.qna.dto.QnaCommentDto;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.board.qna.answer.dto.AnswerDto;
@@ -17,7 +18,6 @@ public class QuestionDto {
         private String title;
         String content;
         String createdAt;
-        long memberId;
         List<String> subjectTag;
 
     }
@@ -29,8 +29,7 @@ public class QuestionDto {
         private Long questionId;
         private String title;
         String content;
-        String createdAt;
-        long memberId;
+        String modifiedAt;
         List<String> subjectTag;
 
     }
@@ -46,7 +45,7 @@ public class QuestionDto {
         private long voteCount;
         private long answerCount; //수동추가
         private long adoptAnswerId;
-        private Member member;
+        private MemberDto.SimpleInfoResponse member;
         private List<SubjectTagDto.Response> subjectTags;
     }
 
@@ -54,7 +53,7 @@ public class QuestionDto {
     @Setter
     public static class InfoResponse {
         private Long questionId;
-        private Member member;
+        private MemberDto.SimpleInfoResponse member;
         private String title;
         private String content;
         private String createdAt;
@@ -68,7 +67,7 @@ public class QuestionDto {
     @Setter
     public static class DetailPageResponse {
         private Long questionId;
-        private Member member;
+        private MemberDto.SimpleInfoResponse member;
         private String title;
         private String content;
         private String createdAt;
@@ -77,7 +76,21 @@ public class QuestionDto {
         private long voteCount;
         private long answerCount;
         private List<SubjectTagDto.Response> subjectTags;
-        private List<AnswerDto.InfoResponse> answers;
+        private List<AnswerDto.Response> answers;
+        private List<QnaCommentDto.Response> comments;
         private MemberDto.VoteInfo loginUserInfo;
+    }
+
+    @Getter
+    @Setter
+    public static class SimpleInfoResponse {
+        private Long questionId;
+        private String title;
+        private MemberDto.SimpleInfoResponse member;
+        private String createdAt;
+        private String modifiedAt;
+        private long viewCount;
+        private long voteCount;
+        private List<SubjectTagDto.Response> subjectTags;
     }
 }

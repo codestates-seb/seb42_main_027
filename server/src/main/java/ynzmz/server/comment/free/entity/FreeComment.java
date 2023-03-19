@@ -6,13 +6,13 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.member.entity.Member;
-import ynzmz.server.vote.VoteCount;
+import ynzmz.server.vote.Vote;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-public class FreeComment implements VoteCount {
+public class FreeComment implements Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long freeCommentId;

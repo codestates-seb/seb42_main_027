@@ -8,6 +8,8 @@ import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.member.dto.MemberDto;
+import ynzmz.server.member.entity.Member;
 import ynzmz.server.tag.dto.GradeTagDto;
 import ynzmz.server.tag.dto.PlatformTagDto;
 import ynzmz.server.tag.dto.SubjectTagDto;
@@ -22,7 +24,7 @@ import ynzmz.server.teacher.entity.Teacher;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-19T18:38:53+0900",
+    date = "2023-03-19T16:34:36+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -350,6 +352,30 @@ public class TeacherMapperImpl implements TeacherMapper {
         return simpleInfoResponse;
     }
 
+    protected MemberDto.SimpleInfoResponse memberToSimpleInfoResponse(Member member) {
+        if ( member == null ) {
+            return null;
+        }
+
+        Long memberId = null;
+        String displayName = null;
+        String state = null;
+
+        memberId = member.getMemberId();
+        displayName = member.getDisplayName();
+        if ( member.getState() != null ) {
+            state = member.getState().name();
+        }
+
+        String iconImageUrl = null;
+
+        MemberDto.SimpleInfoResponse simpleInfoResponse = new MemberDto.SimpleInfoResponse( memberId, displayName, iconImageUrl, state );
+
+        simpleInfoResponse.setIconImageUrl( member.getIconImageUrl() );
+
+        return simpleInfoResponse;
+    }
+
     protected LectureReviewDto.ListPageResponse lectureReviewToListPageResponse(LectureReview lectureReview) {
         if ( lectureReview == null ) {
             return null;
@@ -368,7 +394,7 @@ public class TeacherMapperImpl implements TeacherMapper {
         listPageResponse.setViewCount( lectureReview.getViewCount() );
         listPageResponse.setVoteCount( lectureReview.getVoteCount() );
         listPageResponse.setLecture( lectureToSimpleInfoResponse( lectureReview.getLecture() ) );
-        listPageResponse.setMember( lectureReview.getMember() );
+        listPageResponse.setMember( memberToSimpleInfoResponse( lectureReview.getMember() ) );
 
         return listPageResponse;
     }

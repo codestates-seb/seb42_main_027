@@ -29,12 +29,13 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
     private final AnswerService answerService;
 
+    @Transactional
     public Question createQuestion(Question question) {
         return questionRepository.save(question);
     }
 
     public Question updateQuestion(Question question) {
-        Question findQuestion = findQuestion(question.getQuestionId());
+        Question findQuestion = findQuestionById(question.getQuestionId());
         Optional.ofNullable(question.getAnswers()).ifPresent(findQuestion::setAnswers);
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
@@ -65,7 +66,8 @@ public class QuestionService {
     public Page<Question> findQuestionsByMemberId(long memberId, int page, int size) {
         return questionRepository.findByMemberId(memberId, PageRequest.of(page, size, Sort.by("questionId").descending()));
     }
-    public Question findQuestion(long questionId) {
+    @Transactional
+    public Question findQuestionById(long questionId) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
 
         return optionalQuestion.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
@@ -79,13 +81,14 @@ public class QuestionService {
 
     public void adoptAnswer(long questionId, Answer answer, Member member) {
 
-        Question question = checkTheAuthorOfTheQuestion(member, questionId);         //질문글 등록한사람 본인이 답변채택 할수있어야함.
+        //질문글 등록한사람 본인이 답변채택 할수있어야함.
+        Question question = checkTheAuthorOfTheQuestion(member, questionId);
         if (question.getAdoptAnswerId() == 0L) { //만약 채택되있는게 없으면 신청한걸로 채택
             question.setAdoptAnswerId(answer.getAnswerId());
             answer.setAdoptStatus(Answer.AdoptStatus.TRUE);
             log.info("처음 채택시 그냥 채택");
         } else if (question.getAdoptAnswerId() != answer.getAnswerId()) { // 다른것이 채택되어있으면, 기존꺼 취소후 신청한걸로 채택
-            Answer oldAdoptAnswer = answerService.findAnswer(question.getAdoptAnswerId()); // 기존꺼 답변 채택취소로변경
+            Answer oldAdoptAnswer = answerService.findAnswerById(question.getAdoptAnswerId()); // 기존꺼 답변 채택취소로변경
             oldAdoptAnswer.setAdoptStatus(Answer.AdoptStatus.FALSE); // 기존꺼 답변 채택취소로변경
             question.setAdoptAnswerId(answer.getAnswerId()); //새로운거 채택
             answer.setAdoptStatus(Answer.AdoptStatus.TRUE); //새로운거 채택

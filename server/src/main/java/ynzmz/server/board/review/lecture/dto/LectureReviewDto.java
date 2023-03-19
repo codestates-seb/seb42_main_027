@@ -21,7 +21,6 @@ public class LectureReviewDto {
         private String title;
         private long starPoint;
         private String content;
-        private long memberId;
         private long lectureId;
         private String createdAt;
     }
@@ -47,7 +46,7 @@ public class LectureReviewDto {
         private long voteCount;
         private TeacherDto.SimpleInfoResponse teacher;
         private LectureDto.SimpleInfoResponse lecture;
-        private Member member;
+        private MemberDto.SimpleInfoResponse member;
     }
 
     @Getter @Setter
@@ -63,7 +62,7 @@ public class LectureReviewDto {
         private long voteCount;
         private TeacherDto.SimpleInfoResponse teacher;
         private LectureDto.SimpleInfoResponse lecture;
-        private Member member;
+        private MemberDto.SimpleInfoResponse member;
         private List<LectureReviewCommentDto.Response> comments;
     }
     @Getter @Setter
@@ -78,6 +77,6 @@ public class LectureReviewDto {
         private long viewCount;
         private long voteCount;
         private LectureDto.SimpleInfoResponse lecture;
-        private Member member;
+        private MemberDto.SimpleInfoResponse member;
     }
 }

@@ -39,7 +39,6 @@ public class LectureDto {
         private List<String> gradeTag;
         private List<String> subjectTag;
         private List<String> platformTag;
-        private long teacherId;
     }
     //강의 전체조회
     @Getter @Setter

@@ -4,14 +4,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecture.service.LectureService;
 import ynzmz.server.board.review.lecture.mapper.LectureReviewMapper;
 import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
+import ynzmz.server.member.entity.Member;
+import ynzmz.server.member.service.MemberService;
 import ynzmz.server.teacher.service.TeacherService;
 
 import java.util.List;
@@ -23,11 +27,18 @@ public class LectureReviewController {
     private final LectureReviewService lectureReviewService;
     private final LectureService lectureService;
     private final TeacherService teacherService;
+    private final MemberService memberService;
     private final LectureReviewMapper lectureReviewMapper;
     //리뷰작성
     @PostMapping
-    public ResponseEntity<?> postLectureReview(@RequestBody LectureReviewDto.Post lectureReviewPostPost){
-        LectureReview lectureReview = lectureReviewMapper.lectureReviewPostToLectureReview(lectureReviewPostPost);
+    public ResponseEntity<?> postLectureReview(@RequestBody LectureReviewDto.Post lectureReviewPost){
+        LectureReview lectureReview = lectureReviewMapper.lectureReviewPostToLectureReview(lectureReviewPost);
+        Lecture lecture = lectureService.findLectureById(lectureReviewPost.getLectureId());
+        lectureReview.setLecture(lecture);
+
+        //토큰에서 memberId 확인
+        lectureReview.setMember(loginMemberFindByToken());
+
         LectureReview createdLectureReview = lectureReviewService.createLectureReview(lectureReview);
 
         //리뷰 등록시 강의의 평균점수를 수정 & 리뷰 총 갯수 수정
@@ -104,5 +115,10 @@ public class LectureReviewController {
     @DeleteMapping("/{lecture-review-id}")
     public void deleteReview(@PathVariable("lecture-review-id") long lectureReviewPostId){
         lectureReviewService.deleteLectureReview(lectureReviewPostId);
+    }
+
+    private Member loginMemberFindByToken(){
+        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
+        return memberService.findMemberByEmail(loginEmail);
     }
 }
