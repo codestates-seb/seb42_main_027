@@ -13,7 +13,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     @Query(value = "SELECT q FROM Question q WHERE q.member.memberId = :memberId")
     Page<Question> findByMemberId(long memberId, Pageable pageable);
-
     Page<Question> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 
     @Query("SELECT DISTINCT q FROM Question q " +

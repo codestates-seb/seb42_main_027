@@ -2,9 +2,9 @@ package ynzmz.server.board.free.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-import org.springframework.beans.factory.annotation.Autowired;
 import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.board.free.dto.FreeDto;
+
 
 import java.util.List;
 
@@ -17,5 +17,4 @@ public interface FreeMapper {
     FreeDto.ListResponse freeToFreeListResponse(Free free);
 
     List<FreeDto.ListResponse> freesToFreeListResponses(List<Free> frees);
-
 }
