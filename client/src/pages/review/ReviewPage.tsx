@@ -12,6 +12,7 @@ import axios from 'axios';
 import Button from 'components/common/Button';
 import isLogin from 'utils/isLogin';
 import { Link } from 'react-router-dom';
+import { type } from 'os';
 
 type Teachers = {
   gradeTags: string[];
@@ -25,6 +26,20 @@ type Teachers = {
   totalReviewCount: number;
 };
 
+type PageInfo = {
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+};
+
+const defaultPageInfo = {
+  page: 1,
+  size: 6,
+  totalElements: 6,
+  totalPages: 1,
+};
+
 function ReviewPage() {
   const [buttonOpen, setButtonOpen] = useState<boolean>(false);
   const [subject, setSubject] = useState<string>('전체');
@@ -34,7 +49,7 @@ function ReviewPage() {
   const [search, setSearch] = useState<string>('');
   const [reverse, setReverse] = useState<string>('정순');
   const [teachers, setTeachers] = useState<Teachers[]>([]); // 서버에서 받아올 선생 정보
-
+  const [pageInfo, setPageInfo] = useState<PageInfo>(defaultPageInfo);
   const [curPage, setCurPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(6);
 
@@ -55,7 +70,9 @@ function ReviewPage() {
       )
       .then((res: any) => {
         console.log(res.data.data);
+        console.log(res.data.pageInfo);
         setTeachers(res.data.data);
+        setPageInfo(res.data.pageInfo);
       });
 
     // fetch(
@@ -112,7 +129,7 @@ function ReviewPage() {
 
       <CharacterCard teachers={teachers} />
       <Pagenation
-        size={teachers.length}
+        size={pageInfo.totalPages}
         currentPage={curPage}
         pageSize={pageSize}
         setCurPage={setCurPage}
@@ -135,6 +152,11 @@ type Container = {
   display?: string;
   wrap?: string;
   grow?: number;
+  borderTop?: string;
+  borderBottom?: string;
+  padding?: string;
+  overflow?: string;
+  top?: string;
 };
 
 type SubjectSelectButton = {
@@ -153,6 +175,11 @@ export const FlexContainer = styled.div<Container>`
   background-color: ${props => props.backColor || 'none'};
   border-radius: ${props => props.borderRadius || 'none'};
   flex-grow: ${props => props.grow};
+  border-top: ${props => props.borderTop};
+  border-bottom: ${props => props.borderBottom};
+  padding: ${props => props.padding};
+  overflow: ${props => props.overflow};
+  top: ${props => props.top};
 `;
 
 const SubjectSelectButton = styled.div<SubjectSelectButton>`

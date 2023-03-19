@@ -100,7 +100,7 @@ function Lectures() {
   return (
     <Container height={data.lectures.length < 7 ? '100vh' : ''}>
       {isPending ? (
-        <FlexContainer height="100vh" />
+        <FlexContainer />
       ) : (
         <FlexContainer dir="col">
           <FlexContainer
