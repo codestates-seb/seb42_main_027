@@ -24,6 +24,9 @@ import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.board.review.lecture.mapper.LectureReviewMapper;
 import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
+import ynzmz.server.comment.free.entity.FreeComment;
+import ynzmz.server.comment.free.mapper.FreeCommentMapper;
+import ynzmz.server.comment.free.service.FreeCommentService;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.member.service.MemberService;
@@ -52,6 +55,8 @@ public class MemberController {
     private final LectureReviewMapper lectureReviewMapper;
     private final FreeService freeService;
     private final FreeMapper freeMapper;
+    private final FreeCommentService freeCommentService;
+    private final FreeCommentMapper freeCommentMapper;
     private final AnswerService answerService;
     private final AnswerMapper answerMapper;
 

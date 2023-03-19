@@ -39,8 +39,8 @@ public class FreeController {
 
 
     @GetMapping("/{free-id}")
-    public ResponseEntity<?> getDetailFree(@PathVariable("free-id") long Id){
-        Free foundFree = freeService.findFreeById(Id);
+    public ResponseEntity<?> getDetailFree(@PathVariable("free-id") long freeId){
+        Free foundFree = freeService.findFreeById(freeId);
         FreeDto.DetailResponse response = freeMapper.freeToFreeDetailResponse(foundFree);
 
     return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
@@ -55,9 +55,9 @@ public class FreeController {
     }
 
     @PatchMapping("/{free-id}")
-    public ResponseEntity<?> patchFree(@PathVariable("free-id")long id, @RequestBody FreeDto.patch freepatch){
+    public ResponseEntity<?> patchFree(@PathVariable("free-id")long freeId, @RequestBody FreeDto.patch freepatch){
         Free free = freeMapper.freePatchToFree(freepatch);
-        free.setFreeId(id);
+        free.setFreeId(freeId);
         Free newFree = freeService.updateFree(free);
         FreeDto.DetailResponse freeDetailResponse = freeMapper.freeToFreeDetailResponse(free);
 
@@ -66,8 +66,8 @@ public class FreeController {
     }
 
     @DeleteMapping("/{free-id}")
-    public ResponseEntity<?> deleteReview(@PathVariable("free-id") long id){
-        freeService.deleteFree(id);
+    public ResponseEntity<?> deleteReview(@PathVariable("free-id") long freeId){
+        freeService.deleteFree(freeId);
         return new ResponseEntity<>(HttpStatus.GONE);
     }
 

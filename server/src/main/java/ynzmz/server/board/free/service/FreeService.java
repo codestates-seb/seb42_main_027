@@ -51,8 +51,8 @@ public class FreeService {
     }
     //-------------------------------------------DELETE---------------------------------------------------------
 
-    public void deleteFree(long id){
-        repository.deleteById(id);
+    public void deleteFree(long freeId){
+        repository.deleteById(freeId);
     }
 
 }

@@ -16,6 +16,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="entityManagerFactory" />
+          <factory-entry name="server.main" value="0940a617-5a70-475b-9877-44a35c60db3a" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
@@ -30,9 +31,8 @@
     <content url="file://$MODULE_DIR$/../../server/build/generated/sources/annotationProcessor/java/main">
       <sourceFolder url="file://$MODULE_DIR$/../../server/build/generated/sources/annotationProcessor/java/main" isTestSource="false" generated="true" />
     </content>
-    <content url="file://$MODULE_DIR$/../../server/src/main">
-      <sourceFolder url="file://$MODULE_DIR$/../../server/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../server/src/main/resources" type="java-resource" />
+    <content url="file://$MODULE_DIR$/../../server/build/generated/sources/annotationProcessor/java/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../server/build/generated/sources/annotationProcessor/java/main" isTestSource="false" generated="true" />
     </content>
     <content url="file://$MODULE_DIR$/../../server/src/main">
       <sourceFolder url="file://$MODULE_DIR$/../../server/src/main/java" isTestSource="false" />
@@ -50,7 +50,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.projectlombok:lombok:1.18.26" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.mapstruct:mapstruct-processor:1.5.2.Final" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.flywaydb:flyway-mysql:8.5.13" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.projectlombok:lombok-mapstruct-binding:0.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.mapstruct:mapstruct:1.5.2.Final" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-jpa:2.7.9" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:2.7.9" level="project" />
@@ -60,7 +60,6 @@
     <orderEntry type="library" name="Gradle: io.jsonwebtoken:jjwt-api:0.11.5" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.9.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jsoup:jsoup:1.15.4" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.flywaydb:flyway-core:8.5.13" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-aop:2.7.9" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-jdbc:2.7.9" level="project" />
     <orderEntry type="library" name="Gradle: jakarta.transaction:jakarta.transaction-api:1.3.3" level="project" />
