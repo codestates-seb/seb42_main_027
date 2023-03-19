@@ -4,8 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import ynzmz.server.board.event.our.entity.YjEvent;
-import ynzmz.server.board.event.our.repository.YjEventRepository;
+import ynzmz.server.board.event.our.entity.Our;
+import ynzmz.server.board.event.our.repository.OurRepository;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 
@@ -13,33 +13,33 @@ import ynzmz.server.error.exception.ExceptionCode;
 import java.util.Optional;
 
 @Service
-public class YjEventService {
-    YjEventRepository yjEventRepository;
+public class OurService {
+    OurRepository ourRepository;
 
     //--------------------------------------------CREATE--------------------------------------------------------
-    public YjEvent createEvent(YjEvent event){
-        return yjEventRepository.save(event);
+    public Our createEvent(Our event){
+        return ourRepository.save(event);
     }
 
 
     //--------------------------------------------READ----------------------------------------------------------
-    public YjEvent findEvent(long eventId){
-        Optional<YjEvent> event = yjEventRepository.findById(eventId);
+    public Our findEvent(long eventId){
+        Optional<Our> event = ourRepository.findById(eventId);
 
         return event.orElseThrow(()->new BusinessLogicException(ExceptionCode.EVENT_NOT_FOUND));
     }
 
-    public Page<YjEvent> findAllEvents(int page, int size){
-        return yjEventRepository.findAll(PageRequest.of(page,size, Sort.by("eventId")));
+    public Page<Our> findAllEvents(int page, int size){
+        return ourRepository.findAll(PageRequest.of(page,size, Sort.by("eventId")));
     }
     //-------------------------------------------UPDATE---------------------------------------------------------
-    public YjEvent updateEvent(YjEvent yjevent){//추후 고유 이벤트 내용이 확정되면 이야기 하는 것으로
-        YjEvent findEvent = findEvent(yjevent.getEventId());
+    public Our updateEvent(Our yjevent){//추후 고유 이벤트 내용이 확정되면 이야기 하는 것으로
+        Our findEvent = findEvent(yjevent.getEventId());
         Optional.ofNullable(yjevent.getTitle()).ifPresent(findEvent::setTitle);
         Optional.ofNullable(yjevent.getDate()).ifPresent(findEvent::setDate);
         Optional.ofNullable(yjevent.getDate()).ifPresent(findEvent::setDate);
         Optional.ofNullable(yjevent.getContent()).ifPresent(findEvent::setContent);
-    return yjEventRepository.save(findEvent);
+    return ourRepository.save(findEvent);
 
     }
 
@@ -49,10 +49,10 @@ public class YjEventService {
 
     // -------------------------------------------DELETE---------------------------------------------------------
     public void deleteAll(){
-        yjEventRepository.deleteAll();
+        ourRepository.deleteAll();
     }
-    public void deleteEvent(YjEvent event){
-        yjEventRepository.delete(event);
+    public void deleteEvent(Our event){
+        ourRepository.delete(event);
     }
 }
 

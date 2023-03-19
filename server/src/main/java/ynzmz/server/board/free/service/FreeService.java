@@ -1,6 +1,7 @@
 package ynzmz.server.board.free.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -14,16 +15,17 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FreeService {
 
-    FreeRepository repository;
+    private final FreeRepository repository;
     //--------------------------------------------CREATE--------------------------------------------------------
     public Free createFree(Free free){
         return repository.save(free);
     }
     //--------------------------------------------READ----------------------------------------------------------
-    public Free findFreeById(long id){
-        return repository.findById(id).orElseThrow(()-> new BusinessLogicException(ExceptionCode.FREE_NOT_FOUND));
+    public Free findFreeById(long freeId){
+        return repository.findById(freeId).orElseThrow(()-> new BusinessLogicException(ExceptionCode.FREE_NOT_FOUND));
 
     }
 
@@ -32,7 +34,7 @@ public class FreeService {
     }
     //-------------------------------------------UPDATE---------------------------------------------------------
     public Free updateFree(Free free){
-        Free findFree = findFreeById(free.getId());
+        Free findFree = findFreeById(free.getFreeId());
         Optional.ofNullable(findFree.getTitle()).ifPresent(findFree::setTitle);
         Optional.ofNullable(findFree.getContent()).ifPresent(findFree::setContent);
         Optional.ofNullable(findFree.getViewCount()).ifPresent(findFree::setViewCount);

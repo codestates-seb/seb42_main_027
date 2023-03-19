@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.member.entity.Member;
 
@@ -15,7 +16,7 @@ public class FreeCommentDto {
     public static class Post{
         private String content;
         private String createdAt;
-        private long freeCommentId;
+        private long freeId;
         private long memberId;
     }
 
@@ -23,18 +24,22 @@ public class FreeCommentDto {
     @AllArgsConstructor
     public static class Patch{
         private String content;
+        private String category;
         private String modifiedAt;
+
     }
     @Setter @Getter
-    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Response{
-
-        private Long freeCommentId;
+        private long freeCommentId;
+//        private long freeDisplayId;
+        private Free free;
         private String content;
         private String createdAt;
         private String modifiedAt;
         private long voteCount;
         private Member member;
+        private boolean memberSim;
     }
 }
 

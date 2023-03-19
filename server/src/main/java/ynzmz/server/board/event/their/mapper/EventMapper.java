@@ -11,6 +11,8 @@ public interface EventMapper {
 
     EventDto.Post eventToEventPost(Event event);
 
+    Event eventPostToevent(EventDto.Post p);
+
     EventDto.Response eventToEventResponse(Event event);
 
     List<EventDto.Response> eventToEventResponses(List<Event> events);

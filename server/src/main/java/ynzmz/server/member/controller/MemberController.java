@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.dto.MultiResponseDto;
+import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
@@ -38,7 +39,7 @@ public class MemberController {
         MemberDto.Response response=  memberMapper.memberToMemberResponse(createdMember);
         member.setCreatedAt(requestBody.getCreatedAt());
 
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{member-id}")
@@ -49,7 +50,7 @@ public class MemberController {
         Member updatedMember = memberService.updateMember(member);
         MemberDto.Response response=  memberMapper.memberToMemberResponse(updatedMember);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
 
@@ -58,7 +59,7 @@ public class MemberController {
         Member findMember = memberService.findMemberByEmail(email);
         MemberDto.Response response = memberMapper.memberToMemberResponse(findMember);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     @GetMapping
@@ -83,7 +84,7 @@ public class MemberController {
     public ResponseEntity<?> getMemberReview(@PathVariable("member-id") @Positive long memberId){
         Member findMember = memberService.findMemberById(memberId);
         MemberDto.MyLectureReview response = memberMapper.memberToMemberMyLectureReview(findMember);
-        return new ResponseEntity<>(response,HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
 
     //내가쓴 질문조회
@@ -91,7 +92,7 @@ public class MemberController {
 //    public ResponseEntity<?> getMemberQuestion(@PathVariable("member-id") @Positive long memberId){
 //        Member findMember = memberService.findMemberById(memberId);
 //        MemberQuestionResponseDto response = memberMapper.memberToMemberQuestionResponse(findMember);
-//        return new ResponseEntity<>(response, HttpStatus.OK);
+//        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
 //    }
 
 
