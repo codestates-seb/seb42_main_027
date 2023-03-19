@@ -47,7 +47,7 @@ public class QnaVoteController {
         QnaVote qnaVote = qnaVoteService.findQnaVoteTargetQuestion(question, member); // 현재 상태값 불러오기
         QnaVote voteUp = qnaVoteService.qnaVoteUp(question, qnaVote);
 
-        QnaVoteDto.Response response = qnaVoteMapper.qnaVoteToQuestionResponse(voteUp);
+        QnaVoteDto.QuestionResponse response = qnaVoteMapper.qnaVoteToQuestionResponse(voteUp);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -61,7 +61,7 @@ public class QnaVoteController {
         QnaVote qnaVote = qnaVoteService.findQnaVoteTargetQuestion(question, member); // 현재 상태값 불러오기
         QnaVote voteDown = qnaVoteService.qnaVoteDown(question, qnaVote);
 
-        QnaVoteDto.Response response = qnaVoteMapper.qnaVoteToQuestionResponse(voteDown);
+        QnaVoteDto.QuestionResponse response = qnaVoteMapper.qnaVoteToQuestionResponse(voteDown);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -74,7 +74,7 @@ public class QnaVoteController {
         QnaVote qnaVote = qnaVoteService.findQnaVoteTargetAnswer(answer, member); // 현재 상태값 불러오기
         QnaVote voteUp = qnaVoteService.qnaVoteUp(answer, qnaVote);
 
-        QnaVoteDto.Response response = qnaVoteMapper.qnaVoteToQuestionResponse(voteUp);
+        QnaVoteDto.AnswerResponse response = qnaVoteMapper.qnaVoteToAnswerResponse(voteUp);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
@@ -86,7 +86,7 @@ public class QnaVoteController {
         QnaVote qnaVote = qnaVoteService.findQnaVoteTargetAnswer(answer, member); // 현재 상태값 불러오기
         QnaVote voteDown = qnaVoteService.qnaVoteDown(answer, qnaVote);
 
-        QnaVoteDto.Response response = qnaVoteMapper.qnaVoteToQuestionResponse(voteDown);
+        QnaVoteDto.AnswerResponse response = qnaVoteMapper.qnaVoteToAnswerResponse(voteDown);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
@@ -99,7 +99,7 @@ public class QnaVoteController {
         QnaVote qnaVote = qnaVoteService.findQnaVoteTargetComment(qnaComment, member); // 현재 상태값 불러오기
         QnaVote voteUp = qnaVoteService.qnaVoteUp(qnaComment, qnaVote);
 
-        QnaVoteDto.Response response = qnaVoteMapper.qnaVoteToQuestionResponse(voteUp);
+        QnaVoteDto.CommentResponse response = qnaVoteMapper.qnaVoteToCommentResponse(voteUp);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -113,7 +113,7 @@ public class QnaVoteController {
         QnaVote qnaVote = qnaVoteService.findQnaVoteTargetComment(qnaComment, member); // 현재 상태값 불러오기
         QnaVote voteDown = qnaVoteService.qnaVoteDown(qnaComment, qnaVote);
 
-        QnaVoteDto.Response response = qnaVoteMapper.qnaVoteToQuestionResponse(voteDown);
+        QnaVoteDto.CommentResponse response = qnaVoteMapper.qnaVoteToCommentResponse(voteDown);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -127,7 +127,7 @@ public class QnaVoteController {
         QnaVote qnaVote = qnaVoteService.findQnaVoteTargetReComment(qnaReComment, member); // 현재 상태값 불러오기
         QnaVote voteUp = qnaVoteService.qnaVoteUp(qnaReComment, qnaVote);
 
-        QnaVoteDto.Response response = qnaVoteMapper.qnaVoteToQuestionResponse(voteUp);
+        QnaVoteDto.ReCommentResponse response = qnaVoteMapper.qnaVoteToReCommentResponse(voteUp);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -141,7 +141,7 @@ public class QnaVoteController {
         QnaVote qnaVote = qnaVoteService.findQnaVoteTargetReComment(qnaReComment, member); // 현재 상태값 불러오기
         QnaVote voteDown = qnaVoteService.qnaVoteDown(qnaReComment, qnaVote);
 
-        QnaVoteDto.Response response = qnaVoteMapper.qnaVoteToQuestionResponse(voteDown);
+        QnaVoteDto.ReCommentResponse response = qnaVoteMapper.qnaVoteToReCommentResponse(voteDown);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }

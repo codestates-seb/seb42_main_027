@@ -36,20 +36,26 @@ public class QnaReCommentController {
     }
 
 
-    @PatchMapping("/{qna-comment-id}")
+    @PatchMapping("/{qna-recomment-id}")
     public ResponseEntity<?> updateQnaComment(@RequestBody QnaReCommentDto.Patch patchDto,
-                                              @PathVariable("qna-comment-id") long qnaCommentId) {
+                                              @PathVariable("qna-recomment-id") long qnaReCommentId) {
+        //본인확인
+        memberService.memberValidation(loginMemberFindByToken(), qnaReCommentService.findQnaReCommentById(qnaReCommentId).getMember().getMemberId());
+
         QnaReComment qnaReComment = qnaReCommentMapper.qnaReCommentPatchToQnaReComment(patchDto);
-        qnaReComment.setQnaReComment(qnaCommentId);
+        qnaReComment.setQnaReCommentId(qnaReCommentId);
 
         QnaReComment updateComment = qnaReCommentService.updateQnaReComment(qnaReComment);
         QnaReCommentDto.Response response = qnaReCommentMapper.qnaReCommentToQnaCommentReResponse(updateComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{qna-comment-id}")
-    public void deleteQnaComment(@PathVariable("qna-comment-id") long qnaCommentId) {
-        qnaReCommentService.deleteQnaReComment(qnaCommentId);
+    @DeleteMapping("/{qna-recomment-id}")
+    public void deleteQnaComment(@PathVariable("qna-recomment-id") long qnaReCommentId) {
+        //본인확인
+        memberService.memberValidation(loginMemberFindByToken(), qnaReCommentService.findQnaReCommentById(qnaReCommentId).getMember().getMemberId());
+
+        qnaReCommentService.deleteQnaReComment(qnaReCommentId);
     }
 
     private Member loginMemberFindByToken(){

@@ -28,6 +28,7 @@ public enum ExceptionCode {
     EVENT_NOT_YZ(600,"야놀지말자 이벤트가 아니라 수정할 수 없습니다"),
     FREE_REVIEW_COMMENT_NOT_FOUND(404, "자유게시글 아이디 리뷰글 댓글이 없습니다."),
     FREE_NOT_FOUND(404,"자유게시글이 존재하지 않습니다"),
+    QNA_RE_COMMENT_NOT_FOUND(404,"해당 질문답변게시판 대댓글이 존재하지 않습니다 "),
     QNA_COMMENT_NOT_FOUND(404,"해당 질문답변게시판 댓글이 존재하지 않습니다 ");
 
     // 권한이없을때

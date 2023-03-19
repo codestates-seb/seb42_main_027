@@ -7,6 +7,10 @@ import lombok.Setter;
 import ynzmz.server.board.qna.answer.dto.AnswerDto;
 import ynzmz.server.board.qna.question.dto.QuestionDto;
 import ynzmz.server.member.dto.MemberDto;
+import ynzmz.server.recomment.qna.dto.QnaReCommentDto;
+import ynzmz.server.recomment.qna.entity.QnaReComment;
+
+import java.util.List;
 
 public class QnaCommentDto {
     @Getter
@@ -32,7 +36,6 @@ public class QnaCommentDto {
         private String modifiedAt;
         private long voteCount;
         private MemberDto.SimpleInfoResponse member;
-//        private QuestionDto.SimpleInfoResponse question;
-//        private AnswerDto.SimpleInfoResponse answer;
+        private List<QnaReCommentDto.Response> qnaReComments;
     }
 }

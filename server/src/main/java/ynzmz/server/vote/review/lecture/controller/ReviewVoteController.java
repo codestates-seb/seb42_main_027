@@ -3,6 +3,7 @@ package ynzmz.server.vote.review.lecture.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,12 +30,11 @@ public class ReviewVoteController {
     private final ReviewVoteMapper reviewVoteMapper;
     private final  MemberService memberService;
 
-    @PostMapping("/{lecture-review-id}/up/{member-id}")
-    public ResponseEntity<?> lectureReviewVoteUp(@PathVariable("lecture-review-id") long lectureReviewPostId,
-                                                 @PathVariable("member-id") long memberId) {
+    @PostMapping("/{lecture-review-id}/up")
+    public ResponseEntity<?> lectureReviewVoteUp(@PathVariable("lecture-review-id") long lectureReviewPostId) {
 
         LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewPostId);
-        Member member = memberService.findMemberById(memberId);
+        Member member = loginMemberFindByToken();
         ReviewVote reviewVote = reviewVoteService.findLectureReviewVoteTargetReview(lectureReview, member);// 현재 상태값 불러오기
 
         ReviewVote voteUplectureReviewVote = reviewVoteService.lectureReviewVoteUp(lectureReview, reviewVote);
@@ -44,11 +44,10 @@ public class ReviewVoteController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
-    @PostMapping("/{lecture-review-id}/down/{member-id}")
-    public ResponseEntity<?> lectureReviewVoteDown(@PathVariable("lecture-review-id") long lectureReviewPostId,
-                                                   @PathVariable("member-id") long memberId) {
+    @PostMapping("/{lecture-review-id}/down")
+    public ResponseEntity<?> lectureReviewVoteDown(@PathVariable("lecture-review-id") long lectureReviewPostId) {
         LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewPostId);
-        Member member = memberService.findMemberById(memberId);
+        Member member = loginMemberFindByToken();
         ReviewVote reviewVote = reviewVoteService.findLectureReviewVoteTargetReview(lectureReview, member);// 현재 상태값 불러오기
 
         ReviewVote voteDownlectureReviewVote = reviewVoteService.lectureReviewVoteDown(lectureReview, reviewVote);
@@ -58,12 +57,11 @@ public class ReviewVoteController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
-    @PostMapping("/comments/{lecture-review-comment-id}/up/{member-id}")
-    public ResponseEntity<?> lectureReviewCommentVoteUp(@PathVariable("lecture-review-comment-id") long lectureReviewCommentId,
-                                                        @PathVariable("member-id") long memberId) {
+    @PostMapping("/comments/{lecture-review-comment-id}/up")
+    public ResponseEntity<?> lectureReviewCommentVoteUp(@PathVariable("lecture-review-comment-id") long lectureReviewCommentId) {
 
         LectureReviewComment lectureReviewComment = lectureReviewCommentService.findLectureReviewCommentById(lectureReviewCommentId);
-        Member member = memberService.findMemberById(memberId);
+        Member member = loginMemberFindByToken();
         ReviewVote reviewVote = reviewVoteService.findLectureReviewVoteTargetComment(lectureReviewComment, member);// 현재 상태값 불러오기
 
         ReviewVote voteUplectureReviewVote = reviewVoteService.lectureReviewVoteUp(lectureReviewComment, reviewVote);
@@ -73,11 +71,10 @@ public class ReviewVoteController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
-    @PostMapping("/comments/{lecture-review-comment-id}/down/{member-id}")
-    public ResponseEntity<?> lectureReviewCommentVoteDown(@PathVariable("lecture-review-comment-id") long lectureReviewCommentId,
-                                                          @PathVariable("member-id") long memberId) {
+    @PostMapping("/comments/{lecture-review-comment-id}/down")
+    public ResponseEntity<?> lectureReviewCommentVoteDown(@PathVariable("lecture-review-comment-id") long lectureReviewCommentId) {
         LectureReviewComment lectureReviewComment = lectureReviewCommentService.findLectureReviewCommentById(lectureReviewCommentId);
-        Member member = memberService.findMemberById(memberId);
+        Member member = loginMemberFindByToken();
         ReviewVote reviewVote = reviewVoteService.findLectureReviewVoteTargetComment(lectureReviewComment, member);// 현재 상태값 불러오기
 
         ReviewVote voteDownlectureReviewVote = reviewVoteService.lectureReviewVoteDown(lectureReviewComment, reviewVote);
@@ -85,5 +82,9 @@ public class ReviewVoteController {
         ReviewVoteDto.Response response = reviewVoteMapper.lectureReviewVoteToLectureReviewResponse(voteDownlectureReviewVote);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+    }
+    private Member loginMemberFindByToken(){
+        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
+        return memberService.findMemberByEmail(loginEmail);
     }
 }

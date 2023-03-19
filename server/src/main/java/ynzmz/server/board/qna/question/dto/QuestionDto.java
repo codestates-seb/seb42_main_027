@@ -18,7 +18,6 @@ public class QuestionDto {
         private String title;
         String content;
         String createdAt;
-        long memberId;
         List<String> subjectTag;
 
     }
@@ -30,8 +29,7 @@ public class QuestionDto {
         private Long questionId;
         private String title;
         String content;
-        String createdAt;
-        long memberId;
+        String modifiedAt;
         List<String> subjectTag;
 
     }
@@ -47,7 +45,7 @@ public class QuestionDto {
         private long voteCount;
         private long answerCount; //수동추가
         private long adoptAnswerId;
-        private Member member;
+        private MemberDto.SimpleInfoResponse member;
         private List<SubjectTagDto.Response> subjectTags;
     }
 
@@ -55,7 +53,7 @@ public class QuestionDto {
     @Setter
     public static class InfoResponse {
         private Long questionId;
-        private Member member;
+        private MemberDto.SimpleInfoResponse member;
         private String title;
         private String content;
         private String createdAt;
@@ -69,7 +67,7 @@ public class QuestionDto {
     @Setter
     public static class DetailPageResponse {
         private Long questionId;
-        private Member member;
+        private MemberDto.SimpleInfoResponse member;
         private String title;
         private String content;
         private String createdAt;

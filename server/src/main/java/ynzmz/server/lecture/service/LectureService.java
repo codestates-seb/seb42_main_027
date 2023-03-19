@@ -22,7 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LectureService {
     private final LectureRepository lectureRepository;
-
+    @Transactional
     public Lecture createdLecture(Lecture lecture) {
         return lectureRepository.save(lecture);
     }
@@ -33,7 +33,6 @@ public class LectureService {
         Optional.ofNullable(lecture.getTitle()).ifPresent(findLecture::setTitle);
         Optional.ofNullable(lecture.getIntroduction()).ifPresent(findLecture::setIntroduction);
         Optional.ofNullable(lecture.getStatus()).ifPresent(findLecture::setStatus);
-        Optional.ofNullable(lecture.getTeacher()).ifPresent(findLecture::setTeacher);
 
         return lectureRepository.save(findLecture);
     }

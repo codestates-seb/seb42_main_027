@@ -15,7 +15,7 @@ import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-18T14:26:57+0900",
+    date = "2023-03-19T01:16:27+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -72,7 +72,7 @@ public class LectureReviewMapperImpl implements LectureReviewMapper {
         listPageResponse.setViewCount( lectureReview.getViewCount() );
         listPageResponse.setVoteCount( lectureReview.getVoteCount() );
         listPageResponse.setLecture( lectureToSimpleInfoResponse( lectureReview.getLecture() ) );
-        listPageResponse.setMember( lectureReview.getMember() );
+        listPageResponse.setMember( memberToSimpleInfoResponse( lectureReview.getMember() ) );
 
         return listPageResponse;
     }
@@ -110,7 +110,7 @@ public class LectureReviewMapperImpl implements LectureReviewMapper {
         detailPageResponse.setViewCount( lectureReview.getViewCount() );
         detailPageResponse.setVoteCount( lectureReview.getVoteCount() );
         detailPageResponse.setLecture( lectureToSimpleInfoResponse( lectureReview.getLecture() ) );
-        detailPageResponse.setMember( lectureReview.getMember() );
+        detailPageResponse.setMember( memberToSimpleInfoResponse( lectureReview.getMember() ) );
         detailPageResponse.setComments( lectureReviewCommentListToResponseList( lectureReview.getComments() ) );
 
         return detailPageResponse;
@@ -135,7 +135,7 @@ public class LectureReviewMapperImpl implements LectureReviewMapper {
         infoResponse.setViewCount( lectureReview.getViewCount() );
         infoResponse.setVoteCount( lectureReview.getVoteCount() );
         infoResponse.setLecture( lectureToSimpleInfoResponse( lectureReview.getLecture() ) );
-        infoResponse.setMember( lectureReview.getMember() );
+        infoResponse.setMember( memberToSimpleInfoResponse( lectureReview.getMember() ) );
 
         return infoResponse;
     }

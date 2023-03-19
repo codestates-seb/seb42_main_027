@@ -58,7 +58,7 @@ public class AnswerService {
     public Answer findAnswerById(long answerId) {
         Optional<Answer> optionalQuestion = answerRepository.findById(answerId);
 
-        return optionalQuestion.orElseThrow(()-> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+        return optionalQuestion.orElseThrow(()-> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
     }
 
     public void adoptAnswer(long answerId) {

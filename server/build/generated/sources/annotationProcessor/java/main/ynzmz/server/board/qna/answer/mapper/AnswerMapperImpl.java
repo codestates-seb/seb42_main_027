@@ -12,12 +12,14 @@ import ynzmz.server.comment.qna.dto.QnaCommentDto;
 import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
+import ynzmz.server.recomment.qna.dto.QnaReCommentDto;
+import ynzmz.server.recomment.qna.entity.QnaReComment;
 import ynzmz.server.tag.dto.SubjectTagDto;
 import ynzmz.server.tag.mappingtable.question.QuestionSubjectTag;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-18T14:09:58+0900",
+    date = "2023-03-19T13:03:56+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -169,6 +171,35 @@ public class AnswerMapperImpl implements AnswerMapper {
         return simpleInfoResponse;
     }
 
+    protected QnaReCommentDto.Response qnaReCommentToResponse(QnaReComment qnaReComment) {
+        if ( qnaReComment == null ) {
+            return null;
+        }
+
+        QnaReCommentDto.Response response = new QnaReCommentDto.Response();
+
+        response.setContent( qnaReComment.getContent() );
+        response.setCreatedAt( qnaReComment.getCreatedAt() );
+        response.setModifiedAt( qnaReComment.getModifiedAt() );
+        response.setVoteCount( qnaReComment.getVoteCount() );
+        response.setMember( memberToSimpleInfoResponse( qnaReComment.getMember() ) );
+
+        return response;
+    }
+
+    protected List<QnaReCommentDto.Response> qnaReCommentListToResponseList(List<QnaReComment> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<QnaReCommentDto.Response> list1 = new ArrayList<QnaReCommentDto.Response>( list.size() );
+        for ( QnaReComment qnaReComment : list ) {
+            list1.add( qnaReCommentToResponse( qnaReComment ) );
+        }
+
+        return list1;
+    }
+
     protected QnaCommentDto.Response qnaCommentToResponse(QnaComment qnaComment) {
         if ( qnaComment == null ) {
             return null;
@@ -182,6 +213,7 @@ public class AnswerMapperImpl implements AnswerMapper {
         response.setModifiedAt( qnaComment.getModifiedAt() );
         response.setVoteCount( qnaComment.getVoteCount() );
         response.setMember( memberToSimpleInfoResponse( qnaComment.getMember() ) );
+        response.setQnaReComments( qnaReCommentListToResponseList( qnaComment.getQnaReComments() ) );
 
         return response;
     }

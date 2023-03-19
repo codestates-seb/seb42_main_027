@@ -12,11 +12,15 @@ public interface ReviewVoteMapper {
 
         lectureReviewVoteResponse.setTarget(reviewVote.getTarget());
         lectureReviewVoteResponse.setStatus(reviewVote.getStatus());
-        lectureReviewVoteResponse.setLectureReviewId(reviewVote.getLectureReview().getLectureReviewId());
-        lectureReviewVoteResponse.setLectureReviewCommentId(reviewVote.getLectureReviewComment().getLectureReviewCommentId());
         lectureReviewVoteResponse.setMemberId(reviewVote.getMember().getMemberId());
-        lectureReviewVoteResponse.setLectureReviewTotalCount(reviewVote.getLectureReview().getVoteCount());
-        lectureReviewVoteResponse.setLectureReviewCommentTotalCount(reviewVote.getLectureReviewComment().getVoteCount());
+        if( reviewVote.getLectureReview() != null ) {
+            lectureReviewVoteResponse.setLectureReviewId(reviewVote.getLectureReview().getLectureReviewId());
+            lectureReviewVoteResponse.setLectureReviewTotalCount(reviewVote.getLectureReview().getVoteCount());
+        }
+        if( reviewVote.getLectureReviewComment() != null ) {
+            lectureReviewVoteResponse.setLectureReviewCommentId(reviewVote.getLectureReviewComment().getLectureReviewCommentId());
+            lectureReviewVoteResponse.setLectureReviewCommentTotalCount(reviewVote.getLectureReviewComment().getVoteCount());
+        }
         return lectureReviewVoteResponse;
     }
 }

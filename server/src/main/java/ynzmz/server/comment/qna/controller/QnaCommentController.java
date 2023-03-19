@@ -55,6 +55,9 @@ public class QnaCommentController {
     @PatchMapping("/{qna-comment-id}")
     public ResponseEntity<?> updateQnaComment(@RequestBody QnaCommentDto.Patch patchDto,
                                               @PathVariable("qna-comment-id") long qnaCommentId) {
+        //본인확인
+        memberService.memberValidation(loginMemberFindByToken(), qnaCommentService.findQnaCommentById(qnaCommentId).getMember().getMemberId());
+
         QnaComment qnaComment = qnaCommentMapper.qnaCommentPatchToQnaComment(patchDto);
         qnaComment.setQnaCommentId(qnaCommentId);
 
@@ -65,6 +68,7 @@ public class QnaCommentController {
 
     @DeleteMapping("/{qna-comment-id}")
     public void deleteQnaComment(@PathVariable("qna-comment-id") long qnaCommentId) {
+        memberService.memberValidation(loginMemberFindByToken(), qnaCommentService.findQnaCommentById(qnaCommentId).getMember().getMemberId());
         qnaCommentService.deleteQnaComment(qnaCommentId);
     }
 

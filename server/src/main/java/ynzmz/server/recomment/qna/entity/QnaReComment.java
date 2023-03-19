@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class QnaReComment implements Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long qnaReComment;
+    private Long qnaReCommentId;
     private String content;
     private String createdAt;
     private String modifiedAt;

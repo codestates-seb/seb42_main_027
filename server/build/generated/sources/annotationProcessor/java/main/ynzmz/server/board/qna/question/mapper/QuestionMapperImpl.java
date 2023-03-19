@@ -12,12 +12,14 @@ import ynzmz.server.comment.qna.dto.QnaCommentDto;
 import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
+import ynzmz.server.recomment.qna.dto.QnaReCommentDto;
+import ynzmz.server.recomment.qna.entity.QnaReComment;
 import ynzmz.server.tag.dto.SubjectTagDto;
 import ynzmz.server.tag.mappingtable.question.QuestionSubjectTag;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-18T14:09:57+0900",
+    date = "2023-03-19T13:03:56+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -50,7 +52,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         question.setQuestionId( questionPatchDto.getQuestionId() );
         question.setTitle( questionPatchDto.getTitle() );
         question.setContent( questionPatchDto.getContent() );
-        question.setCreatedAt( questionPatchDto.getCreatedAt() );
+        question.setModifiedAt( questionPatchDto.getModifiedAt() );
 
         return question;
     }
@@ -64,7 +66,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         QuestionDto.InfoResponse infoResponse = new QuestionDto.InfoResponse();
 
         infoResponse.setQuestionId( question.getQuestionId() );
-        infoResponse.setMember( question.getMember() );
+        infoResponse.setMember( memberToSimpleInfoResponse( question.getMember() ) );
         infoResponse.setTitle( question.getTitle() );
         infoResponse.setContent( question.getContent() );
         infoResponse.setCreatedAt( question.getCreatedAt() );
@@ -86,7 +88,7 @@ public class QuestionMapperImpl implements QuestionMapper {
 
         detailPageResponse.setAnswerCount( countAnswers( question.getAnswers() ) );
         detailPageResponse.setQuestionId( question.getQuestionId() );
-        detailPageResponse.setMember( question.getMember() );
+        detailPageResponse.setMember( memberToSimpleInfoResponse( question.getMember() ) );
         detailPageResponse.setTitle( question.getTitle() );
         detailPageResponse.setContent( question.getContent() );
         detailPageResponse.setCreatedAt( question.getCreatedAt() );
@@ -117,7 +119,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         listPageResponse.setViewCount( question.getViewCount() );
         listPageResponse.setVoteCount( question.getVoteCount() );
         listPageResponse.setAdoptAnswerId( question.getAdoptAnswerId() );
-        listPageResponse.setMember( question.getMember() );
+        listPageResponse.setMember( memberToSimpleInfoResponse( question.getMember() ) );
         listPageResponse.setSubjectTags( questionSubjectTagListToResponseList( question.getSubjectTags() ) );
 
         return listPageResponse;
@@ -135,19 +137,6 @@ public class QuestionMapperImpl implements QuestionMapper {
         }
 
         return list;
-    }
-
-    protected List<SubjectTagDto.Response> questionSubjectTagListToResponseList(List<QuestionSubjectTag> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        List<SubjectTagDto.Response> list1 = new ArrayList<SubjectTagDto.Response>( list.size() );
-        for ( QuestionSubjectTag questionSubjectTag : list ) {
-            list1.add( subjectTagResponseToQuestionSubjectTag( questionSubjectTag ) );
-        }
-
-        return list1;
     }
 
     protected MemberDto.SimpleInfoResponse memberToSimpleInfoResponse(Member member) {
@@ -174,6 +163,48 @@ public class QuestionMapperImpl implements QuestionMapper {
         return simpleInfoResponse;
     }
 
+    protected List<SubjectTagDto.Response> questionSubjectTagListToResponseList(List<QuestionSubjectTag> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<SubjectTagDto.Response> list1 = new ArrayList<SubjectTagDto.Response>( list.size() );
+        for ( QuestionSubjectTag questionSubjectTag : list ) {
+            list1.add( subjectTagResponseToQuestionSubjectTag( questionSubjectTag ) );
+        }
+
+        return list1;
+    }
+
+    protected QnaReCommentDto.Response qnaReCommentToResponse(QnaReComment qnaReComment) {
+        if ( qnaReComment == null ) {
+            return null;
+        }
+
+        QnaReCommentDto.Response response = new QnaReCommentDto.Response();
+
+        response.setContent( qnaReComment.getContent() );
+        response.setCreatedAt( qnaReComment.getCreatedAt() );
+        response.setModifiedAt( qnaReComment.getModifiedAt() );
+        response.setVoteCount( qnaReComment.getVoteCount() );
+        response.setMember( memberToSimpleInfoResponse( qnaReComment.getMember() ) );
+
+        return response;
+    }
+
+    protected List<QnaReCommentDto.Response> qnaReCommentListToResponseList(List<QnaReComment> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<QnaReCommentDto.Response> list1 = new ArrayList<QnaReCommentDto.Response>( list.size() );
+        for ( QnaReComment qnaReComment : list ) {
+            list1.add( qnaReCommentToResponse( qnaReComment ) );
+        }
+
+        return list1;
+    }
+
     protected QnaCommentDto.Response qnaCommentToResponse(QnaComment qnaComment) {
         if ( qnaComment == null ) {
             return null;
@@ -187,6 +218,7 @@ public class QuestionMapperImpl implements QuestionMapper {
         response.setModifiedAt( qnaComment.getModifiedAt() );
         response.setVoteCount( qnaComment.getVoteCount() );
         response.setMember( memberToSimpleInfoResponse( qnaComment.getMember() ) );
+        response.setQnaReComments( qnaReCommentListToResponseList( qnaComment.getQnaReComments() ) );
 
         return response;
     }

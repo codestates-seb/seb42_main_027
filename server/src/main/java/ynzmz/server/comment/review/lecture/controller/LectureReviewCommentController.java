@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ynzmz.server.board.review.lecture.entity.LectureReview;
+import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.comment.review.lecture.dto.LectureReviewCommentDto;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.comment.review.lecture.mapper.LectureReviewCommentMapper;
@@ -22,13 +25,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LectureReviewCommentController {
     private final MemberService memberService;
+    private final LectureReviewService lectureReviewService;
     private final LectureReviewCommentMapper lectureReviewCommentMapper;
     private final LectureReviewCommentService lectureReviewCommentService;
     @PostMapping
     public ResponseEntity<?> createLectureReviewComment(@RequestBody LectureReviewCommentDto.Post postDto) {
         LectureReviewComment lectureReviewComment = lectureReviewCommentMapper.lectureReviewCommentPostToLectureReviewComment(postDto);
-        Member member = memberService.findMemberById(postDto.getMemberId());
-        lectureReviewComment.setMember(member);
+        LectureReview lectureReview = lectureReviewService.findLectureReviewById(postDto.getLectureReviewId());
+
+        lectureReviewComment.setLectureReview(lectureReview);
+        lectureReviewComment.setMember(loginMemberFindByToken());
 
         LectureReviewComment createLectureReviewComment = lectureReviewCommentService.createLectureReviewComment(lectureReviewComment);
         LectureReviewCommentDto.Response response = lectureReviewCommentMapper.lectureReviewCommentToLectureReviewCommentResponse(createLectureReviewComment);
@@ -65,5 +71,10 @@ public class LectureReviewCommentController {
     @DeleteMapping("/{lecture-review-comment-id}")
     public void deleteLectureReviewComment(@PathVariable("lecture-review-comment-id") long lectureReviewCommentId) {
         lectureReviewCommentService.deleteLectureReviewComment(lectureReviewCommentId);
+    }
+
+    private Member loginMemberFindByToken(){
+        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
+        return memberService.findMemberByEmail(loginEmail);
     }
 }

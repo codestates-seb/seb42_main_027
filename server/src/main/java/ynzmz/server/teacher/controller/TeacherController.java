@@ -106,7 +106,7 @@ public class TeacherController {
         return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
     //강사 상세조회 ( 강사의 리뷰페이지 별도 )
-    @GetMapping("/{teacher-id}/review")
+    @GetMapping("/{teacher-id}/reviews")
     public ResponseEntity<?> getTeacherDetailReview(@PathVariable("teacher-id") long teacherId){
         Teacher teacher = teacherService.findTeacherById(teacherId);
         TeacherDto.ReviewDetailPageResponse response = teacherMapper.teacherToTeacherReviewDetailPageResponse(teacher);

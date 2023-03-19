@@ -52,7 +52,9 @@ public class QuestionController {
         List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(questionPost.getSubjectTag());
         tagService.createQuestionTag(createdQuestion, subjectTags);
 
-        QuestionDto.InfoResponse response = questionMapper.questionToQuestionInfoResponse(createdQuestion);
+        Question questionById = questionService.findQuestionById(createdQuestion.getQuestionId());
+
+        QuestionDto.InfoResponse response = questionMapper.questionToQuestionInfoResponse(questionById);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
@@ -90,8 +92,8 @@ public class QuestionController {
         SubjectTag.Subject subjectTag = (subject != null) ? tagService.findSubjectTag(subject) : null;
 
         Page<Question> questionPage = (reverse != null)
-                ? questionService.findQuestions(subjectTag, title, sort, reverse, page, size)
-                : questionService.findQuestions(subjectTag, title, sort, page, size);
+                ? questionService.findQuestions(subjectTag, title, sort, reverse, page - 1, size)
+                : questionService.findQuestions(subjectTag, title, sort, page - 1 , size);
 
 
         List<Question> questions = questionPage.getContent();
@@ -136,7 +138,7 @@ public class QuestionController {
         memberService.memberValidation(loginMemberFindByToken(), memberId); // 작성자 & 로그인된 회원 검증
 
         //페이지네이션 으로 질문글전체조회와 리스폰값 명세 통일(요청사항)
-        Page<Question> pageQuestions = questionService.findQuestionsByMemberId(memberId, page, size);
+        Page<Question> pageQuestions = questionService.findQuestionsByMemberId(memberId, page - 1 , size);
         List<Question> questions = pageQuestions.getContent();
         List<QuestionDto.ListPageResponse> responses = questionMapper.questionToQuestionListPageResponses(questions);
 

@@ -10,6 +10,7 @@ import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecture.service.LectureService;
 import ynzmz.server.board.review.lecture.mapper.LectureReviewMapper;
 import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
@@ -30,8 +31,10 @@ public class LectureReviewController {
     private final LectureReviewMapper lectureReviewMapper;
     //리뷰작성
     @PostMapping
-    public ResponseEntity<?> postLectureReview(@RequestBody LectureReviewDto.Post lectureReviewPostPost){
-        LectureReview lectureReview = lectureReviewMapper.lectureReviewPostToLectureReview(lectureReviewPostPost);
+    public ResponseEntity<?> postLectureReview(@RequestBody LectureReviewDto.Post lectureReviewPost){
+        LectureReview lectureReview = lectureReviewMapper.lectureReviewPostToLectureReview(lectureReviewPost);
+        Lecture lecture = lectureService.findLectureById(lectureReviewPost.getLectureId());
+        lectureReview.setLecture(lecture);
 
         //토큰에서 memberId 확인
         lectureReview.setMember(loginMemberFindByToken());

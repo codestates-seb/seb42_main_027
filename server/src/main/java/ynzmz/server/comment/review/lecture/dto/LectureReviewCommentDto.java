@@ -14,7 +14,6 @@ public class LectureReviewCommentDto {
         private String content;
         private String createdAt;
         private long lectureReviewId;
-        private long memberId;
     }
 
     @Getter
