@@ -15,7 +15,6 @@ import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
-import ynzmz.server.vote.VoteCount;
 
 import java.util.List;
 

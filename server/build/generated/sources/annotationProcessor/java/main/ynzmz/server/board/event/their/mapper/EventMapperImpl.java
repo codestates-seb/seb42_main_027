@@ -9,7 +9,7 @@ import ynzmz.server.board.event.their.entity.Event;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-19T16:34:36+0900",
+    date = "2023-03-19T18:53:58+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -30,6 +30,23 @@ public class EventMapperImpl implements EventMapper {
         post.source( event.getSource() );
 
         return post.build();
+    }
+
+    @Override
+    public Event eventPostToevent(EventDto.Post p) {
+        if ( p == null ) {
+            return null;
+        }
+
+        Event event = new Event();
+
+        event.setImageUrl( p.getImageUrl() );
+        event.setTitle( p.getTitle() );
+        event.setHyperLink( p.getHyperLink() );
+        event.setDate( p.getDate() );
+        event.setSource( p.getSource() );
+
+        return event;
     }
 
     @Override

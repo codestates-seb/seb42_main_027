@@ -10,7 +10,7 @@ import org.springframework.lang.Nullable;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.member.entity.Member;
-import ynzmz.server.vote.VoteCount;
+import ynzmz.server.vote.Vote;
 
 import javax.persistence.*;
 import javax.swing.text.AbstractDocument;
@@ -22,7 +22,7 @@ import java.util.List;
 @Setter
 @Slf4j
 @ToString
-public class Free implements VoteCount {
+public class Free implements Vote {
 
     // id: 1,
     //    category: '공지',
