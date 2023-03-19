@@ -50,7 +50,7 @@ public class LectureReviewService {
     }
 
     public Page<LectureReview> findLectureReviewsByMemberId(long memberId, int page, int size) {
-        return lectureReviewRepository.findByMemberId(memberId,PageRequest.of(page-1,size,Sort.by("lectureReviewId").descending()));
+        return lectureReviewRepository.findByMemberId(memberId,PageRequest.of(page,size,Sort.by("lectureReviewId").descending()));
     }
 
     public void deleteLectureReview(long lectureReviewId) {

@@ -124,7 +124,19 @@ public class MemberController {
         return new ResponseEntity<>(new MultiResponseDto<>(responses,pageQuestions),HttpStatus.OK);
     }
 
-//    내가쓴 강의리뷰조회
+    //내가쓴 답변글 조회
+    @GetMapping("/{member-id}/answers")
+    public ResponseEntity<?> getMyAnswers(@PathVariable("member-id")
+                                          long memberId,
+                                          @Positive @RequestParam int page,
+                                          @Positive @RequestParam int size){
+        Page<Answer> pageAnswers = answerService.findAnswersByMemberId(memberId,page-1,size);
+        List<Answer> myAnswers = pageAnswers.getContent();
+        List<AnswerDto.SimpleInfoResponse> responses = answerMapper.answersToAnswerInfoResponses(myAnswers);
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageAnswers),HttpStatus.OK);
+    }
+
+    //내가쓴 강의리뷰조회
     @GetMapping("/{member-id}/reviews")
     public ResponseEntity<?> getMyReviews(@PathVariable("member-id")
                                                   long memberId,
@@ -148,16 +160,8 @@ public class MemberController {
         return new ResponseEntity<>(new MultiResponseDto<>(responses,pageFrees),HttpStatus.OK);
     }
 
-    //내가쓴 답변글 조회
-    @GetMapping("/{member-id}/answers")
-    public ResponseEntity<?> getMyAnswers(@PathVariable("member-id")
-                                          long memberId,
-                                          @Positive @RequestParam int page,
-                                          @Positive @RequestParam int size){
-        Page<Answer> pageAnswers = answerService.findAnswersByMemberId(memberId,page-1,size);
-        List<Answer> myAnswers = pageAnswers.getContent();
-        List<AnswerDto.SimpleInfoResponse> responses = answerMapper.answersToAnswerInfoResponses(myAnswers);
-        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageAnswers),HttpStatus.OK);
-    }
+
+    //내가쓴 자유게시판댓글 조회
+
 
 }
