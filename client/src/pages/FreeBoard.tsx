@@ -17,9 +17,9 @@ function FreeBoard() {
         </Title>
         <Routes>
           <Route path="" element={<PostList />} />
-          <Route path="articles" element={<PostContent />} />
+          <Route path="articles/:id" element={<PostContent />} />
           <Route path="articles/write" element={<WritePost />} />
-          <Route path="articles/edit" element={<WritePost />} />
+          <Route path="articles/:id/edit" element={<WritePost />} />
         </Routes>
       </Main>
     </Container>

@@ -40,13 +40,15 @@ function Router() {
           <Route path="" element={<PostList />} />
           <Route path=":articles/" element={<PostContent />}>
             <Route path=":feat" element={<WritePost />} />
+            <Route path=":id/:feat" element={<WritePost />} />
           </Route>
         </Route>
 
-        <Route path="free/" element={<FreeBoard />}>
+        <Route path="free/*" element={<FreeBoard />}>
           <Route path="" element={<PostList />} />
           <Route path=":articles/" element={<PostContent />}>
             <Route path=":feat" element={<WritePost />} />
+            <Route path=":id/:feat" element={<WritePost />} />
           </Route>
         </Route>
 
