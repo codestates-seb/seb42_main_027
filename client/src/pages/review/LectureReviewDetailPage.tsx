@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import isLogin from 'utils/isLogin';
 import Button from 'components/common/Button';
 
-import { FlexContainer } from '../ReviewPage';
+import { FlexContainer } from './ReviewPage';
 
 const defaultData = {
   lectureId: 1,
@@ -75,7 +75,7 @@ const defaultData2 = {
   profile: ['1'],
 };
 
-function Lectures() {
+function LectureReviewDetailPage() {
   const [data, setData] = useState(defaultData2);
   const [isPending, setIsPending] = useState<boolean>(true);
   const { teacherId } = useParams();
@@ -127,7 +127,7 @@ function Lectures() {
   );
 }
 
-export default Lectures;
+export default LectureReviewDetailPage;
 
 const PButton = Button.PointBtn;
 

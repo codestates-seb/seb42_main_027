@@ -1,29 +1,35 @@
+/* eslint-disable react/no-array-index-key */
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import SortBar from 'components/review/SortBar';
 import SearchBar from 'components/review/SearchBar';
 import Pagenation from 'components/review/Pagenation';
-import CharacterCard from 'components/review/CharacterCard';
+import Lecture from 'components/review/Lecture';
 import Carousel from 'components/review/Carousel';
 import SubjectMenu from 'components/review/SubjectMenu';
-
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from 'components/common/Button';
 import isLogin from 'utils/isLogin';
 import { Link } from 'react-router-dom';
-import { type } from 'os';
 
-type Teachers = {
-  gradeTags: string[];
-  imageUrl: string;
+import { FlexContainer } from './ReviewPage';
+
+type LectureType = {
+  lectureId: number;
+  title: string;
   introduction: string;
-  name: string; // 강사명
-  platformTags: { platformTag: string }[];
+  status: string;
   starPointAverage: number;
-  subjectTags: { subjectTag: string }[];
-  teacherId: number;
   totalReviewCount: number;
+  gradeTags: { gradeTag: string }[];
+  subjectTags: { subjectTag: string }[];
+  platformTags: { platformTag: string }[];
+  teacher: {
+    teacherId: number;
+    name: string;
+    starPointAverage: number;
+  };
 };
 
 type PageInfo = {
@@ -40,7 +46,7 @@ const defaultPageInfo = {
   totalPages: 1,
 };
 
-function ReviewPage() {
+function LectureReviewPage() {
   const [buttonOpen, setButtonOpen] = useState<boolean>(false);
   const [subject, setSubject] = useState<string>('전체');
   const [grade, setGrade] = useState<string>('전체');
@@ -48,7 +54,7 @@ function ReviewPage() {
   const [sortTag, setSortTag] = useState<string>('최신순');
   const [search, setSearch] = useState<string>('');
   const [reverse, setReverse] = useState<string>('정순');
-  const [teachers, setTeachers] = useState<Teachers[]>([]); // 서버에서 받아올 선생 정보
+  const [lectures, setLectures] = useState<LectureType[]>([]); // 서버에서 받아올 선생 정보
   const [pageInfo, setPageInfo] = useState<PageInfo>(defaultPageInfo);
   const [curPage, setCurPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(6);
@@ -58,11 +64,11 @@ function ReviewPage() {
 
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/teachers?${
+        `${process.env.REACT_APP_API_URL}/lectures?${
           subject !== '전체' ? `subject=${subject}&` : ''
         }${sortTag !== '최신순' ? `sort=${sortTag}&` : ''}${
           grade !== '전체' ? `grade=${grade}&` : ''
-        }${search !== '' ? `name=${search}&` : ''}${
+        }${search !== '' ? `title=${search}&` : ''}${
           platform !== '전체' ? `platform=${platform}&` : ''
         }${
           reverse !== '정순' ? `reverse=on&` : ''
@@ -74,7 +80,7 @@ function ReviewPage() {
       .then((res: any) => {
         console.log(res.data.data);
         console.log(res.data.pageInfo);
-        setTeachers(res.data.data);
+        setLectures(res.data.data);
         setPageInfo(res.data.pageInfo);
       });
   }, [subject, sortTag, search, curPage, grade, platform, reverse]);
@@ -111,7 +117,33 @@ function ReviewPage() {
       />
       <SearchBar search={search} setSearch={setSearch} />
 
-      <CharacterCard teachers={teachers} />
+      {!lectures.length ? (
+        <FlexContainer>등록된 강의가 없습니다</FlexContainer>
+      ) : (
+        <FlexContainer dir="col">
+          {lectures.map((el, index) => {
+            return (
+              <Lecture
+                key={index}
+                lecture={{
+                  lectureId: el.lectureId,
+                  title: el.title,
+                  introduction: el.introduction,
+                  status: el.status,
+                  starPointAverage: el.starPointAverage,
+                  totalReviewCount: el.totalReviewCount,
+                  gradeTags: el.gradeTags,
+                  subjectTags: el.subjectTags,
+
+                  teacher: el.teacher,
+                }}
+                first={index === 0}
+              />
+            );
+          })}
+        </FlexContainer>
+      )}
+
       <Pagenation
         size={pageInfo.totalPages}
         currentPage={curPage}
@@ -122,49 +154,11 @@ function ReviewPage() {
   );
 }
 
-export default ReviewPage;
-
-type Container = {
-  dir?: string;
-  gap?: string;
-  justify?: string;
-  align?: string;
-  width?: string;
-  height?: string;
-  backColor?: string;
-  borderRadius?: string;
-  display?: string;
-  wrap?: string;
-  grow?: number;
-  borderTop?: string;
-  borderBottom?: string;
-  padding?: string;
-  overflow?: string;
-  top?: string;
-};
+export default LectureReviewPage;
 
 type SubjectSelectButton = {
   isOpen: boolean;
 };
-
-export const FlexContainer = styled.div<Container>`
-  width: ${props => props.width};
-  height: ${props => props.height};
-  display: ${props => props.display || 'flex'};
-  flex-direction: ${props => (props.dir === 'col' ? 'column' : 'row')};
-  flex-wrap: ${props => props.wrap};
-  justify-content: ${props => props.justify || 'center'};
-  align-items: ${props => props.align || 'center'};
-  gap: ${props => props.gap || '1rem'};
-  background-color: ${props => props.backColor || 'none'};
-  border-radius: ${props => props.borderRadius || 'none'};
-  flex-grow: ${props => props.grow};
-  border-top: ${props => props.borderTop};
-  border-bottom: ${props => props.borderBottom};
-  padding: ${props => props.padding};
-  overflow: ${props => props.overflow};
-  top: ${props => props.top};
-`;
 
 const SubjectSelectButton = styled.div<SubjectSelectButton>`
   width: 5.25rem;

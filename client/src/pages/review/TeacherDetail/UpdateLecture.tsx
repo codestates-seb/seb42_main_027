@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router';
 import styled from 'styled-components';
-import { urlMain } from '../../../url';
+
 import { FlexContainer } from '../ReviewPage';
 import { Container } from './Information';
 import {
@@ -47,7 +47,7 @@ function UpdateLecture() {
 
   useEffect(() => {
     axios
-      .get(`${urlMain}/lectures/${lectureId}`)
+      .get(`${process.env.REACT_APP_API_URL}/lectures/${lectureId}`)
       .then((res: any) => {
         console.log(res.data.data);
         return res.data.data;
@@ -152,9 +152,11 @@ function UpdateLecture() {
         status,
       };
 
-      axios.patch(`${urlMain}/lectures/${lectureId}`, data).then(res => {
-        navigate(-1);
-      });
+      axios
+        .patch(`${process.env.REACT_APP_API_URL}/lectures/${lectureId}`, data)
+        .then(res => {
+          navigate(-1);
+        });
     }
   };
 

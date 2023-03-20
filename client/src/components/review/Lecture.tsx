@@ -16,9 +16,7 @@ type Props = {
     status: string;
     starPointAverage: number;
     totalReviewCount: number;
-    gradeTags: {
-      gradeTag: string;
-    }[];
+    gradeTags: { gradeTag: string }[];
     subjectTags: {
       subjectTag: string;
     }[];
@@ -36,25 +34,29 @@ function Lecture({ lecture, first }: Props) {
       <FlexContainer width="5rem">
         <MiddleFont>{lecture.teacher.name}</MiddleFont>
       </FlexContainer>
-      <FlexContainer width="20rem" dir="col" align="start" gap="0.3rem">
+      <FlexContainer width="25rem" dir="col" align="start" gap="0.3rem">
         <StatusBox>{lecture.status}</StatusBox>
         <Link to={`/LectureReviewDetail/${lecture.lectureId}`}>
           <TitleSpan>{`[${lecture.introduction}] ${lecture.title}`}</TitleSpan>
         </Link>
         <SmallFont>+ 자세히 보기</SmallFont>
       </FlexContainer>
-      <FlexContainer width="3rem">⭐️ {lecture.starPointAverage}</FlexContainer>
+      <FlexContainer width="3rem">
+        ⭐️ {lecture.starPointAverage.toFixed(1)}
+      </FlexContainer>
       <FlexContainer width="5rem">
         {lecture.totalReviewCount} Reviews
       </FlexContainer>
-      <FlexContainer dir="col" display={!isLogin() ? 'flex' : 'none'}>
+      <FlexContainer dir="col" display={isLogin() ? 'flex' : 'none'}>
         <Link to={`updateLecture/${lecture.lectureId}`}>
           <button>수정</button>
         </Link>
         <button
           onClick={() => {
             axios
-              .delete(`http://13.125.1.215:8080/lectures/${lecture.lectureId}`)
+              .delete(
+                `${process.env.REACT_APP_API_URL}/lectures/${lecture.lectureId}`,
+              )
               .then(() => {
                 window.location.reload();
               });

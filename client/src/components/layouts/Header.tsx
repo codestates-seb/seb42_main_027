@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
 import { useIsLoginStore } from 'stores/loginStore';
@@ -7,13 +7,16 @@ import theme from '../../theme';
 
 function Header() {
   const { isLoginInStore, setIsLoginInStore } = useIsLoginStore(state => state);
-
+  const navigate = useNavigate();
   const logOutHandler = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
     setIsLoginInStore(false);
   };
 
+  const handleClickMypage = () => {
+    navigate('/mypage');
+  };
   return (
     <Container>
       <Left>
@@ -24,7 +27,9 @@ function Header() {
           <Link to="/ReviewPage">
             <LI>강사리뷰</LI>
           </Link>
-          <LI>강의리뷰</LI>
+          <Link to="/LectureReviewPage">
+            <LI>강의리뷰</LI>
+          </Link>
           <Link to="/qna">
             <LI>질문게시판</LI>
           </Link>
@@ -42,7 +47,9 @@ function Header() {
         </ToggleDiv>
         {isLoginInStore ? (
           <BtnDiv>
-            <Button.WhiteBtn>내정보</Button.WhiteBtn>
+            <Button.WhiteBtn onClick={handleClickMypage}>
+              내정보
+            </Button.WhiteBtn>
             <Button.PointBtn onClick={logOutHandler}>로그아웃</Button.PointBtn>
           </BtnDiv>
         ) : (

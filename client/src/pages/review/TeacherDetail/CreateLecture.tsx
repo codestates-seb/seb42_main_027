@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router';
 import styled from 'styled-components';
-import { urlMain } from '../../../url';
 import { FlexContainer } from '../ReviewPage';
 
 import {
@@ -132,7 +131,7 @@ function CreateLecture() {
       };
 
       axios
-        .post(`${urlMain}/lectures`, data, {
+        .post(`${process.env.REACT_APP_API_URL}/lectures`, data, {
           headers: {
             'ngrok-skip-browser-warning': 'asdasdas',
           },

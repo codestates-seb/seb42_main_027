@@ -12,7 +12,7 @@ import { AiFillStar } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import LectureReviewComment from './LectureReviewComment';
-import ReviewCommentCreate from './ReviewCommentCreate';
+// import ReviewCommentCreate from './ReviewCommentCreate';
 
 type Props = {
   lectureReviewId: number;
@@ -21,14 +21,13 @@ type Props = {
 };
 
 const defaultDetailData = {
-  lectureReviewId: 0,
+  lectureReviewId: 1,
   title: '디폴트 제목',
   starPoint: 5,
-  content:
-    '디폴트 내용 주저리주저리주저리주저리주저 리주저리주저리주저리주저 리주저리주저리 주저리주저리주 저리주저리주저리주저리주저리주저리 리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저리주저',
+  content: '디폴트 내용',
   createdAt: '2023.03.10',
   modifiedAt: '2023.03.11',
-  viewCount: 0,
+  viewCount: 12,
   voteCount: 14,
   teacher: {
     teacherId: 1,
@@ -62,85 +61,16 @@ const defaultDetailData = {
         state: '강사', // 강사, 학생, 관리자
       },
     },
-    {
-      lectureReviewCommentId: 1,
-      content: '디폴트 답글내용2',
-      createdAt: '2023.03.10',
-      modifiedAt: '2023.03.11',
-      voteCount: 12,
-      member: {
-        memberId: 2,
-        displayName: '디폴트 답글 멤버명2',
-        IconImageUrl: '디폴트 답글 멤버 이미지 url2',
-        state: '강사', // 강사, 학생, 관리자
-      },
-    },
-    {
-      lectureReviewCommentId: 0,
-      content: '디폴트 답글내용',
-      createdAt: '2023.03.10',
-      modifiedAt: '2023.03.11',
-      voteCount: 0,
-      member: {
-        memberId: 1,
-        displayName: '디폴트 답글 멤버명',
-        IconImageUrl: '디폴트 답글 멤버 이미지 url',
-        state: '강사', // 강사, 학생, 관리자
-      },
-    },
-    {
-      lectureReviewCommentId: 0,
-      content: '디폴트 답글내용',
-      createdAt: '2023.03.10',
-      modifiedAt: '2023.03.11',
-      voteCount: 0,
-      member: {
-        memberId: 1,
-        displayName: '디폴트 답글 멤버명',
-        IconImageUrl: '디폴트 답글 멤버 이미지 url',
-        state: '강사', // 강사, 학생, 관리자
-      },
-    },
-    {
-      lectureReviewCommentId: 0,
-      content: '디폴트 답글내용',
-      createdAt: '2023.03.10',
-      modifiedAt: '2023.03.11',
-      voteCount: 0,
-      member: {
-        memberId: 1,
-        displayName: '디폴트 답글 멤버명',
-        IconImageUrl: '디폴트 답글 멤버 이미지 url',
-        state: '강사', // 강사, 학생, 관리자
-      },
-    },
-    {
-      lectureReviewCommentId: 0,
-      content: '디폴트 답글내용',
-      createdAt: '2023.03.10',
-      modifiedAt: '2023.03.11',
-      voteCount: 0,
-      member: {
-        memberId: 1,
-        displayName: '디폴트 답글 멤버명',
-        IconImageUrl: '디폴트 답글 멤버 이미지 url',
-        state: '강사', // 강사, 학생, 관리자
-      },
-    },
-    {
-      lectureReviewCommentId: 0,
-      content: '디폴트 답글내용',
-      createdAt: '2023.03.10',
-      modifiedAt: '2023.03.11',
-      voteCount: 0,
-      member: {
-        memberId: 1,
-        displayName: '디폴트 답글 멤버명',
-        IconImageUrl: '디폴트 답글 멤버 이미지 url',
-        state: '강사', // 강사, 학생, 관리자
-      },
-    },
   ],
+  loginUserLectureReviewVoteInfo: {
+    commentVoteStatus: [{ lectureReviewCommentId: 1, voteStatus: 'DOWN' }],
+    lectureReviewVoteStatus: {
+      lectureReviewId: 1,
+      voteStatus: 'DOWN',
+      memberId: 1,
+      username: '테스트계정',
+    },
+  },
 };
 
 function LectureReviewDetail({
@@ -149,21 +79,37 @@ function LectureReviewDetail({
   setReviewOpen,
 }: Props) {
   const [detailData, setDetailData] = useState(defaultDetailData);
+  const [isPending, setIsPending] = useState(true);
   const [reviewVote, setReviewVote] = useState(detailData.voteCount);
   const [voteStatus, setVoteStatus] = useState('');
 
+  const Authorization = localStorage.getItem('token');
+
   useEffect(() => {
-    // axios
-    //   .get(
-    //     `http://13.125.1.215:8080/boards/reviews/lectures/${lectureReviewId}`,
-    //   )
-    //   .then((res: any) => {
-    //     return res.data.data;
-    //   })
-    //   .then(data => {
-    //     console.log(data);
-    //     setDetailData(data);
-    //   });
+    if (lectureReviewId < 0) return;
+    axios
+      .get(
+        `${process.env.REACT_APP_API_URL}/boards/reviews/lectures/${lectureReviewId}`,
+        {
+          headers: { Authorization, 'ngrok-skip-browser-warning': '69420' },
+        },
+      )
+      .then((res: any) => {
+        return res.data.data;
+      })
+      .then(data => {
+        console.log(data);
+        setDetailData(data);
+        setReviewVote(data.voteCount);
+        if (data.loginUserLectureReviewVoteInfo) {
+          setVoteStatus(
+            data.loginUserLectureReviewVoteInfo.lectureReviewVoteStatus
+              .voteStatus,
+          );
+        }
+
+        setIsPending(false);
+      });
   }, [lectureReviewId]);
 
   const closeHandler = () => {
@@ -173,127 +119,136 @@ function LectureReviewDetail({
   const reviewUpHandler = () => {
     axios
       .post(
-        `http://13.125.1.215:8080/votes/reviews/lectures/${lectureReviewId}/up`,
+        `${process.env.REACT_APP_API_URL}/votes/reviews/lectures/${lectureReviewId}/up`,
+        {},
         {
-          header: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIlVTRVIiXSwidXNlcm5hbWUiOiJhQGdtYWlsLmNvbSIsInN1YiI6ImFAZ21haWwuY29tIiwiaWF0IjoxNjc5MTQ0ODc2LCJleHAiOjE2NzkxNzAwNzZ9.06r-zPdih5j5xgQ2FWlEFx3pd3XsEvhkHgv01Zt_Fm0',
-          },
+          headers: { Authorization, 'ngrok-skip-browser-warning': '69420' },
         },
       )
       .then(res => res.data.data)
       .then(data => {
-        setReviewVote(reviewVote + 1);
+        // setReviewVote(data.voteCount);
+        setReviewVote(data.lectureReviewTotalCount);
         setVoteStatus(data.status);
       });
   };
   const reviewDownHandler = () => {
     axios
       .post(
-        `http://13.125.1.215:8080/votes/reviews/lectures/${lectureReviewId}/down`,
+        `${process.env.REACT_APP_API_URL}/votes/reviews/lectures/${lectureReviewId}/down`,
+        {},
         {
-          header: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIlVTRVIiXSwidXNlcm5hbWUiOiJhQGdtYWlsLmNvbSIsInN1YiI6ImFAZ21haWwuY29tIiwiaWF0IjoxNjc5MTQ0ODc2LCJleHAiOjE2NzkxNzAwNzZ9.06r-zPdih5j5xgQ2FWlEFx3pd3XsEvhkHgv01Zt_Fm0',
-          },
+          headers: { Authorization, 'ngrok-skip-browser-warning': '69420' },
         },
       )
       .then(res => res.data.data)
       .then(data => {
-        setReviewVote(reviewVote - 1);
+        // setReviewVote(data.voteCount);
+        setReviewVote(data.lectureReviewTotalCount);
         setVoteStatus(data.status);
       });
   };
 
   return (
     <Container reviewOpen={reviewOpen} onClick={closeHandler}>
-      <ModalContainer onClick={e => e.stopPropagation()}>
-        <FlexContainer
-          width="100%"
-          height="100%"
-          justify="space-between"
-          padding="1.5rem 2rem"
-          borderTop="2px solid black"
-          borderBottom="1px solid black"
-          gap="0.2rem"
-          backColor="#6667ab"
-        >
-          <span>{detailData.title}</span>
-          <FlexContainer>
-            <span>{detailData.member.displayName}</span>
-            <span>조회수: {detailData.viewCount}</span>
-          </FlexContainer>
-        </FlexContainer>
-
-        <FlexContainer width="100%" dir="col" padding="2rem">
+      {isPending ? null : (
+        <ModalContainer onClick={e => e.stopPropagation()}>
           <FlexContainer
-            width="90%"
+            width="100%"
             justify="space-between"
-            borderTop="1px solid gray"
-            borderBottom="1px solid gray"
-            padding="1rem 6rem"
+            padding="1.5rem 2rem"
+            borderTop="2px solid black"
+            borderBottom="1px solid black"
+            gap="0.2rem"
+            backColor="#6667ab"
           >
-            <FlexContainer dir="col">
-              <span>강사:{detailData.teacher.name}</span>
-              <span>
-                <AiFillStar />
-                {detailData.starPoint}
-              </span>
+            <span>{detailData.title}</span>
+            <FlexContainer>
+              <span>{detailData.member.displayName}</span>
+              <span>조회수: {detailData.viewCount}</span>
             </FlexContainer>
-            <FlexContainer dir="col">
-              <span>강좌:{detailData.lecture.title}</span>
-              <FlexContainer gap="3rem">
+          </FlexContainer>
+
+          <FlexContainer width="100%" dir="col" padding="2rem">
+            <FlexContainer
+              width="90%"
+              justify="space-between"
+              borderTop="1px solid gray"
+              borderBottom="1px solid gray"
+              padding="1rem 6rem"
+            >
+              <FlexContainer dir="col">
+                <span>강사:{detailData.teacher.name}</span>
                 <span>
-                  전체:
                   <AiFillStar />
-                  {detailData.lecture.starPointAverage}
+                  {detailData.starPoint.toFixed(1)}
                 </span>
-                <span>
-                  내 평점:
-                  <AiFillStar />
-                  {detailData.starPoint}
-                </span>
+              </FlexContainer>
+              <FlexContainer dir="col">
+                <span>강좌:{detailData.lecture.title}</span>
+                <FlexContainer gap="3rem">
+                  <span>
+                    전체:
+                    <AiFillStar />
+                    {detailData.lecture.starPointAverage.toFixed(1)}
+                  </span>
+                  <span>
+                    내 평점:
+                    <AiFillStar />
+                    {detailData.starPoint}
+                  </span>
+                </FlexContainer>
               </FlexContainer>
             </FlexContainer>
           </FlexContainer>
-        </FlexContainer>
 
-        <FlexContainer width="100%" justify="start" padding="1rem 5rem">
-          {detailData.content}
-        </FlexContainer>
-
-        <FlexContainer width="100%" justify="right" padding="1rem 5rem">
-          <FlexContainer>
-            <BsFillHandThumbsUpFill size="1rem" onClick={reviewUpHandler} />
-            {reviewVote}
-            <BsFillHandThumbsDownFill size="1rem" onClick={reviewDownHandler} />
+          <FlexContainer width="100%" justify="start" padding="1rem 5rem">
+            {detailData.content}
           </FlexContainer>
-        </FlexContainer>
 
-        <FlexContainer
-          dir="col"
-          width="100%"
-          justify="start"
-          align="start"
-          padding="1rem 5rem"
-        >
-          <span>답변</span>
-          <ReviewCommentCreate lectureReviewId={lectureReviewId} />
-          {detailData.comments.map((el, index) => {
-            return (
-              <LectureReviewComment
-                key={index}
-                lectureReviewCommentId={el.lectureReviewCommentId}
-                content={el.content}
-                createdAt={el.createdAt}
-                modifiedAt={el.modifiedAt}
-                voteCount={el.voteCount}
-                member={el.member}
-              />
-            );
-          })}
-        </FlexContainer>
-      </ModalContainer>
+          <FlexContainer width="100%" justify="right" padding="1rem 5rem">
+            <FlexContainer>
+              <UpButton voteStatus={voteStatus} onClick={reviewUpHandler}>
+                <BsFillHandThumbsUpFill size="1rem" />
+              </UpButton>
+              {reviewVote}
+              <DownButton voteStatus={voteStatus} onClick={reviewDownHandler}>
+                <BsFillHandThumbsDownFill size="1rem" />
+              </DownButton>
+            </FlexContainer>
+          </FlexContainer>
+
+          <FlexContainer
+            dir="col"
+            width="100%"
+            justify="start"
+            align="start"
+            padding="1rem 5rem"
+          >
+            <span>답변</span>
+
+            {detailData.comments.map((el, index) => {
+              return (
+                <LectureReviewComment
+                  key={index}
+                  vStatus={
+                    detailData.loginUserLectureReviewVoteInfo
+                      ? detailData.loginUserLectureReviewVoteInfo
+                          .commentVoteStatus
+                      : [{ lectureReviewCommentId: -1, voteStatus: 'DOWN' }]
+                  }
+                  lectureReviewCommentId={el.lectureReviewCommentId}
+                  content={el.content}
+                  createdAt={el.createdAt}
+                  modifiedAt={el.modifiedAt}
+                  voteCount={el.voteCount}
+                  member={el.member}
+                />
+              );
+            })}
+          </FlexContainer>
+        </ModalContainer>
+      )}
     </Container>
   );
 }
@@ -302,6 +257,10 @@ export default LectureReviewDetail;
 
 type Container = {
   reviewOpen?: boolean;
+};
+
+type Button = {
+  voteStatus?: string;
 };
 
 const Container = styled.div<Container>`
@@ -337,4 +296,18 @@ const ModalContainer = styled.div`
   align-items: center;
 
   overflow-y: auto;
+`;
+
+const UpButton = styled.button<Button>`
+  border: none;
+  pointer-events: ${props => (props.voteStatus === 'DOWN' ? 'none' : 'all')};
+  background-color: white;
+  color: ${props => (props.voteStatus === 'UP' ? '#f48224' : 'black')};
+`;
+
+const DownButton = styled.button<Button>`
+  border: none;
+  pointer-events: ${props => (props.voteStatus === 'UP' ? 'none' : 'all')};
+  background-color: white;
+  color: ${props => (props.voteStatus === 'DOWN' ? '#f48224' : 'black')};
 `;

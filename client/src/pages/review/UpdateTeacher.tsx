@@ -67,7 +67,7 @@ function UpdateTeacher() {
 
   useEffect(() => {
     axios
-      .get(`http://13.125.1.215:8080/teachers/${teacherId}`)
+      .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}`)
       .then((res: any) => {
         console.log(res.data.data);
         return res.data.data;
@@ -126,31 +126,14 @@ function UpdateTeacher() {
       };
 
       axios
-        .patch(`http://13.125.1.215:8080/teachers/${teacherId}`, data)
+        .patch(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}`, data)
         .then(res => {
           console.log(res);
           navigate(-1);
         });
-
-      // fetch('http://13.125.1.215:8080/teachers', {
-      //   credentials: 'include',
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     data,
-      //   }),
-      // }).then(res => {
-      //   if (!res.ok) {
-      //     throw Error('could not fetch the data for that resource');
-      //   }
-      //   return res.json();
-      // });
     }
   };
-  console.log(gradeTag);
-  console.log(subjectTag);
+
   return (
     <UpdateContainer>
       <GlobalStyle />
