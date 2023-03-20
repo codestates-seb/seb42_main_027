@@ -7,12 +7,13 @@ import org.springframework.stereotype.Component;
 import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.comment.free.dto.FreeCommentDto;
 import ynzmz.server.comment.free.entity.FreeComment;
+import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-20T14:07:11+0900",
-    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
+    date = "2023-03-20T16:04:18+0900",
+    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
 public class FreeCommentMapperImpl implements FreeCommentMapper {
@@ -57,7 +58,7 @@ public class FreeCommentMapperImpl implements FreeCommentMapper {
         String createdAt = null;
         String modifiedAt = null;
         long voteCount = 0L;
-        Member member = null;
+        MemberDto.SimpleInfoResponse member = null;
         boolean memberSim = false;
 
         if ( freeComment.getFreeCommentId() != null ) {
@@ -68,7 +69,7 @@ public class FreeCommentMapperImpl implements FreeCommentMapper {
         createdAt = freeComment.getCreatedAt();
         modifiedAt = freeComment.getModifiedAt();
         voteCount = freeComment.getVoteCount();
-        member = freeComment.getMember();
+        member = memberToSimpleInfoResponse( freeComment.getMember() );
         memberSim = freeComment.isMemberSim();
 
         FreeCommentDto.Response response = new FreeCommentDto.Response( freeCommentId, free, content, createdAt, modifiedAt, voteCount, member, memberSim );
@@ -88,5 +89,27 @@ public class FreeCommentMapperImpl implements FreeCommentMapper {
         }
 
         return list;
+    }
+
+    protected MemberDto.SimpleInfoResponse memberToSimpleInfoResponse(Member member) {
+        if ( member == null ) {
+            return null;
+        }
+
+        Long memberId = null;
+        String displayName = null;
+        String iconImageUrl = null;
+        String state = null;
+
+        memberId = member.getMemberId();
+        displayName = member.getDisplayName();
+        iconImageUrl = member.getIconImageUrl();
+        if ( member.getState() != null ) {
+            state = member.getState().name();
+        }
+
+        MemberDto.SimpleInfoResponse simpleInfoResponse = new MemberDto.SimpleInfoResponse( memberId, displayName, iconImageUrl, state );
+
+        return simpleInfoResponse;
     }
 }

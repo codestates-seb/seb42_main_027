@@ -40,11 +40,11 @@ public class FreeService {
     //-------------------------------------------UPDATE---------------------------------------------------------
     public Free updateFree(Free free){
         Free findFree = findFreeById(free.getFreeId());
-        Optional.ofNullable(findFree.getTitle()).ifPresent(findFree::setTitle);
-        Optional.ofNullable(findFree.getContent()).ifPresent(findFree::setContent);
-        Optional.ofNullable(findFree.getViewCount()).ifPresent(findFree::setViewCount);
-        Optional.ofNullable(findFree.getModifiedAt()).ifPresent(findFree::setModifiedAt);
-        Optional.ofNullable(findFree.getTitle()).ifPresent(findFree::setTitle);
+        Optional.ofNullable(free.getTitle()).ifPresent(findFree::setTitle);
+        Optional.ofNullable(free.getContent()).ifPresent(findFree::setContent);
+        Optional.ofNullable(free.getViewCount()).ifPresent(findFree::setViewCount);
+        Optional.ofNullable(free.getModifiedAt()).ifPresent(findFree::setModifiedAt);
+        Optional.ofNullable(free.getTitle()).ifPresent(findFree::setTitle);
 
         return repository.save(findFree);
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.lang.Nullable;
 import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.vote.Vote;
@@ -20,7 +21,7 @@ public class FreeComment implements Vote {
     private String createdAt;
     private String modifiedAt;
 
-    private long freeDisplayId;
+    private long freeDisplayId;//이거 삭제해야함
     @Column
     @ColumnDefault("0")
     private long voteCount;
@@ -31,6 +32,7 @@ public class FreeComment implements Vote {
     @ManyToOne
     @JoinColumn(name = "member_id")
     @JsonBackReference
+    @Nullable
     private Member member;
 
     @Column

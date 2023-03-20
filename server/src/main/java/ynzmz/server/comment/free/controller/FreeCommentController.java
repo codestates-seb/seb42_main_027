@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.board.free.service.FreeService;
@@ -26,14 +27,15 @@ public class FreeCommentController  {
     private final FreeCommentMapper freeCommentMapper;
     private final FreeCommentService freeCommentService;
     private final FreeService freeService;
-    @PostMapping
-    public ResponseEntity<?> createFreeComment(@RequestBody FreeCommentDto.Post postDto) {
+    @PostMapping("/{free-id}")
+    public ResponseEntity<?> createFreeComment(@PathVariable("free-id") long freeId,
+                                                   @RequestBody FreeCommentDto.Post postDto) {
         FreeComment freeComment = freeCommentMapper.freeCommentPostToFreeComment(postDto);
-        Member member = memberService.findMemberById(postDto.getMemberId());
-        Free free = freeService.findFreeById(postDto.getFreeId());
-        freeComment.setMember(member);
+
+        Free free = freeService.findFreeById(freeId);
+
+        freeComment.setMember(loginMemberFindByToken());
         freeComment.setFree(free);
-        freeComment.setFreeDisplayId(free.getFreeId());
 
         FreeComment createFreeComment = freeCommentService.creatFreeComment(freeComment);
         FreeCommentDto.Response response = freeCommentMapper.freeCommentToFreeCommentResponse(createFreeComment);
@@ -72,5 +74,10 @@ public class FreeCommentController  {
     @DeleteMapping("/{free-comment-id}")
     public void deleteFreeComment(@PathVariable("free-comment-id") long freeCommentId) {
         freeCommentService.deleteFreeComment(freeCommentId);
+    }
+
+    private Member loginMemberFindByToken(){
+        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
+        return memberService.findMemberByEmail(loginEmail);
     }
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.comment.free.entity.FreeComment;
+import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 
 import java.util.List;
@@ -16,13 +17,12 @@ public class FreeCommentDto {
     public static class Post{
         private String content;
         private String createdAt;
-        private long freeId;
-        private long memberId;
     }
 
     @Getter
     @AllArgsConstructor
     public static class Patch{
+        private String title;
         private String content;
         private String category;
         private String modifiedAt;
@@ -38,7 +38,7 @@ public class FreeCommentDto {
         private String createdAt;
         private String modifiedAt;
         private long voteCount;
-        private Member member;
+        private MemberDto.SimpleInfoResponse member;
         private boolean memberSim;
     }
 }
