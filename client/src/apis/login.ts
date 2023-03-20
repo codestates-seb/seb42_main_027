@@ -10,12 +10,13 @@ type AuthResponse = {
   token: string;
 };
 
-const login = async (pathData: LoginParams): Promise<void> => {
+const login = async (pathData: LoginParams) => {
   const response = await axios.post<AuthResponse>(
     `${apiUrl}/auth/login`,
     pathData,
   );
-  localStorage.setItem('token', response.data.token);
+  const token = response.headers.authorization;
+  localStorage.setItem('token', token);
 };
 
 export default login;

@@ -63,9 +63,8 @@ function Login() {
 
   const fetchUserInfo = async () => {
     try {
-      const response = await getUserInfo(email);
+      await getUserInfo(email);
       localStorage.setItem('email', email);
-      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -82,10 +81,11 @@ function Login() {
     pathData.email = email;
     pathData.password = password;
     try {
-      await login(pathData);
+      const data = await login(pathData);
       navigate(-1);
       setIsLoginInStore(true);
       fetchUserInfo();
+      console.log('data', data);
     } catch (error) {
       setFailedLogin(true);
       console.error(error);

@@ -79,6 +79,7 @@ const EditBtn = styled.span`
 `;
 
 function MyPage() {
+  console.log(localStorage.getItem('token'));
   // dummy data
   const userData = {
     profileImage: 'https://i.pravatar.cc/150?img=7',
