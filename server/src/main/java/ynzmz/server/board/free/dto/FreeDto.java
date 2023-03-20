@@ -62,5 +62,6 @@ public class FreeDto {
         String modifiedAt;
         MemberDto.SimpleInfoResponse member;
         List<FreeCommentDto.Response> commentsList;
+        int commentsListNum;
     }
 }
