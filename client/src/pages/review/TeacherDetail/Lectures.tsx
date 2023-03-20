@@ -7,7 +7,7 @@ import Lecture from 'components/review/Lecture';
 import { Link } from 'react-router-dom';
 import isLogin from 'utils/isLogin';
 import Button from 'components/common/Button';
-import { urlMain } from '../../../url';
+
 import { FlexContainer } from '../ReviewPage';
 
 const defaultData = {
@@ -82,7 +82,7 @@ function Lectures() {
 
   useEffect(() => {
     axios
-      .get(`${urlMain}/teachers/${teacherId}`, {
+      .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}`, {
         headers: {
           'ngrok-skip-browser-warning': 'asdasdas',
         },

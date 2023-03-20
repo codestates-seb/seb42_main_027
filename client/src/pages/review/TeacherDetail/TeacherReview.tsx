@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import ScoreChart from 'components/review/ScoreChart';
 import LectureReview from 'components/review/LectureReview';
 import isLogin from 'utils/isLogin';
-import { Link } from 'react-router-dom';
 import Button from 'components/common/Button';
 import LectureReviewDetail from 'components/review/LectureReviewDetail';
 import { FlexContainer } from '../ReviewPage';
@@ -279,9 +278,11 @@ function TeacherReview() {
   const [lectureReviewId, setLectureReviewId] = useState<number>(-1);
   const { teacherId } = useParams();
 
+  const Authorization = localStorage.getItem('token');
+
   useEffect(() => {
     axios
-      .get(`http://13.125.1.215:8080/teachers/${teacherId}/reviews`)
+      .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}/reviews`)
       .then((res: any) => {
         return res.data.data;
       })
@@ -295,7 +296,7 @@ function TeacherReview() {
   const list = ['추천', '만족도', '제목', '작성자', '등록일'];
 
   const reviewCreateHandler = () => {
-    axios.post(`http://13.125.1.215:8080/boards/reviews/lectures`, {
+    axios.post(`${process.env.REACT_APP_API_URL}/boards/reviews/lectures`, {
       title: '임시 리뷰 제목',
       starPoint: 5,
       content: '임시 리뷰 컨텐츠',
@@ -361,59 +362,12 @@ function TeacherReview() {
                 return lecture.lectureReviews.length;
               }).length ? (
                 <FlexContainer dir="col" width="100%" gap="0">
-                  <LectureReview
-                    setReviewOpen={setReviewOpen}
-                    setLectureReviewId={setLectureReviewId}
-                    lectureReviewId={11}
-                    title="더미 후기 타이틀"
-                    starPoint={5}
-                    createdAt="2023.03.10.18:52:36"
-                    voteCount={1}
-                    lecture={{
-                      lectureId: 1,
-                      title: '더미 강의명',
-                      starPointAverage: 0.0,
-                    }}
-                    member={{
-                      memberId: 1,
-                      email: 'ghdrlfehd@gmail.com',
-                      displayName: '홍길동',
-                      password: '1111',
-                      iconImageUrl: 'IconUrl',
-                      createdAt: '2023.03.10.18:52:36',
-                      roles: [],
-                      memberStatus: 'MEMBER_ACTIVE',
-                    }}
-                  />
-                  <LectureReview
-                    setReviewOpen={setReviewOpen}
-                    setLectureReviewId={setLectureReviewId}
-                    lectureReviewId={12}
-                    title="더미 후기 타이틀"
-                    starPoint={5}
-                    createdAt="2023.03.10.18:52:36"
-                    voteCount={1}
-                    lecture={{
-                      lectureId: 1,
-                      title: '더미 강의명',
-                      starPointAverage: 0.0,
-                    }}
-                    member={{
-                      memberId: 1,
-                      email: 'ghdrlfehd@gmail.com',
-                      displayName: '홍길동',
-                      password: '1111',
-                      iconImageUrl: 'IconUrl',
-                      createdAt: '2023.03.10.18:52:36',
-                      roles: [],
-                      memberStatus: 'MEMBER_ACTIVE',
-                    }}
-                  />
+                  <div>등록된 수강 후기가 없습니다</div>
                 </FlexContainer>
               ) : (
                 data.lectures.map((lecture, index) => {
                   return (
-                    <FlexContainer dir="col" key={index}>
+                    <FlexContainer width="100%" gap="0" dir="col" key={index}>
                       {lecture.lectureReviews.map((el, index) => {
                         return (
                           <LectureReview

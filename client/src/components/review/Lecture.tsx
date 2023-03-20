@@ -36,7 +36,7 @@ function Lecture({ lecture, first }: Props) {
       <FlexContainer width="5rem">
         <MiddleFont>{lecture.teacher.name}</MiddleFont>
       </FlexContainer>
-      <FlexContainer width="20rem" dir="col" align="start" gap="0.3rem">
+      <FlexContainer width="25rem" dir="col" align="start" gap="0.3rem">
         <StatusBox>{lecture.status}</StatusBox>
         <Link to={`/LectureReviewDetail/${lecture.lectureId}`}>
           <TitleSpan>{`[${lecture.introduction}] ${lecture.title}`}</TitleSpan>

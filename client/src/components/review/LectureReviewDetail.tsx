@@ -152,18 +152,21 @@ function LectureReviewDetail({
   const [reviewVote, setReviewVote] = useState(detailData.voteCount);
   const [voteStatus, setVoteStatus] = useState('');
 
+  const Authorization = localStorage.getItem('token');
+
   useEffect(() => {
-    // axios
-    //   .get(
-    //     `http://13.125.1.215:8080/boards/reviews/lectures/${lectureReviewId}`,
-    //   )
-    //   .then((res: any) => {
-    //     return res.data.data;
-    //   })
-    //   .then(data => {
-    //     console.log(data);
-    //     setDetailData(data);
-    //   });
+    if (lectureReviewId < 0) return;
+    axios
+      .get(
+        `${process.env.REACT_APP_API_URL}/boards/reviews/lectures/${lectureReviewId}`,
+      )
+      .then((res: any) => {
+        return res.data.data;
+      })
+      .then(data => {
+        console.log(data);
+        setDetailData(data);
+      });
   }, [lectureReviewId]);
 
   const closeHandler = () => {
@@ -173,12 +176,9 @@ function LectureReviewDetail({
   const reviewUpHandler = () => {
     axios
       .post(
-        `http://13.125.1.215:8080/votes/reviews/lectures/${lectureReviewId}/up`,
+        `${process.env.REACT_APP_API_URL}/votes/reviews/lectures/${lectureReviewId}/up`,
         {
-          header: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIlVTRVIiXSwidXNlcm5hbWUiOiJhQGdtYWlsLmNvbSIsInN1YiI6ImFAZ21haWwuY29tIiwiaWF0IjoxNjc5MTQ0ODc2LCJleHAiOjE2NzkxNzAwNzZ9.06r-zPdih5j5xgQ2FWlEFx3pd3XsEvhkHgv01Zt_Fm0',
-          },
+          headers: { Authorization },
         },
       )
       .then(res => res.data.data)
@@ -192,10 +192,7 @@ function LectureReviewDetail({
       .post(
         `http://13.125.1.215:8080/votes/reviews/lectures/${lectureReviewId}/down`,
         {
-          header: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIlVTRVIiXSwidXNlcm5hbWUiOiJhQGdtYWlsLmNvbSIsInN1YiI6ImFAZ21haWwuY29tIiwiaWF0IjoxNjc5MTQ0ODc2LCJleHAiOjE2NzkxNzAwNzZ9.06r-zPdih5j5xgQ2FWlEFx3pd3XsEvhkHgv01Zt_Fm0',
-          },
+          headers: { Authorization },
         },
       )
       .then(res => res.data.data)
@@ -210,7 +207,6 @@ function LectureReviewDetail({
       <ModalContainer onClick={e => e.stopPropagation()}>
         <FlexContainer
           width="100%"
-          height="100%"
           justify="space-between"
           padding="1.5rem 2rem"
           borderTop="2px solid black"
@@ -234,7 +230,7 @@ function LectureReviewDetail({
             padding="1rem 6rem"
           >
             <FlexContainer dir="col">
-              <span>강사:{detailData.teacher.name}</span>
+              {/* <span>강사:{detailData.teacher.name}</span> */}
               <span>
                 <AiFillStar />
                 {detailData.starPoint}

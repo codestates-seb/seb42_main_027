@@ -42,7 +42,7 @@ function Information() {
   const { teacherId } = useParams();
   useEffect(() => {
     axios
-      .get(`http://13.125.1.215:8080/teachers/${teacherId}`)
+      .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}`)
       .then((res: any) => {
         return res.data.data;
       })

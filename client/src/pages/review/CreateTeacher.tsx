@@ -81,9 +81,11 @@ function CreateTeacher() {
         imageUrl,
       };
 
-      axios.post(`http://13.125.1.215:8080/teachers`, data).then(res => {
-        navigate(-1);
-      });
+      axios
+        .post(`${process.env.REACT_APP_API_URL}/teachers`, data)
+        .then(res => {
+          navigate(-1);
+        });
     }
   };
 

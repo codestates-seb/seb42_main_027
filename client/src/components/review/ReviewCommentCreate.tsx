@@ -13,6 +13,7 @@ type Props = {
 };
 function ReviewCommentCreate({ lectureReviewId }: Props) {
   const [content, setContent] = useState<string>('');
+  const Authorization = localStorage.getItem('token');
 
   const createHandler = () => {
     if (!content) {
@@ -24,11 +25,13 @@ function ReviewCommentCreate({ lectureReviewId }: Props) {
         lectureReviewId,
       };
 
-      axios.post(`http://13.125.1.215:8080/comments/reviews/lectures`, data, {
-        headers: {
-          'ngrok-skip-browser-warning': 'asdasdas',
+      axios.post(
+        `${process.env.REACT_APP_API_URL}/comments/reviews/lectures`,
+        data,
+        {
+          headers: { Authorization },
         },
-      });
+      );
     }
   };
 

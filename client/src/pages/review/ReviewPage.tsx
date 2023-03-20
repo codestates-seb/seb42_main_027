@@ -58,7 +58,7 @@ function ReviewPage() {
 
     axios
       .get(
-        `http://13.125.1.215:8080/teachers?${
+        `${process.env.REACT_APP_API_URL}/teachers?${
           subject !== '전체' ? `subject=${subject}&` : ''
         }${sortTag !== '최신순' ? `sort=${sortTag}&` : ''}${
           grade !== '전체' ? `grade=${grade}&` : ''
@@ -74,25 +74,6 @@ function ReviewPage() {
         setTeachers(res.data.data);
         setPageInfo(res.data.pageInfo);
       });
-
-    // fetch(
-    //   `http://13.125.1.215:8080/teachers?page=${curPage}&size=${pageSize}`,
-    //   {
-    //     method: 'GET',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'User-Agent': 'ngrok-skip-browser-warning',
-    //       Accept: 'application/json',
-    //     },
-    //   },
-    // )
-    //   .then((res: any) => {
-    //     return res.json();
-    //   })
-    //   .then((data: any) => {
-    //     console.log(data);
-    //     setTeachers(data.data);
-    //   });
   }, [subject, sortTag, search, curPage, grade, platform, reverse]);
 
   return (

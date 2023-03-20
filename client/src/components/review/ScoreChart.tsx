@@ -80,14 +80,16 @@ function ScoreChart({
         <BigFont>⭐️⭐️⭐️⭐️⭐️</BigFont>
         <SmallFont>{`${totalReviewCount} Answers`}</SmallFont>
       </ChartBox>
-      <ChartBox leftBorder>
+      <ChartBox leftBorder align="start">
         {scoreArr.map((el, index) => {
           return (
             <FlexContainer key={index}>
               <SmallFont>{`${el}점`}</SmallFont>
               <ScoreBox />
               <SmallFont>
-                {totalStarCount ? `${(el / totalStarCount) * 100}%` : '0%'}
+                {totalStarCount
+                  ? `${(starPointCount[`${el}점갯수`] / totalStarCount) * 100}%`
+                  : '0%'}
               </SmallFont>
             </FlexContainer>
           );
@@ -122,6 +124,7 @@ export default ScoreChart;
 
 type ChartBox = {
   leftBorder?: boolean;
+  align?: string;
 };
 
 const ChartBox = styled.div<ChartBox>`
@@ -129,13 +132,13 @@ const ChartBox = styled.div<ChartBox>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: ${props => props.align || 'center'};
   gap: 0.8rem;
   border-left: ${props => (props.leftBorder ? '1px solid gray' : '')};
 `;
 
 const ScoreBox = styled.div<ChartBox>`
-  width: 200px;
+  width: 170px;
   height: 30px;
   border-radius: 1rem;
   display: flex;

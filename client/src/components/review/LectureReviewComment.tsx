@@ -37,16 +37,14 @@ function LectureReviewComment({
 }: Props) {
   const [commentVote, setCommentVote] = useState(voteCount);
   const [voteStatus, setVoteStatus] = useState('');
+  const Authorization = localStorage.getItem('token');
 
   const commentUpHandler = () => {
     axios
       .post(
-        `http://13.125.1.215:8080/votes/reviews/lectures/comments/${lectureReviewCommentId}/up`,
+        `${process.env.REACT_APP_API_URL}/votes/reviews/lectures/comments/${lectureReviewCommentId}/up`,
         {
-          header: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIlVTRVIiXSwidXNlcm5hbWUiOiJhQGdtYWlsLmNvbSIsInN1YiI6ImFAZ21haWwuY29tIiwiaWF0IjoxNjc5MTQ0ODc2LCJleHAiOjE2NzkxNzAwNzZ9.06r-zPdih5j5xgQ2FWlEFx3pd3XsEvhkHgv01Zt_Fm0',
-          },
+          headers: { Authorization },
         },
       )
       .then(res => res.data.data)
@@ -58,12 +56,9 @@ function LectureReviewComment({
   const commentDownHandler = () => {
     axios
       .post(
-        `http://13.125.1.215:8080/votes/reviews/lectures/comments/${lectureReviewCommentId}/down`,
+        `${process.env.REACT_APP_API_URL}/votes/reviews/lectures/comments/${lectureReviewCommentId}/down`,
         {
-          header: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJBRE1JTiIsIlVTRVIiXSwidXNlcm5hbWUiOiJhQGdtYWlsLmNvbSIsInN1YiI6ImFAZ21haWwuY29tIiwiaWF0IjoxNjc5MTQ0ODc2LCJleHAiOjE2NzkxNzAwNzZ9.06r-zPdih5j5xgQ2FWlEFx3pd3XsEvhkHgv01Zt_Fm0',
-          },
+          headers: { Authorization },
         },
       )
       .then(res => res.data.data)
