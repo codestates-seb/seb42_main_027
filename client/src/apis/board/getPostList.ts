@@ -6,6 +6,7 @@ const getPostList = async (board: string, page: number) => {
   const response = await axios.get(`${apiUrl}/boards/${board}?page=${page}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
+      'ngrok-skip-browser-warning': '69420',
     },
   });
   return response.data;
