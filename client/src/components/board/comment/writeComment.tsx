@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -10,13 +11,21 @@ import { useIsLoginStore } from 'stores/loginStore';
 
 function WriteComment() {
   const { isLoginInStore } = useIsLoginStore(state => state);
+  const [comment, setComment] = useState<string>('');
+
+  console.log('comment', comment);
+
   return (
     <Container>
       <Main>
         <InputDiv>
           <ProfileIcon.Default />
           {isLoginInStore ? (
-            <input />
+            <Textarea
+              defaultValue={comment}
+              placeholder="댓글을 입력해 주세요."
+              onChange={e => setComment(e.target.value)}
+            />
           ) : (
             <GuideDiv>
               <AiOutlineExclamationCircle />
@@ -55,6 +64,16 @@ const InputDiv = styled.div`
   display: flex;
   margin: ${theme.gap.px20};
   margin-bottom: 13px;
+`;
+
+const Textarea = styled.textarea`
+  display: flex;
+  width: 100%;
+  resize: none;
+  padding: ${theme.gap.px10};
+  border: 1px solid ${theme.colors.gray};
+  border-radius: 5px;
+  margin-left: ${theme.gap.px10};
 `;
 
 const SubmitDiv = styled.div`

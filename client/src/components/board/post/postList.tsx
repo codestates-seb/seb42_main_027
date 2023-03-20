@@ -13,8 +13,12 @@ interface Data {
   questionId?: number;
   category?: 'string';
   selected?: boolean;
-  username?: 'string';
-  userimg?: 'string';
+  member: {
+    memberId: number;
+    iconImageUrl?: string;
+    displayName: string;
+    state: string;
+  };
   title: 'string';
   content: 'string';
   viewCount: number;
@@ -91,5 +95,12 @@ const Container = styled.div`
 const MainDiv = styled.div`
   display: flex;
   margin-bottom: ${theme.gap.px60};
+  width: 100%;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 export default PostList;
