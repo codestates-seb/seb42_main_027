@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.comment.review.lecture.repository.LectureReviewCommentRepository;
 import ynzmz.server.error.exception.BusinessLogicException;
@@ -42,5 +43,9 @@ public class LectureReviewCommentService {
     public LectureReviewComment findLectureReviewCommentById(long lectureReviewCommentId) {
         Optional<LectureReviewComment> lectureReviewPostComment = lectureReviewCommentRepository.findById(lectureReviewCommentId);
         return lectureReviewPostComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.LECTURE_REVIEW_COMMENT_NOT_FOUND));
+    }
+
+    public Page<LectureReviewComment> findLectureReviewCommentByMemberId(long memberId, int page, int size) {
+        return lectureReviewCommentRepository.findByMemberId(memberId,PageRequest.of(page,size,Sort.by("lectureReviewCommentId")));
     }
 }

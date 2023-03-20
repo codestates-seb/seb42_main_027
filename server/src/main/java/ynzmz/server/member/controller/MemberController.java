@@ -32,6 +32,8 @@ import ynzmz.server.comment.qna.dto.QnaCommentDto;
 import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.comment.qna.mapper.QnaCommentMapper;
 import ynzmz.server.comment.qna.service.QnaCommentService;
+import ynzmz.server.comment.review.lecture.dto.LectureReviewCommentDto;
+import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.comment.review.lecture.mapper.LectureReviewCommentMapper;
 import ynzmz.server.comment.review.lecture.service.LectureReviewCommentService;
 import ynzmz.server.dto.MultiResponseDto;
@@ -40,6 +42,10 @@ import ynzmz.server.member.service.MemberService;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.mapper.MemberMapper;
+import ynzmz.server.recomment.qna.dto.QnaReCommentDto;
+import ynzmz.server.recomment.qna.entity.QnaReComment;
+import ynzmz.server.recomment.qna.mapper.QnaReCommentMapper;
+import ynzmz.server.recomment.qna.service.QnaReCommentService;
 import ynzmz.server.vote.review.lecture.entity.ReviewVote;
 
 import javax.validation.Valid;
@@ -70,7 +76,8 @@ public class MemberController {
     private final QnaCommentMapper qnaCommentMapper;
     private final LectureReviewCommentService lectureReviewCommentService;
     private final LectureReviewCommentMapper lectureReviewCommentMapper;
-
+    private final QnaReCommentService qnaReCommentService;
+    private final QnaReCommentMapper qnaReCommentMapper;
     @PostMapping
     public ResponseEntity<?> postMember(@RequestBody @Valid MemberDto.Post requestBody){
         if (!requestBody.getPassword().equals(requestBody.getConfirmPassword())) {
@@ -195,6 +202,29 @@ public class MemberController {
         return new ResponseEntity<>(new MultiResponseDto<>(responses,pageQnAComments),HttpStatus.OK);
     }
 
+    //내가쓴 강의리뷰댓글 조회
+    @GetMapping("/{member-id}/comments/reviews")
+    public ResponseEntity<?> getMyReviewComments(@PathVariable("member-id")
+                                                 long memberId,
+                                                 @Positive @RequestParam int page,
+                                                 @Positive @RequestParam int size){
+        Page<LectureReviewComment> pageReviewComments = lectureReviewCommentService.findLectureReviewCommentByMemberId(memberId,page-1,size);
+        List<LectureReviewComment> myLectureReviewComments = pageReviewComments.getContent();
+        List<LectureReviewCommentDto.Response> responses = lectureReviewCommentMapper.lectureReviewCommentsToLectureReviewCommentResponses(myLectureReviewComments);
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageReviewComments),HttpStatus.OK);
+    }
+
+    //내가쓴 대댓글 조회
+    @GetMapping("/{member-id}/recomments/qnas")
+    public ResponseEntity<?> getMyQnaRecomments(@PathVariable("member-id")
+                                                long memberId,
+                                                @Positive @RequestParam int page,
+                                                @Positive @RequestParam int size){
+        Page<QnaReComment> pageQnaRecomments =qnaReCommentService.findQnaReCommentByMemberId(memberId,page-1,size);
+        List<QnaReComment> myQnaRecomments = pageQnaRecomments.getContent();
+        List<QnaReCommentDto.Response> responses = qnaReCommentMapper.qnaReCommentToQnaReCommentResponses(myQnaRecomments);
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageQnaRecomments),HttpStatus.OK);
+    }
 
 
 

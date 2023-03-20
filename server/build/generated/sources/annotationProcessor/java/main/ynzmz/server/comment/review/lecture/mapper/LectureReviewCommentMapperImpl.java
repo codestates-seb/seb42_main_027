@@ -11,36 +11,36 @@ import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-20T15:53:01+0900",
+    date = "2023-03-20T16:46:50+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
 public class LectureReviewCommentMapperImpl implements LectureReviewCommentMapper {
 
     @Override
-    public LectureReviewComment lectureReviewCommentPostToLectureReviewComment(LectureReviewCommentDto.Post lectureReviewPostCommentPostDto) {
-        if ( lectureReviewPostCommentPostDto == null ) {
+    public LectureReviewComment lectureReviewCommentPostToLectureReviewComment(LectureReviewCommentDto.Post lectureReviewCommentPostDto) {
+        if ( lectureReviewCommentPostDto == null ) {
             return null;
         }
 
         LectureReviewComment lectureReviewComment = new LectureReviewComment();
 
-        lectureReviewComment.setContent( lectureReviewPostCommentPostDto.getContent() );
-        lectureReviewComment.setCreatedAt( lectureReviewPostCommentPostDto.getCreatedAt() );
+        lectureReviewComment.setContent( lectureReviewCommentPostDto.getContent() );
+        lectureReviewComment.setCreatedAt( lectureReviewCommentPostDto.getCreatedAt() );
 
         return lectureReviewComment;
     }
 
     @Override
-    public LectureReviewComment lectureReviewCommentPatchToLectureReviewComment(LectureReviewCommentDto.Patch lectureReviewPostCommentPatchDto) {
-        if ( lectureReviewPostCommentPatchDto == null ) {
+    public LectureReviewComment lectureReviewCommentPatchToLectureReviewComment(LectureReviewCommentDto.Patch lectureReviewCommentPatchDto) {
+        if ( lectureReviewCommentPatchDto == null ) {
             return null;
         }
 
         LectureReviewComment lectureReviewComment = new LectureReviewComment();
 
-        lectureReviewComment.setContent( lectureReviewPostCommentPatchDto.getContent() );
-        lectureReviewComment.setModifiedAt( lectureReviewPostCommentPatchDto.getModifiedAt() );
+        lectureReviewComment.setContent( lectureReviewCommentPatchDto.getContent() );
+        lectureReviewComment.setModifiedAt( lectureReviewCommentPatchDto.getModifiedAt() );
 
         return lectureReviewComment;
     }

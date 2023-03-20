@@ -11,66 +11,81 @@ import ynzmz.server.recomment.qna.entity.QnaReComment;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-20T15:53:01+0900",
+    date = "2023-03-20T16:46:50+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
 public class QnaReCommentMapperImpl implements QnaReCommentMapper {
 
     @Override
-    public QnaReComment qnaReCommentPostToQnaReComment(QnaReCommentDto.Post lectureReviewPostCommentPostDto) {
-        if ( lectureReviewPostCommentPostDto == null ) {
+    public QnaReComment qnaReCommentPostToQnaReComment(QnaReCommentDto.Post qnaReCommentPostDto) {
+        if ( qnaReCommentPostDto == null ) {
             return null;
         }
 
         QnaReComment qnaReComment = new QnaReComment();
 
-        qnaReComment.setContent( lectureReviewPostCommentPostDto.getContent() );
-        qnaReComment.setCreatedAt( lectureReviewPostCommentPostDto.getCreatedAt() );
+        qnaReComment.setContent( qnaReCommentPostDto.getContent() );
+        qnaReComment.setCreatedAt( qnaReCommentPostDto.getCreatedAt() );
 
         return qnaReComment;
     }
 
     @Override
-    public QnaReComment qnaReCommentPatchToQnaReComment(QnaReCommentDto.Patch lectureReviewPostCommentPatchDto) {
-        if ( lectureReviewPostCommentPatchDto == null ) {
+    public QnaReComment qnaReCommentPatchToQnaReComment(QnaReCommentDto.Patch qnaReCommentPatchDto) {
+        if ( qnaReCommentPatchDto == null ) {
             return null;
         }
 
         QnaReComment qnaReComment = new QnaReComment();
 
-        qnaReComment.setContent( lectureReviewPostCommentPatchDto.getContent() );
-        qnaReComment.setModifiedAt( lectureReviewPostCommentPatchDto.getModifiedAt() );
+        qnaReComment.setContent( qnaReCommentPatchDto.getContent() );
+        qnaReComment.setModifiedAt( qnaReCommentPatchDto.getModifiedAt() );
 
         return qnaReComment;
     }
 
     @Override
-    public QnaReCommentDto.Response qnaReCommentToQnaCommentReResponse(QnaReComment lectureReviewComment) {
-        if ( lectureReviewComment == null ) {
+    public QnaReCommentDto.Response qnaReCommentToQnaReCommentResponse(QnaReComment qnaReComment) {
+        if ( qnaReComment == null ) {
             return null;
         }
 
         QnaReCommentDto.Response response = new QnaReCommentDto.Response();
 
-        response.setContent( lectureReviewComment.getContent() );
-        response.setCreatedAt( lectureReviewComment.getCreatedAt() );
-        response.setModifiedAt( lectureReviewComment.getModifiedAt() );
-        response.setVoteCount( lectureReviewComment.getVoteCount() );
-        response.setMember( memberToSimpleInfoResponse( lectureReviewComment.getMember() ) );
+        response.setQnaReCommentId( qnaReComment.getQnaReCommentId() );
+        response.setContent( qnaReComment.getContent() );
+        response.setCreatedAt( qnaReComment.getCreatedAt() );
+        response.setModifiedAt( qnaReComment.getModifiedAt() );
+        response.setVoteCount( qnaReComment.getVoteCount() );
+        response.setMember( memberToSimpleInfoResponse( qnaReComment.getMember() ) );
 
         return response;
     }
 
     @Override
-    public List<QnaReCommentDto.Response> qnaCommentsToQnaCommentResponses(List<QnaReComment> lectureReviewComments) {
-        if ( lectureReviewComments == null ) {
+    public List<QnaReCommentDto.Response> qnaCommentsToQnaCommentResponses(List<QnaReComment> qnaReComments) {
+        if ( qnaReComments == null ) {
             return null;
         }
 
-        List<QnaReCommentDto.Response> list = new ArrayList<QnaReCommentDto.Response>( lectureReviewComments.size() );
-        for ( QnaReComment qnaReComment : lectureReviewComments ) {
-            list.add( qnaReCommentToQnaCommentReResponse( qnaReComment ) );
+        List<QnaReCommentDto.Response> list = new ArrayList<QnaReCommentDto.Response>( qnaReComments.size() );
+        for ( QnaReComment qnaReComment : qnaReComments ) {
+            list.add( qnaReCommentToQnaReCommentResponse( qnaReComment ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<QnaReCommentDto.Response> qnaReCommentToQnaReCommentResponses(List<QnaReComment> qnaReComments) {
+        if ( qnaReComments == null ) {
+            return null;
+        }
+
+        List<QnaReCommentDto.Response> list = new ArrayList<QnaReCommentDto.Response>( qnaReComments.size() );
+        for ( QnaReComment qnaReComment : qnaReComments ) {
+            list.add( qnaReCommentToQnaReCommentResponse( qnaReComment ) );
         }
 
         return list;

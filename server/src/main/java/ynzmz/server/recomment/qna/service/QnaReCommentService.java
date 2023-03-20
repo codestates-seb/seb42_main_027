@@ -1,7 +1,11 @@
 package ynzmz.server.recomment.qna.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.recomment.qna.entity.QnaReComment;
@@ -35,5 +39,9 @@ public class QnaReCommentService {
     public QnaReComment findQnaReCommentById(long qnaReCommentId) {
         Optional<QnaReComment> qnaComment = qnaReCommentRepository.findById(qnaReCommentId);
         return qnaComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QNA_RE_COMMENT_NOT_FOUND));
+    }
+
+    public Page<QnaReComment> findQnaReCommentByMemberId(long memberId, int page, int size) {
+        return qnaReCommentRepository.findByMemberId(memberId, PageRequest.of(page,size, Sort.by("qnaRecommentId")));
     }
 }

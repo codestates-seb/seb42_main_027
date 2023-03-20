@@ -31,7 +31,7 @@ public class QnaReCommentController {
         qnaReComment.setQnaComment(qnaCommentService.findQnaCommentById(qnaCommentId));
 
         QnaReComment createComment = qnaReCommentService.createQnaReComment(qnaReComment);
-        QnaReCommentDto.Response response = qnaReCommentMapper.qnaReCommentToQnaCommentReResponse(createComment);
+        QnaReCommentDto.Response response = qnaReCommentMapper.qnaReCommentToQnaReCommentResponse(createComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
@@ -46,7 +46,7 @@ public class QnaReCommentController {
         qnaReComment.setQnaReCommentId(qnaReCommentId);
 
         QnaReComment updateComment = qnaReCommentService.updateQnaReComment(qnaReComment);
-        QnaReCommentDto.Response response = qnaReCommentMapper.qnaReCommentToQnaCommentReResponse(updateComment);
+        QnaReCommentDto.Response response = qnaReCommentMapper.qnaReCommentToQnaReCommentResponse(updateComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 

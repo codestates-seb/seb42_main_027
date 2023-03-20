@@ -27,19 +27,22 @@ public class FreeCommentController  {
     private final FreeCommentMapper freeCommentMapper;
     private final FreeCommentService freeCommentService;
     private final FreeService freeService;
-    @PostMapping
-    public ResponseEntity<?> createFreeComment(@RequestBody FreeCommentDto.Post postDto) {
+    @PostMapping("/{free-id}")
+    public ResponseEntity<?> createFreeComment(@PathVariable("free-id") long freeId,
+                                               @RequestBody FreeCommentDto.Post postDto) {
         FreeComment freeComment = freeCommentMapper.freeCommentPostToFreeComment(postDto);
-        Member member = memberService.findMemberById(postDto.getMemberId());
-        Free free = freeService.findFreeById(postDto.getFreeId());
-        freeComment.setMember(member);
+
+        Free free = freeService.findFreeById(freeId);
+
+        freeComment.setMember(loginMemberFindByToken());
         freeComment.setFree(free);
-        freeComment.setFreeDisplayId(free.getFreeId());
 
         FreeComment createFreeComment = freeCommentService.creatFreeComment(freeComment);
         FreeCommentDto.Response response = freeCommentMapper.freeCommentToFreeCommentResponse(createFreeComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
+
+
 
     @PatchMapping("/{free-comment-id}")
     public ResponseEntity<?> updateFreeComment(@RequestBody FreeCommentDto.Patch patchDto,
@@ -75,8 +78,8 @@ public class FreeCommentController  {
         freeCommentService.deleteFreeComment(freeCommentId);
     }
 
-//    private Member loginMemberFindByToken(){
-//        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
-//        return memberService.findMemberByEmail(loginEmail);
-//    }
+    private Member loginMemberFindByToken(){
+        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
+        return memberService.findMemberByEmail(loginEmail);
+    }
 }

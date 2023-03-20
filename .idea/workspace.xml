@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="feat: 강사 강의 초기값 설정">
+    <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="merge : dev -&gt; KDB(2)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
@@ -12,13 +12,6 @@
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/board/free/dto/FreeDto$DetailResponse$DetailResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/board/free/dto/FreeDto$DetailResponse$DetailResponseBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/board/free/dto/FreeDto$DetailResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/board/free/dto/FreeDto$DetailResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/board/free/dto/FreeDto$ListResponse$ListResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/board/free/dto/FreeDto$ListResponse$ListResponseBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/board/free/dto/FreeDto$ListResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/board/free/dto/FreeDto$ListResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/board/free/dto/FreeDto$patch.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/board/free/dto/FreeDto$patch.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/board/free/service/FreeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/board/free/service/FreeService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/event/our/mapper/OurMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/event/our/mapper/OurMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/event/their/mapper/EventMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/event/their/mapper/EventMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/free/mapper/FreeMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/free/mapper/FreeMapperImpl.java" afterDir="false" />
@@ -35,6 +28,16 @@
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/qna/mapper/QnaVoteMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/qna/mapper/QnaVoteMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/review/lecture/mapper/ReviewVoteMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/review/lecture/mapper/ReviewVoteMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/controller/FreeCommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/controller/FreeCommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/review/lecture/mapper/LectureReviewCommentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/review/lecture/mapper/LectureReviewCommentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/review/lecture/repository/LectureReviewCommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/review/lecture/repository/LectureReviewCommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/review/lecture/service/LectureReviewCommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/review/lecture/service/LectureReviewCommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/controller/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/qna/controller/QnaReCommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/qna/controller/QnaReCommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/qna/dto/QnaReCommentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/qna/dto/QnaReCommentDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/qna/mapper/QnaReCommentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/qna/mapper/QnaReCommentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/qna/repository/QnaReCommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/qna/repository/QnaReCommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/qna/service/QnaReCommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/qna/service/QnaReCommentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +79,9 @@
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="BeDev" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -399,7 +405,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679294999528</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="merge : dev -&gt; KDB(2)">
+      <created>1679295260007</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1679295260007</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -460,7 +473,8 @@
     <MESSAGE value="feat: 질문답변게시판 대댓글추가, 전체 API 테스트 및 오류수정" />
     <MESSAGE value="feat: 강사 강의 초기값 설정" />
     <MESSAGE value="fix : 일단 커밋.." />
-    <option name="LAST_COMMIT_MESSAGE" value="fix : 일단 커밋.." />
+    <MESSAGE value="merge : dev -&gt; KDB(2)" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge : dev -&gt; KDB(2)" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
 </project>
