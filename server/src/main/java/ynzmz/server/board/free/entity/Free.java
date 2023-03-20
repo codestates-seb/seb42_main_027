@@ -21,7 +21,6 @@ import java.util.List;
 @Getter
 @Setter
 @Slf4j
-@ToString
 public class Free implements Vote {
 
     // id: 1,
@@ -55,19 +54,16 @@ public class Free implements Vote {
     private String createdAt;
     private String modifiedAt;
 
+
     @ManyToOne
-    @JoinColumn(name = "member_id")
     @JsonBackReference
+    @JoinColumn(name = "member_id")
     private Member member;
     @OneToMany(mappedBy = "free", cascade = CascadeType.REMOVE)
     @JsonManagedReference
-    @Nullable
     private List<FreeComment> comments = new ArrayList<>();
 
-
     private int commentsListNum = comments.size();
-//    private
-
 
 
 }

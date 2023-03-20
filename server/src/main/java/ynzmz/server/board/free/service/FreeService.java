@@ -35,7 +35,7 @@ public class FreeService {
     }
 
     public Page<Free> findAllFree(int page){
-        return repository.findAll(PageRequest.of(page,15, Sort.by("freeId")));
+        return repository.findAll(PageRequest.of(page,15, Sort.by("freeId").descending()));
     }
     //-------------------------------------------UPDATE---------------------------------------------------------
     public Free updateFree(Free free){

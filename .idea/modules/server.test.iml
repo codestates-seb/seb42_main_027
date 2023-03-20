@@ -43,6 +43,9 @@
     <content url="file://$MODULE_DIR$/../../server/src/test">
       <sourceFolder url="file://$MODULE_DIR$/../../server/src/test/java" isTestSource="true" />
     </content>
+    <content url="file://$MODULE_DIR$/../../server/src/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../server/src/test/java" isTestSource="true" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="server.main" />
