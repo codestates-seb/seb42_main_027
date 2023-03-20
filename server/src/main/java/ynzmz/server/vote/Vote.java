@@ -5,6 +5,7 @@ public interface Vote {
     void setVoteCount(long voteCount);
 
     enum Target{
+        Free,
         QUESTION,
         ANSWER,
         REVIEW,
