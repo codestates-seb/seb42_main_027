@@ -38,7 +38,7 @@ public interface FreeMapper {
         detailResponse.createdAt( free.getCreatedAt() );
         detailResponse.modifiedAt( free.getModifiedAt() );
         detailResponse.member( memberToSimpleInfoResponse( free.getMember() ) );
-        detailResponse.comments( freeCommentListToResponseList( free.getComments() ) );
+        detailResponse.comments( freeCommentListToResponseForFreeDetailList( free.getComments() ) );
         detailResponse.commentsListNum( free.getComments().size() );
 
         return detailResponse.build();
@@ -122,6 +122,34 @@ public interface FreeMapper {
 
         return response;
     }
+        default FreeCommentDto.ResponseForFreeDetail freeCommentToResponseForFreeDetail(FreeComment freeComment) {
+        if ( freeComment == null ) {
+            return null;
+        }
+
+        long freeCommentId = 0L;
+
+        String content = null;
+        String createdAt = null;
+        String modifiedAt = null;
+        long voteCount = 0L;
+        MemberDto.SimpleInfoResponse member = null;
+        boolean memberSim = false;
+
+        if ( freeComment.getFreeCommentId() != null ) {
+            freeCommentId = freeComment.getFreeCommentId();
+        }
+        content = freeComment.getContent();
+        createdAt = freeComment.getCreatedAt();
+        modifiedAt = freeComment.getModifiedAt();
+        voteCount = freeComment.getVoteCount();
+        member = memberToSimpleInfoResponse( freeComment.getMember() );
+        memberSim = freeComment.isMemberSim();
+
+        FreeCommentDto.ResponseForFreeDetail response = new FreeCommentDto.ResponseForFreeDetail( freeCommentId, content, createdAt, modifiedAt, voteCount, member, memberSim );
+
+        return response;
+    }
 
     default List<FreeCommentDto.Response> freeCommentListToResponseList(List<FreeComment> list) {
         if ( list == null ) {
@@ -131,6 +159,19 @@ public interface FreeMapper {
         List<FreeCommentDto.Response> list1 = new ArrayList<FreeCommentDto.Response>( list.size() );
         for ( FreeComment freeComment : list ) {
             list1.add( freeCommentToResponse( freeComment ) );
+        }
+
+        return list1;
+    }
+
+    default List<FreeCommentDto.ResponseForFreeDetail> freeCommentListToResponseForFreeDetailList(List<FreeComment> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<FreeCommentDto.ResponseForFreeDetail> list1 = new ArrayList<FreeCommentDto.ResponseForFreeDetail>( list.size() );
+        for ( FreeComment freeComment : list ) {
+            list1.add( freeCommentToResponseForFreeDetail( freeComment ) );
         }
 
         return list1;

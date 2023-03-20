@@ -31,11 +31,16 @@ public class FreeCommentController  {
     public ResponseEntity<?> createFreeComment(@PathVariable("free-id") long freeId,
                                                    @RequestBody FreeCommentDto.Post postDto) {
         FreeComment freeComment = freeCommentMapper.freeCommentPostToFreeComment(postDto);
-
-        Free free = freeService.findFreeById(freeId);
-
         freeComment.setMember(loginMemberFindByToken());
+        Free free = freeService.findFreeById(freeId);
         freeComment.setFree(free);
+
+        if(freeComment.getMember().getMemberId() == freeComment.getFree().getMember().getMemberId()){
+            freeComment.setMemberSim(true);
+        }
+        else {
+            freeComment.setMemberSim(false);
+        }
 
         FreeComment createFreeComment = freeCommentService.creatFreeComment(freeComment);
         FreeCommentDto.Response response = freeCommentMapper.freeCommentToFreeCommentResponse(createFreeComment);
@@ -47,6 +52,8 @@ public class FreeCommentController  {
                                                         @PathVariable("free-comment-id") long freePostCommentId) {
         FreeComment freeComment = freeCommentMapper.freeCommentPatchToFreeComment(patchDto);
         freeComment.setFreeCommentId(freePostCommentId);
+//        freeComment.setMember(loginMemberFindByToken());
+
 
         FreeComment updateFreeComment = freeCommentService.updateFreeComment(freeComment);
         FreeCommentDto.Response response = freeCommentMapper.freeCommentToFreeCommentResponse(updateFreeComment);
