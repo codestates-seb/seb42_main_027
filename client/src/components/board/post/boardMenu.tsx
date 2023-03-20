@@ -29,12 +29,22 @@ function FreeBoardMenu() {
   };
   return (
     <MenuDiv>
-      <Link to="articles/write">
-        <Button.WriteBtn>
-          <HiPencil />
-          작성하기
-        </Button.WriteBtn>
-      </Link>
+      {localStorage.getItem('token') ? (
+        <Link to="articles/write">
+          <Button.WriteBtn>
+            <HiPencil />
+            작성하기
+          </Button.WriteBtn>
+        </Link>
+      ) : (
+        <Link to="../login">
+          <Button.WriteBtn>
+            <HiPencil />
+            작성하기
+          </Button.WriteBtn>
+        </Link>
+      )}
+
       {urlData === '/fre' ? (
         <Category>
           {selectMenu === '0' ? (

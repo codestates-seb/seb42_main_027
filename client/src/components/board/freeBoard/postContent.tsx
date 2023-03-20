@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
+import useUserInfoStore from 'stores/userInfoStore';
 
 import styled from 'styled-components';
 import theme from 'theme';
@@ -19,8 +20,12 @@ interface Data {
   questionId?: number;
   category?: 'string';
   selected?: boolean;
-  username?: 'string';
-  userimg?: 'string';
+  member: {
+    memberId: number;
+    iconImageUrl?: string;
+    displayName: string;
+    state: string;
+  };
   title: 'string';
   content: 'string';
   viewCount: number;
@@ -28,9 +33,11 @@ interface Data {
   createdAt: string;
   modifiedAt?: string;
   commentsListNum: number;
+  // comments?: any;
 }
 
 function PostContent() {
+  const { userInfo } = useUserInfoStore(state => state);
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(true);
   const [listData, setListData] = useState<Data | Record<string, never>>({});
@@ -97,6 +104,8 @@ function PostContent() {
   }, []);
 
   console.log(listData);
+  console.log('userInfo memeberId', userInfo.data.memberId);
+  // console.log('comments', listData.comments[0].content);
 
   return (
     <Container>
@@ -108,19 +117,21 @@ function PostContent() {
           <TitleDiv>
             <Top>
               <Category>{listData.category}</Category>
-              <UDBtnDiv>
-                <Link to="edit">
-                  <Button.UDWhiteBtn>수정</Button.UDWhiteBtn>
-                </Link>
-                <Button.UDWhiteBtn onClick={fetchDeletePost}>
-                  삭제
-                </Button.UDWhiteBtn>
-              </UDBtnDiv>
+              {listData.member.memberId === userInfo.data.memberId ? (
+                <UDBtnDiv>
+                  <Link to="edit">
+                    <Button.UDWhiteBtn>수정</Button.UDWhiteBtn>
+                  </Link>
+                  <Button.UDWhiteBtn onClick={fetchDeletePost}>
+                    삭제
+                  </Button.UDWhiteBtn>
+                </UDBtnDiv>
+              ) : null}
             </Top>
             <H2>{listData.title}</H2>
             <Writer>
               <ProfileIcon.Default />
-              <div>{listData.username}닉네임</div>
+              <div>{listData.member.displayName}</div>
               <div> · {calTime}</div>
               <View>
                 <CountIcon.View />
@@ -140,8 +151,9 @@ function PostContent() {
               </Button.VoteUpBtn>
             </VoteDiv>
           </MainDiv>
-          <CommentCnt>?개의 댓글</CommentCnt>
+          <CommentCnt>{listData.commentsListNum}개의 댓글</CommentCnt>
           <CommentList />
+          {/* <CommentList data={listData.comments} /> */}
         </div>
       )}
     </Container>
