@@ -3,6 +3,7 @@ package ynzmz.server.board.free.dto;
 import lombok.*;
 import ynzmz.server.comment.free.dto.FreeCommentDto;
 import ynzmz.server.comment.free.entity.FreeComment;
+import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 
 import java.util.List;
@@ -23,7 +24,6 @@ public class FreeDto {
     @AllArgsConstructor
     public static class patch
     {
-        private long freeId;
         private String title;
         private String content;
         private String category;
@@ -43,7 +43,7 @@ public class FreeDto {
         long voteCount;
         String createdAt;
         String modifiedAt;
-        Member member;
+        MemberDto.SimpleInfoResponse member;
         int commentsListNum;
 //댓글 개수 필요함? 필요함
     }
@@ -60,7 +60,7 @@ public class FreeDto {
         long voteCount;
         String createdAt;
         String modifiedAt;
-        Member member;
+        MemberDto.SimpleInfoResponse member;
         List<FreeCommentDto.Response> commentsList;
     }
 }

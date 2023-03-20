@@ -6,10 +6,12 @@ import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 import ynzmz.server.board.free.dto.FreeDto;
 import ynzmz.server.board.free.entity.Free;
+import ynzmz.server.member.dto.MemberDto;
+import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-20T10:07:03+0900",
+    date = "2023-03-20T14:07:11+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -39,7 +41,6 @@ public class FreeMapperImpl implements FreeMapper {
 
         Free free = new Free();
 
-        free.setFreeId( p.getFreeId() );
         free.setTitle( p.getTitle() );
         free.setContent( p.getContent() );
         free.setCategory( p.getCategory() );
@@ -64,7 +65,7 @@ public class FreeMapperImpl implements FreeMapper {
         detailResponse.voteCount( free.getVoteCount() );
         detailResponse.createdAt( free.getCreatedAt() );
         detailResponse.modifiedAt( free.getModifiedAt() );
-        detailResponse.member( free.getMember() );
+        detailResponse.member( memberToSimpleInfoResponse( free.getMember() ) );
 
         return detailResponse.build();
     }
@@ -80,11 +81,12 @@ public class FreeMapperImpl implements FreeMapper {
         listResponse.freeId( free.getFreeId() );
         listResponse.title( free.getTitle() );
         listResponse.content( free.getContent() );
+        listResponse.category( free.getCategory() );
         listResponse.viewCount( free.getViewCount() );
         listResponse.voteCount( free.getVoteCount() );
         listResponse.createdAt( free.getCreatedAt() );
         listResponse.modifiedAt( free.getModifiedAt() );
-        listResponse.member( free.getMember() );
+        listResponse.member( memberToSimpleInfoResponse( free.getMember() ) );
         listResponse.commentsListNum( free.getCommentsListNum() );
 
         return listResponse.build();
@@ -102,5 +104,27 @@ public class FreeMapperImpl implements FreeMapper {
         }
 
         return list;
+    }
+
+    protected MemberDto.SimpleInfoResponse memberToSimpleInfoResponse(Member member) {
+        if ( member == null ) {
+            return null;
+        }
+
+        Long memberId = null;
+        String displayName = null;
+        String iconImageUrl = null;
+        String state = null;
+
+        memberId = member.getMemberId();
+        displayName = member.getDisplayName();
+        iconImageUrl = member.getIconImageUrl();
+        if ( member.getState() != null ) {
+            state = member.getState().name();
+        }
+
+        MemberDto.SimpleInfoResponse simpleInfoResponse = new MemberDto.SimpleInfoResponse( memberId, displayName, iconImageUrl, state );
+
+        return simpleInfoResponse;
     }
 }
