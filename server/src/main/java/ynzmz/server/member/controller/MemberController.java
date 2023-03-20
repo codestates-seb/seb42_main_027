@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.method.P;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.board.free.dto.FreeDto;
 import ynzmz.server.board.free.entity.Free;
@@ -24,6 +25,7 @@ import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.board.review.lecture.mapper.LectureReviewMapper;
 import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
+import ynzmz.server.comment.free.dto.FreeCommentDto;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.comment.free.mapper.FreeCommentMapper;
 import ynzmz.server.comment.free.service.FreeCommentService;
@@ -118,6 +120,7 @@ public class MemberController {
                                                 long memberId,
                                             @Positive @RequestParam int page,
                                         @Positive @RequestParam int size) {
+
         Page<Question> pageQuestions = questionService.findQuestionsByMemberId(memberId,page-1, size);
         List<Question> myQuestions = pageQuestions.getContent();
         List<QuestionDto.ListPageResponse> responses = questionMapper.questionToQuestionListPageResponses(myQuestions); //통일
@@ -142,6 +145,7 @@ public class MemberController {
                                                   long memberId,
                                               @Positive @RequestParam int page,
                                               @Positive @RequestParam int size){
+
         Page<LectureReview> pageLectureReviews = lectureReviewService.findLectureReviewsByMemberId(memberId, page-1,size);
         List<LectureReview> myLectureReviews = pageLectureReviews.getContent();
         List<LectureReviewDto.InfoResponse> responses = lectureReviewMapper.lectureReviewToLectureReviewInfoResponses(myLectureReviews);
@@ -162,6 +166,20 @@ public class MemberController {
 
 
     //내가쓴 자유게시판댓글 조회
+    @GetMapping("/{member-id}/freeComments")
+    public ResponseEntity<?> getMyFreeComments(@PathVariable("member-id")
+                                               long memberId,
+                                               @Positive @RequestParam int page,
+                                               @Positive @RequestParam int size){
+        Page<FreeComment> pageFreeComments = freeCommentService.findFreeCommentByMemberId(memberId,page-1,size);
+        List<FreeComment> myFreeComments = pageFreeComments.getContent();
+        List<FreeCommentDto.Response> responses = freeCommentMapper.freeCommentToFreeCommentsResponses(myFreeComments);
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageFreeComments),HttpStatus.OK);
+    }
 
+//    private Member loginMemberFindByToken(){
+//        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
+//        return memberService.findMemberByEmail(loginEmail);
+//    }
 
 }

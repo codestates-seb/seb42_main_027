@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.comment.free.repository.FreeCommentRepository;
 import ynzmz.server.error.exception.BusinessLogicException;
@@ -42,6 +43,10 @@ public class FreeCommentService {
     public FreeComment findFreeCommentById(long freeId) {
         Optional<FreeComment> FreeComment = freeCommentRepository.findById(freeId);
         return FreeComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.FREE_NOT_FOUND));
+    }
+
+    public Page<FreeComment> findFreeCommentByMemberId(long memberId, int page, int size) {
+        return freeCommentRepository.findByMemberId(memberId,PageRequest.of(page,size,Sort.by("freeCommentId").descending()));
     }
 
     public void getSimilarityMember(FreeComment freeComment){

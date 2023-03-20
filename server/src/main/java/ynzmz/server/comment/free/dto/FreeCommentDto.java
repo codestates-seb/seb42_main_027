@@ -41,5 +41,7 @@ public class FreeCommentDto {
         private Member member;
         private boolean memberSim;
     }
+
+
 }
 

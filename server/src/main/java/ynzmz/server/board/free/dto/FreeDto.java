@@ -19,6 +19,7 @@ public class FreeDto {
 
         String createdAt;
 
+
     }
     @Getter
     @Setter

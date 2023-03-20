@@ -56,9 +56,8 @@ public class Free implements Vote {
     private String modifiedAt;
 
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "member_id")
-    @Nullable
+    @JsonBackReference
     private Member member;
     @OneToMany(mappedBy = "free", cascade = CascadeType.REMOVE)
     @JsonManagedReference

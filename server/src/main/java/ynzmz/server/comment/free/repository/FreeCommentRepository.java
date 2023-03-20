@@ -11,4 +11,6 @@ import ynzmz.server.comment.free.entity.FreeComment;
 public interface FreeCommentRepository extends JpaRepository<FreeComment,Long> {
 //    Page<FreeComment> findFreeCommentsByFreeId(long freeId, Pageable pageable);  -> 이거문제
 //@Query(......) 프리의 테이블 조인 ->거따 집어넣어야함
+    @Query(value = "SELECT fc FROM FreeComment fc WHERE fc.member.memberId = :memberId")
+    Page<FreeComment> findByMemberId(long memberId, Pageable pageable);
 }
