@@ -11,8 +11,12 @@ interface Data {
   questionId?: number;
   category?: string;
   selected?: boolean;
-  username?: string;
-  userimg?: string;
+  member: {
+    memberId: number;
+    iconImageUrl?: string;
+    displayName: string;
+    state: string;
+  };
   title: string;
   content: string;
   viewCount: number;
@@ -48,9 +52,11 @@ function PostTitleBlock({ ele }: Props) {
   } else if (elapsedTime < 43200) {
     elapsedTime = Math.round(elapsedTime / 3600);
     calTime = `${elapsedTime}시간 전`;
-  } else {
+  } else if (elapsedTime < 129600) {
     elapsedTime = Math.round(elapsedTime / 43200);
     calTime = `${elapsedTime}일 전`;
+  } else {
+    calTime = ele.createdAt.slice(0, 24);
   }
 
   return (
@@ -72,7 +78,7 @@ function PostTitleBlock({ ele }: Props) {
         <ProfileImg>
           <ProfileIcon.Mini />
         </ProfileImg>
-        <div>{ele.username}</div>
+        <div>{ele.member.displayName}</div>
         <div> · {calTime}</div>
       </UserData>
       <Count>
@@ -160,8 +166,8 @@ const ProfileImg = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 `;
 
 const Count = styled.div`

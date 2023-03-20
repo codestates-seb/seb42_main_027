@@ -119,11 +119,37 @@ function WritePost() {
         <Main>
           <PostDiv>
             <Label htmlFor="category">주제</Label>
-            <Input
-              id="category"
-              defaultValue={category}
-              onChange={e => setCategory(e.target.value)}
-            />
+            {urlData === '/fre' ? (
+              <Select
+                id="category"
+                onChange={e => {
+                  setCategory(e.target.value);
+                }}
+              >
+                <option value="">주제를 선택해 주세요.</option>
+                <option value="공지">공지</option>
+                <option value="일상">일상</option>
+                <option value="정보">정보</option>
+                <option value="유머">유머</option>
+              </Select>
+            ) : (
+              <Select
+                id="category"
+                onChange={e => {
+                  setCategory(e.target.value);
+                }}
+              >
+                <option value="">주제를 선택해 주세요.</option>
+                <option value="공지">공지</option>
+                <option value="국어">국어</option>
+                <option value="영어">영어</option>
+                <option value="수학">수학</option>
+                <option value="사탐">사탐</option>
+                <option value="과탐">과탐</option>
+                <option value="국사">국사</option>
+                <option value="기타">기타</option>
+              </Select>
+            )}
           </PostDiv>
           <PostDiv>
             <Label htmlFor="title">제목</Label>
@@ -200,11 +226,24 @@ const Label = styled.label`
   margin-bottom: ${theme.gap.px10};
 `;
 
+const Select = styled.select`
+  display: flex;
+  border-radius: 5px;
+  padding: 15px;
+  background-color: ${theme.colors.white};
+  padding: 15px;
+  padding-right: 30px;
+`;
+
 const Input = styled.input`
   display: flex;
   border: 1px solid ${theme.colors.gray};
   border-radius: 5px;
   padding: 15px;
+
+  &:focus {
+    border: 1px solid ${theme.colors.black};
+  }
 `;
 
 const PostDiv = styled.div`
