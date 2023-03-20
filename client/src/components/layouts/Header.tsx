@@ -27,7 +27,9 @@ function Header() {
           <Link to="/ReviewPage">
             <LI>강사리뷰</LI>
           </Link>
-          <LI>강의리뷰</LI>
+          <Link to="/LectureReviewPage">
+            <LI>강의리뷰</LI>
+          </Link>
           <Link to="/qna">
             <LI>질문게시판</LI>
           </Link>
