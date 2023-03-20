@@ -11,6 +11,7 @@ import RecommentList from './recommentList';
 
 function CommentBlock() {
   const [openRecom, setOpenRecom] = useState(false);
+  // console.log(data);
 
   const openRecomHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     // if (e.target instanceof Element) {
@@ -33,7 +34,7 @@ function CommentBlock() {
         </UDBtnDiv>
       </TitleDiv>
       <MainDiv>
-        <TextDiv>여기에 댓글 내용이 들어갑니다.</TextDiv>
+        <TextDiv>내용</TextDiv>
         <BottomDiv>
           <Button.RecommentBtn onClick={openRecomHandler}>
             댓글 쓰기

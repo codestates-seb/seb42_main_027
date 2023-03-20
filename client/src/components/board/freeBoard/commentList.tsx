@@ -10,6 +10,13 @@ function CommentList() {
       <WriteCommentDiv>
         <WriteComment />
       </WriteCommentDiv>
+      {/* {data.length === 0 ? null : (
+        <div>
+          {data.map((ele: any) => {
+            return <CommentBlock key={ele.freeCommentId} ele={data} />;
+          })}
+        </div>
+      )} */}
       <CommentBlock />
     </Container>
   );

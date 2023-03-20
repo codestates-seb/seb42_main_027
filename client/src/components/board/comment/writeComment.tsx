@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 import styled from 'styled-components';
 import theme from 'theme';
@@ -8,12 +8,37 @@ import ProfileIcon from 'assets/icons/defaultProfileIcon';
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
 
 import { useIsLoginStore } from 'stores/loginStore';
+import useUserInfoStore from 'stores/userInfoStore';
+import PostComment from 'apis/board/postComment';
 
 function WriteComment() {
+  const urlData = useLocation().pathname.slice(0, 4);
+  const paramsData = useParams();
   const { isLoginInStore } = useIsLoginStore(state => state);
+  const { userInfo } = useUserInfoStore(state => state);
   const [comment, setComment] = useState<string>('');
 
   console.log('comment', comment);
+
+  const postHandler = async () => {
+    try {
+      if (comment === '') {
+        alert('내용은 빈 칸으로 둘 수 없습니다.');
+      } else {
+        const data = {
+          content: comment,
+          createdAt: `${new Date()}`,
+        };
+        console.log('submit data', data);
+        if (urlData === '/fre') {
+          await PostComment(data, 'frees', Number(paramsData.id));
+          // 새로고침 넣기
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <Container>
@@ -36,7 +61,10 @@ function WriteComment() {
           )}
         </InputDiv>
         <SubmitDiv>
-          <CommentBtn className={isLoginInStore ? '' : 'disabled'}>
+          <CommentBtn
+            className={isLoginInStore ? '' : 'disabled'}
+            onClick={postHandler}
+          >
             댓글 쓰기
           </CommentBtn>
         </SubmitDiv>
