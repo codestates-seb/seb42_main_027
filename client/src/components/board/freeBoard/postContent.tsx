@@ -76,17 +76,16 @@ function PostContent() {
   const fetchDeletePost = async () => {
     try {
       const confirm = window.confirm('게시글을 삭제하시겠습니까?');
-      console.log('confirm', confirm);
-      if (urlData === '/free') {
-        // 삭제 확인 경고문 넣어야함
-        await DeletePost('frees', idData);
-        alert('게시물을 삭제하였습니다.');
-        navigate('/free');
-      } else {
-        // 삭제 확인 경고문 넣어야함
-        await DeletePost('qnas/answers', idData);
-        alert('게시물을 삭제하였습니다.');
-        navigate('/qna');
+      if (confirm) {
+        if (urlData === '/free') {
+          await DeletePost('frees', idData);
+          alert('게시물을 삭제하였습니다.');
+          navigate('/free');
+        } else {
+          await DeletePost('qnas/answers', idData);
+          alert('게시물을 삭제하였습니다.');
+          navigate('/qna');
+        }
       }
     } catch (err) {
       console.error(err);
