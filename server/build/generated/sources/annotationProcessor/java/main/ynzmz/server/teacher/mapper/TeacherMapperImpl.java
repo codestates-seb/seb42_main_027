@@ -24,7 +24,7 @@ import ynzmz.server.teacher.entity.Teacher;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-20T15:43:50+0900",
+    date = "2023-03-20T17:36:50+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -391,6 +391,7 @@ public class TeacherMapperImpl implements TeacherMapper {
         listPageResponse.setModifiedAt( lectureReview.getModifiedAt() );
         listPageResponse.setViewCount( lectureReview.getViewCount() );
         listPageResponse.setVoteCount( lectureReview.getVoteCount() );
+        listPageResponse.setTotalCommentCount( lectureReview.getTotalCommentCount() );
         listPageResponse.setLecture( lectureToSimpleInfoResponse( lectureReview.getLecture() ) );
         listPageResponse.setMember( memberToSimpleInfoResponse( lectureReview.getMember() ) );
 

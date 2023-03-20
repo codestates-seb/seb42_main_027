@@ -11,7 +11,7 @@ import ynzmz.server.recomment.qna.entity.QnaReComment;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-20T15:43:50+0900",
+    date = "2023-03-20T17:35:06+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -53,6 +53,9 @@ public class QnaReCommentMapperImpl implements QnaReCommentMapper {
 
         QnaReCommentDto.Response response = new QnaReCommentDto.Response();
 
+        if ( lectureReviewReComment.getQnaReCommentId() != null ) {
+            response.setQnaReCommentId( lectureReviewReComment.getQnaReCommentId() );
+        }
         response.setContent( lectureReviewReComment.getContent() );
         response.setCreatedAt( lectureReviewReComment.getCreatedAt() );
         response.setModifiedAt( lectureReviewReComment.getModifiedAt() );

@@ -42,6 +42,7 @@ public class LectureReviewDto {
         private String modifiedAt;
         private long viewCount;
         private long voteCount;
+        private long totalCommentCount;
         private TeacherDto.SimpleInfoResponse teacher;
         private LectureDto.SimpleInfoResponse lecture;
         private MemberDto.SimpleInfoResponse member;
@@ -58,6 +59,7 @@ public class LectureReviewDto {
         private String modifiedAt;
         private long viewCount;
         private long voteCount;
+        private long totalCommentCount;
         private TeacherDto.SimpleInfoResponse teacher;
         private LectureDto.SimpleInfoResponse lecture;
         private MemberDto.SimpleInfoResponse member;

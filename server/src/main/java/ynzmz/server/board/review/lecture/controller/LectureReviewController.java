@@ -116,8 +116,6 @@ public class LectureReviewController {
         try {
             Member loginMember = loginMemberFindByToken();
 
-            log.info("현재 여기");
-            log.info(loginMember.toString());
             LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewId);
             MemberDto.LoginUserLectureReviewVoteInfo lectureReviewVoteStatusByLoginUser = memberService.findLectureReviewVoteStatusByLoginUser(loginMember, lectureReview);
             LectureReviewDto.DetailPageResponse response = lectureReviewMapper.lectureReviewToLectureReviewDetailPageResponse(lectureReview);
@@ -129,13 +127,7 @@ public class LectureReviewController {
             LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewId);
             LectureReviewDto.DetailPageResponse response = lectureReviewMapper.lectureReviewToLectureReviewDetailPageResponse(lectureReview);
 
-//            Member loginMember = new Member();
-//            loginMember.setMemberId(null);
-//            loginMember.setLectureReviews(null);
-//            loginMember.setUsername(null);
-//            MemberDto.LoginUserLectureReviewVoteInfo lectureReviewVoteStatusByLoginUser = memberService.findLectureReviewVoteStatusByLoginUser(loginMember, lectureReview);
             response.setTeacher(teacherMapper.teacherToTeacherSimpleInfoResponse(lectureReview.getLecture().getTeacher()));
-//            response.setLoginUserLectureReviewVoteInfo(lectureReviewVoteStatusByLoginUser);
 
             return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
         }

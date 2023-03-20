@@ -7,7 +7,7 @@ import ynzmz.server.board.event.our.entity.Our;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-20T15:40:51+0900",
+    date = "2023-03-20T17:35:06+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component

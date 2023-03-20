@@ -53,8 +53,8 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request){
         // Authorization 의 값이 없거나, 값에 시작이 Bearer 아닐때 이필터를 건너뛰도록 함.
         String authorization = request.getHeader("Authorization");
-        log.info("shouldNotFilter");
-        log.info(authorization);
+//        log.info("shouldNotFilter");
+//        log.info(authorization);
         return authorization == null || !authorization.startsWith("Bearer");
     }
 

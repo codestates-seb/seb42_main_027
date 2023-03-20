@@ -32,6 +32,7 @@ public class LectureReviewCommentController {
     public ResponseEntity<?> createLectureReviewComment(@RequestBody LectureReviewCommentDto.Post postDto) {
         LectureReviewComment lectureReviewComment = lectureReviewCommentMapper.lectureReviewCommentPostToLectureReviewComment(postDto);
         LectureReview lectureReview = lectureReviewService.findLectureReviewById(postDto.getLectureReviewId());
+        lectureReview.setTotalCommentCount(lectureReview.getComments().size() + 1);
 
         lectureReviewComment.setLectureReview(lectureReview);
         lectureReviewComment.setMember(loginMemberFindByToken());
@@ -70,6 +71,8 @@ public class LectureReviewCommentController {
 
     @DeleteMapping("/{lecture-review-comment-id}")
     public void deleteLectureReviewComment(@PathVariable("lecture-review-comment-id") long lectureReviewCommentId) {
+        LectureReviewComment lectureReviewComment = lectureReviewCommentService.findLectureReviewCommentById(lectureReviewCommentId);
+        lectureReviewComment.getLectureReview().setTotalCommentCount(lectureReviewComment.getLectureReview().getComments().size() -1);
         lectureReviewCommentService.deleteLectureReviewComment(lectureReviewCommentId);
     }
 

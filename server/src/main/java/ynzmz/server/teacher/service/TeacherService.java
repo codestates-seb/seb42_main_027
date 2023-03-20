@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.lecture.entity.Lecture;
@@ -56,10 +57,12 @@ public class TeacherService {
         double starPointAverage;
         long totalReviewCount = 0;
         for(Lecture lecture : lectures) {
-            starPoint += lecture.getStarPointAverage();
-            totalReviewCount += lecture.getLectureReviews().size();
+            for(LectureReview lectureReview : lecture.getLectureReviews()) {
+                starPoint += lectureReview.getStarPoint();
+                totalReviewCount ++;
+            }
         }
-        starPointAverage = starPoint / lectures.size();
+        starPointAverage = starPoint / totalReviewCount;
         teacher.setStarPointAverage(starPointAverage);
         teacher.setTotalReviewCount(totalReviewCount);
         teacherRepository.save(teacher);
