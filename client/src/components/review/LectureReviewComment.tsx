@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/require-default-props */
 import GlobalStyle from 'GlobalStyles';
@@ -6,7 +7,7 @@ import { FlexContainer } from 'pages/review/ReviewPage';
 import { Link } from 'react-router-dom';
 import isLogin from 'utils/isLogin';
 import { SmallFont } from 'pages/review/TeacherDetail/Information';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   BsFillHandThumbsUpFill,
@@ -19,6 +20,7 @@ type Props = {
   createdAt: string;
   modifiedAt: string;
   voteCount: number;
+  vStatus: { lectureReviewCommentId: number; voteStatus: string }[];
   member: {
     memberId: number;
     displayName: string;
@@ -31,25 +33,37 @@ function LectureReviewComment({
   lectureReviewCommentId,
   content,
   createdAt,
+  vStatus,
   modifiedAt,
   voteCount,
   member,
 }: Props) {
   const [commentVote, setCommentVote] = useState(voteCount);
-  const [voteStatus, setVoteStatus] = useState('');
+  const voStatus = vStatus.filter(
+    el => el.lectureReviewCommentId === lectureReviewCommentId,
+  );
+  let tmp: string | (() => string);
+  !voStatus.length ? (tmp = 'NONE') : (tmp = voStatus[0].voteStatus);
+
+  const [voteStatus, setVoteStatus] = useState(tmp);
   const Authorization = localStorage.getItem('token');
+
+  useEffect(() => {
+    console.log(tmp, voteStatus);
+  }, [voteStatus]);
 
   const commentUpHandler = () => {
     axios
       .post(
         `${process.env.REACT_APP_API_URL}/votes/reviews/lectures/comments/${lectureReviewCommentId}/up`,
+        {},
         {
-          headers: { Authorization },
+          headers: { Authorization, 'ngrok-skip-browser-warning': '69420' },
         },
       )
       .then(res => res.data.data)
       .then(data => {
-        setCommentVote(commentVote + 1);
+        setCommentVote(data.lectureReviewCommentTotalCount);
         setVoteStatus(data.status);
       });
   };
@@ -57,13 +71,14 @@ function LectureReviewComment({
     axios
       .post(
         `${process.env.REACT_APP_API_URL}/votes/reviews/lectures/comments/${lectureReviewCommentId}/down`,
+        {},
         {
-          headers: { Authorization },
+          headers: { Authorization, 'ngrok-skip-browser-warning': '69420' },
         },
       )
       .then(res => res.data.data)
       .then(data => {
-        setCommentVote(commentVote - 1);
+        setCommentVote(data.lectureReviewCommentTotalCount);
         setVoteStatus(data.status);
       });
   };
@@ -81,15 +96,29 @@ function LectureReviewComment({
         >
           <VerySmallGrayFont>{createdAt}</VerySmallGrayFont>
           <FlexContainer>
-            <BsFillHandThumbsUpFill size="1rem" onClick={commentUpHandler} />
+            <UpButton voteStatus={voteStatus} onClick={commentUpHandler}>
+              <BsFillHandThumbsUpFill size="1rem" />
+            </UpButton>
             {commentVote}
-            <BsFillHandThumbsDownFill
-              size="1rem"
-              onClick={commentDownHandler}
-            />
+            <DownButton voteStatus={voteStatus} onClick={commentDownHandler}>
+              <BsFillHandThumbsDownFill size="1rem" />
+            </DownButton>
           </FlexContainer>
         </FlexContainer>
       </FlexContainer>
+      <button>수정</button>
+      <button
+        onClick={() => {
+          axios.delete(
+            `${process.env.REACT_APP_API_URL}/comments/reviews/lectures/${lectureReviewCommentId}`,
+            {
+              headers: { Authorization, 'ngrok-skip-browser-warning': '69420' },
+            },
+          );
+        }}
+      >
+        삭제
+      </button>
     </Container>
   );
 }
@@ -98,6 +127,10 @@ export default LectureReviewComment;
 
 type Container = {
   first?: boolean;
+};
+
+type Button = {
+  voteStatus?: string;
 };
 
 const Container = styled.div<Container>`
@@ -114,4 +147,18 @@ const Container = styled.div<Container>`
 const VerySmallGrayFont = styled.div`
   font-size: small;
   color: gray;
+`;
+
+const UpButton = styled.button<Button>`
+  border: none;
+  pointer-events: ${props => (props.voteStatus === 'DOWN' ? 'none' : 'all')};
+  background-color: #b9b9b9;
+  color: ${props => (props.voteStatus === 'UP' ? '#f48224' : 'black')};
+`;
+
+const DownButton = styled.button<Button>`
+  border: none;
+  pointer-events: ${props => (props.voteStatus === 'UP' ? 'none' : 'all')};
+  background-color: #b9b9b9;
+  color: ${props => (props.voteStatus === 'DOWN' ? '#f48224' : 'black')};
 `;
