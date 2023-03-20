@@ -12,7 +12,7 @@ function FreeBoardMenu() {
   const [sortMenuOpen, setSortMenuOpen] = useState(false);
   const [selectSort, setSelectSort] = useState('최신순');
 
-  const urlData = useLocation().pathname;
+  const urlData = useLocation().pathname.slice(0, 4);
 
   const menuSelectHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e.target instanceof Element) {
@@ -29,13 +29,13 @@ function FreeBoardMenu() {
   };
   return (
     <MenuDiv>
-      <Link to="write">
+      <Link to="articles/write">
         <Button.WriteBtn>
           <HiPencil />
           작성하기
         </Button.WriteBtn>
       </Link>
-      {urlData === '/free' ? (
+      {urlData === '/fre' ? (
         <Category>
           {selectMenu === '0' ? (
             <Button.SubMenuBtn

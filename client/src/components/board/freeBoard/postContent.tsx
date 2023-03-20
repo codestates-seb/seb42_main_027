@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 import theme from 'theme';
@@ -6,47 +7,138 @@ import Button from 'components/common/Button';
 import ProfileIcon from 'assets/icons/defaultProfileIcon';
 import CountIcon from 'assets/icons/countIcon';
 
+import DeletePost from 'apis/board/deletePost';
+import getPostDetail from 'apis/board/getPostDetail';
+import CalElapsedTime from '../post/calElapsedTime';
+
 import GoBackMenu from '../post/goBackMenu';
 import CommentList from './commentList';
 
+interface Data {
+  freeId?: number;
+  questionId?: number;
+  category?: 'string';
+  selected?: boolean;
+  username?: 'string';
+  userimg?: 'string';
+  title: 'string';
+  content: 'string';
+  viewCount: number;
+  voteCount: number;
+  createdAt: string;
+  modifiedAt?: string;
+  commentsListNum: number;
+}
+
 function PostContent() {
+  const navigate = useNavigate();
+  const [isPending, setIsPending] = useState(true);
+  const [listData, setListData] = useState<Data | Record<string, never>>({});
+  const urlData = useLocation().pathname.slice(0, 5);
+  const idData = Number(useParams().id);
+
+  let elapsedTime: number = CalElapsedTime(listData.createdAt);
+  let calTime = '';
+
+  if (elapsedTime < 60) {
+    calTime = '방금 전';
+  } else if (elapsedTime < 3600) {
+    elapsedTime = Math.round(elapsedTime / 60);
+    calTime = `${elapsedTime}분 전`;
+  } else if (elapsedTime < 43200) {
+    elapsedTime = Math.round(elapsedTime / 3600);
+    calTime = `${elapsedTime}시간 전`;
+  } else {
+    elapsedTime = Math.round(elapsedTime / 43200);
+    calTime = `${elapsedTime}일 전`;
+  }
+
+  const fetchPostDetail = async () => {
+    try {
+      if (urlData === '/free') {
+        const buffer = await getPostDetail('frees', idData);
+        setListData(buffer.data);
+        // listData = dummyData;
+        setIsPending(false);
+      } else {
+        // listData = dummyData2;
+      }
+      // listData = listData.data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchDeletePost = async () => {
+    try {
+      if (urlData === '/free') {
+        // 삭제 확인 경고문 넣어야함
+        await DeletePost('frees', idData);
+        alert('게시물을 삭제하였습니다.');
+        navigate('/free');
+      } else {
+        // 삭제 확인 경고문 넣어야함
+        await DeletePost('qnas/answers', idData);
+        alert('게시물을 삭제하였습니다.');
+        navigate('/qna');
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchPostDetail();
+  }, []);
+
+  console.log(listData);
+
   return (
     <Container>
       <GoBackMenu />
-      <TitleDiv>
-        <Top>
-          <Category>일상</Category>
-          <UDBtnDiv>
-            <Link to="edit">
-              <Button.UDWhiteBtn>수정</Button.UDWhiteBtn>
-            </Link>
-            <Button.UDWhiteBtn>삭제</Button.UDWhiteBtn>
-          </UDBtnDiv>
-        </Top>
-        <H2>이곳에 제목이 들어갑니다.</H2>
-        <Writer>
-          <ProfileIcon.Default />
-          <div>닉네임 약 1시간 전</div>
-          <View>
-            <CountIcon.View />
-            36
-          </View>
-        </Writer>
-      </TitleDiv>
-      <MainDiv>
-        <div>여기에 게시물 내용이 들어갑니다.</div>
-        <VoteDiv>
-          <Button.VoteDownBtn>
-            <CountIcon.VoteDown />
-          </Button.VoteDownBtn>
-          <VoteCount>0</VoteCount>
-          <Button.VoteUpBtn>
-            <CountIcon.VoteUp />
-          </Button.VoteUpBtn>
-        </VoteDiv>
-      </MainDiv>
-      <CommentCnt>n개의 댓글</CommentCnt>
-      <CommentList />
+      {isPending ? (
+        <h1>로딩페이지가 들어갈 자리입니다.</h1>
+      ) : (
+        <div>
+          <TitleDiv>
+            <Top>
+              <Category>{listData.category}</Category>
+              <UDBtnDiv>
+                <Link to="edit">
+                  <Button.UDWhiteBtn>수정</Button.UDWhiteBtn>
+                </Link>
+                <Button.UDWhiteBtn onClick={fetchDeletePost}>
+                  삭제
+                </Button.UDWhiteBtn>
+              </UDBtnDiv>
+            </Top>
+            <H2>{listData.title}</H2>
+            <Writer>
+              <ProfileIcon.Default />
+              <div>{listData.username}닉네임</div>
+              <div> · {calTime}</div>
+              <View>
+                <CountIcon.View />
+                {listData.viewCount}
+              </View>
+            </Writer>
+          </TitleDiv>
+          <MainDiv>
+            <div>{listData.content}</div>
+            <VoteDiv>
+              <Button.VoteDownBtn>
+                <CountIcon.VoteDown />
+              </Button.VoteDownBtn>
+              <VoteCount>{listData.voteCount}</VoteCount>
+              <Button.VoteUpBtn>
+                <CountIcon.VoteUp />
+              </Button.VoteUpBtn>
+            </VoteDiv>
+          </MainDiv>
+          <CommentCnt>?개의 댓글</CommentCnt>
+          <CommentList />
+        </div>
+      )}
     </Container>
   );
 }

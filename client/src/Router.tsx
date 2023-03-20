@@ -38,15 +38,18 @@ function Router() {
 
         <Route path="qna/*" element={<QnABoard />}>
           <Route path="" element={<PostList />} />
-          <Route path="write" element={<WritePost />} />
-          <Route path="edit" element={<WritePost />} />
-          {/* <Route path="articles" element={<PostContent />} /> */}
+          <Route path=":articles/" element={<PostContent />}>
+            <Route path=":feat" element={<WritePost />} />
+            <Route path=":id/:feat" element={<WritePost />} />
+          </Route>
         </Route>
 
         <Route path="free/*" element={<FreeBoard />}>
           <Route path="" element={<PostList />} />
-          <Route path="write" element={<WritePost />} />
-          <Route path="articles" element={<PostContent />} />
+          <Route path=":articles/" element={<PostContent />}>
+            <Route path=":feat" element={<WritePost />} />
+            <Route path=":id/:feat" element={<WritePost />} />
+          </Route>
         </Route>
 
         <Route path="/ReviewPage" element={<ReviewPage />} />
