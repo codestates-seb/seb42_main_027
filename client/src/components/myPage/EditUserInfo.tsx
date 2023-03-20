@@ -5,27 +5,10 @@ const { danger, success, pointColor, gray } = theme.colors;
 const dangerRGB = '236, 60, 60';
 const successRGB = '101, 226, 113';
 
-const Label = styled.label`
-  display: flex;
-  flex-direction: column;
-  color: ${pointColor};
-`;
-
-const StyleInput = styled.input`
-  padding: 0.4rem 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 0.5rem;
-  background-color: ${({ color }) => {
-    switch (color) {
-      case 'danger':
-        return `rgba(${dangerRGB}, 0.2)`;
-      case 'success':
-        return `rgba(${successRGB}, 0.2)`;
-      default:
-        return 'white';
-    }
-  }};
-
+const EditUserInfo = styled.input`
+  padding: 0.1rem 0.2rem;
+  border-radius: 0.2rem;
+  margin-bottom: 0.2rem;
   border: 1px solid
     ${({ color }) => {
       switch (color) {
@@ -37,7 +20,16 @@ const StyleInput = styled.input`
           return gray;
       }
     }};
-
+  background-color: ${({ color }) => {
+    switch (color) {
+      case 'danger':
+        return `rgba(${dangerRGB}, 0.2)`;
+      case 'success':
+        return `rgba(${successRGB}, 0.2)`;
+      default:
+        return 'white';
+    }
+  }};
   :-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px inset
       ${({ color }) => {
@@ -54,53 +46,39 @@ const StyleInput = styled.input`
 `;
 
 const StyleErrorMessage = styled.p`
-  margin-bottom: 1rem;
   color: ${danger};
 `;
 
-type InputProps = {
-  placeholder?: string;
-  errorMessage?: string;
-  color?: 'danger' | 'success';
-  label: string;
-  type: string;
-  id: string;
+type EditUserInfoInputProps = {
+  placeholder: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
+  errorMessage: string;
   value: string;
+  color?: 'danger' | 'success';
 };
 
-function Input({
+function EditUserInfoInput({
   placeholder,
-  errorMessage,
-  color,
-  label,
-  type,
-  id,
   onChange,
+  errorMessage,
   value,
-}: InputProps) {
+  color,
+}: EditUserInfoInputProps) {
   return (
-    <Label htmlFor={id}>
-      {label}
-      <StyleInput
-        color={color}
+    <>
+      <EditUserInfo
         placeholder={placeholder}
         onChange={onChange}
-        type={type}
-        id={id}
         value={value}
+        color={color}
       />
-      {color === 'danger' ? (
-        <StyleErrorMessage>{errorMessage}</StyleErrorMessage>
-      ) : null}
-    </Label>
+      <StyleErrorMessage>{errorMessage}</StyleErrorMessage>
+    </>
   );
 }
 
-Input.defaultProps = {
-  errorMessage: undefined,
+EditUserInfoInput.defaultProps = {
   color: undefined,
-  placeholder: undefined,
 };
 
-export default Input;
+export default EditUserInfoInput;
