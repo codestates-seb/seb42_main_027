@@ -67,6 +67,9 @@ function ReviewPage() {
         }${
           reverse !== '정순' ? `reverse=on&` : ''
         }page=${curPage}&size=${pageSize}`,
+        {
+          headers: { 'ngrok-skip-browser-warning': '69420' },
+        },
       )
       .then((res: any) => {
         console.log(res.data.data);
@@ -81,7 +84,7 @@ function ReviewPage() {
       <GlobalStyle />
       <Carousel />
       <FlexContainer
-        display={!isLogin() ? 'flex' : 'none'}
+        display={isLogin() ? 'flex' : 'none'}
         width="80%"
         justify="right"
       >

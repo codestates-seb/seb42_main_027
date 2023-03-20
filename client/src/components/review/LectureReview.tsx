@@ -15,6 +15,7 @@ type Props = {
   starPoint: number;
   createdAt: string;
   voteCount: number;
+  totalCommentCount: number;
   lecture: {
     lectureId: number;
     title: string;
@@ -35,6 +36,7 @@ type Props = {
 function LectureReview({
   lectureReviewId,
   title,
+  totalCommentCount,
   starPoint,
   createdAt,
   voteCount,
@@ -52,7 +54,11 @@ function LectureReview({
     <Container>
       <FlexContainer dir="col" grow={1} gap="0.1rem">
         <SmallFont>
-          {voteCount > 30 ? 'Best' : <BsFillHandThumbsUpFill size="1.5rem" />}
+          {voteCount >= 30 ? (
+            <BestBox>Best</BestBox>
+          ) : (
+            <BsFillHandThumbsUpFill size="1.5rem" />
+          )}
         </SmallFont>
         <SmallFont>{voteCount}</SmallFont>
       </FlexContainer>
@@ -67,8 +73,11 @@ function LectureReview({
         gap="0.4rem"
         padding="0 0 0 2rem"
       >
-        <VerySmallGrayFont>{lecture.title}</VerySmallGrayFont>
-        <SmallFont2 onClick={reviewOpenHandler}>{title}</SmallFont2>
+        <VerySmallGrayFont>{`${lecture.title}(${totalCommentCount})`}</VerySmallGrayFont>
+
+        <SmallFont2
+          onClick={reviewOpenHandler}
+        >{`${title} (${totalCommentCount})`}</SmallFont2>
       </FlexContainer>
       <FlexContainer grow={1}>
         <SmallFont>{member.displayName}</SmallFont>
@@ -104,4 +113,11 @@ const VerySmallGrayFont = styled.div`
 const SmallFont2 = styled.div`
   font-size: 1.1rem;
   cursor: pointer;
+`;
+
+const BestBox = styled.div`
+  padding: 0.5rem;
+  background-color: red;
+  color: white;
+  border-radius: 1rem;
 `;

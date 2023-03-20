@@ -104,7 +104,7 @@ function Lectures() {
       ) : (
         <FlexContainer dir="col">
           <FlexContainer
-            display={!isLogin() ? 'flex' : 'none'}
+            display={isLogin() ? 'flex' : 'none'}
             width="100%"
             justify={!data.lectures.length ? 'center' : 'right'}
           >

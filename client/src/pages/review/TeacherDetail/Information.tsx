@@ -42,7 +42,9 @@ function Information() {
   const { teacherId } = useParams();
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}`)
+      .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}`, {
+        headers: { 'ngrok-skip-browser-warning': '69420' },
+      })
       .then((res: any) => {
         return res.data.data;
       })

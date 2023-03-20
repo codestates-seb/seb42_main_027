@@ -133,8 +133,7 @@ function UpdateTeacher() {
         });
     }
   };
-  console.log(gradeTag);
-  console.log(subjectTag);
+
   return (
     <UpdateContainer>
       <GlobalStyle />

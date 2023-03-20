@@ -68,17 +68,18 @@ function ScoreChart({
   const totalStarCount = scoreArr.reduce((acc, cur) => {
     return acc + starPointCount[`${cur}점갯수`];
   }, 0);
-  const BestReview = lectures.map(el => {
-    return el.lectureReviews.length ? el.lectureReviews[0].content : 'none';
-  });
+
+  // const BestReview = lectures.map(el => {
+  //   return el.lectureReviews.length ? el.lectureReviews[0].content : 'none';
+  // });
 
   return (
     <FlexContainer>
       <ChartBox>
         <SmallFont>수강만족도</SmallFont>
-        <BigFont>{starPointAverage}</BigFont>
+        <BigFont>{starPointAverage.toFixed(1)}</BigFont>
         <BigFont>⭐️⭐️⭐️⭐️⭐️</BigFont>
-        <SmallFont>{`${totalReviewCount} Answers`}</SmallFont>
+        <SmallFont>{`${totalReviewCount} Reviews`}</SmallFont>
       </ChartBox>
       <ChartBox leftBorder align="start">
         {scoreArr.map((el, index) => {
@@ -87,9 +88,7 @@ function ScoreChart({
               <SmallFont>{`${el}점`}</SmallFont>
               <ScoreBox />
               <SmallFont>
-                {totalStarCount
-                  ? `${(starPointCount[`${el}점갯수`] / totalStarCount) * 100}%`
-                  : '0%'}
+                {totalStarCount ? `${starPointCount[`${el}점갯수`]}` : '0'}
               </SmallFont>
             </FlexContainer>
           );

@@ -29,7 +29,7 @@ function ReviewCommentCreate({ lectureReviewId }: Props) {
         `${process.env.REACT_APP_API_URL}/comments/reviews/lectures`,
         data,
         {
-          headers: { Authorization },
+          headers: { Authorization, 'ngrok-skip-browser-warning': '69420' },
         },
       );
     }
