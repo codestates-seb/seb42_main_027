@@ -22,6 +22,7 @@ public class Lecture {
     private Long lectureId;
     private String title;
     private String introduction;
+    @Enumerated(value = EnumType.STRING)
     private Status status;
     private double starPointAverage;
     private long totalReviewCount;

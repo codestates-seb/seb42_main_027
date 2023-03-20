@@ -59,7 +59,7 @@ create table lecture (
                          lecture_id bigint not null auto_increment,
                          introduction varchar(255),
                          star_point_average double precision not null,
-                         status integer,
+                         status varchar(255),
                          title varchar(255),
                          total_review_count bigint not null,
                          teacher_id bigint,
