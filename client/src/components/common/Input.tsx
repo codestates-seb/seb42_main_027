@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import theme from 'theme';
 
-const { danger, success, fontColor, pointColor, gray } = theme.colors;
+const { danger, success, pointColor, gray } = theme.colors;
 const dangerRGB = '236, 60, 60';
 const successRGB = '101, 226, 113';
 
