@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.comment.review.lecture.dto.LectureReviewCommentDto;
-import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.lecture.dto.LectureDto;
 import ynzmz.server.member.dto.MemberDto;
-import ynzmz.server.member.entity.Member;
 import ynzmz.server.teacher.dto.TeacherDto;
 
 import java.util.List;
@@ -64,6 +62,7 @@ public class LectureReviewDto {
         private LectureDto.SimpleInfoResponse lecture;
         private MemberDto.SimpleInfoResponse member;
         private List<LectureReviewCommentDto.Response> comments;
+        private MemberDto.LoginUserLectureReviewVoteInfo loginUserLectureReviewVoteInfo;
     }
     @Getter @Setter
     public static class InfoResponse{

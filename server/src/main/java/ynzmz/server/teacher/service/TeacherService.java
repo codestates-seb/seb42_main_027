@@ -54,11 +54,12 @@ public class TeacherService {
         List<Lecture> lectures = teacher.getLectures();
         double starPoint = 0;
         double starPointAverage;
+        long totalReviewCount = 0;
         for(Lecture lecture : lectures) {
             starPoint += lecture.getStarPointAverage();
+            totalReviewCount += lecture.getLectureReviews().size();
         }
         starPointAverage = starPoint / lectures.size();
-        long totalReviewCount = lectures.size();
         teacher.setStarPointAverage(starPointAverage);
         teacher.setTotalReviewCount(totalReviewCount);
         teacherRepository.save(teacher);

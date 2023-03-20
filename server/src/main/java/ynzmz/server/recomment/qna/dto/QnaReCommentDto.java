@@ -24,7 +24,7 @@ public class QnaReCommentDto {
     @NoArgsConstructor
     public static class Response{
 
-        private Long qnaReComment;
+        private long qnaReCommentId;
         private String content;
         private String createdAt;
         private String modifiedAt;
