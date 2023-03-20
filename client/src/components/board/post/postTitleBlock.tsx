@@ -1,60 +1,92 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from 'theme';
+
 import ProfileIcon from 'assets/icons/defaultProfileIcon';
 import CountIcon from 'assets/icons/countIcon';
+import CalElapsedTime from './calElapsedTime';
 
-interface PostData {
-  id: number;
-  category: string;
+interface Data {
+  freeId?: number;
+  questionId?: number;
+  category?: string;
   selected?: boolean;
-  username: string;
-  userimg: string;
+  username?: string;
+  userimg?: string;
   title: string;
   content: string;
-  view: string;
-  comment: string;
-  vote: string;
+  viewCount: number;
+  voteCount: number;
   createdAt: string;
-  updatedAt: string;
+  modifiedAt?: string;
+  commentsListNum: number;
 }
 
-interface Props {
-  ele: PostData;
+interface PageInfo {
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
 }
 
-function PostTitleBlock(ele: Props) {
+type Props = {
+  ele: Data;
+};
+
+function PostTitleBlock({ ele }: Props) {
   console.log('ele', ele);
-  const data = ele;
+  const urlData = useLocation().pathname;
+  console.log(urlData);
+  let elapsedTime: number = CalElapsedTime(ele.createdAt);
+  let calTime = '';
+
+  if (elapsedTime < 60) {
+    calTime = '방금 전';
+  } else if (elapsedTime < 3600) {
+    elapsedTime = Math.round(elapsedTime / 60);
+    calTime = `${elapsedTime}분 전`;
+  } else if (elapsedTime < 43200) {
+    elapsedTime = Math.round(elapsedTime / 3600);
+    calTime = `${elapsedTime}시간 전`;
+  } else {
+    elapsedTime = Math.round(elapsedTime / 43200);
+    calTime = `${elapsedTime}일 전`;
+  }
 
   return (
-    <Container className={data.ele.category === '공지' ? 'notice' : ''}>
+    <Container className={ele.category === '공지' ? 'notice' : ''}>
       <Top>
-        <Category>{data.ele.category}</Category>
-        {data.ele.selected ? <SelectedAnswer>답변채택</SelectedAnswer> : null}
+        <Category>{ele.category}</Category>
+        {ele.selected ? <SelectedAnswer>답변채택</SelectedAnswer> : null}
       </Top>
-      <Link to="articles">
-        <Title>{data.ele.title}</Title>
-      </Link>
+      {urlData === '/free' ? (
+        <Link to={`articles/${ele.freeId}`}>
+          <Title>{ele.title}</Title>
+        </Link>
+      ) : (
+        <Link to={`articles/${ele.questionId}`}>
+          <Title>{ele.title}</Title>
+        </Link>
+      )}
       <UserData>
         <ProfileImg>
           <ProfileIcon.Mini />
         </ProfileImg>
-        <div>{data.ele.username}</div>
-        <div>{data.ele.createdAt}</div>
+        <div>{ele.username}</div>
+        <div> · {calTime}</div>
       </UserData>
       <Count>
         <div>
           <CountIcon.View />
-          {data.ele.view}
+          {ele.viewCount}
         </div>
         <div>
           <CountIcon.Comment />
-          {data.ele.comment}
+          {ele.commentsListNum}
         </div>
         <div>
           <CountIcon.Vote />
-          {data.ele.vote}
+          {ele.voteCount}
         </div>
       </Count>
     </Container>
