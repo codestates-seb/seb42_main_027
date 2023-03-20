@@ -29,9 +29,9 @@ public class FreeController {
 
     @PostMapping(produces =  MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> postFree(@RequestBody FreeDto.post post){
-        log.info(post.toString());
+//        log.info(post.toString());
         Free free = freeMapper.freePostToFree(post);
-        log.info(free.toString());
+//        log.info(free.toString());
         freeService.createFree(free);
         FreeDto.DetailResponse Response = freeMapper.freeToFreeDetailResponse(free);
         return new ResponseEntity<>(new SingleResponseDto<>(Response),HttpStatus.CREATED);
@@ -66,9 +66,9 @@ public class FreeController {
     }
 
     @DeleteMapping("/{free-id}")
-    public ResponseEntity<?> deleteReview(@PathVariable("free-id") long id){
+    public ResponseEntity<?> deleteFree(@PathVariable("free-id") long id){
         freeService.deleteFree(id);
-        return new ResponseEntity<>(HttpStatus.GONE);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 

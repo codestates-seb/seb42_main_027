@@ -14,9 +14,7 @@ public class FreeDto {
     public static class post{
         String title;
         String content;//추후 변경 가능
-
         String category;
-
         String createdAt;
 
     }
@@ -39,6 +37,8 @@ public class FreeDto {
         long freeId;
         String title;
         String content;//추후 변경 가능
+        String category;
+
         long viewCount;
         long voteCount;
         String createdAt;

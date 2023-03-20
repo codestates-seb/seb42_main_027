@@ -9,7 +9,7 @@ import ynzmz.server.board.free.entity.Free;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-19T19:13:27+0900",
+    date = "2023-03-20T10:39:10+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -80,6 +80,7 @@ public class FreeMapperImpl implements FreeMapper {
         listResponse.freeId( free.getFreeId() );
         listResponse.title( free.getTitle() );
         listResponse.content( free.getContent() );
+        listResponse.category( free.getCategory() );
         listResponse.viewCount( free.getViewCount() );
         listResponse.voteCount( free.getVoteCount() );
         listResponse.createdAt( free.getCreatedAt() );

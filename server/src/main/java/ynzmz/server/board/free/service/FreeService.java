@@ -31,11 +31,11 @@ public class FreeService {
     }
 
     public Page<Free> findFreeByMemberId(long memberId, int page, int size) {
-        return repository.findByMemberId(memberId,PageRequest.of(page,size,Sort.by("Id")));
+        return repository.findByMemberId(memberId,PageRequest.of(page,size,Sort.by("freeId")));
     }
 
     public Page<Free> findAllFree(int page){
-        return repository.findAll(PageRequest.of(page,15, Sort.by("freeId")));
+        return repository.findAll(PageRequest.of(page,15, Sort.by("freeId").descending()));
     }
     //-------------------------------------------UPDATE---------------------------------------------------------
     public Free updateFree(Free free){
