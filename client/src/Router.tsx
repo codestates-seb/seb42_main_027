@@ -21,6 +21,7 @@ import Lectures from 'pages/review/TeacherDetail/Lectures';
 import TeacherReview from 'pages/review/TeacherDetail/TeacherReview';
 import UpdateLecture from 'pages/review/TeacherDetail/UpdateLecture';
 import CreateLecture from 'pages/review/TeacherDetail/CreateLecture';
+import MyPage from 'pages/MyPage';
 
 function Router() {
   return (
@@ -29,6 +30,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/mypage" element={<MyPage />} />
 
         <Route path="signup/*" element={<SignUp />}>
           <Route path="" element={<SelectSignUpType />} />
