@@ -13,7 +13,7 @@ type Props = {
 };
 
 function Pagenation({ size, currentPage, pageSize, setCurPage }: Props) {
-  const totalPage = Math.ceil(size / pageSize); // 전체 Page 개수
+  const totalPage = size; // 전체 Page 개수
   const pageArr = [];
   for (let i = 1; i <= totalPage; i += 1) pageArr.push(i);
   return (

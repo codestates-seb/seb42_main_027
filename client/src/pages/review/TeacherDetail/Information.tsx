@@ -149,15 +149,15 @@ const ContentBox = styled.div`
   gap: 1rem;
 `;
 
-const BigFont = styled.div`
+export const BigFont = styled.div`
   font-size: 2rem;
   font-weight: bold;
 `;
 
-const MiddleFont = styled.div`
+export const MiddleFont = styled.div`
   font-size: 1.5rem;
   font-weight: bold;
 `;
-const SmallFont = styled.div`
+export const SmallFont = styled.div`
   font-size: 1.1rem;
 `;
