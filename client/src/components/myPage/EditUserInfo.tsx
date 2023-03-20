@@ -45,6 +45,10 @@ const EditUserInfo = styled.input`
   }
 `;
 
+const StyleErrorMessage = styled.p`
+  color: ${danger};
+`;
+
 type EditUserInfoInputProps = {
   placeholder: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
@@ -68,7 +72,7 @@ function EditUserInfoInput({
         value={value}
         color={color}
       />
-      <p>{errorMessage}</p>
+      <StyleErrorMessage>{errorMessage}</StyleErrorMessage>
     </>
   );
 }
