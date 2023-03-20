@@ -4,30 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="feat : 내가쓴 자유게시판 댓글 조회">
+    <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="feat: 강사 강의 초기값 설정">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/server.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/server.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/server.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/server.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/checksums/checksums.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/checksums/md5-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/checksums/sha1-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/dependencies-accessors/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.6.1/executionHistory/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.6.1/executionHistory/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.6.1/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.6.1/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/file-system.probe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/vcs-1/gc.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/event/our/mapper/OurMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/event/our/mapper/OurMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/event/their/mapper/EventMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/event/their/mapper/EventMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/free/mapper/FreeMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/free/mapper/FreeMapperImpl.java" afterDir="false" />
@@ -43,14 +26,11 @@
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/teacher/mapper/TeacherMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/teacher/mapper/TeacherMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/qna/mapper/QnaVoteMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/qna/mapper/QnaVoteMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/review/lecture/mapper/ReviewVoteMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/review/lecture/mapper/ReviewVoteMapperImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/dto/FreeDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/dto/FreeDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/entity/Free.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/entity/Free.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/repository/FreeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/repository/FreeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/service/FreeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/free/service/FreeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/entity/Answer.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/entity/Answer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/dto/FreeCommentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/dto/FreeCommentDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/controller/FreeCommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/controller/FreeCommentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/repository/FreeCommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/repository/FreeCommentRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/service/FreeCommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/service/FreeCommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/qna/repository/QnaCommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/qna/repository/QnaCommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/qna/service/QnaCommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/qna/service/QnaCommentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/controller/MemberController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,13 +74,10 @@
       </state>
     </system>
   </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/BeDev" />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Be_KMH" />
+        <entry key="$PROJECT_DIR$" value="BeDev" />
       </map>
     </option>
     <option name="RESET_MODE" value="HARD" />
@@ -139,33 +116,32 @@
     <option name="showVisibilityIcons" value="true" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Git.Branch.Popup.ShowAllRemotes": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/mino/codestates/seb42_main_027/server/src/main/resources/db/migration",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "spring.configuration.checksum": "f388e2a0991e057a0316947c380806f0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mino/codestates/seb42_main_027/server/src/main/resources/db/migration&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;f388e2a0991e057a0316947c380806f0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/server/src/main/resources/db/migration" />
@@ -230,6 +206,7 @@
       </method>
     </configuration>
     <configuration name="ServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ACTIVE_PROFILES" value="server" />
       <module name="server.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ynzmz.server.ServerApplication" />
       <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
@@ -243,20 +220,20 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.server [clean]" />
         <item itemvalue="Gradle.server [build]" />
+        <item itemvalue="Gradle.server [clean]" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="45d9a31d-0999-411e-9128-8c3b5aa2b4a5" name="변경" comment="" />
       <created>1679021335764</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679021335764</updated>
       <workItem from="1679021336888" duration="781000" />
-      <workItem from="1679236825223" duration="8514000" />
     </task>
     <task id="LOCAL-00001" summary="fix: 자유게시판 병합전">
       <created>1679021705391</created>
@@ -405,21 +382,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679208595111</updated>
     </task>
-    <task id="LOCAL-00022" summary="fix : Id -&gt; freeId로 수정.">
-      <created>1679237048776</created>
+    <task id="LOCAL-00022" summary="feat: 강사 강의 초기값 설정">
+      <created>1679283197486</created>
       <option name="number" value="00022" />
       <option name="presentableId" value="LOCAL-00022" />
       <option name="project" value="LOCAL" />
-      <updated>1679237048776</updated>
+      <updated>1679283197486</updated>
     </task>
-    <task id="LOCAL-00023" summary="fix : LectureReviewService 내에 page-1 -&gt; page로 수정">
-      <created>1679240829477</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1679240829477</updated>
-    </task>
-    <option name="localTasksCounter" value="24" />
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -464,7 +434,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="fix: 자유게시판 병합전" />
     <MESSAGE value="fix: 3/17 BeDev+ 민호 코드" />
     <MESSAGE value="fix: memberState Response 반영 수정" />
@@ -479,9 +448,8 @@
     <MESSAGE value="feat: 리뷰등록시 토큰에서 memberId 찾기" />
     <MESSAGE value="feat: 질문답변게시판 댓글/대댓글 추천기능 추가" />
     <MESSAGE value="feat: 질문답변게시판 대댓글추가, 전체 API 테스트 및 오류수정" />
-    <MESSAGE value="fix : Id -&gt; freeId로 수정." />
-    <MESSAGE value="fix : LectureReviewService 내에 page-1 -&gt; page로 수정" />
-    <MESSAGE value="feat : 내가쓴 자유게시판 댓글 조회" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : 내가쓴 자유게시판 댓글 조회" />
+    <MESSAGE value="feat: 강사 강의 초기값 설정" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 강사 강의 초기값 설정" />
+    <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
 </project>

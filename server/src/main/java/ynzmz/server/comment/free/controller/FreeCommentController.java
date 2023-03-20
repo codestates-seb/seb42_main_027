@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.board.free.service.FreeService;
@@ -73,4 +74,9 @@ public class FreeCommentController  {
     public void deleteFreeComment(@PathVariable("free-comment-id") long freeCommentId) {
         freeCommentService.deleteFreeComment(freeCommentId);
     }
+
+//    private Member loginMemberFindByToken(){
+//        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
+//        return memberService.findMemberByEmail(loginEmail);
+//    }
 }

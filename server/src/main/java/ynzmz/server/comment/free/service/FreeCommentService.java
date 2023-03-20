@@ -46,7 +46,7 @@ public class FreeCommentService {
     }
 
     public Page<FreeComment> findFreeCommentByMemberId(long memberId, int page, int size) {
-        return freeCommentRepository.findByMemberId(memberId,PageRequest.of(page,size,Sort.by("freeCommentId").descending()));
+        return freeCommentRepository.findByMemberId(memberId,PageRequest.of(page,size,Sort.by("freeCommentId")));
     }
 
     public void getSimilarityMember(FreeComment freeComment){

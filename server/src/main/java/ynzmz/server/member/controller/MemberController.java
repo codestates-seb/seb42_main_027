@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.method.P;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.board.free.dto.FreeDto;
 import ynzmz.server.board.free.entity.Free;
@@ -29,6 +28,12 @@ import ynzmz.server.comment.free.dto.FreeCommentDto;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.comment.free.mapper.FreeCommentMapper;
 import ynzmz.server.comment.free.service.FreeCommentService;
+import ynzmz.server.comment.qna.dto.QnaCommentDto;
+import ynzmz.server.comment.qna.entity.QnaComment;
+import ynzmz.server.comment.qna.mapper.QnaCommentMapper;
+import ynzmz.server.comment.qna.service.QnaCommentService;
+import ynzmz.server.comment.review.lecture.mapper.LectureReviewCommentMapper;
+import ynzmz.server.comment.review.lecture.service.LectureReviewCommentService;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.member.service.MemberService;
@@ -57,10 +62,14 @@ public class MemberController {
     private final LectureReviewMapper lectureReviewMapper;
     private final FreeService freeService;
     private final FreeMapper freeMapper;
-    private final FreeCommentService freeCommentService;
-    private final FreeCommentMapper freeCommentMapper;
     private final AnswerService answerService;
     private final AnswerMapper answerMapper;
+    private final FreeCommentService freeCommentService;
+    private final FreeCommentMapper freeCommentMapper;
+    private final QnaCommentService qnaCommentService;
+    private final QnaCommentMapper qnaCommentMapper;
+    private final LectureReviewCommentService lectureReviewCommentService;
+    private final LectureReviewCommentMapper lectureReviewCommentMapper;
 
     @PostMapping
     public ResponseEntity<?> postMember(@RequestBody @Valid MemberDto.Post requestBody){
@@ -120,32 +129,18 @@ public class MemberController {
                                                 long memberId,
                                             @Positive @RequestParam int page,
                                         @Positive @RequestParam int size) {
-
         Page<Question> pageQuestions = questionService.findQuestionsByMemberId(memberId,page-1, size);
         List<Question> myQuestions = pageQuestions.getContent();
         List<QuestionDto.ListPageResponse> responses = questionMapper.questionToQuestionListPageResponses(myQuestions); //통일
         return new ResponseEntity<>(new MultiResponseDto<>(responses,pageQuestions),HttpStatus.OK);
     }
 
-    //내가쓴 답변글 조회
-    @GetMapping("/{member-id}/answers")
-    public ResponseEntity<?> getMyAnswers(@PathVariable("member-id")
-                                          long memberId,
-                                          @Positive @RequestParam int page,
-                                          @Positive @RequestParam int size){
-        Page<Answer> pageAnswers = answerService.findAnswersByMemberId(memberId,page-1,size);
-        List<Answer> myAnswers = pageAnswers.getContent();
-        List<AnswerDto.SimpleInfoResponse> responses = answerMapper.answersToAnswerInfoResponses(myAnswers);
-        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageAnswers),HttpStatus.OK);
-    }
-
-    //내가쓴 강의리뷰조회
+//    내가쓴 강의리뷰조회
     @GetMapping("/{member-id}/reviews")
     public ResponseEntity<?> getMyReviews(@PathVariable("member-id")
                                                   long memberId,
                                               @Positive @RequestParam int page,
                                               @Positive @RequestParam int size){
-
         Page<LectureReview> pageLectureReviews = lectureReviewService.findLectureReviewsByMemberId(memberId, page-1,size);
         List<LectureReview> myLectureReviews = pageLectureReviews.getContent();
         List<LectureReviewDto.InfoResponse> responses = lectureReviewMapper.lectureReviewToLectureReviewInfoResponses(myLectureReviews);
@@ -164,11 +159,22 @@ public class MemberController {
         return new ResponseEntity<>(new MultiResponseDto<>(responses,pageFrees),HttpStatus.OK);
     }
 
+    //내가쓴 답변글 조회
+    @GetMapping("/{member-id}/answers")
+    public ResponseEntity<?> getMyAnswers(@PathVariable("member-id")
+                                          long memberId,
+                                          @Positive @RequestParam int page,
+                                          @Positive @RequestParam int size){
+        Page<Answer> pageAnswers = answerService.findAnswersByMemberId(memberId,page-1,size);
+        List<Answer> myAnswers = pageAnswers.getContent();
+        List<AnswerDto.SimpleInfoResponse> responses = answerMapper.answersToAnswerInfoResponses(myAnswers);
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageAnswers),HttpStatus.OK);
+    }
 
     //내가쓴 자유게시판댓글 조회
-    @GetMapping("/{member-id}/freeComments")
+    @GetMapping("/{member-id}/comments/frees")
     public ResponseEntity<?> getMyFreeComments(@PathVariable("member-id")
-                                               long memberId,
+                                                   long memberId,
                                                @Positive @RequestParam int page,
                                                @Positive @RequestParam int size){
         Page<FreeComment> pageFreeComments = freeCommentService.findFreeCommentByMemberId(memberId,page-1,size);
@@ -177,9 +183,17 @@ public class MemberController {
         return new ResponseEntity<>(new MultiResponseDto<>(responses,pageFreeComments),HttpStatus.OK);
     }
 
-//    private Member loginMemberFindByToken(){
-//        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
-//        return memberService.findMemberByEmail(loginEmail);
-//    }
+    //내가쓴 질문게시판댓글 조회
+    @GetMapping("/{member-id}/comments/qnas")
+    public ResponseEntity<?> getMyQnAComments(@PathVariable("member-id")
+                                               long memberId,
+                                               @Positive @RequestParam int page,
+                                               @Positive @RequestParam int size){
+        Page<QnaComment> pageQnAComments = qnaCommentService.findQnaCommentByMemberId(memberId,page-1,size);
+        List<QnaComment> myQnAComments = pageQnAComments.getContent();
+        List<QnaCommentDto.Response> responses = qnaCommentMapper.qnaCommentsToQnaCommentResponses(myQnAComments);
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,pageQnAComments),HttpStatus.OK);
+    }
+
 
 }

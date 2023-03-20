@@ -9,6 +9,12 @@
     <content url="file://$MODULE_DIR$/../../server">
       <excludeFolder url="file://$MODULE_DIR$/../../server/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../server/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../server/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../server/.gradle" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../server">
+      <excludeFolder url="file://$MODULE_DIR$/../../server/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../server/build" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

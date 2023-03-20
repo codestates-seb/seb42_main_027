@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-223.8836.41">
-    <data-source name="main027@localhost" uuid="bc7f7a8f-f9ed-486e-aa82-66bdd78a69ba">
+    <data-source name="@mainproject27team.c16y5acx5nnq.ap-northeast-2.rds.amazonaws.com" uuid="96e5d12c-08a0-40cf-8f0d-cf40d9b1518f">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>admin</user-name>
       <schema-mapping />
     </data-source>
   </component>

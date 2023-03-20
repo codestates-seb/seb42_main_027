@@ -1,6 +1,10 @@
 package ynzmz.server.comment.qna.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.comment.qna.repository.QnaCommentRepository;
@@ -35,5 +39,9 @@ public class QnaCommentService {
     public QnaComment findQnaCommentById(long qnaCommentId) {
         Optional<QnaComment> qnaComment = qnaCommentRepository.findById(qnaCommentId);
         return qnaComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QNA_COMMENT_NOT_FOUND));
+    }
+
+    public Page<QnaComment> findQnaCommentByMemberId(long memberId, int page, int size){
+        return qnaCommentRepository.findByMemberId(memberId, PageRequest.of(page,size, Sort.by("qnaCommentId")));
     }
 }
