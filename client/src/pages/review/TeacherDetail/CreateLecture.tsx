@@ -133,7 +133,7 @@ function CreateLecture() {
       axios
         .post(`${process.env.REACT_APP_API_URL}/lectures`, data, {
           headers: {
-            'ngrok-skip-browser-warning': 'asdasdas',
+            'ngrok-skip-browser-warning': '69420',
           },
         })
         .then(res => {

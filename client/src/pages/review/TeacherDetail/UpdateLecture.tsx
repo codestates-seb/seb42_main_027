@@ -153,7 +153,9 @@ function UpdateLecture() {
       };
 
       axios
-        .patch(`${process.env.REACT_APP_API_URL}/lectures/${lectureId}`, data)
+        .patch(`${process.env.REACT_APP_API_URL}/lectures/${lectureId}`, data, {
+          headers: { 'ngrok-skip-browser-warning': '69420' },
+        })
         .then(res => {
           navigate(-1);
         });

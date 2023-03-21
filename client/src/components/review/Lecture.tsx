@@ -56,6 +56,9 @@ function Lecture({ lecture, first }: Props) {
             axios
               .delete(
                 `${process.env.REACT_APP_API_URL}/lectures/${lecture.lectureId}`,
+                {
+                  headers: { 'ngrok-skip-browser-warning': '69420' },
+                },
               )
               .then(() => {
                 window.location.reload();
