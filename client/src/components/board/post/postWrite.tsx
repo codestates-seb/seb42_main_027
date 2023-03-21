@@ -40,6 +40,7 @@ function WritePost() {
         console.log('submit data', data);
         if (urlData === '/fre') {
           const resData = await PostData(data, 'frees');
+          alert('게시글 작성을 완료하였습니다.');
           navigate(`/free/articles/${resData.data.freeId}`);
         }
       }
@@ -62,6 +63,7 @@ function WritePost() {
         console.log('submit data', data);
         if (urlData === '/fre') {
           const resData = await PatchData(data, 'frees', Number(paramsData.id));
+          alert('게시글 수정을 완료하였습니다.');
           navigate(`/free/articles/${resData.data.freeId}`);
         }
       }

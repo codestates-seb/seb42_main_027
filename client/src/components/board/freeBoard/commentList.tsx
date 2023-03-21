@@ -4,20 +4,38 @@ import theme from 'theme';
 import WriteComment from '../comment/writeComment';
 import CommentBlock from './commentBlock';
 
-function CommentList() {
+interface Data {
+  freeCommentId?: number;
+  content: string;
+  createdAt?: string;
+  modifiedAt?: string;
+  voteCount: number;
+  member: {
+    memberId: number;
+    iconImageUrl?: string;
+    displayName: string;
+    state: string;
+  };
+  memberSim: boolean;
+}
+
+type Props = {
+  data: [Data];
+};
+
+function CommentList({ data }: Props) {
+  console.log('commnetList Data', data.length);
   return (
     <Container>
       <WriteCommentDiv>
         <WriteComment />
       </WriteCommentDiv>
-      {/* {data.length === 0 ? null : (
-        <div>
-          {data.map((ele: any) => {
-            return <CommentBlock key={ele.freeCommentId} ele={data} />;
-          })}
-        </div>
-      )} */}
-      <CommentBlock />
+      <div>
+        {data.map((ele: Data) => {
+          return <CommentBlock key={ele.freeCommentId} data={ele} />;
+        })}
+      </div>
+      {/* <CommentBlock /> */}
     </Container>
   );
 }

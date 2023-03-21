@@ -11,7 +11,7 @@ import PostTitleBlock from './postTitleBlock';
 interface Data {
   freeId?: number;
   questionId?: number;
-  category?: 'string';
+  category?: string;
   selected?: boolean;
   member: {
     memberId: number;
@@ -19,8 +19,8 @@ interface Data {
     displayName: string;
     state: string;
   };
-  title: 'string';
-  content: 'string';
+  title: string;
+  content: string;
   viewCount: number;
   voteCount: number;
   createdAt: string;

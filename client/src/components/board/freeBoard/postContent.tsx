@@ -13,27 +13,76 @@ import getPostDetail from 'apis/board/getPostDetail';
 import CalElapsedTime from '../post/calElapsedTime';
 
 import GoBackMenu from '../post/goBackMenu';
-import CommentList from './commentList';
+import WriteComment from '../comment/writeComment';
+import CommentBlock from './commentBlock';
 
+// interface Data {
+//   freeId?: number;
+//   questionId?: number;
+//   title: 'string';
+//   content: 'string';
+//   category?: 'string';
+//   selected?: boolean;
+//   viewCount: number;
+//   voteCount: number;
+//   createdAt: string;
+//   modifiedAt?: string;
+//   commentsListNum: number;
+//   member: {
+//     memberId: number;
+//     iconImageUrl?: string;
+//     displayName: string;
+//     state: string;
+//   };
+//   comments?: {
+//     freeCommentId?: number;
+//     content: string;
+//     createdAt?: string;
+//     modifiedAt?: string;
+//     voteCount: number;
+//     member: {
+//       memberId: number;
+//       iconImageUrl?: string;
+//       displayName: string;
+//       state: string;
+//     };
+//     memberSim: boolean;
+//   };
+// }
 interface Data {
   freeId?: number;
   questionId?: number;
+  title: 'string';
+  content: 'string';
   category?: 'string';
   selected?: boolean;
+  viewCount: number;
+  voteCount: number;
+  createdAt: string;
+  modifiedAt?: string;
+  commentsListNum: number;
   member: {
     memberId: number;
     iconImageUrl?: string;
     displayName: string;
     state: string;
   };
-  title: 'string';
-  content: 'string';
-  viewCount: number;
-  voteCount: number;
-  createdAt: string;
+  comments?: any;
+}
+
+interface Comment {
+  freeCommentId?: number;
+  content: string;
+  createdAt?: string;
   modifiedAt?: string;
-  commentsListNum: number;
-  // comments?: any;
+  voteCount: number;
+  member: {
+    memberId: number;
+    iconImageUrl?: string;
+    displayName: string;
+    state: string;
+  };
+  memberSim: boolean;
 }
 
 function PostContent() {
@@ -102,11 +151,9 @@ function PostContent() {
   useEffect(() => {
     fetchPostDetail();
   }, []);
-  console.log('userInfoData:', userInfo.memberId);
 
   console.log(listData);
   console.log('userInfo memeberId', userInfo.memberId);
-  // console.log('comments', listData.comments[0].content);
 
   return (
     <Container>
@@ -153,8 +200,18 @@ function PostContent() {
             </VoteDiv>
           </MainDiv>
           <CommentCnt>{listData.commentsListNum}개의 댓글</CommentCnt>
-          <CommentList />
-          {/* <CommentList data={listData.comments} /> */}
+          <CommentContainer>
+            <WriteCommentDiv>
+              <WriteComment />
+            </WriteCommentDiv>
+            {listData.commentsListNum === 0 ? null : (
+              <div>
+                {listData.comments.map((ele: Comment) => {
+                  return <CommentBlock key={ele.freeCommentId} data={ele} />;
+                })}
+              </div>
+            )}
+          </CommentContainer>
         </div>
       )}
     </Container>
@@ -246,6 +303,21 @@ const VoteCount = styled.div`
 
 const CommentCnt = styled.div`
   padding: ${theme.gap.px20};
+  border-bottom: 1px solid ${theme.colors.gray};
+`;
+
+const CommentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 253px;
+  margin-bottom: ${theme.gap.px100};
+`;
+
+const WriteCommentDiv = styled.div`
+  display: flex;
+  width: 100%;
+  padding-bottom: calc(${theme.gap.px60} + 7px);
   border-bottom: 1px solid ${theme.colors.gray};
 `;
 

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router';
 
 import styled from 'styled-components';
 import theme from 'theme';
@@ -6,18 +7,62 @@ import Button from 'components/common/Button';
 import ProfileIcon from 'assets/icons/defaultProfileIcon';
 import CountIcon from 'assets/icons/countIcon';
 
+import useUserInfoStore from 'stores/userInfoStore';
+import deleteComment from 'apis/board/deleteComment';
 import WriteComment from '../comment/writeComment';
 import RecommentList from './recommentList';
 
-function CommentBlock() {
+interface Data {
+  freeCommentId?: number;
+  content: string;
+  createdAt?: string;
+  modifiedAt?: string;
+  voteCount: number;
+  member: {
+    memberId: number;
+    iconImageUrl?: string;
+    displayName: string;
+    state: string;
+  };
+  memberSim: boolean;
+}
+
+type Props = {
+  data: Data;
+};
+
+function CommentBlock({ data }: Props) {
+  const { userInfo } = useUserInfoStore(state => state);
+  const urlData = useLocation().pathname.slice(0, 4);
+  const [openEdit, setOpenEidt] = useState(false);
   const [openRecom, setOpenRecom] = useState(false);
-  // console.log(data);
+  // console.log(data.member.displayName);
+
+  const openEditHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setOpenEidt(!openEdit);
+  };
 
   const openRecomHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // if (e.target instanceof Element) {
-    //   console.log(e.target.log);
-    // }
     setOpenRecom(!openRecom);
+  };
+
+  const fetchDeleteComment = async () => {
+    try {
+      const confirm = window.confirm('댓글을 삭제하시겠습니까?');
+      if (confirm) {
+        if (urlData === '/fre') {
+          await deleteComment('frees', Number(data.freeCommentId));
+          alert('댓글을 삭제하였습니다.');
+          window.location.reload();
+        } else {
+          // await deleteComment('qnas', data.freeCommentId);
+          // alert('댓글을 삭제하였습니다.');
+          // window.location.reload();
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -25,16 +70,23 @@ function CommentBlock() {
       <TitleDiv>
         <Writer>
           <ProfileIcon.Default />
-          <div>닉네임 약 1시간 전</div>
-          <Category>작성자</Category>
+          <div>{data.member.displayName}</div>
+          <div> · 약 1시간 전</div>
+          {data.memberSim ? <Category>작성자</Category> : null}
         </Writer>
-        <UDBtnDiv>
-          <Button.UDWhiteBtn>수정</Button.UDWhiteBtn>
-          <Button.UDWhiteBtn>삭제</Button.UDWhiteBtn>
-        </UDBtnDiv>
+        {data.member.memberId === userInfo.memberId ? (
+          <UDBtnDiv>
+            <Button.UDWhiteBtn onClick={openEditHandler}>
+              수정
+            </Button.UDWhiteBtn>
+            <Button.UDWhiteBtn onClick={fetchDeleteComment}>
+              삭제
+            </Button.UDWhiteBtn>
+          </UDBtnDiv>
+        ) : null}
       </TitleDiv>
       <MainDiv>
-        <TextDiv>내용</TextDiv>
+        <TextDiv>{data.content}</TextDiv>
         <BottomDiv>
           <Button.RecommentBtn onClick={openRecomHandler}>
             댓글 쓰기
@@ -55,7 +107,7 @@ function CommentBlock() {
           <WriteComment />
         </WriteRecomDiv>
       ) : null}
-      <RecommentList />
+      {/* <RecommentList /> */}
     </Container>
   );
 }
