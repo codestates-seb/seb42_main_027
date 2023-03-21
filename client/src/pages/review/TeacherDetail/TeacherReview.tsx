@@ -220,6 +220,7 @@ function TeacherReview() {
   return (
     <Container
       height={
+        data.lectures.length &&
         data.lectures
           .map(lecture => {
             return lecture.lectureReviews.length;
