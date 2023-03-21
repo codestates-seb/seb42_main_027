@@ -1,11 +1,17 @@
 package ynzmz.server.member.service;
 
 
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +24,7 @@ import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.board.qna.question.entity.Question;
+import ynzmz.server.security.auths.userdetails.MemberDetailsService;
 import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
 import ynzmz.server.vote.Vote;
 import ynzmz.server.vote.qna.dto.LoginUserAnswerVoteResponseDto;
@@ -39,6 +46,9 @@ public class MemberService {
     private final ApplicationEventPublisher publisher;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
+    private AuthenticationManager authenticationManager;
+    private MemberDetailsService memberDetailsService;
+
 
     public MemberService (MemberRepository memberRepository,
                           ApplicationEventPublisher publisher,
@@ -210,13 +220,48 @@ public class MemberService {
             loginUserLectureReviewVoteInfo.setCommentVoteStatus(loginUserLectureReviewCommentVoteResponseDtos);
             return loginUserLectureReviewVoteInfo;
     }
+
     private String passwordEncoding(String password) {
         return passwordEncoder.encode(password);
     }
 
+    public void changePassword(Long memberId, String nowPassword, String newPassword){
+        Member member = memberRepository.findById(memberId).orElseThrow(()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
+        if(passwordEncoder.matches(nowPassword,member.getPassword())){
+            if(nowPassword.equals(newPassword)){
+                throw new BusinessLogicException(ExceptionCode.SAME_PASSWORD);
+            }
+            String encryptedPassword = passwordEncoder.encode(newPassword);
+            member.setPassword(encryptedPassword);
+            memberRepository.save(member);
+        } else {
+            throw new BusinessLogicException(ExceptionCode.INVALID_NOW_PASSWORD);
+        }
+    }
 
+//    public void changePassword(MemberDto.ChangePasswordRequest changePasswordRequest) {
+//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(SecurityContextHolder.getContext().getAuthentication().getName(), changePasswordRequest.getNowPassword()));
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        MemberDetailsService.MemberDetails member = (MemberDetailsService.MemberDetails)  memberDetailsService.loadUserByUsername(authentication.getName());
+//
+//        if(!passwordEncoder.matches(changePasswordRequest.getNowPassword(), member.getPassword())) {
+//            throw new RuntimeException("현재 비밀번호가 일치하지 않습니다.");
+//        }
+//
+//        if(!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmPassword())){
+//            throw new RuntimeException("새로운 비밀번호와 새로운 비밀번호 확인이 일치하지 않습니다.");
+//        }
+//
+//        String encodedPassword = passwordEncoder.encode(changePasswordRequest.getNewPassword());
+//        member.setPassword(encodedPassword);
+//        memberDetailsService.updateMemberPassword(member);
+//    }
 
+//    public void updateMemberPassword(Long memberId, String newPassword){
+//        String thisPassword = passwordEncoder.encode(newPassword);
+//        memberRepository.updateMemberPassword(memberId, thisPassword);
+//    }
 
 
 }

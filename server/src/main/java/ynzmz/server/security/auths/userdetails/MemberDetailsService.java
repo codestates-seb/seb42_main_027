@@ -1,10 +1,12 @@
 package ynzmz.server.security.auths.userdetails;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.member.entity.Member;
@@ -16,6 +18,7 @@ import java.util.Optional;
 
 @Component
 public class MemberDetailsService implements UserDetailsService {
+
     private final MemberRepository memberRepository;
     private final CustomAuthorityUtils authorityUtils;
 
@@ -31,6 +34,7 @@ public class MemberDetailsService implements UserDetailsService {
 
         return new MemberDetails(findMember);
     }
+
 
     public final class MemberDetails extends Member implements UserDetails {
         MemberDetails(Member member){
@@ -71,6 +75,11 @@ public class MemberDetailsService implements UserDetailsService {
         public boolean isEnabled() {
             return true;
         }
+
     }
+
+//    public void updateMemberPassword(MemberDetails member) {
+//        memberRepository.updateMemberPassword(member.getMemberId(),member.getPassword());
+//    }
 
 }

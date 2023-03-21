@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.method.P;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.board.free.dto.FreeDto;
 import ynzmz.server.board.free.entity.Free;
@@ -38,6 +38,7 @@ import ynzmz.server.comment.review.lecture.mapper.LectureReviewCommentMapper;
 import ynzmz.server.comment.review.lecture.service.LectureReviewCommentService;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
@@ -46,13 +47,11 @@ import ynzmz.server.recomment.qna.dto.QnaReCommentDto;
 import ynzmz.server.recomment.qna.entity.QnaReComment;
 import ynzmz.server.recomment.qna.mapper.QnaReCommentMapper;
 import ynzmz.server.recomment.qna.service.QnaReCommentService;
-import ynzmz.server.vote.review.lecture.entity.ReviewVote;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import java.util.List;
-import java.util.PrimitiveIterator;
+
 
 @RestController
 @Slf4j
@@ -62,6 +61,7 @@ import java.util.PrimitiveIterator;
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper memberMapper;
+    private final MemberRepository memberRepository;
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
     private final LectureReviewService lectureReviewService;
@@ -78,6 +78,8 @@ public class MemberController {
     private final LectureReviewCommentMapper lectureReviewCommentMapper;
     private final QnaReCommentService qnaReCommentService;
     private final QnaReCommentMapper qnaReCommentMapper;
+    private final PasswordEncoder passwordEncoder;
+
     @PostMapping
     public ResponseEntity<?> postMember(@RequestBody @Valid MemberDto.Post requestBody){
         if (!requestBody.getPassword().equals(requestBody.getConfirmPassword())) {
@@ -215,6 +217,14 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(responses),HttpStatus.OK);
     }
 
-
+    @PatchMapping("/{member-id}/passwords")
+    public ResponseEntity<?> changePassword(@PathVariable("member-id") long memberId,
+                                            @RequestParam @Valid MemberDto.ChangePassword changePassword){
+        String nowPassword = changePassword.getNowPassword();
+        String newPassword = changePassword.getNewPassword();
+        memberService.changePassword(memberId,nowPassword,newPassword);
+        MemberDto.ChangePassword response = memberMapper.memberToMemberChangePassword(changePassword);
+        return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
+    }
 
 }

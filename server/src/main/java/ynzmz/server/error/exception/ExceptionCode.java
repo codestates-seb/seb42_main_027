@@ -14,6 +14,10 @@ public enum ExceptionCode {
     POST_NOT_FOUND(404, "Post not found"),
     POST_EXISTS(404, "Post not found"),
     DISPLAY_NAME_EXISTS(409, "DisplayName exists"),
+    INVALID_NOW_PASSWORD(404, "Password is not same"),
+    PASSWORD_NOT_MATCHED(404,"Password not matched"),
+    SAME_PASSWORD(404, "Same password"),
+    UNAUTHORIZED(404, "No authorization"),
 
     //추후 추가 가능 --> 기능 봐서
 

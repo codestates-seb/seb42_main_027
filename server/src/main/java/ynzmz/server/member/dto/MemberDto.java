@@ -1,10 +1,7 @@
 package ynzmz.server.member.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.vote.Vote;
 import ynzmz.server.vote.qna.dto.LoginUserAnswerVoteResponseDto;
@@ -122,6 +119,15 @@ public class MemberDto{
         private LoginUserLectureReviewVoteResponseDto lectureReviewVoteStatus;
         private List<LoginUserLectureReviewCommentVoteResponseDto> commentVoteStatus = new ArrayList<>();
 
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor @AllArgsConstructor
+    public static class ChangePassword {
+        private String nowPassword;
+        private String newPassword;
+        private Long memberId;
     }
 
 
