@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useUserInfoStore from 'stores/userInfoStore';
 import patchUserInfo from 'apis/patchUserInfo';
 import styled from 'styled-components';
@@ -226,7 +226,7 @@ function UserCard() {
         isSuccess: 'false',
         errorMessage: '필수 정보입니다.',
       });
-    } else if (password === value) {
+    } else if (editPassword === value) {
       setIsConfirmEditPasswordSuccess({ isSuccess: 'true', errorMessage: '' });
     } else {
       setIsConfirmEditPasswordSuccess({
@@ -237,16 +237,14 @@ function UserCard() {
   };
   const pathData = {
     phoneNumber: phoneNum,
-    //! 이부분 테스트 필요 userInfo 데이터 요청 시 password가 안넘어와서 생기는 문제
     password: isEditPassword ? editPassword : userInfo.password,
     displayName,
   };
 
-  console.log('mypage', userInfo);
-
   const handleClickEdit = async () => {
     setIsEdit(true);
     if (isEdit === true) {
+      console.log('patch', pathData);
       try {
         await patchUserInfo(pathData, userInfo.memberId);
         alert('정보가 수정되었습니다.');
@@ -261,6 +259,10 @@ function UserCard() {
     setIsEditPassword(!isEditPassword);
   };
 
+  useEffect(() => {
+    setDisplayName(userInfo.displayName);
+    setPhoneNum(userInfo.phoneNumber);
+  }, [userInfo]);
   return (
     <UserCardContainer>
       <ProfileImage src={userData.profileImage} />
