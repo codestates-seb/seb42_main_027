@@ -244,7 +244,6 @@ function UserCard() {
   const handleClickEdit = async () => {
     setIsEdit(true);
     if (isEdit === true) {
-      console.log('patch', pathData);
       try {
         await patchUserInfo(pathData, userInfo.memberId);
         alert('정보가 수정되었습니다.');
