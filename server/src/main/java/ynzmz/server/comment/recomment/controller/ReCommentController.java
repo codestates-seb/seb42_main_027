@@ -1,64 +1,58 @@
-package ynzmz.server.comment.free.controller;
+package ynzmz.server.comment.recomment.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import ynzmz.server.board.free.entity.Free;
-import ynzmz.server.board.free.service.FreeService;
-import ynzmz.server.comment.free.dto.FreeCommentDto;
 import ynzmz.server.comment.free.entity.FreeComment;
-import ynzmz.server.comment.free.mapper.FreeCommentMapper;
 import ynzmz.server.comment.free.service.FreeCommentService;
-import ynzmz.server.dto.MultiResponseDto;
+import ynzmz.server.comment.recomment.dto.ReCommentDto;
+import ynzmz.server.comment.recomment.entity.ReComment;
+import ynzmz.server.comment.recomment.mapper.ReCommentMapper;
+import ynzmz.server.comment.recomment.service.ReCommentService;
 import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/comments/frees")
 @RequiredArgsConstructor
-public class FreeCommentController  {
+public class ReCommentController {
     private final MemberService memberService;
-    private final FreeCommentMapper freeCommentMapper;
+    private final ReCommentMapper recommentMapper;
+    private final ReCommentService recommentService;
     private final FreeCommentService freeCommentService;
-    private final FreeService freeService;
-    @PostMapping("/{free-id}")
-    public ResponseEntity<?> createFreeComment(@PathVariable("free-id") long freeId,
-                                               @RequestBody FreeCommentDto.Post postDto) {
-        FreeComment freeComment = freeCommentMapper.freeCommentPostToFreeComment(postDto);
-        freeComment.setMember(loginMemberFindByToken());
-        Free free = freeService.findFreeById(freeId);
-        freeComment.setFree(free);
+    @PostMapping("/{free-comment-id}")
+    public ResponseEntity<?> createReComment(@PathVariable("free-comment-id") long freeCommentId,
+                                                   @RequestBody ReCommentDto.Post postDto) {
+        ReComment recomment = recommentMapper.recommentPostToRecomment(postDto);
+        recomment.setMember(loginMemberFindByToken());
+        FreeComment freeComment = freeCommentService.findFreeCommentById(freeCommentId);
+        recomment.setComment(freeComment);
 
-        if(freeComment.getMember().getMemberId() == freeComment.getFree().getMember().getMemberId()){
-            freeComment.setMemberSim(true);
+        if(recomment.getMember().getMemberId() == recomment.getComment().getMember().getMemberId()){
+            recomment.setMemberSim(true);
         }
         else {
-            freeComment.setMemberSim(false);
+            recomment.setMemberSim(false);
         }
 
-        FreeComment createFreeComment = freeCommentService.creatFreeComment(freeComment);
-        FreeCommentDto.Response response = freeCommentMapper.freeCommentToFreeCommentResponse(createFreeComment);
+        ReComment createReComment = recommentService.creatRecomment(recomment);
+        ReCommentDto.Response response = recommentMapper.recommentToRecommentResponse(createReComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
-
-
-    @PatchMapping("/{free-comment-id}")
-    public ResponseEntity<?> updateFreeComment(@RequestBody FreeCommentDto.Patch patchDto,
-                                                        @PathVariable("free-comment-id") long freePostCommentId) {
-        FreeComment freeComment = freeCommentMapper.freeCommentPatchToFreeComment(patchDto);
-        freeComment.setFreeCommentId(freePostCommentId);
+    @PatchMapping("/{reComment-id}")
+    public ResponseEntity<?> updateReComment(@RequestBody ReCommentDto.Patch patchDto,
+                                                        @PathVariable("reComment-id") long reCommentId) {
+        ReComment recomment = recommentMapper.recommentPatchToRecomment(patchDto);
+        recomment.setReCommentId(reCommentId);
 //        freeComment.setMember(loginMemberFindByToken());
 
 
-        FreeComment updateFreeComment = freeCommentService.updateFreeComment(freeComment);
-        FreeCommentDto.Response response = freeCommentMapper.freeCommentToFreeCommentResponse(updateFreeComment);
+        ReComment updateReComment = recommentService.updateRecomment(recomment);
+        ReCommentDto.Response response = recommentMapper.recommentToRecommentResponse(updateReComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
@@ -80,9 +74,9 @@ public class FreeCommentController  {
 //        return new ResponseEntity<>(new MultiResponseDto<>(responses, pageFreePostComments), HttpStatus.OK);
 //    }
 
-    @DeleteMapping("/{free-comment-id}")
-    public void deleteFreeComment(@PathVariable("free-comment-id") long freeCommentId) {
-        freeCommentService.deleteFreeComment(freeCommentId);
+    @DeleteMapping("/{reComment-id}")
+    public void ReComment(@PathVariable("reComment-id") long reCommentId) {
+        recommentService.deleteReComment(reCommentId);
     }
 
     private Member loginMemberFindByToken(){
