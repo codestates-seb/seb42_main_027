@@ -16,7 +16,7 @@ function SearchBar({ search, setSearch }: Props) {
     <FlexContainer gap="0.3rem">
       <GlobalStyle />
       <SearchInput
-        placeholder="강사님을 검색하세요"
+        placeholder="검색하세요"
         value={search}
         onChange={searchHandler}
       />

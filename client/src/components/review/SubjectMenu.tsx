@@ -24,36 +24,24 @@ function SubjectMenu({
 }: Props) {
   const subjectArr1: string[] = ['국어', '영어', '수학', '한국사'];
   const subjectArr2: string[] = [
+    '사탐전체',
+    '경제/정.법',
     '지리',
-    '일반사회',
     '윤리',
     '역사',
-    '통합사회',
+    '일반사회',
   ];
   const subjectArr3: string[] = [
+    '과탐전체',
     '물리학',
-    '지구과학',
     '화학',
     '생명과학',
-    '통합과학',
+    '지구과학',
+    '일반과학',
   ];
-  const subjectArr4: string[] = ['제2외국어', '대학별고사'];
-  const subjectArr5: string[] = [
-    '예비중1',
-    '중1',
-    '예비중2',
-    '중2',
-    '예비중3',
-    '중3',
-  ];
-  const subjectArr6: string[] = [
-    '예비고1',
-    '고1',
-    '예비고2',
-    '고2',
-    '예비고3',
-    '고3',
-  ];
+  const subjectArr4: string[] = ['기타전체', '제2외국어', '대학별고사', '그외'];
+  const subjectArr5: string[] = ['중1', '중2', '중3'];
+  const subjectArr6: string[] = ['고1', '고2', '고3', 'N수'];
   const subjectArr7: string[] = [
     '이투스',
     '메가스터디',
