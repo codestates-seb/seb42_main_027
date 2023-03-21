@@ -3,92 +3,99 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
-import Lecture from 'components/review/Lecture';
 import { Link } from 'react-router-dom';
 import isLogin from 'utils/isLogin';
 import Button from 'components/common/Button';
-
+import Loading from 'components/review/Loading';
+import LectureReview2 from 'components/review/LectureReview2';
 import { FlexContainer } from './ReviewPage';
+import { SmallFont } from './TeacherDetail/Information';
 
 const defaultData = {
-  lectureId: 1,
-  title: '강의 타이틀명!',
-  introduction: '강의 간단 소개',
-  status: '진행중',
-  starPointAverage: 4.7,
-  totalReviewCount: 9,
-  gradeTags: [
-    {
-      gradeTag: '고1',
+  data: {
+    lectureId: 62,
+    title: '정승제 의 수능특강 국어완전 정복 이름수정!',
+    introduction: '3개월 국어 1등급',
+    status: '진행중',
+    teacher: {
+      teacherId: 23,
+      name: '정승제',
+      starPointAverage: 0,
     },
-    {
-      gradeTag: '고2',
+    starPointAverage: 0,
+    totalReviewCount: 0,
+    starPointCount: {
+      '1점갯수': 0,
+      '5점갯수': 0,
+      '4점갯수': 0,
+      '2점갯수': 0,
+      '3점갯수': 0,
     },
-    {
-      gradeTag: '고3',
-    },
-    {
-      gradeTag: '예비고1',
-    },
-    {
-      gradeTag: '예비고2',
-    },
-    {
-      gradeTag: '예비고3',
-    },
-  ],
-  subjectTags: [
-    {
-      subjectTag: '국어',
-    },
-    {
-      subjectTag: '한국사',
-    },
-  ],
-  platformTags: [
-    {
-      platformTag: '이투스',
-    },
-    {
-      platformTag: 'EBS',
-    },
-  ],
-  teacher: {
-    teacherId: 1,
-    name: '홍길동',
-    starPointAverage: 0.0,
+    gradeTags: [
+      {
+        gradeTag: '고1',
+      },
+      {
+        gradeTag: '예비고1',
+      },
+      {
+        gradeTag: '고2',
+      },
+    ],
+    subjectTags: [
+      {
+        subjectTag: '국어',
+      },
+    ],
+    platformTags: [
+      {
+        platformTag: 'EBS',
+      },
+    ],
+    lectureReviews: [
+      {
+        lectureReviewId: 1,
+        title: 'ㅇㅇㅇ',
+        starPoint: 5,
+        createdAt: '날짜',
+        voteCount: 5,
+        totalCommentCount: 4,
+        lecture: {
+          lectureId: 2,
+          title: 'ㄹㅎㄹㅎㅎㄹ',
+          starPointAverage: 7,
+        },
+        member: {
+          memberId: 1,
+          email: 'ㅇㄴㅇㄴ',
+          displayName: 'ㄴㅇㄴㅇㅇㄴ',
+          password: 'ㅇㅇㅇㄴㅇ',
+          iconImageUrl: 'ㄴㅇㅇㄴㄴㅇㅇㄴ',
+          createdAt: '날짜',
+          roles: ['1'],
+          memberStatus: '강사',
+        },
+      },
+    ],
   },
 };
 
-const defaultData2 = {
-  gradeTags: ['1'],
-  imageUrl: 'string;',
-  introduction: 'string;',
-  name: 'string;',
-  platformTags: [{ platformTag: 's' }],
-  starPointAverage: 5,
-  subjectTags: [{ subjectTag: 'string' }],
-  teacherId: 5,
-  totalReviewCount: 5,
-  lectures: [defaultData],
-  analects: ['1'],
-  profile: ['1'],
-};
-
 function LectureReviewList() {
-  const [data, setData] = useState(defaultData2);
+  const [data, setData] = useState(defaultData);
   const [isPending, setIsPending] = useState<boolean>(true);
-  const { teacherId } = useParams();
+  const { lectureId } = useParams();
+
+  const list = ['추천', '만족도', '제목', '작성자', '등록일'];
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}`, {
+      .get(`${process.env.REACT_APP_API_URL}/lectures/${lectureId}`, {
         headers: {
           'ngrok-skip-browser-warning': 'asdasdas',
         },
       })
       .then((res: any) => {
-        return res.data.data;
+        return res.data;
       })
       .then(data => {
         console.log(data);
@@ -98,27 +105,61 @@ function LectureReviewList() {
   }, []);
 
   return (
-    <Container height={data.lectures.length < 7 ? '100vh' : ''}>
+    <Container height={data.data.lectureReviews.length < 6 ? '100vh' : '100%'}>
       {isPending ? (
-        <FlexContainer />
+        <Loading />
       ) : (
         <FlexContainer dir="col">
           <FlexContainer
             display={isLogin() ? 'flex' : 'none'}
             width="100%"
-            justify={!data.lectures.length ? 'center' : 'right'}
+            justify={!data.data.lectureReviews.length ? 'center' : 'right'}
           >
-            <Link to="createLecture">
-              <PButton>강의 등록</PButton>
+            <Link to="create">
+              <PButton>리뷰 등록</PButton>
             </Link>
           </FlexContainer>
-          {!data.lectures.length ? (
+          {!data.data.lectureReviews.length ? (
             <FlexContainer height="100vh">등록된 강의가 없습니다</FlexContainer>
           ) : (
-            <FlexContainer dir="col">
-              {data.lectures.map((el, index) => {
-                return <Lecture key={index} lecture={el} first={index === 0} />;
-              })}
+            <FlexContainer width="50rem" dir="col" gap="1rem">
+              <FlexContainer
+                width="100%"
+                borderTop="2px solid black"
+                borderBottom="1px solid black"
+                padding="1.5rem 1rem"
+              >
+                {list.map((el, index) => {
+                  return (
+                    <FlexContainer key={index} grow={el === '제목' ? 4 : 1}>
+                      <SmallFont>{el}</SmallFont>
+                    </FlexContainer>
+                  );
+                })}
+              </FlexContainer>
+              <FlexContainer width="100%" gap="0" dir="col">
+                {!data.data.lectureReviews.length ? (
+                  <FlexContainer dir="col" width="100%" gap="0">
+                    <div>등록된 수강 후기가 없습니다</div>
+                  </FlexContainer>
+                ) : (
+                  data.data.lectureReviews.map((el, index) => {
+                    return (
+                      <LectureReview2
+                        key={index}
+                        lectureReviewId={el.lectureReviewId}
+                        title={el.title}
+                        starPoint={el.starPoint}
+                        createdAt={el.createdAt}
+                        voteCount={el.voteCount}
+                        totalCommentCount={el.totalCommentCount}
+                        lecture={el.lecture}
+                        member={el.member}
+                      />
+                    );
+                  })
+                )}
+              </FlexContainer>
             </FlexContainer>
           )}
         </FlexContainer>
@@ -134,6 +175,7 @@ const PButton = Button.PointBtn;
 type Container = {
   height?: string;
 };
+
 const Container = styled.div<Container>`
   height: ${props => props.height};
   padding: 3rem;

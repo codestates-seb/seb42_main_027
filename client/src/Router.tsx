@@ -22,9 +22,11 @@ import TeacherReview from 'pages/review/TeacherDetail/TeacherReview';
 import UpdateLecture from 'pages/review/TeacherDetail/UpdateLecture';
 import CreateLecture from 'pages/review/TeacherDetail/CreateLecture';
 import MyPage from 'pages/MyPage';
-import LectureReviewPage from 'pages/review/LecturesList';
 import LectureReviewList from 'pages/review/LectureReviewList';
 import LecturesList from 'pages/review/LecturesList';
+import CreateReview from 'pages/review/CreateReview';
+import UpdateReview from 'pages/review/UpdateReview';
+import LectureReviewDetail from 'components/review/LectureReviewDetail';
 
 function Router() {
   return (
@@ -82,10 +84,17 @@ function Router() {
           path="/lecturereviewlist/:lectureId"
           element={<LectureReviewList />}
         />
-        {/* <Route path="/LectureReviewPage/create" element={<CreateTeacher />} />
+        {/* <Route
+          path="/lecturereviewdetail/:lectureReviewId"
+          element={<LectureReviewDetail />}
+        /> */}
         <Route
-          path="/LectureReviewPage/update/:lectureId"
-          element={<UpdateTeacher />}
+          path="/lecturereviewlist/:lectureId/create"
+          element={<CreateReview />}
+        />
+        {/* <Route
+          path="/lecturereviewlist/:lectureId/update"
+          element={<UpdateReview />}
         /> */}
       </Routes>
       <Footer />
