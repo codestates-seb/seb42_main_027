@@ -75,7 +75,7 @@ const defaultData2 = {
   profile: ['1'],
 };
 
-function LectureReviewDetailPage() {
+function LectureReviewList() {
   const [data, setData] = useState(defaultData2);
   const [isPending, setIsPending] = useState<boolean>(true);
   const { teacherId } = useParams();
@@ -127,7 +127,7 @@ function LectureReviewDetailPage() {
   );
 }
 
-export default LectureReviewDetailPage;
+export default LectureReviewList;
 
 const PButton = Button.PointBtn;
 

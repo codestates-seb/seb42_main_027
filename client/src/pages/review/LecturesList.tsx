@@ -12,7 +12,6 @@ import axios from 'axios';
 import Button from 'components/common/Button';
 import isLogin from 'utils/isLogin';
 import { Link } from 'react-router-dom';
-
 import { FlexContainer } from './ReviewPage';
 
 type LectureType = {
@@ -46,7 +45,7 @@ const defaultPageInfo = {
   totalPages: 1,
 };
 
-function LectureReviewPage() {
+function LecturesList() {
   const [buttonOpen, setButtonOpen] = useState<boolean>(false);
   const [subject, setSubject] = useState<string>('전체');
   const [grade, setGrade] = useState<string>('전체');
@@ -154,7 +153,7 @@ function LectureReviewPage() {
   );
 }
 
-export default LectureReviewPage;
+export default LecturesList;
 
 type SubjectSelectButton = {
   isOpen: boolean;
