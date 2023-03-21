@@ -12,7 +12,7 @@ import { AiFillStar } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import LectureReviewComment from './LectureReviewComment';
-// import ReviewCommentCreate from './ReviewCommentCreate';
+import Loading from './Loading';
 
 type Props = {
   lectureReviewId: number;
@@ -87,6 +87,7 @@ function LectureReviewDetail({
 
   useEffect(() => {
     if (lectureReviewId < 0) return;
+    setIsPending(true);
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/boards/reviews/lectures/${lectureReviewId}`,
@@ -101,11 +102,16 @@ function LectureReviewDetail({
         console.log(data);
         setDetailData(data);
         setReviewVote(data.voteCount);
-        if (data.loginUserLectureReviewVoteInfo.lectureReviewVoteStatus) {
+        if (
+          data.loginUserLectureReviewVoteInfo &&
+          data.loginUserLectureReviewVoteInfo.lectureReviewVoteStatus
+        ) {
           setVoteStatus(
             data.loginUserLectureReviewVoteInfo.lectureReviewVoteStatus
               .voteStatus,
           );
+        } else {
+          setVoteStatus('NONE');
         }
 
         setIsPending(false);
@@ -151,7 +157,9 @@ function LectureReviewDetail({
 
   return (
     <Container reviewOpen={reviewOpen} onClick={closeHandler}>
-      {isPending ? null : (
+      {isPending ? (
+        <Loading />
+      ) : (
         <ModalContainer onClick={e => e.stopPropagation()}>
           <FlexContainer
             width="100%"

@@ -14,6 +14,11 @@ const login = async (pathData: LoginParams) => {
   const response = await axios.post<AuthResponse>(
     `${apiUrl}/auth/login`,
     pathData,
+    {
+      headers: {
+        'ngrok-skip-browser-warning': '69420',
+      },
+    },
   );
   const token = response.headers.authorization;
   localStorage.setItem('token', token);

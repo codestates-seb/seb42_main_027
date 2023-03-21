@@ -36,7 +36,7 @@ function Lecture({ lecture, first }: Props) {
       </FlexContainer>
       <FlexContainer width="25rem" dir="col" align="start" gap="0.3rem">
         <StatusBox>{lecture.status}</StatusBox>
-        <Link to={`/LectureReviewDetail/${lecture.lectureId}`}>
+        <Link to={`/lecturereviewlist/${lecture.lectureId}`}>
           <TitleSpan>{`[${lecture.introduction}] ${lecture.title}`}</TitleSpan>
         </Link>
         <SmallFont>+ 자세히 보기</SmallFont>
@@ -56,6 +56,9 @@ function Lecture({ lecture, first }: Props) {
             axios
               .delete(
                 `${process.env.REACT_APP_API_URL}/lectures/${lecture.lectureId}`,
+                {
+                  headers: { 'ngrok-skip-browser-warning': '69420' },
+                },
               )
               .then(() => {
                 window.location.reload();
