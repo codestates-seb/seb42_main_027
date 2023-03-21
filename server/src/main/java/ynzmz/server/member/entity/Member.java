@@ -49,7 +49,6 @@ public class Member {
         STUDENT("학생"),
         TEACHER("강사"),
         ADMIN("관리자");
-
         @Getter
         private String memberState;
 

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.error.exception.BusinessLogicException;
@@ -44,6 +45,9 @@ public class TeacherService {
 
     public Page<Teacher> findTeachers(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String name, String sort,String reverse, int page, int size) {
         return teacherRepository.findAllByGradeAndPlatformAndSubjectAndName(grade, platform, subject, name, PageRequest.of(page, size, Sort.by(sort).descending()));
+    }
+    public Page<Teacher> findTeachersByRandom(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String name, String sort, int page, int size) {
+        return teacherRepository.findAllByGradeAndPlatformAndSubjectAndName(grade, platform, subject, name, PageRequest.of(page, size, JpaSort.unsafe("RAND()")));
     }
 
     public void deleteTeacher(long teacherId) {

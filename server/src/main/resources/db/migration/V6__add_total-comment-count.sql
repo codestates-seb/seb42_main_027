@@ -1,1 +1,0 @@
-ALTER TABLE lecture_review ADD total_comment_count bigint default 0;

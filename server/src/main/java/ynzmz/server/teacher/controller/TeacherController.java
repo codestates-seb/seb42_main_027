@@ -83,13 +83,19 @@ public class TeacherController {
                                                 @RequestParam int size) {
 
         sort = (sort == null || sort.equals("최신순"))
-                ? "teacherId" : sort.equals("평점순") ? "starPointAverage" : sort.equals("이름순") ? "name" : "teacherId";
+                ? "teacherId" : sort.equals("평점순") ? "starPointAverage" : sort.equals("이름순") ? "name" : sort.equals("랜덤") ? "random" : "teacherId";
 
         GradeTag.Grade gradeTag = (grade != null) ? tagService.findGradeTag(grade) : null;
         PlatformTag.Platform platformTag = (platform != null) ? tagService.findPlatformTag(platform) : null;
         SubjectTag.Subject subjectTag = (subject != null) ? tagService.findSubjectTag(subject) : null;
 
-        Page<Teacher> teacherPage = (reverse != null)
+        Page<Teacher> teacherPage = (sort.equals("random"))
+                ? teacherService.findTeachersByRandom(gradeTag, platformTag, subjectTag, name, sort,page - 1, size)
+                : (reverse == null && sort.equals("starPointAverage"))
+                ? teacherService.findTeachers(gradeTag, platformTag, subjectTag, name, sort, reverse,page - 1, size)
+                : (reverse != null && sort.equals("starPointAverage"))
+                ? teacherService.findTeachers(gradeTag, platformTag, subjectTag, name, sort, page - 1, size)
+                : (reverse != null)
                 ? teacherService.findTeachers(gradeTag, platformTag, subjectTag, name, sort, reverse,page - 1, size)
                 : teacherService.findTeachers(gradeTag, platformTag, subjectTag, name, sort,page - 1, size);
 
