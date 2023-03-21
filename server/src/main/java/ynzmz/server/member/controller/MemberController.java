@@ -219,12 +219,10 @@ public class MemberController {
 
     @PatchMapping("/{member-id}/passwords")
     public ResponseEntity<?> changePassword(@PathVariable("member-id") long memberId,
-                                            @RequestParam @Valid MemberDto.ChangePassword changePassword){
-        String nowPassword = changePassword.getNowPassword();
-        String newPassword = changePassword.getNewPassword();
+                                            @RequestParam @Positive String nowPassword,
+                                            @RequestParam @Positive String newPassword){
         memberService.changePassword(memberId,nowPassword,newPassword);
-        MemberDto.ChangePassword response = memberMapper.memberToMemberChangePassword(changePassword);
-        return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 
 }
