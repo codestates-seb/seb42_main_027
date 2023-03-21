@@ -11,6 +11,7 @@ type Props = {
   setSubject: React.Dispatch<React.SetStateAction<string>>;
   setGrade: React.Dispatch<React.SetStateAction<string>>;
   setPlatform: React.Dispatch<React.SetStateAction<string>>;
+  setCurPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 function SubjectMenu({
@@ -21,11 +22,13 @@ function SubjectMenu({
   setSubject,
   setGrade,
   setPlatform,
+  setCurPage,
 }: Props) {
   const subjectArr1: string[] = ['국어', '영어', '수학', '한국사'];
   const subjectArr2: string[] = [
     '사탐전체',
-    '경제/정.법',
+    '경제',
+    '정치와법',
     '지리',
     '윤리',
     '역사',
@@ -52,14 +55,17 @@ function SubjectMenu({
 
   const subjectClickHandler = (e: any) => {
     setSubject(e.target.value);
+    setCurPage(1);
   };
 
   const gradeClickHandler = (e: any) => {
     setGrade(e.target.value);
+    setCurPage(1);
   };
 
   const platformClickHandler = (e: any) => {
     setPlatform(e.target.value);
+    setCurPage(1);
   };
 
   return (

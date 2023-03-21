@@ -82,7 +82,11 @@ function CreateTeacher() {
       };
 
       axios
-        .post(`${process.env.REACT_APP_API_URL}/teachers`, data)
+        .post(`${process.env.REACT_APP_API_URL}/teachers`, data, {
+          headers: {
+            'ngrok-skip-browser-warning': 'asdasdas',
+          },
+        })
         .then(res => {
           navigate(-1);
         });

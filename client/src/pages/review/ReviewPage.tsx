@@ -54,8 +54,7 @@ function ReviewPage() {
   const [pageSize, setPageSize] = useState<number>(6);
 
   useEffect(() => {
-    console.log('Rerendering!!');
-
+    console.log(curPage);
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/teachers?${
@@ -76,6 +75,7 @@ function ReviewPage() {
         console.log(res.data.pageInfo);
         setTeachers(res.data.data);
         setPageInfo(res.data.pageInfo);
+        setCurPage(res.data.pageInfo.page);
       });
   }, [subject, sortTag, search, curPage, grade, platform, reverse]);
 
@@ -99,6 +99,7 @@ function ReviewPage() {
         setSortTag={setSortTag}
         buttonOpen={buttonOpen}
         setButtonOpen={setButtonOpen}
+        setCurPage={setCurPage}
       />
       <SubjectMenu
         buttonOpen={buttonOpen}
@@ -108,8 +109,13 @@ function ReviewPage() {
         setGrade={setGrade}
         setSubject={setSubject}
         setPlatform={setPlatform}
+        setCurPage={setCurPage}
       />
-      <SearchBar search={search} setSearch={setSearch} />
+      <SearchBar
+        search={search}
+        setSearch={setSearch}
+        setCurPage={setCurPage}
+      />
 
       <CharacterCard teachers={teachers} />
       <Pagenation

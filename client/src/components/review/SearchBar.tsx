@@ -5,11 +5,13 @@ import { FlexContainer } from 'pages/review/ReviewPage';
 type Props = {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
+  setCurPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-function SearchBar({ search, setSearch }: Props) {
+function SearchBar({ search, setSearch, setCurPage }: Props) {
   const searchHandler = (e: any) => {
     setSearch(e.target.value);
+    setCurPage(1);
   };
 
   return (
