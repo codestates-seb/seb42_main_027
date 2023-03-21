@@ -18,22 +18,52 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const ListContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60%;
+`;
+
+const PostListContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45%;
+`;
+
+const PostListTitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
 function MyPage() {
   return (
     <Container>
       <UserCard />
-      <div>
-        <div>
+      <ListContainer>
+        <PostListContainer>
+          <PostListTitleContainer>
+            <h2>내가 작성한 게시글</h2>
+            <select>
+              <option>자유 게시판</option>
+              <option>질문 게시판</option>
+              <option>강의 리뷰</option>
+            </select>
+          </PostListTitleContainer>
+        </PostListContainer>
+
+        <PostListContainer>
           <h2>내가 작성한 게시글</h2>
-          <input type="text" list="list" placeholder="dkanrjsk" />
-          <datalist id="list">
-            <option value="컴퓨터공학과" />
-            <option value="영어영문과" />
-            <option value="경영학과" />
-            <option value="사회체육과" />
-          </datalist>
-        </div>
-      </div>
+          <select>
+            <option>자유 게시판</option>
+            <option>질문 게시판</option>
+            <option>강의 리뷰</option>
+          </select>
+        </PostListContainer>
+      </ListContainer>
     </Container>
   );
 }

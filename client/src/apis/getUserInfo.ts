@@ -9,7 +9,8 @@ const getUserInfo = async (email: string | null) => {
       'ngrok-skip-browser-warning': '69420',
     },
   });
-  return response.data;
+  console.log('get요청', response.data.data);
+  return response.data.data;
 };
 
 export default getUserInfo;

@@ -242,6 +242,8 @@ function UserCard() {
     displayName,
   };
 
+  console.log('mypage', userInfo);
+
   const handleClickEdit = async () => {
     setIsEdit(true);
     if (isEdit === true) {
