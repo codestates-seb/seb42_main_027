@@ -1,4 +1,4 @@
-package ynzmz.server.comment.recomment.entity;
+package ynzmz.server.recomment.free.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
@@ -13,10 +13,10 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-public class ReComment implements Vote {
+public class FreeReComment implements Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ReCommentId;
+    private Long freeReCommentId;
     private String content;
     private String createdAt;
     private String modifiedAt;

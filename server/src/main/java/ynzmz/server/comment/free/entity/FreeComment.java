@@ -20,8 +20,6 @@ public class FreeComment implements Vote {
     private String content;
     private String createdAt;
     private String modifiedAt;
-
-    private long freeDisplayId;//이거 삭제해야함
     @Column
     @ColumnDefault("0")
     private long voteCount;

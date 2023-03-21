@@ -1,4 +1,4 @@
-package ynzmz.server.comment.recomment.dto;
+package ynzmz.server.recomment.free.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class ReCommentDto {
     @Setter @Getter
     @AllArgsConstructor
     public static class Response{
-        private long ReCommentId;
+        private long freeReCommentId;
 //        private long freeDisplayId;
         private String content;
         private String createdAt;
@@ -37,7 +37,7 @@ public class ReCommentDto {
     @Setter @Getter
     @AllArgsConstructor
     public static class ResponseForFreeDetail{
-        private long freeCommentId;
+        private long freeReCommentId;
         //        private long freeDisplayId;
         private String content;
         private String createdAt;
