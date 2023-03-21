@@ -9,7 +9,7 @@ type UserInfoProps = {
 };
 
 const patchUserInfo = async (pathData: UserInfoProps, id: number | null) => {
-  await axios.patch(`${apiUrl}/members/${id}`);
+  await axios.patch(`${apiUrl}/members/${id}`, pathData);
 };
 
 export default patchUserInfo;

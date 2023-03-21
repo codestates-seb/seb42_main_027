@@ -16,7 +16,7 @@ function App() {
   const fetchUserInfo = async () => {
     try {
       const response = await getUserInfo(email);
-      setUserInfo(response.data);
+      setUserInfo(response);
     } catch (error) {
       console.error(error);
       console.log('정보를 가져오지 못했습니다.');
