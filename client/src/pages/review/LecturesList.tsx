@@ -88,15 +88,6 @@ function LecturesList() {
     <FlexContainer dir="col">
       <GlobalStyle />
       <Carousel />
-      <FlexContainer
-        display={isLogin() ? 'flex' : 'none'}
-        width="80%"
-        justify="right"
-      >
-        <Link to="createTeacher">
-          <PButton>강사 등록</PButton>
-        </Link>
-      </FlexContainer>
       <SortBar
         reverse={reverse}
         setReverse={setReverse}
@@ -104,6 +95,7 @@ function LecturesList() {
         setSortTag={setSortTag}
         buttonOpen={buttonOpen}
         setButtonOpen={setButtonOpen}
+        setCurPage={setCurPage}
       />
       <SubjectMenu
         buttonOpen={buttonOpen}
@@ -113,8 +105,13 @@ function LecturesList() {
         setGrade={setGrade}
         setSubject={setSubject}
         setPlatform={setPlatform}
+        setCurPage={setCurPage}
       />
-      <SearchBar search={search} setSearch={setSearch} />
+      <SearchBar
+        search={search}
+        setSearch={setSearch}
+        setCurPage={setCurPage}
+      />
 
       {!lectures.length ? (
         <FlexContainer>등록된 강의가 없습니다</FlexContainer>
