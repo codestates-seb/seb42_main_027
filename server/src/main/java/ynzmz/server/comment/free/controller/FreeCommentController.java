@@ -29,7 +29,7 @@ public class FreeCommentController  {
     private final FreeService freeService;
     @PostMapping("/{free-id}")
     public ResponseEntity<?> createFreeComment(@PathVariable("free-id") long freeId,
-                                                   @RequestBody FreeCommentDto.Post postDto) {
+                                               @RequestBody FreeCommentDto.Post postDto) {
         FreeComment freeComment = freeCommentMapper.freeCommentPostToFreeComment(postDto);
 
         Free free = freeService.findFreeById(freeId);
@@ -41,6 +41,8 @@ public class FreeCommentController  {
         FreeCommentDto.Response response = freeCommentMapper.freeCommentToFreeCommentResponse(createFreeComment);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
+
+
 
     @PatchMapping("/{free-comment-id}")
     public ResponseEntity<?> updateFreeComment(@RequestBody FreeCommentDto.Patch patchDto,

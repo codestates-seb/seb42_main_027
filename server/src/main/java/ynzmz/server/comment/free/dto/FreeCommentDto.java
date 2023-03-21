@@ -41,5 +41,7 @@ public class FreeCommentDto {
         private MemberDto.SimpleInfoResponse member;
         private boolean memberSim;
     }
+
+
 }
 

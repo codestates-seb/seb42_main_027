@@ -12,6 +12,7 @@ import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.board.free.entity.Free;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,8 +31,8 @@ public class FreeService {
 
     }
 
-    public Page<Free> findFreeByMemberId(long memberId, int page, int size) {
-        return repository.findByMemberId(memberId,PageRequest.of(page,size,Sort.by("freeId")));
+    public List<Free> findFreesByMemberId(long memberId) {
+        return repository.findByMemberId(memberId);
     }
 
     public Page<Free> findAllFree(int page){
@@ -51,8 +52,8 @@ public class FreeService {
     }
     //-------------------------------------------DELETE---------------------------------------------------------
 
-    public void deleteFree(long id){
-        repository.deleteById(id);
+    public void deleteFree(long freeId){
+        repository.deleteById(freeId);
     }
 
 }

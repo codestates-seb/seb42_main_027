@@ -49,8 +49,8 @@ public class LectureReviewService {
         return lectureReviewRepository.findLectureReviewByLectureTeacherTeacherId(teacherId, PageRequest.of(page, size, Sort.by("teacherId").descending()));
     }
 
-    public Page<LectureReview> findLectureReviewsByMemberId(long memberId, int page, int size) {
-        return lectureReviewRepository.findByMemberId(memberId,PageRequest.of(page-1,size,Sort.by("lectureReviewId").descending()));
+    public List<LectureReview> findLectureReviewsByMemberId(long memberId) {
+        return lectureReviewRepository.findByMemberId(memberId);
     }
 
     public void deleteLectureReview(long lectureReviewId) {

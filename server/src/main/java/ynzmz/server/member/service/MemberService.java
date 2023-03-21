@@ -128,6 +128,8 @@ public class MemberService {
         }
     }
 
+
+
     public void verifyExistsDisplayName(String displayName){
         Optional<Member> member = memberRepository.findByDisplayName(displayName);
         if(member.isPresent()) {

@@ -32,6 +32,7 @@ public class Answer implements Vote {
 
     @ManyToOne
     @JoinColumn(name = "question_id")
+    @JsonBackReference
     private Question question;
     @ManyToOne
     @JoinColumn(name = "member_id")

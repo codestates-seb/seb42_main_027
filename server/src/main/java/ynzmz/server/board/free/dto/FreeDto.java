@@ -18,6 +18,7 @@ public class FreeDto {
         String category;
         String createdAt;
 
+
     }
     @Getter
     @Setter

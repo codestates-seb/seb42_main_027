@@ -86,10 +86,13 @@ public class MemberDto{
         private String phoneNumber;
         private Long memberId;
         private String email;
+        private String password;
         private String displayName;
         private String iconImageUrl;
         private String state;
         private String createdAt;
+
+
     }
 
     @Getter

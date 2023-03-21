@@ -55,6 +55,10 @@ public class AnswerService {
         return answerRepository.findByMemberId(memberId, PageRequest.of(page, size, Sort.by("answerId").descending()));
     }
 
+    public List<Answer> findAnswersByMemberId(long memberId){
+        return answerRepository.findByMemberId(memberId);
+    }
+
     public Answer findAnswerById(long answerId) {
         Optional<Answer> optionalQuestion = answerRepository.findById(answerId);
 
