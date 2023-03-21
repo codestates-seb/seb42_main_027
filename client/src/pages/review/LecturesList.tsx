@@ -12,7 +12,6 @@ import axios from 'axios';
 import Button from 'components/common/Button';
 import isLogin from 'utils/isLogin';
 import { Link } from 'react-router-dom';
-
 import { FlexContainer } from './ReviewPage';
 
 type LectureType = {
@@ -46,7 +45,7 @@ const defaultPageInfo = {
   totalPages: 1,
 };
 
-function LectureReviewPage() {
+function LecturesList() {
   const [buttonOpen, setButtonOpen] = useState<boolean>(false);
   const [subject, setSubject] = useState<string>('전체');
   const [grade, setGrade] = useState<string>('전체');
@@ -89,15 +88,6 @@ function LectureReviewPage() {
     <FlexContainer dir="col">
       <GlobalStyle />
       <Carousel />
-      <FlexContainer
-        display={isLogin() ? 'flex' : 'none'}
-        width="80%"
-        justify="right"
-      >
-        <Link to="createTeacher">
-          <PButton>강사 등록</PButton>
-        </Link>
-      </FlexContainer>
       <SortBar
         reverse={reverse}
         setReverse={setReverse}
@@ -105,6 +95,7 @@ function LectureReviewPage() {
         setSortTag={setSortTag}
         buttonOpen={buttonOpen}
         setButtonOpen={setButtonOpen}
+        setCurPage={setCurPage}
       />
       <SubjectMenu
         buttonOpen={buttonOpen}
@@ -114,8 +105,13 @@ function LectureReviewPage() {
         setGrade={setGrade}
         setSubject={setSubject}
         setPlatform={setPlatform}
+        setCurPage={setCurPage}
       />
-      <SearchBar search={search} setSearch={setSearch} />
+      <SearchBar
+        search={search}
+        setSearch={setSearch}
+        setCurPage={setCurPage}
+      />
 
       {!lectures.length ? (
         <FlexContainer>등록된 강의가 없습니다</FlexContainer>
@@ -154,7 +150,7 @@ function LectureReviewPage() {
   );
 }
 
-export default LectureReviewPage;
+export default LecturesList;
 
 type SubjectSelectButton = {
   isOpen: boolean;

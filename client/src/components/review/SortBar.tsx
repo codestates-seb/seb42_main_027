@@ -11,12 +11,14 @@ type Props = {
   setSortTag: React.Dispatch<React.SetStateAction<string>>;
   setButtonOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setReverse: React.Dispatch<React.SetStateAction<string>>;
+  setCurPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 function SortBar({
   reverse,
   setReverse,
   setSortTag,
+  setCurPage,
   buttonOpen,
   sortTag,
   setButtonOpen,
@@ -25,6 +27,7 @@ function SortBar({
 
   const sortTagHandler = (e: any) => {
     setSortTag(e.target.value);
+    setCurPage(1);
   };
 
   const reverseTagHandler = (e: any) => {
