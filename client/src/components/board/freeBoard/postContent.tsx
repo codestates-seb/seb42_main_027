@@ -102,9 +102,10 @@ function PostContent() {
   useEffect(() => {
     fetchPostDetail();
   }, []);
+  console.log('userInfoData:', userInfo.memberId);
 
   console.log(listData);
-  console.log('userInfo memeberId', userInfo.data.memberId);
+  console.log('userInfo memeberId', userInfo.memberId);
   // console.log('comments', listData.comments[0].content);
 
   return (
@@ -117,7 +118,7 @@ function PostContent() {
           <TitleDiv>
             <Top>
               <Category>{listData.category}</Category>
-              {listData.member.memberId === userInfo.data.memberId ? (
+              {listData.member.memberId === userInfo.memberId ? (
                 <UDBtnDiv>
                   <Link to="edit">
                     <Button.UDWhiteBtn>수정</Button.UDWhiteBtn>
