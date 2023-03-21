@@ -101,7 +101,7 @@ function LectureReviewDetail({
         console.log(data);
         setDetailData(data);
         setReviewVote(data.voteCount);
-        if (data.loginUserLectureReviewVoteInfo.lectureReviewVoteStatus) {
+        if (data.loginUserLectureReviewVoteInfo) {
           setVoteStatus(
             data.loginUserLectureReviewVoteInfo.lectureReviewVoteStatus
               .voteStatus,
