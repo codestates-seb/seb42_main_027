@@ -1,17 +1,11 @@
-package ynzmz.server.comment.free.dto;
+package ynzmz.server.comment.recomment.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ynzmz.server.board.free.entity.Free;
-import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.member.dto.MemberDto;
-import ynzmz.server.member.entity.Member;
 
-import java.util.List;
-
-public class FreeCommentDto {
+public class ReCommentDto {
     @Getter
     @AllArgsConstructor
     public static class Post{
@@ -31,9 +25,8 @@ public class FreeCommentDto {
     @Setter @Getter
     @AllArgsConstructor
     public static class Response{
-        private long freeCommentId;
+        private long ReCommentId;
 //        private long freeDisplayId;
-//        private Free free;
         private String content;
         private String createdAt;
         private String modifiedAt;

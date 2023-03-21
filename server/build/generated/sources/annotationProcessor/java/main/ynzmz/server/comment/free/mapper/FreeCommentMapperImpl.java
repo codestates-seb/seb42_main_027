@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
-import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.comment.free.dto.FreeCommentDto;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.member.dto.MemberDto;
@@ -12,7 +11,7 @@ import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-21T03:20:29+0900",
+    date = "2023-03-21T14:32:37+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -53,7 +52,6 @@ public class FreeCommentMapperImpl implements FreeCommentMapper {
         }
 
         long freeCommentId = 0L;
-        Free free = null;
         String content = null;
         String createdAt = null;
         String modifiedAt = null;
@@ -64,7 +62,6 @@ public class FreeCommentMapperImpl implements FreeCommentMapper {
         if ( freeComment.getFreeCommentId() != null ) {
             freeCommentId = freeComment.getFreeCommentId();
         }
-        free = freeComment.getFree();
         content = freeComment.getContent();
         createdAt = freeComment.getCreatedAt();
         modifiedAt = freeComment.getModifiedAt();
@@ -72,7 +69,7 @@ public class FreeCommentMapperImpl implements FreeCommentMapper {
         member = memberToSimpleInfoResponse( freeComment.getMember() );
         memberSim = freeComment.isMemberSim();
 
-        FreeCommentDto.Response response = new FreeCommentDto.Response( freeCommentId, free, content, createdAt, modifiedAt, voteCount, member, memberSim );
+        FreeCommentDto.Response response = new FreeCommentDto.Response( freeCommentId, content, createdAt, modifiedAt, voteCount, member, memberSim );
 
         return response;
     }

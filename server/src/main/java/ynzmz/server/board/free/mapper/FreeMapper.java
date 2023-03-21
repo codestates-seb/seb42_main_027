@@ -118,7 +118,7 @@ public interface FreeMapper {
         member = memberToSimpleInfoResponse( freeComment.getMember() );
         memberSim = freeComment.isMemberSim();
 
-        FreeCommentDto.Response response = new FreeCommentDto.Response( freeCommentId, free, content, createdAt, modifiedAt, voteCount, member, memberSim );
+        FreeCommentDto.Response response = new FreeCommentDto.Response( freeCommentId, content, createdAt, modifiedAt, voteCount, member, memberSim );
 
         return response;
     }
