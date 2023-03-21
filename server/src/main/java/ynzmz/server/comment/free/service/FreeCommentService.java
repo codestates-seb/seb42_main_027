@@ -11,6 +11,7 @@ import ynzmz.server.comment.free.repository.FreeCommentRepository;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,8 +46,8 @@ public class FreeCommentService {
         return FreeComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.FREE_NOT_FOUND));
     }
 
-    public Page<FreeComment> findFreeCommentByMemberId(long memberId, int page, int size) {
-        return freeCommentRepository.findByMemberId(memberId,PageRequest.of(page,size,Sort.by("freeCommentId")));
+    public List<FreeComment> findFreeCommentsByMemberId(long memberId) {
+        return freeCommentRepository.findByMemberId(memberId);
     }
 
     public void getSimilarityMember(FreeComment freeComment){

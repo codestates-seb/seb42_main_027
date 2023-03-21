@@ -8,11 +8,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.tag.entity.SubjectTag;
+
+import java.util.List;
+
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     @Query(value = "SELECT q FROM Question q WHERE q.member.memberId = :memberId")
-    Page<Question> findByMemberId(long memberId, Pageable pageable);
+    Page<Question> findByMemberId(long memberId,Pageable pageable);
+    @Query(value = "SELECT q FROM Question q WHERE q.member.memberId = :memberId")
+    List<Question> findByMemberId(long memberId);
     Page<Question> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 
     @Query("SELECT DISTINCT q FROM Question q " +

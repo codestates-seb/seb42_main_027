@@ -11,6 +11,7 @@ import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.recomment.qna.entity.QnaReComment;
 import ynzmz.server.recomment.qna.repository.QnaReCommentRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,7 +42,7 @@ public class QnaReCommentService {
         return qnaComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QNA_RE_COMMENT_NOT_FOUND));
     }
 
-    public Page<QnaReComment> findQnaReCommentByMemberId(long memberId, int page, int size) {
-        return qnaReCommentRepository.findByMemberId(memberId, PageRequest.of(page,size, Sort.by("qnaRecommentId")));
+    public List<QnaReComment> findQnaReCommentByMemberId(long memberId) {
+        return qnaReCommentRepository.findByMemberId(memberId);
     }
 }

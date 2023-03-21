@@ -66,6 +66,11 @@ public class QuestionService {
     public Page<Question> findQuestionsByMemberId(long memberId, int page, int size) {
         return questionRepository.findByMemberId(memberId, PageRequest.of(page, size, Sort.by("questionId").descending()));
     }
+
+    public List<Question> findQuestionsByMemberId(long memberId){
+        return questionRepository.findByMemberId(memberId);
+    }
+
     @Transactional
     public Question findQuestionById(long questionId) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);

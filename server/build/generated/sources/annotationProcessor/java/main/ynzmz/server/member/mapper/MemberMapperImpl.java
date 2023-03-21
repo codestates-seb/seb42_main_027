@@ -9,7 +9,7 @@ import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-20T16:44:01+0900",
+    date = "2023-03-21T15:34:49+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -63,6 +63,7 @@ public class MemberMapperImpl implements MemberMapper {
         String phoneNumber = null;
         Long memberId = null;
         String email = null;
+        String password = null;
         String displayName = null;
         String iconImageUrl = null;
         String state = null;
@@ -72,6 +73,7 @@ public class MemberMapperImpl implements MemberMapper {
         phoneNumber = member.getPhoneNumber();
         memberId = member.getMemberId();
         email = member.getEmail();
+        password = member.getPassword();
         displayName = member.getDisplayName();
         iconImageUrl = member.getIconImageUrl();
         if ( member.getState() != null ) {
@@ -79,7 +81,7 @@ public class MemberMapperImpl implements MemberMapper {
         }
         createdAt = member.getCreatedAt();
 
-        MemberDto.Response response = new MemberDto.Response( username, phoneNumber, memberId, email, displayName, iconImageUrl, state, createdAt );
+        MemberDto.Response response = new MemberDto.Response( username, phoneNumber, memberId, email, password, displayName, iconImageUrl, state, createdAt );
 
         return response;
     }

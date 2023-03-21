@@ -11,6 +11,7 @@ import ynzmz.server.comment.qna.repository.QnaCommentRepository;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,7 +42,7 @@ public class QnaCommentService {
         return qnaComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QNA_COMMENT_NOT_FOUND));
     }
 
-    public Page<QnaComment> findQnaCommentByMemberId(long memberId, int page, int size){
-        return qnaCommentRepository.findByMemberId(memberId, PageRequest.of(page,size, Sort.by("qnaCommentId")));
+    public List<QnaComment> findQnaCommentByMemberId(long memberId){
+        return qnaCommentRepository.findByMemberId(memberId);
     }
 }

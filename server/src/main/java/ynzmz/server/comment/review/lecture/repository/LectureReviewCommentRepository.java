@@ -8,11 +8,13 @@ import org.springframework.stereotype.Repository;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 
+import java.util.List;
+
 @Repository
 public interface LectureReviewCommentRepository extends JpaRepository<LectureReviewComment,Long> {
     Page<LectureReviewComment> findLectureReviewCommentsByLectureReviewLectureReviewId(long lectureReviewId, Pageable pageable);
 
     @Query(value = "SELECT lr FROM LectureReviewComment lr WHERE lr.member.memberId = :memberId")
-    Page<LectureReviewComment> findByMemberId(long memberId, Pageable pageable);
+    List<LectureReviewComment> findByMemberId(long memberId);
 
 }

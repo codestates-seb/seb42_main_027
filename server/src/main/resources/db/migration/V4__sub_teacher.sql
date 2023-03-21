@@ -37,3 +37,4 @@ SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '�
 INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '통합사회');
 INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+

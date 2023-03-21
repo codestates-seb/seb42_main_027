@@ -11,6 +11,7 @@ import ynzmz.server.comment.review.lecture.repository.LectureReviewCommentReposi
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,7 +46,7 @@ public class LectureReviewCommentService {
         return lectureReviewPostComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.LECTURE_REVIEW_COMMENT_NOT_FOUND));
     }
 
-    public Page<LectureReviewComment> findLectureReviewCommentByMemberId(long memberId, int page, int size) {
-        return lectureReviewCommentRepository.findByMemberId(memberId,PageRequest.of(page,size,Sort.by("lectureReviewCommentId")));
+    public List<LectureReviewComment> findLectureReviewCommentsByMemberId(long memberId) {
+        return lectureReviewCommentRepository.findByMemberId(memberId);
     }
 }

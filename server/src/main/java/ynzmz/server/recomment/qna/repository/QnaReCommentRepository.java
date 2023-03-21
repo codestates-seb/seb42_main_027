@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.recomment.qna.entity.QnaReComment;
 
+import java.util.List;
+
 @Repository
 public interface QnaReCommentRepository extends JpaRepository<QnaReComment,Long> {
     @Query(value = "SELECT qrc FROM QnaReComment qrc WHERE qrc.member.memberId = :memberId")
-    Page<QnaReComment> findByMemberId(long memberId, Pageable pageable);
+    List<QnaReComment> findByMemberId(long memberId);
 }
