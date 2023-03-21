@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ *  특정 이메일만 관리자가 되게한다.
+ *
+ */
 @Component
 public class CustomAuthorityUtils {
     @Value("${mail.address.admin}")

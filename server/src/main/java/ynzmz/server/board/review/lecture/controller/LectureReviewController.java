@@ -1,6 +1,7 @@
 package ynzmz.server.board.review.lecture.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +11,15 @@ import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.lecture.service.LectureService;
 import ynzmz.server.board.review.lecture.mapper.LectureReviewMapper;
 import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
+import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
+import ynzmz.server.teacher.mapper.TeacherMapper;
 import ynzmz.server.teacher.service.TeacherService;
 
 import java.util.List;
@@ -23,12 +27,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/boards/reviews/lectures")
 @RequiredArgsConstructor
+@Slf4j
 public class LectureReviewController {
     private final LectureReviewService lectureReviewService;
     private final LectureService lectureService;
     private final TeacherService teacherService;
     private final MemberService memberService;
     private final LectureReviewMapper lectureReviewMapper;
+    private final TeacherMapper teacherMapper;
     //리뷰작성
     @PostMapping
     public ResponseEntity<?> postLectureReview(@RequestBody LectureReviewDto.Post lectureReviewPost){
@@ -107,9 +113,24 @@ public class LectureReviewController {
     //리뷰 1건 상세조회
     @GetMapping("/{lecture-review-id}")
     public ResponseEntity<?> getReviewDetail(@PathVariable("lecture-review-id") long lectureReviewId){
-        LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewId);
-        LectureReviewDto.DetailPageResponse response = lectureReviewMapper.lectureReviewToLectureReviewDetailPageResponse(lectureReview);
-        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+        try {
+            Member loginMember = loginMemberFindByToken();
+
+            LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewId);
+            MemberDto.LoginUserLectureReviewVoteInfo lectureReviewVoteStatusByLoginUser = memberService.findLectureReviewVoteStatusByLoginUser(loginMember, lectureReview);
+            LectureReviewDto.DetailPageResponse response = lectureReviewMapper.lectureReviewToLectureReviewDetailPageResponse(lectureReview);
+            response.setTeacher(teacherMapper.teacherToTeacherSimpleInfoResponse(lectureReview.getLecture().getTeacher()));
+            response.setLoginUserLectureReviewVoteInfo(lectureReviewVoteStatusByLoginUser);
+
+            return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+        } catch (BusinessLogicException e) {
+            LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewId);
+            LectureReviewDto.DetailPageResponse response = lectureReviewMapper.lectureReviewToLectureReviewDetailPageResponse(lectureReview);
+
+            response.setTeacher(teacherMapper.teacherToTeacherSimpleInfoResponse(lectureReview.getLecture().getTeacher()));
+
+            return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+        }
     }
     //리뷰 삭제
     @DeleteMapping("/{lecture-review-id}")

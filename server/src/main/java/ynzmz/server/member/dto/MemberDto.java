@@ -8,6 +8,8 @@ import lombok.Setter;
 import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.vote.Vote;
 import ynzmz.server.vote.qna.dto.LoginUserAnswerVoteResponseDto;
+import ynzmz.server.vote.review.lecture.dto.LoginUserLectureReviewCommentVoteResponseDto;
+import ynzmz.server.vote.review.lecture.dto.LoginUserLectureReviewVoteResponseDto;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
@@ -108,7 +110,16 @@ public class MemberDto{
     public static class MyLectureReview {
         private List<LectureReviewDto.ListPageResponse> lectureReview = new ArrayList<>();
     }
+    @Getter
+    @Setter
+    @NoArgsConstructor @AllArgsConstructor
+    public static class LoginUserLectureReviewVoteInfo {
+        private long memberId;
+        private String username;
+        private LoginUserLectureReviewVoteResponseDto lectureReviewVoteStatus;
+        private List<LoginUserLectureReviewCommentVoteResponseDto> commentVoteStatus = new ArrayList<>();
 
+    }
 
 
 }

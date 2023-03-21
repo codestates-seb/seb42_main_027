@@ -11,53 +11,56 @@ import ynzmz.server.recomment.qna.entity.QnaReComment;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-20T15:00:23+0900",
-    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
+    date = "2023-03-21T15:34:24+0900",
+    comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
 public class QnaReCommentMapperImpl implements QnaReCommentMapper {
 
     @Override
-    public QnaReComment qnaReCommentPostToQnaReComment(QnaReCommentDto.Post lectureReviewPostCommentPostDto) {
-        if ( lectureReviewPostCommentPostDto == null ) {
+    public QnaReComment qnaReCommentPostToQnaReComment(QnaReCommentDto.Post lectureReviewCommentPostDto) {
+        if ( lectureReviewCommentPostDto == null ) {
             return null;
         }
 
         QnaReComment qnaReComment = new QnaReComment();
 
-        qnaReComment.setContent( lectureReviewPostCommentPostDto.getContent() );
-        qnaReComment.setCreatedAt( lectureReviewPostCommentPostDto.getCreatedAt() );
+        qnaReComment.setContent( lectureReviewCommentPostDto.getContent() );
+        qnaReComment.setCreatedAt( lectureReviewCommentPostDto.getCreatedAt() );
 
         return qnaReComment;
     }
 
     @Override
-    public QnaReComment qnaReCommentPatchToQnaReComment(QnaReCommentDto.Patch lectureReviewPostCommentPatchDto) {
-        if ( lectureReviewPostCommentPatchDto == null ) {
+    public QnaReComment qnaReCommentPatchToQnaReComment(QnaReCommentDto.Patch lectureReviewCommentPatchDto) {
+        if ( lectureReviewCommentPatchDto == null ) {
             return null;
         }
 
         QnaReComment qnaReComment = new QnaReComment();
 
-        qnaReComment.setContent( lectureReviewPostCommentPatchDto.getContent() );
-        qnaReComment.setModifiedAt( lectureReviewPostCommentPatchDto.getModifiedAt() );
+        qnaReComment.setContent( lectureReviewCommentPatchDto.getContent() );
+        qnaReComment.setModifiedAt( lectureReviewCommentPatchDto.getModifiedAt() );
 
         return qnaReComment;
     }
 
     @Override
-    public QnaReCommentDto.Response qnaReCommentToQnaCommentReResponse(QnaReComment lectureReviewComment) {
-        if ( lectureReviewComment == null ) {
+    public QnaReCommentDto.Response qnaReCommentToQnaReCommentResponse(QnaReComment lectureReviewReComment) {
+        if ( lectureReviewReComment == null ) {
             return null;
         }
 
         QnaReCommentDto.Response response = new QnaReCommentDto.Response();
 
-        response.setContent( lectureReviewComment.getContent() );
-        response.setCreatedAt( lectureReviewComment.getCreatedAt() );
-        response.setModifiedAt( lectureReviewComment.getModifiedAt() );
-        response.setVoteCount( lectureReviewComment.getVoteCount() );
-        response.setMember( memberToSimpleInfoResponse( lectureReviewComment.getMember() ) );
+        if ( lectureReviewReComment.getQnaReCommentId() != null ) {
+            response.setQnaReCommentId( lectureReviewReComment.getQnaReCommentId() );
+        }
+        response.setContent( lectureReviewReComment.getContent() );
+        response.setCreatedAt( lectureReviewReComment.getCreatedAt() );
+        response.setModifiedAt( lectureReviewReComment.getModifiedAt() );
+        response.setVoteCount( lectureReviewReComment.getVoteCount() );
+        response.setMember( memberToSimpleInfoResponse( lectureReviewReComment.getMember() ) );
 
         return response;
     }
@@ -70,7 +73,7 @@ public class QnaReCommentMapperImpl implements QnaReCommentMapper {
 
         List<QnaReCommentDto.Response> list = new ArrayList<QnaReCommentDto.Response>( lectureReviewComments.size() );
         for ( QnaReComment qnaReComment : lectureReviewComments ) {
-            list.add( qnaReCommentToQnaCommentReResponse( qnaReComment ) );
+            list.add( qnaReCommentToQnaReCommentResponse( qnaReComment ) );
         }
 
         return list;

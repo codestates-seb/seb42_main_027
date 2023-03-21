@@ -26,10 +26,10 @@ public class LectureReview implements Vote {
     private String createdAt;
     private String modifiedAt;
     private long viewCount;
-
     @Column
     @ColumnDefault("0")
     private long voteCount;
+    private long totalCommentCount;
     @ManyToOne
     @JoinColumn(name = "lecture_id")
     @JsonBackReference

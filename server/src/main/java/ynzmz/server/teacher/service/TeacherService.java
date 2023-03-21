@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
+import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.lecture.entity.Lecture;
@@ -44,6 +46,9 @@ public class TeacherService {
     public Page<Teacher> findTeachers(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String name, String sort,String reverse, int page, int size) {
         return teacherRepository.findAllByGradeAndPlatformAndSubjectAndName(grade, platform, subject, name, PageRequest.of(page, size, Sort.by(sort).descending()));
     }
+    public Page<Teacher> findTeachersByRandom(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String name, String sort, int page, int size) {
+        return teacherRepository.findAllByGradeAndPlatformAndSubjectAndName(grade, platform, subject, name, PageRequest.of(page, size, JpaSort.unsafe("RAND()")));
+    }
 
     public void deleteTeacher(long teacherId) {
         teacherRepository.deleteById(teacherId);
@@ -54,11 +59,14 @@ public class TeacherService {
         List<Lecture> lectures = teacher.getLectures();
         double starPoint = 0;
         double starPointAverage;
+        long totalReviewCount = 0;
         for(Lecture lecture : lectures) {
-            starPoint += lecture.getStarPointAverage();
+            for(LectureReview lectureReview : lecture.getLectureReviews()) {
+                starPoint += lectureReview.getStarPoint();
+                totalReviewCount ++;
+            }
         }
-        starPointAverage = starPoint / lectures.size();
-        long totalReviewCount = lectures.size();
+        starPointAverage = starPoint / totalReviewCount;
         teacher.setStarPointAverage(starPointAverage);
         teacher.setTotalReviewCount(totalReviewCount);
         teacherRepository.save(teacher);

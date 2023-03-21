@@ -9,8 +9,8 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface QnaReCommentMapper {
-    QnaReComment qnaReCommentPostToQnaReComment(QnaReCommentDto.Post lectureReviewPostCommentPostDto);
-    QnaReComment qnaReCommentPatchToQnaReComment(QnaReCommentDto.Patch lectureReviewPostCommentPatchDto);
-    QnaReCommentDto.Response qnaReCommentToQnaCommentReResponse(QnaReComment lectureReviewComment);
+    QnaReComment qnaReCommentPostToQnaReComment(QnaReCommentDto.Post lectureReviewCommentPostDto);
+    QnaReComment qnaReCommentPatchToQnaReComment(QnaReCommentDto.Patch lectureReviewCommentPatchDto);
+    QnaReCommentDto.Response qnaReCommentToQnaReCommentResponse(QnaReComment lectureReviewReComment);
     List<QnaReCommentDto.Response> qnaCommentsToQnaCommentResponses(List<QnaReComment> lectureReviewComments);
 }

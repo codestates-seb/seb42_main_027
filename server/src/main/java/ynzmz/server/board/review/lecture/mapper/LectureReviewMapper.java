@@ -16,4 +16,5 @@ public interface LectureReviewMapper {
     LectureReviewDto.DetailPageResponse lectureReviewToLectureReviewDetailPageResponse(LectureReview lectureReview);
     LectureReviewDto.InfoResponse lectureReviewToLectureReviewInfoResponse(LectureReview lectureReview);
     List<LectureReviewDto.InfoResponse> lectureReviewToLectureReviewInfoResponses(List<LectureReview> lectureReviews);
+
 }

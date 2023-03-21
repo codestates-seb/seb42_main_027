@@ -9,6 +9,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ynzmz.server.board.review.lecture.entity.LectureReview;
+import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.member.dto.MemberDto;
@@ -17,8 +19,12 @@ import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
+import ynzmz.server.vote.Vote;
 import ynzmz.server.vote.qna.dto.LoginUserAnswerVoteResponseDto;
 import ynzmz.server.vote.qna.entity.QnaVote;
+import ynzmz.server.vote.review.lecture.dto.LoginUserLectureReviewCommentVoteResponseDto;
+import ynzmz.server.vote.review.lecture.dto.LoginUserLectureReviewVoteResponseDto;
+import ynzmz.server.vote.review.lecture.entity.ReviewVote;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,6 +169,44 @@ public class MemberService {
 //        }
         loginMemberVoteInfo.setAnswerVoteStatus(loginUserAnswerVoteResponseDtos);
         return loginMemberVoteInfo;
+    }
+
+    public MemberDto.LoginUserLectureReviewVoteInfo findLectureReviewVoteStatusByLoginUser(Member member, LectureReview lectureReview) {
+        MemberDto.LoginUserLectureReviewVoteInfo loginUserLectureReviewVoteInfo = new MemberDto.LoginUserLectureReviewVoteInfo();
+
+        loginUserLectureReviewVoteInfo.setMemberId(member.getMemberId());
+        loginUserLectureReviewVoteInfo.setUsername(member.getUsername());
+
+        ArrayList<LoginUserLectureReviewCommentVoteResponseDto> loginUserLectureReviewCommentVoteResponseDtos = new ArrayList<>();
+        List<ReviewVote> reviewVotes = member.getReviewVotes();
+        List<LectureReviewComment> lectureReviewComments = lectureReview.getComments();
+
+        for (ReviewVote reviewVote : reviewVotes) {
+            if (reviewVote.getTarget() == Vote.Target.REVIEW) {
+                if (Objects.equals(reviewVote.getLectureReview().getLectureReviewId(), lectureReview.getLectureReviewId())) {
+                    LoginUserLectureReviewVoteResponseDto loginUserLectureReviewVoteResponseDto = new LoginUserLectureReviewVoteResponseDto();
+                    loginUserLectureReviewVoteResponseDto.setLectureReviewId(reviewVote.getReviewVoteId());
+                    loginUserLectureReviewVoteResponseDto.setVoteStatus(reviewVote.getStatus());
+                    loginUserLectureReviewVoteInfo.setLectureReviewVoteStatus(loginUserLectureReviewVoteResponseDto);
+                    break;
+                }
+            }
+        }
+
+        for (LectureReviewComment reviewComment : lectureReviewComments) {
+            for (ReviewVote reviewVote : reviewVotes) {
+                if (reviewVote.getTarget() == Vote.Target.COMMENT) {
+                    if (Objects.equals(reviewComment.getLectureReviewCommentId(), reviewVote.getLectureReviewComment().getLectureReviewCommentId())) {
+                        LoginUserLectureReviewCommentVoteResponseDto loginUserLectureReviewCommentVoteResponseDto = new LoginUserLectureReviewCommentVoteResponseDto();
+                        loginUserLectureReviewCommentVoteResponseDto.setLectureReviewCommentId(reviewVote.getLectureReviewComment().getLectureReviewCommentId());
+                        loginUserLectureReviewCommentVoteResponseDto.setVoteStatus(reviewVote.getStatus());
+                        loginUserLectureReviewCommentVoteResponseDtos.add(loginUserLectureReviewCommentVoteResponseDto);
+                    }
+                }
+            }
+        }
+            loginUserLectureReviewVoteInfo.setCommentVoteStatus(loginUserLectureReviewCommentVoteResponseDtos);
+            return loginUserLectureReviewVoteInfo;
     }
     private String passwordEncoding(String password) {
         return passwordEncoder.encode(password);

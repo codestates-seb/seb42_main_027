@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
@@ -21,6 +22,7 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@ToString
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +49,6 @@ public class Member {
         STUDENT("학생"),
         TEACHER("강사"),
         ADMIN("관리자");
-
         @Getter
         private String memberState;
 

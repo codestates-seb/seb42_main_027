@@ -88,6 +88,7 @@ create table lecture_review (
                                 title varchar(255),
                                 view_count bigint not null,
                                 vote_count bigint default 0,
+                                total_comment_count bigint default 0,
                                 lecture_id bigint,
                                 member_id bigint,
                                 primary key (lecture_review_id)
