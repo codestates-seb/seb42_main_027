@@ -14,7 +14,11 @@ type SignUpParams = {
 };
 
 const postSignUp = async (pathData: SignUpParams) => {
-  await axios.post(`${apiUrl}/members`, pathData);
+  await axios.post(`${apiUrl}/members`, pathData, {
+    headers: {
+      'ngrok-skip-browser-warning': '69420',
+    },
+  });
 };
 
 export default postSignUp;

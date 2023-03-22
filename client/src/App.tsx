@@ -4,6 +4,7 @@ import { useIsLoginStore } from 'stores/loginStore';
 import isLogin from 'utils/isLogin';
 import getUserInfo from 'apis/getUserInfo';
 import useUserInfoStore from 'stores/userInfoStore';
+
 import GlobalStyle from './GlobalStyles';
 import Router from './Router';
 
@@ -11,10 +12,11 @@ function App() {
   const { setIsLoginInStore } = useIsLoginStore();
   const { setUserInfo } = useUserInfoStore(state => state);
 
-  const email = localStorage.getItem('email');
+  const activeLogin = isLogin();
 
   const fetchUserInfo = async () => {
     try {
+      const email = localStorage.getItem('email');
       const response = await getUserInfo(email);
       setUserInfo(response);
     } catch (error) {
@@ -26,9 +28,12 @@ function App() {
   useEffect(() => {
     if (isLogin()) {
       setIsLoginInStore(true);
-      fetchUserInfo();
+      setTimeout(() => {
+        fetchUserInfo();
+      }, 500);
+      console.log('정보를 불러왔습니다.');
     }
-  }, []);
+  }, [activeLogin]);
 
   return (
     <>

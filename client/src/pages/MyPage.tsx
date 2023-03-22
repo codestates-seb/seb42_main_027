@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 import useUserInfoStore from 'stores/userInfoStore';
 import { useEffect, useState } from 'react';
-import EditUserInfo from 'components/myPage/EditUserInfo';
-import { validatePhoneNum, validatePassword } from 'utils/regex';
-import EditUserInfoInput from 'components/myPage/EditUserInfo';
-import patchUserInfo from 'apis/patchUserInfo';
 import UserCard from 'components/myPage/UserCard';
 import getFreePosts from 'apis/getFreePosts';
+import getComment from 'apis/getComment';
+import CountIcon from 'assets/icons/countIcon';
 import theme from '../theme';
 
 const { colors } = theme;
@@ -23,7 +21,7 @@ const ListContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 60%;
+  width: 80%;
 `;
 
 const PostListContainer = styled.div`
@@ -51,32 +49,104 @@ const List = styled.div`
 
 const ListItem = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 0;
-  border-bottom: 0.1rem solid #ccc;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  padding: 1rem ${theme.gap.px20};
+  border-bottom: 1px solid ${theme.colors.gray};
+
+  &.notice {
+    background-color: ${theme.colors.palePurple};
+  }
 `;
 
 // 제목 컴포넌트
 const Title = styled.h2`
-  margin: 0;
   font-size: ${fontSizes.md};
 `;
 
 // 카테고리 컴포넌트
 const Category = styled.span`
-  font-size: ${fontSizes.sm};
-  color: ${colors.fontColor};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 18px;
+  border: 1px solid ${theme.colors.pointColor};
+  border-radius: 5px;
+  font-size: ${theme.fontSizes.sm};
+  font-weight: bold;
+  color: ${theme.colors.pointColor};
+  background-color: ${theme.colors.white};
 `;
 
 // 조회수 및 투표수 컴포넌트
-const Count = styled.span`
-  font-size: ${fontSizes.sm};
+
+const Top = styled.div`
+  display: flex;
+  margin-bottom: 4px;
+`;
+
+const Bottom = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Count = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${colors.gray};
+  svg {
+    margin: 0 0.3rem;
+  }
+`;
+
+const Content = styled.p`
+  font-size: 1rem;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const ContentContainer = styled.div`
+  flex: 10;
+  width: 60%;
+`;
+
+const SourcesInfo = styled.p`
+  font-size: 0.8rem;
   color: ${colors.fontColor};
 `;
 
 type PostProps = {
   freeId: number;
+  questionId: number;
+  lectureReviewId: number;
+  answerId: number;
+  title: string;
+  content: string;
+  category: string;
+  viewCount: number;
+  voteCount: number;
+  createdAt: string;
+  modifiedAt: null;
+  member: {
+    memberId: number;
+    displayName: string;
+    iconImageUrl: null;
+    state: string;
+  };
+  commentsListNum: number;
+};
+
+type CommentsProps = {
+  freeCommentId: number;
+  qnaCommentId: number;
+  lectureReviewCommentId: number;
+  qnaReCommentId: number;
   title: string;
   content: string;
   category: string;
@@ -96,9 +166,13 @@ type PostProps = {
 function MyPage() {
   const { userInfo } = useUserInfoStore(state => state);
   const [freePosts, setFreePosts] = useState([]);
-  const [select, setSelect] = useState('자유 게시판');
+  const [freeComments, setFreeComments] = useState([]);
+  const [selectPostCategories, setSelectPostCategories] =
+    useState('자유 게시판');
+  const [selectCommentCategories, setSelectCommentCategories] =
+    useState('자유 게시판');
 
-  const patchFreePosts = async (id: number, select: string) => {
+  const patchFreePosts = async (id: number | null, select: string) => {
     try {
       // 테스트용 memberId 사용
       const response = await getFreePosts(id, select);
@@ -108,13 +182,29 @@ function MyPage() {
     }
   };
 
+  const patchComments = async (id: number | null, select: string) => {
+    try {
+      // 테스트용 memberId 사용
+      const response = await getComment(id, select);
+      setFreeComments(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleChangeBoard = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelect(e.target.value);
+    setSelectPostCategories(e.target.value);
+  };
+  const handleChangeCommentCategorie = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    setSelectCommentCategories(e.target.value);
   };
 
   useEffect(() => {
-    patchFreePosts(4, select);
-  }, [select]);
+    patchFreePosts(2, selectPostCategories);
+    patchComments(2, selectCommentCategories);
+  }, [selectPostCategories, selectCommentCategories, userInfo]);
 
   return (
     <Container>
@@ -123,21 +213,65 @@ function MyPage() {
         <PostListContainer>
           <PostListTitleContainer>
             <h2>내가 작성한 게시글</h2>
-            <select onChange={handleChangeBoard} value={select}>
+            <select onChange={handleChangeBoard} value={selectPostCategories}>
               <option value="자유 게시판">자유 게시판</option>
               <option value="질문 게시판">질문 게시판</option>
+              <option value="답변 게시판">답변 게시판</option>
               <option value="강의 리뷰">강의 리뷰</option>
             </select>
           </PostListTitleContainer>
           <List>
             {freePosts.map((post: PostProps) => {
+              function selectKey(select: string) {
+                if (select === '질문 게시판') {
+                  return post.questionId;
+                }
+                if (select === '답변 게시판') {
+                  return post.answerId;
+                }
+                if (select === '강의 리뷰') {
+                  return post.lectureReviewId;
+                }
+                return post.freeId;
+              }
+
               return (
-                <ListItem key={post.freeId}>
-                  <Category>{post.category}</Category>
-                  <Title>{post.title}</Title>
-                  <Count>
-                    조회수: {post.viewCount} | 투표수: {post.voteCount}
-                  </Count>
+                <ListItem key={selectKey(selectPostCategories)}>
+                  {post.category ? (
+                    <Top>
+                      <Category>{post.category}</Category>
+                    </Top>
+                  ) : null}
+                  <Bottom>
+                    {post.title ? (
+                      <ContentContainer>
+                        <Title>{post.title}</Title>
+                        <Content>
+                          {/* {post.content} */}
+                          아침이다 나는 아침이 너무 싫다아침이다 나는 아침이
+                          너무 싫다아침이다 나는 아침이 너무 싫다아침이다 나는
+                          아침이 너무 싫다아침이다 나는 아침이 너무 싫다아침이다
+                          나는 아침이 너무 싫다아침이다 나는 아침이 너무
+                          싫다아침이다 나는 아침이 너무 싫다아침이다 나는 아침이
+                          너무 싫다아침이다 나는 아침이 너무 싫다
+                        </Content>
+                      </ContentContainer>
+                    ) : (
+                      <Content>{post.content}</Content>
+                    )}
+                    <Count>
+                      {post.viewCount ? (
+                        <>
+                          <CountIcon.View />({post.viewCount})
+                        </>
+                      ) : null}
+                      <CountIcon.Vote />
+                      {post.voteCount}
+                    </Count>
+                  </Bottom>
+                  {selectPostCategories === '답변 게시판' ? (
+                    <SourcesInfo>이상해씨 에 남긴 답변</SourcesInfo>
+                  ) : null}
                 </ListItem>
               );
             })}
@@ -146,13 +280,46 @@ function MyPage() {
 
         <PostListContainer>
           <PostListTitleContainer>
-            <h2>내가 작성한 게시글</h2>
-            <select>
-              <option>자유 게시판</option>
-              <option>질문 게시판</option>
-              <option>강의 리뷰</option>
+            <h2>내가 작성한 댓글</h2>
+            <select
+              onChange={handleChangeCommentCategorie}
+              value={selectCommentCategories}
+            >
+              <option value="자유 게시판">자유 게시판</option>
+              <option value="답변 게시글">답변 댓글</option>
+              <option value="강의 리뷰">강의 리뷰</option>
+              <option value="대댓글">대댓글</option>
             </select>
           </PostListTitleContainer>
+          <List>
+            {freeComments.map((comment: CommentsProps) => {
+              function selectKey(select: string) {
+                if (select === '답변 게시글') {
+                  return comment.qnaCommentId;
+                }
+                if (select === '강의 리뷰') {
+                  return comment.lectureReviewCommentId;
+                }
+                if (select === '대댓글') {
+                  return comment.qnaReCommentId;
+                }
+                return comment.freeCommentId;
+              }
+
+              return (
+                <ListItem key={selectKey(selectCommentCategories)}>
+                  <Bottom>
+                    <Content>{comment.content}</Content>
+                    <Count>
+                      <CountIcon.Vote />
+                      {comment.voteCount}
+                    </Count>
+                  </Bottom>
+                  <SourcesInfo>이상해씨 에 남긴 댓글</SourcesInfo>
+                </ListItem>
+              );
+            })}
+          </List>
         </PostListContainer>
       </ListContainer>
     </Container>

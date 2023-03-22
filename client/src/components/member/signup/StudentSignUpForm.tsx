@@ -31,7 +31,14 @@ const SignUpInfo = styled.p`
   font-size: 0.9rem;
 `;
 
+const SignUpFailedMessage = styled.p`
+  color: ${colors.danger};
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+`;
+
 function StudentSignUpForm() {
+  const [isSuccess, setIsSuccess] = useState(true);
   const [userName, setUserName] = useState('');
   const [isUserNameSuccess, setIsUserNameSuccess] = useState({
     isSuccess: '',
@@ -212,9 +219,15 @@ function StudentSignUpForm() {
     pathData.state = 'STUDENT';
     try {
       await postSignUp(pathData);
-      navigate('/login');
-    } catch (error) {
-      console.error(error);
+      navigate('/');
+      setTimeout(() => {
+        navigate('/login');
+      }, 100);
+      setIsSuccess(true);
+    } catch (error: any) {
+      if (error.response.status === 409) {
+        setIsSuccess(false);
+      }
     }
   };
 
@@ -280,6 +293,11 @@ function StudentSignUpForm() {
           errorMessage={isConfirmPasswordSuccess.errorMessage}
         />
       </Container>
+      {isSuccess ? null : (
+        <SignUpFailedMessage>
+          이미 가입된 계정이 있습니다. 로그인해 주세요
+        </SignUpFailedMessage>
+      )}
       <BaseButton
         onClick={handleSubmit}
         color="pointColor"
@@ -288,6 +306,7 @@ function StudentSignUpForm() {
       >
         가입하기
       </BaseButton>
+
       <SignUpInfo>
         유효한 전화번호를 입력하십시오. 새 기기나 웹 브라우저에 로그인할 때 해당
         전화번호를 사용하여 신원을 확인합니다. 메시지 또는 데이터 요금이 적용될
