@@ -212,7 +212,10 @@ function StudentSignUpForm() {
     pathData.state = 'STUDENT';
     try {
       await postSignUp(pathData);
-      navigate('/login');
+      navigate('/');
+      setTimeout(() => {
+        navigate('/login');
+      }, 100);
     } catch (error) {
       console.error(error);
     }
