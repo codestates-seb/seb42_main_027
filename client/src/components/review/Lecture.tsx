@@ -3,7 +3,7 @@
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/ReviewPage';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import isLogin from 'utils/isLogin';
 import axios from 'axios';
 
@@ -29,6 +29,7 @@ type Props = {
 };
 
 function Lecture({ lecture, first }: Props) {
+  const { teacherId } = useParams();
   return (
     <Container first={first}>
       <FlexContainer width="5rem">
@@ -47,7 +48,10 @@ function Lecture({ lecture, first }: Props) {
       <FlexContainer width="5rem">
         {lecture.totalReviewCount} Reviews
       </FlexContainer>
-      <FlexContainer dir="col" display={isLogin() ? 'flex' : 'none'}>
+      <FlexContainer
+        dir="col"
+        display={isLogin() && teacherId ? 'flex' : 'none'}
+      >
         <Link to={`updateLecture/${lecture.lectureId}`}>
           <button>수정</button>
         </Link>
