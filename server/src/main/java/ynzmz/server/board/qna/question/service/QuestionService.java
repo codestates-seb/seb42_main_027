@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ynzmz.server.board.qna.question.repository.QuestionRepository;
@@ -19,6 +20,8 @@ import ynzmz.server.tag.entity.SubjectTag;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.domain.Sort.Order.asc;
 
 @Transactional
 @Service
@@ -39,6 +42,8 @@ public class QuestionService {
         Optional.ofNullable(question.getAnswers()).ifPresent(findQuestion::setAnswers);
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
+        Optional.ofNullable(question.getCategory()).ifPresent(findQuestion::setCategory);
+        Optional.ofNullable(question.getModifiedAt()).ifPresent(findQuestion::setModifiedAt);
         return questionRepository.save(findQuestion);
     }
 
@@ -54,12 +59,26 @@ public class QuestionService {
         return deleteQuestion.isEmpty();
     }
 
-    public Page<Question> findQuestions(SubjectTag.Subject subject,String title,String sort, int page, int size) {
-        return questionRepository.findAllByGradeAndPlatformAndSubjectAndName(subject,title,PageRequest.of(page, size, Sort.by(sort)));
-    }
+//    public Page<Question> findQuestions(String category, String title,String sort, int page, int size) {
+//        return questionRepository.findByTitleContainingIgnoreCase(category,title,PageRequest.of(page, size, Sort.by(sort)));
+//    }
+//
+//    public Page<Question> findQuestions(String category, String title,String sort,String reverse, int page, int size) {
+//        return questionRepository.findByTitleContainingIgnoreCase(category,title,PageRequest.of(page, size, Sort.by(sort).descending()));
+//    }
+//
+//    public Page<Question> findQuestionsTest(String category, String title,String sort,String reverse, int page, int size) {
+//        return questionRepository.findAllByTest(category,title,PageRequest.of(page, size,
+//                JpaSort.unsafe("CASE WHEN q.category = '공지' THEN 0 ELSE 1 END," +
+//                "  q.questionId ").descending()));
+//    }
 
-    public Page<Question> findQuestions(SubjectTag.Subject subject,String title,String sort,String reverse, int page, int size) {
-        return questionRepository.findAllByGradeAndPlatformAndSubjectAndName(subject,title,PageRequest.of(page, size, Sort.by(sort).descending()));
+    public Page<Question> findQuestions(String category, String title,String sort, int page, int size) {
+        String sortOrder = String.format("(CASE WHEN q.category = '공지' THEN 0 ELSE 1 END), q.%s", sort);
+        return questionRepository.findAllByTest(category,title,PageRequest.of(page, size, JpaSort.unsafe(sortOrder).descending()));
+    }
+    public List<Question> findAllNoticeQuestions() {
+        return questionRepository.findAllNoticeQuestions();
     }
 
 

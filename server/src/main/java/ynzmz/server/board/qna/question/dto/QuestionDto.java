@@ -16,9 +16,9 @@ public class QuestionDto {
     public static class Post {
         private Long questionId;
         private String title;
-        String content;
-        String createdAt;
-        List<String> subjectTag;
+        private String content;
+        private String category;
+        private String createdAt;
 
     }
 
@@ -28,9 +28,10 @@ public class QuestionDto {
     public static class Patch {
         private Long questionId;
         private String title;
-        String content;
-        String modifiedAt;
-        List<String> subjectTag;
+        private String content;
+        private String category;
+        private String modifiedAt;
+
 
     }
     @Getter
@@ -39,6 +40,7 @@ public class QuestionDto {
         private Long questionId;
         private String title;
         private String content;
+        private String category;
         private String createdAt;
         private String modifiedAt;
         private long viewCount;
@@ -46,7 +48,6 @@ public class QuestionDto {
         private long answerCount; //수동추가
         private long adoptAnswerId;
         private MemberDto.SimpleInfoResponse member;
-        private List<SubjectTagDto.Response> subjectTags;
     }
 
     @Getter
@@ -56,11 +57,11 @@ public class QuestionDto {
         private MemberDto.SimpleInfoResponse member;
         private String title;
         private String content;
+        private String category;
         private String createdAt;
         private String modifiedAt;
         private long viewCount;
         private long voteCount;
-        private List<SubjectTagDto.Response> subjectTags;
     }
 
     @Getter
@@ -70,12 +71,12 @@ public class QuestionDto {
         private MemberDto.SimpleInfoResponse member;
         private String title;
         private String content;
+        private String category;
         private String createdAt;
         private String modifiedAt;
         private long viewCount;
         private long voteCount;
         private long answerCount;
-        private List<SubjectTagDto.Response> subjectTags;
         private List<AnswerDto.Response> answers;
         private List<QnaCommentDto.Response> comments;
         private MemberDto.VoteInfo loginUserInfo;
@@ -86,11 +87,11 @@ public class QuestionDto {
     public static class SimpleInfoResponse {
         private Long questionId;
         private String title;
-        private MemberDto.SimpleInfoResponse member;
+        private String category;
         private String createdAt;
         private String modifiedAt;
         private long viewCount;
         private long voteCount;
-        private List<SubjectTagDto.Response> subjectTags;
+        private MemberDto.SimpleInfoResponse member;
     }
 }

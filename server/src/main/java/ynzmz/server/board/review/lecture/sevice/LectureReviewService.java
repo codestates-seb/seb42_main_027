@@ -34,7 +34,6 @@ public class LectureReviewService {
         Optional.of(lectureReview.getStarPoint()).ifPresent(findLectureReview::setStarPoint);
         Optional.ofNullable(lectureReview.getModifiedAt()).ifPresent(findLectureReview::setModifiedAt);
 
-
         return lectureReviewRepository.save(findLectureReview);
     }
 

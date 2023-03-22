@@ -3,6 +3,8 @@ package ynzmz.server.board.qna.question.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,13 +50,8 @@ public class QuestionController {
         requestQuestion.setMember(loginMemberFindByToken());
 
         Question createdQuestion = questionService.createQuestion(requestQuestion);
-        //postDto 에서 태그 저장
-        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(questionPost.getSubjectTag());
-        tagService.createQuestionTag(createdQuestion, subjectTags);
 
-        Question questionById = questionService.findQuestionById(createdQuestion.getQuestionId());
-
-        QuestionDto.InfoResponse response = questionMapper.questionToQuestionInfoResponse(questionById);
+        QuestionDto.InfoResponse response = questionMapper.questionToQuestionInfoResponse(createdQuestion);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
@@ -67,11 +64,7 @@ public class QuestionController {
         Question question = questionMapper.questionPatcToQuestion(questionPatch);
         question.setQuestionId(questionId);
         Question updateQuestion = questionService.updateQuestion(question);
-        //기존 태그 삭제
-        tagService.deleteAllQuestionTagByQuestion(updateQuestion);
-        //postDto 에서 태그 저장
-        List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(questionPatch.getSubjectTag());
-        tagService.createQuestionTag(updateQuestion, subjectTags);
+
 
         QuestionDto.InfoResponse response = questionMapper.questionToQuestionInfoResponse(updateQuestion);
 
@@ -80,24 +73,28 @@ public class QuestionController {
 
     //질문글 검색 리스트페이지 = 과목태그별 + 정렬 + 정순 역순
     @GetMapping
-    public ResponseEntity<?> getQuestions(@RequestParam(required = false) String subject,
+    public ResponseEntity<?> getQuestions(@RequestParam(required = false) String category,
                                           @RequestParam(required = false) String title,
                                           @RequestParam(required = false) String sort,
-                                          @RequestParam(required = false) String reverse,
                                           @RequestParam int page,
                                           @RequestParam(required = false) Integer size){
         size = (size == null) ? 15 : size;
         sort = (sort == null || sort.equals("최신순"))
                 ? "questionId" : sort.equals("조회순") ? "viewCount" : sort.equals("추천순") ? "voteCount" : "questionId";
 
-        SubjectTag.Subject subjectTag = (subject != null) ? tagService.findSubjectTag(subject) : null;
+                Page<Question> questionPage = questionService.findQuestions(category, title, sort, page - 1, size);
+//        Page<Question> questionPage = (reverse != null)
+//                ? questionService.findQuestionsTest(category, title, sort, reverse, page - 1, size)
+//                : questionService.findQuestionsTest(category, title, sort, page - 1 , size);
 
-        Page<Question> questionPage = (reverse != null)
-                ? questionService.findQuestions(subjectTag, title, sort, reverse, page - 1, size)
-                : questionService.findQuestions(subjectTag, title, sort, page - 1 , size);
-
+//        List<Question> noticeQuestions = questionService.findAllNoticeQuestions();
 
         List<Question> questions = questionPage.getContent();
+//        noticeQuestions.addAll(questions);
+//
+//        Pageable pageable = questionPage.getPageable();
+//        Page<Question> newQuestionPage = new PageImpl<>(noticeQuestions, pageable, questionPage.getTotalElements());
+
         List<QuestionDto.ListPageResponse> responses = questionMapper.questionToQuestionListPageResponses(questions);
 
         return new ResponseEntity<>(new MultiResponseDto<>(responses,questionPage), HttpStatus.OK);
