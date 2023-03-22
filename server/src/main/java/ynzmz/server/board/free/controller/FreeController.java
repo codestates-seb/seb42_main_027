@@ -50,7 +50,11 @@ public class FreeController {
     return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
     @GetMapping()
-    public ResponseEntity<?> getListedFree(@RequestParam int page) {
+    public ResponseEntity<?> getListedFree(@RequestParam(required = false) String subject,
+                                           @RequestParam(required = false) String title,
+                                           @RequestParam(required = false) String sort,
+                                           @RequestParam(required = false) String reverse,
+                                           @RequestParam int page) {
         Page<Free> foundFreePage = freeService.findAllFree(page-1);
         List<Free> listFoundFree = foundFreePage.getContent();
         List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(listFoundFree);
