@@ -74,10 +74,12 @@ public class MemberService {
     public Member updateMember(Member member){
         Member findMember = findVerifiedMember(member.getMemberId());
 
-        Optional.ofNullable(findMember.getPhoneNumber()).ifPresent(findMember::setPhoneNumber);
-        Optional.ofNullable(findMember.getDisplayName()).ifPresent(findMember::setDisplayName);
-        Optional.ofNullable(findMember.getPassword()).ifPresent(password-> findMember.setPassword(passwordEncoding(password)));
-        Optional.ofNullable(findMember.getIconImageUrl()).ifPresent(findMember::setIconImageUrl);
+        Optional.ofNullable(member.getPhoneNumber()).ifPresent(findMember::setPhoneNumber);
+        Optional.ofNullable(member.getDisplayName()).ifPresent(findMember::setDisplayName);
+//        Optional.ofNullable(findMember.getPassword()).ifPresent(password-> findMember.setPassword(passwordEncoding(password)));
+        Optional.ofNullable(member.getIconImageUrl()).ifPresent(findMember::setIconImageUrl);
+
+
 
 //        List<String> roles = authorityUtils.createRoles(findMember.getEmail());
 //        findMember.setRoles(roles);
