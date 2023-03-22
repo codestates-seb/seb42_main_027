@@ -43,6 +43,7 @@ function Login() {
   const [loginError, setLoginError] = useState('');
   const { setIsLoginInStore } = useIsLoginStore(state => state);
   const { userInfo, setUserInfo } = useUserInfoStore(state => state);
+
   const navigate = useNavigate();
   const pathData = {
     email: '',
@@ -81,11 +82,10 @@ function Login() {
     pathData.email = email;
     pathData.password = password;
     try {
-      const data = await login(pathData);
+      await login(pathData);
       navigate(-1);
       setIsLoginInStore(true);
       fetchUserInfo();
-      console.log('data', data);
     } catch (error) {
       setFailedLogin(true);
       console.error(error);

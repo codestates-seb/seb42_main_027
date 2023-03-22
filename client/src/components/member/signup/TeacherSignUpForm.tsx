@@ -210,7 +210,10 @@ function TeacherSignUpForm() {
     pathData.state = 'TEACHER';
     try {
       await postSignUp(pathData);
-      navigate('/login');
+      navigate('/');
+      setTimeout(() => {
+        navigate('/login');
+      }, 100);
     } catch (error) {
       console.error(error);
     }
