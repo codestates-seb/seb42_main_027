@@ -4,6 +4,7 @@ import patchUserInfo from 'apis/patchUserInfo';
 import styled from 'styled-components';
 import { validatePassword, validatePhoneNum } from 'utils/regex';
 import theme from 'theme';
+import patchUserPassword from 'apis/patchUserPassword';
 import EditUserInfoInput from './EditUserInfo';
 
 const { colors } = theme;
@@ -237,16 +238,22 @@ function UserCard() {
     }
   };
 
-  const pathData = {
+  const UserInfoPathData = {
     phoneNumber: phoneNum,
     displayName,
+  };
+
+  const PasswordPathData = {
+    nowPassword: password,
+    newPassword: editPassword,
+    confirmPassword: confirmEditPassword,
   };
 
   const handleClickEdit = async () => {
     setIsEdit(true);
     if (isEdit === true) {
       try {
-        await patchUserInfo(pathData, userInfo.memberId);
+        await patchUserInfo(UserInfoPathData, userInfo.memberId);
         alert('정보가 수정되었습니다.');
         setIsEdit(false);
       } catch (error) {
@@ -255,8 +262,17 @@ function UserCard() {
     }
   };
 
-  const handleClickEditPassword = () => {
-    setIsEditPassword(!isEditPassword);
+  const handleClickEditPassword = async () => {
+    setIsEditPassword(true);
+    if (isEdit === true) {
+      try {
+        await patchUserPassword(PasswordPathData, userInfo.memberId);
+        alert('정보가 수정되었습니다.');
+        setIsEditPassword(false);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
   useEffect(() => {
