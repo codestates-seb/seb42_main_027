@@ -56,4 +56,9 @@ public class FreeService {
         repository.deleteById(freeId);
     }
 
+
+    //---------------------------------추가기능--------------------------------------------------------
+    public void plusViewCount(Free free){
+        free.setViewCount(free.getViewCount()+1);
+    }
 }

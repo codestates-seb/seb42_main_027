@@ -35,7 +35,7 @@ public class FreeController {
     public ResponseEntity<?> postFree(@RequestBody FreeDto.post post){
         Free free = freeMapper.freePostToFree(post);
         free.setMember(loginMemberFindByToken());
-
+        freeService.plusViewCount(free);
         freeService.createFree(free);
         FreeDto.DetailResponse Response = freeMapper.freeToFreeDetailResponse(free);
         return new ResponseEntity<>(new SingleResponseDto<>(Response),HttpStatus.CREATED);
