@@ -85,7 +85,8 @@ public class QuestionController {
                                           @RequestParam(required = false) String sort,
                                           @RequestParam(required = false) String reverse,
                                           @RequestParam int page,
-                                          @RequestParam int size){
+                                          @RequestParam(required = false) Integer size){
+        size = (size == null) ? 15 : size;
         sort = (sort == null || sort.equals("최신순"))
                 ? "questionId" : sort.equals("조회순") ? "viewCount" : sort.equals("추천순") ? "voteCount" : "questionId";
 

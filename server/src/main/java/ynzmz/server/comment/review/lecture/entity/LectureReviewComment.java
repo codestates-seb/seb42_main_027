@@ -1,13 +1,17 @@
 package ynzmz.server.comment.review.lecture.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.vote.Vote;
+import ynzmz.server.vote.review.lecture.entity.ReviewVote;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -27,6 +31,10 @@ public class LectureReviewComment implements Vote {
     @JoinColumn(name = "member_id")
     @JsonBackReference
     private Member member;
+
+    @OneToMany(mappedBy = "lectureReviewComment", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<ReviewVote> reviewVotes = new ArrayList<>();
 
 
 }

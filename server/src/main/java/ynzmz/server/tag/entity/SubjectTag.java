@@ -27,6 +27,7 @@ public class SubjectTag {
         수학,
         한국사,
         한문,
+
         사탐전체,
         일반사회,
         윤리,
