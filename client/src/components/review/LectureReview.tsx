@@ -52,7 +52,12 @@ function LectureReview({
 
   return (
     <Container>
-      <FlexContainer dir="col" grow={1} gap="0.1rem">
+      <FlexContainer
+        width="10rem"
+        dir="col"
+        gap="0.1rem"
+        padding="0 0 0 0.5rem"
+      >
         <SmallFont>
           {voteCount >= 30 ? (
             <BestBox>Best</BestBox>
@@ -62,27 +67,30 @@ function LectureReview({
         </SmallFont>
         <SmallFont>{voteCount}</SmallFont>
       </FlexContainer>
-      <FlexContainer grow={1} gap="0.2rem">
+      <FlexContainer width="10rem" padding="0 0 0 3rem" gap="0.2rem">
         <AiFillStar color="gold" size="1.5rem" />
         <SmallFont>{starPoint}</SmallFont>
       </FlexContainer>
       <FlexContainer
+        width="60rem"
         dir="col"
         align="start"
-        grow={2}
         gap="0.4rem"
         padding="0 0 0 2rem"
       >
         <VerySmallGrayFont>{`${lecture.title}(${totalCommentCount})`}</VerySmallGrayFont>
 
-        <SmallFont2
-          onClick={reviewOpenHandler}
-        >{`${title} (${totalCommentCount})`}</SmallFont2>
+        <SmallFont2 onClick={reviewOpenHandler}>{`${title.slice(
+          0,
+          20,
+        )}... (${totalCommentCount})`}</SmallFont2>
       </FlexContainer>
-      <FlexContainer grow={1}>
-        <SmallFont>{member.displayName}</SmallFont>
+      <FlexContainer width="15rem">
+        <VerySmallGrayFont>
+          {`${member.displayName.slice(0, 5)}...`}
+        </VerySmallGrayFont>
       </FlexContainer>
-      <FlexContainer grow={1}>
+      <FlexContainer width="20rem">
         <VerySmallGrayFont>{createdAt.slice(0, 10)}</VerySmallGrayFont>
       </FlexContainer>
     </Container>
@@ -100,8 +108,8 @@ const Container = styled.div<Container>`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 0;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
   border-bottom: 0.5px solid black;
 `;
 
