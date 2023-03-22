@@ -23,7 +23,7 @@ const ListContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 60%;
+  width: 80%;
 `;
 
 const PostListContainer = styled.div`
@@ -79,6 +79,7 @@ type PostProps = {
   freeId: number;
   questionId: number;
   lectureReviewId: number;
+  answerId: number;
   title: string;
   content: string;
   category: string;
@@ -98,7 +99,8 @@ type PostProps = {
 function MyPage() {
   const { userInfo } = useUserInfoStore(state => state);
   const [freePosts, setFreePosts] = useState([]);
-  const [select, setSelect] = useState('자유 게시판');
+  const [selectPostCategories, setSelectPostCategories] =
+    useState('자유 게시판');
 
   const patchFreePosts = async (id: number, select: string) => {
     try {
@@ -111,12 +113,12 @@ function MyPage() {
   };
 
   const handleChangeBoard = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelect(e.target.value);
+    setSelectPostCategories(e.target.value);
   };
 
   useEffect(() => {
-    patchFreePosts(4, select);
-  }, [select]);
+    patchFreePosts(4, selectPostCategories);
+  }, [selectPostCategories]);
 
   return (
     <Container>
@@ -125,9 +127,10 @@ function MyPage() {
         <PostListContainer>
           <PostListTitleContainer>
             <h2>내가 작성한 게시글</h2>
-            <select onChange={handleChangeBoard} value={select}>
+            <select onChange={handleChangeBoard} value={selectPostCategories}>
               <option value="자유 게시판">자유 게시판</option>
               <option value="질문 게시판">질문 게시판</option>
+              <option value="답변 게시판">답변 게시판</option>
               <option value="강의 리뷰">강의 리뷰</option>
             </select>
           </PostListTitleContainer>
@@ -142,9 +145,9 @@ function MyPage() {
                 }
                 return post.freeId;
               }
-              console.log(select, selectKey(select));
+
               return (
-                <ListItem key={selectKey(select)}>
+                <ListItem key={selectKey(selectPostCategories)}>
                   <Category>{post.category}</Category>
                   <Title>{post.title}</Title>
                   <Count>
@@ -158,13 +161,14 @@ function MyPage() {
 
         <PostListContainer>
           <PostListTitleContainer>
-            <h2>내가 작성한 게시글</h2>
+            <h2>내가 작성한 댓글</h2>
             <select>
               <option>자유 게시판</option>
               <option>질문 게시판</option>
               <option>강의 리뷰</option>
             </select>
           </PostListTitleContainer>
+          <List />
         </PostListContainer>
       </ListContainer>
     </Container>

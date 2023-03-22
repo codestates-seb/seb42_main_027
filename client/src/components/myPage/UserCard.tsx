@@ -13,7 +13,7 @@ const { fontSizes } = theme;
 const UserCardContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
   margin-bottom: 3rem;
 `;
