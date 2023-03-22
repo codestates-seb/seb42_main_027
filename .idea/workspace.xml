@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="feat : 비밀번호변경 코드 짜는중">
+    <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/ServerApplication.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/ServerTestController.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ynzmz/server/board/event/DataCrawlingTest.class" beforeDir="false" />
@@ -321,17 +321,6 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="server" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="server" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="server" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
