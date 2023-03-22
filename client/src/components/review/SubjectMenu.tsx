@@ -50,6 +50,7 @@ function SubjectMenu({
     '메가스터디',
     'EBS',
     '에듀윌',
+    '대성마이맥',
     '기타',
   ];
 

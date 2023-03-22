@@ -6,6 +6,7 @@ import Pagenation from 'components/review/Pagenation';
 import CharacterCard from 'components/review/CharacterCard';
 import Carousel from 'components/review/Carousel';
 import SubjectMenu from 'components/review/SubjectMenu';
+import Loading from 'components/review/Loading';
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -52,9 +53,10 @@ function ReviewPage() {
   const [pageInfo, setPageInfo] = useState<PageInfo>(defaultPageInfo);
   const [curPage, setCurPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(6);
+  const [isPending, setIsPending] = useState(true);
 
   useEffect(() => {
-    console.log(curPage);
+    setIsPending(true);
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/teachers?${
@@ -76,6 +78,7 @@ function ReviewPage() {
         setTeachers(res.data.data);
         setPageInfo(res.data.pageInfo);
         setCurPage(res.data.pageInfo.page);
+        setIsPending(false);
       });
   }, [subject, sortTag, search, curPage, grade, platform, reverse]);
 
@@ -117,7 +120,18 @@ function ReviewPage() {
         setCurPage={setCurPage}
       />
 
-      <CharacterCard teachers={teachers} />
+      {isPending ? (
+        <Loading />
+      ) : (
+        <FlexContainer dir="col">
+          {!teachers.length ? (
+            <FlexContainer height="50vh">등록된 강사가 없습니다</FlexContainer>
+          ) : (
+            <CharacterCard teachers={teachers} />
+          )}
+        </FlexContainer>
+      )}
+
       <Pagenation
         size={pageInfo.totalPages}
         currentPage={curPage}

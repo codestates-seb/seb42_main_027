@@ -38,7 +38,7 @@ function CharacterCard({ teachers }: Props) {
                     ? `${el.introduction.slice(0, 10)}...`
                     : el.introduction}
                 </LargeSpan>
-                <Span>⭐️ {el.starPointAverage}</Span>
+                <Span>⭐️ {el.starPointAverage.toFixed(1)}</Span>
               </CardContainer>
             </Link>
             <FlexContainer display={isLogin() ? 'flex' : 'none'}>

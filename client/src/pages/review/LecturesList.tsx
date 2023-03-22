@@ -10,8 +10,8 @@ import SubjectMenu from 'components/review/SubjectMenu';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from 'components/common/Button';
-import isLogin from 'utils/isLogin';
-import { Link } from 'react-router-dom';
+
+import Loading from 'components/review/Loading';
 import { FlexContainer } from './ReviewPage';
 
 type LectureType = {
@@ -57,10 +57,10 @@ function LecturesList() {
   const [pageInfo, setPageInfo] = useState<PageInfo>(defaultPageInfo);
   const [curPage, setCurPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(6);
+  const [isPending, setIsPending] = useState(true);
 
   useEffect(() => {
-    console.log('Rerendering!!');
-
+    setIsPending(true);
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/lectures?${
@@ -81,6 +81,7 @@ function LecturesList() {
         console.log(res.data.pageInfo);
         setLectures(res.data.data);
         setPageInfo(res.data.pageInfo);
+        setIsPending(false);
       });
   }, [subject, sortTag, search, curPage, grade, platform, reverse]);
 
@@ -113,30 +114,34 @@ function LecturesList() {
         setCurPage={setCurPage}
       />
 
-      {!lectures.length ? (
-        <FlexContainer>등록된 강의가 없습니다</FlexContainer>
+      {isPending ? (
+        <Loading />
       ) : (
         <FlexContainer dir="col">
-          {lectures.map((el, index) => {
-            return (
-              <Lecture
-                key={index}
-                lecture={{
-                  lectureId: el.lectureId,
-                  title: el.title,
-                  introduction: el.introduction,
-                  status: el.status,
-                  starPointAverage: el.starPointAverage,
-                  totalReviewCount: el.totalReviewCount,
-                  gradeTags: el.gradeTags,
-                  subjectTags: el.subjectTags,
+          {!lectures.length ? (
+            <FlexContainer height="50vh">등록된 강의가 없습니다</FlexContainer>
+          ) : (
+            lectures.map((el, index) => {
+              return (
+                <Lecture
+                  key={index}
+                  lecture={{
+                    lectureId: el.lectureId,
+                    title: el.title,
+                    introduction: el.introduction,
+                    status: el.status,
+                    starPointAverage: el.starPointAverage,
+                    totalReviewCount: el.totalReviewCount,
+                    gradeTags: el.gradeTags,
+                    subjectTags: el.subjectTags,
 
-                  teacher: el.teacher,
-                }}
-                first={index === 0}
-              />
-            );
-          })}
+                    teacher: el.teacher,
+                  }}
+                  first={index === 0}
+                />
+              );
+            })
+          )}
         </FlexContainer>
       )}
 

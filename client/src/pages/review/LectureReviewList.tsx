@@ -112,7 +112,7 @@ function LectureReviewList() {
         <FlexContainer dir="col">
           <FlexContainer
             display={isLogin() ? 'flex' : 'none'}
-            width="100%"
+            width="50rem"
             justify={!data.data.lectureReviews.length ? 'center' : 'right'}
           >
             <Link to="create">
@@ -120,7 +120,7 @@ function LectureReviewList() {
             </Link>
           </FlexContainer>
           {!data.data.lectureReviews.length ? (
-            <FlexContainer height="100vh">등록된 강의가 없습니다</FlexContainer>
+            <FlexContainer height="50vh">등록된 리뷰가 없습니다</FlexContainer>
           ) : (
             <FlexContainer width="50rem" dir="col" gap="1rem">
               <FlexContainer
@@ -131,7 +131,7 @@ function LectureReviewList() {
               >
                 {list.map((el, index) => {
                   return (
-                    <FlexContainer key={index} grow={el === '제목' ? 4 : 1}>
+                    <FlexContainer key={index} grow={el === '제목' ? 5 : 1}>
                       <SmallFont>{el}</SmallFont>
                     </FlexContainer>
                   );

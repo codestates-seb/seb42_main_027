@@ -20,7 +20,7 @@ function UpdateReview() {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [starPoint, setStarPoint] = useState<number>(0);
-  const { lectureId } = useParams();
+  const { lectureReviewId, lectureId } = useParams();
 
   const navigate = useNavigate();
   const Authorization = localStorage.getItem('token');
@@ -30,16 +30,21 @@ function UpdateReview() {
   useEffect(() => {
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/boards/reviews/lectures/8/${lectureId}`,
+        `${process.env.REACT_APP_API_URL}/boards/reviews/lectures/${lectureReviewId}`,
+        {
+          headers: {
+            Authorization,
+            'ngrok-skip-browser-warning': '69420',
+          },
+        },
       )
       .then((res: any) => {
         console.log(res.data.data);
         return res.data.data;
       })
       .then(data => {
-        setTitle(data.data.title);
-        setContent(data.data.content);
-        setStarPoint(data.data.starPoint);
+        setTitle(data.title);
+        setContent(data.content);
       });
   }, []);
 
@@ -52,12 +57,12 @@ function UpdateReview() {
         content,
         starPoint: Number(starPoint),
         lectureId: Number(lectureId),
-        createdAt: new Date(),
+        modifiedAt: new Date(),
       };
 
       axios
-        .post(
-          `${process.env.REACT_APP_API_URL}/boards/reviews/lectures`,
+        .patch(
+          `${process.env.REACT_APP_API_URL}/boards/reviews/lectures/${lectureReviewId}`,
           data,
           {
             headers: {
@@ -107,7 +112,6 @@ function UpdateReview() {
                   name="grade"
                   type="radio"
                   value={el}
-                  checked={starPoint === el}
                   onClick={(e: any) => {
                     setStarPoint(e.target.value);
                   }}
@@ -125,7 +129,7 @@ function UpdateReview() {
               navigate(-1);
             }}
           >
-            등록 취소
+            수정 취소
           </UploadButton>
         </FlexContainer>
       </FlexContainer>

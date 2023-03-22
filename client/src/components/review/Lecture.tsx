@@ -3,7 +3,7 @@
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/ReviewPage';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import isLogin from 'utils/isLogin';
 import axios from 'axios';
 
@@ -29,6 +29,7 @@ type Props = {
 };
 
 function Lecture({ lecture, first }: Props) {
+  const { teacherId } = useParams();
   return (
     <Container first={first}>
       <FlexContainer width="5rem">
@@ -36,8 +37,9 @@ function Lecture({ lecture, first }: Props) {
       </FlexContainer>
       <FlexContainer width="25rem" dir="col" align="start" gap="0.3rem">
         <StatusBox>{lecture.status}</StatusBox>
+        <IntroSpan>{`${lecture.introduction}`}</IntroSpan>
         <Link to={`/lecturereviewlist/${lecture.lectureId}`}>
-          <TitleSpan>{`[${lecture.introduction}] ${lecture.title}`}</TitleSpan>
+          <TitleSpan>{`${lecture.title}`}</TitleSpan>
         </Link>
         <SmallFont>+ 자세히 보기</SmallFont>
       </FlexContainer>
@@ -47,7 +49,10 @@ function Lecture({ lecture, first }: Props) {
       <FlexContainer width="5rem">
         {lecture.totalReviewCount} Reviews
       </FlexContainer>
-      <FlexContainer dir="col" display={isLogin() ? 'flex' : 'none'}>
+      <FlexContainer
+        dir="col"
+        display={isLogin() && teacherId ? 'flex' : 'none'}
+      >
         <Link to={`updateLecture/${lecture.lectureId}`}>
           <button>수정</button>
         </Link>
@@ -89,8 +94,7 @@ const Container = styled.div<Container>`
 `;
 
 const MiddleFont = styled.div`
-  font-size: 1.1rem;
-  font-weight: bold;
+  font-size: 0.9rem;
 `;
 
 const SmallFont = styled.div`
@@ -112,4 +116,9 @@ const TitleSpan = styled.span`
   :hover {
     color: red;
   }
+`;
+
+const IntroSpan = styled.span`
+  font-size: 0.8rem;
+  color: gray;
 `;

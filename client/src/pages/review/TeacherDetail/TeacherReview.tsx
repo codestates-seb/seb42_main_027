@@ -260,7 +260,7 @@ function TeacherReview() {
               >
                 {list.map((el, index) => {
                   return (
-                    <FlexContainer key={index} grow={el === '제목' ? 4 : 1}>
+                    <FlexContainer key={index} grow={el === '제목' ? 5 : 1}>
                       <SmallFont>{el}</SmallFont>
                     </FlexContainer>
                   );
