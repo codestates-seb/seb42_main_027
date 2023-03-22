@@ -31,7 +31,14 @@ const SignUpInfo = styled.p`
   font-size: 0.9rem;
 `;
 
+const SignUpFailedMessage = styled.p`
+  color: ${colors.danger};
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+`;
+
 function TeacherSignUpForm() {
+  const [isSuccess, setIsSuccess] = useState(true);
   const [userName, setUserName] = useState('');
   const [isUserNameSuccess, setIsUserNameSuccess] = useState({
     isSuccess: '',
@@ -213,9 +220,12 @@ function TeacherSignUpForm() {
       navigate('/');
       setTimeout(() => {
         navigate('/login');
+        setIsSuccess(true);
       }, 100);
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.response.status === 409) {
+        setIsSuccess(false);
+      }
     }
   };
 
@@ -281,6 +291,11 @@ function TeacherSignUpForm() {
           errorMessage={isConfirmPasswordSuccess.errorMessage}
         />
       </Container>
+      {isSuccess ? null : (
+        <SignUpFailedMessage>
+          이미 가입된 계정이 있습니다. 로그인해 주세요
+        </SignUpFailedMessage>
+      )}
       <BaseButton
         onClick={handleSubmit}
         color="pointColor"
