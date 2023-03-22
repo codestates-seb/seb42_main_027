@@ -264,7 +264,7 @@ function UserCard() {
 
   const handleClickEditPassword = async () => {
     setIsEditPassword(true);
-    if (isEdit === true) {
+    if (isEditPassword === true) {
       try {
         await patchUserPassword(PasswordPathData, userInfo.memberId);
         alert('정보가 수정되었습니다.');
@@ -275,10 +275,22 @@ function UserCard() {
     }
   };
 
+  const handleCancelEditUserInfo = () => {
+    setIsEdit(false);
+    setDisplayName(userInfo.displayName);
+    setPhoneNum(userInfo.phoneNumber);
+  };
+
+  const handleCancelEditPassword = () => {
+    setIsEditPassword(false);
+    setPassword('');
+  };
+
   useEffect(() => {
     setDisplayName(userInfo.displayName);
     setPhoneNum(userInfo.phoneNumber);
   }, [userInfo]);
+
   return (
     <UserCardContainer>
       <ProfileImage src={userData.profileImage} />
@@ -292,6 +304,7 @@ function UserCard() {
           )}
         </NameTagContainer>
         <UserInfo>이메일: {userData.email}</UserInfo>
+
         {isEdit ? (
           <EditUserInfoContainer>
             <EditUserInfoInput
@@ -315,6 +328,7 @@ function UserCard() {
             <UserInfo>닉네임: {userData.displayName}</UserInfo>
           </>
         )}
+
         {isEditPassword ? (
           <EditUserInfoContainer>
             <EditUserInfoInput
@@ -340,12 +354,22 @@ function UserCard() {
             />
           </EditUserInfoContainer>
         ) : null}
+
         <ButtonContainer>
+          {isEdit && !isEditPassword ? (
+            <EditBtn onClick={handleCancelEditUserInfo}>정보 취소</EditBtn>
+          ) : null}
+
+          {!isEdit && isEditPassword ? (
+            <EditBtn onClick={handleCancelEditPassword}>암호 취소</EditBtn>
+          ) : null}
+
           {isEdit ? null : (
             <EditBtn onClick={handleClickEditPassword}>
               {isEditPassword ? '저장' : '암호수정'}
             </EditBtn>
           )}
+
           {isEditPassword ? null : (
             <EditBtn onClick={handleClickEdit}>
               {isEdit ? '저장' : '수정'}
