@@ -249,6 +249,15 @@ function UserCard() {
     confirmPassword: confirmEditPassword,
   };
 
+  const resetUserInfoValue = () => {
+    const resetValue = {
+      isSuccess: '',
+      errorMessage: '',
+    };
+    setIsDisplayNameSuccess(resetValue);
+    setIsPhoneNumSuccess(resetValue);
+  };
+
   const resetPasswordValue = () => {
     const resetValue = {
       isSuccess: '',
@@ -269,6 +278,7 @@ function UserCard() {
         await patchUserInfo(UserInfoPathData, userInfo.memberId);
         alert('정보가 수정되었습니다.');
         setIsEdit(false);
+        resetUserInfoValue();
       } catch (error) {
         console.error(error);
       }
@@ -293,6 +303,7 @@ function UserCard() {
     setIsEdit(false);
     setDisplayName(userInfo.displayName);
     setPhoneNum(userInfo.phoneNumber);
+    resetUserInfoValue();
   };
 
   const handleCancelEditPassword = () => {
