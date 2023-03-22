@@ -84,21 +84,21 @@ public class LectureController {
                                                 @RequestParam(required = false) String reverse,
                                                 @RequestParam int page,
                                                 @RequestParam int size){
-        if(sort == null) {
-            sort = "lectureId";
-        } else if(sort.equals("최신순")) {
-            sort = "lectureId";
-        } else if(sort.equals("평점순")) {
-            sort = "starPointAverage";
-        } else if(sort.equals("이름순")) {
-            sort = "title";
-        }
+
+        sort = (sort == null || sort.equals("최신순"))
+                ? "lectureId" : sort.equals("평점순") ? "starPointAverage" : sort.equals("이름순") ? "title" : sort.equals("랜덤") ? "random" : "lectureId";
 
         GradeTag.Grade gradeTag = (grade != null) ? tagService.findGradeTag(grade) : null;
         PlatformTag.Platform platformTag = (platform != null) ? tagService.findPlatformTag(platform) : null;
         SubjectTag.Subject subjectTag = (subject != null) ? tagService.findSubjectTag(subject) : null;
 
-        Page<Lecture> lecturePage = (reverse != null)
+        Page<Lecture> lecturePage = (sort.equals("random"))
+                ? lectureService.findLecturesByRandom(gradeTag, platformTag, subjectTag, title, sort,page - 1, size)
+                : (reverse == null && sort.equals("starPointAverage"))
+                ? lectureService.findLectures(gradeTag, platformTag, subjectTag, title, sort, reverse,page - 1, size)
+                : (reverse != null && sort.equals("starPointAverage"))
+                ? lectureService.findLectures(gradeTag, platformTag, subjectTag, title, sort, page - 1, size)
+                : (reverse != null)
                 ? lectureService.findLectures(gradeTag, platformTag, subjectTag, title, sort, reverse,page - 1, size)
                 : lectureService.findLectures(gradeTag, platformTag, subjectTag, title, sort,page - 1, size);
 
