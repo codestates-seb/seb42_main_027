@@ -261,6 +261,11 @@ function UserCard() {
       }
     }
   };
+  const resetValue = () => {
+    setPassword('');
+    setEditPassword('');
+    setConfirmEditPassword('');
+  };
 
   const handleClickEditPassword = async () => {
     setIsEditPassword(true);
@@ -269,6 +274,7 @@ function UserCard() {
         await patchUserPassword(PasswordPathData, userInfo.memberId);
         alert('정보가 수정되었습니다.');
         setIsEditPassword(false);
+        resetValue();
       } catch (error) {
         console.error(error);
       }
@@ -346,7 +352,7 @@ function UserCard() {
               color={colorSelector(isEditPasswordSuccess.isSuccess)}
             />
             <EditUserInfoInput
-              placeholder="생로운 암호 확인"
+              placeholder="새로운 암호 확인"
               onChange={handleChangeConfirmEditPassword}
               value={confirmEditPassword}
               errorMessage={isConfirmEditPasswordSuccess.errorMessage}

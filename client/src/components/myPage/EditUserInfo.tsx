@@ -14,8 +14,6 @@ const EditUserInfo = styled.input`
       switch (color) {
         case 'danger':
           return danger;
-        case 'success':
-          return success;
         default:
           return gray;
       }
@@ -24,8 +22,6 @@ const EditUserInfo = styled.input`
     switch (color) {
       case 'danger':
         return `rgba(${dangerRGB}, 0.2)`;
-      case 'success':
-        return `rgba(${successRGB}, 0.2)`;
       default:
         return 'white';
     }
@@ -36,8 +32,6 @@ const EditUserInfo = styled.input`
         switch (color) {
           case 'danger':
             return `rgba(${dangerRGB}, 0.2)`;
-          case 'success':
-            return `rgba(${successRGB}, 0.2)`;
           default:
             return 'white';
         }

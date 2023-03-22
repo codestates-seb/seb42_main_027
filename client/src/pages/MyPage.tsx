@@ -62,7 +62,6 @@ const ListItem = styled.div`
 
 // 제목 컴포넌트
 const Title = styled.h2`
-  margin: 0;
   font-size: ${fontSizes.md};
 `;
 
@@ -82,15 +81,6 @@ const Category = styled.span`
 `;
 
 // 조회수 및 투표수 컴포넌트
-const Count = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: ${colors.gray};
-  svg {
-    margin: 0 0.3rem;
-  }
-`;
 
 const Top = styled.div`
   display: flex;
@@ -100,6 +90,35 @@ const Top = styled.div`
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+const Count = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${colors.gray};
+  svg {
+    margin: 0 0.3rem;
+  }
+`;
+
+const Content = styled.p`
+  font-size: 1rem;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const ContentContainer = styled.div`
+  flex: 10;
+  width: 60%;
+`;
+
+const SourcesInfo = styled.p`
+  font-size: 0.8rem;
+  color: ${colors.fontColor};
 `;
 
 type PostProps = {
@@ -183,7 +202,7 @@ function MyPage() {
   };
 
   useEffect(() => {
-    patchFreePosts(userInfo.memberId, selectPostCategories);
+    patchFreePosts(2, selectPostCategories);
     patchComments(2, selectCommentCategories);
   }, [selectPostCategories, selectCommentCategories, userInfo]);
 
@@ -223,17 +242,36 @@ function MyPage() {
                       <Category>{post.category}</Category>
                     </Top>
                   ) : null}
-
                   <Bottom>
-                    {post.title ? <Title>{post.title}</Title> : null}
-
+                    {post.title ? (
+                      <ContentContainer>
+                        <Title>{post.title}</Title>
+                        <Content>
+                          {/* {post.content} */}
+                          아침이다 나는 아침이 너무 싫다아침이다 나는 아침이
+                          너무 싫다아침이다 나는 아침이 너무 싫다아침이다 나는
+                          아침이 너무 싫다아침이다 나는 아침이 너무 싫다아침이다
+                          나는 아침이 너무 싫다아침이다 나는 아침이 너무
+                          싫다아침이다 나는 아침이 너무 싫다아침이다 나는 아침이
+                          너무 싫다아침이다 나는 아침이 너무 싫다
+                        </Content>
+                      </ContentContainer>
+                    ) : (
+                      <Content>{post.content}</Content>
+                    )}
                     <Count>
-                      <CountIcon.View />
-                      {post.viewCount}
+                      {post.viewCount ? (
+                        <>
+                          <CountIcon.View />({post.viewCount})
+                        </>
+                      ) : null}
                       <CountIcon.Vote />
                       {post.voteCount}
                     </Count>
                   </Bottom>
+                  {selectPostCategories === '답변 게시판' ? (
+                    <SourcesInfo>이상해씨 에 남긴 답변</SourcesInfo>
+                  ) : null}
                 </ListItem>
               );
             })}
@@ -242,7 +280,7 @@ function MyPage() {
 
         <PostListContainer>
           <PostListTitleContainer>
-            <h2>내가 작성한 게시글</h2>
+            <h2>내가 작성한 댓글</h2>
             <select
               onChange={handleChangeCommentCategorie}
               value={selectCommentCategories}
@@ -271,12 +309,13 @@ function MyPage() {
               return (
                 <ListItem key={selectKey(selectCommentCategories)}>
                   <Bottom>
-                    <Title>{comment.content}</Title>
+                    <Content>{comment.content}</Content>
                     <Count>
                       <CountIcon.Vote />
                       {comment.voteCount}
                     </Count>
                   </Bottom>
+                  <SourcesInfo>이상해씨 에 남긴 댓글</SourcesInfo>
                 </ListItem>
               );
             })}

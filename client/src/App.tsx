@@ -9,7 +9,7 @@ import Router from './Router';
 
 function App() {
   const { setIsLoginInStore } = useIsLoginStore();
-  const { setUserInfo } = useUserInfoStore(state => state);
+  const { userInfo, setUserInfo } = useUserInfoStore(state => state);
 
   const email = localStorage.getItem('email');
 
@@ -28,7 +28,7 @@ function App() {
       setIsLoginInStore(true);
       fetchUserInfo();
     }
-  }, []);
+  }, [userInfo]);
 
   return (
     <>
