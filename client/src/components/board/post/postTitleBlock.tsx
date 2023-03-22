@@ -10,6 +10,7 @@ interface Data {
   freeId?: number;
   questionId?: number;
   category?: string;
+  subjectTags?: [{ subjectTag: string }];
   selected?: boolean;
   member: {
     memberId: number;
@@ -41,28 +42,23 @@ function PostTitleBlock({ ele }: Props) {
   console.log('ele', ele);
   const urlData = useLocation().pathname;
   console.log(urlData);
-  let elapsedTime: number = CalElapsedTime(ele.createdAt);
-  let calTime = '';
+  const calTime: string = CalElapsedTime(ele.createdAt);
+  let category = '';
 
-  if (elapsedTime < 60) {
-    calTime = '방금 전';
-  } else if (elapsedTime < 3600) {
-    elapsedTime = Math.round(elapsedTime / 60);
-    calTime = `${elapsedTime}분 전`;
-  } else if (elapsedTime < 43200) {
-    elapsedTime = Math.round(elapsedTime / 3600);
-    calTime = `${elapsedTime}시간 전`;
-  } else if (elapsedTime < 129600) {
-    elapsedTime = Math.round(elapsedTime / 43200);
-    calTime = `${elapsedTime}일 전`;
-  } else {
-    calTime = ele.createdAt.slice(0, 24);
+  if (urlData === '/free') {
+    if (ele.category) {
+      category = ele.category;
+    }
+  } else if (urlData === '/qna') {
+    if (ele.subjectTags) {
+      category = ele.subjectTags[0].subjectTag;
+    }
   }
 
   return (
-    <Container className={ele.category === '공지' ? 'notice' : ''}>
+    <Container className={category === '공지' ? 'notice' : ''}>
       <Top>
-        <Category>{ele.category}</Category>
+        <Category>{category}</Category>
         {ele.selected ? <SelectedAnswer>답변채택</SelectedAnswer> : null}
       </Top>
       {urlData === '/free' ? (
@@ -122,8 +118,9 @@ const Category = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
+  min-width: 40px;
   height: 18px;
+  padding: 0 calc(${theme.gap.px10} / 2);
   border: 1px solid ${theme.colors.pointColor};
   border-radius: 5px;
   font-size: ${theme.fontSizes.sm};

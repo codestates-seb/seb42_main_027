@@ -11,7 +11,8 @@ import PostTitleBlock from './postTitleBlock';
 interface Data {
   freeId?: number;
   questionId?: number;
-  category?: 'string';
+  category?: string;
+  subjectTags?: [{ subjectTag: string }];
   selected?: boolean;
   member: {
     memberId: number;
@@ -19,8 +20,8 @@ interface Data {
     displayName: string;
     state: string;
   };
-  title: 'string';
-  content: 'string';
+  title: string;
+  content: string;
   viewCount: number;
   voteCount: number;
   createdAt: string;
@@ -45,12 +46,12 @@ function PostList() {
       if (urlData === '/free') {
         const buffer = await getPostList('frees', 1);
         setListData(buffer.data);
-        // listData = dummyData;
         setIsPending(false);
       } else if (urlData === '/qna') {
-        // listData = dummyData2;
+        const buffer = await getPostList('qnas/questions', 1);
+        setListData(buffer.data);
+        setIsPending(false);
       }
-      // listData = listData.data;
     } catch (err) {
       console.error(err);
     }
@@ -75,9 +76,19 @@ function PostList() {
             <h1>작성된 게시물이 없습니다.</h1>
           ) : (
             <div>
-              {listData.map((ele: Data) => {
-                return <PostTitleBlock key={ele.freeId} ele={ele} />;
-              })}
+              {urlData === '/free' ? (
+                <div>
+                  {listData.map((ele: Data) => {
+                    return <PostTitleBlock key={ele.freeId} ele={ele} />;
+                  })}
+                </div>
+              ) : (
+                <div>
+                  {listData.map((ele: Data) => {
+                    return <PostTitleBlock key={ele.questionId} ele={ele} />;
+                  })}
+                </div>
+              )}
             </div>
           )}
         </MainDiv>

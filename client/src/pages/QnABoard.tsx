@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import theme from 'theme';
 
 import PostList from 'components/board/post/postList';
+import PostContent from 'components/board/qnaBoard/postContent';
 import WritePost from 'components/board/post/postWrite';
 
 function QnABoard() {
@@ -16,9 +17,9 @@ function QnABoard() {
         </Title>
         <Routes>
           <Route path="" element={<PostList />} />
-          {/* <Route path="articles" element={<PostContent />} /> */}
+          <Route path="articles/:id" element={<PostContent />} />
           <Route path="articles/write" element={<WritePost />} />
-          <Route path="articles/edit" element={<WritePost />} />
+          <Route path="articles/:id/edit" element={<WritePost />} />
         </Routes>
       </Main>
     </Container>
