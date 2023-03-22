@@ -256,8 +256,9 @@ function LectureReviewDetailPage() {
             padding="3rem 5rem"
           >
             <span>답변</span>
-            <ReviewCommentCreate lectureReviewId={Number(lectureReviewId)} />
-
+            {Authorization ? (
+              <ReviewCommentCreate lectureReviewId={Number(lectureReviewId)} />
+            ) : null}
             {detailData.comments.map((el, index) => {
               return (
                 <LectureReviewComment
