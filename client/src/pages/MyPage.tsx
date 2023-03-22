@@ -77,6 +77,8 @@ const Count = styled.span`
 
 type PostProps = {
   freeId: number;
+  questionId: number;
+  lectureReviewId: number;
   title: string;
   content: string;
   category: string;
@@ -131,8 +133,18 @@ function MyPage() {
           </PostListTitleContainer>
           <List>
             {freePosts.map((post: PostProps) => {
+              function selectKey(select: string) {
+                if (select === '질문 게시판') {
+                  return post.questionId;
+                }
+                if (select === '강의 리뷰') {
+                  return post.lectureReviewId;
+                }
+                return post.freeId;
+              }
+              console.log(select, selectKey(select));
               return (
-                <ListItem key={post.freeId}>
+                <ListItem key={selectKey(select)}>
                   <Category>{post.category}</Category>
                   <Title>{post.title}</Title>
                   <Count>
