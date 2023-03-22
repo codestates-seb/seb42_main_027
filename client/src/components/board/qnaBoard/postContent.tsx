@@ -13,60 +13,71 @@ import getPostDetail from 'apis/board/getPostDetail';
 import CalElapsedTime from '../post/calElapsedTime';
 
 import GoBackMenu from '../post/goBackMenu';
-import WriteComment from '../comment/writeComment';
-import CommentBlock from './commentBlock';
 
 interface Data {
-  freeId: number;
+  questionId: number;
   title: 'string';
   content: 'string';
-  category: 'string';
+  subjectTags: [{ subjectTag: string }];
   viewCount: number;
   voteCount: number;
+  answerCount: number;
   createdAt: string;
-  modifiedAt?: string;
-  commentsListNum: number;
+  modifiedAt: string | null;
   member: {
     memberId: number;
     iconImageUrl?: string;
     displayName: string;
     state: string;
   };
-  comments: [];
 }
 
-interface Comment {
-  freeCommentId?: number;
-  content: string;
-  createdAt: string;
-  modifiedAt?: string;
-  voteCount: number;
-  member: {
-    memberId: number;
-    iconImageUrl?: string;
-    displayName: string;
-    state: string;
-  };
-  memberSim: boolean;
-}
+// interface Comment {
+//   freeCommentId?: number;
+//   content: string;
+//   createdAt: string;
+//   modifiedAt?: string;
+//   voteCount: number;
+//   member: {
+//     memberId: number;
+//     iconImageUrl?: string;
+//     displayName: string;
+//     state: string;
+//   };
+//   memberSim: boolean;
+// }
 
 function PostContent() {
   const { userInfo } = useUserInfoStore(state => state);
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(true);
   const [listData, setListData] = useState<Data | Record<string, never>>({});
-  const urlData = useLocation().pathname.slice(0, 5);
   const idData = Number(useParams().id);
+  const category = '';
 
   let calTime = '';
   if (!isPending) {
     calTime = CalElapsedTime(listData.createdAt);
   }
 
+  // const categoryHandler = () => {
+  //   if (listData.subjectTags[0].subjectTag === '사탐전체') {
+  //     return '사탐';
+  //   }
+  //   if (listData.subjectTags[0].subjectTag === '과탐전체') {
+  //     return '과탐';
+  //   }
+  //   if (listData.subjectTags[0].subjectTag === '한국사') {
+  //     return '국사';
+  //   }
+  //   return listData.subjectTags[0].subjectTag;
+  // };
+
   const fetchPostDetail = async () => {
     try {
-      const buffer = await getPostDetail('frees', idData);
+      const buffer = await getPostDetail('qnas/questions', idData);
       setListData(buffer.data);
+      // category = await categoryHandler();
       setIsPending(false);
     } catch (err) {
       console.error(err);
@@ -77,9 +88,9 @@ function PostContent() {
     try {
       const confirm = window.confirm('게시글을 삭제하시겠습니까?');
       if (confirm) {
-        await DeletePost('frees', idData);
+        await DeletePost('qnas/questions', idData);
         alert('게시물을 삭제하였습니다.');
-        navigate('/free');
+        navigate('/qna');
       }
     } catch (err) {
       console.error(err);
@@ -102,7 +113,7 @@ function PostContent() {
         <div>
           <TitleDiv>
             <Top>
-              <Category>{listData.category}</Category>
+              <Category>{listData.subjectTags[0].subjectTag}</Category>
               {listData.member.memberId === userInfo.memberId ? (
                 <UDBtnDiv>
                   <Link to="edit">
@@ -137,7 +148,7 @@ function PostContent() {
               </Button.VoteUpBtn>
             </VoteDiv>
           </MainDiv>
-          <CommentCnt>{listData.commentsListNum}개의 댓글</CommentCnt>
+          {/* <CommentCnt>{listData.commentsListNum}개의 댓글</CommentCnt>
           <CommentContainer>
             <WriteCommentDiv>
               <WriteComment />
@@ -149,7 +160,7 @@ function PostContent() {
                 })}
               </div>
             )}
-          </CommentContainer>
+          </CommentContainer> */}
         </div>
       )}
     </Container>

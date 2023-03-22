@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.bubble.css';
 import { Link, useLocation, useParams } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -53,6 +55,15 @@ function WriteComment() {
               onChange={e => setComment(e.target.value)}
             />
           ) : (
+            // <TextEditor>
+            //   <ReactQuill
+            //     className="text-editor"
+            //     theme="bubble"
+            //     defaultValue={comment}
+            //     onChange={setComment}
+            //     placeholder="댓글을 입력해 주세요."
+            //   />
+            // </TextEditor>
             <GuideDiv>
               <AiOutlineExclamationCircle />
               <div>
@@ -105,6 +116,15 @@ const Textarea = styled.textarea`
   margin-left: ${theme.gap.px10};
 `;
 
+const TextEditor = styled.div`
+  display: flex;
+  margin-left: ${theme.gap.px10};
+
+  /* > .text-editor {
+    display: flex;
+  } */
+`;
+
 const SubmitDiv = styled.div`
   display: flex;
   justify-content: right;
@@ -129,6 +149,7 @@ const GuideDiv = styled.div`
   border: 1px solid ${theme.colors.gray};
   border-radius: 5px;
   color: ${theme.colors.gray};
+  margin-left: ${theme.gap.px10};
   a {
     font-weight: bold;
     text-decoration: underline;

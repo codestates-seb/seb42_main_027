@@ -10,6 +10,7 @@ interface Data {
   freeId?: number;
   questionId?: number;
   category?: string;
+  subjectTags?: [{ subjectTag: string }];
   selected?: boolean;
   member: {
     memberId: number;
@@ -42,11 +43,22 @@ function PostTitleBlock({ ele }: Props) {
   const urlData = useLocation().pathname;
   console.log(urlData);
   const calTime: string = CalElapsedTime(ele.createdAt);
+  let category = '';
+
+  if (urlData === '/free') {
+    if (ele.category) {
+      category = ele.category;
+    }
+  } else if (urlData === '/qna') {
+    if (ele.subjectTags) {
+      category = ele.subjectTags[0].subjectTag;
+    }
+  }
 
   return (
-    <Container className={ele.category === '공지' ? 'notice' : ''}>
+    <Container className={category === '공지' ? 'notice' : ''}>
       <Top>
-        <Category>{ele.category}</Category>
+        <Category>{category}</Category>
         {ele.selected ? <SelectedAnswer>답변채택</SelectedAnswer> : null}
       </Top>
       {urlData === '/free' ? (

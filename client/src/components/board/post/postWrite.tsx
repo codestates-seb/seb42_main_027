@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 import styled from 'styled-components';
 import theme from 'theme';
@@ -30,19 +32,28 @@ function WritePost() {
     try {
       if (category === '' || title === '' || post === '') {
         alert('주제, 제목, 내용은 빈 칸으로 둘 수 없습니다.');
-      } else {
-        const data = {
+      } else if (urlData === '/fre') {
+        const freeData = {
           title,
           content: post,
           category,
           createdAt: `${new Date()}`,
         };
-        console.log('submit data', data);
-        if (urlData === '/fre') {
-          const resData = await PostData(data, 'frees');
-          alert('게시글 작성을 완료하였습니다.');
-          navigate(`/free/articles/${resData.data.freeId}`);
-        }
+        console.log('submit data', freeData);
+        const resData = await PostData(freeData, 'frees');
+        alert('게시글 작성을 완료하였습니다.');
+        navigate(`/free/articles/${resData.data.freeId}`);
+      } else if (urlData === '/qna') {
+        const qnaData = {
+          title,
+          content: post,
+          subjectTag: [category],
+          createdAt: `${new Date()}`,
+        };
+        console.log('submit data', qnaData);
+        const resData = await PostData(qnaData, 'qnas/questions');
+        alert('게시글 작성을 완료하였습니다.');
+        navigate(`/qna/articles/${resData.data.questionId}`);
       }
     } catch (err) {
       console.error(err);
@@ -54,17 +65,36 @@ function WritePost() {
       if (category === '' || title === '' || post === '') {
         alert('주제, 제목, 내용은 빈 칸으로 둘 수 없습니다.');
       } else {
-        const data = {
+        const freeData = {
           title,
           content: post,
           category,
           modifiedAt: `${new Date()}`,
         };
-        console.log('submit data', data);
+        console.log('submit data', freeData);
         if (urlData === '/fre') {
-          const resData = await PatchData(data, 'frees', Number(paramsData.id));
+          const resData = await PatchData(
+            freeData,
+            'frees',
+            Number(paramsData.id),
+          );
           alert('게시글 수정을 완료하였습니다.');
           navigate(`/free/articles/${resData.data.freeId}`);
+        } else if (urlData === '/qna') {
+          const qnaData = {
+            title,
+            content: post,
+            subjectTag: [category],
+            modifiedAt: `${new Date()}`,
+          };
+          console.log('submit data', qnaData);
+          const resData = await PatchData(
+            qnaData,
+            'qnas/questions',
+            Number(paramsData.id),
+          );
+          alert('게시글 수정을 완료하였습니다.');
+          navigate(`/qna/articles/${resData.data.questionId}`);
         }
       }
     } catch (err) {
@@ -86,9 +116,16 @@ function WritePost() {
         setIsPending(false);
         // setTag();
       } else {
-        // listData = dummyData2;
+        const buffer = await getPostDetail(
+          'qnas/questions',
+          Number(paramsData.id),
+        );
+        setCategory(buffer.data.subjectTags[0].subjectTag);
+        setTitle(buffer.data.title);
+        setPost(buffer.data.content);
+        // setTag();
+        setIsPending(false);
       }
-      // listData = listData.data;
     } catch (err) {
       console.error(err);
     }
@@ -99,6 +136,29 @@ function WritePost() {
       loadPostDetail();
     }
   }, []);
+
+  // 텍스트 에디터 설정 코드
+  const linkHandler = (value: any) => {
+    console.log('value', value);
+  };
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ size: ['small', false, 'large', 'huge'] }],
+          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+          [{ color: [] }, { background: [] }],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['link', 'image'],
+        ],
+        handlers: {
+          link: linkHandler,
+        },
+      },
+    }),
+    [],
+  );
 
   return (
     <Container>
@@ -146,10 +206,10 @@ function WritePost() {
                 <option value="국어">국어</option>
                 <option value="영어">영어</option>
                 <option value="수학">수학</option>
-                <option value="사탐">사탐</option>
-                <option value="과탐">과탐</option>
-                <option value="국사">국사</option>
-                <option value="기타">기타</option>
+                <option value="사탐전체">사탐</option>
+                <option value="과탐전체">과탐</option>
+                <option value="한국사">국사</option>
+                <option value="기타전체">기타</option>
               </Select>
             )}
           </PostDiv>
@@ -166,13 +226,16 @@ function WritePost() {
           </PostDiv>
           <PostDiv>
             <Label htmlFor="post">내용</Label>
-            <Input
-              id="post"
-              type="text"
-              defaultValue={post}
-              placeholder="내용을 입력해 주세요."
-              onChange={e => setPost(e.target.value)}
-            />
+            <div>
+              <ReactQuill
+                id="post"
+                theme="snow"
+                modules={modules}
+                value={post}
+                onChange={setPost}
+                placeholder="내용을 입력해 주세요."
+              />
+            </div>
           </PostDiv>
           <PostDiv>
             <Label htmlFor="tag">태그</Label>

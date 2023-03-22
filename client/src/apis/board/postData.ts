@@ -5,7 +5,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
 type PostData = {
   title: string;
   content: string;
-  category: string;
+  category?: string;
+  subjectTag?: string[];
   createdAt: string;
 };
 
