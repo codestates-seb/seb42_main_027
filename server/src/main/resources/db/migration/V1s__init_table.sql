@@ -24,7 +24,7 @@ create table free (
                       free_id bigint not null,
                       category varchar(255),
                       comments_list_num integer not null,
-                      content varchar(255),
+                      content text(65535),
                       created_at varchar(255),
                       modified_at varchar(255),
                       title varchar(255),
@@ -36,7 +36,7 @@ create table free (
 
 create table free_comment (
                               free_comment_id bigint not null auto_increment,
-                              content varchar(255),
+                              content text(65535),
                               created_at varchar(255),
                               member_sim bit default false,
                               modified_at varchar(255),
@@ -48,7 +48,7 @@ create table free_comment (
 
 create table free_re_comment (
                                  free_re_comment_id bigint not null auto_increment,
-                                 content varchar(255),
+                                 content text(65535),
                                  created_at varchar(255),
                                  member_sim bit default false,
                                  modified_at varchar(255),
@@ -97,7 +97,7 @@ create table lecture_platform_tag (
 
 create table lecture_review (
                                 lecture_review_id bigint not null auto_increment,
-                                content varchar(255),
+                                content text(65535),
                                 created_at varchar(255),
                                 modified_at varchar(255),
                                 star_point integer not null,
@@ -112,7 +112,7 @@ create table lecture_review (
 
 create table lecture_review_comment (
                                         lecture_review_comment_id bigint not null auto_increment,
-                                        content varchar(255),
+                                        content text(65535),
                                         created_at varchar(255),
                                         modified_at varchar(255),
                                         vote_count bigint not null,
@@ -149,7 +149,7 @@ create table member_roles (
 
 create table our (
                      event_id bigint not null,
-                     content varchar(255),
+                     content text(65535),
                      date varchar(255),
                      image_url varchar(255),
                      title varchar(255),
@@ -164,7 +164,7 @@ create table platform_tag (
 
 create table qna_comment (
                              qna_comment_id bigint not null auto_increment,
-                             content varchar(255),
+                             content text(65535),
                              created_at varchar(255),
                              modified_at varchar(255),
                              target integer,
@@ -177,7 +177,7 @@ create table qna_comment (
 
 create table qna_re_comment (
                                 qna_re_comment_id bigint not null auto_increment,
-                                content varchar(255),
+                                content text(65535),
                                 created_at varchar(255),
                                 modified_at varchar(255),
                                 vote_count bigint not null,
@@ -202,7 +202,7 @@ create table question (
                           question_id bigint not null auto_increment,
                           adopt_answer_id bigint not null,
                           answer_count bigint not null,
-                          content varchar(255),
+                          content text(65535),
                           created_at varchar(255),
                           modified_at varchar(255),
                           title varchar(255),

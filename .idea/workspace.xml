@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="merge: 3/21 민호+다빈 병합">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/resources/db/migration/V1__init_table.sql" afterDir="false" />
+    <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="merge: 3/21 민호+다빈+석준 병합">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7650e78f-3e91-492c-b2ea-0ea05d1c9fbc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7650e78f-3e91-492c-b2ea-0ea05d1c9fbc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
@@ -14,16 +16,13 @@
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/entity/FreeComment.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/entity/FreeComment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/recomment/controller/ReCommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/controller/ReCommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/recomment/dto/ReCommentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/dto/ReCommentDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/recomment/entity/ReComment.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/entity/FreeReComment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/recomment/mapper/ReCommentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/mapper/ReCommentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/recomment/repository/ReCommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/repository/ReCommentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/recomment/service/ReCommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/service/ReCommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/review/lecture/entity/LectureReview.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/review/lecture/entity/LectureReview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/review/lecture/entity/LectureReviewComment.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/review/lecture/entity/LectureReviewComment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/application-local.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application-local.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/db/migration/V1__init-table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/db/migration/sV1__init-table.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/db/migration/V6__rec_table.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application-server.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application-server.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/db/migration/V1__init_table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/db/migration/V1s__init_table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/db/migration/sV5__stub_megastudy.sql" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/db/migration/sV5__stub_megastudy.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,7 +174,7 @@
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/server" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -437,7 +436,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679383568173</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="merge: 3/21 민호+다빈+석준 병합">
+      <created>1679385128122</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1679385128122</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -502,7 +508,8 @@
     <MESSAGE value="fix: 리뷰게시판 강사 평균평점 계산수정" />
     <MESSAGE value="merge: 3/21 민호 병합" />
     <MESSAGE value="merge: 3/21 민호+다빈 병합" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge: 3/21 민호+다빈 병합" />
+    <MESSAGE value="merge: 3/21 민호+다빈+석준 병합" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge: 3/21 민호+다빈+석준 병합" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
 </project>

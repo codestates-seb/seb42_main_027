@@ -9,6 +9,7 @@ import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.lecture.entity.Lecture;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.vote.Vote;
+import ynzmz.server.vote.review.lecture.entity.ReviewVote;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -41,5 +42,9 @@ public class LectureReview implements Vote {
     @OneToMany(mappedBy = "lectureReview", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<LectureReviewComment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "lectureReview", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<ReviewVote> reviewVotes = new ArrayList<>();
 
 }

@@ -6,15 +6,15 @@ spring:
     username: admin
     password: TZJrQnSUmZGHc2Fm0Vjw
   jpa:
-#    hibernate:
-#      ddl-auto: create
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
   flyway:
     baseline-on-migrate: true
-    enabled: true
+    enabled: false
 
 mail:
   address:
