@@ -16,7 +16,6 @@ import LectureReviewComment from 'components/review/LectureReviewComment';
 import { useParams, useNavigate } from 'react-router';
 import ReviewCommentCreate from 'components/review/ReviewCommentCreate';
 import { Link } from 'react-router-dom';
-import Button from 'components/common/Button';
 import isLogin from 'utils/isLogin';
 
 const defaultDetailData = {
@@ -152,7 +151,12 @@ function LectureReviewDetailPage() {
       {isPending ? (
         <Loading />
       ) : (
-        <ModalContainer>
+        <FlexContainer
+          width="50rem"
+          dir="col"
+          backColor="white"
+          justify="start"
+        >
           <FlexContainer
             width="100%"
             justify="space-between"
@@ -162,10 +166,10 @@ function LectureReviewDetailPage() {
             gap="0.2rem"
             backColor="#6667ab"
           >
-            <span>{detailData.title}</span>
+            <TitleSpan>{detailData.title}</TitleSpan>
             <FlexContainer>
-              <span>{detailData.member.displayName}</span>
-              <span>조회수: {detailData.viewCount}</span>
+              <NameSpan>{detailData.member.displayName}</NameSpan>
+              <NameSpan>조회수: {detailData.viewCount}</NameSpan>
             </FlexContainer>
           </FlexContainer>
           <FlexContainer
@@ -205,28 +209,28 @@ function LectureReviewDetailPage() {
               justify="space-between"
               borderTop="1px solid gray"
               borderBottom="1px solid gray"
-              padding="1rem 6rem"
+              padding="1rem 0"
             >
-              <FlexContainer dir="col">
-                <span>강사:{detailData.teacher.name}</span>
-                <span>
-                  <AiFillStar />
-                  {detailData.starPoint.toFixed(1)}
-                </span>
+              <FlexContainer dir="col" width="40%">
+                <FlexContainer>{detailData.teacher.name}</FlexContainer>
+                <FlexContainer gap="0.2rem">
+                  <AiFillStar color="gold" size="1.4rem" />
+                  <span>{detailData.starPoint.toFixed(1)}</span>
+                </FlexContainer>
               </FlexContainer>
-              <FlexContainer dir="col">
-                <span>강좌:{detailData.lecture.title}</span>
-                <FlexContainer gap="3rem">
-                  <span>
+              <FlexContainer dir="col" width="60%">
+                <span>{detailData.lecture.title}</span>
+                <FlexContainer gap="1rem">
+                  <FlexContainer gap="0.2rem">
                     전체:
-                    <AiFillStar />
+                    <AiFillStar color="gold" size="1.4rem" />
                     {detailData.lecture.starPointAverage.toFixed(1)}
-                  </span>
-                  <span>
+                  </FlexContainer>
+                  <FlexContainer gap="0.2rem">
                     내 평점:
-                    <AiFillStar />
+                    <AiFillStar color="gold" size="1.4rem" />
                     {detailData.starPoint}
-                  </span>
+                  </FlexContainer>
                 </FlexContainer>
               </FlexContainer>
             </FlexContainer>
@@ -236,14 +240,14 @@ function LectureReviewDetailPage() {
             {detailData.content}
           </FlexContainer>
 
-          <FlexContainer width="100%" justify="right" padding="1rem 5rem">
+          <FlexContainer width="100%" justify="right" padding="0.4rem 5rem">
             <FlexContainer>
               <UpButton voteStatus={voteStatus} onClick={reviewUpHandler}>
-                <BsFillHandThumbsUpFill size="1rem" />
+                <BsFillHandThumbsUpFill size="1.5rem" />
               </UpButton>
               {reviewVote}
               <DownButton voteStatus={voteStatus} onClick={reviewDownHandler}>
-                <BsFillHandThumbsDownFill size="1rem" />
+                <BsFillHandThumbsDownFill size="1.5rem" />
               </DownButton>
             </FlexContainer>
           </FlexContainer>
@@ -279,7 +283,7 @@ function LectureReviewDetailPage() {
               );
             })}
           </FlexContainer>
-        </ModalContainer>
+        </FlexContainer>
       )}
     </Container>
   );
@@ -290,8 +294,6 @@ export default LectureReviewDetailPage;
 type Container = {
   reviewOpen?: boolean;
 };
-
-const PButton = Button.PointBtn;
 
 type Button = {
   voteStatus?: string;
@@ -308,17 +310,6 @@ const Container = styled.div<Container>`
   gap: 0.5rem;
 `;
 
-const ModalContainer = styled.div`
-  width: 50rem;
-
-  background-color: white;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-`;
-
 const UpButton = styled.button<Button>`
   border: none;
   pointer-events: ${props => (props.voteStatus === 'DOWN' ? 'none' : 'all')};
@@ -331,4 +322,14 @@ const DownButton = styled.button<Button>`
   pointer-events: ${props => (props.voteStatus === 'UP' ? 'none' : 'all')};
   background-color: white;
   color: ${props => (props.voteStatus === 'DOWN' ? '#f48224' : 'black')};
+`;
+
+const TitleSpan = styled.span`
+  color: white;
+  font-size: large;
+`;
+
+const NameSpan = styled.span`
+  color: white;
+  font-size: 0.9rem;
 `;
