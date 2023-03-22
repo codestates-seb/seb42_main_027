@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { SmallFont } from 'pages/review/TeacherDetail/Information';
 import { useState } from 'react';
 import axios from 'axios';
+import isLogin from 'utils/isLogin';
 
 type Props = {
   lectureReviewId: number;
@@ -25,13 +26,17 @@ function ReviewCommentCreate({ lectureReviewId }: Props) {
         lectureReviewId,
       };
 
-      axios.post(
-        `${process.env.REACT_APP_API_URL}/comments/reviews/lectures`,
-        data,
-        {
-          headers: { Authorization, 'ngrok-skip-browser-warning': '69420' },
-        },
-      );
+      axios
+        .post(
+          `${process.env.REACT_APP_API_URL}/comments/reviews/lectures`,
+          data,
+          {
+            headers: { Authorization, 'ngrok-skip-browser-warning': '69420' },
+          },
+        )
+        .then(() => {
+          window.location.reload();
+        });
     }
   };
 
@@ -45,7 +50,7 @@ function ReviewCommentCreate({ lectureReviewId }: Props) {
           }}
         />
         <FlexContainer width="100%" justify="right">
-          <button onClick={createHandler}>등록</button>
+          <Ubutton onClick={createHandler}>등록</Ubutton>
         </FlexContainer>
       </FlexContainer>
     </Container>
@@ -69,13 +74,15 @@ const Container = styled.div<Container>`
   background-color: #b9b9b9;
 `;
 
-const VerySmallGrayFont = styled.div`
-  font-size: small;
-  color: gray;
-`;
-
 const Textarea = styled.textarea`
   width: 100%;
   height: 6rem;
   padding: 1rem;
+`;
+
+const Ubutton = styled.button`
+  padding: 0.4rem;
+  background-color: gray;
+  color: white;
+  border-radius: 0.4rem;
 `;
