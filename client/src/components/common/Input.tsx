@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import theme from 'theme';
 
-const { danger, success, pointColor, gray } = theme.colors;
+const { danger, pointColor, gray } = theme.colors;
 const dangerRGB = '236, 60, 60';
-const successRGB = '101, 226, 113';
 
 const Label = styled.label`
   display: flex;
@@ -19,8 +18,6 @@ const StyleInput = styled.input`
     switch (color) {
       case 'danger':
         return `rgba(${dangerRGB}, 0.2)`;
-      case 'success':
-        return `rgba(${successRGB}, 0.2)`;
       default:
         return 'white';
     }
@@ -31,8 +28,6 @@ const StyleInput = styled.input`
       switch (color) {
         case 'danger':
           return danger;
-        case 'success':
-          return success;
         default:
           return gray;
       }
@@ -44,8 +39,6 @@ const StyleInput = styled.input`
         switch (color) {
           case 'danger':
             return `rgba(${dangerRGB}, 0.2)`;
-          case 'success':
-            return `rgba(${successRGB}, 0.2)`;
           default:
             return 'white';
         }
