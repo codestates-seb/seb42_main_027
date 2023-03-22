@@ -53,9 +53,10 @@ function ReviewPage() {
   const [pageInfo, setPageInfo] = useState<PageInfo>(defaultPageInfo);
   const [curPage, setCurPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(6);
+  const [isPending, setIsPending] = useState(true);
 
   useEffect(() => {
-    console.log(curPage);
+    setIsPending(true);
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/teachers?${
@@ -77,6 +78,7 @@ function ReviewPage() {
         setTeachers(res.data.data);
         setPageInfo(res.data.pageInfo);
         setCurPage(res.data.pageInfo.page);
+        setIsPending(false);
       });
   }, [subject, sortTag, search, curPage, grade, platform, reverse]);
 
@@ -118,7 +120,17 @@ function ReviewPage() {
         setCurPage={setCurPage}
       />
 
-      {!teachers.length ? <Loading /> : <CharacterCard teachers={teachers} />}
+      {isPending ? (
+        <Loading />
+      ) : (
+        <FlexContainer dir="col">
+          {!teachers.length ? (
+            <FlexContainer height="50vh">등록된 강사가 없습니다</FlexContainer>
+          ) : (
+            <CharacterCard teachers={teachers} />
+          )}
+        </FlexContainer>
+      )}
 
       <Pagenation
         size={pageInfo.totalPages}
