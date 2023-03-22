@@ -249,6 +249,19 @@ function UserCard() {
     confirmPassword: confirmEditPassword,
   };
 
+  const resetPasswordValue = () => {
+    const resetValue = {
+      isSuccess: '',
+      errorMessage: '',
+    };
+    setPassword('');
+    setEditPassword('');
+    setConfirmEditPassword('');
+    setIsPasswordSuccess(resetValue);
+    setIsEditPasswordSuccess(resetValue);
+    setIsConfirmEditPasswordSuccess(resetValue);
+  };
+
   const handleClickEdit = async () => {
     setIsEdit(true);
     if (isEdit === true) {
@@ -261,11 +274,6 @@ function UserCard() {
       }
     }
   };
-  const resetValue = () => {
-    setPassword('');
-    setEditPassword('');
-    setConfirmEditPassword('');
-  };
 
   const handleClickEditPassword = async () => {
     setIsEditPassword(true);
@@ -274,7 +282,7 @@ function UserCard() {
         await patchUserPassword(PasswordPathData, userInfo.memberId);
         alert('정보가 수정되었습니다.');
         setIsEditPassword(false);
-        resetValue();
+        resetPasswordValue();
       } catch (error) {
         console.error(error);
       }
@@ -289,7 +297,7 @@ function UserCard() {
 
   const handleCancelEditPassword = () => {
     setIsEditPassword(false);
-    setPassword('');
+    resetPasswordValue();
   };
 
   useEffect(() => {
