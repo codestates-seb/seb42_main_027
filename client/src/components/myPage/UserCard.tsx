@@ -62,8 +62,13 @@ const UserInfo = styled.p`
   margin: 0.3rem 0;
 `;
 
-const EditBtn = styled.span`
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
   width: 100%;
+`;
+
+const EditBtn = styled.span`
   text-align: end;
   color: ${colors.gray};
   cursor: pointer;
@@ -328,7 +333,11 @@ function UserCard() {
             <UserInfo>닉네임: {userData.displayName}</UserInfo>
           </>
         )}
-        <EditBtn onClick={handleClickEdit}>{isEdit ? '저장' : '수정'}</EditBtn>
+        <ButtonContainer>
+          <EditBtn onClick={handleClickEdit}>
+            {isEdit ? '저장' : '수정'}
+          </EditBtn>
+        </ButtonContainer>
       </UserInfoContainer>
     </UserCardContainer>
   );

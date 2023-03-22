@@ -9,7 +9,11 @@ type UserInfoProps = {
 };
 
 const patchUserInfo = async (pathData: UserInfoProps, id: number | null) => {
-  await axios.patch(`${apiUrl}/members/${id}`, pathData);
+  await axios.patch(`${apiUrl}/members/${id}`, pathData, {
+    headers: {
+      'ngrok-skip-browser-warning': '69420',
+    },
+  });
 };
 
 export default patchUserInfo;
