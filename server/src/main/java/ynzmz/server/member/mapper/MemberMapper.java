@@ -16,9 +16,10 @@ public interface MemberMapper {
     Member memberPostToMember(MemberDto.Post memberPostDto);
     Member memberPatchToMember(MemberDto.Patch memberPatchDto);
     MemberDto.Response memberToMemberResponse (Member member);
-    MemberDto.SimpleInfoResponse memberToMemberSimpleInfoResponse(MemberDto.SimpleInfoResponse simpleInfoResponse);
+    MemberDto.SimpleInfoResponse memberToMemberSimpleInfoResponse(Member member);
     List<MemberDto.Response> memberToMemberResponses(List<Member> members);
     MemberDto.ChangePassword memberToMemberChangePassword(MemberDto.ChangePassword changePassword);
+
 //    MemberDto.MyLectureReview memberToMemberMyLectureReview(Member member);
 //    MemberQuestionResponseDto memberToMemberQuestionResponse(Member member);
 //    List<QuestionDto.SimpleInfoResponse> memberToMemberMyQuestions(List<Question> questions);

@@ -13,5 +13,5 @@ public interface FreeCommentMapper {
     FreeComment freeCommentPatchToFreeComment(FreeCommentDto.Patch FreeCommentPatchDto);
     FreeCommentDto.Response freeCommentToFreeCommentResponse(FreeComment freeComment);
 
-    List<FreeCommentDto.Response> freeCommentToFreeCommentsResponses(List<FreeComment> freeComments);
+    List<FreeCommentDto.SimpleResponse> freeCommentToFreeCommentsResponses(List<FreeComment> freeComments);
 }

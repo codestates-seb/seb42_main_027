@@ -1,17 +1,12 @@
 package ynzmz.server.member.service;
 
 
-import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,25 +62,25 @@ public class MemberService {
         verifyExistsDisplayName(member.getDisplayName());
 
         String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        log.info("Encrypted password: {}", encryptedPassword);
         member.setPassword(encryptedPassword);
 
         List<String> roles = authorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
 
-        Member savedMember = memberRepository.save(member);
-
-
-        return savedMember;
+        return memberRepository.save(member);
     }
 
     public Member updateMember(Member member){
         Member findMember = findVerifiedMember(member.getMemberId());
 
-        Optional.ofNullable(member.getPhoneNumber()).ifPresent(findMember::setPhoneNumber);
-        Optional.ofNullable(member.getDisplayName()).ifPresent(findMember::setDisplayName);
-        Optional.ofNullable(member.getPassword()).ifPresent(password-> findMember.setPassword(passwordEncoding(password)));
-        Optional.ofNullable(member.getIconImageUrl()).ifPresent(findMember::setIconImageUrl);
+        Optional.ofNullable(findMember.getPhoneNumber()).ifPresent(findMember::setPhoneNumber);
+        Optional.ofNullable(findMember.getDisplayName()).ifPresent(findMember::setDisplayName);
+        Optional.ofNullable(findMember.getPassword()).ifPresent(password-> findMember.setPassword(passwordEncoding(password)));
+        Optional.ofNullable(findMember.getIconImageUrl()).ifPresent(findMember::setIconImageUrl);
 
+//        List<String> roles = authorityUtils.createRoles(findMember.getEmail());
+//        findMember.setRoles(roles);
         return memberRepository.save(findMember);
     }
 
@@ -225,20 +220,38 @@ public class MemberService {
         return passwordEncoder.encode(password);
     }
 
-    public void changePassword(Long memberId, String nowPassword, String newPassword){
-        Member member = memberRepository.findById(memberId).orElseThrow(()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
-        if(passwordEncoder.matches(nowPassword,member.getPassword())){
-            if(nowPassword.equals(newPassword)){
-                throw new BusinessLogicException(ExceptionCode.SAME_PASSWORD);
-            }
-            String encryptedPassword = passwordEncoder.encode(newPassword);
-            member.setPassword(encryptedPassword);
-            memberRepository.save(member);
-        } else {
-            throw new BusinessLogicException(ExceptionCode.INVALID_NOW_PASSWORD);
+//    public void changePassword(long memberId, String nowPassword, String newPassword){
+//        Member member = memberRepository.findById(memberId).orElseThrow(()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+//
+//        if(passwordEncoder.matches(nowPassword,member.getPassword())){
+//            if(nowPassword.equals(newPassword)){
+//                throw new BusinessLogicException(ExceptionCode.SAME_PASSWORD);
+//            }
+//            String encryptedPassword = passwordEncoder.encode(newPassword);
+//            member.setPassword(encryptedPassword);
+//            memberRepository.save(member);
+//        } else {
+//            throw new BusinessLogicException(ExceptionCode.INVALID_NOW_PASSWORD);
+//        }
+
+    @Transactional
+    public Member changePassword(long memberId, MemberDto.ChangePassword changePassword) {
+        Member member = findVerifiedMember(memberId);
+        String nowPassword = changePassword.getNowPassword();
+        String newPassword = changePassword.getNewPassword();
+
+        if (!passwordEncoder.matches(nowPassword, member.getPassword())) {
+            throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCHED);
         }
+
+        String encodeNewPassword = passwordEncoder.encode(newPassword);
+        member.setPassword(encodeNewPassword);
+
+        return memberRepository.save(member);
     }
+
+}
 
 //    public void changePassword(MemberDto.ChangePasswordRequest changePasswordRequest) {
 //        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(SecurityContextHolder.getContext().getAuthentication().getName(), changePasswordRequest.getNowPassword()));
@@ -264,4 +277,4 @@ public class MemberService {
 //    }
 
 
-}
+

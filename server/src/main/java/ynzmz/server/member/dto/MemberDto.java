@@ -59,8 +59,6 @@ public class MemberDto{
     public static class Patch {
         @NotBlank(message = "휴대폰번호는 필수 입력 값입니다.")
         private String phoneNumber;
-        @NotBlank(message = "패스워드는 필수 입력 값입니다.")
-        private String password;
         @NotBlank(message = "닉네임은 필수 입력 값입니다.")
         private String displayName;
         private String iconImageUrl;
@@ -127,7 +125,10 @@ public class MemberDto{
     public static class ChangePassword {
         private String nowPassword;
         private String newPassword;
-        private Long memberId;
+
+        private String confirmPassword;
+
+
     }
 
 

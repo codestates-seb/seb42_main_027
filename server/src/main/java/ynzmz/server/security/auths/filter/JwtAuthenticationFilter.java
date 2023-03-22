@@ -1,15 +1,14 @@
 package ynzmz.server.security.auths.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwt;
-import lombok.Getter;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ynzmz.server.member.entity.Member;
+import ynzmz.server.member.service.MemberService;
 import ynzmz.server.security.auths.dto.LoginDto;
 import ynzmz.server.security.auths.jwt.JwtTokenizer;
 
@@ -58,9 +57,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Authorization", "Bearer " + accessToken); //클라이언트측에서 요청할때마다 requestHeader에 추가
         response.setHeader("Refresh", refreshToken);
 
-        this.getSuccessHandler().onAuthenticationSuccess(request,response,authResult);
 
-
+        this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
 
     private String delegateAccessToken(Member member) {

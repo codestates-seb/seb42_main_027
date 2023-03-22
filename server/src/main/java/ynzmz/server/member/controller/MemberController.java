@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.board.free.dto.FreeDto;
@@ -38,6 +39,8 @@ import ynzmz.server.comment.review.lecture.mapper.LectureReviewCommentMapper;
 import ynzmz.server.comment.review.lecture.service.LectureReviewCommentService;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.error.exception.BusinessLogicException;
+import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.member.dto.MemberDto;
@@ -47,6 +50,9 @@ import ynzmz.server.recomment.qna.dto.QnaReCommentDto;
 import ynzmz.server.recomment.qna.entity.QnaReComment;
 import ynzmz.server.recomment.qna.mapper.QnaReCommentMapper;
 import ynzmz.server.recomment.qna.service.QnaReCommentService;
+import ynzmz.server.security.auths.filter.JwtAuthenticationFilter;
+import ynzmz.server.security.auths.jwt.JwtTokenizer;
+import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -79,6 +85,8 @@ public class MemberController {
     private final QnaReCommentService qnaReCommentService;
     private final QnaReCommentMapper qnaReCommentMapper;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenizer jwtTokenizer;
+    private final CustomAuthorityUtils authorityUtils;
 
     @PostMapping
     public ResponseEntity<?> postMember(@RequestBody @Valid MemberDto.Post requestBody){
@@ -186,7 +194,7 @@ public class MemberController {
     public ResponseEntity<?> getMyFreeComments(@PathVariable("member-id")
                                                    long memberId){
         List<FreeComment> myFreeComments = freeCommentService.findFreeCommentsByMemberId(memberId);
-        List<FreeCommentDto.Response> responses = freeCommentMapper.freeCommentToFreeCommentsResponses(myFreeComments);
+        List<FreeCommentDto.SimpleResponse> responses = freeCommentMapper.freeCommentToFreeCommentsResponses(myFreeComments);
         return new ResponseEntity<>(new SingleResponseDto<>(responses),HttpStatus.OK);
     }
 
@@ -210,19 +218,39 @@ public class MemberController {
 
     //내가쓴 질문게시판 대댓글 조회
     @GetMapping("/{member-id}/recomments/qnas")
-    public ResponseEntity<?> getMyQnaRecomments(@PathVariable("member-id")
+    public ResponseEntity<?> getMyQnaRecomments(@PathVariable("member-id") @Valid
                                                 long memberId){
         List<QnaReComment> myQnaRecomments = qnaReCommentService.findQnaReCommentByMemberId(memberId);
         List<QnaReCommentDto.Response> responses = qnaReCommentMapper.qnaReCommentToQnaReCommentResponses(myQnaRecomments);
         return new ResponseEntity<>(new SingleResponseDto<>(responses),HttpStatus.OK);
     }
 
-    @PatchMapping("/{member-id}/passwords")
-    public ResponseEntity<?> changePassword(@PathVariable("member-id") long memberId,
-                                            @RequestParam @Positive String nowPassword,
-                                            @RequestParam @Positive String newPassword){
-        memberService.changePassword(memberId,nowPassword,newPassword);
-        return ResponseEntity.ok().build();
+
+    @PatchMapping("/{member-id}/changepassword")
+    public ResponseEntity<?> changePassword(@PathVariable("member-id") long memberId, @RequestBody MemberDto.ChangePassword changePassword) {
+        if (!changePassword.getNewPassword().equals(changePassword.getConfirmPassword())) {
+            return ResponseEntity.badRequest().body("패스워드와 패스워드 확인이 일치하지 않습니다.");
+        }
+
+        log.info(changePassword.getNowPassword());
+        Member member = memberService.changePassword(memberId, changePassword);
+        MemberDto.Response response=  memberMapper.memberToMemberResponse(member);
+        return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
+
+//        List<String> roles = authorityUtils.createRoles(member.getEmail());
+//        member.setRoles(roles);
+
+        //Authorization 시작.
+//        String token = jwtTokenizer.generateAccessToken(member.getEmail(), member.getRoles());
+        //비밀번호변경시에 권한 다 날아감 -> 다시 권한부여.
+        //createMember에서 권한받아오듯이 과정을 한번더 받아오도록 끄트머리에
+
     }
+
+    private Member loginMemberFindByToken(){
+        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
+        return memberService.findMemberByEmail(loginEmail);
+    }
+
 
 }

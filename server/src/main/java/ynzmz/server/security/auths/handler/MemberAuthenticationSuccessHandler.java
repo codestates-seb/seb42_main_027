@@ -18,6 +18,6 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
                                        Authentication authentication) throws IOException {
         Member member = (Member) authentication.getPrincipal();
         log.info("# Authenticated successfully!");
-        log.info(" # 로그인 성공" + " ID : " + member.getEmail());
+        log.info("# 로그인 성공" + " ID : " + member.getEmail());
     }
 }

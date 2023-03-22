@@ -9,7 +9,7 @@ import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-22T02:24:03+0900",
+    date = "2023-03-22T15:56:42+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -47,7 +47,6 @@ public class MemberMapperImpl implements MemberMapper {
 
         member.setPhoneNumber( memberPatchDto.getPhoneNumber() );
         member.setDisplayName( memberPatchDto.getDisplayName() );
-        member.setPassword( memberPatchDto.getPassword() );
         member.setIconImageUrl( memberPatchDto.getIconImageUrl() );
 
         return member;
@@ -87,8 +86,8 @@ public class MemberMapperImpl implements MemberMapper {
     }
 
     @Override
-    public MemberDto.SimpleInfoResponse memberToMemberSimpleInfoResponse(MemberDto.SimpleInfoResponse simpleInfoResponse) {
-        if ( simpleInfoResponse == null ) {
+    public MemberDto.SimpleInfoResponse memberToMemberSimpleInfoResponse(Member member) {
+        if ( member == null ) {
             return null;
         }
 
@@ -97,14 +96,16 @@ public class MemberMapperImpl implements MemberMapper {
         String iconImageUrl = null;
         String state = null;
 
-        memberId = simpleInfoResponse.getMemberId();
-        displayName = simpleInfoResponse.getDisplayName();
-        iconImageUrl = simpleInfoResponse.getIconImageUrl();
-        state = simpleInfoResponse.getState();
+        memberId = member.getMemberId();
+        displayName = member.getDisplayName();
+        iconImageUrl = member.getIconImageUrl();
+        if ( member.getState() != null ) {
+            state = member.getState().name();
+        }
 
-        MemberDto.SimpleInfoResponse simpleInfoResponse1 = new MemberDto.SimpleInfoResponse( memberId, displayName, iconImageUrl, state );
+        MemberDto.SimpleInfoResponse simpleInfoResponse = new MemberDto.SimpleInfoResponse( memberId, displayName, iconImageUrl, state );
 
-        return simpleInfoResponse1;
+        return simpleInfoResponse;
     }
 
     @Override
@@ -131,7 +132,7 @@ public class MemberMapperImpl implements MemberMapper {
 
         changePassword1.setNowPassword( changePassword.getNowPassword() );
         changePassword1.setNewPassword( changePassword.getNewPassword() );
-        changePassword1.setMemberId( changePassword.getMemberId() );
+        changePassword1.setConfirmPassword( changePassword.getConfirmPassword() );
 
         return changePassword1;
     }

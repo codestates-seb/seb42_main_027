@@ -13,8 +13,10 @@ import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
 
+import javax.management.relation.Role;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 public class MemberDetailsService implements UserDetailsService {

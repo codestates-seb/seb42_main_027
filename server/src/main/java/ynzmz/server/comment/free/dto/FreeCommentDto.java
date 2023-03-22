@@ -41,6 +41,17 @@ public class FreeCommentDto {
         private MemberDto.SimpleInfoResponse member;
         private boolean memberSim;
     }
+
+    @Getter @Setter
+    @AllArgsConstructor
+    public static class SimpleResponse{
+        private long freeCommentId;
+        private String content;
+        private String createdAt;
+        private String modifiedAt;
+        private long voteCount;
+    }
+
     @Setter @Getter
     @AllArgsConstructor
     public static class ResponseForFreeDetail{

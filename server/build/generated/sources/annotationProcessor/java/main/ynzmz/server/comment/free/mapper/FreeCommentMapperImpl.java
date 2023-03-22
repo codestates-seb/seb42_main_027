@@ -11,7 +11,7 @@ import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-22T02:24:03+0900",
+    date = "2023-03-22T16:48:46+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -75,14 +75,14 @@ public class FreeCommentMapperImpl implements FreeCommentMapper {
     }
 
     @Override
-    public List<FreeCommentDto.Response> freeCommentToFreeCommentsResponses(List<FreeComment> freeComments) {
+    public List<FreeCommentDto.SimpleResponse> freeCommentToFreeCommentsResponses(List<FreeComment> freeComments) {
         if ( freeComments == null ) {
             return null;
         }
 
-        List<FreeCommentDto.Response> list = new ArrayList<FreeCommentDto.Response>( freeComments.size() );
+        List<FreeCommentDto.SimpleResponse> list = new ArrayList<FreeCommentDto.SimpleResponse>( freeComments.size() );
         for ( FreeComment freeComment : freeComments ) {
-            list.add( freeCommentToFreeCommentResponse( freeComment ) );
+            list.add( freeCommentToSimpleResponse( freeComment ) );
         }
 
         return list;
@@ -108,5 +108,29 @@ public class FreeCommentMapperImpl implements FreeCommentMapper {
         MemberDto.SimpleInfoResponse simpleInfoResponse = new MemberDto.SimpleInfoResponse( memberId, displayName, iconImageUrl, state );
 
         return simpleInfoResponse;
+    }
+
+    protected FreeCommentDto.SimpleResponse freeCommentToSimpleResponse(FreeComment freeComment) {
+        if ( freeComment == null ) {
+            return null;
+        }
+
+        long freeCommentId = 0L;
+        String content = null;
+        String createdAt = null;
+        String modifiedAt = null;
+        long voteCount = 0L;
+
+        if ( freeComment.getFreeCommentId() != null ) {
+            freeCommentId = freeComment.getFreeCommentId();
+        }
+        content = freeComment.getContent();
+        createdAt = freeComment.getCreatedAt();
+        modifiedAt = freeComment.getModifiedAt();
+        voteCount = freeComment.getVoteCount();
+
+        FreeCommentDto.SimpleResponse simpleResponse = new FreeCommentDto.SimpleResponse( freeCommentId, content, createdAt, modifiedAt, voteCount );
+
+        return simpleResponse;
     }
 }
