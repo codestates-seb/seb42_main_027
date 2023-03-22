@@ -103,11 +103,11 @@ function ScoreChart({
                 <SmallFont>
                   {el.lectureReviews.length
                     ? `⭐️${el.lectureReviews[0].starPoint}`
-                    : 'null'}
+                    : null}
                 </SmallFont>
                 <SmallFont>
                   {el.lectureReviews.length
-                    ? `⭐️${el.lectureReviews[0].content}`
+                    ? `${el.lectureReviews[0].content.slice(0, 7)}...`
                     : null}
                 </SmallFont>
               </FlexContainer>

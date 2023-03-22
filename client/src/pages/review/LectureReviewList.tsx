@@ -120,7 +120,7 @@ function LectureReviewList() {
             </Link>
           </FlexContainer>
           {!data.data.lectureReviews.length ? (
-            <FlexContainer height="100vh">등록된 강의가 없습니다</FlexContainer>
+            <FlexContainer height="50vh">등록된 리뷰가 없습니다</FlexContainer>
           ) : (
             <FlexContainer width="50rem" dir="col" gap="1rem">
               <FlexContainer

@@ -31,6 +31,12 @@ function UpdateReview() {
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/boards/reviews/lectures/${lectureReviewId}`,
+        {
+          headers: {
+            Authorization,
+            'ngrok-skip-browser-warning': '69420',
+          },
+        },
       )
       .then((res: any) => {
         console.log(res.data.data);

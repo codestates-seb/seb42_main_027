@@ -156,7 +156,7 @@ function LectureReviewDetailPage() {
           <FlexContainer
             width="100%"
             justify="space-between"
-            padding="1.5rem 2rem"
+            padding="1.5rem 4rem"
             borderTop="2px solid black"
             borderBottom="1px solid black"
             gap="0.2rem"
