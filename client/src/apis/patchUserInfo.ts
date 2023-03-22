@@ -4,7 +4,6 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 type UserInfoProps = {
   phoneNumber: string;
-  password: string;
   displayName: string;
 };
 

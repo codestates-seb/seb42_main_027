@@ -239,7 +239,6 @@ function UserCard() {
 
   const pathData = {
     phoneNumber: phoneNum,
-    password: isEditPassword ? editPassword : userInfo.password,
     displayName,
   };
 
