@@ -2,7 +2,6 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.9'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-	id "org.asciidoctor.jvm.convert" version "3.3.2"  // docs 설정추가
 }
 
 group = 'ynzmz'
@@ -13,59 +12,47 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
-	asciidoctorExtensions  // docs 설정추가
 }
 
 repositories {
 	mavenCentral()
 }
 
-ext {
-	set('snippetsDir', file("build/generated-snippets"))
-}
-
 dependencies {
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	implementation 'org.mapstruct:mapstruct:1.5.2.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
+//	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 //	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
-//	implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config' // 추가
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	compileOnly "org.flywaydb:flyway-mysql"
+
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	implementation 'com.google.code.gson:gson'
+
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.jsoup:jsoup:1.15.4'
+
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.mysql:mysql-connector-j'
-	annotationProcessor 'org.projectlombok:lombok'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly	'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.jsoup:jsoup:1.15.4'// 크롤링용
 }
-dependencyManagement { // 블록 추가
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-starter-parent:Hoxton.SR12"
-	}
-}
+
 
 tasks.named('test') {
-	outputs.dir snippetsDir  // docs 설정추가
 	useJUnitPlatform()
-}
-tasks.named('asciidoctor') {  // docs 설정추가
-	configurations "asciidoctorExtensions"
-	inputs.dir snippetsDir
-	dependsOn test
-}
-task copyDocument(type: Copy) {  // docs 설정추가
-	dependsOn asciidoctor
-	from file("${asciidoctor.outputDir}")
-	into file("src/main/resources/static/docs")
-}
-
-build {
-	dependsOn copyDocument  // docs 설정추가
-}
-
-bootJar {  // docs 설정추가
-	dependsOn copyDocument
-	from("${asciidoctor.outputDir}") {
-		into 'static/docs'
-	}
 }
