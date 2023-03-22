@@ -6,6 +6,7 @@ import Pagenation from 'components/review/Pagenation';
 import CharacterCard from 'components/review/CharacterCard';
 import Carousel from 'components/review/Carousel';
 import SubjectMenu from 'components/review/SubjectMenu';
+import Loading from 'components/review/Loading';
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -117,7 +118,8 @@ function ReviewPage() {
         setCurPage={setCurPage}
       />
 
-      <CharacterCard teachers={teachers} />
+      {!teachers.length ? <Loading /> : <CharacterCard teachers={teachers} />}
+
       <Pagenation
         size={pageInfo.totalPages}
         currentPage={curPage}

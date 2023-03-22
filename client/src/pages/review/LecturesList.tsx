@@ -10,8 +10,8 @@ import SubjectMenu from 'components/review/SubjectMenu';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from 'components/common/Button';
-import isLogin from 'utils/isLogin';
-import { Link } from 'react-router-dom';
+
+import Loading from 'components/review/Loading';
 import { FlexContainer } from './ReviewPage';
 
 type LectureType = {
@@ -114,7 +114,7 @@ function LecturesList() {
       />
 
       {!lectures.length ? (
-        <FlexContainer>등록된 강의가 없습니다</FlexContainer>
+        <Loading />
       ) : (
         <FlexContainer dir="col">
           {lectures.map((el, index) => {
