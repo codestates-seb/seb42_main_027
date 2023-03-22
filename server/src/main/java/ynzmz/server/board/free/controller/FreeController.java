@@ -3,6 +3,8 @@ package ynzmz.server.board.free.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -50,15 +52,43 @@ public class FreeController {
     return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
     @GetMapping()
-    public ResponseEntity<?> getListedFree(@RequestParam(required = false) String subject,
-                                           @RequestParam(required = false) String title,
-                                           @RequestParam(required = false) String sort,
-                                           @RequestParam(required = false) String reverse,
+    public ResponseEntity<?> getListedFree(
+                                           @RequestParam(required = false) String sort,//추천순 조회순
+                                           @RequestParam(required = false) String category,
                                            @RequestParam int page) {
-        Page<Free> foundFreePage = freeService.findAllFree(page-1);
-        List<Free> listFoundFree = foundFreePage.getContent();
-        List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(listFoundFree);
-        return new ResponseEntity<>(new MultiResponseDto<>(responses,foundFreePage),HttpStatus.OK);
+        if(category != null && sort !=null) { //정렬/ 카테고리 다 사용
+
+
+            Page<Free> foundFreePage = freeService.findFreesByCategoryAndSort(page-1, category, sort);//일상 정보등 카테고리
+            List<Free> listFoundFree = foundFreePage.getContent();
+            List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(listFoundFree);
+            return new ResponseEntity<>(new MultiResponseDto<>(responses, foundFreePage), HttpStatus.OK);
+        }
+
+        else if(category != null &&sort ==null){//카테고리만 사용
+            Page<Free> foundFreePage =  freeService.findFreesByCategoryAndSort(page-1,category);
+            List<Free> listFoundFree = foundFreePage.getContent();
+            List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(listFoundFree);
+            return new ResponseEntity<>(new MultiResponseDto<>(responses, foundFreePage), HttpStatus.OK);
+        }
+
+        else if(category == null && sort !=null){ //정렬만 사용
+            Page<Free> foundFreePage = freeService.findFreesWithSort(page-1,sort);
+            List<Free> listFoundFree = foundFreePage.getContent();
+            List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(listFoundFree);
+            return new ResponseEntity<>(new MultiResponseDto<>(responses, foundFreePage), HttpStatus.OK);
+
+        }
+
+        else {//기본 --> 카테고리, 정렬 모두 없을떄
+            Page<Free> foundFreePage = freeService.findAllFree(page-1);
+            List<Free> listFoundFree = foundFreePage.getContent();
+            List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(listFoundFree);
+            return new ResponseEntity<>(new MultiResponseDto<>(responses,foundFreePage),HttpStatus.OK);
+        }
+
+        //추천순 X 조회순 X --> 바닐라 버전
+
     }
 
     @PatchMapping("/{free-id}")

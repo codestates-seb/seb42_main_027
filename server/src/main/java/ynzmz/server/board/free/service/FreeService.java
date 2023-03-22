@@ -12,6 +12,7 @@ import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.board.free.entity.Free;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,4 +62,24 @@ public class FreeService {
     public void plusViewCount(Free free){
         free.setViewCount(free.getViewCount()+1);
     }
+
+    //-------------------------------------------검색기능----------------------------------------------------------
+
+//    public Page<Free> findDailyFreesByVoteCount(){
+//        return repository.findFreesByCategoryAndVoteCount();
+//    }
+
+    public Page<Free> findFreesByCategoryAndSort(int page, String category,String sort){
+        return repository.findFreesByCategory(category, PageRequest.of(page,15,Sort.by(sort).descending()));
+    }
+    public Page<Free> findFreesByCategoryAndSort(int page, String category){
+        return repository.findFreesByCategory(category, PageRequest.of(page,15));
+    }
+
+    public Page<Free> findFreesWithSort(int page, String sort){
+        return repository.findAll(PageRequest.of(page,15,Sort.by(sort).descending()));
+    }
+//    public Page<Free> findFreesByCategoryAndSort(int page, String category){
+//        return repository.findFreesByCategory(category, PageRequest.of(page,15));
+//    }
 }
