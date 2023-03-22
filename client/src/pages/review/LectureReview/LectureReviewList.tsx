@@ -8,8 +8,8 @@ import isLogin from 'utils/isLogin';
 import Button from 'components/common/Button';
 import Loading from 'components/review/Loading';
 import LectureReview2 from 'components/review/LectureReview2';
-import { FlexContainer } from './ReviewPage';
-import { SmallFont } from './TeacherDetail/Information';
+import { FlexContainer } from '../TeacherList/ReviewPage';
+import { SmallFont } from '../TeacherDetail/Information';
 
 const defaultData = {
   data: {

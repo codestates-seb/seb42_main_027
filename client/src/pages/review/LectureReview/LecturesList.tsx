@@ -9,10 +9,9 @@ import Carousel from 'components/review/Carousel';
 import SubjectMenu from 'components/review/SubjectMenu';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Button from 'components/common/Button';
 
 import Loading from 'components/review/Loading';
-import { FlexContainer } from './ReviewPage';
+import { FlexContainer } from '../TeacherList/ReviewPage';
 
 type LectureType = {
   lectureId: number;
@@ -178,5 +177,3 @@ const SubjectSelectButton = styled.div<SubjectSelectButton>`
   align-items: center;
   cursor: pointer;
 `;
-
-const PButton = Button.PointBtn;

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
-import { FlexContainer } from '../ReviewPage';
+import { FlexContainer } from '../TeacherList/ReviewPage';
 
 type Data = {
   gradeTags: string[];

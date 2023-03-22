@@ -2,7 +2,7 @@
 /* eslint-disable react/require-default-props */
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
-import { FlexContainer } from 'pages/review/ReviewPage';
+import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import { Link, useParams } from 'react-router-dom';
 import isLogin from 'utils/isLogin';
 import axios from 'axios';

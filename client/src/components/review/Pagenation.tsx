@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/require-default-props */
 import styled from 'styled-components';
-import { FlexContainer } from 'pages/review/ReviewPage';
+import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 
 type Props = {
   size: number; // 전체 강사 수

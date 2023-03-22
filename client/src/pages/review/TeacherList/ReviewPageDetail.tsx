@@ -6,11 +6,11 @@ import { Routes, Route, Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FlexContainer } from './ReviewPage';
-import Information from './TeacherDetail/Information';
-import Lectures from './TeacherDetail/Lectures';
-import TeacherReview from './TeacherDetail/TeacherReview';
-import CreateLecture from './TeacherDetail/CreateLecture';
-import UpdateLecture from './TeacherDetail/UpdateLecture';
+import Information from '../TeacherDetail/Information';
+import Lectures from '../TeacherDetail/Lectures';
+import TeacherReview from '../TeacherDetail/TeacherReview';
+import CreateLecture from '../TeacherDetail/CreateLecture';
+import UpdateLecture from '../TeacherDetail/UpdateLecture';
 
 function ReviewPageDetail() {
   const [selected, setSelected] = useState<string>('');

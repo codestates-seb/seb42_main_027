@@ -9,7 +9,7 @@ import LectureReview from 'components/review/LectureReview';
 import isLogin from 'utils/isLogin';
 import Button from 'components/common/Button';
 import LectureReviewDetail from 'components/review/LectureReviewDetail';
-import { FlexContainer } from '../ReviewPage';
+import { FlexContainer } from '../TeacherList/ReviewPage';
 import { MiddleFont, SmallFont } from './Information';
 
 type Data = {

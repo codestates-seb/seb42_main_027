@@ -7,12 +7,12 @@ import FreeBoard from 'pages/FreeBoard';
 import PostList from 'components/board/post/postList';
 import WritePost from 'components/board/post/postWrite';
 import PostContent from 'components/board/freeBoard/postContent';
-import ReviewPage from 'pages/review/ReviewPage';
-import ReviewPageDetail from 'pages/review/ReviewPageDetail';
-import CreateTeacher from 'pages/review/CreateTeacher';
+import ReviewPage from 'pages/review/TeacherList/ReviewPage';
+import ReviewPageDetail from 'pages/review/TeacherList/ReviewPageDetail';
+import CreateTeacher from 'pages/review/TeacherList/CreateTeacher';
 import StudentSignUpForm from 'components/member/signup/StudentSignUpForm';
 import TeacherSignUpForm from 'components/member/signup/TeacherSignUpForm';
-import UpdateTeacher from 'pages/review/UpdateTeacher';
+import UpdateTeacher from 'pages/review/TeacherList/UpdateTeacher';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignUp from 'pages/SignUp';
 import SelectSignUpType from 'components/member/signup/SelectSignUpType';
@@ -22,11 +22,11 @@ import TeacherReview from 'pages/review/TeacherDetail/TeacherReview';
 import UpdateLecture from 'pages/review/TeacherDetail/UpdateLecture';
 import CreateLecture from 'pages/review/TeacherDetail/CreateLecture';
 import MyPage from 'pages/MyPage';
-import LectureReviewList from 'pages/review/LectureReviewList';
-import LecturesList from 'pages/review/LecturesList';
-import CreateReview from 'pages/review/CreateReview';
-import UpdateReview from 'pages/review/UpdateReview';
-import LectureReviewDetailPage from 'pages/review/LectureReviewDetailPage';
+import LectureReviewList from 'pages/review/LectureReview/LectureReviewList';
+import LecturesList from 'pages/review/LectureReview/LecturesList';
+import CreateReview from 'pages/review/LectureReview/CreateReview';
+import UpdateReview from 'pages/review/LectureReview/UpdateReview';
+import LectureReviewDetailPage from 'pages/review/LectureReview/LectureReviewDetailPage';
 
 function Router() {
   return (

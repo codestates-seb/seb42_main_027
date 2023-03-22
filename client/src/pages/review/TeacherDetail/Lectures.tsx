@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import isLogin from 'utils/isLogin';
 import Button from 'components/common/Button';
 
-import { FlexContainer } from '../ReviewPage';
+import { FlexContainer } from '../TeacherList/ReviewPage';
 
 const defaultData = {
   lectureId: 1,

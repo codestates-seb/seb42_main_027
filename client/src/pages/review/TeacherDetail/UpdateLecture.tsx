@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router';
 import styled from 'styled-components';
 
-import { FlexContainer } from '../ReviewPage';
+import { FlexContainer } from '../TeacherList/ReviewPage';
 import { Container } from './Information';
 import {
   UpdateContainer,
@@ -17,7 +17,7 @@ import {
   CardContainer,
   UploadButton,
   Span,
-} from '../CreateTeacher';
+} from '../TeacherList/CreateTeacher';
 
 const defaultData = {
   gradeTags: ['1'],

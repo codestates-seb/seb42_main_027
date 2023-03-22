@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import styled from 'styled-components';
 import axios from 'axios';
-import { FlexContainer } from './ReviewPage';
-import { UploadButton } from './CreateTeacher';
+import { FlexContainer } from '../TeacherList/ReviewPage';
+import { UploadButton } from '../TeacherList/CreateTeacher';
 
 const defaultData = {
   title: '리뷰글 제목',
@@ -16,11 +16,11 @@ const defaultData = {
   createdAt: new Date(),
 };
 
-function CreateReview() {
+function UpdateReview() {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [starPoint, setStarPoint] = useState<number>(0);
-  const { lectureId } = useParams();
+  const { lectureReviewId, lectureId } = useParams();
 
   const navigate = useNavigate();
   const Authorization = localStorage.getItem('token');
@@ -28,10 +28,27 @@ function CreateReview() {
   const starArr = [1, 2, 3, 4, 5];
 
   useEffect(() => {
-    console.log(starPoint);
-  }, [starPoint]);
+    axios
+      .get(
+        `${process.env.REACT_APP_API_URL}/boards/reviews/lectures/${lectureReviewId}`,
+        {
+          headers: {
+            Authorization,
+            'ngrok-skip-browser-warning': '69420',
+          },
+        },
+      )
+      .then((res: any) => {
+        console.log(res.data.data);
+        return res.data.data;
+      })
+      .then(data => {
+        setTitle(data.title);
+        setContent(data.content);
+      });
+  }, []);
 
-  const createHandler = () => {
+  const updateHandler = () => {
     if (!title || !content || !starPoint) {
       alert('빈 곳을 채워주세요!');
     } else {
@@ -40,12 +57,12 @@ function CreateReview() {
         content,
         starPoint: Number(starPoint),
         lectureId: Number(lectureId),
-        createdAt: new Date(),
+        modifiedAt: new Date(),
       };
 
       axios
-        .post(
-          `${process.env.REACT_APP_API_URL}/boards/reviews/lectures`,
+        .patch(
+          `${process.env.REACT_APP_API_URL}/boards/reviews/lectures/${lectureReviewId}`,
           data,
           {
             headers: {
@@ -54,7 +71,7 @@ function CreateReview() {
             },
           },
         )
-        .then(res => {
+        .then(() => {
           navigate(-1);
         });
     }
@@ -106,13 +123,13 @@ function CreateReview() {
           })}
         </FlexContainer>
         <FlexContainer>
-          <UploadButton onClick={createHandler}>후기 등록</UploadButton>
+          <UploadButton onClick={updateHandler}>후기 수정</UploadButton>
           <UploadButton
             onClick={() => {
               navigate(-1);
             }}
           >
-            등록 취소
+            수정 취소
           </UploadButton>
         </FlexContainer>
       </FlexContainer>
@@ -120,7 +137,7 @@ function CreateReview() {
   );
 }
 
-export default CreateReview;
+export default UpdateReview;
 
 const Container = styled.div`
   display: flex;
