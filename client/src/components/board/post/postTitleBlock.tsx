@@ -41,23 +41,7 @@ function PostTitleBlock({ ele }: Props) {
   console.log('ele', ele);
   const urlData = useLocation().pathname;
   console.log(urlData);
-  let elapsedTime: number = CalElapsedTime(ele.createdAt);
-  let calTime = '';
-
-  if (elapsedTime < 60) {
-    calTime = '방금 전';
-  } else if (elapsedTime < 3600) {
-    elapsedTime = Math.round(elapsedTime / 60);
-    calTime = `${elapsedTime}분 전`;
-  } else if (elapsedTime < 43200) {
-    elapsedTime = Math.round(elapsedTime / 3600);
-    calTime = `${elapsedTime}시간 전`;
-  } else if (elapsedTime < 129600) {
-    elapsedTime = Math.round(elapsedTime / 43200);
-    calTime = `${elapsedTime}일 전`;
-  } else {
-    calTime = ele.createdAt.slice(0, 24);
-  }
+  const calTime: string = CalElapsedTime(ele.createdAt);
 
   return (
     <Container className={ele.category === '공지' ? 'notice' : ''}>
@@ -122,8 +106,9 @@ const Category = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
+  min-width: 40px;
   height: 18px;
+  padding: 0 calc(${theme.gap.px10} / 2);
   border: 1px solid ${theme.colors.pointColor};
   border-radius: 5px;
   font-size: ${theme.fontSizes.sm};

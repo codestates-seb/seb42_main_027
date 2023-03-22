@@ -9,13 +9,14 @@ import CountIcon from 'assets/icons/countIcon';
 
 import useUserInfoStore from 'stores/userInfoStore';
 import deleteComment from 'apis/board/deleteComment';
+import CalElapsedTime from '../post/calElapsedTime';
 import WriteComment from '../comment/writeComment';
 import RecommentList from './recommentList';
 
 interface Data {
   freeCommentId?: number;
   content: string;
-  createdAt?: string;
+  createdAt: string;
   modifiedAt?: string;
   voteCount: number;
   member: {
@@ -37,6 +38,8 @@ function CommentBlock({ data }: Props) {
   const [openEdit, setOpenEidt] = useState(false);
   const [openRecom, setOpenRecom] = useState(false);
   // console.log(data.member.displayName);
+
+  const calTime: string = CalElapsedTime(data.createdAt);
 
   const openEditHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setOpenEidt(!openEdit);
@@ -71,7 +74,7 @@ function CommentBlock({ data }: Props) {
         <Writer>
           <ProfileIcon.Default />
           <div>{data.member.displayName}</div>
-          <div> · 약 1시간 전</div>
+          <div> · {calTime}</div>
           {data.memberSim ? <Category>작성자</Category> : null}
         </Writer>
         {data.member.memberId === userInfo.memberId ? (
@@ -136,8 +139,9 @@ const Category = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
+  min-width: 40px;
   height: 18px;
+  padding: 0 calc(${theme.gap.px10} / 2);
   border: 1px solid ${theme.colors.pointColor};
   border-radius: 5px;
   font-size: ${theme.fontSizes.sm};
