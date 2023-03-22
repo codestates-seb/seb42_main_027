@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
+import ynzmz.server.board.qna.answer.dto.AnswerDto;
+import ynzmz.server.board.qna.answer.entity.Answer;
+import ynzmz.server.board.qna.question.dto.QuestionDto;
+import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.comment.qna.dto.QnaCommentDto;
 import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.member.dto.MemberDto;
@@ -13,68 +17,68 @@ import ynzmz.server.recomment.qna.entity.QnaReComment;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-22T23:23:44+0900",
+    date = "2023-03-23T03:15:04+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
 public class QnaCommentMapperImpl implements QnaCommentMapper {
 
     @Override
-    public QnaComment qnaCommentPostToQnaComment(QnaCommentDto.Post lectureReviewPostCommentPostDto) {
-        if ( lectureReviewPostCommentPostDto == null ) {
+    public QnaComment qnaCommentPostToQnaComment(QnaCommentDto.Post QnaCommentPostDto) {
+        if ( QnaCommentPostDto == null ) {
             return null;
         }
 
         QnaComment qnaComment = new QnaComment();
 
-        qnaComment.setContent( lectureReviewPostCommentPostDto.getContent() );
-        qnaComment.setCreatedAt( lectureReviewPostCommentPostDto.getCreatedAt() );
+        qnaComment.setContent( QnaCommentPostDto.getContent() );
+        qnaComment.setCreatedAt( QnaCommentPostDto.getCreatedAt() );
 
         return qnaComment;
     }
 
     @Override
-    public QnaComment qnaCommentPatchToQnaComment(QnaCommentDto.Patch lectureReviewPostCommentPatchDto) {
-        if ( lectureReviewPostCommentPatchDto == null ) {
+    public QnaComment qnaCommentPatchToQnaComment(QnaCommentDto.Patch QnaCommentPatchDto) {
+        if ( QnaCommentPatchDto == null ) {
             return null;
         }
 
         QnaComment qnaComment = new QnaComment();
 
-        qnaComment.setContent( lectureReviewPostCommentPatchDto.getContent() );
-        qnaComment.setModifiedAt( lectureReviewPostCommentPatchDto.getModifiedAt() );
+        qnaComment.setContent( QnaCommentPatchDto.getContent() );
+        qnaComment.setModifiedAt( QnaCommentPatchDto.getModifiedAt() );
 
         return qnaComment;
     }
 
     @Override
-    public QnaCommentDto.Response qnaCommentToQnaCommentResponse(QnaComment lectureReviewComment) {
-        if ( lectureReviewComment == null ) {
+    public QnaCommentDto.Response qnaCommentToQnaCommentResponse(QnaComment QnaComment) {
+        if ( QnaComment == null ) {
             return null;
         }
 
         QnaCommentDto.Response response = new QnaCommentDto.Response();
 
-        response.setQnaCommentId( lectureReviewComment.getQnaCommentId() );
-        response.setContent( lectureReviewComment.getContent() );
-        response.setCreatedAt( lectureReviewComment.getCreatedAt() );
-        response.setModifiedAt( lectureReviewComment.getModifiedAt() );
-        response.setVoteCount( lectureReviewComment.getVoteCount() );
-        response.setMember( memberToSimpleInfoResponse( lectureReviewComment.getMember() ) );
-        response.setQnaReComments( qnaReCommentListToResponseList( lectureReviewComment.getQnaReComments() ) );
+        response.setQnaCommentId( QnaComment.getQnaCommentId() );
+        response.setContent( QnaComment.getContent() );
+        response.setCreatedAt( QnaComment.getCreatedAt() );
+        response.setModifiedAt( QnaComment.getModifiedAt() );
+        response.setVoteCount( QnaComment.getVoteCount() );
+        response.setMember( memberToSimpleInfoResponse( QnaComment.getMember() ) );
+        response.setQnaReComments( qnaReCommentListToResponseList( QnaComment.getQnaReComments() ) );
 
         return response;
     }
 
     @Override
-    public List<QnaCommentDto.Response> qnaCommentsToQnaCommentResponses(List<QnaComment> lectureReviewComments) {
-        if ( lectureReviewComments == null ) {
+    public List<QnaCommentDto.SimpleResponse> qnaCommentsToQnaCommentSimpleResponses(List<QnaComment> qnaComments) {
+        if ( qnaComments == null ) {
             return null;
         }
 
-        List<QnaCommentDto.Response> list = new ArrayList<QnaCommentDto.Response>( lectureReviewComments.size() );
-        for ( QnaComment qnaComment : lectureReviewComments ) {
-            list.add( qnaCommentToQnaCommentResponse( qnaComment ) );
+        List<QnaCommentDto.SimpleResponse> list = new ArrayList<QnaCommentDto.SimpleResponse>( qnaComments.size() );
+        for ( QnaComment qnaComment : qnaComments ) {
+            list.add( qnaCommentToSimpleResponse( qnaComment ) );
         }
 
         return list;
@@ -132,5 +136,57 @@ public class QnaCommentMapperImpl implements QnaCommentMapper {
         }
 
         return list1;
+    }
+
+    protected QuestionDto.SimpleResponse questionToSimpleResponse(Question question) {
+        if ( question == null ) {
+            return null;
+        }
+
+        QuestionDto.SimpleResponse simpleResponse = new QuestionDto.SimpleResponse();
+
+        simpleResponse.setQuestionId( question.getQuestionId() );
+        simpleResponse.setTitle( question.getTitle() );
+
+        return simpleResponse;
+    }
+
+    protected AnswerDto.SimpleResponse answerToSimpleResponse(Answer answer) {
+        if ( answer == null ) {
+            return null;
+        }
+
+        AnswerDto.SimpleResponse simpleResponse = new AnswerDto.SimpleResponse();
+
+        simpleResponse.setAnswerId( answer.getAnswerId() );
+        simpleResponse.setContent( answer.getContent() );
+
+        return simpleResponse;
+    }
+
+    protected QnaCommentDto.SimpleResponse qnaCommentToSimpleResponse(QnaComment qnaComment) {
+        if ( qnaComment == null ) {
+            return null;
+        }
+
+        Long qnaCommentId = null;
+        String content = null;
+        String createdAt = null;
+        String modifiedAt = null;
+        long voteCount = 0L;
+        QuestionDto.SimpleResponse question = null;
+        AnswerDto.SimpleResponse answer = null;
+
+        qnaCommentId = qnaComment.getQnaCommentId();
+        content = qnaComment.getContent();
+        createdAt = qnaComment.getCreatedAt();
+        modifiedAt = qnaComment.getModifiedAt();
+        voteCount = qnaComment.getVoteCount();
+        question = questionToSimpleResponse( qnaComment.getQuestion() );
+        answer = answerToSimpleResponse( qnaComment.getAnswer() );
+
+        QnaCommentDto.SimpleResponse simpleResponse = new QnaCommentDto.SimpleResponse( qnaCommentId, content, createdAt, modifiedAt, voteCount, question, answer );
+
+        return simpleResponse;
     }
 }

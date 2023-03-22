@@ -12,5 +12,6 @@ public interface LectureReviewCommentMapper {
     LectureReviewComment lectureReviewCommentPostToLectureReviewComment(LectureReviewCommentDto.Post lectureReviewCommentPostDto);
     LectureReviewComment lectureReviewCommentPatchToLectureReviewComment(LectureReviewCommentDto.Patch lectureReviewCommentPatchDto);
     LectureReviewCommentDto.Response lectureReviewCommentToLectureReviewCommentResponse(LectureReviewComment lectureReviewComment);
-    List<LectureReviewCommentDto.Response> lectureReviewCommentsToLectureReviewCommentResponses(List<LectureReviewComment> lectureReviewComments);
+    List<LectureReviewCommentDto.SimpleResponse> lectureReviewCommentsToLectureReviewCommentSimpleResponses(List<LectureReviewComment> lectureReviewComments);
+
 }

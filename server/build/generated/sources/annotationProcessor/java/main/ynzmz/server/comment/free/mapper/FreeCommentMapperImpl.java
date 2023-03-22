@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
+import ynzmz.server.board.free.dto.FreeDto;
+import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.comment.free.dto.FreeCommentDto;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.member.dto.MemberDto;
@@ -11,7 +13,7 @@ import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-22T23:23:44+0900",
+    date = "2023-03-23T03:19:27+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -75,7 +77,7 @@ public class FreeCommentMapperImpl implements FreeCommentMapper {
     }
 
     @Override
-    public List<FreeCommentDto.SimpleResponse> freeCommentToFreeCommentsResponses(List<FreeComment> freeComments) {
+    public List<FreeCommentDto.SimpleResponse> freeCommentToFreeCommentsSimpleResponses(List<FreeComment> freeComments) {
         if ( freeComments == null ) {
             return null;
         }
@@ -110,26 +112,37 @@ public class FreeCommentMapperImpl implements FreeCommentMapper {
         return simpleInfoResponse;
     }
 
+    protected FreeDto.SimpleResponse freeToSimpleResponse(Free free) {
+        if ( free == null ) {
+            return null;
+        }
+
+        long freeId = 0L;
+        String title = null;
+
+        freeId = free.getFreeId();
+        title = free.getTitle();
+
+        FreeDto.SimpleResponse simpleResponse = new FreeDto.SimpleResponse( freeId, title );
+
+        return simpleResponse;
+    }
+
     protected FreeCommentDto.SimpleResponse freeCommentToSimpleResponse(FreeComment freeComment) {
         if ( freeComment == null ) {
             return null;
         }
 
-        long freeCommentId = 0L;
-        String content = null;
-        String createdAt = null;
-        String modifiedAt = null;
-        long voteCount = 0L;
+        FreeCommentDto.SimpleResponse simpleResponse = new FreeCommentDto.SimpleResponse();
 
         if ( freeComment.getFreeCommentId() != null ) {
-            freeCommentId = freeComment.getFreeCommentId();
+            simpleResponse.setFreeCommentId( freeComment.getFreeCommentId() );
         }
-        content = freeComment.getContent();
-        createdAt = freeComment.getCreatedAt();
-        modifiedAt = freeComment.getModifiedAt();
-        voteCount = freeComment.getVoteCount();
-
-        FreeCommentDto.SimpleResponse simpleResponse = new FreeCommentDto.SimpleResponse( freeCommentId, content, createdAt, modifiedAt, voteCount );
+        simpleResponse.setContent( freeComment.getContent() );
+        simpleResponse.setCreatedAt( freeComment.getCreatedAt() );
+        simpleResponse.setModifiedAt( freeComment.getModifiedAt() );
+        simpleResponse.setVoteCount( freeComment.getVoteCount() );
+        simpleResponse.setFree( freeToSimpleResponse( freeComment.getFree() ) );
 
         return simpleResponse;
     }

@@ -46,6 +46,10 @@ import ynzmz.server.member.service.MemberService;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.mapper.MemberMapper;
+import ynzmz.server.recomment.free.dto.ReCommentDto;
+import ynzmz.server.recomment.free.entity.FreeReComment;
+import ynzmz.server.recomment.free.mapper.ReCommentMapper;
+import ynzmz.server.recomment.free.service.ReCommentService;
 import ynzmz.server.recomment.qna.dto.QnaReCommentDto;
 import ynzmz.server.recomment.qna.entity.QnaReComment;
 import ynzmz.server.recomment.qna.mapper.QnaReCommentMapper;
@@ -78,15 +82,15 @@ public class MemberController {
     private final AnswerMapper answerMapper;
     private final FreeCommentService freeCommentService;
     private final FreeCommentMapper freeCommentMapper;
+    private final ReCommentService reCommentService;
+    private final ReCommentMapper reCommentMapper;
     private final QnaCommentService qnaCommentService;
     private final QnaCommentMapper qnaCommentMapper;
-    private final LectureReviewCommentService lectureReviewCommentService;
-    private final LectureReviewCommentMapper lectureReviewCommentMapper;
     private final QnaReCommentService qnaReCommentService;
     private final QnaReCommentMapper qnaReCommentMapper;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtTokenizer jwtTokenizer;
-    private final CustomAuthorityUtils authorityUtils;
+    private final LectureReviewCommentService lectureReviewCommentService;
+    private final LectureReviewCommentMapper lectureReviewCommentMapper;
+
 
     @PostMapping
     public ResponseEntity<?> postMember(@RequestBody @Valid MemberDto.Post requestBody){
@@ -114,6 +118,18 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
+    @PatchMapping("/{member-id}/changepassword")
+    public ResponseEntity<?> changePassword(@PathVariable("member-id") long memberId, @RequestBody MemberDto.ChangePassword changePassword) {
+        if (!changePassword.getNewPassword().equals(changePassword.getConfirmPassword())) {
+            return ResponseEntity.badRequest().body("패스워드와 패스워드 확인이 일치하지 않습니다.");
+        }
+
+        log.info(changePassword.getNowPassword());
+        Member member = memberService.changePassword(memberId, changePassword);
+        MemberDto.Response response = memberMapper.memberToMemberResponse(member);
+
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+    }
 
     @GetMapping("/{email}")
     public ResponseEntity<?> getMember(@PathVariable("email") @Positive String email){
@@ -128,6 +144,7 @@ public class MemberController {
                                         @Positive @RequestParam int size) {
         Page<Member> pageMembers = memberService.findMembers(page-1, size);
         List<Member> members = pageMembers.getContent();
+
         return new ResponseEntity<>(new MultiResponseDto<>(memberMapper.memberToMemberResponses(members),pageMembers),HttpStatus.OK);
     }
 
@@ -140,7 +157,6 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
     //이메일찾기
 //    @GetMapping("/members/id_check")
 //    public ResponseEntity<Boolean> emailCheck(@NotNull String email) {
@@ -150,7 +166,7 @@ public class MemberController {
 //        return ResponseEntity.status(HttpStatus.OK).body(true);
 //    }
 
-
+//-------------------------------------마이페이지-------------------------------------------//
 
     //내가쓴 질문글조회
     @GetMapping("/{member-id}/questions")
@@ -158,6 +174,7 @@ public class MemberController {
                                                 long memberId) {
         List<Question> myQuestions = questionService.findQuestionsByMemberId(memberId);
         List<QuestionDto.ListPageResponse> responses = questionMapper.questionToQuestionListPageResponses(myQuestions); //통일
+
         return new ResponseEntity<>(new SingleResponseDto<>(responses),HttpStatus.OK);
     }
 
@@ -194,7 +211,7 @@ public class MemberController {
     public ResponseEntity<?> getMyFreeComments(@PathVariable("member-id")
                                                    long memberId){
         List<FreeComment> myFreeComments = freeCommentService.findFreeCommentsByMemberId(memberId);
-        List<FreeCommentDto.SimpleResponse> responses = freeCommentMapper.freeCommentToFreeCommentsResponses(myFreeComments);
+        List<FreeCommentDto.SimpleResponse> responses = freeCommentMapper.freeCommentToFreeCommentsSimpleResponses(myFreeComments);
         return new ResponseEntity<>(new SingleResponseDto<>(responses),HttpStatus.OK);
     }
 
@@ -203,7 +220,7 @@ public class MemberController {
     public ResponseEntity<?> getMyQnAComments(@PathVariable("member-id")
                                                long memberId){
         List<QnaComment> myQnAComments = qnaCommentService.findQnaCommentByMemberId(memberId);
-        List<QnaCommentDto.Response> responses = qnaCommentMapper.qnaCommentsToQnaCommentResponses(myQnAComments);
+        List<QnaCommentDto.SimpleResponse> responses = qnaCommentMapper.qnaCommentsToQnaCommentSimpleResponses(myQnAComments);
         return new ResponseEntity<>(new SingleResponseDto<>(responses),HttpStatus.OK);
     }
 
@@ -212,30 +229,31 @@ public class MemberController {
     public ResponseEntity<?> getMyReviewComments(@PathVariable("member-id")
                                                  long memberId){
         List<LectureReviewComment> myLectureReviewComments = lectureReviewCommentService.findLectureReviewCommentsByMemberId(memberId);
-        List<LectureReviewCommentDto.Response> responses = lectureReviewCommentMapper.lectureReviewCommentsToLectureReviewCommentResponses(myLectureReviewComments);
+        List<LectureReviewCommentDto.SimpleResponse> responses = lectureReviewCommentMapper.lectureReviewCommentsToLectureReviewCommentSimpleResponses(myLectureReviewComments);
         return new ResponseEntity<>(new SingleResponseDto<>(responses),HttpStatus.OK);
     }
 
     //내가쓴 질문게시판 대댓글 조회
     @GetMapping("/{member-id}/recomments/qnas")
-    public ResponseEntity<?> getMyQnaRecomments(@PathVariable("member-id") @Valid
+    public ResponseEntity<?> getMyQnaReComments(@PathVariable("member-id") @Valid
                                                 long memberId){
-        List<QnaReComment> myQnaRecomments = qnaReCommentService.findQnaReCommentByMemberId(memberId);
-        List<QnaReCommentDto.Response> responses = qnaReCommentMapper.qnaReCommentToQnaReCommentResponses(myQnaRecomments);
+        List<QnaReComment> myQnaReComments = qnaReCommentService.findQnaReCommentByMemberId(memberId);
+        List<QnaReCommentDto.SimpleResponse> responses = qnaReCommentMapper.qnaReCommentToQnaReCommentSimpleResponse(myQnaReComments);
         return new ResponseEntity<>(new SingleResponseDto<>(responses),HttpStatus.OK);
     }
 
+    //내가쓴 자유게시판 대댓글 조회
+   @GetMapping("/{member-id}/recomments/frees")
+   public ResponseEntity<?> getFreeReComments(@PathVariable("member-id") @Valid
+                                                 long memberId){
+        List<FreeReComment> myFreeReComments = reCommentService.findReCommentByMemberId(memberId);
+        List<ReCommentDto.SimpleResponse> responses = reCommentMapper.freeReCommentToFreeReCommentsSimpleResponses(myFreeReComments);
+        return new ResponseEntity<>(new SingleResponseDto<>(responses), HttpStatus.OK);
+   }
 
-    @PatchMapping("/{member-id}/changepassword")
-    public ResponseEntity<?> changePassword(@PathVariable("member-id") long memberId, @RequestBody MemberDto.ChangePassword changePassword) {
-        if (!changePassword.getNewPassword().equals(changePassword.getConfirmPassword())) {
-            return ResponseEntity.badRequest().body("패스워드와 패스워드 확인이 일치하지 않습니다.");
-        }
+    //-------------------------------------마이페이지-------------------------------------------//
 
-        log.info(changePassword.getNowPassword());
-        Member member = memberService.changePassword(memberId, changePassword);
-        MemberDto.Response response=  memberMapper.memberToMemberResponse(member);
-        return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
+
 
 //        List<String> roles = authorityUtils.createRoles(member.getEmail());
 //        member.setRoles(roles);
@@ -245,7 +263,7 @@ public class MemberController {
         //비밀번호변경시에 권한 다 날아감 -> 다시 권한부여.
         //createMember에서 권한받아오듯이 과정을 한번더 받아오도록 끄트머리에
 
-    }
+
 
     private Member loginMemberFindByToken(){
         String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인

@@ -3,6 +3,8 @@ package ynzmz.server.recomment.free.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import ynzmz.server.board.free.dto.FreeDto;
+import ynzmz.server.comment.free.dto.FreeCommentDto;
 import ynzmz.server.member.dto.MemberDto;
 
 public class ReCommentDto {
@@ -45,6 +47,17 @@ public class ReCommentDto {
         private long voteCount;
         private MemberDto.SimpleInfoResponse member;
         private boolean memberSim;
+    }
+
+    @Setter @Getter
+    @AllArgsConstructor
+    public static class SimpleResponse {
+        private long freeReCommentId;
+        private String content;
+        private String createdAt;
+        private String modifiedAt;
+        private long voteCount;
+        private FreeCommentDto.SimpleResponse freeComment;
     }
 }
 

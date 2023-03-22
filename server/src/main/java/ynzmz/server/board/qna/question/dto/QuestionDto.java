@@ -93,4 +93,10 @@ public class QuestionDto {
         private long voteCount;
         private List<SubjectTagDto.Response> subjectTags;
     }
+
+    @Getter @Setter
+    public static class SimpleResponse{
+        private Long questionId;
+        private String title;
+    }
 }

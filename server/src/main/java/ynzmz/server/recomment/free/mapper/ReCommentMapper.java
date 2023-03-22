@@ -12,6 +12,5 @@ public interface ReCommentMapper {
     FreeReComment recommentPostToRecomment(ReCommentDto.Post RecommentPostDto);
     FreeReComment recommentPatchToRecomment(ReCommentDto.Patch RecommentPatchDto);
     ReCommentDto.Response recommentToRecommentResponse(FreeReComment recomment);
-
-    List<ReCommentDto.Response> freeCommentToFreeCommentsResponses(List<FreeReComment> freeReComments);
+    List<ReCommentDto.SimpleResponse> freeReCommentToFreeReCommentsSimpleResponses(List<FreeReComment> freeReComments);
 }

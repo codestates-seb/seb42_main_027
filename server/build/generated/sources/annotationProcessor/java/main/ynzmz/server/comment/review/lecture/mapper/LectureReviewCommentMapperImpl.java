@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
+import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
+import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.comment.review.lecture.dto.LectureReviewCommentDto;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.member.dto.MemberDto;
@@ -11,7 +13,7 @@ import ynzmz.server.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-22T23:23:44+0900",
+    date = "2023-03-23T03:15:04+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -64,14 +66,14 @@ public class LectureReviewCommentMapperImpl implements LectureReviewCommentMappe
     }
 
     @Override
-    public List<LectureReviewCommentDto.Response> lectureReviewCommentsToLectureReviewCommentResponses(List<LectureReviewComment> lectureReviewComments) {
+    public List<LectureReviewCommentDto.SimpleResponse> lectureReviewCommentsToLectureReviewCommentSimpleResponses(List<LectureReviewComment> lectureReviewComments) {
         if ( lectureReviewComments == null ) {
             return null;
         }
 
-        List<LectureReviewCommentDto.Response> list = new ArrayList<LectureReviewCommentDto.Response>( lectureReviewComments.size() );
+        List<LectureReviewCommentDto.SimpleResponse> list = new ArrayList<LectureReviewCommentDto.SimpleResponse>( lectureReviewComments.size() );
         for ( LectureReviewComment lectureReviewComment : lectureReviewComments ) {
-            list.add( lectureReviewCommentToLectureReviewCommentResponse( lectureReviewComment ) );
+            list.add( lectureReviewCommentToSimpleResponse( lectureReviewComment ) );
         }
 
         return list;
@@ -97,5 +99,35 @@ public class LectureReviewCommentMapperImpl implements LectureReviewCommentMappe
         MemberDto.SimpleInfoResponse simpleInfoResponse = new MemberDto.SimpleInfoResponse( memberId, displayName, iconImageUrl, state );
 
         return simpleInfoResponse;
+    }
+
+    protected LectureReviewDto.SimpleResponse lectureReviewToSimpleResponse(LectureReview lectureReview) {
+        if ( lectureReview == null ) {
+            return null;
+        }
+
+        LectureReviewDto.SimpleResponse simpleResponse = new LectureReviewDto.SimpleResponse();
+
+        simpleResponse.setLectureReviewId( lectureReview.getLectureReviewId() );
+        simpleResponse.setTitle( lectureReview.getTitle() );
+
+        return simpleResponse;
+    }
+
+    protected LectureReviewCommentDto.SimpleResponse lectureReviewCommentToSimpleResponse(LectureReviewComment lectureReviewComment) {
+        if ( lectureReviewComment == null ) {
+            return null;
+        }
+
+        LectureReviewCommentDto.SimpleResponse simpleResponse = new LectureReviewCommentDto.SimpleResponse();
+
+        simpleResponse.setLectureReviewCommentId( lectureReviewComment.getLectureReviewCommentId() );
+        simpleResponse.setContent( lectureReviewComment.getContent() );
+        simpleResponse.setCreatedAt( lectureReviewComment.getCreatedAt() );
+        simpleResponse.setModifiedAt( lectureReviewComment.getModifiedAt() );
+        simpleResponse.setVoteCount( lectureReviewComment.getVoteCount() );
+        simpleResponse.setLectureReview( lectureReviewToSimpleResponse( lectureReviewComment.getLectureReview() ) );
+
+        return simpleResponse;
     }
 }

@@ -50,4 +50,10 @@ public class AnswerDto {
 
 //        private QuestionDto.ListPageResponse question;
     }
+
+    @Getter @Setter
+    public static class SimpleResponse{
+        private Long answerId;
+        private String content;
+    }
 }

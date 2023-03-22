@@ -76,7 +76,6 @@ public class MemberService {
 
         Optional.ofNullable(member.getPhoneNumber()).ifPresent(findMember::setPhoneNumber);
         Optional.ofNullable(member.getDisplayName()).ifPresent(findMember::setDisplayName);
-//        Optional.ofNullable(findMember.getPassword()).ifPresent(password-> findMember.setPassword(passwordEncoding(password)));
         Optional.ofNullable(member.getIconImageUrl()).ifPresent(findMember::setIconImageUrl);
 
 

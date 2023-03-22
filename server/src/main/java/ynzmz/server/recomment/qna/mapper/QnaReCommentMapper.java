@@ -12,5 +12,5 @@ public interface QnaReCommentMapper {
     QnaReComment qnaReCommentPostToQnaReComment(QnaReCommentDto.Post qnaReCommentPostDto);
     QnaReComment qnaReCommentPatchToQnaReComment(QnaReCommentDto.Patch qnaReCommentPatchDto);
     QnaReCommentDto.Response qnaReCommentToQnaReCommentResponse(QnaReComment qnaReComment);
-    List<QnaReCommentDto.Response> qnaReCommentToQnaReCommentResponses(List<QnaReComment> qnaReComments);
+    List<QnaReCommentDto.SimpleResponse> qnaReCommentToQnaReCommentSimpleResponse(List<QnaReComment> qnaReComments);
 }
