@@ -26,7 +26,7 @@ import LectureReviewList from 'pages/review/LectureReviewList';
 import LecturesList from 'pages/review/LecturesList';
 import CreateReview from 'pages/review/CreateReview';
 import UpdateReview from 'pages/review/UpdateReview';
-import LectureReviewDetail from 'components/review/LectureReviewDetail';
+import LectureReviewDetailPage from 'pages/review/LectureReviewDetailPage';
 
 function Router() {
   return (
@@ -84,18 +84,18 @@ function Router() {
           path="/lecturereviewlist/:lectureId"
           element={<LectureReviewList />}
         />
-        {/* <Route
+        <Route
           path="/lecturereviewdetail/:lectureReviewId"
-          element={<LectureReviewDetail />}
-        /> */}
+          element={<LectureReviewDetailPage />}
+        />
         <Route
           path="/lecturereviewlist/:lectureId/create"
           element={<CreateReview />}
         />
-        {/* <Route
-          path="/lecturereviewlist/:lectureId/update"
+        <Route
+          path="/lecturereviewdetail/:lectureReviewId/update/:lectureId"
           element={<UpdateReview />}
-        /> */}
+        />
       </Routes>
       <Footer />
     </BrowserRouter>
