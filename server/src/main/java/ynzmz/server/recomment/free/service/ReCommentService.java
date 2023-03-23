@@ -45,9 +45,9 @@ public class ReCommentService {
     public List<FreeReComment> findReCommentByMemberId(long memberId){
         return reCommentRepository.findByMemberId(memberId);
     }
-
+    
     public void getSimilarityMember(FreeReComment recomment){
-        if (recomment.getMember().getMemberId() == recomment.getComment().getMember().getMemberId())
+        if (recomment.getMember().getMemberId() == recomment.getFreeComment().getMember().getMemberId())
         {
             recomment.setMemberSim(true);
         }

@@ -29,9 +29,9 @@ public class ReCommentController {
         FreeReComment recomment = recommentMapper.recommentPostToRecomment(postDto);
         recomment.setMember(loginMemberFindByToken());
         FreeComment freeComment = freeCommentService.findFreeCommentById(freeCommentId);
-        recomment.setComment(freeComment);
+        recomment.setFreeComment(freeComment);
 
-        if(recomment.getMember().getMemberId() == recomment.getComment().getMember().getMemberId()){
+        if(recomment.getMember().getMemberId() == recomment.getFreeComment().getMember().getMemberId()){
             recomment.setMemberSim(true);
         }
         else {

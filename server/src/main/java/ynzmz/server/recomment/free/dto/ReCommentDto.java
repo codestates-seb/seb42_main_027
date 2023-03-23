@@ -2,6 +2,7 @@ package ynzmz.server.recomment.free.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ynzmz.server.board.free.dto.FreeDto;
 import ynzmz.server.comment.free.dto.FreeCommentDto;
@@ -50,7 +51,7 @@ public class ReCommentDto {
     }
 
     @Setter @Getter
-    @AllArgsConstructor
+    @NoArgsConstructor
     public static class SimpleResponse {
         private long freeReCommentId;
         private String content;

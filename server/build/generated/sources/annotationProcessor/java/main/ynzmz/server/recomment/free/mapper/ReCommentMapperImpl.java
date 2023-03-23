@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
+import ynzmz.server.board.free.dto.FreeDto;
+import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.comment.free.dto.FreeCommentDto;
+import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.recomment.free.dto.ReCommentDto;
@@ -12,7 +15,7 @@ import ynzmz.server.recomment.free.entity.FreeReComment;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-23T03:22:28+0900",
+    date = "2023-03-23T10:04:02+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -76,13 +79,13 @@ public class ReCommentMapperImpl implements ReCommentMapper {
     }
 
     @Override
-    public List<ReCommentDto.SimpleResponse> freeReCommentToFreeReCommentsSimpleResponses(List<FreeReComment> freeReComments) {
-        if ( freeReComments == null ) {
+    public List<ReCommentDto.SimpleResponse> freeReCommentToFreeReCommentsSimpleResponses(List<FreeReComment> ReComments) {
+        if ( ReComments == null ) {
             return null;
         }
 
-        List<ReCommentDto.SimpleResponse> list = new ArrayList<ReCommentDto.SimpleResponse>( freeReComments.size() );
-        for ( FreeReComment freeReComment : freeReComments ) {
+        List<ReCommentDto.SimpleResponse> list = new ArrayList<ReCommentDto.SimpleResponse>( ReComments.size() );
+        for ( FreeReComment freeReComment : ReComments ) {
             list.add( freeReCommentToSimpleResponse( freeReComment ) );
         }
 
@@ -111,28 +114,56 @@ public class ReCommentMapperImpl implements ReCommentMapper {
         return simpleInfoResponse;
     }
 
+    protected FreeDto.SimpleResponse freeToSimpleResponse(Free free) {
+        if ( free == null ) {
+            return null;
+        }
+
+        long freeId = 0L;
+        String title = null;
+
+        freeId = free.getFreeId();
+        title = free.getTitle();
+
+        FreeDto.SimpleResponse simpleResponse = new FreeDto.SimpleResponse( freeId, title );
+
+        return simpleResponse;
+    }
+
+    protected FreeCommentDto.SimpleResponse freeCommentToSimpleResponse(FreeComment freeComment) {
+        if ( freeComment == null ) {
+            return null;
+        }
+
+        FreeCommentDto.SimpleResponse simpleResponse = new FreeCommentDto.SimpleResponse();
+
+        if ( freeComment.getFreeCommentId() != null ) {
+            simpleResponse.setFreeCommentId( freeComment.getFreeCommentId() );
+        }
+        simpleResponse.setContent( freeComment.getContent() );
+        simpleResponse.setCreatedAt( freeComment.getCreatedAt() );
+        simpleResponse.setModifiedAt( freeComment.getModifiedAt() );
+        simpleResponse.setVoteCount( freeComment.getVoteCount() );
+        simpleResponse.setFree( freeToSimpleResponse( freeComment.getFree() ) );
+
+        return simpleResponse;
+    }
+
     protected ReCommentDto.SimpleResponse freeReCommentToSimpleResponse(FreeReComment freeReComment) {
         if ( freeReComment == null ) {
             return null;
         }
 
-        long freeReCommentId = 0L;
-        String content = null;
-        String createdAt = null;
-        String modifiedAt = null;
-        long voteCount = 0L;
+        ReCommentDto.SimpleResponse simpleResponse = new ReCommentDto.SimpleResponse();
 
         if ( freeReComment.getFreeReCommentId() != null ) {
-            freeReCommentId = freeReComment.getFreeReCommentId();
+            simpleResponse.setFreeReCommentId( freeReComment.getFreeReCommentId() );
         }
-        content = freeReComment.getContent();
-        createdAt = freeReComment.getCreatedAt();
-        modifiedAt = freeReComment.getModifiedAt();
-        voteCount = freeReComment.getVoteCount();
-
-        FreeCommentDto.SimpleResponse freeComment = null;
-
-        ReCommentDto.SimpleResponse simpleResponse = new ReCommentDto.SimpleResponse( freeReCommentId, content, createdAt, modifiedAt, voteCount, freeComment );
+        simpleResponse.setContent( freeReComment.getContent() );
+        simpleResponse.setCreatedAt( freeReComment.getCreatedAt() );
+        simpleResponse.setModifiedAt( freeReComment.getModifiedAt() );
+        simpleResponse.setVoteCount( freeReComment.getVoteCount() );
+        simpleResponse.setFreeComment( freeCommentToSimpleResponse( freeReComment.getFreeComment() ) );
 
         return simpleResponse;
     }

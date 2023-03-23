@@ -71,7 +71,7 @@ public class FreeCommentDto {
 
     @Getter @Setter
     @AllArgsConstructor
-    public static class SimpleResponse2 {
+    public static class SimpleInfoResponse {
         private long freeCommentId;
         private String content;
     }

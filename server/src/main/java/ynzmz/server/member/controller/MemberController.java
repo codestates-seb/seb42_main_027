@@ -28,6 +28,7 @@ import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.comment.free.dto.FreeCommentDto;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.comment.free.mapper.FreeCommentMapper;
+import ynzmz.server.comment.free.repository.FreeCommentRepository;
 import ynzmz.server.comment.free.service.FreeCommentService;
 import ynzmz.server.comment.qna.dto.QnaCommentDto;
 import ynzmz.server.comment.qna.entity.QnaComment;
@@ -60,6 +61,7 @@ import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -82,6 +84,7 @@ public class MemberController {
     private final AnswerMapper answerMapper;
     private final FreeCommentService freeCommentService;
     private final FreeCommentMapper freeCommentMapper;
+    private final FreeCommentRepository freeCommentRepository;
     private final ReCommentService reCommentService;
     private final ReCommentMapper reCommentMapper;
     private final QnaCommentService qnaCommentService;
@@ -247,9 +250,53 @@ public class MemberController {
    public ResponseEntity<?> getFreeReComments(@PathVariable("member-id") @Valid
                                                  long memberId){
         List<FreeReComment> myFreeReComments = reCommentService.findReCommentByMemberId(memberId);
-        List<ReCommentDto.SimpleResponse> responses = reCommentMapper.freeReCommentToFreeReCommentsSimpleResponses(myFreeReComments);
+//        List<ReCommentDto.SimpleResponse> responses = reCommentMapper.freeReCommentToFreeReCommentsSimpleResponses(myFreeReComments);
+        List<ReCommentDto.SimpleResponse> responses = new ArrayList<>();
+        for (FreeReComment freeReComment : myFreeReComments) {
+               ReCommentDto.SimpleResponse response = new ReCommentDto.SimpleResponse();
+               response.setFreeReCommentId(freeReComment.getFreeReCommentId());
+               response.setContent(freeReComment.getContent());
+               response.setCreatedAt(freeReComment.getCreatedAt());
+               response.setModifiedAt(freeReComment.getModifiedAt());
+               response.setVoteCount(freeReComment.getVoteCount());
+               FreeComment freeComment = freeReComment.getFreeComment();
+
+               if (freeComment != null) {
+                   FreeCommentDto.SimpleResponse freeCommentResponse = new FreeCommentDto.SimpleResponse();
+                   freeCommentResponse.setFreeCommentId(freeComment.getFreeCommentId());
+                   freeCommentResponse.setContent(freeComment.getContent());
+                   freeCommentResponse.setCreatedAt(freeComment.getCreatedAt());
+                   freeCommentResponse.setModifiedAt(freeComment.getModifiedAt());
+                   response.setFreeComment(freeCommentResponse);
+               }
+
+           responses.add(response);
+       }
+
+
+       for (FreeReComment freeReComment : myFreeReComments) {
+           ReCommentDto.SimpleResponse response = new ReCommentDto.SimpleResponse();
+           response.setFreeReCommentId(freeReComment.getFreeReCommentId());
+           response.setContent(freeReComment.getContent());
+           response.setCreatedAt(freeReComment.getCreatedAt());
+           response.setModifiedAt(freeReComment.getModifiedAt());
+           response.setVoteCount(freeReComment.getVoteCount());
+
+           FreeComment freeComment = freeCommentRepository.findById(freeReComment.getFreeComment().getFreeCommentId()).orElse(null);
+
+           if (freeComment != null) {
+               FreeCommentDto.SimpleResponse freeCommentResponse = new FreeCommentDto.SimpleResponse();
+               freeCommentResponse.setFreeCommentId(freeComment.getFreeCommentId());
+               freeCommentResponse.setContent(freeComment.getContent());
+               freeCommentResponse.setCreatedAt(freeComment.getCreatedAt());
+               freeCommentResponse.setModifiedAt(freeComment.getModifiedAt());
+               response.setFreeComment(freeCommentResponse);
+           }
+           responses.add(response);
+       }
         return new ResponseEntity<>(new SingleResponseDto<>(responses), HttpStatus.OK);
    }
+
 
     //-------------------------------------마이페이지-------------------------------------------//
 

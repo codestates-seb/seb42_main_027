@@ -27,7 +27,7 @@ public class FreeReComment implements Vote {
     @ManyToOne
     @JoinColumn(name = "free_comment_id")//아마?
     @JsonBackReference
-    private FreeComment comment;
+    private FreeComment freeComment;
     @ManyToOne
     @JoinColumn(name = "member_id")
     @JsonBackReference
