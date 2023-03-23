@@ -293,7 +293,28 @@ function MyPage() {
                   <Bottom>
                     {post.title ? (
                       <ContentContainer>
-                        <Title>{post.title}</Title>
+                        <Title>
+                          {selectPostCategories === '자유 게시판' ? (
+                            <Link to={`/free/articles/${post.freeId}`}>
+                              {post.title}
+                            </Link>
+                          ) : null}
+                          {selectPostCategories === '질문 게시판' ? (
+                            <Link to={`/qna/articles/${post.questionId}`}>
+                              {post.title}
+                            </Link>
+                          ) : null}
+                          {selectPostCategories === '답변 게시판'
+                            ? post.title
+                            : null}
+                          {selectPostCategories === '강의 리뷰' ? (
+                            <Link
+                              to={`/lecturereviewdetail/${post.lectureReviewId}`}
+                            >
+                              {post.title}
+                            </Link>
+                          ) : null}
+                        </Title>
                         <Content>{post.content}</Content>
                       </ContentContainer>
                     ) : (
