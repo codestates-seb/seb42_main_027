@@ -27,7 +27,13 @@ import LecturesList from 'pages/review/LectureReview/LecturesList';
 import CreateReview from 'pages/review/LectureReview/CreateReview';
 import UpdateReview from 'pages/review/LectureReview/UpdateReview';
 import LectureReviewDetailPage from 'pages/review/LectureReview/LectureReviewDetailPage';
+
+import EventList from 'pages/review/Event/EventList';
+import EventDetail from 'pages/review/Event/EventDetail';
+import CreateEvent from 'pages/review/Event/CreateEvent';
+import UpdateEvent from 'pages/review/Event/UpdateEvent';
 import FindForgotEmail from 'pages/FindForgotEmail';
+
 
 function Router() {
   return (
@@ -98,6 +104,11 @@ function Router() {
           path="/lecturereviewdetail/:lectureReviewId/update/:lectureId"
           element={<UpdateReview />}
         />
+
+        <Route path="/eventlist" element={<EventList />} />
+        <Route path="/eventlist/articles/write" element={<CreateEvent />} />
+        <Route path="/eventdetail/:eventId" element={<EventDetail />} />
+        <Route path="/eventdetail/:eventId/update" element={<UpdateEvent />} />
       </Routes>
       <Footer />
     </BrowserRouter>

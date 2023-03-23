@@ -36,8 +36,9 @@ function Header() {
           <Link to="/free">
             <LI>자유게시판</LI>
           </Link>
-
-          <LI>이벤트</LI>
+          <Link to="/eventlist">
+            <LI>이벤트</LI>
+          </Link>
           <LI>스터디카페</LI>
         </UL>
       </Left>
