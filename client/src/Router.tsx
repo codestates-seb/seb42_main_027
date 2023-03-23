@@ -27,6 +27,7 @@ import LecturesList from 'pages/review/LectureReview/LecturesList';
 import CreateReview from 'pages/review/LectureReview/CreateReview';
 import UpdateReview from 'pages/review/LectureReview/UpdateReview';
 import LectureReviewDetailPage from 'pages/review/LectureReview/LectureReviewDetailPage';
+import FindForgotEmail from 'pages/FindForgotEmail';
 
 function Router() {
   return (
@@ -36,6 +37,7 @@ function Router() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/findemail" element={<FindForgotEmail />} />
 
         <Route path="signup/*" element={<SignUp />}>
           <Route path="" element={<SelectSignUpType />} />
