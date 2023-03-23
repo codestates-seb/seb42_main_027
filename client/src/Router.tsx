@@ -33,6 +33,7 @@ import EventDetail from 'pages/review/Event/EventDetail';
 import CreateEvent from 'pages/review/Event/CreateEvent';
 import UpdateEvent from 'pages/review/Event/UpdateEvent';
 import FindForgotEmail from 'pages/FindForgotEmail';
+import FindForgotPassword from 'pages/FindForgotPassword';
 
 function Router() {
   return (
@@ -43,6 +44,7 @@ function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/findemail" element={<FindForgotEmail />} />
+        <Route path="/findpassword" element={<FindForgotPassword />} />
 
         <Route path="signup/*" element={<SignUp />}>
           <Route path="" element={<SelectSignUpType />} />
