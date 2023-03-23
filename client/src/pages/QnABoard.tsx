@@ -30,7 +30,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
 `;
 
 const Main = styled.div`
@@ -39,7 +38,6 @@ const Main = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
   max-width: 62.5%;
   margin: 0 auto;
 `;
