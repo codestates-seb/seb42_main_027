@@ -3,18 +3,21 @@ import theme from 'theme';
 import { Container, Title } from 'components/member/memberStyledComponents';
 import Input from 'components/common/Input';
 import { useState } from 'react';
-import { validatePhoneNum } from 'utils/regex';
+import { validatePhoneNum, validateEmail, validatePassword } from 'utils/regex';
 import BaseButton from 'components/common/BaseButton';
 import getForgotEmail from 'apis/getForgotEmail';
 import ModalWrapper from 'components/common/ModalWrapper';
 import { useNavigate } from 'react-router';
+import postForgotPassword from 'apis/postForgotPassword';
+import EditUserInfoInput from 'components/myPage/EditUserInfo';
+import FindPasswordModal from 'components/findPassword/FindPasswordModal';
 
 const { colors, fontSizes } = theme;
 
 const SubTitle = styled.p`
   color: ${colors.pointColor};
   font-size: 1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   width: 73%;
   text-align: center;
 `;
@@ -33,42 +36,6 @@ const SignUpFailedMessage = styled.p`
 `;
 
 // ModalStyle
-const ModalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
-
-const ModalTitle = styled.h2`
-  font-size: ${fontSizes.md};
-  color: ${colors.pointColor};
-  padding: 0.3rem 0;
-  border-bottom: 0.1rem solid ${colors.gray};
-  margin-bottom: 1rem;
-`;
-
-const ModalSubTitle = styled.h2`
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-`;
-
-const ModalContent = styled.h2`
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  font-size: 1.2rem;
-  color: ${colors.fontColor};
-`;
-
-const ModalButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  & :first-child {
-    margin-bottom: 0.3rem;
-  }
-`;
 
 function FindForgotPassword() {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,18 +45,24 @@ function FindForgotPassword() {
     isSuccess: '',
     errorMessage: '',
   });
+  const [email, setEmail] = useState('');
+  const [isEmailSuccess, setIsEmailSuccess] = useState({
+    isSuccess: '',
+    errorMessage: '',
+  });
   const [phoneNum, setPhoneNum] = useState('');
   const [isPhoneNumSuccess, setIsPhoneNumSuccess] = useState({
     isSuccess: '',
     errorMessage: '',
   });
 
+  // password 변경
+
   const pathData = {
     username: '',
     phoneNumber: '',
+    email: '',
   };
-
-  const navigate = useNavigate();
 
   const colorSelector = (value: string) => {
     if (value === '') {
@@ -117,6 +90,22 @@ function FindForgotPassword() {
     }
   };
 
+  const validationEmail = (value: string) => {
+    if (value.length === 0) {
+      setIsEmailSuccess({
+        isSuccess: 'false',
+        errorMessage: '필수 정보입니다.',
+      });
+    } else if (validateEmail(value)) {
+      setIsEmailSuccess({ isSuccess: 'true', errorMessage: '' });
+    } else {
+      setIsEmailSuccess({
+        isSuccess: 'false',
+        errorMessage: '이메일 형식이 올바르지 않습니다.',
+      });
+    }
+  };
+
   const validationPhoneNumber = (value: string) => {
     if (value.length === 0) {
       setIsPhoneNumSuccess({
@@ -139,29 +128,40 @@ function FindForgotPassword() {
     validationName(value);
   };
 
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setEmail(value);
+    validationEmail(value);
+  };
+
   const handleChangePhoneNum = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setPhoneNum(value);
     validationPhoneNumber(value);
   };
 
+  // 비밀번호 변경
+
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     pathData.username = userName;
+    pathData.email = email;
     pathData.phoneNumber = phoneNum;
     validationName(userName);
     validationPhoneNumber(phoneNum);
     if (
       isUserNameSuccess.isSuccess === 'true' &&
-      isPhoneNumSuccess.isSuccess === 'true'
+      isPhoneNumSuccess.isSuccess === 'true' &&
+      isEmailSuccess.isSuccess === 'true'
     ) {
       try {
-        const response = await getForgotEmail(pathData);
+        const response = await postForgotPassword(pathData);
         setIsSuccess(true);
         setIsOpen(true);
         console.log(response);
       } catch (error: any) {
         console.error(error);
+        // ! 수정 필요
         if (error.response.data === '이메일이 존재하지 않습니다.') {
           setIsSuccess(false);
         }
@@ -173,20 +173,10 @@ function FindForgotPassword() {
     setIsOpen(true);
   };
 
-  const handleClickLoginBtn = () => {
-    navigate('/login');
-  };
-  const handleClickFindPasswordBtn = () => {
-    navigate('/findpassword');
-  };
-
   return (
     <Container>
-      <Title>이메일 찾기</Title>
-      <SubTitle>
-        회원정보에 등록된 사용자의 정보와 입력한 사용자의 정보가 일치해야 등록된
-        이메일을 확인할 수 있습니다.
-      </SubTitle>
+      <Title>암호 찾기</Title>
+      <SubTitle>암호를 찾고자하는 정보를 입력해주세요.</SubTitle>
       <Form>
         <Input
           value={userName}
@@ -196,6 +186,15 @@ function FindForgotPassword() {
           label="이름"
           color={colorSelector(isUserNameSuccess.isSuccess)}
           errorMessage={isUserNameSuccess.errorMessage}
+        />
+        <Input
+          value={email}
+          onChange={handleChangeEmail}
+          type="email"
+          id="email"
+          label="Email"
+          color={colorSelector(isEmailSuccess.isSuccess)}
+          errorMessage={isEmailSuccess.errorMessage}
         />
         <Input
           value={phoneNum}
@@ -208,7 +207,7 @@ function FindForgotPassword() {
           errorMessage={isPhoneNumSuccess.errorMessage}
         />
         {isSuccess ? null : (
-          <SignUpFailedMessage>이메일이 존재하지 않습니다.</SignUpFailedMessage>
+          <SignUpFailedMessage>암호가 존재하지 않습니다.</SignUpFailedMessage>
         )}
         <BaseButton
           onClick={handleSubmit}
@@ -223,34 +222,7 @@ function FindForgotPassword() {
         <button type="button" onClick={handleOpenModal}>
           modal open
         </button>
-
-        <ModalWrapper isOpen={isOpen} shouldCloseOnOverlayClick={false}>
-          <ModalContainer>
-            <ModalTitle>아이디 찾기</ModalTitle>
-            <ModalSubTitle>
-              고객님의 정보와 일치하는 이메일 입니다.
-            </ModalSubTitle>
-            <ModalContent>example@gmail.com</ModalContent>
-            <ModalButtonContainer>
-              <BaseButton
-                onClick={handleClickLoginBtn}
-                color="pointColor"
-                size="md"
-                disabled={false}
-              >
-                로그인 하기
-              </BaseButton>
-              <BaseButton
-                onClick={handleClickFindPasswordBtn}
-                color="white"
-                size="md"
-                disabled={false}
-              >
-                암호 찾기
-              </BaseButton>
-            </ModalButtonContainer>
-          </ModalContainer>
-        </ModalWrapper>
+        <FindPasswordModal isOpen={isOpen} />
       </Form>
     </Container>
   );

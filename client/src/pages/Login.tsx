@@ -145,7 +145,9 @@ function Login() {
             <PButton>이메일 찾기</PButton>
           </Link>
           <Separator>|</Separator>
-          <PButton>암호 찾기</PButton>
+          <Link to="/findpassword">
+            <PButton>암호 찾기</PButton>
+          </Link>
         </ButtonGroup>
       </Container>
     </div>
