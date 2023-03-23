@@ -10,6 +10,7 @@ import { useIsLoginStore } from 'stores/loginStore';
 import { Container, Title } from 'components/member/memberStyledComponents';
 import getUserInfo from 'apis/getUserInfo';
 import useUserInfoStore from 'stores/userInfoStore';
+import { Link } from 'react-router-dom';
 import BaseButton from '../components/common/BaseButton';
 
 const { colors } = theme;
@@ -140,7 +141,9 @@ function Login() {
         </Form>
         {failedLogin ? <FailLoginMessage>{loginError}</FailLoginMessage> : null}
         <ButtonGroup>
-          <PButton>이메일 찾기</PButton>
+          <Link to="/findemail">
+            <PButton>이메일 찾기</PButton>
+          </Link>
           <Separator>|</Separator>
           <PButton>암호 찾기</PButton>
         </ButtonGroup>
