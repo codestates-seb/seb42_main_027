@@ -34,7 +34,6 @@ import CreateEvent from 'pages/review/Event/CreateEvent';
 import UpdateEvent from 'pages/review/Event/UpdateEvent';
 import FindForgotEmail from 'pages/FindForgotEmail';
 
-
 function Router() {
   return (
     <BrowserRouter>

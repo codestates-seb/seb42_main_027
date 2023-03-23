@@ -106,17 +106,21 @@ function FindForgotEmail() {
     e.preventDefault();
     pathData.username = userName;
     pathData.phoneNumber = phoneNum;
-    try {
-      const response = await getForgotEmail(pathData);
-      setIsSuccess(true);
-      // console.log(response);
-    } catch (error: any) {
-      // console.error(error);
-      // console.log(error.response.data);
-      validationName(userName);
-      validationPhoneNumber(phoneNum);
-      if (error.response.data === '이메일이 존재하지 않습니다.') {
-        setIsSuccess(false);
+    validationName(userName);
+    validationPhoneNumber(phoneNum);
+    if (
+      isUserNameSuccess.isSuccess === 'true' &&
+      isPhoneNumSuccess.isSuccess === 'true'
+    ) {
+      try {
+        const response = await getForgotEmail(pathData);
+        setIsSuccess(true);
+        console.log(response);
+      } catch (error: any) {
+        console.error(error);
+        if (error.response.data === '이메일이 존재하지 않습니다.') {
+          setIsSuccess(false);
+        }
       }
     }
   };
