@@ -5,6 +5,7 @@ import UserCard from 'components/myPage/UserCard';
 import getFreePosts from 'apis/getFreePosts';
 import getComment from 'apis/getComment';
 import CountIcon from 'assets/icons/countIcon';
+import { Link } from 'react-router-dom';
 import theme from '../theme';
 
 const { colors } = theme;
@@ -117,11 +118,24 @@ const ContentContainer = styled.div`
 `;
 
 const SourcesInfo = styled.p`
+  margin-top: 0.1rem;
   font-size: 0.8rem;
   color: ${colors.fontColor};
 `;
 
+const Source = styled(Link)`
+  font-size: 0.8rem;
+  color: ${colors.pointColor};
+`;
+const CommentSource = styled.p`
+  font-size: 0.8rem;
+`;
+
 type PostProps = {
+  question: {
+    questionId: number;
+    title: string;
+  };
   freeId: number;
   questionId: number;
   lectureReviewId: number;
@@ -143,6 +157,33 @@ type PostProps = {
 };
 
 type CommentsProps = {
+  qnaComment: {
+    qnaCommentId: number;
+    content: string;
+    modifiedAt: string;
+    voteCount: number;
+    answer: {
+      answerId: number;
+      content: string;
+    };
+  };
+  freeComment: {
+    freeCommentId: number;
+    content: string;
+  };
+  lectureReview: {
+    lectureReviewId: number;
+    title: string;
+  };
+  question: {
+    questionId: number;
+    title: string;
+  };
+  free: {
+    freeId: number;
+    title: string;
+  };
+  freeReCommentId: number;
   freeCommentId: number;
   qnaCommentId: number;
   lectureReviewCommentId: number;
@@ -198,12 +239,13 @@ function MyPage() {
   const handleChangeCommentCategorie = (
     e: React.ChangeEvent<HTMLSelectElement>,
   ) => {
+    setFreeComments([]);
     setSelectCommentCategories(e.target.value);
   };
 
   useEffect(() => {
-    patchFreePosts(2, selectPostCategories);
-    patchComments(2, selectCommentCategories);
+    patchFreePosts(10, selectPostCategories);
+    patchComments(10, selectCommentCategories);
   }, [selectPostCategories, selectCommentCategories, userInfo]);
 
   return (
@@ -246,15 +288,7 @@ function MyPage() {
                     {post.title ? (
                       <ContentContainer>
                         <Title>{post.title}</Title>
-                        <Content>
-                          {/* {post.content} */}
-                          아침이다 나는 아침이 너무 싫다아침이다 나는 아침이
-                          너무 싫다아침이다 나는 아침이 너무 싫다아침이다 나는
-                          아침이 너무 싫다아침이다 나는 아침이 너무 싫다아침이다
-                          나는 아침이 너무 싫다아침이다 나는 아침이 너무
-                          싫다아침이다 나는 아침이 너무 싫다아침이다 나는 아침이
-                          너무 싫다아침이다 나는 아침이 너무 싫다
-                        </Content>
+                        <Content>{post.content}</Content>
                       </ContentContainer>
                     ) : (
                       <Content>{post.content}</Content>
@@ -270,7 +304,12 @@ function MyPage() {
                     </Count>
                   </Bottom>
                   {selectPostCategories === '답변 게시판' ? (
-                    <SourcesInfo>이상해씨 에 남긴 답변</SourcesInfo>
+                    <SourcesInfo>
+                      <Source to={`/qna/articles/${post.question?.questionId}`}>
+                        {post.question?.title}
+                      </Source>
+                      에 남긴 답변
+                    </SourcesInfo>
                   ) : null}
                 </ListItem>
               );
@@ -288,7 +327,8 @@ function MyPage() {
               <option value="자유 게시판">자유 게시판</option>
               <option value="답변 게시글">답변 댓글</option>
               <option value="강의 리뷰">강의 리뷰</option>
-              <option value="대댓글">대댓글</option>
+              <option value="자유 대댓글">자유게시판 대댓글</option>
+              <option value="질문답변 대댓글">질문답변 대댓글</option>
             </select>
           </PostListTitleContainer>
           <List>
@@ -300,8 +340,14 @@ function MyPage() {
                 if (select === '강의 리뷰') {
                   return comment.lectureReviewCommentId;
                 }
-                if (select === '대댓글') {
+                if (select === '자유 대댓글') {
+                  return comment.freeReCommentId;
+                }
+                if (select === '질문답변 대댓글') {
                   return comment.qnaReCommentId;
+                }
+                if (select === '자유 게시판') {
+                  return comment.freeCommentId;
                 }
                 return comment.freeCommentId;
               }
@@ -315,7 +361,50 @@ function MyPage() {
                       {comment.voteCount}
                     </Count>
                   </Bottom>
-                  <SourcesInfo>이상해씨 에 남긴 댓글</SourcesInfo>
+
+                  {selectCommentCategories === '자유 게시판' ? (
+                    <SourcesInfo>
+                      <Source to={`/free/articles/${comment.free?.freeId}`}>
+                        {comment.free?.title}
+                      </Source>
+                      에 남긴 답변
+                    </SourcesInfo>
+                  ) : null}
+
+                  {selectCommentCategories === '답변 게시글' &&
+                  comment.question ? (
+                    <SourcesInfo>
+                      <Source
+                        to={`/qna/articles/${comment.question?.questionId}`}
+                      >
+                        {comment.question?.title}
+                      </Source>
+                      에 남긴 답변
+                    </SourcesInfo>
+                  ) : null}
+
+                  {selectCommentCategories === '강의 리뷰' ? (
+                    <SourcesInfo>
+                      <Source
+                        to={`/qna/articles/${comment.lectureReview?.lectureReviewId}`}
+                      >
+                        {comment.lectureReview?.title}
+                      </Source>
+                      에 남긴 답변
+                    </SourcesInfo>
+                  ) : null}
+
+                  {selectCommentCategories === '자유 대댓글' ? (
+                    <SourcesInfo>
+                      {comment.freeComment?.content}에 남긴 답변
+                    </SourcesInfo>
+                  ) : null}
+
+                  {selectCommentCategories === '질문답변 대댓글' ? (
+                    <SourcesInfo>
+                      {comment.qnaComment?.content}에 남긴 답변
+                    </SourcesInfo>
+                  ) : null}
                 </ListItem>
               );
             })}
