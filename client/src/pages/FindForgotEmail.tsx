@@ -6,8 +6,10 @@ import { useState } from 'react';
 import { validatePhoneNum } from 'utils/regex';
 import BaseButton from 'components/common/BaseButton';
 import getForgotEmail from 'apis/getForgotEmail';
+import ModalWrapper from 'components/common/ModalWrapper';
+import { useNavigate } from 'react-router';
 
-const { colors } = theme;
+const { colors, fontSizes } = theme;
 
 const SubTitle = styled.p`
   color: ${colors.pointColor};
@@ -30,7 +32,46 @@ const SignUpFailedMessage = styled.p`
   text-align: center;
 `;
 
+// ModalStyle
+const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const ModalTitle = styled.h2`
+  font-size: ${fontSizes.md};
+  color: ${colors.pointColor};
+  padding: 0.3rem 0;
+  border-bottom: 0.1rem solid ${colors.gray};
+  margin-bottom: 1rem;
+`;
+
+const ModalSubTitle = styled.h2`
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+`;
+
+const ModalContent = styled.h2`
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 1.2rem;
+  color: ${colors.fontColor};
+`;
+
+const ModalButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  & :first-child {
+    margin-bottom: 0.3rem;
+  }
+`;
+
 function FindForgotEmail() {
+  const [isOpen, setIsOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(true);
   const [userName, setUserName] = useState('');
   const [isUserNameSuccess, setIsUserNameSuccess] = useState({
@@ -47,6 +88,8 @@ function FindForgotEmail() {
     username: '',
     phoneNumber: '',
   };
+
+  const navigate = useNavigate();
 
   const colorSelector = (value: string) => {
     if (value === '') {
@@ -106,19 +149,35 @@ function FindForgotEmail() {
     e.preventDefault();
     pathData.username = userName;
     pathData.phoneNumber = phoneNum;
-    try {
-      const response = await getForgotEmail(pathData);
-      setIsSuccess(true);
-      // console.log(response);
-    } catch (error: any) {
-      // console.error(error);
-      // console.log(error.response.data);
-      validationName(userName);
-      validationPhoneNumber(phoneNum);
-      if (error.response.data === '이메일이 존재하지 않습니다.') {
-        setIsSuccess(false);
+    validationName(userName);
+    validationPhoneNumber(phoneNum);
+    if (
+      isUserNameSuccess.isSuccess === 'true' &&
+      isPhoneNumSuccess.isSuccess === 'true'
+    ) {
+      try {
+        const response = await getForgotEmail(pathData);
+        setIsSuccess(true);
+        setIsOpen(true);
+        console.log(response);
+      } catch (error: any) {
+        console.error(error);
+        if (error.response.data === '이메일이 존재하지 않습니다.') {
+          setIsSuccess(false);
+        }
       }
     }
+  };
+
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleClickLoginBtn = () => {
+    navigate('/login');
+  };
+  const handleClickFindPasswordBtn = () => {
+    navigate('/findpassword');
   };
 
   return (
@@ -159,6 +218,39 @@ function FindForgotEmail() {
         >
           다음
         </BaseButton>
+
+        {/* 임시 버튼 */}
+        <button type="button" onClick={handleOpenModal}>
+          modal open
+        </button>
+
+        <ModalWrapper isOpen={isOpen} shouldCloseOnOverlayClick={false}>
+          <ModalContainer>
+            <ModalTitle>아이디 찾기</ModalTitle>
+            <ModalSubTitle>
+              고객님의 정보와 일치하는 이메일 입니다.
+            </ModalSubTitle>
+            <ModalContent>example@gmail.com</ModalContent>
+            <ModalButtonContainer>
+              <BaseButton
+                onClick={handleClickLoginBtn}
+                color="pointColor"
+                size="md"
+                disabled={false}
+              >
+                로그인 하기
+              </BaseButton>
+              <BaseButton
+                onClick={handleClickFindPasswordBtn}
+                color="white"
+                size="md"
+                disabled={false}
+              >
+                암호 찾기
+              </BaseButton>
+            </ModalButtonContainer>
+          </ModalContainer>
+        </ModalWrapper>
       </Form>
     </Container>
   );
