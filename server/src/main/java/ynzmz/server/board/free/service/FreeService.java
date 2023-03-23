@@ -61,6 +61,7 @@ public class FreeService {
     //---------------------------------추가기능--------------------------------------------------------
     public void plusViewCount(Free free){
         free.setViewCount(free.getViewCount()+1);
+        repository.save(free);
     }
 
     //-------------------------------------------검색기능----------------------------------------------------------

@@ -32,12 +32,14 @@ public class FreeController {
     private final MemberService memberService;
     private final FreeMapper freeMapper;
 
+    private final FreeRepository freeRepository;
+
 
     @PostMapping(produces =  MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> postFree(@RequestBody FreeDto.post post){
         Free free = freeMapper.freePostToFree(post);
         free.setMember(loginMemberFindByToken());
-        freeService.plusViewCount(free);
+
         freeService.createFree(free);
         FreeDto.DetailResponse Response = freeMapper.freeToFreeDetailResponse(free);
         return new ResponseEntity<>(new SingleResponseDto<>(Response),HttpStatus.CREATED);
@@ -47,6 +49,8 @@ public class FreeController {
     @GetMapping("/{free-id}")
     public ResponseEntity<?> getDetailFree(@PathVariable("free-id") long Id) {
         Free foundFree = freeService.findFreeById(Id);
+        freeService.plusViewCount(foundFree);
+
         FreeDto.DetailResponse response = freeMapper.freeToFreeDetailResponse(foundFree);
 
     return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
