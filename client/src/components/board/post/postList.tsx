@@ -3,6 +3,9 @@ import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import theme from 'theme';
 
+import { boardMenuStore } from 'stores/boardMenuStore';
+import { boardSortStore } from 'stores/boardSortStore';
+
 import getPostList from 'apis/board/getPostList';
 // import { dummyData, dummyData2 } from './dummyData';
 import FreeBoardMenu from './boardMenu';
@@ -11,9 +14,8 @@ import PostTitleBlock from './postTitleBlock';
 interface Data {
   freeId?: number;
   questionId?: number;
-  category?: string;
-  subjectTags?: [{ subjectTag: string }];
-  selected?: boolean;
+  category: string;
+  adoptAnswerId?: number;
   member: {
     memberId: number;
     iconImageUrl?: string;
@@ -39,6 +41,8 @@ interface PageInfo {
 function PostList() {
   const [isPending, setIsPending] = useState(true);
   const [listData, setListData] = useState<Data[] | []>([]);
+  const { setSelectedMenuStore } = boardMenuStore(state => state);
+  const { setSelectedSortStore } = boardSortStore(state => state);
   const urlData = useLocation().pathname;
 
   const fetchPostList = async () => {
@@ -59,6 +63,8 @@ function PostList() {
 
   useEffect(() => {
     fetchPostList();
+    setSelectedMenuStore('0');
+    setSelectedSortStore('최신순');
   }, []);
 
   console.log('listData', listData);

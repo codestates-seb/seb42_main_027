@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import { boardMenuStore } from 'stores/boardMenuStore';
+import { boardSortStore } from 'stores/boardSortStore';
+
 import styled from 'styled-components';
 import theme from 'theme';
 import Button from 'components/common/Button';
@@ -8,15 +11,19 @@ import { HiPencil } from 'react-icons/hi';
 import { MdMenuOpen } from 'react-icons/md';
 
 function FreeBoardMenu() {
-  const [selectMenu, setSelectMenu] = useState('0');
+  const { selectedMenuStore, setSelectedMenuStore } = boardMenuStore(
+    state => state,
+  );
   const [sortMenuOpen, setSortMenuOpen] = useState(false);
-  const [selectSort, setSelectSort] = useState('최신순');
+  const { selectedSortStore, setSelectedSortStore } = boardSortStore(
+    state => state,
+  );
 
   const urlData = useLocation().pathname.slice(0, 4);
 
   const menuSelectHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e.target instanceof Element) {
-      setSelectMenu(e.target.id);
+      setSelectedMenuStore(e.target.id);
     }
   };
   const sortMenuOpenHandler = () => {
@@ -24,7 +31,7 @@ function FreeBoardMenu() {
   };
   const sortSelectHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e.target instanceof Element) {
-      setSelectSort(e.target.id);
+      setSelectedSortStore(e.target.id);
     }
   };
   return (
@@ -47,7 +54,7 @@ function FreeBoardMenu() {
 
       {urlData === '/fre' ? (
         <Category>
-          {selectMenu === '0' ? (
+          {selectedMenuStore === '0' ? (
             <Button.SubMenuBtn
               id="0"
               className="selected"
@@ -60,7 +67,7 @@ function FreeBoardMenu() {
               전체
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '1' ? (
+          {selectedMenuStore === '1' ? (
             <Button.SubMenuBtn
               id="1"
               className="selected"
@@ -73,7 +80,7 @@ function FreeBoardMenu() {
               공지
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '2' ? (
+          {selectedMenuStore === '2' ? (
             <Button.SubMenuBtn
               id="2"
               className="selected"
@@ -86,7 +93,7 @@ function FreeBoardMenu() {
               일상
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '3' ? (
+          {selectedMenuStore === '3' ? (
             <Button.SubMenuBtn
               id="3"
               className="selected"
@@ -99,7 +106,7 @@ function FreeBoardMenu() {
               정보
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '4' ? (
+          {selectedMenuStore === '4' ? (
             <Button.SubMenuBtn
               id="4"
               className="selected"
@@ -116,7 +123,7 @@ function FreeBoardMenu() {
       ) : null}
       {urlData === '/qna' ? (
         <Category>
-          {selectMenu === '0' ? (
+          {selectedMenuStore === '0' ? (
             <Button.SubMenuBtn
               id="0"
               className="selected"
@@ -129,7 +136,7 @@ function FreeBoardMenu() {
               전체
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '1' ? (
+          {selectedMenuStore === '1' ? (
             <Button.SubMenuBtn
               id="1"
               className="selected"
@@ -142,7 +149,7 @@ function FreeBoardMenu() {
               공지
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '2' ? (
+          {selectedMenuStore === '2' ? (
             <Button.SubMenuBtn
               id="2"
               className="selected"
@@ -155,7 +162,7 @@ function FreeBoardMenu() {
               국어
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '3' ? (
+          {selectedMenuStore === '3' ? (
             <Button.SubMenuBtn
               id="3"
               className="selected"
@@ -168,7 +175,7 @@ function FreeBoardMenu() {
               영어
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '4' ? (
+          {selectedMenuStore === '4' ? (
             <Button.SubMenuBtn
               id="4"
               className="selected"
@@ -181,7 +188,7 @@ function FreeBoardMenu() {
               수학
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '5' ? (
+          {selectedMenuStore === '5' ? (
             <Button.SubMenuBtn
               id="5"
               className="selected"
@@ -194,7 +201,7 @@ function FreeBoardMenu() {
               사탐
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '6' ? (
+          {selectedMenuStore === '6' ? (
             <Button.SubMenuBtn
               id="6"
               className="selected"
@@ -207,7 +214,7 @@ function FreeBoardMenu() {
               과탐
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '7' ? (
+          {selectedMenuStore === '7' ? (
             <Button.SubMenuBtn
               id="7"
               className="selected"
@@ -220,7 +227,7 @@ function FreeBoardMenu() {
               국사
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '8' ? (
+          {selectedMenuStore === '8' ? (
             <Button.SubMenuBtn
               id="8"
               className="selected"
@@ -241,27 +248,27 @@ function FreeBoardMenu() {
           onClick={sortMenuOpenHandler}
         >
           <MdMenuOpen />
-          <div>{selectSort}</div>
+          <div>{selectedSortStore}</div>
         </FilterOpenBtn>
         {sortMenuOpen ? (
           <SortModal>
             <FilterSelectBtn
               id="최신순"
-              className={selectSort === '최신순' ? 'selected' : ''}
+              className={selectedSortStore === '최신순' ? 'selected' : ''}
               onMouseDown={sortSelectHandler}
             >
               최신순
             </FilterSelectBtn>
             <FilterSelectBtn
               id="추천순"
-              className={selectSort === '추천순' ? 'selected' : ''}
+              className={selectedSortStore === '추천순' ? 'selected' : ''}
               onMouseDown={sortSelectHandler}
             >
               추천순
             </FilterSelectBtn>
             <FilterSelectBtn
               id="조회순"
-              className={selectSort === '조회순' ? 'selected' : ''}
+              className={selectedSortStore === '조회순' ? 'selected' : ''}
               onMouseDown={sortSelectHandler}
             >
               조회순

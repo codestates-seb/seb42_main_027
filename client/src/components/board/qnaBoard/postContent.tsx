@@ -18,7 +18,8 @@ interface Data {
   questionId: number;
   title: 'string';
   content: 'string';
-  subjectTags: [{ subjectTag: string }];
+  category: string;
+  adoptAnswerId?: number;
   viewCount: number;
   voteCount: number;
   answerCount: number;
@@ -53,7 +54,6 @@ function PostContent() {
   const [isPending, setIsPending] = useState(true);
   const [listData, setListData] = useState<Data | Record<string, never>>({});
   const idData = Number(useParams().id);
-  const category = '';
 
   let calTime = '';
   if (!isPending) {
@@ -113,7 +113,7 @@ function PostContent() {
         <div>
           <TitleDiv>
             <Top>
-              <Category>{listData.subjectTags[0].subjectTag}</Category>
+              <Category>{listData.category}</Category>
               {listData.member.memberId === userInfo.memberId ? (
                 <UDBtnDiv>
                   <Link to="edit">
