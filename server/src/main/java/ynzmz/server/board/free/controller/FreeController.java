@@ -112,7 +112,7 @@ public class FreeController {
 
     }
 
-    @GetMapping()
+    @GetMapping("/search")
     public ResponseEntity<?> getFindListedFree(
             @RequestParam(required = false) String sort,//추천순 조회순
             @RequestParam(required = false) String category,
@@ -142,17 +142,17 @@ public class FreeController {
             if (category != null && sortion != null) { //정렬/ 카테고리 다 사용
 
 
-                Page<Free> foundFreePage = freeService.findFreesByCategoryAndSort(page - 1, category, sortion);//일상 정보등 카테고리
+                Page<Free> foundFreePage = freeService.findFreesByCategoryAndSortAndTitle(page - 1, category, sortion,title);//일상 정보등 카테고리
                 List<Free> listFoundFree = foundFreePage.getContent();
                 List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(listFoundFree);
                 return new ResponseEntity<>(new MultiResponseDto<>(responses, foundFreePage), HttpStatus.OK);
             } else if (category != null && sortion == null) {//카테고리만 사용
-                Page<Free> foundFreePage = freeService.findFreesByCategoryAndSort(page - 1, category);
+                Page<Free> foundFreePage = freeService.findFreesByCategoryAndSortAndTitle(page - 1, category , title);
                 List<Free> listFoundFree = foundFreePage.getContent();
                 List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(listFoundFree);
                 return new ResponseEntity<>(new MultiResponseDto<>(responses, foundFreePage), HttpStatus.OK);
             } else if (category == null && sortion != null) { //정렬만 사용
-                Page<Free> foundFreePage = freeService.findFreesWithSort(page - 1, sortion);
+                Page<Free> foundFreePage = freeService.findFreesWithSort(page - 1, sortion,title);
                 List<Free> listFoundFree = foundFreePage.getContent();
                 List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(listFoundFree);
                 return new ResponseEntity<>(new MultiResponseDto<>(responses, foundFreePage), HttpStatus.OK);

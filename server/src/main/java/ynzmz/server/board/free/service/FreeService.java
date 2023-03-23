@@ -69,6 +69,14 @@ public class FreeService {
 //    public Page<Free> findDailyFreesByVoteCount(){
 //        return repository.findFreesByCategoryAndVoteCount();
 //    }
+public Page<Free> findFreesByCategoryAndSortAndTitle(int page, String category,String sort,String title) {
+    return repository.findFreesByCategory(category, PageRequest.of(page, 15, Sort.by(sort).descending()), title);
+}
+    public Page<Free> findFreesByCategoryAndSortAndTitle(int page, String category,String title) {
+        return repository.findFreesByCategory(category, PageRequest.of(page, 15), title);
+    }
+
+
 
     public Page<Free> findFreesByCategoryAndSort(int page, String category,String sort){
         return repository.findFreesByCategory(category, PageRequest.of(page,15,Sort.by(sort).descending()));
@@ -79,6 +87,10 @@ public class FreeService {
 
     public Page<Free> findFreesWithSort(int page, String sort){
         return repository.findAll(PageRequest.of(page,15,Sort.by(sort).descending()));
+    }
+
+    public Page<Free> findFreesWithSort(int page, String sort,String title){
+        return repository.findFreesBySort(PageRequest.of(page,15,Sort.by(sort).descending()), title);
     }
 //    public Page<Free> findFreesByCategoryAndSort(int page, String category){
 //        return repository.findFreesByCategory(category, PageRequest.of(page,15));
