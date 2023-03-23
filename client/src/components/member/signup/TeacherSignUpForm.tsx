@@ -223,6 +223,7 @@ function TeacherSignUpForm() {
         setIsSuccess(true);
       }, 100);
     } catch (error: any) {
+      console.error(error);
       if (error.response.status === 409) {
         setIsSuccess(false);
       }

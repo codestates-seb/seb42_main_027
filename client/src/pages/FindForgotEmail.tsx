@@ -25,11 +25,13 @@ const Form = styled.form`
 
 const SignUpFailedMessage = styled.p`
   color: ${colors.danger};
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0;
   font-size: 0.9rem;
+  text-align: center;
 `;
 
 function FindForgotEmail() {
+  const [isSuccess, setIsSuccess] = useState(true);
   const [userName, setUserName] = useState('');
   const [isUserNameSuccess, setIsUserNameSuccess] = useState({
     isSuccess: '',
@@ -105,17 +107,23 @@ function FindForgotEmail() {
     pathData.username = userName;
     pathData.phoneNumber = phoneNum;
     try {
-      await getForgotEmail(pathData);
+      const response = await getForgotEmail(pathData);
+      setIsSuccess(true);
+      // console.log(response);
     } catch (error: any) {
-      console.error(error);
+      // console.error(error);
+      // console.log(error.response.data);
       validationName(userName);
       validationPhoneNumber(phoneNum);
+      if (error.response.data === '이메일이 존재하지 않습니다.') {
+        setIsSuccess(false);
+      }
     }
   };
 
   return (
     <Container>
-      <Title>시작하기</Title>
+      <Title>이메일 찾기</Title>
       <SubTitle>
         회원정보에 등록된 사용자의 정보와 입력한 사용자의 정보가 일치해야 등록된
         이메일을 확인할 수 있습니다.
@@ -140,7 +148,9 @@ function FindForgotEmail() {
           color={colorSelector(isPhoneNumSuccess.isSuccess)}
           errorMessage={isPhoneNumSuccess.errorMessage}
         />
-
+        {isSuccess ? null : (
+          <SignUpFailedMessage>이메일이 존재하지 않습니다.</SignUpFailedMessage>
+        )}
         <BaseButton
           onClick={handleSubmit}
           color="pointColor"
