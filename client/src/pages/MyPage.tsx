@@ -63,7 +63,7 @@ const ListItem = styled.div`
 
 // 제목 컴포넌트
 const Title = styled.h2`
-  font-size: ${fontSizes.md};
+  font-size: 1rem;
 `;
 
 // 카테고리 컴포넌트
@@ -105,7 +105,7 @@ const Count = styled.div`
 `;
 
 const Content = styled.p`
-  font-size: 1rem;
+  font-size: 0.9rem;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -121,14 +121,18 @@ const SourcesInfo = styled.p`
   margin-top: 0.1rem;
   font-size: 0.8rem;
   color: ${colors.fontColor};
+  display: flex;
 `;
 
 const Source = styled(Link)`
   font-size: 0.8rem;
   color: ${colors.pointColor};
 `;
+
 const CommentSource = styled.p`
   font-size: 0.8rem;
+  color: black;
+  //! 글자수 제한 필요
 `;
 
 type PostProps = {
@@ -246,8 +250,8 @@ function MyPage() {
   };
 
   useEffect(() => {
-    patchFreePosts(10, selectPostCategories);
-    patchComments(10, selectCommentCategories);
+    patchFreePosts(userInfo.memberId, selectPostCategories);
+    patchComments(userInfo.memberId, selectCommentCategories);
   }, [selectPostCategories, selectCommentCategories, userInfo]);
 
   return (
@@ -398,7 +402,10 @@ function MyPage() {
 
                   {selectCommentCategories === '자유 대댓글' ? (
                     <SourcesInfo>
-                      {comment.freeComment?.content}에 남긴 답변
+                      <CommentSource>
+                        {comment.freeComment?.content}
+                      </CommentSource>
+                      에 남긴 답변
                     </SourcesInfo>
                   ) : null}
 
