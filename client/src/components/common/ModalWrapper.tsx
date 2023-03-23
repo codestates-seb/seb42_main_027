@@ -3,8 +3,9 @@ import Modal from 'react-modal';
 
 type ModalWrapperProps = {
   isOpen: boolean;
-  onRequestClose: () => void;
+  onRequestClose?: () => void;
   children: ReactNode;
+  shouldCloseOnOverlayClick: boolean;
 };
 
 const customStyles = {
@@ -29,18 +30,26 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-function ModalWrapper({ isOpen, onRequestClose, children }: ModalWrapperProps) {
+function ModalWrapper({
+  isOpen,
+  onRequestClose,
+  children,
+  shouldCloseOnOverlayClick,
+}: ModalWrapperProps) {
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       style={customStyles}
-      shouldCloseOnOverlayClick={false}
+      shouldCloseOnOverlayClick={shouldCloseOnOverlayClick}
       contentLabel="Modal"
     >
       {children}
     </Modal>
   );
 }
+ModalWrapper.defaultProps = {
+  onRequestClose: undefined,
+};
 
 export default ModalWrapper;

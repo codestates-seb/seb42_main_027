@@ -7,6 +7,7 @@ import { validatePhoneNum } from 'utils/regex';
 import BaseButton from 'components/common/BaseButton';
 import getForgotEmail from 'apis/getForgotEmail';
 import ModalWrapper from 'components/common/ModalWrapper';
+import { useNavigate } from 'react-router';
 
 const { colors, fontSizes } = theme;
 
@@ -61,6 +62,14 @@ const ModalContent = styled.h2`
   color: ${colors.fontColor};
 `;
 
+const ModalButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  & :first-child {
+    margin-bottom: 0.3rem;
+  }
+`;
+
 function FindForgotEmail() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(true);
@@ -79,6 +88,8 @@ function FindForgotEmail() {
     username: '',
     phoneNumber: '',
   };
+
+  const navigate = useNavigate();
 
   const colorSelector = (value: string) => {
     if (value === '') {
@@ -147,6 +158,7 @@ function FindForgotEmail() {
       try {
         const response = await getForgotEmail(pathData);
         setIsSuccess(true);
+        setIsOpen(true);
         console.log(response);
       } catch (error: any) {
         console.error(error);
@@ -161,8 +173,11 @@ function FindForgotEmail() {
     setIsOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsOpen(false);
+  const handleClickLoginBtn = () => {
+    navigate('/login');
+  };
+  const handleClickFindPasswordBtn = () => {
+    navigate('/findpassword');
   };
 
   return (
@@ -203,24 +218,37 @@ function FindForgotEmail() {
         >
           다음
         </BaseButton>
+
+        {/* 임시 버튼 */}
         <button type="button" onClick={handleOpenModal}>
-          modal
+          modal open
         </button>
-        <ModalWrapper isOpen={isOpen} onRequestClose={handleCloseModal}>
+
+        <ModalWrapper isOpen={isOpen} shouldCloseOnOverlayClick={false}>
           <ModalContainer>
             <ModalTitle>아이디 찾기</ModalTitle>
             <ModalSubTitle>
               고객님의 정보와 일치하는 이메일 입니다.
             </ModalSubTitle>
             <ModalContent>example@gmail.com</ModalContent>
-            <BaseButton
-              onClick={handleCloseModal}
-              color="pointColor"
-              size="md"
-              disabled={false}
-            >
-              로그인 하기
-            </BaseButton>
+            <ModalButtonContainer>
+              <BaseButton
+                onClick={handleClickLoginBtn}
+                color="pointColor"
+                size="md"
+                disabled={false}
+              >
+                로그인 하기
+              </BaseButton>
+              <BaseButton
+                onClick={handleClickFindPasswordBtn}
+                color="white"
+                size="md"
+                disabled={false}
+              >
+                암호 찾기
+              </BaseButton>
+            </ModalButtonContainer>
           </ModalContainer>
         </ModalWrapper>
       </Form>
