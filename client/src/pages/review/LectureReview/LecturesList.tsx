@@ -81,6 +81,9 @@ function LecturesList() {
         setLectures(res.data.data);
         setPageInfo(res.data.pageInfo);
         setIsPending(false);
+      })
+      .catch(() => {
+        setIsPending(false);
       });
   }, [subject, sortTag, search, curPage, grade, platform, reverse]);
 
