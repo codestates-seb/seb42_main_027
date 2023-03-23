@@ -252,30 +252,10 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+
 }
 
-//    public void changePassword(MemberDto.ChangePasswordRequest changePasswordRequest) {
-//        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(SecurityContextHolder.getContext().getAuthentication().getName(), changePasswordRequest.getNowPassword()));
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        MemberDetailsService.MemberDetails member = (MemberDetailsService.MemberDetails)  memberDetailsService.loadUserByUsername(authentication.getName());
-//
-//        if(!passwordEncoder.matches(changePasswordRequest.getNowPassword(), member.getPassword())) {
-//            throw new RuntimeException("현재 비밀번호가 일치하지 않습니다.");
-//        }
-//
-//        if(!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmPassword())){
-//            throw new RuntimeException("새로운 비밀번호와 새로운 비밀번호 확인이 일치하지 않습니다.");
-//        }
-//
-//        String encodedPassword = passwordEncoder.encode(changePasswordRequest.getNewPassword());
-//        member.setPassword(encodedPassword);
-//        memberDetailsService.updateMemberPassword(member);
-//    }
 
-//    public void updateMemberPassword(Long memberId, String newPassword){
-//        String thisPassword = passwordEncoder.encode(newPassword);
-//        memberRepository.updateMemberPassword(memberId, thisPassword);
-//    }
 
 
 

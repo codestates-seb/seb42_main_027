@@ -42,6 +42,7 @@ import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
+import ynzmz.server.member.entity.MemberEmailSearch;
 import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.member.dto.MemberDto;
@@ -63,6 +64,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -95,6 +97,7 @@ public class MemberController {
     private final LectureReviewCommentMapper lectureReviewCommentMapper;
 
 
+    //회원가입
     @PostMapping
     public ResponseEntity<?> postMember(@RequestBody @Valid MemberDto.Post requestBody){
         if (!requestBody.getPassword().equals(requestBody.getConfirmPassword())) {
@@ -110,6 +113,7 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
+    //회원정보수정
     @PatchMapping("/{member-id}")
     public ResponseEntity<?> patchMember(@PathVariable("member-id") @Positive long memberId, @RequestBody @Valid MemberDto.Patch requestBody) {
         Member member = memberMapper.memberPatchToMember(requestBody);
@@ -121,6 +125,7 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
+    //비밀번호변경
     @PatchMapping("/{member-id}/changepassword")
     public ResponseEntity<?> changePassword(@PathVariable("member-id") long memberId, @RequestBody MemberDto.ChangePassword changePassword) {
         if (!changePassword.getNewPassword().equals(changePassword.getConfirmPassword())) {
@@ -134,6 +139,7 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
+    //회원조회(email로)
     @GetMapping("/{email}")
     public ResponseEntity<?> getMember(@PathVariable("email") @Positive String email){
         Member findMember = memberService.findMemberByEmail(email);
@@ -142,6 +148,7 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
+    //회원리스트 조회
     @GetMapping
     public ResponseEntity<?> getMembers(@Positive @RequestParam int page,
                                         @Positive @RequestParam int size) {
@@ -151,6 +158,7 @@ public class MemberController {
         return new ResponseEntity<>(new MultiResponseDto<>(memberMapper.memberToMemberResponses(members),pageMembers),HttpStatus.OK);
     }
 
+    //회원삭제
     @DeleteMapping("/{member-id}")
     public ResponseEntity<?> deleteMember(@PathVariable("member-id") @Positive long memberId){
 //        boolean deleteStatus = memberService.deleteMember(memberId);
@@ -160,14 +168,25 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    //이메일찾기
-//    @GetMapping("/members/id_check")
-//    public ResponseEntity<Boolean> emailCheck(@NotNull String email) {
-//        // return ResponseEntity.ok(true); // 200이 나온다.
-//        if (memberService.emailCheck(email)==false)
-//            return ResponseEntity.status(HttpStatus.CONFLICT).body(false);
-//        return ResponseEntity.status(HttpStatus.OK).body(true);
-//    }
+    //이메일 찾기
+    @PostMapping("/findemails")
+    public ResponseEntity<?> findEmailByUsernameAndPhoneNumber (@RequestBody MemberEmailSearch emailSearch){
+        String username = emailSearch.getUsername();
+        String phoneNumber = emailSearch.getPhoneNumber();
+
+        Optional<Member> member = memberRepository.findByUsernameAndPhoneNumber(username,phoneNumber);
+        if(member.isPresent()){
+            String email = member.get().getEmail();
+            return ResponseEntity.ok(email);
+        } else {
+            return ResponseEntity.badRequest().body("이메일이 존재하지 않습니다.");
+        }
+    }
+
+
+
+    //
+
 
 //-------------------------------------마이페이지-------------------------------------------//
 
@@ -297,25 +316,14 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(responses), HttpStatus.OK);
    }
 
-
-    //-------------------------------------마이페이지-------------------------------------------//
-
-
-
-//        List<String> roles = authorityUtils.createRoles(member.getEmail());
-//        member.setRoles(roles);
-
-        //Authorization 시작.
-//        String token = jwtTokenizer.generateAccessToken(member.getEmail(), member.getRoles());
-        //비밀번호변경시에 권한 다 날아감 -> 다시 권한부여.
-        //createMember에서 권한받아오듯이 과정을 한번더 받아오도록 끄트머리에
+//    private Member loginMemberFindByToken(){
+//        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
+//        return memberService.findMemberByEmail(loginEmail);
+//    }
+//
 
 
 
-    private Member loginMemberFindByToken(){
-        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
-        return memberService.findMemberByEmail(loginEmail);
-    }
 
 
 }

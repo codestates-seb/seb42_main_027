@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="feat : 내자유게시판대댓글 get 추가">
+    <list default="true" id="8fcfdd48-3967-4e05-8e57-867f57e4b6f2" name="변경" comment="feat : 이메일찾기 추가">
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/controller/findController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/entity/MemberEmailSearch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
@@ -12,7 +14,6 @@
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/event/our/mapper/OurMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/event/our/mapper/OurMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/event/their/mapper/EventMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/event/their/mapper/EventMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/free/mapper/FreeMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/free/mapper/FreeMapperImpl.java" afterDir="false" />
@@ -30,13 +31,9 @@
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/qna/mapper/QnaVoteMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/qna/mapper/QnaVoteMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/review/lecture/mapper/ReviewVoteMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/vote/review/lecture/mapper/ReviewVoteMapperImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/dto/FreeCommentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/comment/free/dto/FreeCommentDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/controller/MemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/controller/ReCommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/controller/ReCommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/dto/ReCommentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/dto/ReCommentDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/entity/FreeReComment.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/entity/FreeReComment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/mapper/ReCommentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/mapper/ReCommentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/service/ReCommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/recomment/free/service/ReCommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/repository/MemberRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/service/MemberService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +64,13 @@
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Merge.Settings">
     <option name="BRANCH" value="BeDev" />
@@ -243,7 +247,7 @@
       <workItem from="1679411905062" duration="34905000" />
       <workItem from="1679494966405" duration="403000" />
       <workItem from="1679495373540" duration="1002000" />
-      <workItem from="1679510299810" duration="6155000" />
+      <workItem from="1679510299810" duration="24640000" />
     </task>
     <task id="LOCAL-00001" summary="fix: 자유게시판 병합전">
       <created>1679021705391</created>
@@ -462,7 +466,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679420849133</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="feat : 내자유게시판대댓글 get 추가">
+      <created>1679536165224</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1679536165224</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -530,7 +541,19 @@
     <MESSAGE value="merge: 3/21 민호+다빈 병합" />
     <MESSAGE value="feat : 비밀번호변경 코드 짜는중" />
     <MESSAGE value="feat : 내자유게시판대댓글 get 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat : 내자유게시판대댓글 get 추가" />
+    <MESSAGE value="feat : 이메일찾기 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat : 이메일찾기 추가" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/ynzmz/server/member/service/MemberService.java</url>
+          <line>132</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
