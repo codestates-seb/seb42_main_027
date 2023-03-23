@@ -7,6 +7,7 @@ import EditUserInfoInput from 'components/myPage/EditUserInfo';
 import BaseButton from 'components/common/BaseButton';
 import { useNavigate } from 'react-router';
 import useUserInfoStore from 'stores/userInfoStore';
+import patchFindPassword from 'apis/patchFindPassword';
 import patchUserPassword from '../../apis/patchUserPassword';
 
 const { colors, fontSizes } = theme;
@@ -59,11 +60,7 @@ type FindPasswordModalProps = {
 
 function FindPasswordModal({ isOpen }: FindPasswordModalProps) {
   const [isSuccess, setIsSuccess] = useState(true);
-  const [password, setPassword] = useState('');
-  const [isPasswordSuccess, setIsPasswordSuccess] = useState({
-    isSuccess: '',
-    errorMessage: '',
-  });
+
   const [editPassword, setEditPassword] = useState('');
   const [isEditPasswordSuccess, setIsEditPasswordSuccess] = useState({
     isSuccess: '',
@@ -80,7 +77,6 @@ function FindPasswordModal({ isOpen }: FindPasswordModalProps) {
   const navigate = useNavigate();
 
   const pathData = {
-    nowPassword: '',
     newPassword: '',
     confirmPassword: '',
   };
@@ -93,22 +89,6 @@ function FindPasswordModal({ isOpen }: FindPasswordModalProps) {
       return 'success';
     }
     return 'danger';
-  };
-
-  const validationPassword = (value: string) => {
-    if (value.length === 0) {
-      setIsPasswordSuccess({
-        isSuccess: 'false',
-        errorMessage: '필수 정보입니다.',
-      });
-    } else if (validatePassword(value)) {
-      setIsPasswordSuccess({ isSuccess: 'true', errorMessage: '' });
-    } else {
-      setIsPasswordSuccess({
-        isSuccess: 'false',
-        errorMessage: '8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.',
-      });
-    }
   };
 
   const validationEditPassword = (value: string) => {
@@ -143,12 +123,6 @@ function FindPasswordModal({ isOpen }: FindPasswordModalProps) {
     }
   };
 
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setPassword(value);
-    validationPassword(value);
-  };
-
   const handleChangeEditPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setEditPassword(value);
@@ -167,14 +141,13 @@ function FindPasswordModal({ isOpen }: FindPasswordModalProps) {
     e: React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
-    pathData.nowPassword = password;
+
     pathData.newPassword = editPassword;
     pathData.confirmPassword = confirmEditPassword;
-    validationPassword(password);
+
     validationEditPassword(editPassword);
     validationConfirmEditPassword(confirmEditPassword);
     if (
-      isPasswordSuccess.isSuccess === 'true' &&
       isEditPasswordSuccess.isSuccess === 'true' &&
       isConfirmEditPasswordSuccess.isSuccess === 'true'
     ) {
@@ -182,7 +155,7 @@ function FindPasswordModal({ isOpen }: FindPasswordModalProps) {
         //! 로그인이 안된 상태에서 요청을 해야하지만 memberId가 필요하다
         //! OPTION 1 : 암호 재설정 전 단계의 요청에서 memberId를 받는다.
         //! OPTION 2 : 암호 찾기 과정에서 암호재설정 api요청을 하나 더 만든다.
-        await patchUserPassword(pathData, userInfo.memberId);
+        await patchFindPassword(pathData);
         console.log('암호 수정 성공');
         navigate('/login');
       } catch (error: any) {
@@ -200,13 +173,6 @@ function FindPasswordModal({ isOpen }: FindPasswordModalProps) {
         <ModalTitle>암호 재설정</ModalTitle>
         <ModalSubTitle>암호를 변경해 주세요.</ModalSubTitle>
         <EditUserInfoContainer>
-          <EditUserInfoInput
-            placeholder="현재 암호"
-            onChange={handleChangePassword}
-            value={password}
-            errorMessage={isPasswordSuccess.errorMessage}
-            color={colorSelector(isPasswordSuccess.isSuccess)}
-          />
           <EditUserInfoInput
             placeholder="새로운 암호"
             onChange={handleChangeEditPassword}
