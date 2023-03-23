@@ -43,12 +43,22 @@ const EditUserInfoContainer = styled.form`
   flex-direction: column;
   width: 100%;
   margin-bottom: 0.5rem;
+  height: 100%;
+`;
+
+const SignUpFailedMessage = styled.p`
+  color: ${colors.danger};
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  text-align: center;
 `;
 
 type FindPasswordModalProps = {
   isOpen: boolean;
 };
+
 function FindPasswordModal({ isOpen }: FindPasswordModalProps) {
+  const [isSuccess, setIsSuccess] = useState(true);
   const [password, setPassword] = useState('');
   const [isPasswordSuccess, setIsPasswordSuccess] = useState({
     isSuccess: '',
@@ -169,6 +179,9 @@ function FindPasswordModal({ isOpen }: FindPasswordModalProps) {
       isConfirmEditPasswordSuccess.isSuccess === 'true'
     ) {
       try {
+        //! 로그인이 안된 상태에서 요청을 해야하지만 memberId가 필요하다
+        //! OPTION 1 : 암호 재설정 전 단계의 요청에서 memberId를 받는다.
+        //! OPTION 2 : 암호 찾기 과정에서 암호재설정 api요청을 하나 더 만든다.
         await patchUserPassword(pathData, userInfo.memberId);
         console.log('암호 수정 성공');
         navigate('/login');
@@ -210,6 +223,11 @@ function FindPasswordModal({ isOpen }: FindPasswordModalProps) {
           />
         </EditUserInfoContainer>
         <ModalButtonContainer>
+          {isSuccess ? (
+            <SignUpFailedMessage> </SignUpFailedMessage>
+          ) : (
+            <SignUpFailedMessage>현재 암호를 확인해주세요.</SignUpFailedMessage>
+          )}
           <BaseButton
             onClick={handleClickLoginBtn}
             color="pointColor"
