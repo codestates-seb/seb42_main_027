@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.tag.mappingtable.lecture.LectureGradeTag;
 import ynzmz.server.tag.mappingtable.lecture.LecturePlatformTag;
@@ -27,12 +28,15 @@ public class Lecture {
     private double starPointAverage;
     private long totalReviewCount;
 
+    @BatchSize(size = 10)
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<LectureGradeTag> gradeTags = new ArrayList<>();
+    @BatchSize(size = 10)
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<LectureSubjectTag> subjectTags = new ArrayList<>();
+    @BatchSize(size = 10)
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<LecturePlatformTag> platformTags = new ArrayList<>();

@@ -2,6 +2,7 @@ package ynzmz.server.lecture.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.JpaSort;
@@ -51,6 +52,15 @@ public class LectureService {
         return lectureRepository.findAllByGradeAndPlatformAndSubjectAndTitle(grade, platform, subject, title, PageRequest.of(page, size, JpaSort.unsafe("RAND()")));
     }
 
+//    public Page<Lecture> findLecturesN(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String title, String sort, int page, int size) {
+//        List<Long> lectureIds = lectureRepository.findLectureIdsByGradeAndPlatformAndSubjectAndTitle(grade, platform, subject, title, PageRequest.of(page, size, Sort.by(sort)));
+//        List<Lecture> lectures = lectureRepository.findLecturesByIds(lectureIds);
+//
+//        int i = lectureRepository.countByGradeAndPlatformAndSubjectAndTitle(grade, platform, subject, title);
+//
+//
+//        return new PageImpl<>(lectures, PageRequest.of(page, size), i);
+//    }
     public Page<Lecture> findLecturesByTeacher(long teacherId, int page, int size) {
         return lectureRepository.findByTeacherId(teacherId, PageRequest.of(page, size, Sort.by("lectureId").descending()));
     }

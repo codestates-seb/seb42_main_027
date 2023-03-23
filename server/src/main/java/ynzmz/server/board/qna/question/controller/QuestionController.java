@@ -82,7 +82,9 @@ public class QuestionController {
         sort = (sort == null || sort.equals("최신순"))
                 ? "questionId" : sort.equals("조회순") ? "viewCount" : sort.equals("추천순") ? "voteCount" : "questionId";
 
-                Page<Question> questionPage = questionService.findQuestions(category, title, sort, page - 1, size);
+                Page<Question> questionPage = (category != null && category.equals("전체"))
+                        ? questionService.findAllQuestions(category, title, sort, page - 1, size)
+                        : questionService.findQuestionss( sort, page - 1, size);
 //        Page<Question> questionPage = (reverse != null)
 //                ? questionService.findQuestionsTest(category, title, sort, reverse, page - 1, size)
 //                : questionService.findQuestionsTest(category, title, sort, page - 1 , size);

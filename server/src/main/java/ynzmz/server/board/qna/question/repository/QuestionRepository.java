@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ynzmz.server.board.qna.question.entity.Question;
-import ynzmz.server.tag.entity.SubjectTag;
 
 import java.util.List;
 
@@ -27,7 +26,18 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     @Query(value = "SELECT DISTINCT q " +
             "FROM Question q " +
             "WHERE (q.category = '공지')")
-    List<Question> findAllNoticeQuestions();
+    List<Question> findAllNoticeQuestions(Pageable pageable);
+
+    @Query(value = "SELECT DISTINCT q " +
+            "FROM Question q " +
+            "WHERE (q.category = '공지')")
+    Page<Question> findAllNoticeQuestionss(Pageable pageable);
+
+    @Query("SELECT DISTINCT q FROM Question q " +
+            "WHERE (:category IS NULL OR q.category = :category ) " +
+            "AND q.category <> '공지' " +
+            "AND (:title IS NULL OR q.title LIKE CONCAT('%', :title, '%'))")
+    Page<Question> findAllQuestions(String category, String title, Pageable pageable);
 
     @Query("SELECT DISTINCT q FROM Question q " +
             "WHERE (:category IS NULL OR q.category = :category OR q.category = '공지' ) " +

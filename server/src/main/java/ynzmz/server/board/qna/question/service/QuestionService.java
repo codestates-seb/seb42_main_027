@@ -3,9 +3,7 @@ package ynzmz.server.board.qna.question.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,12 +14,10 @@ import ynzmz.server.member.entity.Member;
 import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.board.qna.answer.service.AnswerService;
 import ynzmz.server.board.qna.question.entity.Question;
-import ynzmz.server.tag.entity.SubjectTag;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.data.domain.Sort.Order.asc;
 
 @Transactional
 @Service
@@ -77,9 +73,28 @@ public class QuestionService {
         String sortOrder = String.format("(CASE WHEN q.category = '공지' THEN 0 ELSE 1 END), q.%s", sort);
         return questionRepository.findAllByTest(category,title,PageRequest.of(page, size, JpaSort.unsafe(sortOrder).descending()));
     }
-    public List<Question> findAllNoticeQuestions() {
-        return questionRepository.findAllNoticeQuestions();
+
+    public Page<Question> findAllQuestions(String category, String title,String sort, int page, int size) {
+        List<Question> noticeQuestions = questionRepository.findAllNoticeQuestions(PageRequest.of(0, 3, Sort.by("questionId").descending()));
+        Page<Question> allQuestions = questionRepository.findAllQuestions(category, title, PageRequest.of(page, size, Sort.by(sort)));
+        List<Question> mergedList = new ArrayList<>(noticeQuestions);
+        allQuestions.forEach(question -> {
+            if(!noticeQuestions.contains(mergedList)) {
+                mergedList.add(question);
+            }
+        });
+
+        int start = (int) allQuestions.getPageable().getOffset();
+        int end = Math.min((start + allQuestions.getPageable().getPageSize()), mergedList.size());
+        return new PageImpl<>(mergedList.subList(start, end), allQuestions.getPageable(), mergedList.size());
     }
+
+    public Page<Question> findQuestionss(String sort, int page, int size) {
+        return questionRepository.findAllNoticeQuestionss(PageRequest.of(page, size, Sort.by(sort).descending()));
+    }
+//    public List<Question> findAllNoticeQuestions() {
+//        return questionRepository.findAllNoticeQuestions(P);
+//    }
 
 
     public Page<Question> findQuestionsByMemberId(long memberId, int page, int size) {

@@ -15,10 +15,10 @@ public interface LectureReviewRepository extends JpaRepository<LectureReview,Lon
     @Query("SELECT lr FROM LectureReview  lr WHERE lr.member.memberId = :memberId")
     List<LectureReview> findByMemberId(long memberId); //다빈 추가
 
-    @Query("SELECT lr FROM LectureReview lr JOIN lr.lecture lrl WHERE lrl.lectureId = :lectureId")
+    @Query("SELECT lr FROM LectureReview lr JOIN FETCH lr.lecture lrl WHERE lrl.lectureId = :lectureId")
     List<LectureReview> findAllByLectureId(long lectureId);
 
-    @Query("SELECT lr FROM LectureReview lr JOIN lr.lecture lrl JOIN lrl.teacher lrlt WHERE lrlt.teacherId = :teacherId")
+    @Query("SELECT lr FROM LectureReview lr JOIN FETCH lr.lecture lrl JOIN lrl.teacher lrlt WHERE lrlt.teacherId = :teacherId")
     List<LectureReview> findAllByTeacherId(long teacherId);
 
 //    @Query("SELECT lr FROM LectureReviewPost lr JOIN lr.lecture l where l.lectureId = :lectureId")
