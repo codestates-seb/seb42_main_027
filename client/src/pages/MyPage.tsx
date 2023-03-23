@@ -234,8 +234,10 @@ function MyPage() {
   };
 
   const handleChangeBoard = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFreePosts([]);
     setSelectPostCategories(e.target.value);
   };
+
   const handleChangeCommentCategorie = (
     e: React.ChangeEvent<HTMLSelectElement>,
   ) => {
