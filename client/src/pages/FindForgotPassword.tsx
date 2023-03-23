@@ -162,7 +162,7 @@ function FindForgotPassword() {
       } catch (error: any) {
         console.error(error);
         // ! 수정 필요
-        if (error.response.data === '이메일이 존재하지 않습니다.') {
+        if (error.response.data === '수정') {
           setIsSuccess(false);
         }
       }

@@ -6,6 +6,8 @@ import ModalWrapper from 'components/common/ModalWrapper';
 import EditUserInfoInput from 'components/myPage/EditUserInfo';
 import BaseButton from 'components/common/BaseButton';
 import { useNavigate } from 'react-router';
+import useUserInfoStore from 'stores/userInfoStore';
+import patchUserPassword from '../../apis/patchUserPassword';
 
 const { colors, fontSizes } = theme;
 
@@ -28,16 +30,6 @@ const ModalSubTitle = styled.h2`
   margin-bottom: 1rem;
 `;
 
-const ModalContent = styled.h2`
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  font-size: 1.2rem;
-  color: ${colors.fontColor};
-`;
-
 const ModalButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,7 +38,7 @@ const ModalButtonContainer = styled.div`
   }
 `;
 
-const EditUserInfoContainer = styled.div`
+const EditUserInfoContainer = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -74,7 +66,14 @@ function FindPasswordModal({ isOpen }: FindPasswordModalProps) {
       errorMessage: '',
     });
 
+  const { userInfo } = useUserInfoStore(state => state);
   const navigate = useNavigate();
+
+  const pathData = {
+    nowPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  };
 
   const colorSelector = (value: string) => {
     if (value === '') {
@@ -154,8 +153,32 @@ function FindPasswordModal({ isOpen }: FindPasswordModalProps) {
     validationConfirmEditPassword(value);
   };
 
-  const handleClickLoginBtn = () => {
-    navigate('/login');
+  const handleClickLoginBtn = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    e.preventDefault();
+    pathData.nowPassword = password;
+    pathData.newPassword = editPassword;
+    pathData.confirmPassword = confirmEditPassword;
+    validationPassword(password);
+    validationEditPassword(editPassword);
+    validationConfirmEditPassword(confirmEditPassword);
+    if (
+      isPasswordSuccess.isSuccess === 'true' &&
+      isEditPasswordSuccess.isSuccess === 'true' &&
+      isConfirmEditPasswordSuccess.isSuccess === 'true'
+    ) {
+      try {
+        await patchUserPassword(pathData, userInfo.memberId);
+        console.log('암호 수정 성공');
+        navigate('/login');
+      } catch (error: any) {
+        console.error(error);
+        //! 현재 암호가 올바르지 않으면 에러 메세지 표시 기능 추가
+        // if (error.response.data === '수정') {
+        // }
+      }
+    }
   };
 
   return (
