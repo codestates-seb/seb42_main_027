@@ -48,6 +48,14 @@ const defaultEvent = {
   content: 'Default Content',
   date: '2023-03-02 ~ 2023-03-21',
 };
+const defaultEvent2 = {
+  eventId: 1,
+  status: 'none',
+  imageUrl: 'http://',
+  title: 'Default Title',
+  content: 'Default Content',
+  date: '2023-03-02 ~ 2023-04-29',
+};
 
 const defaultPageInfo = {
   page: 1,
@@ -58,7 +66,7 @@ const defaultPageInfo = {
 
 function EventList() {
   const [event, setEvent] = useState<EventType[]>([
-    defaultEvent,
+    defaultEvent2,
     defaultEvent,
     defaultEvent,
   ]);
