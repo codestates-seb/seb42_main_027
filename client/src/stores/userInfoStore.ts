@@ -7,7 +7,7 @@ type loginInfoPrams = {
   email: string;
   password: string;
   displayName: string;
-  memberState: string;
+  state: string;
   createdAt: string;
   iconImageUrl: string | null;
 };
@@ -24,7 +24,7 @@ const useUserInfoStore = create<userInfoPrams>(set => ({
     email: '',
     password: '',
     displayName: '',
-    memberState: '',
+    state: '',
     createdAt: '',
     iconImageUrl: null,
   },
