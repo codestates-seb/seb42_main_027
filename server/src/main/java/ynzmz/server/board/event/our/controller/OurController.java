@@ -57,7 +57,7 @@ public class OurController {
         Page<Our> ourPage = service.findAllEvents(page);
         List<Our> ourList = ourPage.getContent();
         List<OurDto.ListResponse> responses = mapper.ourToOurListResponse(ourList);
-        return new ResponseEntity<>(new MultiResponseDto(ourList,ourPage),HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto(responses,ourPage),HttpStatus.OK);
     }
 
     @GetMapping("/{event-id}")

@@ -19,7 +19,25 @@ public interface FreeRepository extends JpaRepository<Free,Long> {
     List<Free> findByMemberId(long memberId); //다빈 추가
 
 
-    @Query("SELECT f FROM Free f WHERE f.category = :category")
+    @Query(value = "SELECT f FROM Free f "+ "WHERE (:category IS NULL OR f.category = :category)"
+            + "AND f.category <> '공지' "
+            )
     Page<Free> findFreesByCategory(String category,Pageable pageable);
 
+    @Query(value = "SELECT f FROM Free f "+ "WHERE (:category IS NULL OR f.category = :category)"
+            + "AND f.category <> '공지' "
+            + " And (:title IS NULL OR f.title LIKE CONCAT('%', :title, '%'))")
+    Page<Free> findFreesByCategory(String category,Pageable pageable,String title);
+
+
+
+    @Query(value = "SELECT f FROM Free f "+ "WHERE (:category IS NULL OR f.category = :category)"
+            + "AND f.category <> '공지' "
+            + " And (:title IS NULL OR f.title LIKE CONCAT('%', :title, '%'))")
+    Page<Free> findFreesOutNotice(String category,Pageable pageable,String title);
+
+    @Query(value = "SELECT f FROM Free f "+ "WHERE (:category IS NULL OR f.category = :category)"
+            + "AND f.category <> '공지' "
+            )
+    Page<Free> findFreesOutNotice(String category,Pageable pageable);
 }

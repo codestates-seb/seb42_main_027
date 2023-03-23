@@ -112,6 +112,64 @@ public class FreeController {
 
     }
 
+    @GetMapping()
+    public ResponseEntity<?> getFindListedFree(
+            @RequestParam(required = false) String sort,//추천순 조회순
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String title,
+            @RequestParam int page) {
+        String sortion = null;
+        if(sort.equals("추천순")){
+            sortion = "voteCount";
+        }
+        if(sort.equals("조회순")){
+            sortion = "viewCount";
+        }
+        if(sort.equals("최신순")){
+            sortion = null;
+        }
+
+        if(category.equals("전체")){
+
+            Page<Free> foundFreePage = freeService.findAllFree(page-1);
+            List<Free> listFoundFree = foundFreePage.getContent();
+            List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(listFoundFree);
+            return new ResponseEntity<>(new MultiResponseDto<>(responses,foundFreePage),HttpStatus.OK);
+
+        }
+
+        else {
+            if (category != null && sortion != null) { //정렬/ 카테고리 다 사용
+
+
+                Page<Free> foundFreePage = freeService.findFreesByCategoryAndSort(page - 1, category, sortion);//일상 정보등 카테고리
+                List<Free> listFoundFree = foundFreePage.getContent();
+                List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(listFoundFree);
+                return new ResponseEntity<>(new MultiResponseDto<>(responses, foundFreePage), HttpStatus.OK);
+            } else if (category != null && sortion == null) {//카테고리만 사용
+                Page<Free> foundFreePage = freeService.findFreesByCategoryAndSort(page - 1, category);
+                List<Free> listFoundFree = foundFreePage.getContent();
+                List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(listFoundFree);
+                return new ResponseEntity<>(new MultiResponseDto<>(responses, foundFreePage), HttpStatus.OK);
+            } else if (category == null && sortion != null) { //정렬만 사용
+                Page<Free> foundFreePage = freeService.findFreesWithSort(page - 1, sortion);
+                List<Free> listFoundFree = foundFreePage.getContent();
+                List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(listFoundFree);
+                return new ResponseEntity<>(new MultiResponseDto<>(responses, foundFreePage), HttpStatus.OK);
+
+            }
+            else {//기본 --> 카테고리, 정렬 모두 없을떄
+                Page<Free> foundFreePage = freeService.findAllFree(page - 1);
+                List<Free> listFoundFree = foundFreePage.getContent();
+                List<FreeDto.ListResponse> responses = freeMapper.freesToFreeListResponses(listFoundFree);
+                return new ResponseEntity<>(new MultiResponseDto<>(responses, foundFreePage), HttpStatus.OK);
+            }
+        }
+
+        //추천순 X 조회순 X --> 바닐라 버전
+
+    }
+
     @PatchMapping("/{free-id}")
     public ResponseEntity<?> patchFree(@PathVariable("free-id")long id, @RequestBody FreeDto.patch freepatch) {
         memberService.memberValidation(loginMemberFindByToken(), freeService.findFreeById(id).getMember().getMemberId());
