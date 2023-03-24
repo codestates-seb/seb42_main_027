@@ -47,7 +47,7 @@ function WritePost() {
         const qnaData = {
           title,
           content: post,
-          subjectTag: [category],
+          category,
           createdAt: `${new Date()}`,
         };
         console.log('submit data', qnaData);
@@ -84,7 +84,7 @@ function WritePost() {
           const qnaData = {
             title,
             content: post,
-            subjectTag: [category],
+            category,
             modifiedAt: `${new Date()}`,
           };
           console.log('submit data', qnaData);
@@ -120,7 +120,7 @@ function WritePost() {
           'qnas/questions',
           Number(paramsData.id),
         );
-        setCategory(buffer.data.subjectTags[0].subjectTag);
+        setCategory(buffer.data.category);
         setTitle(buffer.data.title);
         setPost(buffer.data.content);
         // setTag();
@@ -206,10 +206,10 @@ function WritePost() {
                 <option value="국어">국어</option>
                 <option value="영어">영어</option>
                 <option value="수학">수학</option>
-                <option value="사탐전체">사탐</option>
-                <option value="과탐전체">과탐</option>
-                <option value="한국사">국사</option>
-                <option value="기타전체">기타</option>
+                <option value="사탐">사탐</option>
+                <option value="과탐">과탐</option>
+                <option value="국사">국사</option>
+                <option value="기타">기타</option>
               </Select>
             )}
           </PostDiv>

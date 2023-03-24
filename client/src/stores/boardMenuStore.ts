@@ -6,6 +6,6 @@ type useBoardMenuStoreProps = {
 };
 
 export const boardMenuStore = create<useBoardMenuStoreProps>(set => ({
-  selectedMenuStore: '0',
+  selectedMenuStore: '전체',
   setSelectedMenuStore: state => set(() => ({ selectedMenuStore: state })),
 }));

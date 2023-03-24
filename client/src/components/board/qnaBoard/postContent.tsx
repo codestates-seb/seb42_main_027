@@ -108,7 +108,7 @@ function PostContent() {
     <Container>
       <GoBackMenu />
       {isPending ? (
-        <h1>로딩페이지가 들어갈 자리입니다.</h1>
+        <NoData>로딩페이지가 들어갈 자리입니다.</NoData>
       ) : (
         <div>
           <TitleDiv>
@@ -171,6 +171,14 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+`;
+
+const NoData = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-top: ${theme.gap.px60};
 `;
 
 const TitleDiv = styled.div`

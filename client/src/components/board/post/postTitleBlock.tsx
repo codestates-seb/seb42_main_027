@@ -63,7 +63,7 @@ function PostTitleBlock({ ele }: Props) {
           <ProfileIcon.Mini />
         </ProfileImg>
         <div>{ele.member.displayName}</div>
-        <div> · {calTime}</div>
+        <div>{` · ${calTime}`}</div>
       </UserData>
       <Count>
         <div>

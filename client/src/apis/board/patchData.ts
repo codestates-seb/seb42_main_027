@@ -5,8 +5,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 type PatchData = {
   title: string;
   content: string;
-  category?: string;
-  subjectTag?: string[];
+  category: string;
   modifiedAt: string;
 };
 
