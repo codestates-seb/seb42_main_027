@@ -34,6 +34,7 @@ import CreateEvent from 'pages/review/Event/CreateEvent';
 import UpdateEvent from 'pages/review/Event/UpdateEvent';
 import FindForgotEmail from 'pages/FindForgotEmail';
 import FindForgotPassword from 'pages/FindForgotPassword';
+import Ticktock from 'components/review/Ticktock';
 
 function Router() {
   return (
@@ -111,6 +112,7 @@ function Router() {
         <Route path="/eventdetail/:eventId" element={<EventDetail />} />
         <Route path="/eventdetail/:eventId/update" element={<UpdateEvent />} />
       </Routes>
+      <Ticktock />
       <Footer />
     </BrowserRouter>
   );

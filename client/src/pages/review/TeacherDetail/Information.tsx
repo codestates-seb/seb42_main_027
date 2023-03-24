@@ -8,8 +8,8 @@ import { FlexContainer } from '../TeacherList/ReviewPage';
 
 type Data = {
   gradeTags: string[];
-  profileImage: 'string;';
-  realImage: 'string;';
+  profileImageUrl: string;
+  realImageUrl: string;
   introduction: string;
   name: string;
   platformTags: { platformTag: string }[];
@@ -24,8 +24,8 @@ type Data = {
 
 const defaultData = {
   gradeTags: ['string'],
-  profileImage: 'string;',
-  realImage: 'string;',
+  profileImageUrl: 'string;',
+  realImageUrl: 'string;',
   introduction: 'string;',
   name: 'string;',
   platformTags: [{ platformTag: 'string' }],
@@ -39,7 +39,7 @@ const defaultData = {
 };
 
 function Information() {
-  const [data, setData] = useState(defaultData);
+  const [data, setData] = useState<Data>(defaultData);
   const [isPending, setIsPending] = useState<boolean>(true);
   const { teacherId } = useParams();
   useEffect(() => {
@@ -62,87 +62,85 @@ function Information() {
       {isPending ? (
         <FlexContainer height="100vh" />
       ) : (
-        <div>
+        <FlexContainer width="100%">
           <GlobalStyle />
-          <FlexContainer width="100vw">
-            <FlexContainer
-              width="100%"
-              height="100%"
-              dir="col"
-              gap="3rem"
-              grow={1}
-            >
-              <FlexContainer dir="col">
-                <Img
-                  src={data.profileImage || 'http://placehold.it/340X350'}
-                  alt="profileImage"
-                />
-                <span>프로필 사진</span>
-              </FlexContainer>
-
-              <FlexContainer dir="col">
-                <Img
-                  src={data.realImage || 'http://placehold.it/340X350'}
-                  alt="realImage"
-                />
-                <span>실제 사진</span>
-              </FlexContainer>
+          <FlexContainer
+            width="100%"
+            height="100%"
+            dir="col"
+            gap="3rem"
+            grow={1}
+          >
+            <FlexContainer dir="col">
+              <Img
+                src={data.profileImageUrl || 'http://placehold.it/340X350'}
+                alt="profileImage"
+              />
+              <span>프로필 사진</span>
             </FlexContainer>
 
-            <FlexContainer
-              width="100%"
-              height="100%"
-              dir="col"
-              grow={1}
-              align="start"
-            >
-              <TitleBox>
-                {data.subjectTags.map((el, index) => {
-                  return (
-                    <SmallFont key={index}>{`${el.subjectTag} 영역`}</SmallFont>
-                  );
-                })}
-                <BigFont>{data.name} 선생님</BigFont>
-              </TitleBox>
-
-              <ContentBox>
-                <MiddleFont>프로필</MiddleFont>
-                <FlexContainer dir="col" gap="0.5rem" align="start">
-                  {data.profile.map((el, index) => {
-                    return <SmallFont key={index}>{`· ${el}`}</SmallFont>;
-                  })}
-                </FlexContainer>
-              </ContentBox>
-
-              <ContentBox>
-                <MiddleFont>강의 이력</MiddleFont>
-                <FlexContainer dir="col" gap="0.5rem" align="start">
-                  {data.platformTags.map((el, index) => {
-                    return (
-                      <SmallFont key={index}>{`· ${el.platformTag}`}</SmallFont>
-                    );
-                  })}
-                </FlexContainer>
-              </ContentBox>
-
-              <ContentBox>
-                <MiddleFont>강사 소개</MiddleFont>
-                <FlexContainer dir="col" gap="0.5rem" align="start">
-                  {data.introduction}
-                </FlexContainer>
-              </ContentBox>
-
-              <ContentBox>
-                <MiddleFont>어록</MiddleFont>
-                <FlexContainer dir="col" gap="0.5rem" align="start">
-                  {data.analects.map((el, index) => {
-                    return <SmallFont key={index}>{`· ${el}`}</SmallFont>;
-                  })}
-                </FlexContainer>
-              </ContentBox>
+            <FlexContainer dir="col">
+              <Img
+                src={data.realImageUrl || 'http://placehold.it/340X350'}
+                alt="realImage"
+              />
+              <span>실제 사진</span>
             </FlexContainer>
           </FlexContainer>
-        </div>
+
+          <FlexContainer
+            width="100%"
+            height="100%"
+            dir="col"
+            grow={1}
+            align="start"
+          >
+            <TitleBox>
+              {data.subjectTags.map((el, index) => {
+                return (
+                  <SmallFont key={index}>{`${el.subjectTag} 영역`}</SmallFont>
+                );
+              })}
+              <BigFont>{data.name} 선생님</BigFont>
+            </TitleBox>
+
+            <ContentBox>
+              <MiddleFont>프로필</MiddleFont>
+              <FlexContainer dir="col" gap="0.5rem" align="start">
+                {data.profile.map((el, index) => {
+                  return <SmallFont key={index}>{`· ${el}`}</SmallFont>;
+                })}
+              </FlexContainer>
+            </ContentBox>
+
+            <ContentBox>
+              <MiddleFont>강의 이력</MiddleFont>
+              <FlexContainer dir="col" gap="0.5rem" align="start">
+                {data.platformTags.map((el, index) => {
+                  return (
+                    <SmallFont key={index}>{`· ${el.platformTag}`}</SmallFont>
+                  );
+                })}
+              </FlexContainer>
+            </ContentBox>
+
+            <ContentBox>
+              <MiddleFont>강사 소개</MiddleFont>
+              <FlexContainer dir="col" gap="0.5rem" align="start">
+                {data.introduction}
+              </FlexContainer>
+            </ContentBox>
+
+            <ContentBox>
+              <MiddleFont>어록</MiddleFont>
+              <FlexContainer dir="col" gap="0.5rem" align="start">
+                {data.analects.map((el, index) => {
+                  return <SmallFont key={index}>{`· ${el}`}</SmallFont>;
+                })}
+              </FlexContainer>
+            </ContentBox>
+          </FlexContainer>
+        </FlexContainer>
       )}
     </Container>
   );
@@ -151,7 +149,8 @@ function Information() {
 export default Information;
 
 export const Container = styled.div`
-  padding: 3rem;
+  width: 98vw;
+  padding: 3rem 0;
 `;
 
 const TitleBox = styled.div`

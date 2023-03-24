@@ -11,6 +11,8 @@ type Props = {
     gradeTags: string[];
     imageUrl: string;
     introduction: string;
+    profileImageUrl: string;
+    realImageUrl: string;
     name: string; // 강사명
     platformTags: { platformTag: string }[];
     starPointAverage: number;
@@ -38,7 +40,10 @@ function CharacterCard({
           <FlexContainer dir="col" key={index}>
             <CardContainer>
               <Link to={`/ReviewPageDetail/${el.teacherId}`}>
-                <Img src="http://placehold.it/170X175" alt="thumbnail" />
+                <Img
+                  src={el.realImageUrl || 'http://placehold.it/170X175'}
+                  alt="thumbnail"
+                />
               </Link>
               <NomalSpan>{el.name}</NomalSpan>
               <Span
@@ -70,7 +75,14 @@ function CharacterCard({
               <button
                 onClick={() => {
                   axios
-                    .delete(`http://13.125.1.215:8080/teachers/${el.teacherId}`)
+                    .delete(
+                      `${process.env.REACT_APP_API_URL}/teachers/${el.teacherId}`,
+                      {
+                        headers: {
+                          'ngrok-skip-browser-warning': 'asdasdas',
+                        },
+                      },
+                    )
                     .then(() => {
                       window.location.reload();
                     });
