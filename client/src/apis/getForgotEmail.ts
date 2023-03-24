@@ -8,11 +8,12 @@ type SignUpParams = {
 };
 
 const getForgotEmail = async (pathData: SignUpParams) => {
-  await axios.post(`${apiUrl}/members/findemails`, pathData, {
+  const response = await axios.post(`${apiUrl}/members/findemails`, pathData, {
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },
   });
+  return response.data;
 };
 
 export default getForgotEmail;
