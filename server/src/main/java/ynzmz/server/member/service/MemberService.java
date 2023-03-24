@@ -78,10 +78,6 @@ public class MemberService {
         Optional.ofNullable(member.getDisplayName()).ifPresent(findMember::setDisplayName);
         Optional.ofNullable(member.getIconImageUrl()).ifPresent(findMember::setIconImageUrl);
 
-
-
-//        List<String> roles = authorityUtils.createRoles(findMember.getEmail());
-//        findMember.setRoles(roles);
         return memberRepository.save(findMember);
     }
 
@@ -106,20 +102,6 @@ public class MemberService {
         return foundMember.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
-
-
-//    public boolean deleteMember(long memberId){
-//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//        Member findMember = findVerifiedMember(memberId);
-//        if(Objects.equals(findMember.getEmail(),username)){
-//            memberRepository.deleteById(memberId);
-//        } else {
-//            throw new BusinessLogicException(ExceptionCode.NOT_IMPLEMENTATION);
-//        }
-//        Optional<Member> deleteMember = memberRepository.findById(memberId);
-//        return deleteMember.isEmpty();
-
-//    }
 
     public void deleteMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
@@ -172,19 +154,11 @@ public class MemberService {
                 break;
             }
         }
-
-//        for (Answer questionAnswer : questionAnswers) {
-//            for (AnswerVote answerVote : answerVotes) {
-//                if(Objects.equals(questionAnswer.getAnswerId(), answerVote.getAnswer().getAnswerId())){
-//                    LoginUserAnswerVoteResponseDto loginUserAnswerVote = new LoginUserAnswerVoteResponseDto(answerVote.getAnswer().getAnswerId(), answerVote.getVoteStatus());
-//                    loginUserAnswerVoteResponseDtos.add(loginUserAnswerVote);
-//                }
-//            }
-//        }
         loginMemberVoteInfo.setAnswerVoteStatus(loginUserAnswerVoteResponseDtos);
         return loginMemberVoteInfo;
     }
 
+    //강의리뷰추천
     public MemberDto.LoginUserLectureReviewVoteInfo findLectureReviewVoteStatusByLoginUser(Member member, LectureReview lectureReview) {
         MemberDto.LoginUserLectureReviewVoteInfo loginUserLectureReviewVoteInfo = new MemberDto.LoginUserLectureReviewVoteInfo();
 
@@ -223,25 +197,9 @@ public class MemberService {
             return loginUserLectureReviewVoteInfo;
     }
 
-    private String passwordEncoding(String password) {
-        return passwordEncoder.encode(password);
-    }
 
 
-//    public void changePassword(long memberId, String nowPassword, String newPassword){
-//        Member member = memberRepository.findById(memberId).orElseThrow(()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-//
-//        if(passwordEncoder.matches(nowPassword,member.getPassword())){
-//            if(nowPassword.equals(newPassword)){
-//                throw new BusinessLogicException(ExceptionCode.SAME_PASSWORD);
-//            }
-//            String encryptedPassword = passwordEncoder.encode(newPassword);
-//            member.setPassword(encryptedPassword);
-//            memberRepository.save(member);
-//        } else {
-//            throw new BusinessLogicException(ExceptionCode.INVALID_NOW_PASSWORD);
-//        }
-
+    //비밀번호변경
     @Transactional
     public Member changePassword(long memberId, MemberDto.ChangePassword changePassword) {
         Member member = findVerifiedMember(memberId);
@@ -258,6 +216,7 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    //비밀번호 찾기
     @Transactional
     public Member FindChangePassword(String email,MemberDto.FindChangePassword findPassword){
         Member member = findMemberByEmail(email);

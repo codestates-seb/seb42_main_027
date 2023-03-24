@@ -340,11 +340,6 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(responses), HttpStatus.OK);
    }
 
-//    private Member loginMemberFindByToken(){
-//        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
-//        return memberService.findMemberByEmail(loginEmail);
-//    }
-//
 
 
 
