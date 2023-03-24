@@ -17,32 +17,26 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     Page<Question> findByMemberId(long memberId,Pageable pageable);
     @Query(value = "SELECT q FROM Question q WHERE q.member.memberId = :memberId")
     List<Question> findByMemberId(long memberId);
+
     @Query("SELECT DISTINCT q FROM Question q " +
             "WHERE (:category IS NULL OR q.category = :category) " +
             "AND (q.category <> '공지')" +
             "AND (:title IS NULL OR q.title LIKE CONCAT('%', :title, '%'))")
-    Page<Question> findByTitleContainingIgnoreCase(String category, String title, Pageable pageable);
+    Page<Question> findQuestionByCategory(String category, String title, Pageable pageable);
 
     @Query(value = "SELECT DISTINCT q " +
             "FROM Question q " +
             "WHERE (q.category = '공지')")
-    List<Question> findAllNoticeQuestions(Pageable pageable);
+    List<Question> findNoticeListQuestions(Pageable pageable);
 
     @Query(value = "SELECT DISTINCT q " +
             "FROM Question q " +
             "WHERE (q.category = '공지')")
-    Page<Question> findAllNoticeQuestionss(Pageable pageable);
+    Page<Question> findNoticePageQuestions(Pageable pageable);
 
     @Query("SELECT DISTINCT q FROM Question q " +
-            "WHERE (:category IS NULL OR q.category = :category ) " +
-            "AND q.category <> '공지' " +
+            "WHERE (q.category <> '공지') " +
             "AND (:title IS NULL OR q.title LIKE CONCAT('%', :title, '%'))")
-    Page<Question> findAllQuestions(String category, String title, Pageable pageable);
-
-    @Query("SELECT DISTINCT q FROM Question q " +
-            "WHERE (:category IS NULL OR q.category = :category OR q.category = '공지' ) " +
-            "AND (:title IS NULL OR q.title LIKE CONCAT('%', :title, '%'))")
-    Page<Question> findAllByTest(String category, String title, Pageable pageable);
-
+    Page<Question> findAllQuestions(String title, Pageable pageable);
 
 }

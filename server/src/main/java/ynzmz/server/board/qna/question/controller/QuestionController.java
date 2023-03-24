@@ -3,8 +3,6 @@ package ynzmz.server.board.qna.question.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +22,6 @@ import ynzmz.server.board.qna.question.dto.QuestionDto;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.qna.question.mapper.QuestionMapper;
 import ynzmz.server.board.qna.question.service.QuestionService;
-import ynzmz.server.tag.entity.SubjectTag;
 import ynzmz.server.tag.service.TagService;
 
 import javax.validation.Valid;
@@ -82,20 +79,13 @@ public class QuestionController {
         sort = (sort == null || sort.equals("최신순"))
                 ? "questionId" : sort.equals("조회순") ? "viewCount" : sort.equals("추천순") ? "voteCount" : "questionId";
 
-                Page<Question> questionPage = (category != null && category.equals("전체"))
-                        ? questionService.findAllQuestions(category, title, sort, page - 1, size)
-                        : questionService.findQuestionss( sort, page - 1, size);
-//        Page<Question> questionPage = (reverse != null)
-//                ? questionService.findQuestionsTest(category, title, sort, reverse, page - 1, size)
-//                : questionService.findQuestionsTest(category, title, sort, page - 1 , size);
-
-//        List<Question> noticeQuestions = questionService.findAllNoticeQuestions();
+        Page<Question> questionPage = (category != null && category.equals("전체"))
+                ? questionService.findAllQuestions(title, sort, page - 1, size)
+                : (category != null && category.equals("공지"))
+                ? questionService.findQuestionsByNotice( sort, page - 1, size)
+                : questionService.findQuestionsByCategory(category, title, sort, page -1, size);
 
         List<Question> questions = questionPage.getContent();
-//        noticeQuestions.addAll(questions);
-//
-//        Pageable pageable = questionPage.getPageable();
-//        Page<Question> newQuestionPage = new PageImpl<>(noticeQuestions, pageable, questionPage.getTotalElements());
 
         List<QuestionDto.ListPageResponse> responses = questionMapper.questionToQuestionListPageResponses(questions);
 

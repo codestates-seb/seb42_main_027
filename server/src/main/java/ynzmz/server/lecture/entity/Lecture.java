@@ -28,15 +28,12 @@ public class Lecture {
     private double starPointAverage;
     private long totalReviewCount;
 
-    @BatchSize(size = 10)
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<LectureGradeTag> gradeTags = new ArrayList<>();
-    @BatchSize(size = 10)
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<LectureSubjectTag> subjectTags = new ArrayList<>();
-    @BatchSize(size = 10)
     @OneToMany(mappedBy = "lecture", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<LecturePlatformTag> platformTags = new ArrayList<>();

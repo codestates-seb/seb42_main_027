@@ -21,6 +21,8 @@ public class Teacher {
     private String name;
     private String introduction;
     private String imageUrl;
+    private String ProfileImageUrl;
+    private String RealImageUrl;
     private double starPointAverage;
     private long totalReviewCount;
     @ElementCollection(targetClass=String.class)
