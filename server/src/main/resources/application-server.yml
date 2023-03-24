@@ -16,6 +16,7 @@ spring:
     baseline-on-migrate: true
     enabled: false
 
+
 mail:
   address:
     admin: likedubu@naver.com

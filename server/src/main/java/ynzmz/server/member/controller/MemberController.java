@@ -6,8 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.board.free.dto.FreeDto;
 import ynzmz.server.board.free.entity.Free;
@@ -40,9 +38,6 @@ import ynzmz.server.comment.review.lecture.mapper.LectureReviewCommentMapper;
 import ynzmz.server.comment.review.lecture.service.LectureReviewCommentService;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
-import ynzmz.server.error.exception.BusinessLogicException;
-import ynzmz.server.error.exception.ExceptionCode;
-import ynzmz.server.member.entity.MemberEmailSearch;
 import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.member.dto.MemberDto;
@@ -56,9 +51,6 @@ import ynzmz.server.recomment.qna.dto.QnaReCommentDto;
 import ynzmz.server.recomment.qna.entity.QnaReComment;
 import ynzmz.server.recomment.qna.mapper.QnaReCommentMapper;
 import ynzmz.server.recomment.qna.service.QnaReCommentService;
-import ynzmz.server.security.auths.filter.JwtAuthenticationFilter;
-import ynzmz.server.security.auths.jwt.JwtTokenizer;
-import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -126,7 +118,7 @@ public class MemberController {
     }
 
     //비밀번호변경
-    @PatchMapping("/{member-id}/changepassword")
+    @PatchMapping("/{member-id}/changepasswords")
     public ResponseEntity<?> changePassword(@PathVariable("member-id") long memberId, @RequestBody MemberDto.ChangePassword changePassword) {
         if (!changePassword.getNewPassword().equals(changePassword.getConfirmPassword())) {
             return ResponseEntity.badRequest().body("패스워드와 패스워드 확인이 일치하지 않습니다.");
@@ -170,9 +162,9 @@ public class MemberController {
 
     //이메일 찾기
     @PostMapping("/findemails")
-    public ResponseEntity<?> findEmailByUsernameAndPhoneNumber (@RequestBody MemberEmailSearch emailSearch){
-        String username = emailSearch.getUsername();
-        String phoneNumber = emailSearch.getPhoneNumber();
+    public ResponseEntity<?> findEmailByUsernameAndPhoneNumber (@RequestBody MemberDto.FindEmail findEmail){
+        String username = findEmail.getUsername();
+        String phoneNumber = findEmail.getPhoneNumber();
 
         Optional<Member> member = memberRepository.findByUsernameAndPhoneNumber(username,phoneNumber);
         if(member.isPresent()){
@@ -183,9 +175,41 @@ public class MemberController {
         }
     }
 
+    //비밀번호 찾기 - 일치하는 정보
+    @PostMapping("/finds/findpasswords")
+    public ResponseEntity<?> fndPassword (@RequestBody MemberDto.FindPassword findPassword) {
+        String email = findPassword.getEmail();
+        String username = findPassword.getUsername();
+        String phoneNumber = findPassword.getPhoneNumber();
+
+        Optional<Member> member = memberRepository.findByUsernameAndEmailAndPhoneNumber(username, email, phoneNumber);
+
+        if (member.isPresent()) {
+            Member foundMember = member.get();
+            if (!findPassword.getEmail().equals(foundMember.getEmail()) ||
+                    !findPassword.getUsername().equals(foundMember.getUsername()) ||
+                    !findPassword.getPhoneNumber().equals(foundMember.getPhoneNumber())) {
+                return ResponseEntity.badRequest().body("일치하는 회원정보를 찾을 수 없습니다.");
+            }
+            return ResponseEntity.ok("");
+        }
+        return ResponseEntity.badRequest().body("일치하는 회원정보를 찾을 수 없습니다.");
+
+    }
 
 
-    //
+    //비밀번호변경
+    @PatchMapping("/{email}/finds/changepasswords")
+    public ResponseEntity<?> FindChangePassword( @PathVariable("email") String email, @RequestBody MemberDto.FindChangePassword findPassword) {
+        if (!findPassword.getNewPassword().equals(findPassword.getConfirmPassword())) {
+            return ResponseEntity.badRequest().body("패스워드와 패스워드 확인이 일치하지 않습니다.");
+        }
+        Member member = memberService.FindChangePassword(email,findPassword);
+        MemberDto.Response response = memberMapper.memberToMemberResponse(member);
+
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+    }
+
 
 
 //-------------------------------------마이페이지-------------------------------------------//

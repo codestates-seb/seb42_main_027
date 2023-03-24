@@ -17,7 +17,7 @@ import ynzmz.server.recomment.qna.entity.QnaReComment;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-23T14:13:27+0900",
+    date = "2023-03-24T17:11:49+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component

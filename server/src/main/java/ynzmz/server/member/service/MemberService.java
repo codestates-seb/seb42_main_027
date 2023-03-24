@@ -101,6 +101,12 @@ public class MemberService {
         return foundMember.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
+    public Member findMemberByUsername(String username){
+        Optional<Member> foundMember = memberRepository.findByUsername(username);
+        return foundMember.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+    }
+
+
 
 //    public boolean deleteMember(long memberId){
 //        String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -252,6 +258,15 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    @Transactional
+    public Member FindChangePassword(String email,MemberDto.FindChangePassword findPassword){
+        Member member = findMemberByEmail(email);
+        String newPassword = findPassword.getNewPassword();
+        String encodeNewPassword = passwordEncoder.encode(newPassword);
+        member.setPassword(encodeNewPassword);
+
+        return memberRepository.save(member);
+    }
 
 }
 

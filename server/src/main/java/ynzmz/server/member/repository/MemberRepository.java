@@ -13,9 +13,13 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByEmail(String email);
 
+    Optional<Member> findByUsername(String username);
+
+
     Optional<Member> findByDisplayName(String displayName);
 
     Optional<Member> findByUsernameAndPhoneNumber(String username, String phoneNumber);
+    Optional<Member> findByUsernameAndEmailAndPhoneNumber(String username, String email, String phoneNumber);
 
     @Query(value = "SELECT i FROM Member i WHERE i.memberId = :memberId")
     Optional<Member> findById(long memberId);
