@@ -1,16 +1,15 @@
-package ynzmz.server.lecture.service;
+package ynzmz.server.board.lecture.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
-import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.lecture.repository.LectureRepository;
+import ynzmz.server.board.lecture.entity.Lecture;
+import ynzmz.server.board.lecture.repository.LectureRepository;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;

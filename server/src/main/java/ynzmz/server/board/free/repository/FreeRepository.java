@@ -6,10 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ynzmz.server.board.free.entity.Free;
-import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.tag.entity.GradeTag;
-import ynzmz.server.tag.entity.PlatformTag;
-import ynzmz.server.tag.entity.SubjectTag;
 
 import java.util.List;
 

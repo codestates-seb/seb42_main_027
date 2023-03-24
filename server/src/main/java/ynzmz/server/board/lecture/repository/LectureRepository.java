@@ -1,19 +1,14 @@
-package ynzmz.server.lecture.repository;
+package ynzmz.server.board.lecture.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.board.lecture.entity.Lecture;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;
-import ynzmz.server.teacher.entity.Teacher;
-
-import java.util.List;
 
 @Repository
 public interface LectureRepository extends JpaRepository<Lecture,Long> {

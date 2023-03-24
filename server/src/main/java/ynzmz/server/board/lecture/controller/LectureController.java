@@ -1,4 +1,4 @@
-package ynzmz.server.lecture.controller;
+package ynzmz.server.board.lecture.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -7,17 +7,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
-import ynzmz.server.lecture.dto.LectureDto;
-import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.lecture.mapper.LectureMapper;
-import ynzmz.server.lecture.service.LectureService;
+import ynzmz.server.board.lecture.dto.LectureDto;
+import ynzmz.server.board.lecture.entity.Lecture;
+import ynzmz.server.board.lecture.mapper.LectureMapper;
+import ynzmz.server.board.lecture.service.LectureService;
 import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;
 import ynzmz.server.tag.service.TagService;
-import ynzmz.server.teacher.entity.Teacher;
-import ynzmz.server.teacher.service.TeacherService;
+import ynzmz.server.board.teacher.entity.Teacher;
+import ynzmz.server.board.teacher.service.TeacherService;
 
 import java.util.List;
 import java.util.Map;

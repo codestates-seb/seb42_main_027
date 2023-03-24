@@ -1,4 +1,4 @@
-package ynzmz.server.teacher.controller;
+package ynzmz.server.board.teacher.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,10 +13,10 @@ import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;
 import ynzmz.server.tag.service.TagService;
-import ynzmz.server.teacher.dto.TeacherDto;
-import ynzmz.server.teacher.entity.Teacher;
-import ynzmz.server.teacher.mapper.TeacherMapper;
-import ynzmz.server.teacher.service.TeacherService;
+import ynzmz.server.board.teacher.dto.TeacherDto;
+import ynzmz.server.board.teacher.entity.Teacher;
+import ynzmz.server.board.teacher.mapper.TeacherMapper;
+import ynzmz.server.board.teacher.service.TeacherService;
 
 import java.util.List;
 import java.util.Map;

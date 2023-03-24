@@ -1,4 +1,4 @@
-package ynzmz.server.teacher.service;
+package ynzmz.server.board.teacher.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
-import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.board.lecture.entity.Lecture;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;
-import ynzmz.server.teacher.entity.Teacher;
-import ynzmz.server.teacher.repository.TeacherRepository;
+import ynzmz.server.board.teacher.entity.Teacher;
+import ynzmz.server.board.teacher.repository.TeacherRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;

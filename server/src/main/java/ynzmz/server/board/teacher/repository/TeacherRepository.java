@@ -1,4 +1,4 @@
-package ynzmz.server.teacher.repository;
+package ynzmz.server.board.teacher.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;
-import ynzmz.server.teacher.entity.Teacher;
+import ynzmz.server.board.teacher.entity.Teacher;
 
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher,Long> {

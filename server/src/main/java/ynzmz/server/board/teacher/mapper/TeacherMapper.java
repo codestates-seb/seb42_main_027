@@ -1,4 +1,4 @@
-package ynzmz.server.teacher.mapper;
+package ynzmz.server.board.teacher.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -11,8 +11,8 @@ import ynzmz.server.tag.entity.SubjectTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherGradeTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherPlatformTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherSubjectTag;
-import ynzmz.server.teacher.dto.TeacherDto;
-import ynzmz.server.teacher.entity.Teacher;
+import ynzmz.server.board.teacher.dto.TeacherDto;
+import ynzmz.server.board.teacher.entity.Teacher;
 
 import java.util.List;
 

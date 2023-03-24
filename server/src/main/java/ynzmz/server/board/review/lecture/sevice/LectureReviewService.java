@@ -9,8 +9,8 @@ import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.board.review.lecture.repository.LectureReviewRepository;
 import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
-import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.teacher.entity.Teacher;
+import ynzmz.server.board.lecture.entity.Lecture;
+import ynzmz.server.board.teacher.entity.Teacher;
 
 import java.util.HashMap;
 import java.util.List;

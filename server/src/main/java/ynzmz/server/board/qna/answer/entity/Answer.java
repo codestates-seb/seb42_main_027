@@ -21,6 +21,7 @@ public class Answer implements Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String content;
     @Column
     @ColumnDefault("0")

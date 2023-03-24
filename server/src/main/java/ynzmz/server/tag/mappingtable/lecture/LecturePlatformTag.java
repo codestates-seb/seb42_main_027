@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.board.lecture.entity.Lecture;
 import ynzmz.server.tag.entity.PlatformTag;
 
 import javax.persistence.*;

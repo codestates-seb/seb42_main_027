@@ -21,6 +21,7 @@ public class Question implements Vote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long questionId;
     String title;
+    @Column(columnDefinition = "MEDIUMTEXT")
     String content;
     String category;
     long viewCount;

@@ -1,4 +1,4 @@
-package ynzmz.server.teacher.mapper;
+package ynzmz.server.board.teacher.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
-import ynzmz.server.lecture.dto.LectureDto;
-import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.board.lecture.dto.LectureDto;
+import ynzmz.server.board.lecture.entity.Lecture;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.tag.dto.GradeTagDto;
@@ -19,8 +19,8 @@ import ynzmz.server.tag.mappingtable.lecture.LectureSubjectTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherGradeTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherPlatformTag;
 import ynzmz.server.tag.mappingtable.teacher.TeacherSubjectTag;
-import ynzmz.server.teacher.dto.TeacherDto;
-import ynzmz.server.teacher.entity.Teacher;
+import ynzmz.server.board.teacher.dto.TeacherDto;
+import ynzmz.server.board.teacher.entity.Teacher;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",

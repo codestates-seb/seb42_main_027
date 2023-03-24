@@ -1,15 +1,15 @@
-package ynzmz.server.lecture.dto;
+package ynzmz.server.board.lecture.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.board.lecture.entity.Lecture;
 import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.tag.dto.GradeTagDto;
 import ynzmz.server.tag.dto.PlatformTagDto;
 import ynzmz.server.tag.dto.SubjectTagDto;
-import ynzmz.server.teacher.dto.TeacherDto;
+import ynzmz.server.board.teacher.dto.TeacherDto;
 
 import java.util.List;
 import java.util.Map;

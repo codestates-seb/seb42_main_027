@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ynzmz.server.tag.entity.SubjectTag;
-import ynzmz.server.teacher.entity.Teacher;
+import ynzmz.server.board.teacher.entity.Teacher;
 
 import javax.persistence.*;
 

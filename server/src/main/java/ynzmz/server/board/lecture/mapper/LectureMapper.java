@@ -1,9 +1,9 @@
-package ynzmz.server.lecture.mapper;
+package ynzmz.server.board.lecture.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-import ynzmz.server.lecture.dto.LectureDto;
-import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.board.lecture.dto.LectureDto;
+import ynzmz.server.board.lecture.entity.Lecture;
 import ynzmz.server.tag.dto.GradeTagDto;
 import ynzmz.server.tag.dto.PlatformTagDto;
 import ynzmz.server.tag.dto.SubjectTagDto;

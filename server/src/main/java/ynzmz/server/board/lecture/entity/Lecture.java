@@ -1,15 +1,14 @@
-package ynzmz.server.lecture.entity;
+package ynzmz.server.board.lecture.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.BatchSize;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.tag.mappingtable.lecture.LectureGradeTag;
 import ynzmz.server.tag.mappingtable.lecture.LecturePlatformTag;
 import ynzmz.server.tag.mappingtable.lecture.LectureSubjectTag;
-import ynzmz.server.teacher.entity.Teacher;
+import ynzmz.server.board.teacher.entity.Teacher;
 
 import javax.persistence.*;
 import java.util.ArrayList;

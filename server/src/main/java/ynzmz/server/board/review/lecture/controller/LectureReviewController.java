@@ -12,15 +12,15 @@ import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.error.exception.BusinessLogicException;
-import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.lecture.service.LectureService;
+import ynzmz.server.board.lecture.entity.Lecture;
+import ynzmz.server.board.lecture.service.LectureService;
 import ynzmz.server.board.review.lecture.mapper.LectureReviewMapper;
 import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
-import ynzmz.server.teacher.mapper.TeacherMapper;
-import ynzmz.server.teacher.service.TeacherService;
+import ynzmz.server.board.teacher.mapper.TeacherMapper;
+import ynzmz.server.board.teacher.service.TeacherService;
 
 import java.util.List;
 

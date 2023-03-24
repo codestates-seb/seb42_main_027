@@ -1,11 +1,10 @@
-package ynzmz.server.teacher.dto;
+package ynzmz.server.board.teacher.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import ynzmz.server.lecture.dto.LectureDto;
+import ynzmz.server.board.lecture.dto.LectureDto;
 import ynzmz.server.tag.dto.GradeTagDto;
 import ynzmz.server.tag.dto.PlatformTagDto;
 import ynzmz.server.tag.dto.SubjectTagDto;

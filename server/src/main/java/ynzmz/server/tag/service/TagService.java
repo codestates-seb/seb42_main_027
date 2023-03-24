@@ -2,8 +2,7 @@ package ynzmz.server.tag.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.board.qna.question.entity.Question;
+import ynzmz.server.board.lecture.entity.Lecture;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;
@@ -20,7 +19,7 @@ import ynzmz.server.tag.repository.lecture.LectureSubjectTagRepository;
 import ynzmz.server.tag.repository.teacher.TeacherGradeTagRepository;
 import ynzmz.server.tag.repository.teacher.TeacherPlatformTagRepository;
 import ynzmz.server.tag.repository.teacher.TeacherSubjectTagRepository;
-import ynzmz.server.teacher.entity.Teacher;
+import ynzmz.server.board.teacher.entity.Teacher;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
