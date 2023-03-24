@@ -5,81 +5,137 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import ynzmz.server.board.event.their.entity.Event;
+import ynzmz.server.board.event.their.service.EventService;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DataCrawler {
+    private final EventService eventService;
+
+    public DataCrawler(EventService eventService) {
+        this.eventService = eventService;
+    }
+
+    public void megaCrawler(){
+
+        String megaUrl2 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=2&intCP=NaN";
+        String megaUrl3 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=3&intCP=NaN";
+        String megaUrl4 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=4&intCP=NaN";
+        String megaUrl5 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=5&intCP=NaN";
+
+        List<String> megas = new ArrayList<>();
+
+        megas.add(megaUrl2);
+        megas.add(megaUrl3);
+        megas.add(megaUrl4);
+        megas.add(megaUrl5);
+
+//        Connection eConn = Jsoup.connect(etoosUrl);
+
+        try {
+
+            for (String s : megas) {
+                Connection mConn = Jsoup.connect(s);
+                Document document = mConn.get();
+
+                Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
+                Elements megaeventsdate1 = document.getElementsByClass("date").select("span:nth-child(1)");
+                Elements megaeventsdate3 = document.getElementsByClass("date").select("span:nth-child(3)");
+
+                for (int i = 0; i < megaeventsLink.size(); i++) {
+                    Event events = new Event();
+                    events.setSource("Mega");
+                    events.setTitle(megaeventsLink.get(i).text());
+                    events.setHyperLink(megaeventsLink.get(i).attr("href"));
+                    int k = 0;
+                    //주소 기입
+                    if (megaeventsdate1.get(i).text().substring(0, 1).equals("이")) {
+                        events.setDate(megaeventsdate1.get(i).text().substring(6));
+                    } else if(megaeventsdate3.size() != 0){//(megaeventsdate1.get(i).text().substring(0,1) != "이")
+
+                        events.setDate(megaeventsdate3.get(k).text().substring(6));
+                        k++;
+                    }
 
 
+                    System.out.println(megaeventsLink.get(i).text() + " , "
+                            + megaeventsLink.get(i).attr("href")
+                            + "," + events.getDate());
+                    eventService.createEvent(events);
+
+                }
+            }
+
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
         String etoosUrl = "https://go3.etoos.com/hietoos/event/default.asp?etoos=myall&ING_FLAG=I&etgrd=go3";
-        String megaUrl = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
         Connection eConn = Jsoup.connect(etoosUrl);
-        Connection  mConn = Jsoup.connect(megaUrl);
 
-        String title =
-                "";
+        String megaUrl2 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=2&intCP=NaN";
+        String megaUrl3 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=3&intCP=NaN";
+        String megaUrl4 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=4&intCP=NaN";
+        String megaUrl5 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=5&intCP=NaN";
+
+        List<String> megas = new ArrayList<>();
+
+        megas.add(megaUrl2);
+        megas.add(megaUrl3);
+        megas.add(megaUrl4);
+        megas.add(megaUrl5);
+
+//        Connection eConn = Jsoup.connect(etoosUrl);
+
         try {
 
+            for (String s : megas) {
+                Connection mConn = Jsoup.connect(s);
+                Document document = mConn.get();
 
-            Document document = mConn.get();
-//            document = Jsoup.parse(new URL(megaUrl).openStream(),"euc-kr",megaUrl);
-//            Document document = Jsoup.parse(new URL(megaUrl).openStream(),"euc-kr",megaUrl);
+                Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
+                Elements megaeventsdate1 = document.getElementsByClass("date").select("span:nth-child(1)");
+                Elements megaeventsdate3 = document.getElementsByClass("date").select("span:nth-child(3)");
 
-            Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
-            Elements megaeventsdate = document.getElementsByClass("date").select("span:nth-child(3)");
+                for (int i = 0; i < megaeventsLink.size(); i++) {
+                    Event events = new Event();
+                    events.setSource("Mega");
+                    events.setTitle(megaeventsLink.get(i).text());
+                    events.setHyperLink(megaeventsLink.get(i).attr("href"));
+                    int k = 0;
+                    //주소 기입
+                    if (megaeventsdate1.get(i).text().substring(0, 1).equals("이")) {
+                        events.setDate(megaeventsdate1.get(i).text().substring(6));
+                    } else if(megaeventsdate3.size() != 0){//(megaeventsdate1.get(i).text().substring(0,1) != "이")
 
-            for(Element element: megaeventsLink){
-                System.out.println(element.text() +","+ element.attr("abs:href"));
-
-//                System.out.println(element.select("a"));
-
-//                title = element.text() + element.attr("href");
-            }
-            for(Element element : megaeventsdate){
-                System.out.println(element.text().substring(7));
-            }
-
-
-        }
-        catch (IOException e) {
-            System.out.println(e.toString());
-        }
-
-    }
-
-    String etoosUrl = "https://go3.etoos.com/hietoos/event/default.asp?etoos=myall&ING_FLAG=I&etgrd=go3";
-    String megaUrl = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
-    Connection eConn = Jsoup.connect(etoosUrl);
-    Connection  mConn = Jsoup.connect(megaUrl);
+                        events.setDate(megaeventsdate3.get(k).text().substring(6));
+                        k++;
+                    }
 
 
-    public String megaLinkCrawl() {
-//mega크롤링
-        String title ="";
-        try {
+                    System.out.println(events.getTitle() + " , "
+                            + events.getHyperLink()
+                            + "," + events.getDate());
 
 
-            Document document = mConn.get();
-//            document = Jsoup.parse(new URL(megaUrl).openStream(),"euc-kr",megaUrl);
-//            Document document = Jsoup.parse(new URL(megaUrl).openStream(),"euc-kr",megaUrl);
-
-            Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
-
-            for(Element element: megaeventsLink){
-//                System.out.println(element.attr("abs:href"));
-//                System.out.println(element.select("a"));
-
-               title = element.text() + element.attr("href");
+                }
             }
 
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+    }}
 
-        }
-        catch (IOException e) {
-            System.out.println(e.toString());
-        }
-        return title;
-    }
-}
+
+
+
+
+

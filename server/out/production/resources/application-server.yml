@@ -12,10 +12,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    defer-datasource-initialization: true
-  sql:
-    init:
-      mode: always
+  flyway:
+    baseline-on-migrate: true
+    enabled: false
 
 mail:
   address:
@@ -24,5 +23,5 @@ mail:
 jwt:
   #  key: ${JWT_SECRET_KEY}   # 민감한 정보는 시스템 환경 변수에서 로드한다.
   key: davin1234123412341234123412341234
-  access-token-expiration-minutes: 30
+  access-token-expiration-minutes: 420
   refresh-token-expiration-minutes: 420
