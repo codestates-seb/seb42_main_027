@@ -32,28 +32,24 @@ function WritePost() {
     try {
       if (category === '' || title === '' || post === '') {
         alert('주제, 제목, 내용은 빈 칸으로 둘 수 없습니다.');
-      } else if (urlData === '/fre') {
-        const freeData = {
+      } else {
+        const data = {
           title,
           content: post,
           category,
           createdAt: `${new Date()}`,
         };
-        console.log('submit data', freeData);
-        const resData = await PostData(freeData, 'frees');
-        alert('게시글 작성을 완료하였습니다.');
-        navigate(`/free/articles/${resData.data.freeId}`);
-      } else if (urlData === '/qna') {
-        const qnaData = {
-          title,
-          content: post,
-          category,
-          createdAt: `${new Date()}`,
-        };
-        console.log('submit data', qnaData);
-        const resData = await PostData(qnaData, 'qnas/questions');
-        alert('게시글 작성을 완료하였습니다.');
-        navigate(`/qna/articles/${resData.data.questionId}`);
+        if (urlData === '/fre') {
+          console.log('submit data', data);
+          const resData = await PostData(data, 'frees');
+          alert('게시글 작성을 완료하였습니다.');
+          navigate(`/free/articles/${resData.data.freeId}`);
+        } else if (urlData === '/qna') {
+          console.log('submit data', data);
+          const resData = await PostData(data, 'qnas/questions');
+          alert('게시글 작성을 완료하였습니다.');
+          navigate(`/qna/articles/${resData.data.questionId}`);
+        }
       }
     } catch (err) {
       console.error(err);
@@ -65,31 +61,21 @@ function WritePost() {
       if (category === '' || title === '' || post === '') {
         alert('주제, 제목, 내용은 빈 칸으로 둘 수 없습니다.');
       } else {
-        const freeData = {
+        const data = {
           title,
           content: post,
           category,
           modifiedAt: `${new Date()}`,
         };
-        console.log('submit data', freeData);
         if (urlData === '/fre') {
-          const resData = await PatchData(
-            freeData,
-            'frees',
-            Number(paramsData.id),
-          );
+          console.log('submit data', data);
+          const resData = await PatchData(data, 'frees', Number(paramsData.id));
           alert('게시글 수정을 완료하였습니다.');
           navigate(`/free/articles/${resData.data.freeId}`);
         } else if (urlData === '/qna') {
-          const qnaData = {
-            title,
-            content: post,
-            category,
-            modifiedAt: `${new Date()}`,
-          };
-          console.log('submit data', qnaData);
+          console.log('submit data', data);
           const resData = await PatchData(
-            qnaData,
+            data,
             'qnas/questions',
             Number(paramsData.id),
           );
