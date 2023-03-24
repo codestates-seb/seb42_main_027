@@ -67,7 +67,11 @@ function UpdateTeacher() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}`)
+      .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}`, {
+        headers: {
+          'ngrok-skip-browser-warning': 'asdasdas',
+        },
+      })
       .then((res: any) => {
         console.log(res.data.data);
         return res.data.data;

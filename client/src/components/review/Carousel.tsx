@@ -35,6 +35,10 @@ const items: itemsProps[] = [
     item: 'http://placehold.it/1300x400/00ffff',
     name: '이미지03',
   },
+  {
+    item: 'http://placehold.it/1300x400/00fsff',
+    name: '이미지03',
+  },
 ];
 
 function Carousel({ autoplay = true, speed = 300, loop = true }: sliderProps) {
@@ -89,6 +93,7 @@ export const StyledSlider = styled(Slider)`
 
   .slick-track {
     //이건 잘 모르겠음
+    width: 100%;
     height: 100%;
   }
 
