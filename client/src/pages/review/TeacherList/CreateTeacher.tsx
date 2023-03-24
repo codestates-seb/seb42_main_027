@@ -16,11 +16,11 @@ function CreateTeacher() {
   const [introduction, setIntroduction] = useState<string>('');
   const [profile, setProfile] = useState<string>('');
   const [analects, setAnalects] = useState<string>('');
-  const [profileImage, setProfileImage] = useState<FormData>();
+  const [profileImage, setProfileImage] = useState<string>();
   const [profilePreview, setProfilePreview] = useState(
     'http://placehold.it/340X240',
   );
-  const [realImage, setRealImage] = useState<FormData>();
+  const [realImage, setRealImage] = useState<string>();
   const [realPreview, setRealPreview] = useState('http://placehold.it/340X240');
 
   const navigate = useNavigate();
@@ -61,8 +61,8 @@ function CreateTeacher() {
   };
 
   useEffect(() => {
-    console.log('Rerendering');
-  }, []);
+    console.log(realImage);
+  }, [realImage]);
 
   const createHandler = () => {
     if (
@@ -86,9 +86,10 @@ function CreateTeacher() {
         introduction,
         profile: profile.split('\n'),
         analects: analects.split('\n'),
-        profileImage,
-        realImage,
+        profileImageUrl: profileImage,
+        realImageUrl: realImage,
       };
+      console.log(data);
 
       axios
         .post(`${process.env.REACT_APP_API_URL}/teachers`, data, {
@@ -116,16 +117,32 @@ function CreateTeacher() {
               accept="image/*"
               onChange={(e: any) => {
                 if (e.target.files.length) {
+                  console.log(e.target.files[0]);
                   const formData = new FormData();
-                  formData.append('img', e.target.files[0]);
-                  setProfileImage(e.target.files[0]);
+                  formData.append('image', e.target.files[0]);
+
+                  axios
+                    .post(
+                      `${process.env.REACT_APP_API_URL}/images/teachers`,
+                      formData,
+                      {
+                        headers: {
+                          'ngrok-skip-browser-warning': 'asdasdas',
+                        },
+                      },
+                    )
+                    .then(res => res.data.data)
+                    .then((data: any) => {
+                      setProfileImage(data);
+                    });
+
                   const fileReader = new FileReader();
                   fileReader.readAsDataURL(e.target.files[0]);
                   fileReader.onload = (e: any) => {
                     setProfilePreview(e.target.result);
                   };
                 } else {
-                  setProfileImage(new FormData());
+                  setProfileImage('');
                   setProfilePreview('http://placehold.it/340X240');
                 }
               }}
@@ -142,15 +159,29 @@ function CreateTeacher() {
               onChange={(e: any) => {
                 if (e.target.files.length) {
                   const formData = new FormData();
-                  formData.append('img', e.target.files[0]);
-                  setRealImage(e.target.files[0]);
+                  formData.append('image', e.target.files[0]);
+                  axios
+                    .post(
+                      `${process.env.REACT_APP_API_URL}/images/teachers`,
+                      formData,
+                      {
+                        headers: {
+                          'ngrok-skip-browser-warning': 'asdasdas',
+                        },
+                      },
+                    )
+                    .then(res => res.data.data)
+                    .then((data: any) => {
+                      setRealImage(data);
+                    });
+
                   const fileReader = new FileReader();
                   fileReader.readAsDataURL(e.target.files[0]);
                   fileReader.onload = (e: any) => {
                     setRealPreview(e.target.result);
                   };
                 } else {
-                  setRealImage(new FormData());
+                  setRealImage('');
                   setRealPreview('http://placehold.it/340X240');
                 }
               }}

@@ -24,6 +24,8 @@ type Teachers = {
   starPointAverage: number;
   subjectTags: { subjectTag: string }[];
   teacherId: number;
+  profileImageUrl: string;
+  realImageUrl: string;
   totalReviewCount: number;
 };
 
