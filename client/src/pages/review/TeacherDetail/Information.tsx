@@ -8,9 +8,10 @@ import { FlexContainer } from '../TeacherList/ReviewPage';
 
 type Data = {
   gradeTags: string[];
-  imageUrl: string;
+  profileImage: 'string;';
+  realImage: 'string;';
   introduction: string;
-  name: string; // 강사명
+  name: string;
   platformTags: { platformTag: string }[];
   starPointAverage: number;
   subjectTags: { subjectTag: string }[];
@@ -23,7 +24,8 @@ type Data = {
 
 const defaultData = {
   gradeTags: ['string'],
-  imageUrl: 'string;',
+  profileImage: 'string;',
+  realImage: 'string;',
   introduction: 'string;',
   name: 'string;',
   platformTags: [{ platformTag: 'string' }],
@@ -63,12 +65,28 @@ function Information() {
         <div>
           <GlobalStyle />
           <FlexContainer width="100vw">
-            <FlexContainer width="100%" height="100%" dir="col" grow={1}>
-              <img src="http://placehold.it/300X350" alt="dummyImage" />
-              <span>프로필 사진</span>
+            <FlexContainer
+              width="100%"
+              height="100%"
+              dir="col"
+              gap="3rem"
+              grow={1}
+            >
+              <FlexContainer dir="col">
+                <Img
+                  src={data.profileImage || 'http://placehold.it/340X350'}
+                  alt="profileImage"
+                />
+                <span>프로필 사진</span>
+              </FlexContainer>
 
-              <img src="http://placehold.it/300X350" alt="dummyImage" />
-              <span>실제 사진</span>
+              <FlexContainer dir="col">
+                <Img
+                  src={data.realImage || 'http://placehold.it/340X350'}
+                  alt="realImage"
+                />
+                <span>실제 사진</span>
+              </FlexContainer>
             </FlexContainer>
 
             <FlexContainer
@@ -162,4 +180,11 @@ export const MiddleFont = styled.div`
 `;
 export const SmallFont = styled.div`
   font-size: 1.1rem;
+`;
+
+const Img = styled.img`
+  width: 340px;
+  height: 350px;
+  border-radius: 0.5rem;
+  background-color: #b8b8b8;
 `;
