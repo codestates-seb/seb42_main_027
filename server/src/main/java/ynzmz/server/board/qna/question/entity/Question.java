@@ -7,7 +7,6 @@ import lombok.Setter;
 import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.board.qna.answer.entity.Answer;
-import ynzmz.server.tag.mappingtable.question.QuestionSubjectTag;
 import ynzmz.server.vote.Vote;
 
 import javax.persistence.*;
@@ -21,9 +20,9 @@ public class Question implements Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long questionId;
-
     String title;
     String content;
+    String category;
     long viewCount;
     long voteCount;
     private long answerCount;
@@ -42,9 +41,5 @@ public class Question implements Vote {
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<QnaComment> comments = new ArrayList<>();
-
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
-    private List<QuestionSubjectTag> subjectTags = new ArrayList<>();
 
 }

@@ -9,7 +9,6 @@ import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.board.qna.question.dto.QuestionDto;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.tag.dto.SubjectTagDto;
-import ynzmz.server.tag.mappingtable.question.QuestionSubjectTag;
 
 import java.util.List;
 
@@ -31,13 +30,5 @@ public interface QuestionMapper {
     @Named("countAnswers")
     default long countAnswers(List<Answer> answers) { return answers.size(); }
     List<QuestionDto.ListPageResponse> questionToQuestionListPageResponses(List<Question> questions);
-    default SubjectTagDto.Response subjectTagResponseToQuestionSubjectTag(QuestionSubjectTag questionSubjectTag) {
-        if ( questionSubjectTag == null ) return null;
 
-        SubjectTagDto.Response response = new SubjectTagDto.Response();
-
-        response.setSubjectTag( questionSubjectTag.getSubjectTag().getSubject() );
-
-        return response;
-    }
 }

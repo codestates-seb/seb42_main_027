@@ -92,6 +92,7 @@ public class LectureController {
         PlatformTag.Platform platformTag = (platform != null) ? tagService.findPlatformTag(platform) : null;
         SubjectTag.Subject subjectTag = (subject != null) ? tagService.findSubjectTag(subject) : null;
 
+//        Page<Lecture> lecturePage = lectureService.findLecturesN(gradeTag, platformTag, subjectTag, title, sort, page - 1, size);
         Page<Lecture> lecturePage = (sort.equals("random"))
                 ? lectureService.findLecturesByRandom(gradeTag, platformTag, subjectTag, title, sort,page - 1, size)
                 : (reverse == null && sort.equals("starPointAverage"))

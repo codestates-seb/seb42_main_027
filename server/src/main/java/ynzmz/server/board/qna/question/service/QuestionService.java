@@ -3,9 +3,7 @@ package ynzmz.server.board.qna.question.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ynzmz.server.board.qna.question.repository.QuestionRepository;
@@ -15,8 +13,8 @@ import ynzmz.server.member.entity.Member;
 import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.board.qna.answer.service.AnswerService;
 import ynzmz.server.board.qna.question.entity.Question;
-import ynzmz.server.tag.entity.SubjectTag;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +37,8 @@ public class QuestionService {
         Optional.ofNullable(question.getAnswers()).ifPresent(findQuestion::setAnswers);
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
+        Optional.ofNullable(question.getCategory()).ifPresent(findQuestion::setCategory);
+        Optional.ofNullable(question.getModifiedAt()).ifPresent(findQuestion::setModifiedAt);
         return questionRepository.save(findQuestion);
     }
 
@@ -54,12 +54,38 @@ public class QuestionService {
         return deleteQuestion.isEmpty();
     }
 
-    public Page<Question> findQuestions(SubjectTag.Subject subject,String title,String sort, int page, int size) {
-        return questionRepository.findAllByGradeAndPlatformAndSubjectAndName(subject,title,PageRequest.of(page, size, Sort.by(sort)));
+    public Page<Question> findAllQuestions(String title,String sort, int page, int size) {
+        List<Question> noticeQuestions = questionRepository.findNoticeListQuestions(PageRequest.of(0, 3, Sort.by("questionId").descending()));
+        Page<Question> allQuestions = questionRepository.findAllQuestions(title, PageRequest.of(page, size, Sort.by(sort).descending()));
+        List<Question> mergedList = new ArrayList<>(noticeQuestions);
+        allQuestions.forEach(question -> {
+            if(!noticeQuestions.contains(mergedList)) {
+                mergedList.add(question);
+            }
+        });
+
+        int start = (int) allQuestions.getPageable().getOffset();
+        int end = Math.min((start + allQuestions.getPageable().getPageSize()), mergedList.size());
+        return new PageImpl<>(mergedList.subList(start, end), allQuestions.getPageable(), mergedList.size());
     }
 
-    public Page<Question> findQuestions(SubjectTag.Subject subject,String title,String sort,String reverse, int page, int size) {
-        return questionRepository.findAllByGradeAndPlatformAndSubjectAndName(subject,title,PageRequest.of(page, size, Sort.by(sort).descending()));
+    public Page<Question> findQuestionsByCategory(String category, String title,String sort, int page, int size) {
+        List<Question> noticeQuestions = questionRepository.findNoticeListQuestions(PageRequest.of(0, 3, Sort.by("questionId").descending()));
+        Page<Question> allQuestions = questionRepository.findQuestionByCategory(category, title, PageRequest.of(page, size, Sort.by(sort).descending()));
+        List<Question> mergedList = new ArrayList<>(noticeQuestions);
+        allQuestions.forEach(question -> {
+            if(!noticeQuestions.contains(mergedList)) {
+                mergedList.add(question);
+            }
+        });
+
+        int start = (int) allQuestions.getPageable().getOffset();
+        int end = Math.min((start + allQuestions.getPageable().getPageSize()), mergedList.size());
+        return new PageImpl<>(mergedList.subList(start, end), allQuestions.getPageable(), mergedList.size());
+    }
+
+    public Page<Question> findQuestionsByNotice(String sort, int page, int size) {
+        return questionRepository.findNoticePageQuestions(PageRequest.of(page, size, Sort.by(sort).descending()));
     }
 
 

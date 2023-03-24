@@ -13,10 +13,10 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        default_batch_fetch_size: 1000
   flyway:
     baseline-on-migrate: true
-    enabled: true
-
+    enabled: false
 
 mail:
   address:
@@ -27,3 +27,15 @@ jwt:
   key: davin1234123412341234123412341234
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
+
+
+cloud: # AWS 계정 설정
+  aws:
+    region:
+      static: ap-northeast-2
+    s3:
+      credentials:
+        access-key: AKIAXPWH6LGUCFTOATC2
+        secret-key: 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
+    stack:
+      auto: false

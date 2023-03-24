@@ -45,6 +45,7 @@ public class SubjectTag {
         기타전체,
         제2외국어,
         대학별고사,
-        그외
+        그외,
+        공지
     }
 }
