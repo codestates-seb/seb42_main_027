@@ -79,6 +79,9 @@ function ReviewPage() {
         setPageInfo(res.data.pageInfo);
         setCurPage(res.data.pageInfo.page);
         setIsPending(false);
+      })
+      .catch(() => {
+        setIsPending(false);
       });
   }, [subject, sortTag, search, curPage, grade, platform, reverse]);
 

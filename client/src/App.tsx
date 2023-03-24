@@ -10,7 +10,7 @@ import Router from './Router';
 
 function App() {
   const { setIsLoginInStore } = useIsLoginStore();
-  const { setUserInfo } = useUserInfoStore(state => state);
+  const { userInfo, setUserInfo } = useUserInfoStore(state => state);
 
   const activeLogin = isLogin();
 
@@ -24,6 +24,7 @@ function App() {
       console.log('정보를 가져오지 못했습니다.');
     }
   };
+  console.log(userInfo.state);
 
   useEffect(() => {
     if (isLogin()) {

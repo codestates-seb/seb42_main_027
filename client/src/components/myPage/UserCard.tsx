@@ -322,7 +322,7 @@ function UserCard() {
       <UserInfoContainer>
         <NameTagContainer>
           <Name>{userData.name}</Name>
-          {userInfo.memberState === 'STUDENT' ? (
+          {userInfo.state === 'STUDENT' ? (
             <UserState> 학생</UserState>
           ) : (
             <UserState> 강사</UserState>

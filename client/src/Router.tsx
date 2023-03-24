@@ -28,6 +28,13 @@ import CreateReview from 'pages/review/LectureReview/CreateReview';
 import UpdateReview from 'pages/review/LectureReview/UpdateReview';
 import LectureReviewDetailPage from 'pages/review/LectureReview/LectureReviewDetailPage';
 
+import EventList from 'pages/review/Event/EventList';
+import EventDetail from 'pages/review/Event/EventDetail';
+import CreateEvent from 'pages/review/Event/CreateEvent';
+import UpdateEvent from 'pages/review/Event/UpdateEvent';
+import FindForgotEmail from 'pages/FindForgotEmail';
+import FindForgotPassword from 'pages/FindForgotPassword';
+
 function Router() {
   return (
     <BrowserRouter>
@@ -36,6 +43,8 @@ function Router() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/findemail" element={<FindForgotEmail />} />
+        <Route path="/findpassword" element={<FindForgotPassword />} />
 
         <Route path="signup/*" element={<SignUp />}>
           <Route path="" element={<SelectSignUpType />} />
@@ -96,6 +105,11 @@ function Router() {
           path="/lecturereviewdetail/:lectureReviewId/update/:lectureId"
           element={<UpdateReview />}
         />
+
+        <Route path="/eventlist" element={<EventList />} />
+        <Route path="/eventlist/articles/write" element={<CreateEvent />} />
+        <Route path="/eventdetail/:eventId" element={<EventDetail />} />
+        <Route path="/eventdetail/:eventId/update" element={<UpdateEvent />} />
       </Routes>
       <Footer />
     </BrowserRouter>

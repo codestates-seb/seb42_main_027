@@ -13,7 +13,10 @@ const getComment = async (id: number | null, select: string) => {
   if (select === '강의 리뷰') {
     boardType = 'comments/reviews';
   }
-  if (select === '대댓글') {
+  if (select === '자유 대댓글') {
+    boardType = 'recomments/frees';
+  }
+  if (select === '질문답변 대댓글') {
     boardType = 'recomments/qnas';
   }
   const response = await axios.get(`${apiUrl}/members/${id}/${boardType}`, {
