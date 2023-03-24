@@ -12,7 +12,7 @@ const patchUserPassword = async (
   pathData: UserPasswordProps,
   id: number | null,
 ) => {
-  await axios.patch(`${apiUrl}/members/${id}/changepassword`, pathData, {
+  await axios.patch(`${apiUrl}/members/${id}/changepasswords`, pathData, {
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },

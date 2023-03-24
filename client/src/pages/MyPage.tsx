@@ -9,20 +9,20 @@ import { Link } from 'react-router-dom';
 import theme from '../theme';
 
 const { colors } = theme;
-const { fontSizes } = theme;
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
 `;
 
 const ListContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 80%;
+  width: 50%;
 `;
 
 const PostListContainer = styled.div`
@@ -258,6 +258,7 @@ function MyPage() {
     <Container>
       <UserCard />
       <ListContainer>
+        {/* 내가 작성한 게시글 */}
         <PostListContainer>
           <PostListTitleContainer>
             <h2>내가 작성한 게시글</h2>
@@ -344,6 +345,7 @@ function MyPage() {
           </List>
         </PostListContainer>
 
+        {/* 내가 작성한 댓글 */}
         <PostListContainer>
           <PostListTitleContainer>
             <h2>내가 작성한 댓글</h2>
