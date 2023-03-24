@@ -2,7 +2,7 @@
 create table answer (
                         answer_id bigint not null auto_increment,
                         adopt_status varchar(255),
-                        content TEXT(),
+                        content TEXT(65535),
                         created_at varchar(255),
                         modified_at varchar(255),
                         vote_count bigint default 0,
