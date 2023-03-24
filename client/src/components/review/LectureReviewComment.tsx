@@ -12,6 +12,7 @@ import {
   BsFillHandThumbsUpFill,
   BsFillHandThumbsDownFill,
 } from 'react-icons/bs';
+import useUserInfoStore from 'stores/userInfoStore';
 
 type Props = {
   lectureReviewCommentId: number;
@@ -41,8 +42,7 @@ function LectureReviewComment({
   const [updateContent, setUpdateContent] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { teacherId } = useParams();
-
-  console.log(!teacherId);
+  const { userInfo } = useUserInfoStore(state => state);
 
   const voStatus = vStatus.filter(
     el => el.lectureReviewCommentId === lectureReviewCommentId,
@@ -148,7 +148,7 @@ function LectureReviewComment({
         >
           <VerySmallGrayFont>{createdAt.slice(0, 10)}</VerySmallGrayFont>
         </FlexContainer>
-        {!teacherId && isLogin() ? (
+        {!teacherId && userInfo.memberId === member.memberId ? (
           <FlexContainer width="100%" justify="right">
             {isOpen ? (
               <FlexContainer gap="0.8rem">

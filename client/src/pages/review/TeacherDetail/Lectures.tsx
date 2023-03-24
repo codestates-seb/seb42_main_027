@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import isLogin from 'utils/isLogin';
 import Button from 'components/common/Button';
 
+import useUserInfoStore from 'stores/userInfoStore';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 
 const defaultData = {
@@ -79,6 +80,7 @@ function Lectures() {
   const [data, setData] = useState(defaultData2);
   const [isPending, setIsPending] = useState<boolean>(true);
   const { teacherId } = useParams();
+  const { userInfo } = useUserInfoStore(state => state);
 
   useEffect(() => {
     axios
@@ -104,7 +106,7 @@ function Lectures() {
       ) : (
         <FlexContainer dir="col">
           <FlexContainer
-            display={isLogin() ? 'flex' : 'none'}
+            display={userInfo.state === 'ADMIN' ? 'flex' : 'none'}
             width="100%"
             justify={!data.lectures.length ? 'center' : 'right'}
           >
