@@ -1,5 +1,7 @@
 package ynzmz.server.board.event.our.service;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -13,8 +15,10 @@ import ynzmz.server.error.exception.ExceptionCode;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class OurService {
-    OurRepository ourRepository;
+     private final OurRepository ourRepository;
 
     //--------------------------------------------CREATE--------------------------------------------------------
     public Our createEvent(Our event){
@@ -29,16 +33,16 @@ public class OurService {
         return event.orElseThrow(()->new BusinessLogicException(ExceptionCode.EVENT_NOT_FOUND));
     }
 
-    public Page<Our> findAllEvents(int page, int size){
-        return ourRepository.findAll(PageRequest.of(page,size, Sort.by("eventId")));
+    public Page<Our> findAllEvents(int page){
+        return ourRepository.findAll(PageRequest.of(page-1,15, Sort.by("eventId")));
     }
     //-------------------------------------------UPDATE---------------------------------------------------------
-    public Our updateEvent(Our yjevent){//추후 고유 이벤트 내용이 확정되면 이야기 하는 것으로
-        Our findEvent = findEvent(yjevent.getEventId());
-        Optional.ofNullable(yjevent.getTitle()).ifPresent(findEvent::setTitle);
-        Optional.ofNullable(yjevent.getDate()).ifPresent(findEvent::setDate);
-        Optional.ofNullable(yjevent.getDate()).ifPresent(findEvent::setDate);
-        Optional.ofNullable(yjevent.getContent()).ifPresent(findEvent::setContent);
+    public Our updateEvent(Our event){//추후 고유 이벤트 내용이 확정되면 이야기 하는 것으로
+        Our findEvent = findEvent(event.getEventId());
+        Optional.ofNullable(event.getTitle()).ifPresent(findEvent::setTitle);
+        Optional.ofNullable(event.getDate()).ifPresent(findEvent::setDate);
+        Optional.ofNullable(event.getDate()).ifPresent(findEvent::setDate);
+        Optional.ofNullable(event.getContent()).ifPresent(findEvent::setContent);
     return ourRepository.save(findEvent);
 
     }
@@ -54,6 +58,9 @@ public class OurService {
     public void deleteEvent(Our event){
         ourRepository.delete(event);
     }
+
+
+
 }
 
 

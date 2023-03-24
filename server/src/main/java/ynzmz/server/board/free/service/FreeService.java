@@ -12,6 +12,7 @@ import ynzmz.server.error.exception.BusinessLogicException;
 import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.board.free.entity.Free;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,4 +57,42 @@ public class FreeService {
         repository.deleteById(freeId);
     }
 
+
+    //---------------------------------추가기능--------------------------------------------------------
+    public void plusViewCount(Free free){
+        free.setViewCount(free.getViewCount()+1);
+        repository.save(free);
+    }
+
+    //-------------------------------------------검색기능----------------------------------------------------------
+
+//    public Page<Free> findDailyFreesByVoteCount(){
+//        return repository.findFreesByCategoryAndVoteCount();
+//    }
+public Page<Free> findFreesByCategoryAndSortAndTitle(int page, String category,String sort,String title) {
+    return repository.findFreesByCategory(category, PageRequest.of(page, 15, Sort.by(sort).descending()), title);
+}
+    public Page<Free> findFreesByCategoryAndSortAndTitle(int page, String category,String title) {
+        return repository.findFreesByCategory(category, PageRequest.of(page, 15), title);
+    }
+
+
+
+    public Page<Free> findFreesByCategoryAndSort(int page, String category,String sort){
+        return repository.findFreesByCategory(category, PageRequest.of(page,15,Sort.by(sort).descending()));
+    }
+    public Page<Free> findFreesByCategoryAndSort(int page, String category){
+        return repository.findFreesByCategory(category, PageRequest.of(page,15));
+    }
+
+    public Page<Free> findFreesWithSort(int page, String sort){
+        return repository.findAll(PageRequest.of(page,15,Sort.by(sort).descending()));
+    }
+
+    public Page<Free> findFreesWithSort(int page, String sort,String title){
+        return repository.findFreesBySort(PageRequest.of(page,15,Sort.by(sort).descending()), title);
+    }
+//    public Page<Free> findFreesByCategoryAndSort(int page, String category){
+//        return repository.findFreesByCategory(category, PageRequest.of(page,15));
+//    }
 }

@@ -22,7 +22,7 @@ import java.util.List;
 @Getter
 @Setter
 @Slf4j
-public class Free implements Vote {
+public class Free implements Vote  {
 
     // id: 1,
     //    category: '공지',

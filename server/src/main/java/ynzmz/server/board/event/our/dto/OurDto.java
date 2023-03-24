@@ -10,8 +10,6 @@ public class OurDto {
     @Setter
     @AllArgsConstructor
     public static class Post{
-        private long eventId;
-
         private String imageUrl;
         private String title;
         private String content;
@@ -21,7 +19,6 @@ public class OurDto {
     @Setter
     @AllArgsConstructor
     public static class Patch{
-        private long eventId;
 
         private String imageUrl;
         private String title;
@@ -33,10 +30,19 @@ public class OurDto {
     @AllArgsConstructor
     public static class Response{
         private long eventId;
-
         private String imageUrl;
         private String title;
         private String content;
+        private String date;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class ListResponse{
+        private long eventId;
+        private String imageUrl;
+        private String title;
         private String date;
     }
 }

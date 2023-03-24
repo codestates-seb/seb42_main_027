@@ -16,7 +16,7 @@ public class Event {
     @Id
 //    @AutoConfigureOrder
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long eventId;
+    long theirId;
 
     private String imageUrl;
     private String title;
