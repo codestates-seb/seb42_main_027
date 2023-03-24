@@ -13,7 +13,7 @@ const patchFindPassword = async (
 ) => {
   //! endPoint 협의 필요
   await axios.patch(
-    `${apiUrl}/members/${email}/find/changepasswords`,
+    `${apiUrl}/members/${email}/finds/changepasswords`,
     pathData,
     {
       headers: {
