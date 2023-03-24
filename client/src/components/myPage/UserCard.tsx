@@ -5,17 +5,21 @@ import styled from 'styled-components';
 import { validatePassword, validatePhoneNum } from 'utils/regex';
 import theme from 'theme';
 import patchUserPassword from 'apis/patchUserPassword';
-import EditUserInfoInput from './EditUserInfo';
+import EditUserInfoInput from './EditUserInfoInput';
 
 const { colors } = theme;
 const { fontSizes } = theme;
 
 const UserCardContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  width: 80%;
-  margin: 0 auto;
-  margin-bottom: 3rem;
+  /* width: 80%; */
+  /* margin: 0 auto */
+  padding: 0 8rem;
+  height: 100vh;
+  box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1);
+  border-left: 0.1rem solid rgb(235, 235, 235);
 `;
 
 const ProfileImage = styled.img`
@@ -25,6 +29,7 @@ const ProfileImage = styled.img`
   border-radius: 50%;
   margin-top: 2rem;
   margin-right: 5rem;
+  box-shadow: 0px 0 5px rgba(0, 0, 0, 0.3);
 `;
 
 const UserInfoContainer = styled.div`
@@ -32,7 +37,7 @@ const UserInfoContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   margin-top: 1rem;
-  width: 60rem;
+  width: 20rem;
 `;
 
 const NameTagContainer = styled.div`
@@ -330,6 +335,7 @@ function UserCard() {
         </NameTagContainer>
         <UserInfo>이메일: {userData.email}</UserInfo>
 
+        {/* 정보 수정 */}
         {isEdit ? (
           <EditUserInfoContainer>
             <EditUserInfoInput

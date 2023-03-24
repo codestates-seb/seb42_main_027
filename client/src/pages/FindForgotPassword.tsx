@@ -9,7 +9,7 @@ import getForgotEmail from 'apis/getForgotEmail';
 import ModalWrapper from 'components/common/ModalWrapper';
 import { useNavigate } from 'react-router';
 import postForgotPassword from 'apis/postForgotPassword';
-import EditUserInfoInput from 'components/myPage/EditUserInfo';
+import EditUserInfoInput from 'components/myPage/EditUserInfoInput';
 import FindPasswordModal from 'components/findPassword/FindPasswordModal';
 
 const { colors, fontSizes } = theme;
@@ -162,7 +162,8 @@ function FindForgotPassword() {
       } catch (error: any) {
         console.error(error);
         // ! 수정 필요
-        if (error.response.data === '수정') {
+        console.log('error message', error.response.data);
+        if (error.response.data === '일치하는 회원정보를 찾을 수 없습니다.') {
           setIsSuccess(false);
         }
       }
@@ -222,7 +223,7 @@ function FindForgotPassword() {
         <button type="button" onClick={handleOpenModal}>
           modal open
         </button>
-        <FindPasswordModal isOpen={isOpen} />
+        <FindPasswordModal isOpen={isOpen} email={email} />
       </Form>
     </Container>
   );

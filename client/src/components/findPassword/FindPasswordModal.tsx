@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { validatePassword } from 'utils/regex';
 import theme from 'theme';
 import ModalWrapper from 'components/common/ModalWrapper';
-import EditUserInfoInput from 'components/myPage/EditUserInfo';
+import EditUserInfoInput from 'components/myPage/EditUserInfoInput';
 import BaseButton from 'components/common/BaseButton';
 import { useNavigate } from 'react-router';
 import useUserInfoStore from 'stores/userInfoStore';
@@ -56,9 +56,10 @@ const SignUpFailedMessage = styled.p`
 
 type FindPasswordModalProps = {
   isOpen: boolean;
+  email: string;
 };
 
-function FindPasswordModal({ isOpen }: FindPasswordModalProps) {
+function FindPasswordModal({ isOpen, email }: FindPasswordModalProps) {
   const [isSuccess, setIsSuccess] = useState(true);
 
   const [editPassword, setEditPassword] = useState('');
@@ -155,7 +156,7 @@ function FindPasswordModal({ isOpen }: FindPasswordModalProps) {
         //! 로그인이 안된 상태에서 요청을 해야하지만 memberId가 필요하다
         //! OPTION 1 : 암호 재설정 전 단계의 요청에서 memberId를 받는다.
         //! OPTION 2 : 암호 찾기 과정에서 암호재설정 api요청을 하나 더 만든다.
-        await patchFindPassword(pathData);
+        await patchFindPassword(pathData, email);
         console.log('암호 수정 성공');
         navigate('/login');
       } catch (error: any) {

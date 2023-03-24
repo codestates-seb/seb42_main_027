@@ -9,7 +9,7 @@ type postForgotPasswordParams = {
 };
 
 const postForgotPassword = async (pathData: postForgotPasswordParams) => {
-  await axios.post(`${apiUrl}/members/findpassword`, pathData, {
+  await axios.post(`${apiUrl}/members/find/findpasswords`, pathData, {
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },

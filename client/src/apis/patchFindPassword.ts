@@ -7,13 +7,20 @@ type patchFindPasswordProps = {
   confirmPassword: string;
 };
 
-const patchFindPassword = async (pathData: patchFindPasswordProps) => {
+const patchFindPassword = async (
+  pathData: patchFindPasswordProps,
+  email: string,
+) => {
   //! endPoint 협의 필요
-  await axios.patch(`${apiUrl}/members/changepassword`, pathData, {
-    headers: {
-      'ngrok-skip-browser-warning': '69420',
+  await axios.patch(
+    `${apiUrl}/members/${email}/find/changepasswords`,
+    pathData,
+    {
+      headers: {
+        'ngrok-skip-browser-warning': '69420',
+      },
     },
-  });
+  );
 };
 
 export default patchFindPassword;
