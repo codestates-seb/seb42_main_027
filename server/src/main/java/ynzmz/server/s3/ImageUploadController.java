@@ -30,4 +30,10 @@ public class ImageUploadController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(imagePatch), HttpStatus.OK);
     }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteTest(@RequestParam(required = false) String filePatch) {
+        s3Service.deleteFileByS3Url(filePatch);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

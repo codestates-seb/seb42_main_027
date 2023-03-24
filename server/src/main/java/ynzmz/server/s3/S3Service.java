@@ -6,10 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,6 +22,9 @@ public class S3Service {
 
         //현재 저장할 경로에 파일명 불러오기
         List<String> listFilesInBucketDirectory = listFilesInBucketDirectory(uploadPatch);
+
+
+        //파일 경로가 없으면 경로 만들기 ( 파일명에 / 붙히면 자동으로 만들어짐)
 
         //디렉토리 제외, 확장자 없엔 이름에서 마지막 숫자 확인후 +1 숫자로 파일명설정
         long createdFileName = createFileName(listFilesInBucketDirectory);
@@ -45,41 +46,27 @@ public class S3Service {
     }
 
     private long createFileName(List<String> listFilesInBucketDirectory) {
-        List<String> fileNameByPatch = new ArrayList<>();
-        List<Integer> numFileName = new ArrayList<>();
-        for(String file : listFilesInBucketDirectory) {
+        int maxNumber = -1;
+
+        for (String file : listFilesInBucketDirectory) {
             int lastSlashIndex = file.lastIndexOf('/');
             int lastDotIndex = file.lastIndexOf('.');
+
             if (lastDotIndex > lastSlashIndex) {
                 String fileNameWithoutExtension = file.substring(lastSlashIndex + 1, lastDotIndex);
-                fileNameByPatch.add(fileNameWithoutExtension);
+
+                try {
+                    int number = Integer.parseInt(fileNameWithoutExtension);
+                    maxNumber = Math.max(maxNumber, number);
+                } catch (NumberFormatException ignored) {
+                }
             }
         }
 
-        for(String str : fileNameByPatch) {
-            try {
-                int number = Integer.parseInt(str);
-                numFileName.add(number);
-            } catch (NumberFormatException ignored) {
-            }
-        }
-
-        //정렬
-        Collections.sort(numFileName);
-
-        if(numFileName.isEmpty()) return 0;
-        else return numFileName.get(numFileName.size() -1) + 1;
+        return maxNumber == -1 ? 0 : maxNumber + 1;
     }
 
-    //디렉토리 생성
-    public void createDirectory(String directoryName) {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(new byte[0]);
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentLength(0);
 
-        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, directoryName + "/", inputStream, metadata);
-        amazonS3Client.putObject(putObjectRequest);
-    }
     //디렉토리 내부 파일명 확인
     public List<String> listFilesInBucketDirectory(String directoryName) {
         ListObjectsRequest listObjectsRequest = new ListObjectsRequest().withBucketName(bucketName).withPrefix(directoryName);
@@ -101,7 +88,9 @@ public class S3Service {
         return s3ImageName;
     }
 
-    public void deleteFile(String bucketName, String key) {
-        amazonS3Client.deleteObject(bucketName, key);
+    public void deleteFileByS3Url(String key) {
+        String prefix = "https://main-project-28-img.s3.ap-northeast-2.amazonaws.com/";
+
+        amazonS3Client.deleteObject(bucketName, key.replace(prefix,""));
     }
 }

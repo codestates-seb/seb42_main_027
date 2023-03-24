@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
 import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
+import ynzmz.server.s3.S3Service;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;
@@ -30,6 +31,7 @@ public class TeacherController {
     private final TeacherMapper teacherMapper;
     private final TagService tagService;
     private final LectureReviewService lectureReviewService;
+    private final S3Service s3Service;
     //강사등록
     @PostMapping
     public ResponseEntity<?> postTeacher(@RequestBody TeacherDto.Post teacherPost){
@@ -126,6 +128,10 @@ public class TeacherController {
     //강사 삭제
     @DeleteMapping("/{teacher-id}")
     public void deleteTeacher(@PathVariable("teacher-id") long teacherId){
+        Teacher teacher = teacherService.findTeacherById(teacherId);
+
+        s3Service.deleteFileByS3Url(teacher.getProfileImageUrl());
+        s3Service.deleteFileByS3Url(teacher.getRealImageUrl());
         teacherService.deleteTeacher(teacherId);
     }
 }
