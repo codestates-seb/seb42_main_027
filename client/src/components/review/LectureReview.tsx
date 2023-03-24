@@ -52,6 +52,7 @@ function LectureReview({
 
   return (
     <Container>
+      {/* 추천수 */}
       <FlexContainer
         width="10rem"
         dir="col"
@@ -67,10 +68,12 @@ function LectureReview({
         </SmallFont>
         <SmallFont>{voteCount}</SmallFont>
       </FlexContainer>
+      {/* 평점 */}
       <FlexContainer width="10rem" padding="0 0 0 3rem" gap="0.2rem">
         <AiFillStar color="gold" size="1.5rem" />
         <SmallFont>{starPoint}</SmallFont>
       </FlexContainer>
+      {/* 강의 소개 및 타이틀 */}
       <FlexContainer
         width="60rem"
         dir="col"
@@ -85,11 +88,13 @@ function LectureReview({
           20,
         )}... (${totalCommentCount})`}</SmallFont2>
       </FlexContainer>
+      {/* 작성자 */}
       <FlexContainer width="15rem">
         <VerySmallGrayFont>
           {`${member.displayName.slice(0, 5)}...`}
         </VerySmallGrayFont>
       </FlexContainer>
+      {/* 생성날짜 */}
       <FlexContainer width="20rem">
         <VerySmallGrayFont>{createdAt.slice(0, 10)}</VerySmallGrayFont>
       </FlexContainer>

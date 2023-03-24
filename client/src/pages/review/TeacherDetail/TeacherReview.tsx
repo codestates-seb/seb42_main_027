@@ -6,11 +6,9 @@ import { useParams } from 'react-router';
 import styled from 'styled-components';
 import ScoreChart from 'components/review/ScoreChart';
 import LectureReview from 'components/review/LectureReview';
-import isLogin from 'utils/isLogin';
-import Button from 'components/common/Button';
 import LectureReviewDetail from 'components/review/LectureReviewDetail';
 import { FlexContainer } from '../TeacherList/ReviewPage';
-import { MiddleFont, SmallFont } from './Information';
+import { SmallFont } from './Information';
 
 type Data = {
   teacherId: number;
@@ -28,10 +26,15 @@ type Data = {
     '2점갯수': number;
     '3점갯수': number;
   };
-  gradeTags: { gradeTag: string }[];
-  subjectTags: { subjectTag: string }[];
-
-  platformTags: { platformTag: string }[];
+  gradeTags: {
+    gradeTag: string;
+  }[];
+  subjectTags: {
+    subjectTag: string;
+  }[];
+  platformTags: {
+    platformTag: string;
+  }[];
 
   lectures: {
     lectureId: number;
@@ -46,6 +49,7 @@ type Data = {
       modifiedAt: string;
       viewCount: number;
       voteCount: number;
+      totalCommentCount: number;
       teacher: {
         teacherId: number;
         name: string;
@@ -176,13 +180,11 @@ const defaultData = {
 };
 
 function TeacherReview() {
-  const [data, setData] = useState(defaultData);
+  const [data, setData] = useState<Data>(defaultData);
   const [isPending, setIsPending] = useState<boolean>(true);
   const [reviewOpen, setReviewOpen] = useState<boolean>(false);
   const [lectureReviewId, setLectureReviewId] = useState<number>(-1);
   const { teacherId } = useParams();
-
-  const Authorization = localStorage.getItem('token');
 
   useEffect(() => {
     axios
@@ -200,22 +202,6 @@ function TeacherReview() {
   }, []);
 
   const list = ['추천', '만족도', '제목', '작성자', '등록일'];
-
-  const reviewCreateHandler = () => {
-    axios.post(
-      `${process.env.REACT_APP_API_URL}/boards/reviews/lectures`,
-      {
-        title: '리뷰글 제목',
-        starPoint: 5,
-        content: '리뷰글 내용',
-        lectureId: 64,
-        createdAt: '생성날짜(String)',
-      },
-      {
-        headers: { Authorization },
-      },
-    );
-  };
 
   return (
     <Container
@@ -244,14 +230,15 @@ function TeacherReview() {
               등록된 강의와 후기가 없습니다
             </FlexContainer>
           ) : (
-            <FlexContainer width="50rem" dir="col" gap="1rem">
+            <FlexContainer width="50rem" dir="col" gap="1.5rem">
+              {/* 스코어 차트 */}
               <ScoreChart
                 totalReviewCount={data.totalReviewCount}
                 starPointAverage={data.starPointAverage}
                 starPointCount={data.starPointCount}
                 lectures={data.lectures}
               />
-
+              {/* 강의 리스트 바 */}
               <FlexContainer
                 width="100%"
                 borderTop="2px solid black"
@@ -265,39 +252,39 @@ function TeacherReview() {
                     </FlexContainer>
                   );
                 })}
-                <MiddleFont />
               </FlexContainer>
-              {!data.lectures.filter(lecture => {
-                return lecture.lectureReviews.length;
-              }).length ? (
-                <FlexContainer dir="col" width="100%" gap="0">
+              {/* 모든 강의의 수강 후기 */}
+              <FlexContainer dir="col" width="100%" gap="0">
+                {!data.lectures.filter(lecture => {
+                  return lecture.lectureReviews.length;
+                }).length ? (
                   <div>등록된 수강 후기가 없습니다</div>
-                </FlexContainer>
-              ) : (
-                data.lectures.map((lecture, index) => {
-                  return (
-                    <FlexContainer width="100%" gap="0" dir="col" key={index}>
-                      {lecture.lectureReviews.map((el, index) => {
-                        return (
-                          <LectureReview
-                            key={index}
-                            setReviewOpen={setReviewOpen}
-                            setLectureReviewId={setLectureReviewId}
-                            lectureReviewId={el.lectureReviewId}
-                            title={el.title}
-                            starPoint={el.starPoint}
-                            createdAt={el.createdAt}
-                            voteCount={el.voteCount}
-                            lecture={el.lecture}
-                            member={el.member}
-                            totalCommentCount={el.totalCommentCount}
-                          />
-                        );
-                      })}
-                    </FlexContainer>
-                  );
-                })
-              )}
+                ) : (
+                  data.lectures.map((lecture, index) => {
+                    return (
+                      <FlexContainer width="100%" gap="0" dir="col" key={index}>
+                        {lecture.lectureReviews.map((el, index) => {
+                          return (
+                            <LectureReview
+                              key={index}
+                              setReviewOpen={setReviewOpen}
+                              setLectureReviewId={setLectureReviewId}
+                              lectureReviewId={el.lectureReviewId}
+                              title={el.title}
+                              starPoint={el.starPoint}
+                              createdAt={el.createdAt}
+                              voteCount={el.voteCount}
+                              lecture={el.lecture}
+                              member={el.member}
+                              totalCommentCount={el.totalCommentCount}
+                            />
+                          );
+                        })}
+                      </FlexContainer>
+                    );
+                  })
+                )}
+              </FlexContainer>
             </FlexContainer>
           )}
         </FlexContainer>
@@ -307,8 +294,6 @@ function TeacherReview() {
 }
 
 export default TeacherReview;
-
-const PButton = Button.PointBtn;
 
 type Container = {
   height?: string;
