@@ -43,12 +43,14 @@ function WritePost() {
           console.log('submit data', data);
           const resData = await PostData(data, 'frees');
           alert('게시글 작성을 완료하였습니다.');
-          navigate(`/free/articles/${resData.data.freeId}`);
+          navigate(`/free/articles/${resData.data.freeId}`, { replace: true });
         } else if (urlData === '/qna') {
           console.log('submit data', data);
           const resData = await PostData(data, 'qnas/questions');
           alert('게시글 작성을 완료하였습니다.');
-          navigate(`/qna/articles/${resData.data.questionId}`);
+          navigate(`/qna/articles/${resData.data.questionId}`, {
+            replace: true,
+          });
         }
       }
     } catch (err) {
@@ -71,7 +73,7 @@ function WritePost() {
           console.log('submit data', data);
           const resData = await PatchData(data, 'frees', Number(paramsData.id));
           alert('게시글 수정을 완료하였습니다.');
-          navigate(`/free/articles/${resData.data.freeId}`);
+          navigate(`/free/articles/${resData.data.freeId}`, { replace: true });
         } else if (urlData === '/qna') {
           console.log('submit data', data);
           const resData = await PatchData(
@@ -80,7 +82,9 @@ function WritePost() {
             Number(paramsData.id),
           );
           alert('게시글 수정을 완료하였습니다.');
-          navigate(`/qna/articles/${resData.data.questionId}`);
+          navigate(`/qna/articles/${resData.data.questionId}`, {
+            replace: true,
+          });
         }
       }
     } catch (err) {
@@ -212,16 +216,15 @@ function WritePost() {
           </PostDiv>
           <PostDiv>
             <Label htmlFor="post">내용</Label>
-            <div>
-              <ReactQuill
-                id="post"
+            <TextEditorDiv id="post">
+              <TextEditor
                 theme="snow"
                 modules={modules}
                 value={post}
                 onChange={setPost}
                 placeholder="내용을 입력해 주세요."
               />
-            </div>
+            </TextEditorDiv>
           </PostDiv>
           <PostDiv>
             <Label htmlFor="tag">태그</Label>
@@ -326,4 +329,16 @@ const CancelBtn = styled(Button.FilterBtn)`
     background-color: ${theme.colors.lightGray};
   }
 `;
+
+const TextEditorDiv = styled.div`
+  white-space: pre-wrap;
+  strong {
+    font-weight: bold;
+  }
+  em {
+    font-style: italic;
+  }
+`;
+
+const TextEditor = styled(ReactQuill)``;
 export default WritePost;

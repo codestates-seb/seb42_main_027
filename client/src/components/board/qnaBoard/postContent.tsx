@@ -137,7 +137,7 @@ function PostContent() {
             </Writer>
           </TitleDiv>
           <MainDiv>
-            <div dangerouslySetInnerHTML={{ __html: listData.content }} />
+            <TextDiv dangerouslySetInnerHTML={{ __html: listData.content }} />
             <VoteDiv>
               <Button.VoteDownBtn>
                 <CountIcon.VoteDown />
@@ -279,4 +279,50 @@ const WriteCommentDiv = styled.div`
   border-bottom: 1px solid ${theme.colors.gray};
 `;
 
+const TextDiv = styled.div`
+  font-size: 1rem;
+  line-height: 2rem;
+  margin-bottom: ${theme.gap.px20};
+  white-space: pre-wrap;
+
+  .ql-size-small {
+    font-size: ${theme.fontSizes.sm};
+  }
+  .ql-size-large {
+    font-size: ${theme.fontSizes.md};
+  }
+  .ql-size-huge {
+    font-size: ${theme.fontSizes.lg};
+  }
+  strong {
+    font-weight: bold;
+  }
+  em {
+    font-style: italic;
+  }
+  blockquote {
+    border-left: 4px solid #ccc;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 16px;
+  }
+  ol {
+    padding-left: 3em;
+  }
+  ol > li {
+    list-style: decimal;
+    &.ql-indent-1 {
+      margin-left: 3em;
+    }
+  }
+  ul {
+    padding-left: 3em;
+  }
+  ul > li {
+    list-style: disc;
+    &.ql-indent-1 {
+      margin-left: 3em;
+    }
+  }
+`;
 export default PostContent;
