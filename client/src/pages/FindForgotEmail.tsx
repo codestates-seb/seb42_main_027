@@ -72,6 +72,7 @@ const ModalButtonContainer = styled.div`
 
 function FindForgotEmail() {
   const [isOpen, setIsOpen] = useState(false);
+  const [foundEmail, setFoundEmail] = useState('');
   const [isSuccess, setIsSuccess] = useState(true);
   const [userName, setUserName] = useState('');
   const [isUserNameSuccess, setIsUserNameSuccess] = useState({
@@ -157,9 +158,9 @@ function FindForgotEmail() {
     ) {
       try {
         const response = await getForgotEmail(pathData);
+        setFoundEmail(response);
         setIsSuccess(true);
         setIsOpen(true);
-        console.log(response);
       } catch (error: any) {
         console.error(error);
         if (error.response.data === '이메일이 존재하지 않습니다.') {
@@ -230,7 +231,7 @@ function FindForgotEmail() {
             <ModalSubTitle>
               고객님의 정보와 일치하는 이메일 입니다.
             </ModalSubTitle>
-            <ModalContent>example@gmail.com</ModalContent>
+            <ModalContent>{foundEmail}</ModalContent>
             <ModalButtonContainer>
               <BaseButton
                 onClick={handleClickLoginBtn}
