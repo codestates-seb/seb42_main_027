@@ -25,6 +25,8 @@ public class TeacherDto {
         private List<String> profile;
         private List<String> analects;
         private String imageUrl;
+        private String profileImageUrl;
+        private String realImageUrl;
         private List<String> gradeTag;
         private List<String> subjectTag;
         private List<String> platformTag;
@@ -39,6 +41,8 @@ public class TeacherDto {
         private List<String> profile;
         private List<String> analects;
         private String imageUrl;
+        private String profileImageUrl;
+        private String RealImageUrl;
         private List<String> gradeTag;
         private List<String> subjectTag;
         private List<String> platformTag;
@@ -50,6 +54,8 @@ public class TeacherDto {
         private String name;
         private String introduction;
         private String imageUrl;
+        private String profileImageUrl;
+        private String realImageUrl;
         private double starPointAverage;
         private long totalReviewCount;
         private List<GradeTagDto.Response> gradeTags;
@@ -64,6 +70,8 @@ public class TeacherDto {
         private String name;
         private String introduction;
         private String imageUrl;
+        private String profileImageUrl;
+        private String realImageUrl;
         private List<String> profile;
         private List<String> analects;
         private double starPointAverage;
@@ -80,6 +88,8 @@ public class TeacherDto {
         private String name;
         private String introduction;
         private String imageUrl;
+        private String profileImageUrl;
+        private String realImageUrl;
         private List<String> profile;
         private List<String> analects;
         private double starPointAverage;

@@ -5,6 +5,7 @@
     <content url="file://$MODULE_DIR$/../../server/build/generated/sources/annotationProcessor/java/test">
       <sourceFolder url="file://$MODULE_DIR$/../../server/build/generated/sources/annotationProcessor/java/test" isTestSource="true" generated="true" />
     </content>
+    <orderEntry type="jdk" jdkName="11" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestModuleProperties" production-module="server.main" />
