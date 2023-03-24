@@ -3,9 +3,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
-import isLogin from 'utils/isLogin';
 import axios from 'axios';
-import PButton from 'components/member/login/PButton';
+import useUserInfoStore from 'stores/userInfoStore';
 
 type Props = {
   teachers: {
@@ -19,29 +18,52 @@ type Props = {
     teacherId: number;
     totalReviewCount: number;
   }[];
+  setPlatform: React.Dispatch<React.SetStateAction<string>>;
+  setSubject: React.Dispatch<React.SetStateAction<string>>;
+  setCurPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-function CharacterCard({ teachers }: Props) {
+function CharacterCard({
+  teachers,
+  setPlatform,
+  setSubject,
+  setCurPage,
+}: Props) {
+  const { userInfo } = useUserInfoStore(state => state);
+
   return (
     <Container>
       {teachers.map((el, index) => {
         return (
           <FlexContainer dir="col" key={index}>
-            <Link to={`/ReviewPageDetail/${el.teacherId}`}>
-              <CardContainer>
-                <Img src="http://placehold.it/200X200" alt="dummyImage" />
-                <Span>{el.name}</Span>
-                <Span>{el.platformTags[0].platformTag}</Span>
-                <Span>{el.subjectTags[0].subjectTag}</Span>
-                <LargeSpan>
-                  {el.introduction.length > 10
-                    ? `${el.introduction.slice(0, 10)}...`
-                    : el.introduction}
-                </LargeSpan>
-                <Span>⭐️ {el.starPointAverage.toFixed(1)}</Span>
-              </CardContainer>
-            </Link>
-            <FlexContainer display={isLogin() ? 'flex' : 'none'}>
+            <CardContainer>
+              <Link to={`/ReviewPageDetail/${el.teacherId}`}>
+                <Img src="http://placehold.it/170X175" alt="thumbnail" />
+              </Link>
+              <NomalSpan>{el.name}</NomalSpan>
+              <Span
+                onClick={() => {
+                  setPlatform(el.platformTags[0].platformTag);
+                  setSubject('전체');
+                  setCurPage(1);
+                }}
+              >
+                {el.platformTags[0].platformTag}
+              </Span>
+              <Span
+                onClick={() => {
+                  setSubject(el.subjectTags[0].subjectTag);
+                  setPlatform('전체');
+                  setCurPage(1);
+                }}
+              >
+                {el.subjectTags[0].subjectTag}
+              </Span>
+              <NomalSpan>⭐️ {el.starPointAverage.toFixed(1)}</NomalSpan>
+            </CardContainer>
+            <FlexContainer
+              display={userInfo.state === 'ADMIN' ? 'flex' : 'none'}
+            >
               <Link to={`updateTeacher/${el.teacherId}`}>
                 <button>수정</button>
               </Link>
@@ -92,18 +114,22 @@ const CardContainer = styled.div`
 `;
 
 const Img = styled.img`
-  width: 10.5rem;
-  height: 6rem;
+  width: 170px;
+  height: 175px;
   border-radius: 0.5rem;
   background-color: #b8b8b8;
 `;
 
 const Span = styled.span`
   font-weight: bold;
+  cursor: pointer;
+  :hover {
+    color: red;
+  }
 `;
 
-const LargeSpan = styled.span`
-  margin: 1rem 0;
+const NomalSpan = styled.span`
   font-size: large;
   font-weight: bold;
+  cursor: default;
 `;
