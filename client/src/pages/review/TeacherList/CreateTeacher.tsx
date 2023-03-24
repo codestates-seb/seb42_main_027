@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import GlobalStyle from 'GlobalStyles';
@@ -15,13 +16,18 @@ function CreateTeacher() {
   const [introduction, setIntroduction] = useState<string>('');
   const [profile, setProfile] = useState<string>('');
   const [analects, setAnalects] = useState<string>('');
-  const [imageUrl, setImageUrl] = useState<string>('none');
+  const [profileImage, setProfileImage] = useState<FormData>();
+  const [profilePreview, setProfilePreview] = useState(
+    'http://placehold.it/340X240',
+  );
+  const [realImage, setRealImage] = useState<FormData>();
+  const [realPreview, setRealPreview] = useState('http://placehold.it/340X240');
 
   const navigate = useNavigate();
 
   const subjectArr: string[][] = [
     ['국어', '영어', '수학', '한국사'],
-    ['경제/정.법', '지리', '윤리', '역사', '일반사회'],
+    ['경제', '정법', '지리', '윤리', '역사', '일반사회'],
     ['물리학', '화학', '생명과학', '지구과학', '일반과학'],
     ['제2외국어', '대학별고사', '그외'],
   ];
@@ -32,7 +38,8 @@ function CreateTeacher() {
   ];
 
   const platformArr: string[][] = [
-    ['이투스', '메가스터디', 'EBS', '에듀윌', '기타'],
+    ['이투스', '메가스터디', 'EBS'],
+    ['에듀윌', '대성마이맥', '기타'],
   ];
 
   const subjectClickHandler = (e: any) => {
@@ -54,7 +61,7 @@ function CreateTeacher() {
   };
 
   useEffect(() => {
-    console.log('Rerendering!');
+    console.log('Rerendering');
   }, []);
 
   const createHandler = () => {
@@ -66,7 +73,8 @@ function CreateTeacher() {
       !introduction ||
       !profile.length ||
       !analects.length ||
-      !imageUrl
+      !profileImage ||
+      !realImage
     ) {
       alert('빈 곳을 채워주세요!');
     } else {
@@ -78,7 +86,8 @@ function CreateTeacher() {
         introduction,
         profile: profile.split('\n'),
         analects: analects.split('\n'),
-        imageUrl,
+        profileImage,
+        realImage,
       };
 
       axios
@@ -87,7 +96,7 @@ function CreateTeacher() {
             'ngrok-skip-browser-warning': 'asdasdas',
           },
         })
-        .then(res => {
+        .then(() => {
           navigate(-1);
         });
     }
@@ -98,7 +107,57 @@ function CreateTeacher() {
       <GlobalStyle />
       <FlexContainer dir="col">
         <CardContainer>
-          <Img src="http://placehold.it/200X200" alt="dummyImage" />
+          {/* 프로필 사진 */}
+          <FlexContainer dir="col" align="start">
+            <label htmlFor="profile">프로필 사진</label>
+            <input
+              id="profile"
+              type="file"
+              accept="image/*"
+              onChange={(e: any) => {
+                if (e.target.files.length) {
+                  const formData = new FormData();
+                  formData.append('img', e.target.files[0]);
+                  setProfileImage(e.target.files[0]);
+                  const fileReader = new FileReader();
+                  fileReader.readAsDataURL(e.target.files[0]);
+                  fileReader.onload = (e: any) => {
+                    setProfilePreview(e.target.result);
+                  };
+                } else {
+                  setProfileImage(new FormData());
+                  setProfilePreview('http://placehold.it/340X240');
+                }
+              }}
+            />
+            <Img src={profilePreview} />
+          </FlexContainer>
+          {/* 실제 사진 */}
+          <FlexContainer dir="col" align="start">
+            <label htmlFor="real">실제 사진</label>
+            <input
+              id="real"
+              type="file"
+              accept="image/*"
+              onChange={(e: any) => {
+                if (e.target.files.length) {
+                  const formData = new FormData();
+                  formData.append('img', e.target.files[0]);
+                  setRealImage(e.target.files[0]);
+                  const fileReader = new FileReader();
+                  fileReader.readAsDataURL(e.target.files[0]);
+                  fileReader.onload = (e: any) => {
+                    setRealPreview(e.target.result);
+                  };
+                } else {
+                  setRealImage(new FormData());
+                  setRealPreview('http://placehold.it/340X240');
+                }
+              }}
+            />
+            <Img src={realPreview} />
+          </FlexContainer>
+          {/* 강사명 */}
           <ColumDiv>
             <label htmlFor="name">강사명</label>
             <Input
@@ -107,92 +166,98 @@ function CreateTeacher() {
               onChange={e => setName(e.target.value)}
             />
           </ColumDiv>
-
+          {/* 과목 선택 */}
           <ColumDiv>
             <label htmlFor="subject">과목</label>
-            {subjectArr.map((row, index) => {
-              return (
-                <FlexContainer
-                  wrap="wrap"
-                  gap="0.3rem"
-                  justify="start"
-                  key={index}
-                >
-                  {row.map((el, index) => {
-                    return (
-                      <FlexContainer key={index} gap="0.1rem">
-                        <input
-                          id={el}
-                          value={el}
-                          type="checkbox"
-                          onClick={subjectClickHandler}
-                        />
-                        <label htmlFor={el}>{el}</label>
-                      </FlexContainer>
-                    );
-                  })}
-                </FlexContainer>
-              );
-            })}
+            <FlexContainer dir="col" align="start" padding="1rem 0">
+              {subjectArr.map((row, index) => {
+                return (
+                  <FlexContainer
+                    wrap="wrap"
+                    gap="0.3rem"
+                    justify="start"
+                    key={index}
+                  >
+                    {row.map((el, index) => {
+                      return (
+                        <FlexContainer key={index} gap="0.2rem">
+                          <input
+                            id={el}
+                            value={el}
+                            type="checkbox"
+                            onClick={subjectClickHandler}
+                          />
+                          <label htmlFor={el}>{el}</label>
+                        </FlexContainer>
+                      );
+                    })}
+                  </FlexContainer>
+                );
+              })}
+            </FlexContainer>
           </ColumDiv>
-
+          {/* 학년 선택 */}
           <ColumDiv>
-            <label htmlFor="subject">학년</label>
-            {gradeArr.map((row, index) => {
-              return (
-                <FlexContainer
-                  wrap="wrap"
-                  gap="0.3rem"
-                  justify="start"
-                  key={index}
-                >
-                  {row.map((el, index) => {
-                    return (
-                      <FlexContainer key={index} gap="0.1rem">
-                        <input
-                          id={el}
-                          value={el}
-                          type="checkbox"
-                          onClick={gradeClickHandler}
-                        />
-                        <label htmlFor={el}>{el}</label>
-                      </FlexContainer>
-                    );
-                  })}
-                </FlexContainer>
-              );
-            })}
+            <FlexContainer dir="col" align="start" padding="1rem 0">
+              <label htmlFor="subject">학년</label>
+              {gradeArr.map((row, index) => {
+                return (
+                  <FlexContainer
+                    wrap="wrap"
+                    gap="0.3rem"
+                    justify="start"
+                    key={index}
+                  >
+                    {row.map((el, index) => {
+                      return (
+                        <FlexContainer key={index} gap="0.1rem">
+                          <input
+                            id={el}
+                            value={el}
+                            type="checkbox"
+                            onClick={gradeClickHandler}
+                          />
+                          <label htmlFor={el}>{el}</label>
+                        </FlexContainer>
+                      );
+                    })}
+                  </FlexContainer>
+                );
+              })}
+            </FlexContainer>
           </ColumDiv>
-
+          {/* 플랫폼 선택 */}
           <ColumDiv>
-            <label htmlFor="subject">플랫폼</label>
-            {platformArr.map((row, index) => {
-              return (
-                <FlexContainer
-                  wrap="wrap"
-                  gap="0.3rem"
-                  justify="start"
-                  key={index}
-                >
-                  {row.map((el, index) => {
-                    return (
-                      <FlexContainer key={index} gap="0.1rem">
-                        <input
-                          id={el}
-                          value={el}
-                          readOnly
-                          type="checkbox"
-                          onClick={platformClickHandler}
-                        />
-                        <label htmlFor={el}>{el}</label>
-                      </FlexContainer>
-                    );
-                  })}
-                </FlexContainer>
-              );
-            })}
+            <FlexContainer dir="col" align="start" padding="1rem 0">
+              <label htmlFor="subject">플랫폼</label>
+              {platformArr.map((row, index) => {
+                return (
+                  <FlexContainer
+                    wrap="wrap"
+                    gap="0.3rem"
+                    justify="start"
+                    key={index}
+                  >
+                    {row.map((el, index) => {
+                      return (
+                        <FlexContainer key={index} gap="0.1rem">
+                          <input
+                            id={el}
+                            value={el}
+                            readOnly
+                            type="checkbox"
+                            onClick={platformClickHandler}
+                          />
+                          <label htmlFor={el}>{el}</label>
+                        </FlexContainer>
+                      );
+                    })}
+                  </FlexContainer>
+                );
+              })}
+            </FlexContainer>
           </ColumDiv>
-
+          {/* 프로필 */}
           <ColumDiv>
             <label htmlFor="profile">프로필</label>
             <Textarea
@@ -203,6 +268,7 @@ function CreateTeacher() {
               }}
             />
           </ColumDiv>
+          {/* 어록 */}
           <ColumDiv>
             <label htmlFor="analects">어록</label>
             <Textarea
@@ -213,6 +279,7 @@ function CreateTeacher() {
               }}
             />
           </ColumDiv>
+          {/* 강사 소개글 */}
           <ColumDiv>
             <label htmlFor="expectingContent">강사 소개글</label>
             <Textarea
@@ -226,6 +293,7 @@ function CreateTeacher() {
           <Span>⭐️ 신입</Span>
         </CardContainer>
       </FlexContainer>
+      {/* 등록, 취소 버튼 */}
       <FlexContainer>
         <UploadButton onClick={createHandler}>강사 등록</UploadButton>
         <UploadButton
@@ -252,7 +320,7 @@ export const UpdateContainer = styled.div`
 `;
 
 export const ColumDiv = styled.div`
-  width: 80%;
+  width: 88%;
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -263,7 +331,8 @@ export const Input = styled.input`
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 1rem;
-  border: 1px solid black;
+  border: 0.3px solid gray;
+  border-radius: 10px;
 `;
 export const Textarea = styled.textarea`
   width: 100%;
@@ -300,8 +369,8 @@ export const CardContainer = styled.div`
 `;
 
 export const Img = styled.img`
-  width: 25rem;
-  height: 15rem;
+  width: 340px;
+  height: 240px;
   border-radius: 0.5rem;
   background-color: #b8b8b8;
 `;

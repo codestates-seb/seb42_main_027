@@ -17,6 +17,7 @@ import { useParams, useNavigate } from 'react-router';
 import ReviewCommentCreate from 'components/review/ReviewCommentCreate';
 import { Link } from 'react-router-dom';
 import isLogin from 'utils/isLogin';
+import useUserInfoStore from 'stores/userInfoStore';
 
 const defaultDetailData = {
   lectureReviewId: 1,
@@ -78,6 +79,7 @@ function LectureReviewDetailPage() {
   const [voteStatus, setVoteStatus] = useState('');
 
   const { lectureReviewId } = useParams();
+  const { userInfo } = useUserInfoStore(state => state);
   const Authorization = localStorage.getItem('token');
   const navigate = useNavigate();
 
@@ -173,7 +175,9 @@ function LectureReviewDetailPage() {
             </FlexContainer>
           </FlexContainer>
           <FlexContainer
-            display={isLogin() ? 'flex' : 'none'}
+            display={
+              userInfo.memberId === detailData.member.memberId ? 'flex' : 'none'
+            }
             width="80%"
             justify="right"
             padding="1rem 0 0 0"

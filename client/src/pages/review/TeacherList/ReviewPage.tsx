@@ -13,7 +13,7 @@ import axios from 'axios';
 import Button from 'components/common/Button';
 import isLogin from 'utils/isLogin';
 import { Link } from 'react-router-dom';
-import { type } from 'os';
+import useUserInfoStore from 'stores/userInfoStore';
 
 type Teachers = {
   gradeTags: string[];
@@ -55,6 +55,8 @@ function ReviewPage() {
   const [pageSize, setPageSize] = useState<number>(6);
   const [isPending, setIsPending] = useState(true);
 
+  const { userInfo } = useUserInfoStore(state => state);
+
   useEffect(() => {
     setIsPending(true);
     axios
@@ -90,7 +92,7 @@ function ReviewPage() {
       <GlobalStyle />
       <Carousel />
       <FlexContainer
-        display={isLogin() ? 'flex' : 'none'}
+        display={userInfo.state === 'ADMIN' ? 'flex' : 'none'}
         width="80%"
         justify="right"
       >
@@ -130,7 +132,12 @@ function ReviewPage() {
           {!teachers.length ? (
             <FlexContainer height="50vh">등록된 강사가 없습니다</FlexContainer>
           ) : (
-            <CharacterCard teachers={teachers} />
+            <CharacterCard
+              teachers={teachers}
+              setPlatform={setPlatform}
+              setSubject={setSubject}
+              setCurPage={setCurPage}
+            />
           )}
         </FlexContainer>
       )}

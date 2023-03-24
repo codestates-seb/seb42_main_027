@@ -11,6 +11,7 @@ import {
 import { AiFillStar } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import useUserInfoStore from 'stores/userInfoStore';
 import LectureReviewComment from './LectureReviewComment';
 import Loading from './Loading';
 
@@ -83,6 +84,7 @@ function LectureReviewDetail({
   const [reviewVote, setReviewVote] = useState(detailData.voteCount);
   const [voteStatus, setVoteStatus] = useState('');
 
+  const { userInfo } = useUserInfoStore(state => state);
   const Authorization = localStorage.getItem('token');
 
   useEffect(() => {
