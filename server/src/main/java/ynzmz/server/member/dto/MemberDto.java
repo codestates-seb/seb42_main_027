@@ -142,7 +142,7 @@ public class MemberDto{
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public class FindEmail {
+    public static class FindEmail {
         private String username;
         private String phoneNumber;
     }

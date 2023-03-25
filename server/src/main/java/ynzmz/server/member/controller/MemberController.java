@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.board.free.dto.FreeDto;
 import ynzmz.server.board.free.entity.Free;
@@ -38,6 +39,7 @@ import ynzmz.server.comment.review.lecture.mapper.LectureReviewCommentMapper;
 import ynzmz.server.comment.review.lecture.service.LectureReviewCommentService;
 import ynzmz.server.dto.MultiResponseDto;
 import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.member.dto.MailDto;
 import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.member.dto.MemberDto;
@@ -197,7 +199,6 @@ public class MemberController {
 
     }
 
-
     //비밀번호변경
     @PatchMapping("/{email}/finds/changepasswords")
     public ResponseEntity<?> FindChangePassword( @PathVariable("email") String email, @RequestBody MemberDto.FindChangePassword findPassword) {
@@ -209,6 +210,16 @@ public class MemberController {
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
+
+    //임시비밀번호발급
+    @Transactional
+    @PostMapping("/sendEmail")
+    public String SendEmail(@RequestParam("memberEmail") String memberEmail){
+        MailDto mailDto = memberService.creatMailAndChangePassword(memberEmail);
+        memberService.mailSend(mailDto);
+        return "redirect:/auth/login";
+    }
+
 
 
 

@@ -2,6 +2,7 @@ package ynzmz.server.member.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -23,6 +24,10 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query(value = "SELECT i FROM Member i WHERE i.memberId = :memberId")
     Optional<Member> findById(long memberId);
+
+    @Modifying
+    @Query(value = "UPDATE Member SET password = :memberPassword WHERE memberId = :memberId")
+    void updatePassword(@Param("memberId") Long memberId, @Param("memberPassword") String memberPassword);
 
 
 //    @Query("UPDATE Member m SET m.password = :newPassword WHERE m.memberId = :memberId")
