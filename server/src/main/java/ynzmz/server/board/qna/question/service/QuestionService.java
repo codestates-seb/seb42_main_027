@@ -111,17 +111,17 @@ public class QuestionService {
 
         //질문글 등록한사람 본인이 답변채택 할수있어야함.
         Question question = checkTheAuthorOfTheQuestion(member, questionId);
-        if (question.getAdoptAnswerId() == 0L) { //만약 채택되있는게 없으면 신청한걸로 채택
+        if (question.getAdoptAnswerId() == null) { //만약 채택되있는게 없으면 신청한걸로 채택
             question.setAdoptAnswerId(answer.getAnswerId());
             answer.setAdoptStatus(Answer.AdoptStatus.TRUE);
             log.info("처음 채택시 그냥 채택");
-        } else if (question.getAdoptAnswerId() != answer.getAnswerId()) { // 다른것이 채택되어있으면, 기존꺼 취소후 신청한걸로 채택
+        } else if ((long) question.getAdoptAnswerId() != answer.getAnswerId()) { // 다른것이 채택되어있으면, 기존꺼 취소후 신청한걸로 채택
             Answer oldAdoptAnswer = answerService.findAnswerById(question.getAdoptAnswerId()); // 기존꺼 답변 채택취소로변경
             oldAdoptAnswer.setAdoptStatus(Answer.AdoptStatus.FALSE); // 기존꺼 답변 채택취소로변경
             question.setAdoptAnswerId(answer.getAnswerId()); //새로운거 채택
             answer.setAdoptStatus(Answer.AdoptStatus.TRUE); //새로운거 채택
             log.info("다른거 채택되있을시 기존값 변경후 채택");
-        } else if (question.getAdoptAnswerId() == answer.getAnswerId()) { // 채택된것을 다시 채택을 누르면 채택취소되게
+        } else if ((long) question.getAdoptAnswerId() == answer.getAnswerId()) { // 채택된것을 다시 채택을 누르면 채택취소되게
             question.setAdoptAnswerId(0L); // 질문에는 아무것도 없는상태로
             answer.setAdoptStatus(Answer.AdoptStatus.FALSE); //답변글을  취소로 변경
             log.info("채택 두번시 채택취소");

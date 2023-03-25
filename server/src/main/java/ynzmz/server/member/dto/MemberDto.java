@@ -5,6 +5,8 @@ import lombok.*;
 import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.vote.Vote;
 import ynzmz.server.vote.qna.dto.LoginUserAnswerVoteResponseDto;
+import ynzmz.server.vote.qna.dto.LoginUserQnaCommentVoteResponseDto;
+import ynzmz.server.vote.qna.dto.LoginUserQnaReCommentVoteResponseDto;
 import ynzmz.server.vote.review.lecture.dto.LoginUserLectureReviewCommentVoteResponseDto;
 import ynzmz.server.vote.review.lecture.dto.LoginUserLectureReviewVoteResponseDto;
 
@@ -100,6 +102,8 @@ public class MemberDto{
         private Long questionId;
         private Vote.Status questionvoteStatus;
         private List<LoginUserAnswerVoteResponseDto> answerVoteStatus = new ArrayList<>();
+        private List<LoginUserQnaCommentVoteResponseDto> qnaCommentVoteStatus = new ArrayList<>();
+        private List<LoginUserQnaReCommentVoteResponseDto> qnaReCommentVoteStatus = new ArrayList<>();
 
     }
 

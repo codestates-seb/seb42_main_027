@@ -3,9 +3,7 @@ package ynzmz.server.board.qna.question.dto;
 import lombok.*;
 import ynzmz.server.comment.qna.dto.QnaCommentDto;
 import ynzmz.server.member.dto.MemberDto;
-import ynzmz.server.member.entity.Member;
 import ynzmz.server.board.qna.answer.dto.AnswerDto;
-import ynzmz.server.tag.dto.SubjectTagDto;
 
 import java.util.List;
 
@@ -77,7 +75,7 @@ public class QuestionDto {
         private long answerCount;
         private List<AnswerDto.Response> answers;
         private List<QnaCommentDto.Response> comments;
-        private MemberDto.VoteInfo loginUserInfo;
+        private MemberDto.VoteInfo loginUserVoteInfo;
     }
 
     @Getter
@@ -90,6 +88,7 @@ public class QuestionDto {
         private String modifiedAt;
         private long viewCount;
         private long voteCount;
+        private Long adoptAnswerId;
         private MemberDto.SimpleInfoResponse member;
     }
 }

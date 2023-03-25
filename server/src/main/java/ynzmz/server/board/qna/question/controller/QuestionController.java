@@ -23,7 +23,6 @@ import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.qna.question.mapper.QuestionMapper;
 import ynzmz.server.board.qna.question.service.QuestionService;
 import ynzmz.server.s3.S3Service;
-import ynzmz.server.tag.service.TagService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -102,9 +101,9 @@ public class QuestionController {
             Question question = questionService.findQuestionById(questionId);
             questionService.setViewCount(question); //조회수기능  1번당 1씩 올라가게 (임시)
 
-            MemberDto.VoteInfo loginMemberVoteInfo = memberService.setMemberVoteStatus(loginMember, question);
+            MemberDto.VoteInfo loginMemberVoteInfo = memberService.findQnaVoteStatusByLoginUser(loginMember, question);
             QuestionDto.DetailPageResponse response = questionMapper.questionToQuestionDetailPageResponse(question);
-            response.setLoginUserInfo(loginMemberVoteInfo);
+            response.setLoginUserVoteInfo(loginMemberVoteInfo);
 
             return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
         } catch (BusinessLogicException e) {
@@ -113,7 +112,7 @@ public class QuestionController {
             questionService.setViewCount(question); //조회수기능  1번당 1씩 올라가게 (임시)
 
             QuestionDto.DetailPageResponse response = questionMapper.questionToQuestionDetailPageResponse(question);
-            response.setLoginUserInfo(null);
+            response.setLoginUserVoteInfo(null);
 
             return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
         }

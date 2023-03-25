@@ -29,7 +29,7 @@ public class Question implements Vote {
     private long answerCount;
     private String createdAt;
     private String modifiedAt;
-    private long adoptAnswerId;
+    private Long adoptAnswerId;
     @ElementCollection(targetClass=String.class)
     @Column
     private List<String> uploadImages = new ArrayList<>();
