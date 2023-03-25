@@ -14,7 +14,6 @@ public class QuestionDto {
     @AllArgsConstructor
     @Builder
     public static class Post {
-        private Long questionId;
         private String title;
         private String content;
         private String category;
@@ -27,7 +26,6 @@ public class QuestionDto {
     @AllArgsConstructor
     @Builder
     public static class Patch {
-        private Long questionId;
         private String title;
         private String content;
         private String category;
@@ -37,7 +35,7 @@ public class QuestionDto {
     @Getter
     @Setter
     public static class ListPageResponse {
-        private Long questionId;
+        private long questionId;
         private String title;
         private String content;
         private String category;
@@ -53,7 +51,7 @@ public class QuestionDto {
     @Getter
     @Setter
     public static class InfoResponse {
-        private Long questionId;
+        private long questionId;
         private MemberDto.SimpleInfoResponse member;
         private String title;
         private String content;
@@ -67,7 +65,7 @@ public class QuestionDto {
     @Getter
     @Setter
     public static class DetailPageResponse {
-        private Long questionId;
+        private long questionId;
         private MemberDto.SimpleInfoResponse member;
         private String title;
         private String content;
@@ -85,7 +83,7 @@ public class QuestionDto {
     @Getter
     @Setter
     public static class SimpleInfoResponse {
-        private Long questionId;
+        private long questionId;
         private String title;
         private String category;
         private String createdAt;

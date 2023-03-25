@@ -14,6 +14,8 @@ import ynzmz.server.recomment.qna.entity.QnaReComment;
 import ynzmz.server.recomment.qna.mapper.QnaReCommentMapper;
 import ynzmz.server.recomment.qna.service.QnaReCommentService;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/recomments/qnas")
 @RequiredArgsConstructor
@@ -51,11 +53,14 @@ public class QnaReCommentController {
     }
 
     @DeleteMapping("/{qna-recomment-id}")
-    public void deleteQnaComment(@PathVariable("qna-recomment-id") long qnaReCommentId) {
+    public ResponseEntity<?> deleteQnaComment(@PathVariable("qna-recomment-id") long qnaReCommentId) {
         //본인확인
         memberService.memberValidation(loginMemberFindByToken(), qnaReCommentService.findQnaReCommentById(qnaReCommentId).getMember().getMemberId());
 
         qnaReCommentService.deleteQnaReComment(qnaReCommentId);
+        Optional<QnaReComment> deletedQnaReComment = qnaReCommentService.findOptionalQnaReCommentById(qnaReCommentId);
+        return deletedQnaReComment.isEmpty() ? new ResponseEntity<>("삭제완료",HttpStatus.OK) : new ResponseEntity<>("삭제실패",HttpStatus.INTERNAL_SERVER_ERROR);
+
     }
 
     private Member loginMemberFindByToken(){

@@ -45,7 +45,6 @@ public class QuestionController {
     @PostMapping
     public ResponseEntity<?> postQuestion(@Valid @RequestBody QuestionDto.Post questionPost){
         Question requestQuestion = questionMapper.questionPostToQuestion(questionPost);
-        //토큰에서 memberId 확인
         requestQuestion.setMember(loginMemberFindByToken());
 
         Question createdQuestion = questionService.createQuestion(requestQuestion);
@@ -70,7 +69,7 @@ public class QuestionController {
         return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
 
-    //질문글 검색 리스트페이지 = 과목태그별 + 정렬 + 정순 역순
+    //질문글 검색 리스트페이지 = 과목태그별 + 정렬 + 정순 역순 default
     @GetMapping
     public ResponseEntity<?> getQuestions(@RequestParam(required = false) String category,
                                           @RequestParam(required = false) String title,

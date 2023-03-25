@@ -34,11 +34,11 @@ public class QuestionService {
 
     public Question updateQuestion(Question question) {
         Question findQuestion = findQuestionById(question.getQuestionId());
-        Optional.ofNullable(question.getAnswers()).ifPresent(findQuestion::setAnswers);
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
         Optional.ofNullable(question.getCategory()).ifPresent(findQuestion::setCategory);
         Optional.ofNullable(question.getModifiedAt()).ifPresent(findQuestion::setModifiedAt);
+        Optional.ofNullable(question.getUploadImages()).ifPresent(findQuestion::setUploadImages);
         return questionRepository.save(findQuestion);
     }
 
