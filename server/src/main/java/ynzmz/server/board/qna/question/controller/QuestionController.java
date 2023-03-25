@@ -27,6 +27,7 @@ import ynzmz.server.tag.service.TagService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/boards/qnas/questions")
@@ -139,15 +140,16 @@ public class QuestionController {
     @DeleteMapping("/{question-id}")
     public ResponseEntity<?> deleteQuestion(@PathVariable("question-id") long questionId){
 
-        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
-        Member member = memberService.findMemberByEmail(loginEmail);
+        //게시글 작성자 & 로그인된 회원 일치하는지 확인
+        memberService.memberValidation(loginMemberFindByToken(), questionService.findQuestionById(questionId).getMember().getMemberId());
+
         Question question = questionService.findQuestionById(questionId);
         //게시글 이미지 삭제
         s3Service.deleteFilesByS3Urls(question.getUploadImages());
+        questionService.deleteQuestion(questionId);
+        Optional<Question> deletedQuestion = questionService.findOptionalQuestionById(questionId);
 
-        boolean deleteStatus = questionService.deleteQuestion(questionId, member);
-
-        return deleteStatus ? new ResponseEntity<>("삭제완료",HttpStatus.OK) : new ResponseEntity<>("삭제실패",HttpStatus.INTERNAL_SERVER_ERROR);
+        return deletedQuestion.isEmpty() ? new ResponseEntity<>("삭제완료",HttpStatus.OK) : new ResponseEntity<>("삭제실패",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**

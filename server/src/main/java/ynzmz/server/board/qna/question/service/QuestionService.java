@@ -42,16 +42,9 @@ public class QuestionService {
         return questionRepository.save(findQuestion);
     }
 
-    public boolean deleteQuestion(long questionId, Member member) {
-        //내가쓴 질문글중에 지워야하는 게시글 id가 있으면 삭제
-        List<Question> questions = member.getQuestions();
-        for (Question question : questions) {
-            long findQuestionId = question.getQuestionId();
-            if (findQuestionId == questionId) questionRepository.deleteById(findQuestionId);
-        }
-        //질문글 검색해서 값이 없으면 성공
-        Optional<Question> deleteQuestion = questionRepository.findById(questionId);
-        return deleteQuestion.isEmpty();
+    @Transactional
+    public void deleteQuestion(long questionId) {
+        questionRepository.deleteById(questionId);
     }
 
     public Page<Question> findAllQuestions(String title,String sort, int page, int size) {
@@ -102,6 +95,10 @@ public class QuestionService {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
 
         return optionalQuestion.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+    }
+    @Transactional
+    public Optional<Question> findOptionalQuestionById(long questionId) {
+        return questionRepository.findById(questionId);
     }
 
     @Transactional
