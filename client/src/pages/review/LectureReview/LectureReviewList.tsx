@@ -8,6 +8,7 @@ import isLogin from 'utils/isLogin';
 import Button from 'components/common/Button';
 import Loading from 'components/review/Loading';
 import LectureReview2 from 'components/review/LectureReview2';
+import LectureIntro from 'components/review/LectureIntro';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 import { SmallFont } from '../TeacherDetail/Information';
 
@@ -123,6 +124,12 @@ function LectureReviewList() {
             <FlexContainer height="50vh">등록된 리뷰가 없습니다</FlexContainer>
           ) : (
             <FlexContainer width="50rem" dir="col" gap="1rem">
+              {data.data.lectureReviews.length ? (
+                <LectureIntro
+                  lecture={data.data.lectureReviews[0].lecture}
+                  teacher={data.data.teacher}
+                />
+              ) : null}
               <FlexContainer
                 width="100%"
                 borderTop="2px solid black"
