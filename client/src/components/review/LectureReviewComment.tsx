@@ -4,9 +4,9 @@
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
-import { Link, useParams } from 'react-router-dom';
-import isLogin from 'utils/isLogin';
-import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { useState } from 'react';
 import axios from 'axios';
 import {
   BsFillHandThumbsUpFill,
