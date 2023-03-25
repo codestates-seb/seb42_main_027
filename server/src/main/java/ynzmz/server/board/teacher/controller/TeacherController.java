@@ -21,6 +21,7 @@ import ynzmz.server.board.teacher.service.TeacherService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/boards/teachers")
@@ -127,11 +128,14 @@ public class TeacherController {
     }
     //강사 삭제
     @DeleteMapping("/{teacher-id}")
-    public void deleteTeacher(@PathVariable("teacher-id") long teacherId){
+    public ResponseEntity<?> deleteTeacher(@PathVariable("teacher-id") long teacherId){
         Teacher teacher = teacherService.findTeacherById(teacherId);
 
         s3Service.deleteFileByS3Url(teacher.getProfileImageUrl());
         s3Service.deleteFileByS3Url(teacher.getRealImageUrl());
         teacherService.deleteTeacher(teacherId);
+        Optional<Teacher> deletedTeacher = teacherService.findOptionalTeacherById(teacherId);
+
+        return deletedTeacher.isEmpty() ? new ResponseEntity<>("삭제완료",HttpStatus.OK) : new ResponseEntity<>("삭제실패",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

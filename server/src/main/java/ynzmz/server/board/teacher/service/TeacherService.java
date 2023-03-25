@@ -51,6 +51,7 @@ public class TeacherService {
         return teacherRepository.findAllByGradeAndPlatformAndSubjectAndName(grade, platform, subject, name, PageRequest.of(page, size, JpaSort.unsafe("RAND()")));
     }
 
+    @Transactional
     public void deleteTeacher(long teacherId) {
         teacherRepository.deleteById(teacherId);
     }
@@ -76,5 +77,8 @@ public class TeacherService {
     public Teacher findTeacherById(long teacherId){
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
         return teacher.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TEACHER_NOT_FOUND));
+    }
+    public Optional<Teacher> findOptionalTeacherById(long teacherId){
+        return teacherRepository.findById(teacherId);
     }
 }

@@ -21,6 +21,7 @@ import ynzmz.server.board.teacher.service.TeacherService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/boards/lectures")
@@ -92,7 +93,6 @@ public class LectureController {
         PlatformTag.Platform platformTag = (platform != null) ? tagService.findPlatformTag(platform) : null;
         SubjectTag.Subject subjectTag = (subject != null) ? tagService.findSubjectTag(subject) : null;
 
-//        Page<Lecture> lecturePage = lectureService.findLecturesN(gradeTag, platformTag, subjectTag, title, sort, page - 1, size);
         Page<Lecture> lecturePage = (sort.equals("random"))
                 ? lectureService.findLecturesByRandom(gradeTag, platformTag, subjectTag, title, sort,page - 1, size)
                 : (reverse == null && sort.equals("starPointAverage"))
@@ -122,8 +122,12 @@ public class LectureController {
     }
     //강의 삭제
     @DeleteMapping("/{lecture-id}")
-    public void deleteLecture(@PathVariable("lecture-id") long lectureId) {
+    public ResponseEntity<?> deleteLecture(@PathVariable("lecture-id") long lectureId) {
+
         lectureService.deleteLecture(lectureId);
+        Optional<Lecture> deletedLecture = lectureService.findOptionalLectureById(lectureId);
+
+        return deletedLecture.isEmpty() ? new ResponseEntity<>("삭제완료",HttpStatus.OK) : new ResponseEntity<>("삭제실패",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 

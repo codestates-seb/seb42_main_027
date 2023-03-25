@@ -38,7 +38,6 @@ public class LectureService {
         return lectureRepository.save(findLecture);
     }
 
-
     public Page<Lecture> findLectures(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String title, String sort, int page, int size) {
         return lectureRepository.findAllByGradeAndPlatformAndSubjectAndTitle(grade, platform, subject, title, PageRequest.of(page, size, Sort.by(sort)));
     }
@@ -51,19 +50,7 @@ public class LectureService {
         return lectureRepository.findAllByGradeAndPlatformAndSubjectAndTitle(grade, platform, subject, title, PageRequest.of(page, size, JpaSort.unsafe("RAND()")));
     }
 
-//    public Page<Lecture> findLecturesN(GradeTag.Grade grade, PlatformTag.Platform platform, SubjectTag.Subject subject, String title, String sort, int page, int size) {
-//        List<Long> lectureIds = lectureRepository.findLectureIdsByGradeAndPlatformAndSubjectAndTitle(grade, platform, subject, title, PageRequest.of(page, size, Sort.by(sort)));
-//        List<Lecture> lectures = lectureRepository.findLecturesByIds(lectureIds);
-//
-//        int i = lectureRepository.countByGradeAndPlatformAndSubjectAndTitle(grade, platform, subject, title);
-//
-//
-//        return new PageImpl<>(lectures, PageRequest.of(page, size), i);
-//    }
-    public Page<Lecture> findLecturesByTeacher(long teacherId, int page, int size) {
-        return lectureRepository.findByTeacherId(teacherId, PageRequest.of(page, size, Sort.by("lectureId").descending()));
-    }
-
+    @Transactional
     public void deleteLecture(long lectureId) {
         Lecture lecture = findLectureById(lectureId);
         lectureRepository.delete(lecture);
@@ -72,6 +59,10 @@ public class LectureService {
     public Lecture findLectureById(long lectureId){
         Optional<Lecture> lecture = lectureRepository.findById(lectureId);
         return lecture.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TEACHER_NOT_FOUND));
+    }
+
+    public Optional<Lecture> findOptionalLectureById(long lectureId){
+        return lectureRepository.findById(lectureId);
     }
 
     //강의 평균 별점 저장

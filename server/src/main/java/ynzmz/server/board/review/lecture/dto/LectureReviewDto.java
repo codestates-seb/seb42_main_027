@@ -43,7 +43,6 @@ public class LectureReviewDto {
         private long viewCount;
         private long voteCount;
         private long totalCommentCount;
-        private TeacherDto.SimpleInfoResponse teacher;
         private LectureDto.SimpleInfoResponse lecture;
         private MemberDto.SimpleInfoResponse member;
     }
