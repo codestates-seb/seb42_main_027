@@ -58,10 +58,14 @@ public class LectureReviewController {
     }
     //리뷰수정
     @PatchMapping("/{lecture-review-id}")
-    public ResponseEntity<?> patchLectureReview(@PathVariable("lecture-review-id") long lectureReviewPostId,
-                                                @RequestBody LectureReviewDto.Patch lectureReviewPostPatch) {
-        LectureReview lectureReview = lectureReviewMapper.lectureReviewPatchToLectureReview(lectureReviewPostPatch);
-        lectureReview.setLectureReviewId(lectureReviewPostId);
+    public ResponseEntity<?> patchLectureReview(@PathVariable("lecture-review-id") long lectureReviewId,
+                                                @RequestBody LectureReviewDto.Patch lectureReviewPatch) {
+
+        //토큰에서 memberId 확인 & 본인이 쓴 게시물인지 확인
+        memberService.memberValidation(loginMemberFindByToken(), lectureReviewService.findLectureReviewById(lectureReviewId).getMember().getMemberId());
+
+        LectureReview lectureReview = lectureReviewMapper.lectureReviewPatchToLectureReview(lectureReviewPatch);
+        lectureReview.setLectureReviewId(lectureReviewId);
         LectureReview updatedLectureReview = lectureReviewService.updateLectureReview(lectureReview);
 
         //리뷰 등록시 강의의 평균점수를 수정

@@ -93,4 +93,11 @@ public class S3Service {
 
         amazonS3Client.deleteObject(bucketName, key.replace(prefix,""));
     }
+    public void deleteFilesByS3Urls(List<String> keys) {
+            String prefix = "https://main-project-28-img.s3.ap-northeast-2.amazonaws.com/";
+
+        if(!keys.isEmpty()) {
+            for(String key : keys) amazonS3Client.deleteObject(bucketName, key.replace(prefix,""));
+        }
+    }
 }

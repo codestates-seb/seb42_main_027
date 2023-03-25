@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/teachers")
+@RequestMapping("/boards/teachers")
 @RequiredArgsConstructor
 @Slf4j
 public class TeacherController {

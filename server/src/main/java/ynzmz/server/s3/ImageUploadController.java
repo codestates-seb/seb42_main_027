@@ -32,8 +32,8 @@ public class ImageUploadController {
     }
 
     @DeleteMapping
-    public ResponseEntity<?> deleteTest(@RequestParam(required = false) String filePatch) {
-        s3Service.deleteFileByS3Url(filePatch);
+    public ResponseEntity<?> deleteFiles(@RequestBody List<String> filePatches) {
+        s3Service.deleteFilesByS3Urls(filePatches);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

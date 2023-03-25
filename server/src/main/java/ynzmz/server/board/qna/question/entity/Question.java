@@ -19,18 +19,20 @@ import java.util.List;
 public class Question implements Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long questionId;
-    String title;
+    private Long questionId;
+    private String title;
     @Column(columnDefinition = "MEDIUMTEXT")
-    String content;
-    String category;
-    long viewCount;
-    long voteCount;
+    private String content;
+    private String category;
+    private long viewCount;
+    private long voteCount;
     private long answerCount;
-    String createdAt;
-    String modifiedAt;
+    private String createdAt;
+    private String modifiedAt;
     private long adoptAnswerId;
-
+    @ElementCollection(targetClass=String.class)
+    @Column
+    private List<String> uploadImages = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "member_id")
     @JsonBackReference

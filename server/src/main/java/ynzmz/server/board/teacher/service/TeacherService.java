@@ -33,7 +33,8 @@ public class TeacherService {
         Teacher findTeacher = findTeacherById(teacher.getTeacherId());
         Optional.ofNullable(teacher.getName()).ifPresent(findTeacher::setName);
         Optional.ofNullable(teacher.getIntroduction()).ifPresent(findTeacher::setIntroduction);
-        Optional.ofNullable(teacher.getImageUrl()).ifPresent(findTeacher::setImageUrl);
+        Optional.ofNullable(teacher.getProfileImageUrl()).ifPresent(findTeacher::setProfileImageUrl);
+        Optional.ofNullable(teacher.getRealImageUrl()).ifPresent(findTeacher::setRealImageUrl);
         Optional.ofNullable(teacher.getProfile()).ifPresent(findTeacher::setProfile);
         Optional.ofNullable(teacher.getAnalects()).ifPresent(findTeacher::setAnalects);
         return teacherRepository.save(findTeacher);

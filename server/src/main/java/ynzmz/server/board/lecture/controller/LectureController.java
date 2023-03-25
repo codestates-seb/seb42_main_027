@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/lectures")
+@RequestMapping("/boards/lectures")
 @RequiredArgsConstructor
 public class LectureController {
     private final LectureService lectureService;

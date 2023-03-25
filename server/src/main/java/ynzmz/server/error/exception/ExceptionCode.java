@@ -25,6 +25,7 @@ public enum ExceptionCode {
 
     NOT_AUTHORIZED(401, "본인만 회원탈퇴 할수있습니다"),
     INVALID_MEMBER_STATUS(400, "Invalid member status"),
+    THIS_MEMBER_NOT_PERMISSION(403, "권한없음 본인의 게시글만 수정할수있습니다."),
     LECTURE_REVIEW_NOT_FOUND(404, "해당 고유번호 강의 리뷰글이 없습니다."),
     LECTURE_NOT_FOUND(404, "해당 고유번호 강의가 없습니다."),
     LECTURE_REVIEW_COMMENT_NOT_FOUND(404, "해당 고유번호 강의 리뷰글 댓글이 없습니다."),

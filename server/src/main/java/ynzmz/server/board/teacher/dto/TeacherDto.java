@@ -23,7 +23,6 @@ public class TeacherDto {
         private String introduction;
         private List<String> profile;
         private List<String> analects;
-        private String imageUrl;
         private String profileImageUrl;
         private String realImageUrl;
         private List<String> gradeTag;
@@ -39,7 +38,6 @@ public class TeacherDto {
         private String introduction;
         private List<String> profile;
         private List<String> analects;
-        private String imageUrl;
         private String profileImageUrl;
         private String RealImageUrl;
         private List<String> gradeTag;
@@ -52,7 +50,6 @@ public class TeacherDto {
         private Long teacherId;
         private String name;
         private String introduction;
-        private String imageUrl;
         private String profileImageUrl;
         private String realImageUrl;
         private double starPointAverage;
@@ -68,7 +65,6 @@ public class TeacherDto {
         private Long teacherId;
         private String name;
         private String introduction;
-        private String imageUrl;
         private String profileImageUrl;
         private String realImageUrl;
         private List<String> profile;
@@ -86,7 +82,6 @@ public class TeacherDto {
         private Long teacherId;
         private String name;
         private String introduction;
-        private String imageUrl;
         private String profileImageUrl;
         private String realImageUrl;
         private List<String> profile;

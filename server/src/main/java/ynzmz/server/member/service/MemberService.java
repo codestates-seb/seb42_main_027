@@ -145,7 +145,7 @@ public class MemberService {
     }
 
     public void memberValidation(Member loginMember, long memberId) {
-        if (loginMember.getMemberId() != memberId) throw new BusinessLogicException(ExceptionCode.INVALID_MEMBER_STATUS);
+        if (loginMember.getMemberId() != memberId) throw new BusinessLogicException(ExceptionCode.THIS_MEMBER_NOT_PERMISSION);
     }
 
     //해당 게시글에서 게시글&답변에 추천여부 확인

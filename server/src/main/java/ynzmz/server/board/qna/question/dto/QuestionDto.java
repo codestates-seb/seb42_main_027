@@ -19,6 +19,7 @@ public class QuestionDto {
         private String content;
         private String category;
         private String createdAt;
+        private List<String> uploadImages;
 
     }
 
@@ -31,8 +32,7 @@ public class QuestionDto {
         private String content;
         private String category;
         private String modifiedAt;
-
-
+        private List<String> uploadImages;
     }
     @Getter
     @Setter

@@ -48,6 +48,7 @@ public class Free implements Vote  {
     private long freeId;
 
     private String title;
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String content;//추후 변경 가능
     private String category;
     private long viewCount;

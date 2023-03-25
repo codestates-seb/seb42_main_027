@@ -22,6 +22,7 @@ import ynzmz.server.board.qna.question.dto.QuestionDto;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.qna.question.mapper.QuestionMapper;
 import ynzmz.server.board.qna.question.service.QuestionService;
+import ynzmz.server.s3.S3Service;
 import ynzmz.server.tag.service.TagService;
 
 import javax.validation.Valid;
@@ -38,7 +39,7 @@ public class QuestionController {
     private final AnswerMapper answerMapper;
     private final MemberService memberService;
     private final AnswerService answerService;
-    private final TagService tagService;
+    private final S3Service s3Service;
 
     @PostMapping
     public ResponseEntity<?> postQuestion(@Valid @RequestBody QuestionDto.Post questionPost){
@@ -140,6 +141,10 @@ public class QuestionController {
 
         String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
         Member member = memberService.findMemberByEmail(loginEmail);
+        Question question = questionService.findQuestionById(questionId);
+        //게시글 이미지 삭제
+        s3Service.deleteFilesByS3Urls(question.getUploadImages());
+
         boolean deleteStatus = questionService.deleteQuestion(questionId, member);
 
         return deleteStatus ? new ResponseEntity<>("삭제완료",HttpStatus.OK) : new ResponseEntity<>("삭제실패",HttpStatus.INTERNAL_SERVER_ERROR);
@@ -166,6 +171,7 @@ public class QuestionController {
     }
     //로그인된 사용자 확인
     private Member loginMemberFindByToken(){
+
         String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
         return memberService.findMemberByEmail(loginEmail);
     }

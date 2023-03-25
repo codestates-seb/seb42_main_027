@@ -20,7 +20,6 @@ public class Teacher {
     private Long teacherId;
     private String name;
     private String introduction;
-    private String imageUrl;
     private String profileImageUrl;
     private String realImageUrl;
     private double starPointAverage;
