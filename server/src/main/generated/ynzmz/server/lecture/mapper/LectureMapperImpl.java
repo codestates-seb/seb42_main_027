@@ -13,9 +13,9 @@ import ynzmz.server.member.entity.Member;
 import ynzmz.server.tag.dto.GradeTagDto;
 import ynzmz.server.tag.dto.PlatformTagDto;
 import ynzmz.server.tag.dto.SubjectTagDto;
-import ynzmz.server.tag.mappingtable.lecture.LectureGradeTag;
-import ynzmz.server.tag.mappingtable.lecture.LecturePlatformTag;
-import ynzmz.server.tag.mappingtable.lecture.LectureSubjectTag;
+import ynzmz.server.tag.entity.lecture.LectureGradeTag;
+import ynzmz.server.tag.entity.lecture.LecturePlatformTag;
+import ynzmz.server.tag.entity.lecture.LectureSubjectTag;
 import ynzmz.server.board.teacher.dto.TeacherDto;
 import ynzmz.server.board.teacher.entity.Teacher;
 

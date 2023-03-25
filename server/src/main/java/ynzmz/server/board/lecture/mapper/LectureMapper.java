@@ -10,9 +10,9 @@ import ynzmz.server.tag.dto.SubjectTagDto;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;
-import ynzmz.server.tag.mappingtable.lecture.LectureGradeTag;
-import ynzmz.server.tag.mappingtable.lecture.LecturePlatformTag;
-import ynzmz.server.tag.mappingtable.lecture.LectureSubjectTag;
+import ynzmz.server.tag.entity.lecture.LectureGradeTag;
+import ynzmz.server.tag.entity.lecture.LecturePlatformTag;
+import ynzmz.server.tag.entity.lecture.LectureSubjectTag;
 
 import java.util.List;
 

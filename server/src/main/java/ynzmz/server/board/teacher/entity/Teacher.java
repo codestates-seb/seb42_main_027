@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.board.lecture.entity.Lecture;
-import ynzmz.server.tag.mappingtable.teacher.TeacherGradeTag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherPlatformTag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherSubjectTag;
+import ynzmz.server.tag.entity.teacher.TeacherGradeTag;
+import ynzmz.server.tag.entity.teacher.TeacherPlatformTag;
+import ynzmz.server.tag.entity.teacher.TeacherSubjectTag;
 
 import javax.persistence.*;
 import java.util.ArrayList;

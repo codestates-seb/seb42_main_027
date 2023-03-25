@@ -1,30 +1,31 @@
-package ynzmz.server.tag.mappingtable.teacher;
+package ynzmz.server.tag.entity.lecture;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ynzmz.server.tag.entity.SubjectTag;
-import ynzmz.server.board.teacher.entity.Teacher;
+import ynzmz.server.board.lecture.entity.Lecture;
+import ynzmz.server.tag.entity.GradeTag;
 
 import javax.persistence.*;
 
 @Entity
+@Builder
 @Getter
 @AllArgsConstructor @NoArgsConstructor
-@Builder
-public class TeacherSubjectTag {
+@Table(name = "map_lecute_grade_tag")
+public class LectureGradeTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long teacherSubjectTagId;
+    private Long lectureGradeTagId;
     @ManyToOne
-    @JoinColumn(name = "teacher_id")
+    @JoinColumn(name = "lecture_id")
     @JsonBackReference
-    private Teacher teacher;
+    private Lecture lecture;
 
     @ManyToOne
-    @JoinColumn(name = "subject_tag_id")
+    @JoinColumn(name = "grade_tag_id")
     @JsonBackReference
-    private SubjectTag subjectTag;
+    private GradeTag gradeTag;
 }

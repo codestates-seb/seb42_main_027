@@ -1,4 +1,4 @@
-package ynzmz.server.tag.mappingtable.teacher;
+package ynzmz.server.tag.entity.teacher;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor @NoArgsConstructor
 @Builder
+@Table(name = "map_teacher_platform_tag")
 public class TeacherPlatformTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

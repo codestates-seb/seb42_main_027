@@ -8,9 +8,9 @@ import ynzmz.server.tag.dto.SubjectTagDto;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherGradeTag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherPlatformTag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherSubjectTag;
+import ynzmz.server.tag.entity.teacher.TeacherGradeTag;
+import ynzmz.server.tag.entity.teacher.TeacherPlatformTag;
+import ynzmz.server.tag.entity.teacher.TeacherSubjectTag;
 import ynzmz.server.board.teacher.dto.TeacherDto;
 import ynzmz.server.board.teacher.entity.Teacher;
 

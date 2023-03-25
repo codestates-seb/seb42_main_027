@@ -1,9 +1,9 @@
-package ynzmz.server.tag.repository.lecture;
+package ynzmz.server.tag.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ynzmz.server.board.lecture.entity.Lecture;
-import ynzmz.server.tag.mappingtable.lecture.LectureGradeTag;
+import ynzmz.server.tag.entity.lecture.LectureGradeTag;
 
 @Repository
 public interface LectureGradeTagRepository extends JpaRepository<LectureGradeTag,Long> {
