@@ -106,6 +106,10 @@ public class EventService {
 
                         events.setDate(megaeventsdate3.get(k).text().substring(6));
                         k++;
+                    }else  {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
+
+                        events.setDate("선착순");
+                        k++;
                     }
 
 
