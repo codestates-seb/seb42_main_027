@@ -259,7 +259,7 @@ public class MemberService {
 
     //임시비밀번호로 업데이트
     public void updatePassword(String str, String email){
-        String memberPassword = str;
+        String memberPassword = passwordEncoder.encode(str);
         Optional<Member> OptionalMember = memberRepository.findByEmail(email);
         OptionalMember.ifPresent(member -> memberRepository.updatePassword(member.getMemberId(), str));
         Long memberId = OptionalMember.get().getMemberId();
