@@ -68,14 +68,14 @@ public class EventService {
 
     @PostConstruct
     public void megaCrawler() {
-
+        String megaUrl1 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
         String megaUrl2 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=2&intCP=NaN";
         String megaUrl3 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=3&intCP=NaN";
         String megaUrl4 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=4&intCP=NaN";
         String megaUrl5 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=5&intCP=NaN";
 
         List<String> megas = new ArrayList<>();
-
+        megas.add(megaUrl1);
         megas.add(megaUrl2);
         megas.add(megaUrl3);
         megas.add(megaUrl4);
@@ -105,18 +105,15 @@ public class EventService {
                     } else if (megaeventsdate3.size() != 0) {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
 
                         events.setDate(megaeventsdate3.get(k).text().substring(6));
-                        k++;
                     }else  {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
 
-                        events.setDate("선착순");
-                        k++;
+                        events.setDate(" 선착순");
                     }
 
-
+                    createEvent(events);
                     System.out.println(megaeventsLink.get(i).text() + " , "
                             + megaeventsLink.get(i).attr("href")
                             + "," + events.getDate());
-                    createEvent(events);
 
                 }
             }
@@ -141,7 +138,7 @@ public class EventService {
                 for (int i = 0; i < titles.size(); i++) {
                     Event event = new Event();
                     event.setSource("Etoos");
-                    event.setDate(date.get(i).text());
+                    event.setDate(" " + date.get(i).text());
                     event.setHyperLink(titles.get(i).attr("href"));
                     event.setTitle(titles.get(i).text());
                     System.out.println("제목: " + event.getTitle());
@@ -179,7 +176,7 @@ public class EventService {
                 for (int i = 0; i < titles.size(); i++) {
                     Event event = new Event();
                     event.setSource("DaeSung");
-                    event.setDate(date.get(i).text());
+                    event.setDate(" " +date.get(i).text());
                     String[] href1 = href.get(i).attr("href").substring(19).split("'");
                     event.setHyperLink(href1[0]);
                     event.setTitle(titles.get(i).text());

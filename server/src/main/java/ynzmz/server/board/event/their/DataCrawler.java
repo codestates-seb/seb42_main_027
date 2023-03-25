@@ -77,16 +77,14 @@ public class DataCrawler {
         }
     }
     public static void main(String[] args) {
-        String etoosUrl = "https://go3.etoos.com/hietoos/event/default.asp?etoos=myall&ING_FLAG=I&etgrd=go3";
-        Connection eConn = Jsoup.connect(etoosUrl);
-
+        String megaUrl1 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
         String megaUrl2 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=2&intCP=NaN";
         String megaUrl3 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=3&intCP=NaN";
         String megaUrl4 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=4&intCP=NaN";
         String megaUrl5 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=5&intCP=NaN";
 
         List<String> megas = new ArrayList<>();
-
+        megas.add(megaUrl1);
         megas.add(megaUrl2);
         megas.add(megaUrl3);
         megas.add(megaUrl4);
