@@ -15,6 +15,7 @@ const Container = styled.div`
   /* flex-direction: column; */
   justify-content: center;
   align-items: center;
+  width: 100%;
 `;
 
 const ListContainer = styled.div`
@@ -216,26 +217,7 @@ function MyPage() {
     useState('자유 게시판');
   const [selectCommentCategories, setSelectCommentCategories] =
     useState('자유 게시판');
-
-  const patchFreePosts = async (id: number | null, select: string) => {
-    try {
-      // 테스트용 memberId 사용
-      const response = await getFreePosts(id, select);
-      setFreePosts(response);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const patchComments = async (id: number | null, select: string) => {
-    try {
-      // 테스트용 memberId 사용
-      const response = await getComment(id, select);
-      setFreeComments(response);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { memberId } = userInfo;
 
   const handleChangeBoard = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFreePosts([]);
@@ -250,9 +232,9 @@ function MyPage() {
   };
 
   useEffect(() => {
-    patchFreePosts(userInfo.memberId, selectPostCategories);
-    patchComments(userInfo.memberId, selectCommentCategories);
-  }, [selectPostCategories, selectCommentCategories, userInfo]);
+    getFreePosts(memberId, selectPostCategories);
+    getComment(memberId, selectCommentCategories);
+  }, [selectPostCategories, selectCommentCategories, userInfo, memberId]);
 
   return (
     <Container>
