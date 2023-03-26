@@ -4,7 +4,9 @@
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import { useEffect, useState } from 'react';
-
+import { GiAlarmClock } from 'react-icons/gi';
+import { FaBed } from 'react-icons/fa';
+import { BiArrowBack } from 'react-icons/bi';
 import theme from 'theme';
 
 type Time = {
@@ -74,11 +76,13 @@ function Ticktock() {
     <Container>
       <Button
         onClick={() => {
-          if (isOpen2) return;
-          setIsOpen(!isOpen);
+          if (isOpen !== isOpen2) {
+            setIsOpen(false);
+            setIsOpen2(false);
+          } else setIsOpen(!isOpen);
         }}
       >
-        째깍이
+        {toggle ? <GiAlarmClock size="3rem" /> : <FaBed size="2.5rem" />}
       </Button>
       {isOpen ? (
         <ModalContainer>
@@ -132,7 +136,9 @@ function Ticktock() {
       {isOpen2 ? (
         <AttendanceContainer>
           <FlexContainer width="100%" justify="start" padding="1rem 0 0 1rem">
-            <button onClick={openHandler}>{'<--'}</button>
+            <button onClick={openHandler}>
+              <BiArrowBack />
+            </button>
           </FlexContainer>
           {attendList.map((el, index) => {
             return (

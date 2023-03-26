@@ -22,6 +22,9 @@ function UpdateEvent() {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [imageUrl, setImageUrl] = useState<string>('');
+  const [start, setStart] = useState<string>('');
+  const [end, setEnd] = useState<string>('');
+
   const { eventId } = useParams();
 
   const navigate = useNavigate();
@@ -49,12 +52,25 @@ function UpdateEvent() {
   const updateHandler = () => {
     if (!title || !content) {
       alert('빈 곳을 채워주세요!');
+    } else if (
+      new Date(
+        Number(start.slice(0, 4)),
+        Number(start.slice(5, 7)) - 1,
+        Number(start.slice(8, 10)),
+      ) >
+      new Date(
+        Number(end.slice(0, 4)),
+        Number(end.slice(5, 7)) - 1,
+        Number(end.slice(8, 10)),
+      )
+    ) {
+      alert('기간을 제대로 설정해주세요');
     } else {
       const data = {
         title,
         content,
         imageUrl: '이미지 URL',
-        date: new Date(),
+        date: `${start} ~ ${end}`,
       };
 
       axios
@@ -172,6 +188,27 @@ function UpdateEvent() {
           />
         </FlexContainer>
         <FlexContainer dir="col" align="start" gap="0" width="100%">
+          <label htmlFor="date">Date</label>
+          <DateInput
+            id="date"
+            type="date"
+            placeholder="기간"
+            value={start}
+            onChange={e => {
+              setStart(e.target.value);
+            }}
+          />
+          <DateInput
+            id="date"
+            type="date"
+            placeholder="기간"
+            value={end}
+            onChange={e => {
+              setEnd(e.target.value);
+            }}
+          />
+        </FlexContainer>
+        <FlexContainer dir="col" align="start" gap="0" width="100%">
           <label htmlFor="content">Content</label>
           <ReactQuill
             style={{ width: '100%', height: '20rem' }}
@@ -179,6 +216,7 @@ function UpdateEvent() {
             theme="snow"
             modules={modules}
             formats={formats}
+            value={content}
             onChange={contents => {
               setContent(contents);
             }}
@@ -211,6 +249,12 @@ const Container = styled.div`
 
 const Input = styled.input`
   width: 100%;
+  padding: 0.3rem 0.5rem;
+  border: 0.5px solid gray;
+`;
+
+const DateInput = styled.input`
+  width: 40%;
   padding: 0.3rem 0.5rem;
   border: 0.5px solid gray;
 `;
