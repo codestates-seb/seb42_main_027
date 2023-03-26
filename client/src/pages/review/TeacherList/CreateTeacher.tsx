@@ -120,19 +120,19 @@ function CreateTeacher() {
                   console.log(e.target.files[0]);
                   const formData = new FormData();
                   formData.append('image', e.target.files[0]);
+                  formData.append(
+                    'filePatch',
+                    'boards/teachers/profile-images',
+                  );
 
                   axios
-                    .post(
-                      `${process.env.REACT_APP_API_URL}/images/teachers`,
-                      formData,
-                      {
-                        headers: {
-                          'ngrok-skip-browser-warning': 'asdasdas',
-                        },
+                    .post(`${process.env.REACT_APP_API_URL}/upload`, formData, {
+                      headers: {
+                        'ngrok-skip-browser-warning': 'asdasdas',
                       },
-                    )
+                    })
                     .then(res => res.data.data)
-                    .then((data: any) => {
+                    .then((data: string) => {
                       setProfileImage(data);
                     });
 
@@ -160,16 +160,13 @@ function CreateTeacher() {
                 if (e.target.files.length) {
                   const formData = new FormData();
                   formData.append('image', e.target.files[0]);
+                  formData.append('filePatch', 'boards/teachers/real-images');
                   axios
-                    .post(
-                      `${process.env.REACT_APP_API_URL}/images/teachers`,
-                      formData,
-                      {
-                        headers: {
-                          'ngrok-skip-browser-warning': 'asdasdas',
-                        },
+                    .post(`${process.env.REACT_APP_API_URL}/upload`, formData, {
+                      headers: {
+                        'ngrok-skip-browser-warning': 'asdasdas',
                       },
-                    )
+                    })
                     .then(res => res.data.data)
                     .then((data: any) => {
                       setRealImage(data);
