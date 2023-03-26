@@ -5,16 +5,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import styled from 'styled-components';
 import axios from 'axios';
+import StarCounter from 'components/review/StarCounter';
+import GoBackMenu from 'components/board/post/goBackMenu';
+import theme from 'theme';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 import { UploadButton } from '../TeacherList/CreateTeacher';
-
-const defaultData = {
-  title: '리뷰글 제목',
-  starPoint: 5,
-  content: '리뷰글 내용',
-  lectureId: 64,
-  createdAt: new Date(),
-};
 
 function UpdateReview() {
   const [title, setTitle] = useState<string>('');
@@ -25,9 +20,8 @@ function UpdateReview() {
   const navigate = useNavigate();
   const Authorization = localStorage.getItem('token');
 
-  const starArr = [1, 2, 3, 4, 5];
-
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/boards/reviews/lectures/${lectureReviewId}`,
@@ -45,6 +39,7 @@ function UpdateReview() {
       .then(data => {
         setTitle(data.title);
         setContent(data.content);
+        setStarPoint(data.starPoint);
       });
   }, []);
 
@@ -79,49 +74,40 @@ function UpdateReview() {
 
   return (
     <Container>
-      <FlexContainer dir="col" width="30rem" gap="2rem">
-        <FlexContainer dir="col" align="start" gap="0" width="100%">
-          <label htmlFor="title">Title</label>
+      <FlexContainer dir="col" width="50rem" gap="2rem">
+        <Title>
+          <H2>리뷰 수정</H2>
+          <p>리뷰를 수정 해주세요.</p>
+        </Title>
+        <GoBackMenu />
+        {/* 리뷰 제목 */}
+        <FlexContainer dir="col" align="start" gap="0.5rem" width="95%">
+          <Label htmlFor="title">제목</Label>
           <Input
             id="title"
-            placeholder="제목"
             value={title}
             onChange={e => {
               setTitle(e.target.value);
             }}
           />
         </FlexContainer>
-        <FlexContainer dir="col" align="start" gap="0" width="100%">
-          <label htmlFor="content">Content</label>
+        {/* 리뷰 별점 */}
+        <FlexContainer dir="col" align="start" gap="0.5rem" width="95%">
+          별점
+          <StarCounter starPoint={starPoint} setStarPoint={setStarPoint} />
+        </FlexContainer>
+        {/* 리뷰 내용 */}
+        <FlexContainer dir="col" align="start" gap="0.5rem" width="95%">
+          <Label htmlFor="content">내용</Label>
           <TextArea
             id="content"
-            placeholder="내용"
             value={content}
             onChange={e => {
               setContent(e.target.value);
             }}
           />
         </FlexContainer>
-        <FlexContainer gap="0.6rem" width="100%">
-          별점 :
-          {starArr.map((el, index) => {
-            return (
-              <FlexContainer gap="0.3rem" key={index}>
-                <input
-                  id="star"
-                  name="grade"
-                  type="radio"
-                  value={el}
-                  onClick={(e: any) => {
-                    setStarPoint(e.target.value);
-                  }}
-                />
-                ⭐️
-                <label htmlFor="star">{el}</label>
-              </FlexContainer>
-            );
-          })}
-        </FlexContainer>
+
         <FlexContainer>
           <UploadButton onClick={updateHandler}>후기 수정</UploadButton>
           <UploadButton
@@ -140,19 +126,51 @@ function UpdateReview() {
 export default UpdateReview;
 
 const Container = styled.div`
+  width: 100%;
+  background-color: white;
+
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: start;
   align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+`;
+
+const Title = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  height: 150px;
+  padding: 45px 42px;
+  border-radius: 25px;
+  background-color: ${theme.colors.palePurple};
+`;
+
+const H2 = styled.h2`
+  font-weight: bold;
+  font-size: ${theme.fontSizes.subTitle};
+  margin-bottom: ${theme.gap.px10};
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: 0.3rem 0.5rem;
-  border: 1px solid black;
+  padding: 0.6rem 0.5rem;
+  border: 0.5px solid gray;
+  :focus {
+    border: 1.2px solid black;
+  }
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
   height: 15rem;
   padding: 0.5rem;
+  border: 0.5px solid gray;
+  :focus {
+    border: 1.2px solid black;
+  }
+`;
+
+const Label = styled.label`
+  font-size: large;
 `;

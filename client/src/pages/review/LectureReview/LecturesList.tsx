@@ -59,6 +59,7 @@ function LecturesList() {
   const [isPending, setIsPending] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setIsPending(true);
     axios
       .get(

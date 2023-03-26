@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/require-default-props */
-import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import { useParams } from 'react-router-dom';
-
+import ProfileIcon from 'assets/icons/defaultProfileIcon';
 import { useState } from 'react';
 import axios from 'axios';
 import {
@@ -13,6 +12,7 @@ import {
   BsFillHandThumbsDownFill,
 } from 'react-icons/bs';
 import useUserInfoStore from 'stores/userInfoStore';
+import theme from 'theme';
 
 type Props = {
   lectureReviewCommentId: number;
@@ -118,7 +118,10 @@ function LectureReviewComment({
     <Container>
       <FlexContainer width="100%" align="start" dir="col" gap="0.2rem">
         <FlexContainer width="100%" justify="space-between" padding="0 0.2rem">
-          <VerySmallGrayFont>{member.displayName}</VerySmallGrayFont>
+          <VerySmallGrayFont>
+            <ProfileIcon.Default />
+            {member.displayName}
+          </VerySmallGrayFont>
           <FlexContainer>
             <UpButton voteStatus={voteStatus} onClick={commentUpHandler}>
               <BsFillHandThumbsUpFill size="1rem" />
@@ -142,51 +145,51 @@ function LectureReviewComment({
         )}
         <FlexContainer
           width="100%"
-          justify="space-between"
+          justify="space-evently"
           align="end"
-          padding="1rem 0 0 0"
+          padding="1rem 0"
         >
           <VerySmallGrayFont>{createdAt.slice(0, 10)}</VerySmallGrayFont>
-        </FlexContainer>
-        {!teacherId && userInfo.memberId === member.memberId ? (
-          <FlexContainer width="100%" justify="right">
-            {isOpen ? (
-              <FlexContainer gap="0.8rem">
-                <Ubutton onClick={updateHandler}>확인</Ubutton>
-                <Ubutton
-                  onClick={() => {
-                    setIsOpen(!isOpen);
-                  }}
-                >
-                  취소
-                </Ubutton>
-              </FlexContainer>
-            ) : (
-              <FlexContainer gap="0.8rem">
-                <Ubutton onClick={updateOpenHandler}>수정</Ubutton>
-                <Ubutton
-                  onClick={() => {
-                    axios
-                      .delete(
-                        `${process.env.REACT_APP_API_URL}/comments/reviews/lectures/${lectureReviewCommentId}`,
-                        {
-                          headers: {
-                            Authorization,
-                            'ngrok-skip-browser-warning': '69420',
+          {!teacherId && userInfo.memberId === member.memberId ? (
+            <FlexContainer width="100%" justify="right">
+              {isOpen ? (
+                <FlexContainer gap="0.8rem">
+                  <Ubutton onClick={updateHandler}>확인</Ubutton>
+                  <Ubutton
+                    onClick={() => {
+                      setIsOpen(!isOpen);
+                    }}
+                  >
+                    취소
+                  </Ubutton>
+                </FlexContainer>
+              ) : (
+                <FlexContainer gap="0.8rem">
+                  <Ubutton onClick={updateOpenHandler}>수정</Ubutton>
+                  <Ubutton
+                    onClick={() => {
+                      axios
+                        .delete(
+                          `${process.env.REACT_APP_API_URL}/comments/reviews/lectures/${lectureReviewCommentId}`,
+                          {
+                            headers: {
+                              Authorization,
+                              'ngrok-skip-browser-warning': '69420',
+                            },
                           },
-                        },
-                      )
-                      .then(() => {
-                        window.location.reload();
-                      });
-                  }}
-                >
-                  삭제
-                </Ubutton>
-              </FlexContainer>
-            )}
-          </FlexContainer>
-        ) : null}
+                        )
+                        .then(() => {
+                          window.location.reload();
+                        });
+                    }}
+                  >
+                    삭제
+                  </Ubutton>
+                </FlexContainer>
+              )}
+            </FlexContainer>
+          ) : null}
+        </FlexContainer>
       </FlexContainer>
     </Container>
   );
@@ -202,34 +205,37 @@ type Button = {
   voteStatus?: string;
 };
 
-const Container = styled.div<Container>`
-  width: 100%;
+const Container = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  border: 1px solid black;
-  background-color: #b9b9b9;
+  flex-direction: column;
+  width: 100%;
+  padding: ${theme.gap.px20};
+  padding-bottom: 0;
+  border-bottom: 1px solid ${theme.colors.gray};
 `;
 
 const VerySmallGrayFont = styled.div`
+  width: 5rem;
   font-size: small;
   color: gray;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
 `;
 
 const UpButton = styled.button<Button>`
   border: none;
   pointer-events: ${props => (props.voteStatus === 'DOWN' ? 'none' : 'all')};
-  background-color: #b9b9b9;
+  background-color: white;
   color: ${props => (props.voteStatus === 'UP' ? '#f48224' : 'black')};
 `;
 
 const DownButton = styled.button<Button>`
   border: none;
   pointer-events: ${props => (props.voteStatus === 'UP' ? 'none' : 'all')};
-  background-color: #b9b9b9;
+  background-color: white;
   color: ${props => (props.voteStatus === 'DOWN' ? '#f48224' : 'black')};
 `;
 
@@ -246,7 +252,7 @@ const Textarea = styled.textarea`
 
 const Ubutton = styled.button`
   padding: 0.4rem;
-  background-color: gray;
-  color: white;
+  background-color: white;
+  color: #afafaf;
   border-radius: 0.4rem;
 `;

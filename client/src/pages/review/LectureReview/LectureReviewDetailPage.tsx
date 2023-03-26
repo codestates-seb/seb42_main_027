@@ -16,8 +16,9 @@ import LectureReviewComment from 'components/review/LectureReviewComment';
 import { useParams, useNavigate } from 'react-router';
 import ReviewCommentCreate from 'components/review/ReviewCommentCreate';
 import { Link } from 'react-router-dom';
-import isLogin from 'utils/isLogin';
 import useUserInfoStore from 'stores/userInfoStore';
+import theme from 'theme';
+import GoBackMenu from 'components/board/post/goBackMenu';
 
 const defaultDetailData = {
   lectureReviewId: 1,
@@ -84,6 +85,7 @@ function LectureReviewDetailPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setIsPending(true);
     axios
       .get(
@@ -159,28 +161,16 @@ function LectureReviewDetailPage() {
           backColor="white"
           justify="start"
         >
-          <FlexContainer
-            width="100%"
-            justify="space-between"
-            padding="1.5rem 4rem"
-            borderTop="2px solid black"
-            borderBottom="1px solid black"
-            gap="0.2rem"
-            backColor="#6667ab"
-          >
-            <TitleSpan>{detailData.title}</TitleSpan>
-            <FlexContainer>
-              <NameSpan>{detailData.member.displayName}</NameSpan>
-              <NameSpan>조회수: {detailData.viewCount}</NameSpan>
-            </FlexContainer>
-          </FlexContainer>
+          <Title>
+            <H2>리뷰게시판</H2>
+            <p>객관적인 리뷰를 볼 수 있는 공간입니다.</p>
+          </Title>
           <FlexContainer
             display={
               userInfo.memberId === detailData.member.memberId ? 'flex' : 'none'
             }
-            width="80%"
+            width="100%"
             justify="right"
-            padding="1rem 0 0 0"
           >
             <Link
               to={`/lecturereviewdetail/${lectureReviewId}/update/${detailData.lecture.lectureId}`}
@@ -207,40 +197,47 @@ function LectureReviewDetailPage() {
               삭제
             </button>
           </FlexContainer>
-          <FlexContainer width="100%" dir="col" padding="1rem">
-            <FlexContainer
-              width="90%"
-              justify="space-between"
-              borderTop="1px solid gray"
-              borderBottom="1px solid gray"
-              padding="1rem 0"
-            >
-              <FlexContainer dir="col" width="40%">
-                <FlexContainer>{detailData.teacher.name}</FlexContainer>
-                <FlexContainer gap="0.2rem">
-                  <AiFillStar color="gold" size="1.4rem" />
-                  <span>{detailData.starPoint.toFixed(1)}</span>
-                </FlexContainer>
+          <GoBackMenu />
+          <TitleDiv>
+            <H2>{detailData.title}</H2>
+            <FlexContainer>
+              <NameSpan>{detailData.member.displayName}</NameSpan>
+              <NameSpan>조회수 {detailData.viewCount}</NameSpan>
+            </FlexContainer>
+          </TitleDiv>
+
+          <FlexContainer
+            width="100%"
+            justify="space-between"
+            borderBottom={`1px solid  ${theme.colors.gray}`}
+            padding="1rem 0"
+          >
+            <FlexContainer dir="col" width="50%">
+              <FlexContainer>{detailData.teacher.name}</FlexContainer>
+              <FlexContainer gap="0.2rem">
+                강사 평균:
+                <AiFillStar color="gold" size="1.4rem" />
+                <span>{detailData.starPoint.toFixed(1)}</span>
               </FlexContainer>
-              <FlexContainer dir="col" width="60%">
-                <span>{detailData.lecture.title}</span>
-                <FlexContainer gap="1rem">
-                  <FlexContainer gap="0.2rem">
-                    전체:
-                    <AiFillStar color="gold" size="1.4rem" />
-                    {detailData.lecture.starPointAverage.toFixed(1)}
-                  </FlexContainer>
-                  <FlexContainer gap="0.2rem">
-                    내 평점:
-                    <AiFillStar color="gold" size="1.4rem" />
-                    {detailData.starPoint}
-                  </FlexContainer>
+            </FlexContainer>
+            <FlexContainer dir="col" width="50%">
+              <span>{detailData.lecture.title}</span>
+              <FlexContainer gap="1rem">
+                <FlexContainer gap="0.2rem">
+                  강의 평점:
+                  <AiFillStar color="gold" size="1.4rem" />
+                  {detailData.lecture.starPointAverage.toFixed(1)}
+                </FlexContainer>
+                <FlexContainer gap="0.2rem">
+                  내 평점:
+                  <AiFillStar color="gold" size="1.4rem" />
+                  {detailData.starPoint}
                 </FlexContainer>
               </FlexContainer>
             </FlexContainer>
           </FlexContainer>
 
-          <FlexContainer width="100%" justify="start" padding="1rem 5rem">
+          <FlexContainer width="100%" justify="start" padding="1rem 1.5rem">
             {detailData.content}
           </FlexContainer>
 
@@ -261,9 +258,8 @@ function LectureReviewDetailPage() {
             width="100%"
             justify="start"
             align="start"
-            padding="3rem 5rem"
+            padding="3rem 1rem"
           >
-            <span>답변</span>
             {Authorization ? (
               <ReviewCommentCreate lectureReviewId={Number(lectureReviewId)} />
             ) : null}
@@ -305,11 +301,11 @@ type Button = {
 
 const Container = styled.div<Container>`
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 3rem;
+  background-color: white;
 
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: start;
   align-items: center;
   gap: 0.5rem;
 `;
@@ -334,6 +330,30 @@ const TitleSpan = styled.span`
 `;
 
 const NameSpan = styled.span`
-  color: white;
+  color: black;
   font-size: 0.9rem;
+`;
+
+const Title = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  height: 150px;
+  padding: 45px 42px;
+  border-radius: 25px;
+  background-color: ${theme.colors.palePurple};
+`;
+
+const H2 = styled.h2`
+  font-weight: bold;
+  font-size: ${theme.fontSizes.subTitle};
+  margin-bottom: ${theme.gap.px10};
+`;
+
+const TitleDiv = styled.div`
+  width: 100%;
+  display: flex;
+
+  justify-content: space-between;
+  padding: ${theme.gap.px20};
+  border-bottom: 1px solid ${theme.colors.gray};
 `;

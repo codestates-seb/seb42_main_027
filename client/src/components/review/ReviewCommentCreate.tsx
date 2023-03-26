@@ -7,7 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { SmallFont } from 'pages/review/TeacherDetail/Information';
 import { useState } from 'react';
 import axios from 'axios';
-import isLogin from 'utils/isLogin';
+import theme from 'theme';
+import ProfileIcon from 'assets/icons/defaultProfileIcon';
+import { useIsLoginStore } from 'stores/loginStore';
+import Button from 'components/common/Button';
 
 type Props = {
   lectureReviewId: number;
@@ -15,6 +18,7 @@ type Props = {
 function ReviewCommentCreate({ lectureReviewId }: Props) {
   const [content, setContent] = useState<string>('');
   const Authorization = localStorage.getItem('token');
+  const { isLoginInStore } = useIsLoginStore(state => state);
 
   const createHandler = () => {
     if (!content) {
@@ -42,17 +46,27 @@ function ReviewCommentCreate({ lectureReviewId }: Props) {
 
   return (
     <Container>
-      <FlexContainer width="100%" align="start" dir="col" gap="0.2rem">
-        <Textarea
-          value={content}
-          onChange={e => {
-            setContent(e.target.value);
-          }}
-        />
-        <FlexContainer width="100%" justify="right">
-          <Ubutton onClick={createHandler}>등록</Ubutton>
-        </FlexContainer>
-      </FlexContainer>
+      <Main>
+        <InputDiv>
+          <ProfileIcon.Default />
+          {isLoginInStore ? (
+            <Textarea
+              value={content}
+              onChange={e => {
+                setContent(e.target.value);
+              }}
+            />
+          ) : null}
+        </InputDiv>
+        <SubmitDiv>
+          <CommentBtn
+            className={isLoginInStore ? '' : 'disabled'}
+            onClick={createHandler}
+          >
+            댓글 쓰기
+          </CommentBtn>
+        </SubmitDiv>
+      </Main>
     </Container>
   );
 }
@@ -64,20 +78,35 @@ type Container = {
 };
 
 const Container = styled.div<Container>`
-  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  border: 1px solid black;
-  background-color: #b9b9b9;
+  width: 100%;
+  min-height: 206px;
+`;
+
+const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0.5rem;
+  border: 1px solid ${theme.colors.gray};
+  border-radius: 5px;
+`;
+
+const InputDiv = styled.div`
+  display: flex;
+  margin: ${theme.gap.px20};
+  margin-bottom: 13px;
 `;
 
 const Textarea = styled.textarea`
+  display: flex;
   width: 100%;
-  height: 6rem;
-  padding: 1rem;
+  min-height: 6rem;
+  resize: none;
+  padding: ${theme.gap.px10};
+  border: 1px solid ${theme.colors.gray};
+  border-radius: 5px;
+  margin-left: ${theme.gap.px10};
 `;
 
 const Ubutton = styled.button`
@@ -85,4 +114,20 @@ const Ubutton = styled.button`
   background-color: gray;
   color: white;
   border-radius: 0.4rem;
+`;
+
+const SubmitDiv = styled.div`
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin-right: ${theme.gap.px20};
+`;
+
+const CommentBtn = styled(Button.WriteBtn)`
+  width: ${theme.gap.px120};
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 `;
