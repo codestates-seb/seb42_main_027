@@ -83,6 +83,7 @@ function Lectures() {
   const { userInfo } = useUserInfoStore(state => state);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}`, {
         headers: {

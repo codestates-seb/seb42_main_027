@@ -10,13 +10,6 @@ import 'react-quill/dist/quill.snow.css';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 import { UploadButton } from '../TeacherList/CreateTeacher';
 
-const defaultData = {
-  imageUrl: '이미지 URL',
-  title: '제목',
-  content: '내용',
-  date: new Date(),
-};
-
 function CreateEvent() {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');

@@ -187,6 +187,7 @@ function TeacherReview() {
   const { teacherId } = useParams();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}/reviews`, {
         headers: { 'ngrok-skip-browser-warning': '69420' },

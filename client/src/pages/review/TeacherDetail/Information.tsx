@@ -43,6 +43,7 @@ function Information() {
   const [isPending, setIsPending] = useState<boolean>(true);
   const { teacherId } = useParams();
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
       .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}`, {
         headers: { 'ngrok-skip-browser-warning': '69420' },
