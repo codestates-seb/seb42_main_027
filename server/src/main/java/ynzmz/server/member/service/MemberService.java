@@ -33,6 +33,9 @@ import ynzmz.server.vote.review.lecture.dto.LoginUserLectureReviewCommentVoteRes
 import ynzmz.server.vote.review.lecture.dto.LoginUserLectureReviewVoteResponseDto;
 import ynzmz.server.vote.review.lecture.entity.ReviewVote;
 
+import javax.mail.internet.InternetAddress;
+import javax.validation.constraints.Email;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -273,7 +276,11 @@ public class MemberService {
         message.setTo(mailDto.getAddress());
         message.setSubject(mailDto.getTitle());
         message.setText(mailDto.getMessage());
-        message.setFrom("likedubu@naver.com");
+        try {
+            message.setFrom(String.valueOf(new InternetAddress("likedubu@naver.com","야놀지말자")));
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
         message.setReplyTo("likedubu@naver.com");
         System.out.println("message" + message);
         if(javaMailSender !=null) {

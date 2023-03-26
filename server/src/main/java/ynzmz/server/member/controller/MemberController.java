@@ -56,6 +56,7 @@ import ynzmz.server.recomment.qna.service.QnaReCommentService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
