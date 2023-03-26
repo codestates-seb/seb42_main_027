@@ -1,4 +1,4 @@
-package ynzmz.server.s3;
+package ynzmz.server.s3.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
@@ -13,15 +13,15 @@ import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
-public class S3Service {
+public class S3FileService {
 
     private final AmazonS3Client amazonS3Client;
     private final String bucketName = "main-project-28-img";
-    public String uploadFile(MultipartFile multipartFile, String uploadPatch) throws IOException {
+    public String uploadFile(MultipartFile multipartFile, String uploadPath) throws IOException {
         if(multipartFile.isEmpty()) return null;
 
         //현재 저장할 경로에 파일명 불러오기
-        List<String> listFilesInBucketDirectory = listFilesInBucketDirectory(uploadPatch);
+        List<String> listFilesInBucketDirectory = listFilesInBucketDirectory(uploadPath);
 
 
         //파일 경로가 없으면 경로 만들기 ( 파일명에 / 붙히면 자동으로 만들어짐)
@@ -31,7 +31,7 @@ public class S3Service {
         //파일 확장자
         String fileExtension = Objects.requireNonNull(multipartFile.getOriginalFilename()).substring(multipartFile.getOriginalFilename().indexOf("."));
         //생성할 파일명
-        String fileName = uploadPatch + "/" + createdFileName + fileExtension;
+        String fileName = uploadPath + "/" + createdFileName + fileExtension;
 
         //파일 정보 등록
         ObjectMetadata objectMetadata = new ObjectMetadata();

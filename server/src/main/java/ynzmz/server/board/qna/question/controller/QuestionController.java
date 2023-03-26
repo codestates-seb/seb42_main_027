@@ -22,7 +22,7 @@ import ynzmz.server.board.qna.question.dto.QuestionDto;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.qna.question.mapper.QuestionMapper;
 import ynzmz.server.board.qna.question.service.QuestionService;
-import ynzmz.server.s3.S3Service;
+import ynzmz.server.s3.service.S3FileService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -39,7 +39,7 @@ public class QuestionController {
     private final AnswerMapper answerMapper;
     private final MemberService memberService;
     private final AnswerService answerService;
-    private final S3Service s3Service;
+    private final S3FileService s3FileService;
 
     @PostMapping
     public ResponseEntity<?> postQuestion(@Valid @RequestBody QuestionDto.Post questionPost){
@@ -143,7 +143,7 @@ public class QuestionController {
 
         Question question = questionService.findQuestionById(questionId);
         //게시글 이미지 삭제
-        s3Service.deleteFilesByS3Urls(question.getUploadImages());
+        s3FileService.deleteFilesByS3Urls(question.getUploadImages());
         questionService.deleteQuestion(questionId);
         Optional<Question> deletedQuestion = questionService.findOptionalQuestionById(questionId);
 
