@@ -139,7 +139,7 @@
       <recent name="ynzmz.server.vote.qna.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.server [clean]">
+  <component name="RunManager" selected="Spring Boot.ServerApplication">
     <configuration name="server [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />

@@ -11,8 +11,8 @@ create table answer (
 ) engine=InnoDB;
 
 create table answer_upload_images (
-                      answer_answer_id bigint not null,
-                      upload_images varchar(255)
+                                      answer_answer_id bigint not null,
+                                      upload_images varchar(255)
 ) engine=InnoDB;
 
 create table event (
@@ -111,6 +111,11 @@ create table lecture_review (
                                 primary key (lecture_review_id)
 ) engine=InnoDB;
 
+create table lecture_review_upload_images (
+                                              lecture_review_lecture_review_id bigint not null,
+                                              upload_images varchar(255)
+) engine=InnoDB;
+
 create table lecture_review_comment (
                                         lecture_review_comment_id bigint not null auto_increment,
                                         content varchar(255),
@@ -189,6 +194,7 @@ create table our (
                      date varchar(255),
                      image_url varchar(255),
                      title varchar(255),
+                     view_count integer not null,
                      primary key (event_id)
 ) engine=InnoDB;
 
@@ -385,6 +391,11 @@ alter table lecture_review
     add constraint FKnvktpu0k0pa9usjdftct1telu
         foreign key (member_id)
             references member (member_id);
+
+alter table lecture_review_upload_images
+    add constraint FKooa8fjdj5lfmkf32c80flylor
+        foreign key (lecture_review_lecture_review_id)
+            references lecture_review (lecture_review_id);
 
 alter table lecture_review_comment
     add constraint FKjkuk0jh3302chb3q3fqd2g9c6
