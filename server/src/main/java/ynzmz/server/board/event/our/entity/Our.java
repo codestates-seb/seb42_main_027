@@ -20,4 +20,6 @@ public class Our {
     private String content;
     private String date; //나중에 datetime으로 파싱???
 
+    private int viewCount;
+
 }

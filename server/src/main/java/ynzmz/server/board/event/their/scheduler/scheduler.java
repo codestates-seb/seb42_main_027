@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Component
+@Service
 @RequiredArgsConstructor
 public class scheduler {
     private final EventService eventService;
@@ -132,28 +133,52 @@ public class scheduler {
             Document document = mConn.get();
 
             Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
-            Elements megaeventsdate1 = document.getElementsByClass("date").select("span:nth-child(1)");
-            Elements megaeventsdate3 = document.getElementsByClass("date").select("span:nth-child(3)");
+            Elements dateList = document.select( "div.date > span > strong");
+            Elements dateList2 = new Elements();
+            List<String> dateListString = new ArrayList<>();
             List<Event> onlyMegaEvents = eventService.findAllMegaEvents();
             List<Event> eventList = new ArrayList<>();
-            for (int i = 0; i < megaeventsLink.size(); i++) {
-                Event events = new Event();
-                events.setSource("Mega");
-                events.setTitle(megaeventsLink.get(i).text());
-                events.setHyperLink(megaeventsLink.get(i).attr("href"));
-                int k = 0;
-                //주소 기입
-                if (megaeventsdate1.get(i).text().substring(0, 1).equals("이")) {
-                    events.setDate(megaeventsdate1.get(i).text().substring(6));
-                } else if (megaeventsdate3.size() != 0) {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
 
-                    events.setDate(megaeventsdate3.get(k).text().substring(6));
-                    k++;
-                } else {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
-
-                    events.setDate(" 선착순");
+            for(Element e:dateList){
+                if(e.text().equals("이벤트 기간")){
+                    dateList2.add(e);}
+                else if(e.text().equals("선착순")){
+                    dateList2.add(e);
                 }
-                eventList.add(events);
+            }
+            Elements dateList3 = new Elements();
+
+            for(Element e:dateList2) {
+                if(e.text().equals("이벤트 기간")){
+                    dateList3.add(e.parent());}
+                else if(e.text().equals("선착순")){
+                    dateList3.add(e);
+                }
+
+
+
+                for (int i = 0; i < megaeventsLink.size(); i++) {
+                    Event events = new Event();
+                    events.setSource("Mega");
+                    events.setTitle(megaeventsLink.get(i).text());
+                    events.setHyperLink(megaeventsLink.get(i).attr("href"));
+
+                    if(dateList3.get(i).text().equals("선착순")){
+                        events.setDate(dateList3.get(i).text());
+                    }
+                    else{
+                        events.setDate(dateList3.get(i).text().substring(6));
+                    }
+
+
+                    //주소 기입
+//
+//                    System.out.println(megaeventsLink.get(i).text() + " , "
+//                            + megaeventsLink.get(i).attr("href")
+//                            + "," + events.getDate());
+                    eventList.add(events);
+                }
+
             }
             for (Event e : eventList) {
                 boolean sim = false;

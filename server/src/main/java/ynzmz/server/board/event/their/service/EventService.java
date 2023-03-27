@@ -7,6 +7,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.jsoup.select.NodeFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -96,63 +97,82 @@ public class EventService {
 
     //----------------------------------------------------포스트컨스트럭트 데이터크롤링------------------------------------------------------------
 
-//    @PostConstruct
-//    public void megaCrawler() {
-//        String megaUrl1 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
-//        String megaUrl2 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=2&intCP=NaN";
-//        String megaUrl3 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=3&intCP=NaN";
-//        String megaUrl4 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=4&intCP=NaN";
-//        String megaUrl5 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=5&intCP=NaN";
+    @PostConstruct
+    public void megaCrawler() {
+        String megaUrl1 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
+        String megaUrl2 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=2&intCP=NaN";
+        String megaUrl3 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=3&intCP=NaN";
+        String megaUrl4 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=4&intCP=NaN";
+        String megaUrl5 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=5&intCP=NaN";
+
+        List<String> megas = new ArrayList<>();
+        megas.add(megaUrl1);
+        megas.add(megaUrl2);
+        megas.add(megaUrl3);
+        megas.add(megaUrl4);
+        megas.add(megaUrl5);
+
+//        Connection eConn = Jsoup.connect(etoosUrl);
+
+        try {
+
+            for (String s : megas) {
+                Connection mConn = Jsoup.connect(s);
+                Document document = mConn.get();
+
+                Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
+                Elements dateList = document.select( "div.date > span > strong");
+                Elements dateList2 = new Elements();
+                List<String> dateListString = new ArrayList<>();
+
+                for(Element e:dateList){
+                    if(e.text().equals("이벤트 기간")){
+                        dateList2.add(e);}
+                    else if(e.text().equals("선착순")){
+                        dateList2.add(e);
+                    }
+                }
+                Elements dateList3 = new Elements();
+
+
+                for(Element e:dateList2) {
+                    if(e.text().equals("이벤트 기간")){
+                        dateList3.add(e.parent());}
+                    else if(e.text().equals("선착순")){
+                        dateList3.add(e);
+                    }
+//                    System.out.println(e.parent().text().substring(6));
+                }
+
+
+                for (int i = 0; i < megaeventsLink.size(); i++) {
+                    Event events = new Event();
+                    events.setSource("Mega");
+                    events.setTitle(megaeventsLink.get(i).text());
+                    events.setHyperLink(megaeventsLink.get(i).attr("href"));
+
+                    if(dateList3.get(i).text().equals("선착순")){
+                        events.setDate(dateList3.get(i).text());
+                    }
+                    else{
+                        events.setDate(dateList3.get(i).text().substring(6));
+                    }
+
+
+                    //주소 기입
 //
-//        List<String> megas = new ArrayList<>();
-//        megas.add(megaUrl1);
-//        megas.add(megaUrl2);
-//        megas.add(megaUrl3);
-//        megas.add(megaUrl4);
-//        megas.add(megaUrl5);
-//
-////        Connection eConn = Jsoup.connect(etoosUrl);
-//
-//        try {
-//
-//            for (String s : megas) {
-//                Connection mConn = Jsoup.connect(s);
-//                Document document = mConn.get();
-//
-//                Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
-//                Elements megaeventsdate1 = document.getElementsByClass("date").select("span:nth-child(1)");
-//                Elements megaeventsdate3 = document.getElementsByClass("date").select("span:nth-child(3)");
-//
-//                for (int i = 0; i < megaeventsLink.size(); i++) {
-//                    Event events = new Event();
-//                    events.setSource("Mega");
-//                    events.setTitle(megaeventsLink.get(i).text());
-//                    events.setHyperLink(megaeventsLink.get(i).attr("href"));
-//                    int k = 0;
-//                    //주소 기입
-//                    if (megaeventsdate1.get(i).text().substring(0, 1).equals("이")) {
-//                        events.setDate(megaeventsdate1.get(i).text().substring(6));
-//                    } else if (megaeventsdate3.size() != 0) {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
-//
-//                        events.setDate(megaeventsdate3.get(k).text().substring(6));
-//                    }else  {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
-//
-//                        events.setDate(" 선착순");
-//                    }
-//
-//                    createEvent(events);
 //                    System.out.println(megaeventsLink.get(i).text() + " , "
 //                            + megaeventsLink.get(i).attr("href")
 //                            + "," + events.getDate());
-//
-//                }
-//            }
-//
-//        } catch (
-//                IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+
+                }
+            }
+
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+    }
 //
 //    @PostConstruct
 //    public void etoosCrawler() {
@@ -221,19 +241,19 @@ public class EventService {
 //            e.printStackTrace();
 //        }
 //    }
-
-
-
-
-
-
-
-
-
-
-
-
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //    public void testnew(){
 //    String megaUrl1 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
 //    try {
@@ -241,10 +261,18 @@ public class EventService {
 //        Document document = mConn.get();
 //
 //        Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
-//        Elements megaeventsdate1 = document.getElementsByClass("date").select("span:nth-child(1)");
-//        // 강사이름O #wrap_2014 > div.column_main > div.column_right > div > div.event_list > ul > li:nth-child(9) > div.info > div.date > span > strong
-//        Elements megaeventsdate3 = document.getElementsByClass("date").select("span:nth-child(3)");
-//        //강사이름 X #wrap_2014 > div.column_main > div.column_right > div > div.event_list > ul > li:nth-child(1) > div.info > div.date > span:nth-child(3) > strong
+////        Elements megaeventsdate1 = document.getElementsByClass("date").select("span:nth-child(1)");
+////        // 강사이름O #wrap_2014 > div.column_main > div.column_right > div > div.event_list > ul > li:nth-child(9) > div.info > div.date > span > strong
+////        Elements megaeventsdate3 = document.getElementsByClass("date").select("span:nth-child(3)");
+////        //강사이름 X #wrap_2014 > div.column_main > div.column_right > div > div.event_list > ul > li:nth-child(1) > div.info > div.date > span:nth-child(3) > strong
+//        NodeFilter nodeFilter = ;
+//         Elements dateList = document.select( "div.date > span > strong").parents();
+//
+//
+//
+//
+//
+//
 //        List<Event> onlyMegaEvents = findAllMegaEvents();
 //        List<Event> eventList = new ArrayList<>();
 //        int k = 0;
@@ -255,14 +283,7 @@ public class EventService {
 //            events.setHyperLink(megaeventsLink.get(i).attr("href"));
 //
 //            //주소 기입
-//            if (megaeventsdate3.get(i).text().substring(0, 1).equals("이")) {
-//                events.setDate(megaeventsdate3.get(i).text()/*.substring(6)*/);
-//
-//            } else if (megaeventsdate1.size() > k) {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
-//                events.setDate(megaeventsdate1.get(k).text().substring(6));
-//
-//                k++;
-//            } else {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
+//            else {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
 //
 //                events.setDate(" 선착순");
 //            }
