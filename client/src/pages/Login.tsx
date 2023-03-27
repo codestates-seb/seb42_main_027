@@ -45,6 +45,8 @@ function Login() {
   const { setIsLoginInStore } = useIsLoginStore(state => state);
   const { userInfo, setUserInfo } = useUserInfoStore(state => state);
 
+  const googleLoginUrl =
+    'https://accounts.google.com/o/oauth2/auth?client_id=557076266512-26m0oio1d43tguk02g1fur7umuarvse2.apps.googleusercontent.com&redirect_uri=http://localhost:8080/login/oauth2/code/google&response_type=code&scope=email%20profile%20openid&access_type=offline';
   const navigate = useNavigate();
   const pathData = {
     email: '',
@@ -93,6 +95,10 @@ function Login() {
     }
   };
 
+  const handleClickGoogleLogin = () => {
+    window.open(googleLoginUrl, '_blank', 'height=600');
+  };
+
   return (
     <div>
       <Container>
@@ -134,7 +140,12 @@ function Login() {
                 다음
               </BaseButton>
             )}
-            <BaseButton color="white" size="md" disabled={false}>
+            <BaseButton
+              onClick={handleClickGoogleLogin}
+              color="white"
+              size="md"
+              disabled={false}
+            >
               Google 로그인
             </BaseButton>
           </ButtonGroup>

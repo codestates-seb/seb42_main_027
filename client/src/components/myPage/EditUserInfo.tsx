@@ -5,20 +5,36 @@ import useUserInfoStore from 'stores/userInfoStore';
 import styled from 'styled-components';
 import { validatePassword, validatePhoneNum } from 'utils/regex';
 import theme from 'theme';
+import { BsPhone } from 'react-icons/bs';
+import { AiOutlineUser } from 'react-icons/ai';
 import EditUserInfoInput from './EditUserInfoInput';
 
 const { colors } = theme;
 const { fontSizes } = theme;
 
+const Container = styled.div`
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+`;
+
 const UserInfo = styled.p`
-  font-size: ${fontSizes.md};
-  margin: 0.3rem 0;
+  font-size: 1.2rem;
+  padding: 1rem 0;
+  color: ${colors.fontColor};
+  display: flex;
+  align-items: center;
+  border-bottom: 0.1rem solid ${colors.gray};
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 100%;
+  margin-top: 1rem;
   & :first-child {
     margin-right: 0.5rem;
   }
@@ -38,6 +54,67 @@ const EditUserInfoContainer = styled.div`
   flex-direction: column;
   width: 100%;
   margin-bottom: 0.5rem;
+`;
+
+const DefaultInfoSpan = styled.span`
+  color: ${colors.gray};
+  margin-bottom: 0.8rem;
+`;
+
+const UserInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  padding: 1rem;
+  border: 0.15rem solid ${colors.pointColor};
+  box-shadow: 0px 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  margin-top: 8rem;
+`;
+
+const DefaultInfo = styled.div`
+  display: flex;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 0.1rem solid ${colors.gray};
+  width: 100%;
+`;
+
+const ProfileImage = styled.img`
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0px 0 5px rgba(0, 0, 0, 0.3);
+  margin-right: 1rem;
+`;
+
+const UserName = styled.h3`
+  font-size: ${theme.fontSizes.lg};
+  margin-top: 0.6rem;
+  font-weight: 600;
+`;
+
+const UserEmail = styled.p`
+  color: ${colors.gray};
+`;
+
+const EditPasswordContainer = styled.div`
+  display: flex;
+  width: 100%;
+  & {
+    margin-top: 0.2rem;
+  }
+`;
+
+const EditPasswordTitle = styled.h3`
+  color: ${colors.gray};
+  margin-top: 0.5rem;
+`;
+
+const Icon = styled.span`
+  margin-right: 0.5rem;
+  color: ${colors.pointColor};
 `;
 
 function EditUserInfo() {
@@ -268,80 +345,118 @@ function EditUserInfo() {
   }, [userInfo]);
 
   return (
-    <>
+    <Container>
       {/* 정보 수정 */}
-      {isEdit ? (
-        <EditUserInfoContainer>
-          <EditUserInfoInput
-            placeholder={userData.displayName}
-            onChange={handleChangeDisplayName}
-            value={displayName}
-            errorMessage={isDisplayNameSuccess.errorMessage}
-            color={colorSelector(isDisplayNameSuccess.isSuccess)}
-          />
-          <EditUserInfoInput
-            placeholder={userData.phoneNumber}
-            onChange={handleChangePhoneNum}
-            value={phoneNum}
-            errorMessage={isPhoneNumSuccess.errorMessage}
-            color={colorSelector(isPhoneNumSuccess.isSuccess)}
-          />
-        </EditUserInfoContainer>
-      ) : (
-        <>
-          <UserInfo>전화번호: {userData.phoneNumber}</UserInfo>
-          <UserInfo>닉네임: {userData.displayName}</UserInfo>
-        </>
-      )}
+      <UserInfoContainer>
+        <DefaultInfoSpan>기본정보</DefaultInfoSpan>
+        <DefaultInfo>
+          <ProfileImage src={userData.profileImage} />
+          <div>
+            <UserName>{userData.name}</UserName>
+            <UserEmail>{userData.email}</UserEmail>
+          </div>
+        </DefaultInfo>
 
-      {isEditPassword ? (
-        <EditUserInfoContainer>
-          <EditUserInfoInput
-            placeholder="현재 암호"
-            onChange={handleChangePassword}
-            value={password}
-            errorMessage={isPasswordSuccess.errorMessage}
-            color={colorSelector(isPasswordSuccess.isSuccess)}
-          />
-          <EditUserInfoInput
-            placeholder="새로운 암호"
-            onChange={handleChangeEditPassword}
-            value={editPassword}
-            errorMessage={isEditPasswordSuccess.errorMessage}
-            color={colorSelector(isEditPasswordSuccess.isSuccess)}
-          />
-          <EditUserInfoInput
-            placeholder="새로운 암호 확인"
-            onChange={handleChangeConfirmEditPassword}
-            value={confirmEditPassword}
-            errorMessage={isConfirmEditPasswordSuccess.errorMessage}
-            color={colorSelector(isConfirmEditPasswordSuccess.isSuccess)}
-          />
-        </EditUserInfoContainer>
-      ) : null}
-
-      <ButtonContainer>
-        {isEdit && !isEditPassword ? (
-          <EditBtn onClick={handleCancelEditUserInfo}>정보 취소</EditBtn>
-        ) : null}
-
-        {!isEdit && isEditPassword ? (
-          <EditBtn onClick={handleCancelEditPassword}>암호 취소</EditBtn>
-        ) : null}
-
-        {isEdit ? null : (
-          <EditBtn onClick={handleClickEditPassword}>
-            {isEditPassword ? '저장' : '암호수정'}
-          </EditBtn>
+        {isEdit ? (
+          <EditUserInfoContainer>
+            <UserInfo>
+              <Icon>
+                <AiOutlineUser />
+              </Icon>
+              <EditUserInfoInput
+                placeholder={userData.displayName}
+                onChange={handleChangeDisplayName}
+                value={displayName}
+                errorMessage={isDisplayNameSuccess.errorMessage}
+                color={colorSelector(isDisplayNameSuccess.isSuccess)}
+              />
+            </UserInfo>
+            <UserInfo>
+              <Icon>
+                <BsPhone />
+              </Icon>
+              <EditUserInfoInput
+                placeholder={userData.phoneNumber}
+                onChange={handleChangePhoneNum}
+                value={phoneNum}
+                errorMessage={isPhoneNumSuccess.errorMessage}
+                color={colorSelector(isPhoneNumSuccess.isSuccess)}
+              />
+            </UserInfo>
+          </EditUserInfoContainer>
+        ) : (
+          <>
+            <UserInfo>
+              <Icon>
+                <AiOutlineUser />
+              </Icon>
+              {userData.displayName}
+            </UserInfo>
+            <UserInfo>
+              <Icon>
+                <BsPhone />
+              </Icon>
+              {userData.phoneNumber}
+            </UserInfo>
+          </>
         )}
 
-        {isEditPassword ? null : (
-          <EditBtn onClick={handleClickEdit}>
-            {isEdit ? '저장' : '수정'}
-          </EditBtn>
-        )}
-      </ButtonContainer>
-    </>
+        {isEditPassword ? (
+          <EditUserInfoContainer>
+            <EditPasswordTitle>암호변경</EditPasswordTitle>
+            <EditPasswordContainer>
+              <EditUserInfoInput
+                placeholder="현재 암호"
+                onChange={handleChangePassword}
+                value={password}
+                errorMessage={isPasswordSuccess.errorMessage}
+                color={colorSelector(isPasswordSuccess.isSuccess)}
+              />
+            </EditPasswordContainer>
+            <EditPasswordContainer>
+              <EditUserInfoInput
+                placeholder="새로운 암호"
+                onChange={handleChangeEditPassword}
+                value={editPassword}
+                errorMessage={isEditPasswordSuccess.errorMessage}
+                color={colorSelector(isEditPasswordSuccess.isSuccess)}
+              />
+            </EditPasswordContainer>
+            <EditPasswordContainer>
+              <EditUserInfoInput
+                placeholder="새로운 암호 확인"
+                onChange={handleChangeConfirmEditPassword}
+                value={confirmEditPassword}
+                errorMessage={isConfirmEditPasswordSuccess.errorMessage}
+                color={colorSelector(isConfirmEditPasswordSuccess.isSuccess)}
+              />
+            </EditPasswordContainer>
+          </EditUserInfoContainer>
+        ) : null}
+
+        <ButtonContainer>
+          {isEdit && !isEditPassword ? (
+            <EditBtn onClick={handleCancelEditUserInfo}>정보 취소</EditBtn>
+          ) : null}
+
+          {!isEdit && isEditPassword ? (
+            <EditBtn onClick={handleCancelEditPassword}>암호 취소</EditBtn>
+          ) : null}
+
+          {isEdit ? null : (
+            <EditBtn onClick={handleClickEditPassword}>
+              {isEditPassword ? '저장' : '암호수정'}
+            </EditBtn>
+          )}
+
+          {isEditPassword ? null : (
+            <EditBtn onClick={handleClickEdit}>
+              {isEdit ? '저장' : '수정'}
+            </EditBtn>
+          )}
+        </ButtonContainer>
+      </UserInfoContainer>
+    </Container>
   );
 }
 

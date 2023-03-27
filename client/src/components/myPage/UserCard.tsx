@@ -51,7 +51,7 @@ const NameTagContainer = styled.div`
 const Name = styled.h2`
   font-size: 2rem;
   margin: 1rem 0;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
 `;
 
 const UserState = styled.div`
@@ -67,7 +67,7 @@ const UserState = styled.div`
 
 const UserInfo = styled.p`
   font-size: ${fontSizes.md};
-  margin: 0.3rem 0;
+  color: ${colors.fontColor};
 `;
 
 const SideNav = styled.div`

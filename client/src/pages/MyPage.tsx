@@ -26,7 +26,7 @@ function MyPage() {
     useState('자유 게시판');
   const [selectCommentCategories, setSelectCommentCategories] =
     useState('자유 게시판');
-  const [sideNav, setSideNav] = useState('');
+  const [sideNav, setSideNav] = useState('myProfile');
   const { memberId } = userInfo;
 
   useEffect(() => {

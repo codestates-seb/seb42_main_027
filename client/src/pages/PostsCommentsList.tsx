@@ -8,6 +8,7 @@ const ListContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 50%;
+  height: 100vh;
 `;
 
 type PostsCommentsListProps = {

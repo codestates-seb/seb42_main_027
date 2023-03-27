@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 import theme from 'theme';
 
-const { danger, success, pointColor, gray } = theme.colors;
+const { danger, success, fontColor, gray } = theme.colors;
 const dangerRGB = '236, 60, 60';
 const successRGB = '101, 226, 113';
 
 const EditUserInfo = styled.input`
   padding: 0.1rem 0.2rem;
   border-radius: 0.2rem;
-  margin-bottom: 0.2rem;
+
+  color: ${fontColor};
   border: 1px solid
     ${({ color }) => {
       switch (color) {
