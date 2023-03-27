@@ -73,10 +73,11 @@ function LectureReview2({
         <VerySmallGrayFont>{`${lecture.title}`}</VerySmallGrayFont>
 
         <SmallFont2>
-          <Link to={`/lecturereviewdetail/${lectureReviewId}`}>{`${title.slice(
-            0,
-            20,
-          )}... (${totalCommentCount})`}</Link>
+          <Link to={`/lecturereviewdetail/${lectureReviewId}`}>
+            {title.length > 20
+              ? `${title.slice(0, 20)}... (${totalCommentCount})`
+              : `${title} (${totalCommentCount})`}
+          </Link>
         </SmallFont2>
       </FlexContainer>
       <FlexContainer width="15rem">
@@ -115,6 +116,9 @@ const VerySmallGrayFont = styled.div`
 const SmallFont2 = styled.div`
   font-size: 1.1rem;
   cursor: pointer;
+  :hover {
+    color: red;
+  }
 `;
 
 const BestBox = styled.div`
