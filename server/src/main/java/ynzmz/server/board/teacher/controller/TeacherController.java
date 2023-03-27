@@ -161,6 +161,8 @@ public class TeacherController {
 
         s3UpLoadService.deleteFileByFileUrl(teacher.getProfileImageUrl());
         s3UpLoadService.deleteFileByFileUrl(teacher.getRealImageUrl());
+        s3FileInfoService.deleteS3FileInfo(s3FileInfoService.findS3FileInfoByFileUrl(teacher.getProfileImageUrl()));
+        s3FileInfoService.deleteS3FileInfo(s3FileInfoService.findS3FileInfoByFileUrl(teacher.getRealImageUrl()));
 
         teacherService.deleteTeacher(teacherId);
         Optional<Teacher> deletedTeacher = teacherService.findOptionalTeacherById(teacherId);

@@ -40,7 +40,9 @@ public class S3FileInfoService {
     public S3FileInfo findS3FileInfoByFilePath(String filePath) {
         return s3FileInfoRepository.findByFilePath(filePath);
     }
-
+    public S3FileInfo findS3FileInfoByFileUrl(String fileUrl) {
+        return s3FileInfoRepository.findByFilePath(getFilePathToFileUrl(fileUrl));
+    }
     public List<String> getFilePathByS3FileInfo(List<S3FileInfo> s3FileInfos) {
         List<String> filePaths = new ArrayList<>();
         for(S3FileInfo s3FileInfo : s3FileInfos) {

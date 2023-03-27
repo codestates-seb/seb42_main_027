@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21e0b4a1-1309-4891-a3a3-777e2c29c93a" name="변경" comment="feat: LectureReview S3파일 동기화 설정(등록,수정,삭제)">
+    <list default="true" id="21e0b4a1-1309-4891-a3a3-777e2c29c93a" name="변경" comment="fix: Table 변경값 반영">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/their/service/EventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/their/service/EventService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/controller/AnswerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/controller/AnswerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/teacher/controller/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/teacher/controller/TeacherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/s3/repository/S3FileInfoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/s3/repository/S3FileInfoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/s3/service/S3FileInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/s3/service/S3FileInfoService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +134,7 @@
       <recent name="ynzmz.server.vote.qna.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.ServerApplication">
+  <component name="RunManager" selected="Gradle.server [clean]">
     <configuration name="server [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -338,7 +333,21 @@
       <option name="project" value="LOCAL" />
       <updated>1679940993597</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="feat: Teacher,Answer S3파일 동기화 코드추가">
+      <created>1679943023845</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1679943023845</updated>
+    </task>
+    <task id="LOCAL-00020" summary="fix: Table 변경값 반영">
+      <created>1679943274705</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1679943274705</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -385,7 +394,9 @@
     <MESSAGE value="fix: Table 변경사항 전체 flyway 반영후 초기화" />
     <MESSAGE value="merge: 민호+석준 병합" />
     <MESSAGE value="feat: LectureReview S3파일 동기화 설정(등록,수정,삭제)" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: LectureReview S3파일 동기화 설정(등록,수정,삭제)" />
+    <MESSAGE value="feat: Teacher,Answer S3파일 동기화 코드추가" />
+    <MESSAGE value="fix: Table 변경값 반영" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: Table 변경값 반영" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
