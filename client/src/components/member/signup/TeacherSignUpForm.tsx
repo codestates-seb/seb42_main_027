@@ -16,7 +16,6 @@ const { colors } = theme;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
 const Container = styled.div`
@@ -35,6 +34,11 @@ const SignUpFailedMessage = styled.p`
   color: ${colors.danger};
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
+`;
+
+const StyleButton = styled.div`
+  width: 10rem;
+  height: 3rem;
 `;
 
 function TeacherSignUpForm() {
@@ -82,9 +86,7 @@ function TeacherSignUpForm() {
     return 'danger';
   };
 
-  const handleChangeUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setUserName(value);
+  const validationName = (value: string) => {
     if (value.length === 0) {
       setIsUserNameSuccess({
         isSuccess: 'false',
@@ -100,9 +102,7 @@ function TeacherSignUpForm() {
     }
   };
 
-  const handleChangePhoneNum = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setPhoneNum(value);
+  const validationPhoneNumber = (value: string) => {
     if (value.length === 0) {
       setIsPhoneNumSuccess({
         isSuccess: 'false',
@@ -118,9 +118,7 @@ function TeacherSignUpForm() {
     }
   };
 
-  const handleChangeDisplayName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setDisplayName(value);
+  const validationDisplayName = (value: string) => {
     if (value.length === 0) {
       setIsDisplayNameSuccess({
         isSuccess: 'false',
@@ -136,10 +134,7 @@ function TeacherSignUpForm() {
     }
   };
 
-  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-
-    setEmail(value);
+  const validationEmail = (value: string) => {
     if (value.length === 0) {
       setIsEmailSuccess({
         isSuccess: 'false',
@@ -155,10 +150,7 @@ function TeacherSignUpForm() {
     }
   };
 
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-
-    setPassword(value);
+  const validationPassword = (value: string) => {
     if (value.length === 0) {
       setIsPasswordSuccess({
         isSuccess: 'false',
@@ -174,12 +166,7 @@ function TeacherSignUpForm() {
     }
   };
 
-  const handleChangeConfirmPassword = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const { value } = e.target;
-
-    setConfirmPassword(value);
+  const validationConfirmPassword = (value: string) => {
     if (value.length === 0) {
       setIsConfirmPasswordSuccess({
         isSuccess: 'false',
@@ -193,6 +180,44 @@ function TeacherSignUpForm() {
         errorMessage: '암호가 일치하지 않습니다.',
       });
     }
+  };
+
+  const handleChangeUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setUserName(value);
+    validationName(value);
+  };
+
+  const handleChangePhoneNum = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setPhoneNum(value);
+    validationPhoneNumber(value);
+  };
+
+  const handleChangeDisplayName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setDisplayName(value);
+    validationDisplayName(value);
+  };
+
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setEmail(value);
+    validationEmail(value);
+  };
+
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setPassword(value);
+    validationPassword(value);
+  };
+
+  const handleChangeConfirmPassword = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const { value } = e.target;
+    setConfirmPassword(value);
+    validationConfirmPassword(value);
   };
   const pathData = {
     username: '',
@@ -215,6 +240,12 @@ function TeacherSignUpForm() {
     pathData.confirmPassword = confirmPassword;
     pathData.createdAt = currentTime;
     pathData.state = 'TEACHER';
+    validationName(userName);
+    validationPhoneNumber(phoneNum);
+    validationDisplayName(displayName);
+    validationEmail(email);
+    validationPassword(password);
+    validationConfirmPassword(confirmPassword);
     try {
       await postSignUp(pathData);
       navigate('/');
@@ -297,14 +328,16 @@ function TeacherSignUpForm() {
           이미 가입된 계정이 있습니다. 로그인해 주세요
         </SignUpFailedMessage>
       )}
-      <BaseButton
-        onClick={handleSubmit}
-        color="pointColor"
-        size="md"
-        disabled={false}
-      >
-        가입하기
-      </BaseButton>
+      <StyleButton>
+        <BaseButton
+          onClick={handleSubmit}
+          color="pointColor"
+          size="md"
+          disabled={false}
+        >
+          가입하기
+        </BaseButton>
+      </StyleButton>
       <SignUpInfo>
         유효한 전화번호를 입력하십시오. 새 기기나 웹 브라우저에 로그인할 때 해당
         전화번호를 사용하여 신원을 확인합니다. 메시지 또는 데이터 요금이 적용될

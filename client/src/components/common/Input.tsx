@@ -8,10 +8,13 @@ const Label = styled.label`
   display: flex;
   flex-direction: column;
   color: ${pointColor};
+  width: 100%;
+  height: 7.5rem;
+  font-size: 1.5rem;
 `;
 
 const StyleInput = styled.input`
-  padding: 0.4rem 1rem;
+  padding: 1rem 1rem;
   border-radius: 0.5rem;
   margin-bottom: 0.5rem;
   background-color: ${({ color }) => {
@@ -44,11 +47,16 @@ const StyleInput = styled.input`
         }
       }};
   }
+  :focus {
+    border-color: ${pointColor};
+    box-shadow: 0px 0 5px rgba(0, 0, 0, 0.3);
+  }
 `;
 
 const StyleErrorMessage = styled.p`
   margin-bottom: 1rem;
   color: ${danger};
+  font-size: 1.3rem;
 `;
 
 type InputProps = {

@@ -12,6 +12,7 @@ type ButtonProps = {
 };
 
 const StyledButton = styled.button<ButtonProps>`
+  width: 100%;
   background-color: ${({ color }) =>
     color === 'pointColor' ? pointColor : 'white'};
   border: ${({ color }) =>

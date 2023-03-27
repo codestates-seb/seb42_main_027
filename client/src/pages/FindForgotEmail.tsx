@@ -16,13 +16,14 @@ const SubTitle = styled.p`
   font-size: 1rem;
   margin-bottom: 0.5rem;
   width: 73%;
-  text-align: center;
+  margin-bottom: 1rem;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 70%;
+  width: 100%;
 `;
 
 const SignUpFailedMessage = styled.p`
@@ -30,6 +31,11 @@ const SignUpFailedMessage = styled.p`
   margin: 0.5rem 0;
   font-size: 0.9rem;
   text-align: center;
+`;
+
+const StyleButton = styled.div`
+  width: 10rem;
+  height: 3rem;
 `;
 
 // ModalStyle
@@ -211,18 +217,18 @@ function FindForgotEmail() {
         {isSuccess ? null : (
           <SignUpFailedMessage>이메일이 존재하지 않습니다.</SignUpFailedMessage>
         )}
-        <BaseButton
-          onClick={handleSubmit}
-          color="pointColor"
-          size="md"
-          disabled={false}
-        >
-          다음
-        </BaseButton>
-
-        {/* 임시 버튼 */}
+        <StyleButton>
+          <BaseButton
+            onClick={handleSubmit}
+            color="pointColor"
+            size="md"
+            disabled={false}
+          >
+            다음
+          </BaseButton>
+        </StyleButton>
         <button type="button" onClick={handleOpenModal}>
-          modal open
+          버튼
         </button>
 
         <ModalWrapper isOpen={isOpen} shouldCloseOnOverlayClick={false}>
