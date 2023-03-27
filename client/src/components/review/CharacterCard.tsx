@@ -76,7 +76,7 @@ function CharacterCard({
                 onClick={() => {
                   axios
                     .delete(
-                      `${process.env.REACT_APP_API_URL}/teachers/${el.teacherId}`,
+                      `${process.env.REACT_APP_API_URL}/boards/teachers/${el.teacherId}`,
                       {
                         headers: {
                           'ngrok-skip-browser-warning': 'asdasdas',

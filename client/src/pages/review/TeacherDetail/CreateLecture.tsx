@@ -119,7 +119,7 @@ function CreateLecture() {
       };
 
       axios
-        .post(`${process.env.REACT_APP_API_URL}/lectures`, data, {
+        .post(`${process.env.REACT_APP_API_URL}/boards/lectures`, data, {
           headers: {
             'ngrok-skip-browser-warning': '69420',
           },

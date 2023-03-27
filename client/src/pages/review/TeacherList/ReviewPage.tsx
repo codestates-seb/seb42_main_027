@@ -63,7 +63,7 @@ function ReviewPage() {
     setIsPending(true);
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/teachers?${
+        `${process.env.REACT_APP_API_URL}/boards/teachers?${
           subject !== '전체' ? `subject=${subject}&` : ''
         }${sortTag !== '최신순' ? `sort=${sortTag}&` : ''}${
           grade !== '전체' ? `grade=${grade}&` : ''

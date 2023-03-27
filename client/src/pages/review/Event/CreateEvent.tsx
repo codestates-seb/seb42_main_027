@@ -21,14 +21,8 @@ function CreateEvent() {
   const quillRef = useRef<any>();
 
   useEffect(() => {
-    console.log(
-      new Date(
-        Number(start.slice(0, 4)),
-        Number(start.slice(5, 7)) - 1,
-        Number(start.slice(8, 10)),
-      ),
-    );
-  }, [start]);
+    window.scrollTo(0, 0);
+  }, []);
 
   const createHandler = () => {
     if (!title || !content || !start || !end) {

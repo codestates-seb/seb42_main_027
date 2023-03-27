@@ -92,7 +92,7 @@ function CreateTeacher() {
       console.log(data);
 
       axios
-        .post(`${process.env.REACT_APP_API_URL}/teachers`, data, {
+        .post(`${process.env.REACT_APP_API_URL}/boards/teachers`, data, {
           headers: {
             'ngrok-skip-browser-warning': 'asdasdas',
           },
@@ -120,10 +120,7 @@ function CreateTeacher() {
                   console.log(e.target.files[0]);
                   const formData = new FormData();
                   formData.append('image', e.target.files[0]);
-                  formData.append(
-                    'filePatch',
-                    'boards/teachers/profile-images',
-                  );
+                  formData.append('filePath', 'boards/teachers/profile-images');
 
                   axios
                     .post(`${process.env.REACT_APP_API_URL}/upload`, formData, {
@@ -160,7 +157,7 @@ function CreateTeacher() {
                 if (e.target.files.length) {
                   const formData = new FormData();
                   formData.append('image', e.target.files[0]);
-                  formData.append('filePatch', 'boards/teachers/real-images');
+                  formData.append('filePath', 'boards/teachers/real-images');
                   axios
                     .post(`${process.env.REACT_APP_API_URL}/upload`, formData, {
                       headers: {
