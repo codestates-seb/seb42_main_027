@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ynzmz.server.global.dto.MultiResponseDto;
 import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
+import ynzmz.server.s3.entity.S3FileInfo;
 import ynzmz.server.s3.service.S3FileInfoService;
 import ynzmz.server.s3.service.S3UpLoadService;
 import ynzmz.server.tag.entity.GradeTag;
@@ -43,13 +44,18 @@ public class TeacherController {
         Teacher createdTeacher = teacherService.createTeacher(teacher);
 
         //학년,과목,플랫폼 Tag 찾기 ( String -> 저장된 객체 )
-
         List<GradeTag.Grade> gradeTags = tagService.findGradeTags(teacherPost.getGradeTag());
         List<PlatformTag.Platform> platformTags = tagService.findPlatformTags(teacherPost.getPlatformTag());
         List<SubjectTag.Subject> subjectTags = tagService.findSubjectTags(teacherPost.getSubjectTag());
 
         //생성된 강사 맵핑테이블 생성
         tagService.createTeacherTag(createdTeacher, gradeTags, platformTags, subjectTags);
+
+        //가지고 있는 저장된 사진이름과 특정지어서 S3File 에 QuestionId 를 입력시키고,상태값 ACTIVE 로 변경
+        String proFileImagePath = s3FileInfoService.getFilePathToFileUrl(createdTeacher.getProfileImageUrl());
+        String realImagePath = s3FileInfoService.getFilePathToFileUrl(createdTeacher.getRealImageUrl());
+        List<S3FileInfo> s3FileInfos = s3FileInfoService.findS3FileInfoByTableName("teacher");
+        s3FileInfoService.setS3FileInfosStatusActiveAndIdConnection(proFileImagePath,realImagePath , s3FileInfos, teacher.getTeacherId());
 
         TeacherDto.SimpleInfoResponse response = teacherMapper.teacherToTeacherSimpleInfoResponse(teacher);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
@@ -71,6 +77,26 @@ public class TeacherController {
         tagService.deleteAllTeacherTagByTeacher(updatedTeacher);
         //생성된 강사 맵핑테이블 생성
         tagService.createTeacherTag(updatedTeacher, gradeTags, platformTags, subjectTags);
+
+        //수정전 저장된 이미지파일 경로들
+        String savedProFileImagePath = s3FileInfoService.getFilePathToFileUrl(teacher.getProfileImageUrl());
+        String savedRealImagePath = s3FileInfoService.getFilePathToFileUrl(teacher.getRealImageUrl());
+        //수정후 저장된 이미지파일 경로들
+        String updateProFileImagePath = s3FileInfoService.getFilePathToFileUrl(updatedTeacher.getProfileImageUrl());
+        String updateRealImagePath = s3FileInfoService.getFilePathToFileUrl(updatedTeacher.getRealImageUrl());
+        //S3FileInfo 값 불러오기
+        List<S3FileInfo> s3FileInfos = s3FileInfoService.findS3FileInfoByTableNameAndId("teacher", teacherId);
+        //비교후 새로 저장되는 이미지파일 경로들
+        if(!savedProFileImagePath.equals(updateProFileImagePath)) {
+            s3FileInfoService.setS3FileInfosStatusActiveAndIdConnection(updateProFileImagePath, s3FileInfos, teacher.getTeacherId());
+            s3FileInfoService.deleteS3FileInfo(s3FileInfoService.findS3FileInfoByFilePath(savedProFileImagePath));
+            s3UpLoadService.deleteFileByFilePath(savedProFileImagePath);
+        }
+        if(!savedRealImagePath.equals(updateRealImagePath)) {
+            s3FileInfoService.setS3FileInfosStatusActiveAndIdConnection(updateRealImagePath, s3FileInfos, teacher.getTeacherId());
+            s3FileInfoService.deleteS3FileInfo(s3FileInfoService.findS3FileInfoByFilePath(savedRealImagePath));
+            s3UpLoadService.deleteFileByFilePath(savedRealImagePath);
+        }
 
         TeacherDto.SimpleInfoResponse response = teacherMapper.teacherToTeacherSimpleInfoResponse(updatedTeacher);
 
@@ -135,6 +161,7 @@ public class TeacherController {
 
         s3UpLoadService.deleteFileByFileUrl(teacher.getProfileImageUrl());
         s3UpLoadService.deleteFileByFileUrl(teacher.getRealImageUrl());
+
         teacherService.deleteTeacher(teacherId);
         Optional<Teacher> deletedTeacher = teacherService.findOptionalTeacherById(teacherId);
 

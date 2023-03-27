@@ -37,6 +37,9 @@ public class S3FileInfoService {
     public List<S3FileInfo> findS3FileInfosByFilePaths(List<String> filePaths) {
         return s3FileInfoRepository.findByFilePathIn(filePaths);
     }
+    public S3FileInfo findS3FileInfoByFilePath(String filePath) {
+        return s3FileInfoRepository.findByFilePath(filePath);
+    }
 
     public List<String> getFilePathByS3FileInfo(List<S3FileInfo> s3FileInfos) {
         List<String> filePaths = new ArrayList<>();
@@ -53,7 +56,25 @@ public class S3FileInfoService {
                 s3FileInfoRepository.save(s3FileInfo);
             }
         }
+    }
+    public void setS3FileInfosStatusActiveAndIdConnection(String proFileImagePath, String realImagePath, List<S3FileInfo> s3FileInfos, long idOfTable ) {
+        for (S3FileInfo s3FileInfo : s3FileInfos) {
+            if (proFileImagePath.equals(s3FileInfo.getFilePath()) || realImagePath.equals(s3FileInfo.getFilePath())) {
+                s3FileInfo.setIdOfTable(idOfTable);
+                s3FileInfo.setStatus(S3FileInfo.Status.ACTIVE);
+                s3FileInfoRepository.save(s3FileInfo);
+            }
+        }
+    }
 
+    public void setS3FileInfosStatusActiveAndIdConnection(String ImagePath, List<S3FileInfo> s3FileInfos, long idOfTable ) {
+        for (S3FileInfo s3FileInfo : s3FileInfos) {
+            if (ImagePath.equals(s3FileInfo.getFilePath())) {
+                s3FileInfo.setIdOfTable(idOfTable);
+                s3FileInfo.setStatus(S3FileInfo.Status.ACTIVE);
+                s3FileInfoRepository.save(s3FileInfo);
+            }
+        }
     }
 
     public List<String> checkNewFilesByUpdate(List<String> savedFilePaths, List<String> updateFilePaths) {
@@ -74,6 +95,9 @@ public class S3FileInfoService {
     }
     public void deleteS3FileInfos(List<S3FileInfo> s3FileInfos) {
         s3FileInfoRepository.deleteAll(s3FileInfos);
+    }
+    public void deleteS3FileInfo(S3FileInfo s3FileInfo) {
+        s3FileInfoRepository.delete(s3FileInfo);
     }
     public String getFilePathToFileUrl(String fileUrl) {
         String prefix = "https://main-project-28-img.s3.ap-northeast-2.amazonaws.com/";

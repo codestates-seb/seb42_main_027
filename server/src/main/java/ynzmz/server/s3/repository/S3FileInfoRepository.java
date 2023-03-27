@@ -12,4 +12,5 @@ public interface S3FileInfoRepository extends JpaRepository<S3FileInfo,Long> {
     List<S3FileInfo> findByDbTableName(String dbTableName);
     List<S3FileInfo> findByDbTableNameAndIdOfTable(String dbTableName, long idOfTable);
     List<S3FileInfo> findByFilePathIn(List<String> filePaths);
+    S3FileInfo findByFilePath(String filePath);
 }

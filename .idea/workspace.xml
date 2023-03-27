@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21e0b4a1-1309-4891-a3a3-777e2c29c93a" name="변경" comment="merge: 민호+석준 병합">
+    <list default="true" id="21e0b4a1-1309-4891-a3a3-777e2c29c93a" name="변경" comment="feat: LectureReview S3파일 동기화 설정(등록,수정,삭제)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/review/lecture/controller/LectureReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/review/lecture/controller/LectureReviewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/review/lecture/entity/LectureReview.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/review/lecture/entity/LectureReview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/their/service/EventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/event/their/service/EventService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/controller/AnswerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/qna/answer/controller/AnswerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/teacher/controller/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/board/teacher/controller/TeacherController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/s3/repository/S3FileInfoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/s3/repository/S3FileInfoRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/s3/service/S3FileInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ynzmz/server/s3/service/S3FileInfoService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,6 +69,19 @@
       </map>
     </option>
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="11a48d9a-aece-4caf-a316-9f3712026e2c" />
+        <option name="url" value="https://github.com/codestates-seb/seb42_main_027.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/5.3.25/1c1a05f9e56b8cee98d71c3d610f177f17b3f73d/spring-web-5.3.25-sources.jar!/org/springframework/http/HttpStatus.java" root0="SKIP_INSPECTION" />
   </component>
@@ -130,7 +139,7 @@
       <recent name="ynzmz.server.vote.qna.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.ServerApplication">
+  <component name="RunManager" selected="Gradle.server [clean]">
     <configuration name="server [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -322,7 +331,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679940095024</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="feat: LectureReview S3파일 동기화 설정(등록,수정,삭제)">
+      <created>1679940993597</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1679940993597</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -368,7 +384,8 @@
     <MESSAGE value="feat: S3-DB 파일 연동 테이블 생성 및 Quest 파일등록,수정,삭제시 연동테이블,S3파일 등록,수정,삭제 코드구현" />
     <MESSAGE value="fix: Table 변경사항 전체 flyway 반영후 초기화" />
     <MESSAGE value="merge: 민호+석준 병합" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge: 민호+석준 병합" />
+    <MESSAGE value="feat: LectureReview S3파일 동기화 설정(등록,수정,삭제)" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: LectureReview S3파일 동기화 설정(등록,수정,삭제)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
