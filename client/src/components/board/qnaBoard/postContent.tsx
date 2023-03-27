@@ -10,15 +10,20 @@ import CountIcon from 'assets/icons/countIcon';
 
 import DeletePost from 'apis/board/deletePost';
 import getPostDetail from 'apis/board/getPostDetail';
+import PostVote from 'apis/board/postVote';
+import TextEditor from 'components/common/textEditor';
 import CalElapsedTime from '../post/calElapsedTime';
 
 import GoBackMenu from '../post/goBackMenu';
+import WriteComment from '../comment/writeComment';
+import AnswerContent from './answerContent';
 
 interface Data {
   questionId: number;
   title: 'string';
   content: 'string';
-  subjectTags: [{ subjectTag: string }];
+  category: string;
+  adoptAnswerId?: number;
   viewCount: number;
   voteCount: number;
   answerCount: number;
@@ -30,48 +35,52 @@ interface Data {
     displayName: string;
     state: string;
   };
+  answers: [AnswerData];
 }
 
-// interface Comment {
-//   freeCommentId?: number;
-//   content: string;
-//   createdAt: string;
-//   modifiedAt?: string;
-//   voteCount: number;
-//   member: {
-//     memberId: number;
-//     iconImageUrl?: string;
-//     displayName: string;
-//     state: string;
-//   };
-//   memberSim: boolean;
-// }
+interface Comment {
+  qnaCommentId: number;
+  content: string;
+  createdAt: string;
+  modifiedAt: string | null;
+  voteCount: number;
+  member: {
+    memberId: number;
+    iconImageUrl?: string;
+    displayName: string;
+    state: string;
+  };
+}
+
+interface AnswerData {
+  answerId: number;
+  content: 'string';
+  voteCount: number;
+  createdAt: string;
+  modifiedAt: string | null;
+  adoptStatus: boolean;
+  answerCount: number;
+  member: {
+    memberId: number;
+    iconImageUrl?: string;
+    displayName: string;
+    state: string;
+  };
+  comments: [Comment];
+}
 
 function PostContent() {
   const { userInfo } = useUserInfoStore(state => state);
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(true);
   const [listData, setListData] = useState<Data | Record<string, never>>({});
+  const [textContent, setTextContent] = useState<string>('');
   const idData = Number(useParams().id);
-  const category = '';
 
   let calTime = '';
   if (!isPending) {
     calTime = CalElapsedTime(listData.createdAt);
   }
-
-  // const categoryHandler = () => {
-  //   if (listData.subjectTags[0].subjectTag === '사탐전체') {
-  //     return '사탐';
-  //   }
-  //   if (listData.subjectTags[0].subjectTag === '과탐전체') {
-  //     return '과탐';
-  //   }
-  //   if (listData.subjectTags[0].subjectTag === '한국사') {
-  //     return '국사';
-  //   }
-  //   return listData.subjectTags[0].subjectTag;
-  // };
 
   const fetchPostDetail = async () => {
     try {
@@ -97,6 +106,14 @@ function PostContent() {
     }
   };
 
+  const voteHandler = async (value: string) => {
+    try {
+      await PostVote('qnas/questions', idData, value);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     fetchPostDetail();
   }, []);
@@ -108,12 +125,12 @@ function PostContent() {
     <Container>
       <GoBackMenu />
       {isPending ? (
-        <h1>로딩페이지가 들어갈 자리입니다.</h1>
+        <NoData>로딩페이지가 들어갈 자리입니다.</NoData>
       ) : (
         <div>
           <TitleDiv>
             <Top>
-              <Category>{listData.subjectTags[0].subjectTag}</Category>
+              <Category>{listData.category}</Category>
               {listData.member.memberId === userInfo.memberId ? (
                 <UDBtnDiv>
                   <Link to="edit">
@@ -137,17 +154,39 @@ function PostContent() {
             </Writer>
           </TitleDiv>
           <MainDiv>
-            <div dangerouslySetInnerHTML={{ __html: listData.content }} />
+            <TextDiv dangerouslySetInnerHTML={{ __html: listData.content }} />
             <VoteDiv>
               <Button.VoteDownBtn>
                 <CountIcon.VoteDown />
               </Button.VoteDownBtn>
               <VoteCount>{listData.voteCount}</VoteCount>
-              <Button.VoteUpBtn>
+              <Button.VoteUpBtn onClick={e => voteHandler('up')}>
                 <CountIcon.VoteUp />
               </Button.VoteUpBtn>
             </VoteDiv>
+            <CommentContainer>
+              <WriteCommentDiv>
+                <WriteComment />
+              </WriteCommentDiv>
+            </CommentContainer>
           </MainDiv>
+          <AnswerCnt>{listData.answerCount}개의 답변</AnswerCnt>
+          <AnswerContainer>
+            {listData.answerCount === 0 ? null : (
+              <div>
+                {listData.answers.map((ele: AnswerData) => {
+                  return <AnswerContent key={ele.answerId} data={ele} />;
+                })}
+              </div>
+            )}
+          </AnswerContainer>
+          <TextEditorDiv>
+            <TextEditor
+              textContent={textContent}
+              setTextContent={setTextContent}
+              path="boards/qnas/answers/contents"
+            />
+          </TextEditorDiv>
           {/* <CommentCnt>{listData.commentsListNum}개의 댓글</CommentCnt>
           <CommentContainer>
             <WriteCommentDiv>
@@ -171,6 +210,14 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+`;
+
+const NoData = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-top: ${theme.gap.px60};
 `;
 
 const TitleDiv = styled.div`
@@ -251,7 +298,7 @@ const VoteCount = styled.div`
   border-bottom: 1px solid ${theme.colors.gray};
 `;
 
-const CommentCnt = styled.div`
+const AnswerCnt = styled.div`
   padding: ${theme.gap.px20};
   border-bottom: 1px solid ${theme.colors.gray};
 `;
@@ -261,14 +308,81 @@ const CommentContainer = styled.div`
   flex-direction: column;
   width: 100%;
   min-height: 253px;
-  margin-bottom: ${theme.gap.px100};
 `;
 
 const WriteCommentDiv = styled.div`
   display: flex;
   width: 100%;
   padding-bottom: calc(${theme.gap.px60} + 7px);
-  border-bottom: 1px solid ${theme.colors.gray};
 `;
+
+const TextDiv = styled.div`
+  font-size: 1rem;
+  line-height: 2rem;
+  margin-bottom: ${theme.gap.px20};
+  white-space: pre-wrap;
+
+  .ql-size-small {
+    font-size: ${theme.fontSizes.sm};
+  }
+  .ql-size-large {
+    font-size: ${theme.fontSizes.md};
+  }
+  .ql-size-huge {
+    font-size: ${theme.fontSizes.lg};
+  }
+  strong {
+    font-weight: bold;
+  }
+  em {
+    font-style: italic;
+  }
+  blockquote {
+    border-left: 4px solid #ccc;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 16px;
+  }
+  ol {
+    padding-left: 3em;
+  }
+  ol > li {
+    list-style: decimal;
+    &.ql-indent-1 {
+      margin-left: 3em;
+    }
+  }
+  ul {
+    padding-left: 3em;
+  }
+  ul > li {
+    list-style: disc;
+    &.ql-indent-1 {
+      margin-left: 3em;
+    }
+  }
+`;
+
+const AnswerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const TextEditorDiv = styled.div`
+  display: flex;
+`;
+// const TextEditorDiv = styled.div`
+//   min-height: 25rem;
+//   padding-bottom: ${theme.gap.px40};
+
+//   white-space: pre-wrap;
+//   strong {
+//     font-weight: bold;
+//   }
+//   em {
+//     font-style: italic;
+//   }
+// `;
 
 export default PostContent;

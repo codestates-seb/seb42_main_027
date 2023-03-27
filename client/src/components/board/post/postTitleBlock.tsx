@@ -9,9 +9,8 @@ import CalElapsedTime from './calElapsedTime';
 interface Data {
   freeId?: number;
   questionId?: number;
-  category?: string;
-  subjectTags?: [{ subjectTag: string }];
-  selected?: boolean;
+  category: string;
+  adoptAnswerId?: number;
   member: {
     memberId: number;
     iconImageUrl?: string;
@@ -43,23 +42,12 @@ function PostTitleBlock({ ele }: Props) {
   const urlData = useLocation().pathname;
   console.log(urlData);
   const calTime: string = CalElapsedTime(ele.createdAt);
-  let category = '';
-
-  if (urlData === '/free') {
-    if (ele.category) {
-      category = ele.category;
-    }
-  } else if (urlData === '/qna') {
-    if (ele.subjectTags) {
-      category = ele.subjectTags[0].subjectTag;
-    }
-  }
 
   return (
-    <Container className={category === '공지' ? 'notice' : ''}>
+    <Container className={ele.category === '공지' ? 'notice' : ''}>
       <Top>
-        <Category>{category}</Category>
-        {ele.selected ? <SelectedAnswer>답변채택</SelectedAnswer> : null}
+        <Category>{ele.category}</Category>
+        {ele.adoptAnswerId ? <SelectedAnswer>답변채택</SelectedAnswer> : null}
       </Top>
       {urlData === '/free' ? (
         <Link to={`articles/${ele.freeId}`}>
@@ -75,7 +63,7 @@ function PostTitleBlock({ ele }: Props) {
           <ProfileIcon.Mini />
         </ProfileImg>
         <div>{ele.member.displayName}</div>
-        <div> · {calTime}</div>
+        <div>{` · ${calTime}`}</div>
       </UserData>
       <Count>
         <div>
@@ -145,10 +133,15 @@ const SelectedAnswer = styled.div`
 `;
 
 const Title = styled.div`
-  display: flex;
+  display: block;
+  width: 100%;
   font-size: ${theme.fontSizes.md};
   font-weight: bold;
   margin-bottom: 6px;
+  line-height: 1.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &:hover {
     color: ${theme.colors.pointColor};

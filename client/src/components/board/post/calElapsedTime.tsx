@@ -1,6 +1,15 @@
+function leftPad(value: number) {
+  if (value >= 10) {
+    return value;
+  }
+
+  return `0${value}`;
+}
+
 function CalElapsedTime(time: string) {
-  let calTime = time.slice(0, 24);
-  const startTime = new Date(time).getTime();
+  const timeBuffer = new Date(time);
+  let calTime = '';
+  const startTime = timeBuffer.getTime();
   const endTime = Date.now();
   let elapsedTime = (endTime - startTime) / 1000;
 
@@ -15,7 +24,17 @@ function CalElapsedTime(time: string) {
   } else if (elapsedTime < 129600) {
     elapsedTime = Math.round(elapsedTime / 43200);
     calTime = `${elapsedTime}일 전`;
+  } else {
+    const year = timeBuffer.getFullYear();
+    const month = leftPad(timeBuffer.getMonth() + 1);
+    const date = leftPad(timeBuffer.getDate());
+    const hour = leftPad(timeBuffer.getHours());
+    const min = leftPad(timeBuffer.getMinutes());
+    const sec = leftPad(timeBuffer.getSeconds());
+
+    calTime = `${year}-${month}-${date} ${hour}:${min}:${sec}`;
   }
+
   return calTime;
 }
 

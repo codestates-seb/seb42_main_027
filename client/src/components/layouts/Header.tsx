@@ -2,11 +2,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
 import { useIsLoginStore } from 'stores/loginStore';
+import { boardMenuStore } from 'stores/boardMenuStore';
+import { boardSortStore } from 'stores/boardSortStore';
 import Toggle from '../common/Toggle';
 import theme from '../../theme';
 
 function Header() {
   const { isLoginInStore, setIsLoginInStore } = useIsLoginStore(state => state);
+  const { setSelectedMenuStore } = boardMenuStore(state => state);
+  const { setSelectedSortStore } = boardSortStore(state => state);
   const navigate = useNavigate();
   const logOutHandler = () => {
     localStorage.removeItem('token');
@@ -17,6 +21,12 @@ function Header() {
   const handleClickMypage = () => {
     navigate('/mypage');
   };
+
+  const menuResetHandler = () => {
+    setSelectedMenuStore('전체');
+    setSelectedSortStore('최신순');
+  };
+
   return (
     <Container>
       <Left>
@@ -30,10 +40,10 @@ function Header() {
           <Link to="/lectureslist">
             <LI>강의리뷰</LI>
           </Link>
-          <Link to="/qna">
+          <Link onClick={menuResetHandler} to="/qna">
             <LI>질문게시판</LI>
           </Link>
-          <Link to="/free">
+          <Link onClick={menuResetHandler} to="/free">
             <LI>자유게시판</LI>
           </Link>
           <Link to="/eventlist">

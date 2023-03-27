@@ -34,8 +34,6 @@ function WriteComment() {
         console.log('submit data', data);
         if (urlData === '/fre') {
           await PostComment(data, 'frees', Number(paramsData.id));
-          alert('댓글 작성을 완료하였습니다.');
-          window.location.reload();
         }
       }
     } catch (err) {

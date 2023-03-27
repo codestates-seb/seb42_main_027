@@ -32,28 +32,26 @@ function WritePost() {
     try {
       if (category === '' || title === '' || post === '') {
         alert('주제, 제목, 내용은 빈 칸으로 둘 수 없습니다.');
-      } else if (urlData === '/fre') {
-        const freeData = {
+      } else {
+        const data = {
           title,
           content: post,
           category,
           createdAt: `${new Date()}`,
         };
-        console.log('submit data', freeData);
-        const resData = await PostData(freeData, 'frees');
-        alert('게시글 작성을 완료하였습니다.');
-        navigate(`/free/articles/${resData.data.freeId}`);
-      } else if (urlData === '/qna') {
-        const qnaData = {
-          title,
-          content: post,
-          subjectTag: [category],
-          createdAt: `${new Date()}`,
-        };
-        console.log('submit data', qnaData);
-        const resData = await PostData(qnaData, 'qnas/questions');
-        alert('게시글 작성을 완료하였습니다.');
-        navigate(`/qna/articles/${resData.data.questionId}`);
+        if (urlData === '/fre') {
+          console.log('submit data', data);
+          const resData = await PostData(data, 'frees');
+          alert('게시글 작성을 완료하였습니다.');
+          navigate(`/free/articles/${resData.data.freeId}`, { replace: true });
+        } else if (urlData === '/qna') {
+          console.log('submit data', data);
+          const resData = await PostData(data, 'qnas/questions');
+          alert('게시글 작성을 완료하였습니다.');
+          navigate(`/qna/articles/${resData.data.questionId}`, {
+            replace: true,
+          });
+        }
       }
     } catch (err) {
       console.error(err);
@@ -65,36 +63,28 @@ function WritePost() {
       if (category === '' || title === '' || post === '') {
         alert('주제, 제목, 내용은 빈 칸으로 둘 수 없습니다.');
       } else {
-        const freeData = {
+        const data = {
           title,
           content: post,
           category,
           modifiedAt: `${new Date()}`,
         };
-        console.log('submit data', freeData);
         if (urlData === '/fre') {
-          const resData = await PatchData(
-            freeData,
-            'frees',
-            Number(paramsData.id),
-          );
+          console.log('submit data', data);
+          const resData = await PatchData(data, 'frees', Number(paramsData.id));
           alert('게시글 수정을 완료하였습니다.');
-          navigate(`/free/articles/${resData.data.freeId}`);
+          navigate(`/free/articles/${resData.data.freeId}`, { replace: true });
         } else if (urlData === '/qna') {
-          const qnaData = {
-            title,
-            content: post,
-            subjectTag: [category],
-            modifiedAt: `${new Date()}`,
-          };
-          console.log('submit data', qnaData);
+          console.log('submit data', data);
           const resData = await PatchData(
-            qnaData,
+            data,
             'qnas/questions',
             Number(paramsData.id),
           );
           alert('게시글 수정을 완료하였습니다.');
-          navigate(`/qna/articles/${resData.data.questionId}`);
+          navigate(`/qna/articles/${resData.data.questionId}`, {
+            replace: true,
+          });
         }
       }
     } catch (err) {
@@ -120,7 +110,7 @@ function WritePost() {
           'qnas/questions',
           Number(paramsData.id),
         );
-        setCategory(buffer.data.subjectTags[0].subjectTag);
+        setCategory(buffer.data.category);
         setTitle(buffer.data.title);
         setPost(buffer.data.content);
         // setTag();
@@ -138,9 +128,6 @@ function WritePost() {
   }, []);
 
   // 텍스트 에디터 설정 코드
-  const linkHandler = (value: any) => {
-    console.log('value', value);
-  };
 
   const modules = useMemo(
     () => ({
@@ -152,9 +139,7 @@ function WritePost() {
           [{ list: 'ordered' }, { list: 'bullet' }],
           ['link', 'image'],
         ],
-        handlers: {
-          link: linkHandler,
-        },
+        handlers: {},
       },
     }),
     [],
@@ -206,10 +191,10 @@ function WritePost() {
                 <option value="국어">국어</option>
                 <option value="영어">영어</option>
                 <option value="수학">수학</option>
-                <option value="사탐전체">사탐</option>
-                <option value="과탐전체">과탐</option>
-                <option value="한국사">국사</option>
-                <option value="기타전체">기타</option>
+                <option value="사탐">사탐</option>
+                <option value="과탐">과탐</option>
+                <option value="국사">국사</option>
+                <option value="기타">기타</option>
               </Select>
             )}
           </PostDiv>
@@ -219,23 +204,22 @@ function WritePost() {
               id="title"
               type="text"
               defaultValue={title}
-              maxLength={41}
               placeholder="제목을 입력해 주세요."
               onChange={e => setTitle(e.target.value)}
             />
           </PostDiv>
           <PostDiv>
             <Label htmlFor="post">내용</Label>
-            <div>
+            <TextEditorDiv id="post">
               <ReactQuill
-                id="post"
                 theme="snow"
+                style={{ height: '100%' }}
                 modules={modules}
                 value={post}
                 onChange={setPost}
                 placeholder="내용을 입력해 주세요."
               />
-            </div>
+            </TextEditorDiv>
           </PostDiv>
           <PostDiv>
             <Label htmlFor="tag">태그</Label>
@@ -340,4 +324,18 @@ const CancelBtn = styled(Button.FilterBtn)`
     background-color: ${theme.colors.lightGray};
   }
 `;
+
+const TextEditorDiv = styled.div`
+  min-height: 25rem;
+  padding-bottom: ${theme.gap.px40};
+
+  white-space: pre-wrap;
+  strong {
+    font-weight: bold;
+  }
+  em {
+    font-style: italic;
+  }
+`;
+
 export default WritePost;

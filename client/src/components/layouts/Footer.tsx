@@ -35,10 +35,12 @@ function Footer() {
 }
 
 const Container = styled.div`
-  height: 207px;
+  height: 13rem;
   padding: 1.25rem;
   color: ${theme.colors.white};
   background-color: ${theme.colors.pointColor};
+  display: flex;
+  flex-direction: column;
 `;
 
 const Title = styled.h1`

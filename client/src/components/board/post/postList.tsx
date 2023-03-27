@@ -3,17 +3,19 @@ import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import theme from 'theme';
 
+import { boardMenuStore } from 'stores/boardMenuStore';
+import { boardSortStore } from 'stores/boardSortStore';
+
 import getPostList from 'apis/board/getPostList';
-// import { dummyData, dummyData2 } from './dummyData';
+import Pagenation from '../Pagenation';
 import FreeBoardMenu from './boardMenu';
 import PostTitleBlock from './postTitleBlock';
 
 interface Data {
   freeId?: number;
   questionId?: number;
-  category?: string;
-  subjectTags?: [{ subjectTag: string }];
-  selected?: boolean;
+  category: string;
+  adoptAnswerId?: number;
   member: {
     memberId: number;
     iconImageUrl?: string;
@@ -36,20 +38,43 @@ interface PageInfo {
   totalPages: number;
 }
 
+const DefaultPageInfo = {
+  page: 0,
+  size: 0,
+  totalElements: 0,
+  totalPages: 0,
+};
+
 function PostList() {
   const [isPending, setIsPending] = useState(true);
   const [listData, setListData] = useState<Data[] | []>([]);
+  const { selectedMenuStore } = boardMenuStore(state => state);
+  const { selectedSortStore } = boardSortStore(state => state);
+  const [pageInfo, setPageInfo] = useState<PageInfo>(DefaultPageInfo);
+  const [curPage, setCurPage] = useState<number>(1);
   const urlData = useLocation().pathname;
 
   const fetchPostList = async () => {
     try {
       if (urlData === '/free') {
-        const buffer = await getPostList('frees', 1);
+        const buffer = await getPostList(
+          'frees',
+          selectedMenuStore,
+          selectedSortStore,
+          1,
+        );
         setListData(buffer.data);
+        setPageInfo(buffer.pageInfo);
         setIsPending(false);
       } else if (urlData === '/qna') {
-        const buffer = await getPostList('qnas/questions', 1);
+        const buffer = await getPostList(
+          'qnas/questions',
+          selectedMenuStore,
+          selectedSortStore,
+          1,
+        );
         setListData(buffer.data);
+        setPageInfo(buffer.pageInfo);
         setIsPending(false);
       }
     } catch (err) {
@@ -59,21 +84,22 @@ function PostList() {
 
   useEffect(() => {
     fetchPostList();
-  }, []);
+  }, [selectedMenuStore, selectedSortStore]);
 
   console.log('listData', listData);
+  console.log('pageInfo', pageInfo);
 
   return (
     <Container>
       <FreeBoardMenu />
       {isPending ? (
         <MainDiv>
-          <h1>로딩페이지가 들어갈 자리입니다.</h1>
+          <NoData>로딩페이지가 들어갈 자리입니다.</NoData>
         </MainDiv>
       ) : (
         <MainDiv>
           {listData.length === 0 ? (
-            <h1>작성된 게시물이 없습니다.</h1>
+            <NoData>작성된 게시물이 없습니다.</NoData>
           ) : (
             <div>
               {urlData === '/free' ? (
@@ -93,6 +119,12 @@ function PostList() {
           )}
         </MainDiv>
       )}
+      <Pagenation
+        size={pageInfo.totalPages}
+        currentPage={curPage}
+        pageSize={15}
+        setCurPage={setCurPage}
+      />
     </Container>
   );
 }
@@ -114,4 +146,13 @@ const MainDiv = styled.div`
     width: 100%;
   }
 `;
+
+const NoData = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-top: ${theme.gap.px60};
+`;
+
 export default PostList;
