@@ -12,6 +12,7 @@ import FreeBoardMenu from 'components/board/post/boardMenu';
 import Event from 'components/review/Event';
 import useUserInfoStore from 'stores/userInfoStore';
 import isLogin from 'utils/isLogin';
+import GoBackMenu from 'components/board/post/goBackMenu';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 import { SmallFont } from '../TeacherDetail/Information';
 
@@ -109,6 +110,8 @@ function EventList() {
           <H2>이벤트게시판</H2>
           <p>다양한 이벤트를 한 눈에 볼 수 있는 공간입니다.</p>
         </Title>
+        <GoBackMenu />
+
         {isLogin() ? (
           <FreeBoardMenu />
         ) : (
