@@ -130,7 +130,8 @@ public class DataCrawler {
                 IOException e) {
             e.printStackTrace();
         }
-    }}
+    }
+}
 
 
 

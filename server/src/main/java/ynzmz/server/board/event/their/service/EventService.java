@@ -9,6 +9,7 @@ import org.jsoup.select.Elements;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ynzmz.server.global.error.exception.BusinessLogicException;
 import ynzmz.server.global.error.exception.ExceptionCode;
@@ -49,9 +50,38 @@ public class EventService {
     public Page<Event> findAllEvents(int page, int size) {
         return eventRepository.findAll(PageRequest.of(page, size, Sort.by("eventId")));
     }
+
+    public List<Event> findAllMegaEvents(){
+        return eventRepository.findEventsBySource("Mega");
+    }
+    public Page<Event> pageFindAllMegaEvents(int page){
+        return eventRepository.findEventsBySourcePage("Mega" , PageRequest.of(page-1, 15,Sort.by("theirId")));
+    }
+    public List<Event> findAllDaeSungEvents(){
+        return eventRepository.findEventsBySource("DaeSung");
+    }
+    public List<Event> findAllEtoosEvents(){
+        return eventRepository.findEventsBySource("Etoos");
+    }
+    public Page<Event> pageFindAllEtoosEvents(int page){
+        return eventRepository.findEventsBySourcePage("Etoos", PageRequest.of(page-1,15,Sort.by("theirId")));
+    }
+
+    //페이지 필요? 몰루?
 //-------------------------------------------UPDATE---------------------------------------------------------
 
-//
+    public Event updateEvent(Event event){
+        Event findEvent = findEvent(event.getTheirId());
+
+
+        Optional.ofNullable(event.getTitle()).ifPresent(findEvent::setTitle);
+        Optional.ofNullable(event.getDate()).ifPresent(findEvent::setDate);
+        Optional.ofNullable(event.getHyperLink()).ifPresent(findEvent::setHyperLink);
+        Optional.ofNullable(event.getSource()).ifPresent(findEvent::setSource);
+
+        return eventRepository.save(findEvent);
+
+    }
 
 
     //-------------------------------------------DELETE---------------------------------------------------------
@@ -63,132 +93,205 @@ public class EventService {
         eventRepository.delete(event);
     }
 
-    //----------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------포스트컨스트럭트 데이터크롤링------------------------------------------------------------
 
-    @PostConstruct
-    public void megaCrawler() {
-        String megaUrl1 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
-        String megaUrl2 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=2&intCP=NaN";
-        String megaUrl3 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=3&intCP=NaN";
-        String megaUrl4 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=4&intCP=NaN";
-        String megaUrl5 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=5&intCP=NaN";
+//    @PostConstruct
+//    public void megaCrawler() {
+//        String megaUrl1 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
+//        String megaUrl2 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=2&intCP=NaN";
+//        String megaUrl3 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=3&intCP=NaN";
+//        String megaUrl4 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=4&intCP=NaN";
+//        String megaUrl5 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=5&intCP=NaN";
+//
+//        List<String> megas = new ArrayList<>();
+//        megas.add(megaUrl1);
+//        megas.add(megaUrl2);
+//        megas.add(megaUrl3);
+//        megas.add(megaUrl4);
+//        megas.add(megaUrl5);
+//
+////        Connection eConn = Jsoup.connect(etoosUrl);
+//
+//        try {
+//
+//            for (String s : megas) {
+//                Connection mConn = Jsoup.connect(s);
+//                Document document = mConn.get();
+//
+//                Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
+//                Elements megaeventsdate1 = document.getElementsByClass("date").select("span:nth-child(1)");
+//                Elements megaeventsdate3 = document.getElementsByClass("date").select("span:nth-child(3)");
+//
+//                for (int i = 0; i < megaeventsLink.size(); i++) {
+//                    Event events = new Event();
+//                    events.setSource("Mega");
+//                    events.setTitle(megaeventsLink.get(i).text());
+//                    events.setHyperLink(megaeventsLink.get(i).attr("href"));
+//                    int k = 0;
+//                    //주소 기입
+//                    if (megaeventsdate1.get(i).text().substring(0, 1).equals("이")) {
+//                        events.setDate(megaeventsdate1.get(i).text().substring(6));
+//                    } else if (megaeventsdate3.size() != 0) {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
+//
+//                        events.setDate(megaeventsdate3.get(k).text().substring(6));
+//                    }else  {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
+//
+//                        events.setDate(" 선착순");
+//                    }
+//
+//                    createEvent(events);
+//                    System.out.println(megaeventsLink.get(i).text() + " , "
+//                            + megaeventsLink.get(i).attr("href")
+//                            + "," + events.getDate());
+//
+//                }
+//            }
+//
+//        } catch (
+//                IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @PostConstruct
+//    public void etoosCrawler() {
+//            String etoosUrl = "https://go3.etoos.com/hietoos/event/default.asp?etoos=myall&ING_FLAG=I&etgrd=go3";
+//
+//
+//            try {
+//                Connection eConn = Jsoup.connect(etoosUrl);
+//                Document document = eConn.get();
+//                Elements titles = document.getElementsByClass("tbl tbl_ev_list").select(" strong > a");
+//                Elements date = document.getElementsByClass("tbl tbl_ev_list").select(" dl:nth-child(3) > dd");
+//
+//                for (int i = 0; i < titles.size(); i++) {
+//                    Event event = new Event();
+//                    event.setSource("Etoos");
+//                    event.setDate(" " + date.get(i).text());
+//                    event.setHyperLink(titles.get(i).attr("href"));
+//                    event.setTitle(titles.get(i).text());
+//                    System.out.println("제목: " + event.getTitle());
+//                    System.out.println("링크: " + event.getHyperLink());
+//                    System.out.println("날짜: " + event.getDate());
+//                    createEvent(event);
+//                }
+//
+//            } catch (
+//                    IOException e) {
+//                e.printStackTrace();
+//            }
+//    }
+//
+//
+//    @PostConstruct
+//    public void daeSungCrawler(){
+//        String daesungUrl1 = "https://www.mimacstudy.com/event/eventIngList.ds?evtType=&currPage=1&searchType=evtName&searchText=";
+//        String daesungUrl2 = "https://www.mimacstudy.com/event/eventIngList.ds?evtType=&currPage=2&searchType=evtName&searchText=";
+//        List<String> daesungs = new ArrayList<>();
+//        daesungs.add(daesungUrl1);
+//        daesungs.add(daesungUrl2);
+//
+//        try {
+//
+//            for (String s : daesungs) {
+//                Connection dConn = Jsoup.connect(s);
+//                Document document = dConn.get();
+//
+//
+//                Elements titles = document.getElementsByClass("event_list").select(" div.info > p.event_summary");
+//                Elements date = document.getElementsByClass("event_list").select(" div.info > p.period");
+//                Elements href = document.getElementsByClass("event_list").select(" div.img > a");
+//
+//                for (int i = 0; i < titles.size(); i++) {
+//                    Event event = new Event();
+//                    event.setSource("DaeSung");
+//                    event.setDate(" " +date.get(i).text());
+//                    String[] href1 = href.get(i).attr("href").substring(19).split("'");
+//                    event.setHyperLink(href1[0]);
+//                    event.setTitle(titles.get(i).text());
+//                    System.out.println("제목: " + event.getTitle());
+//                    System.out.println("링크: " + event.getHyperLink());
+//                    System.out.println("날짜: " + event.getDate());
+//                    createEvent(event);
+//                }
+//            }
+//        } catch (
+//                IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-        List<String> megas = new ArrayList<>();
-        megas.add(megaUrl1);
-        megas.add(megaUrl2);
-        megas.add(megaUrl3);
-        megas.add(megaUrl4);
-        megas.add(megaUrl5);
-
-//        Connection eConn = Jsoup.connect(etoosUrl);
-
-        try {
-
-            for (String s : megas) {
-                Connection mConn = Jsoup.connect(s);
-                Document document = mConn.get();
-
-                Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
-                Elements megaeventsdate1 = document.getElementsByClass("date").select("span:nth-child(1)");
-                Elements megaeventsdate3 = document.getElementsByClass("date").select("span:nth-child(3)");
-
-                for (int i = 0; i < megaeventsLink.size(); i++) {
-                    Event events = new Event();
-                    events.setSource("Mega");
-                    events.setTitle(megaeventsLink.get(i).text());
-                    events.setHyperLink(megaeventsLink.get(i).attr("href"));
-                    int k = 0;
-                    //주소 기입
-                    if (megaeventsdate1.get(i).text().substring(0, 1).equals("이")) {
-                        events.setDate(megaeventsdate1.get(i).text().substring(6));
-                    } else if (megaeventsdate3.size() != 0) {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
-
-                        events.setDate(megaeventsdate3.get(k).text().substring(6));
-                    }else  {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
-
-                        events.setDate(" 선착순");
-                    }
-
-                    createEvent(events);
-                    System.out.println(megaeventsLink.get(i).text() + " , "
-                            + megaeventsLink.get(i).attr("href")
-                            + "," + events.getDate());
-
-                }
-            }
-
-        } catch (
-                IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @PostConstruct
-    public void etoosCrawler() {
-            String etoosUrl = "https://go3.etoos.com/hietoos/event/default.asp?etoos=myall&ING_FLAG=I&etgrd=go3";
 
 
-            try {
-                Connection eConn = Jsoup.connect(etoosUrl);
-                Document document = eConn.get();
-                Elements titles = document.getElementsByClass("tbl tbl_ev_list").select(" strong > a");
-                Elements date = document.getElementsByClass("tbl tbl_ev_list").select(" dl:nth-child(3) > dd");
-
-                for (int i = 0; i < titles.size(); i++) {
-                    Event event = new Event();
-                    event.setSource("Etoos");
-                    event.setDate(" " + date.get(i).text());
-                    event.setHyperLink(titles.get(i).attr("href"));
-                    event.setTitle(titles.get(i).text());
-                    System.out.println("제목: " + event.getTitle());
-                    System.out.println("링크: " + event.getHyperLink());
-                    System.out.println("날짜: " + event.getDate());
-                    createEvent(event);
-                }
-
-            } catch (
-                    IOException e) {
-                e.printStackTrace();
-            }
-    }
 
 
-    @PostConstruct
-    public void daeSungCrawler(){
-        String daesungUrl1 = "https://www.mimacstudy.com/event/eventIngList.ds?evtType=&currPage=1&searchType=evtName&searchText=";
-        String daesungUrl2 = "https://www.mimacstudy.com/event/eventIngList.ds?evtType=&currPage=2&searchType=evtName&searchText=";
-        List<String> daesungs = new ArrayList<>();
-        daesungs.add(daesungUrl1);
-        daesungs.add(daesungUrl2);
-
-        try {
-
-            for (String s : daesungs) {
-                Connection dConn = Jsoup.connect(s);
-                Document document = dConn.get();
 
 
-                Elements titles = document.getElementsByClass("event_list").select(" div.info > p.event_summary");
-                Elements date = document.getElementsByClass("event_list").select(" div.info > p.period");
-                Elements href = document.getElementsByClass("event_list").select(" div.img > a");
 
-                for (int i = 0; i < titles.size(); i++) {
-                    Event event = new Event();
-                    event.setSource("DaeSung");
-                    event.setDate(" " +date.get(i).text());
-                    String[] href1 = href.get(i).attr("href").substring(19).split("'");
-                    event.setHyperLink(href1[0]);
-                    event.setTitle(titles.get(i).text());
-                    System.out.println("제목: " + event.getTitle());
-                    System.out.println("링크: " + event.getHyperLink());
-                    System.out.println("날짜: " + event.getDate());
-                    createEvent(event);
-                }
-            }
-        } catch (
-                IOException e) {
-            e.printStackTrace();
-        }
-    }
+
+
+
+
+
+//    public void testnew(){
+//    String megaUrl1 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
+//    try {
+//        Connection mConn = Jsoup.connect(megaUrl1);
+//        Document document = mConn.get();
+//
+//        Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
+//        Elements megaeventsdate1 = document.getElementsByClass("date").select("span:nth-child(1)");
+//        // 강사이름O #wrap_2014 > div.column_main > div.column_right > div > div.event_list > ul > li:nth-child(9) > div.info > div.date > span > strong
+//        Elements megaeventsdate3 = document.getElementsByClass("date").select("span:nth-child(3)");
+//        //강사이름 X #wrap_2014 > div.column_main > div.column_right > div > div.event_list > ul > li:nth-child(1) > div.info > div.date > span:nth-child(3) > strong
+//        List<Event> onlyMegaEvents = findAllMegaEvents();
+//        List<Event> eventList = new ArrayList<>();
+//        int k = 0;
+//        for (int i = 0; i < megaeventsLink.size(); i++) {
+//            Event events = new Event();
+//            events.setSource("Mega");
+//            events.setTitle(megaeventsLink.get(i).text());
+//            events.setHyperLink(megaeventsLink.get(i).attr("href"));
+//
+//            //주소 기입
+//            if (megaeventsdate3.get(i).text().substring(0, 1).equals("이")) {
+//                events.setDate(megaeventsdate3.get(i).text()/*.substring(6)*/);
+//
+//            } else if (megaeventsdate1.size() > k) {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
+//                events.setDate(megaeventsdate1.get(k).text().substring(6));
+//
+//                k++;
+//            } else {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
+//
+//                events.setDate(" 선착순");
+//            }
+//            eventList.add(events);
+//
+//
+//
+//        }
+//        for(Event e : eventList){
+//            boolean sim = false;
+//            for(int i = onlyMegaEvents.size()-1 ; i > onlyMegaEvents.size()-11; i--){
+//                if(e.getHyperLink() == onlyMegaEvents.get(i).getHyperLink())
+//                {
+//                    sim = true;
+//                    break;
+//                }
+//                else
+//                {
+//                    sim = false;
+//                }
+//            }
+//            if(sim == false){
+//                createEvent(e);
+//            }
+//        }
+//
+//    } catch (
+//            IOException e) {
+//        e.printStackTrace();
+//    }
+//}
 
 }
