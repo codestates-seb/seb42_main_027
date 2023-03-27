@@ -1,4 +1,4 @@
-package ynzmz.server.s3;
+package ynzmz.server.global.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;

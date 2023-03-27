@@ -14,18 +14,17 @@ import java.time.LocalDateTime;
 @Setter
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
-public class S3File {
+public class S3FileInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long s3FileId;
-    private String fileUrl;
+    private Long s3FileInfoId;
+    private String filePath;
     private String dbTableName;
     private Long idOfTable;
     @CreatedDate
     private LocalDateTime uploadedAt;
     @Enumerated(value = EnumType.STRING)
     private Status status;
-
     public enum Status{
         TEMP,
         ACTIVE

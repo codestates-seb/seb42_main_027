@@ -6,10 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ynzmz.server.dto.MultiResponseDto;
-import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.global.dto.MultiResponseDto;
+import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
-import ynzmz.server.s3.service.S3FileService;
+import ynzmz.server.s3.service.S3FileInfoService;
+import ynzmz.server.s3.service.S3UpLoadService;
 import ynzmz.server.tag.entity.GradeTag;
 import ynzmz.server.tag.entity.PlatformTag;
 import ynzmz.server.tag.entity.SubjectTag;
@@ -32,7 +33,8 @@ public class TeacherController {
     private final TeacherMapper teacherMapper;
     private final TagService tagService;
     private final LectureReviewService lectureReviewService;
-    private final S3FileService s3FileService;
+    private final S3FileInfoService s3FileInfoService;
+    private final S3UpLoadService s3UpLoadService;
     //강사등록
     @PostMapping
     public ResponseEntity<?> postTeacher(@RequestBody TeacherDto.Post teacherPost){
@@ -131,8 +133,8 @@ public class TeacherController {
     public ResponseEntity<?> deleteTeacher(@PathVariable("teacher-id") long teacherId){
         Teacher teacher = teacherService.findTeacherById(teacherId);
 
-        s3FileService.deleteFileByS3Url(teacher.getProfileImageUrl());
-        s3FileService.deleteFileByS3Url(teacher.getRealImageUrl());
+        s3UpLoadService.deleteFileByFileUrl(teacher.getProfileImageUrl());
+        s3UpLoadService.deleteFileByFileUrl(teacher.getRealImageUrl());
         teacherService.deleteTeacher(teacherId);
         Optional<Teacher> deletedTeacher = teacherService.findOptionalTeacherById(teacherId);
 

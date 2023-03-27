@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ynzmz.server.dto.MultiResponseDto;
-import ynzmz.server.dto.SingleResponseDto;
-import ynzmz.server.error.exception.BusinessLogicException;
+import ynzmz.server.global.dto.MultiResponseDto;
+import ynzmz.server.global.dto.SingleResponseDto;
+import ynzmz.server.global.error.exception.BusinessLogicException;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
@@ -22,7 +22,9 @@ import ynzmz.server.board.qna.question.dto.QuestionDto;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.qna.question.mapper.QuestionMapper;
 import ynzmz.server.board.qna.question.service.QuestionService;
-import ynzmz.server.s3.service.S3FileService;
+import ynzmz.server.s3.entity.S3FileInfo;
+import ynzmz.server.s3.service.S3FileInfoService;
+import ynzmz.server.s3.service.S3UpLoadService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -39,7 +41,8 @@ public class QuestionController {
     private final AnswerMapper answerMapper;
     private final MemberService memberService;
     private final AnswerService answerService;
-    private final S3FileService s3FileService;
+    private final S3FileInfoService s3FileInfoService;
+    private final S3UpLoadService s3UpLoadService;
 
     @PostMapping
     public ResponseEntity<?> postQuestion(@Valid @RequestBody QuestionDto.Post questionPost){
@@ -47,8 +50,12 @@ public class QuestionController {
         requestQuestion.setMember(loginMemberFindByToken());
 
         Question createdQuestion = questionService.createQuestion(requestQuestion);
-
         QuestionDto.InfoResponse response = questionMapper.questionToQuestionInfoResponse(createdQuestion);
+
+        //가지고 있는 저장된 사진이름과 특정지어서 S3File 에 QuestionId 를 입력시키고,상태값 ACTIVE 로 변경
+        List<String> uploadFilePaths = s3FileInfoService.getFilePathsByFileUrls(createdQuestion.getUploadImages());
+        List<S3FileInfo> s3FileInfos = s3FileInfoService.findS3FileInfoByTableName("question");
+        s3FileInfoService.setS3FileInfosStatusActiveAndIdConnection(uploadFilePaths, s3FileInfos, createdQuestion.getQuestionId());
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
@@ -62,6 +69,26 @@ public class QuestionController {
         question.setQuestionId(questionId);
         Question updateQuestion = questionService.updateQuestion(question);
 
+        //가지고 있는 저장된 사진이름과 특정지어서 S3File 에 QuestionId 를 입력시키고,상태값 ACTIVE 로 변경
+
+        //수정전 저장된 이미지파일 경로들
+        List<String> savedFilePaths = s3FileInfoService.getFilePathsByFileUrls(question.getUploadImages());
+        //수정후 저장된 이미지파일 경로들
+        List<String> updateFilePaths = s3FileInfoService.getFilePathsByFileUrls(updateQuestion.getUploadImages());
+        //비교후 새로 저장되는 이미지파일 경로들
+        List<String> newFilePathsByUpdate = s3FileInfoService.checkNewFilesByUpdate(savedFilePaths, updateFilePaths);
+        //비교후 삭제되어야할 이미지파일 경로들
+        List<String> deleteFilePathsByUpdate = s3FileInfoService.checkDeleteFilesByUpdate(savedFilePaths, updateFilePaths);
+
+        //S3FileInfo 값 불러오기
+        List<S3FileInfo> s3FileInfos = s3FileInfoService.findS3FileInfoByTableNameAndId("question", questionId);
+        //새로 저장되는 이미지파일들 TEMP -> ACTIVE 로 변경 ( 수정글쓰기시 이미 TEMP 상태로 생성되어있음 )
+        s3FileInfoService.setS3FileInfosStatusActiveAndIdConnection(newFilePathsByUpdate, s3FileInfos, updateQuestion.getQuestionId());
+
+        //삭제되어야할 파일들 S3 에서 삭제 & DB S3FileInfo 값 삭제
+        List<S3FileInfo> s3FileInfosByFilePaths = s3FileInfoService.findS3FileInfosByFilePaths(deleteFilePathsByUpdate);
+        s3FileInfoService.deleteS3FileInfos(s3FileInfosByFilePaths);
+        s3UpLoadService.deleteFilesByFilePaths(deleteFilePathsByUpdate);
 
         QuestionDto.InfoResponse response = questionMapper.questionToQuestionInfoResponse(updateQuestion);
 
@@ -142,8 +169,15 @@ public class QuestionController {
         memberService.memberValidation(loginMemberFindByToken(), questionService.findQuestionById(questionId).getMember().getMemberId());
 
         Question question = questionService.findQuestionById(questionId);
-        //게시글 이미지 삭제
-        s3FileService.deleteFilesByS3Urls(question.getUploadImages());
+
+        //삭제되어야할 파일 Url -> 파일 경로 변환
+        List<String> deleteFilePaths = s3FileInfoService.getFilePathsByFileUrls(question.getUploadImages());
+        //삭제되어야할 파일들 S3 에서 삭제 & DB S3FileInfo 값 삭제
+        List<S3FileInfo> s3FileInfosByFilePaths = s3FileInfoService.findS3FileInfosByFilePaths(deleteFilePaths);
+        s3FileInfoService.deleteS3FileInfos(s3FileInfosByFilePaths);
+        s3UpLoadService.deleteFilesByFilePaths(deleteFilePaths);
+
+
         questionService.deleteQuestion(questionId);
         Optional<Question> deletedQuestion = questionService.findOptionalQuestionById(questionId);
 

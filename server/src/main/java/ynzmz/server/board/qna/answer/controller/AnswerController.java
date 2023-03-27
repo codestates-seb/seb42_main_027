@@ -2,15 +2,12 @@ package ynzmz.server.board.qna.answer.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.qna.question.service.QuestionService;
-import ynzmz.server.dto.MultiResponseDto;
-import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.board.qna.answer.dto.AnswerDto;
@@ -19,7 +16,6 @@ import ynzmz.server.board.qna.answer.mapper.AnswerMapper;
 import ynzmz.server.board.qna.answer.service.AnswerService;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @RestController

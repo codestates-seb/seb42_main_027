@@ -1,4 +1,4 @@
-package ynzmz.server.error.advice;
+package ynzmz.server.global.error.advice;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ynzmz.server.error.exception.BusinessLogicException;
-import ynzmz.server.error.response.ErrorResponse;
+import ynzmz.server.global.error.exception.BusinessLogicException;
+import ynzmz.server.global.error.response.ErrorResponse;
 
 
 @Slf4j

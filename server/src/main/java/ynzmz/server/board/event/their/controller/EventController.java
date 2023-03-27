@@ -6,12 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ynzmz.server.board.event.their.service.EventService;
-import ynzmz.server.dto.MultiResponseDto;
+import ynzmz.server.global.dto.MultiResponseDto;
 import ynzmz.server.board.event.their.dto.EventDto;
 import ynzmz.server.board.event.their.entity.Event;
 import ynzmz.server.board.event.their.mapper.EventMapper;
 import ynzmz.server.board.event.their.repository.EventRepository;
-import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.global.dto.SingleResponseDto;
 
 import java.util.List;
 

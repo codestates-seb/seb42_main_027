@@ -11,7 +11,7 @@ import ynzmz.server.comment.qna.dto.QnaCommentDto;
 import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.comment.qna.mapper.QnaCommentMapper;
 import ynzmz.server.comment.qna.service.QnaCommentService;
-import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
 

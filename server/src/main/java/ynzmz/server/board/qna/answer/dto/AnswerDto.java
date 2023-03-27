@@ -16,6 +16,7 @@ public class AnswerDto {
         private String content;
         private String createdAt;
         private long questionId;
+        private List<String> uploadImages;
     }
 
     @Getter
@@ -24,6 +25,7 @@ public class AnswerDto {
     public static class Patch {
         private String content;
         private String modifiedAt;
+        private List<String> uploadImages;
 
     }
     @Getter @Setter
@@ -48,6 +50,5 @@ public class AnswerDto {
         private MemberDto.SimpleInfoResponse member;
         private List<QnaCommentDto.Response> comments;
 
-//        private QuestionDto.ListPageResponse question;
     }
 }

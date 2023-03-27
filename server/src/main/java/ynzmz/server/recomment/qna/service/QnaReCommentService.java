@@ -2,8 +2,8 @@ package ynzmz.server.recomment.qna.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ynzmz.server.error.exception.BusinessLogicException;
-import ynzmz.server.error.exception.ExceptionCode;
+import ynzmz.server.global.error.exception.BusinessLogicException;
+import ynzmz.server.global.error.exception.ExceptionCode;
 import ynzmz.server.recomment.qna.entity.QnaReComment;
 import ynzmz.server.recomment.qna.repository.QnaReCommentRepository;
 

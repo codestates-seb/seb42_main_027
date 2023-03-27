@@ -2,14 +2,11 @@ package ynzmz.server.board.qna.answer.service;
 
 
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ynzmz.server.board.qna.answer.repository.AnswerRepository;
-import ynzmz.server.error.exception.BusinessLogicException;
-import ynzmz.server.error.exception.ExceptionCode;
+import ynzmz.server.global.error.exception.BusinessLogicException;
+import ynzmz.server.global.error.exception.ExceptionCode;
 import ynzmz.server.board.qna.answer.entity.Answer;
 
 import java.util.List;

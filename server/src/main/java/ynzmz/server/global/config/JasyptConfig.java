@@ -1,4 +1,4 @@
-package ynzmz.server;
+package ynzmz.server.global.config;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;

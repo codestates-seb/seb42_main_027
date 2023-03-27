@@ -3,7 +3,7 @@ package ynzmz.server.security.auths.utils;
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import ynzmz.server.error.response.ErrorResponse;
+import ynzmz.server.global.error.response.ErrorResponse;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

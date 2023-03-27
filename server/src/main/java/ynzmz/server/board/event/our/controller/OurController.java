@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import ynzmz.server.board.event.our.dto.OurDto;
 import ynzmz.server.board.event.our.entity.Our;
 import ynzmz.server.board.event.our.mapper.OurMapper;
-import ynzmz.server.board.event.our.repository.OurRepository;
 import ynzmz.server.board.event.our.service.OurService;
-import ynzmz.server.dto.MultiResponseDto;
-import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.global.dto.MultiResponseDto;
+import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
 

@@ -12,8 +12,8 @@ import ynzmz.server.comment.review.lecture.dto.LectureReviewCommentDto;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.comment.review.lecture.mapper.LectureReviewCommentMapper;
 import ynzmz.server.comment.review.lecture.service.LectureReviewCommentService;
-import ynzmz.server.dto.MultiResponseDto;
-import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.global.dto.MultiResponseDto;
+import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
 

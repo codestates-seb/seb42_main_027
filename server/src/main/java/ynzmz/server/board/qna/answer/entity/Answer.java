@@ -40,6 +40,10 @@ public class Answer implements Vote {
     @JsonBackReference
     private Member member;
 
+    @ElementCollection(targetClass=String.class)
+    @Column
+    private List<String> uploadImages = new ArrayList<>();
+
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<QnaComment> comments = new ArrayList<>();

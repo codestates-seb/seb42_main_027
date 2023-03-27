@@ -1,4 +1,4 @@
-package ynzmz.server.dto;
+package ynzmz.server.global.dto;
 
 import lombok.Getter;
 import org.springframework.data.domain.Page;

@@ -2,11 +2,9 @@ package ynzmz.server.security.auths.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
-import ynzmz.server.error.response.ErrorResponse;
 import ynzmz.server.security.auths.utils.ErrorResponder;
 
 import javax.servlet.ServletException;
