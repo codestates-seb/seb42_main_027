@@ -31,6 +31,9 @@ public class LectureReview implements Vote {
     @ColumnDefault("0")
     private long voteCount;
     private long totalCommentCount;
+    @ElementCollection(targetClass=String.class)
+    @Column
+    private List<String> uploadImages = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "lecture_id")
     @JsonBackReference
@@ -46,5 +49,6 @@ public class LectureReview implements Vote {
     @OneToMany(mappedBy = "lectureReview", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<ReviewVote> reviewVotes = new ArrayList<>();
+
 
 }

@@ -18,7 +18,11 @@ import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.board.teacher.mapper.TeacherMapper;
 import ynzmz.server.board.teacher.service.TeacherService;
+import ynzmz.server.s3.entity.S3FileInfo;
+import ynzmz.server.s3.service.S3FileInfoService;
+import ynzmz.server.s3.service.S3UpLoadService;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -32,6 +36,8 @@ public class LectureReviewController {
     private final MemberService memberService;
     private final LectureReviewMapper lectureReviewMapper;
     private final TeacherMapper teacherMapper;
+    private final S3UpLoadService s3UpLoadService;
+    private final S3FileInfoService s3FileInfoService;
     //리뷰작성
     @PostMapping
     public ResponseEntity<?> postLectureReview(@RequestBody LectureReviewDto.Post lectureReviewPost){
@@ -45,6 +51,11 @@ public class LectureReviewController {
         lectureService.setLectureStarPointAverageAndTotalReviewCount(createdLectureReview.getLecture());
         //리뷰 등록시 강사의 평균별점 및 총 리뷰갯수 수정
         teacherService.setTeacherStarPointAverageAndTotalReviewCount(createdLectureReview.getLecture().getTeacher());
+
+        //가지고 있는 저장된 사진이름과 특정지어서 S3File 에 IdOfTable 을 입력시키고,상태값 ACTIVE 로 변경
+        List<String> uploadFilePaths = s3FileInfoService.getFilePathsByFileUrls(createdLectureReview.getUploadImages());
+        List<S3FileInfo> s3FileInfos = s3FileInfoService.findS3FileInfoByTableName("lectureReview");
+        s3FileInfoService.setS3FileInfosStatusActiveAndIdConnection(uploadFilePaths, s3FileInfos, createdLectureReview.getLectureReviewId());
 
         LectureReviewDto.InfoResponse response = lectureReviewMapper.lectureReviewToLectureReviewInfoResponse(createdLectureReview);
 
@@ -66,6 +77,27 @@ public class LectureReviewController {
         lectureService.setLectureStarPointAverageAndTotalReviewCount(updatedLectureReview.getLecture());
         //리뷰 수정시 강사의 평균별점 및 총 리뷰갯수 수정
         teacherService.setTeacherStarPointAverageAndTotalReviewCount(updatedLectureReview.getLecture().getTeacher());
+
+        //가지고 있는 저장된 사진이름과 특정지어서 S3File 에 IdOfTable 를 입력시키고,상태값 ACTIVE 로 변경
+
+        //수정전 저장된 이미지파일 경로들
+        List<String> savedFilePaths = s3FileInfoService.getFilePathsByFileUrls(lectureReview.getUploadImages());
+        //수정후 저장된 이미지파일 경로들
+        List<String> updateFilePaths = s3FileInfoService.getFilePathsByFileUrls(updatedLectureReview.getUploadImages());
+        //비교후 새로 저장되는 이미지파일 경로들
+        List<String> newFilePathsByUpdate = s3FileInfoService.checkNewFilesByUpdate(savedFilePaths, updateFilePaths);
+        //비교후 삭제되어야할 이미지파일 경로들
+        List<String> deleteFilePathsByUpdate = s3FileInfoService.checkDeleteFilesByUpdate(savedFilePaths, updateFilePaths);
+
+        //S3FileInfo 값 불러오기
+        List<S3FileInfo> s3FileInfos = s3FileInfoService.findS3FileInfoByTableNameAndId("lectureReview", lectureReviewId);
+        //새로 저장되는 이미지파일들 TEMP -> ACTIVE 로 변경 ( 수정글쓰기시 이미 TEMP 상태로 생성되어있음 )
+        s3FileInfoService.setS3FileInfosStatusActiveAndIdConnection(newFilePathsByUpdate, s3FileInfos, updatedLectureReview.getLectureReviewId());
+
+        //삭제되어야할 파일들 S3 에서 삭제 & DB S3FileInfo 값 삭제
+        List<S3FileInfo> s3FileInfosByFilePaths = s3FileInfoService.findS3FileInfosByFilePaths(deleteFilePathsByUpdate);
+        s3FileInfoService.deleteS3FileInfos(s3FileInfosByFilePaths);
+        s3UpLoadService.deleteFilesByFilePaths(deleteFilePathsByUpdate);
 
         LectureReviewDto.InfoResponse response = lectureReviewMapper.lectureReviewToLectureReviewInfoResponse(updatedLectureReview);
 
@@ -102,6 +134,15 @@ public class LectureReviewController {
 
         //게시글 작성자 & 로그인된 회원 일치하는지 확인
         memberService.memberValidation(loginMemberFindByToken(), lectureReviewService.findLectureReviewById(lectureReviewId).getMember().getMemberId());
+
+        LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewId);
+
+        //삭제되어야할 파일 Url -> 파일 경로 변환
+        List<String> deleteFilePaths = s3FileInfoService.getFilePathsByFileUrls(lectureReview.getUploadImages());
+        //삭제되어야할 파일들 S3 에서 삭제 & DB S3FileInfo 값 삭제
+        List<S3FileInfo> s3FileInfosByFilePaths = s3FileInfoService.findS3FileInfosByFilePaths(deleteFilePaths);
+        s3FileInfoService.deleteS3FileInfos(s3FileInfosByFilePaths);
+        s3UpLoadService.deleteFilesByFilePaths(deleteFilePaths);
 
         lectureReviewService.deleteLectureReview(lectureReviewId);
         Optional<LectureReview> deletedLectureReview = lectureReviewService.findOptionalLectureReviewById(lectureReviewId);

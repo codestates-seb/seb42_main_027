@@ -102,7 +102,7 @@ public class S3FileInfoService {
                 if (subCategory.equals("qnas")) return splitPath[2].equals("answers") ? "answer" : "question";
                 else if (subCategory.equals("frees")) return "free";
                 else if (subCategory.equals("teachers")) return "teacher";
-                else if (subCategory.equals("reviews") && splitPath[2].equals("lectures")) return "lecture";
+                else if (subCategory.equals("reviews") && splitPath[2].equals("lectures")) return "lectureReview";
                 break;
             case "members": return "member";
             case "emoticons": return "emoticon";
