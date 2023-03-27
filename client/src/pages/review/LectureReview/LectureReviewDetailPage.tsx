@@ -235,9 +235,10 @@ function LectureReviewDetailPage() {
             </FlexContainer>
           </FlexContainer>
 
-          <FlexContainer width="100%" justify="start" padding="1rem 1.5rem">
-            {detailData.content}
-          </FlexContainer>
+          {/* 리뷰 내용 */}
+          <ContentBox
+            dangerouslySetInnerHTML={{ __html: detailData.content }}
+          />
 
           <FlexContainer width="100%" justify="right" padding="0.4rem 5rem">
             <FlexContainer>
@@ -254,8 +255,8 @@ function LectureReviewDetailPage() {
           <FlexContainer
             dir="col"
             width="100%"
-            justify="start"
-            align="start"
+            justify="center"
+            align="center"
             padding="3rem 1rem"
           >
             {Authorization ? (
@@ -354,4 +355,19 @@ const TitleDiv = styled.div`
   justify-content: space-between;
   padding: ${theme.gap.px20};
   border-bottom: 1px solid ${theme.colors.gray};
+`;
+
+const ContentBox = styled.div`
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  padding: 3rem 1rem;
+  gap: 0.4rem;
+
+  img {
+    max-width: 90%;
+  }
 `;

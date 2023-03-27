@@ -8,6 +8,7 @@ import axios from 'axios';
 import theme from 'theme';
 import GoBackMenu from 'components/board/post/goBackMenu';
 import StarCounter from 'components/review/StarCounter';
+import TextEditor from 'components/common/textEditor';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 import { UploadButton } from '../TeacherList/CreateTeacher';
 
@@ -87,7 +88,14 @@ function CreateReview() {
           <StarCounter starPoint={starPoint} setStarPoint={setStarPoint} />
         </FlexContainer>
         {/* 리뷰 내용 */}
-        <FlexContainer dir="col" align="start" gap="0.5rem" width="95%">
+        <FlexContainer dir="col" gap="0.6rem" width="95%" align="start">
+          <TextEditor
+            textContent={content}
+            setTextContent={setContent}
+            path="boards/reviews/lectures/contents"
+          />
+        </FlexContainer>
+        {/* <FlexContainer dir="col" align="start" gap="0.5rem" width="95%">
           <Label htmlFor="content">내용</Label>
           <TextArea
             id="content"
@@ -96,7 +104,7 @@ function CreateReview() {
               setContent(e.target.value);
             }}
           />
-        </FlexContainer>
+        </FlexContainer> */}
 
         <FlexContainer>
           <UploadButton onClick={createHandler}>후기 등록</UploadButton>
