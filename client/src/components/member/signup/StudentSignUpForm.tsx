@@ -257,6 +257,7 @@ function StudentSignUpForm() {
       }, 100);
       setIsSuccess(true);
     } catch (error: any) {
+      console.error(error);
       if (error.response.status === 409) {
         setIsSuccess(false);
       }

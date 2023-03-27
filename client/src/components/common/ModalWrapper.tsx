@@ -10,10 +10,11 @@ type ModalWrapperProps = {
 
 const customStyles = {
   content: {
-    top: '50%',
+    top: '40%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '400px',
+    width: '30rem',
+    height: '40rem',
     maxHeight: '90%',
     overflow: 'auto',
     background: '#fff',

@@ -227,6 +227,9 @@ function FindForgotEmail() {
             다음
           </BaseButton>
         </StyleButton>
+        <button type="button" onClick={handleOpenModal}>
+          버튼
+        </button>
 
         <ModalWrapper isOpen={isOpen} shouldCloseOnOverlayClick={false}>
           <ModalContainer>
