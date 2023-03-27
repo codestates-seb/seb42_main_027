@@ -24,19 +24,19 @@ type itemsProps = {
 
 const items: itemsProps[] = [
   {
-    item: 'http://placehold.it/1300x400',
+    item: 'https://cdn.pixabay.com/photo/2023/03/21/08/36/bamboo-7866718_1280.jpg',
     name: '이미지01',
   },
   {
-    item: 'http://placehold.it/1300x400/ff0000',
+    item: 'https://cdn.pixabay.com/photo/2016/09/11/02/07/greece-1660546_1280.jpg',
     name: '이미지02',
   },
   {
-    item: 'http://placehold.it/1300x400/00ffff',
+    item: 'https://cdn.pixabay.com/photo/2017/11/09/17/36/bridge-2934151_1280.png',
     name: '이미지03',
   },
   {
-    item: 'http://placehold.it/1300x400/00fsff',
+    item: 'https://cdn.pixabay.com/photo/2017/11/10/01/25/fantasy-2935093__480.jpg',
     name: '이미지03',
   },
 ];
@@ -73,8 +73,8 @@ export const StyledSlider = styled(Slider)`
 
   .slick-list {
     //슬라이드 스크린
-    width: 90vw;
-    height: 10rem;
+    width: 95vw;
+    height: 100%;
     margin: 0 auto;
     overflow-x: hidden;
     background: none;
@@ -112,7 +112,10 @@ export const StyledSlider = styled(Slider)`
 const SliderItem = styled.div`
   text-align: center;
   img {
-    max-width: 100%;
-    height: auto;
+    width: 100%;
+    height: 15rem;
+    @media screen and (min-width: 750px) {
+      height: 25rem;
+    }
   }
 `;

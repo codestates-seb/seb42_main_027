@@ -5,10 +5,9 @@ import GlobalStyle from 'GlobalStyles';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router';
-import styled from 'styled-components';
 
 import { FlexContainer } from '../TeacherList/ReviewPage';
-import { Container } from './Information';
+
 import {
   UpdateContainer,
   ColumDiv,
@@ -16,7 +15,6 @@ import {
   Textarea,
   CardContainer,
   UploadButton,
-  Span,
 } from '../TeacherList/CreateTeacher';
 
 const defaultData = {
@@ -33,6 +31,7 @@ const defaultData = {
   analects: ['1'],
   profile: ['1'],
 };
+
 function UpdateLecture() {
   const { teacherId, lectureId } = useParams();
 
@@ -47,7 +46,9 @@ function UpdateLecture() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/boards/lectures/${lectureId}`)
+      .get(`${process.env.REACT_APP_API_URL}/boards/lectures/${lectureId}`, {
+        headers: { 'ngrok-skip-browser-warning': '69420' },
+      })
       .then((res: any) => {
         console.log(res.data.data);
         return res.data.data;
@@ -148,7 +149,7 @@ function UpdateLecture() {
             headers: { 'ngrok-skip-browser-warning': '69420' },
           },
         )
-        .then(res => {
+        .then(() => {
           navigate(-1);
         });
     }

@@ -5,7 +5,7 @@ import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import theme from 'theme';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Loading from 'components/review/Loading';
 
@@ -31,6 +31,7 @@ function EventDetail() {
   const { eventId } = useParams();
   const Authorization = localStorage.getItem('token');
   const navigate = useNavigate();
+
   const { userInfo } = useUserInfoStore(state => state);
 
   useEffect(() => {
