@@ -4,12 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21e0b4a1-1309-4891-a3a3-777e2c29c93a" name="변경" comment="feat: S3-DB 파일 연동 테이블 생성 및 Quest 파일등록,수정,삭제시 연동테이블,S3파일 등록,수정,삭제 코드구현">
+    <list default="true" id="21e0b4a1-1309-4891-a3a3-777e2c29c93a" name="변경" comment="fix: Table 변경사항 전체 flyway 반영후 초기화">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/7650e78f-3e91-492c-b2ea-0ea05d1c9fbc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7650e78f-3e91-492c-b2ea-0ea05d1c9fbc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application-server.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application-server.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/db/migration/V4__stub_ds_my_mac.sql" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/db/migration/V4__stub_ds_my_mac.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/db/migration/V5__stub_megastudy.sql" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/db/migration/V5__stub_megastudy.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/db/migration/sV1__init_table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/db/migration/V1__init_table.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/db/migration/sV6__add_table.sql" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/resources/db/migration/sV7__edit_their.sql" beforeDir="false" />
     </list>
@@ -127,7 +133,7 @@
       <recent name="ynzmz.server.vote.qna.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.ServerApplication">
+  <component name="RunManager" selected="Gradle.server [clean]">
     <configuration name="server [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -198,7 +204,7 @@
       <workItem from="1679665658087" duration="37572000" />
       <workItem from="1679753992614" duration="5648000" />
       <workItem from="1679848944257" duration="5740000" />
-      <workItem from="1679863894462" duration="27786000" />
+      <workItem from="1679863894462" duration="28088000" />
     </task>
     <task id="LOCAL-00001" summary="feat: S3 저장시 경로/이름지정 로직추가">
       <created>1679674868199</created>
@@ -305,7 +311,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679937368743</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fix: Table 변경사항 전체 flyway 반영후 초기화">
+      <created>1679939947887</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1679939947887</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -349,7 +362,8 @@
     <MESSAGE value="merge: 3/27 민호병합 준비" />
     <MESSAGE value="merge: 3/27 민호병합" />
     <MESSAGE value="feat: S3-DB 파일 연동 테이블 생성 및 Quest 파일등록,수정,삭제시 연동테이블,S3파일 등록,수정,삭제 코드구현" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: S3-DB 파일 연동 테이블 생성 및 Quest 파일등록,수정,삭제시 연동테이블,S3파일 등록,수정,삭제 코드구현" />
+    <MESSAGE value="fix: Table 변경사항 전체 flyway 반영후 초기화" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: Table 변경사항 전체 flyway 반영후 초기화" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
