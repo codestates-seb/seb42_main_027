@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping("/boards/events/theirs")
 @RequiredArgsConstructor
 public class EventController {
-    private final EventRepository eventRepository;
+
     private final EventService eventService;
     private final EventMapper eventMapper;
 
@@ -44,11 +44,4 @@ public class EventController {
         return new ResponseEntity<>(new MultiResponseDto<>(response,pagedEvent), HttpStatus.OK);
     }
 
-    @GetMapping("/{test}")
-    public ResponseEntity<?> test(@PathVariable("test") int something){
-        Page<Event> pagedMega = eventService.pageFindAllMegaEvents(something);
-        List<Event> events = pagedMega.getContent();
-        List<EventDto.Response> response = eventMapper.eventToEventResponses(events);
-        return new ResponseEntity<>(new MultiResponseDto<>(response,pagedMega),HttpStatus.OK);
-    }
 }
