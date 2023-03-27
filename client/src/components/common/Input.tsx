@@ -44,6 +44,10 @@ const StyleInput = styled.input`
         }
       }};
   }
+  :focus {
+    border-color: ${pointColor};
+    box-shadow: 0px 0 5px rgba(0, 0, 0, 0.3);
+  }
 `;
 
 const StyleErrorMessage = styled.p`
