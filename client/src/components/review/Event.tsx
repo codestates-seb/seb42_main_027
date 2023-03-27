@@ -24,12 +24,13 @@ function Event({ event }: Props) {
   const endCheck = (last: string) => {
     const today = new Date();
     const lastDay = last.slice(13);
-    console.log(Number(today.getDate()), Number(lastDay.slice(8, 10)));
+    console.log(Number(today.getMonth()) + 1, Number(lastDay.slice(5, 7)));
 
-    if (Number(today.getFullYear()) > Number(lastDay.slice(0, 4))) return true;
-    if (Number(today.getMonth()) + 1 > Number(lastDay.slice(5, 7))) return true;
-    if (Number(today.getDate()) > Number(lastDay.slice(8, 10))) return true;
-    return false;
+    if (Number(today.getFullYear()) < Number(lastDay.slice(0, 4))) return false;
+    if (Number(today.getMonth()) + 1 < Number(lastDay.slice(5, 7)))
+      return false;
+    if (Number(today.getDate()) <= Number(lastDay.slice(8, 10))) return false;
+    return true;
   };
 
   return (
@@ -38,7 +39,7 @@ function Event({ event }: Props) {
         <MiddleFont>{event.eventId}</MiddleFont>
       </FlexContainer>
       <FlexContainer width="6rem">
-        <MiddleFont>{event.status === 'none' ? '자체' : '외부'}</MiddleFont>
+        <MiddleFont>자체</MiddleFont>
       </FlexContainer>
       <FlexContainer
         onMouseOver={e => {
