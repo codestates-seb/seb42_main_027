@@ -86,9 +86,7 @@ function TeacherSignUpForm() {
     return 'danger';
   };
 
-  const handleChangeUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setUserName(value);
+  const validationName = (value: string) => {
     if (value.length === 0) {
       setIsUserNameSuccess({
         isSuccess: 'false',
@@ -104,9 +102,7 @@ function TeacherSignUpForm() {
     }
   };
 
-  const handleChangePhoneNum = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setPhoneNum(value);
+  const validationPhoneNumber = (value: string) => {
     if (value.length === 0) {
       setIsPhoneNumSuccess({
         isSuccess: 'false',
@@ -122,9 +118,7 @@ function TeacherSignUpForm() {
     }
   };
 
-  const handleChangeDisplayName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setDisplayName(value);
+  const validationDisplayName = (value: string) => {
     if (value.length === 0) {
       setIsDisplayNameSuccess({
         isSuccess: 'false',
@@ -140,10 +134,7 @@ function TeacherSignUpForm() {
     }
   };
 
-  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-
-    setEmail(value);
+  const validationEmail = (value: string) => {
     if (value.length === 0) {
       setIsEmailSuccess({
         isSuccess: 'false',
@@ -159,10 +150,7 @@ function TeacherSignUpForm() {
     }
   };
 
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-
-    setPassword(value);
+  const validationPassword = (value: string) => {
     if (value.length === 0) {
       setIsPasswordSuccess({
         isSuccess: 'false',
@@ -178,12 +166,7 @@ function TeacherSignUpForm() {
     }
   };
 
-  const handleChangeConfirmPassword = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const { value } = e.target;
-
-    setConfirmPassword(value);
+  const validationConfirmPassword = (value: string) => {
     if (value.length === 0) {
       setIsConfirmPasswordSuccess({
         isSuccess: 'false',
@@ -197,6 +180,44 @@ function TeacherSignUpForm() {
         errorMessage: '암호가 일치하지 않습니다.',
       });
     }
+  };
+
+  const handleChangeUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setUserName(value);
+    validationName(value);
+  };
+
+  const handleChangePhoneNum = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setPhoneNum(value);
+    validationPhoneNumber(value);
+  };
+
+  const handleChangeDisplayName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setDisplayName(value);
+    validationDisplayName(value);
+  };
+
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setEmail(value);
+    validationEmail(value);
+  };
+
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setPassword(value);
+    validationPassword(value);
+  };
+
+  const handleChangeConfirmPassword = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const { value } = e.target;
+    setConfirmPassword(value);
+    validationConfirmPassword(value);
   };
   const pathData = {
     username: '',
@@ -219,6 +240,12 @@ function TeacherSignUpForm() {
     pathData.confirmPassword = confirmPassword;
     pathData.createdAt = currentTime;
     pathData.state = 'TEACHER';
+    validationName(userName);
+    validationPhoneNumber(phoneNum);
+    validationDisplayName(displayName);
+    validationEmail(email);
+    validationPassword(password);
+    validationConfirmPassword(confirmPassword);
     try {
       await postSignUp(pathData);
       navigate('/');
