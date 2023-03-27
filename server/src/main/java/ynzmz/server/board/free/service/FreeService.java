@@ -93,4 +93,8 @@ public Page<Free> findFreesByCategoryAndSortAndTitle(int page, String category,S
 //    public Page<Free> findFreesByCategoryAndSort(int page, String category){
 //        return repository.findFreesByCategory(category, PageRequest.of(page,15));
 //    }
+
+    public void getCommentNum(Free free){
+        free.setCommentsListNum(free.getComments().size());
+    }
 }

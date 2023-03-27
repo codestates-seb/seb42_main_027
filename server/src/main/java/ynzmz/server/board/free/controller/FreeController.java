@@ -47,6 +47,7 @@ public class FreeController {
     public ResponseEntity<?> getDetailFree(@PathVariable("free-id") long Id) {
         Free foundFree = freeService.findFreeById(Id);
         freeService.plusViewCount(foundFree);
+        freeService.getCommentNum(foundFree);
 
         FreeDto.DetailResponse response = freeMapper.freeToFreeDetailResponse(foundFree);
 
