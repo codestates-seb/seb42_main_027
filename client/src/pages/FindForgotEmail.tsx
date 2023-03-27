@@ -16,13 +16,14 @@ const SubTitle = styled.p`
   font-size: 1rem;
   margin-bottom: 0.5rem;
   width: 73%;
-  text-align: center;
+  margin-bottom: 1rem;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 70%;
+  width: 100%;
 `;
 
 const SignUpFailedMessage = styled.p`
@@ -219,11 +220,6 @@ function FindForgotEmail() {
         >
           다음
         </BaseButton>
-
-        {/* 임시 버튼 */}
-        <button type="button" onClick={handleOpenModal}>
-          modal open
-        </button>
 
         <ModalWrapper isOpen={isOpen} shouldCloseOnOverlayClick={false}>
           <ModalContainer>

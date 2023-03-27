@@ -19,7 +19,6 @@ const SubTitle = styled.p`
   font-size: 1rem;
   margin-bottom: 1rem;
   width: 73%;
-  text-align: center;
 `;
 
 const Form = styled.form`
@@ -219,10 +218,6 @@ function FindForgotPassword() {
           다음
         </BaseButton>
 
-        {/* 임시 버튼 */}
-        <button type="button" onClick={handleOpenModal}>
-          modal open
-        </button>
         <FindPasswordModal isOpen={isOpen} email={email} />
       </Form>
     </Container>
