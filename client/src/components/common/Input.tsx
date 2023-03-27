@@ -8,6 +8,7 @@ const Label = styled.label`
   display: flex;
   flex-direction: column;
   color: ${pointColor};
+  width: 100%;
 `;
 
 const StyleInput = styled.input`

@@ -18,12 +18,15 @@ const { colors } = theme;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 100%;
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
   margin-bottom: 1rem;
+  button {
+    margin-right: 0.3rem;
+  }
 `;
 
 const Separator = styled.span`
@@ -150,6 +153,7 @@ function Login() {
             </BaseButton>
           </ButtonGroup>
         </Form>
+
         {failedLogin ? <FailLoginMessage>{loginError}</FailLoginMessage> : null}
         <ButtonGroup>
           <Link to="/findemail">
