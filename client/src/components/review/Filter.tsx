@@ -51,4 +51,10 @@ const SubjectSelectButton = styled.button<SubjectSelectButton>`
     background-color: #525392;
     color: white;
   }
+
+  @media screen and (max-width: 600px) {
+    width: 4rem;
+    height: 2.125rem;
+    font-size: small;
+  }
 `;
