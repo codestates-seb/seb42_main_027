@@ -15,12 +15,13 @@ const UserCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30%;
+  width: 35rem;
   /* margin: 0 auto */
   padding: 0 8rem;
   height: 100vh;
   box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1);
   border-left: 0.1rem solid rgb(235, 235, 235);
+  z-index: 5;
 `;
 
 const ProfileImage = styled.img`
@@ -52,6 +53,7 @@ const Name = styled.h2`
   font-size: 2rem;
   margin: 1rem 0;
   margin-right: 0.5rem;
+  font-weight: 500;
 `;
 
 const UserState = styled.div`
@@ -74,6 +76,7 @@ const SideNav = styled.div`
   margin-top: 3rem;
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 type MyPageMenuProps = {
@@ -82,8 +85,10 @@ type MyPageMenuProps = {
 
 const MyPageMenu = styled.div<MyPageMenuProps>`
   font-size: 1.3rem;
-  margin-top: 5rem;
+  margin-top: 3rem;
   color: ${({ color }) => color};
+  font-weight: 600;
+  cursor: pointer;
 `;
 
 type UserCardProps = {

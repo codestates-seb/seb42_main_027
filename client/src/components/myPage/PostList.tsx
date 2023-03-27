@@ -13,6 +13,17 @@ const PostListContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 45%;
+  margin-top: 8rem;
+  margin-left: 6rem;
+  border: 0.15rem solid ${colors.pointColor};
+  border-radius: 1rem;
+  background-color: white;
+  padding: 1rem;
+  width: 50rem;
+
+  @media screen and (max-width: 1919px) {
+    width: 30rem;
+  }
 `;
 
 const PostListTitleContainer = styled.div`
@@ -20,6 +31,8 @@ const PostListTitleContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  border-bottom: 0.1rem solid ${colors.gray};
+  padding-bottom: 0.5rem;
 `;
 
 const List = styled.div`
@@ -110,6 +123,11 @@ const Top = styled.div`
   margin-bottom: 4px;
 `;
 
+const StyleSelect = styled.select`
+  width: 8rem;
+  border-radius: 0.2rem;
+`;
+
 type PostProps = {
   question: {
     questionId: number;
@@ -157,12 +175,15 @@ function PostList({
       <PostListContainer>
         <PostListTitleContainer>
           <h2>내가 작성한 게시글</h2>
-          <select onChange={handleChangeBoard} value={selectPostCategories}>
+          <StyleSelect
+            onChange={handleChangeBoard}
+            value={selectPostCategories}
+          >
             <option value="자유 게시판">자유 게시판</option>
             <option value="질문 게시판">질문 게시판</option>
             <option value="답변 게시판">답변 게시판</option>
             <option value="강의 리뷰">강의 리뷰</option>
-          </select>
+          </StyleSelect>
         </PostListTitleContainer>
         <List>
           {freePosts.map((post: PostProps) => {

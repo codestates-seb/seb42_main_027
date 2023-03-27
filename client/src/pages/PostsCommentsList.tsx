@@ -5,10 +5,10 @@ import styled from 'styled-components';
 const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  width: 50%;
+  align-items: flex-start;
+  width: 60%;
   height: 100vh;
+  background-color: #f9fbfc;
 `;
 
 type PostsCommentsListProps = {

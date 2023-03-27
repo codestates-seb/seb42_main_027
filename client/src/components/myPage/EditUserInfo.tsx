@@ -13,12 +13,29 @@ const { colors } = theme;
 const { fontSizes } = theme;
 
 const Container = styled.div`
-  width: 50%;
+  width: 60%;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-end;
+  align-items: flex-start;
+  background-color: #f9fbfc;
+`;
+
+const UserInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50rem;
+  padding: 1rem;
+  border: 0.15rem solid ${colors.pointColor};
+  box-shadow: 0px 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  margin-top: 8rem;
+  background-color: white;
+  margin-left: 6rem;
+  @media screen and (max-width: 1919px) {
+    width: 30rem;
+  }
 `;
 
 const UserInfo = styled.p`
@@ -59,17 +76,6 @@ const EditUserInfoContainer = styled.div`
 const DefaultInfoSpan = styled.span`
   color: ${colors.gray};
   margin-bottom: 0.8rem;
-`;
-
-const UserInfoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  padding: 1rem;
-  border: 0.15rem solid ${colors.pointColor};
-  box-shadow: 0px 0 5px rgba(0, 0, 0, 0.1);
-  border-radius: 1rem;
-  margin-top: 8rem;
 `;
 
 const DefaultInfo = styled.div`

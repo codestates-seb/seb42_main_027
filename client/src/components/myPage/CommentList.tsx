@@ -12,6 +12,17 @@ const PostListContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 45%;
+  margin-top: 8rem;
+  margin-left: 6rem;
+  border: 0.15rem solid ${colors.pointColor};
+  border-radius: 1rem;
+  background-color: white;
+  padding: 1rem;
+  width: 50rem;
+
+  @media screen and (max-width: 1919px) {
+    width: 30rem;
+  }
 `;
 
 const PostListTitleContainer = styled.div`
@@ -19,6 +30,8 @@ const PostListTitleContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  border-bottom: 0.1rem solid ${colors.gray};
+  padding-bottom: 0.5rem;
 `;
 
 const List = styled.div`
@@ -84,6 +97,11 @@ const CommentSource = styled.p`
   font-size: 0.8rem;
   color: black;
   //! 글자수 제한 필요
+`;
+
+const StyleSelect = styled.select`
+  width: 8rem;
+  border-radius: 0.2rem;
 `;
 
 type CommentsProps = {
@@ -156,7 +174,7 @@ function CommentList({
       <PostListContainer>
         <PostListTitleContainer>
           <h2>내가 작성한 댓글</h2>
-          <select
+          <StyleSelect
             onChange={handleChangeCommentCategorie}
             value={selectCommentCategories}
           >
@@ -165,7 +183,7 @@ function CommentList({
             <option value="강의 리뷰">강의 리뷰</option>
             <option value="자유 대댓글">자유게시판 대댓글</option>
             <option value="질문답변 대댓글">질문답변 대댓글</option>
-          </select>
+          </StyleSelect>
         </PostListTitleContainer>
         <List>
           {freeComments.map((comment: CommentsProps) => {

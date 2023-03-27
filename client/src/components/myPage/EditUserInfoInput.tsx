@@ -8,7 +8,7 @@ const successRGB = '101, 226, 113';
 const EditUserInfo = styled.input`
   padding: 0.1rem 0.2rem;
   border-radius: 0.2rem;
-
+  margin-right: 0.4rem;
   color: ${fontColor};
   border: 1px solid
     ${({ color }) => {

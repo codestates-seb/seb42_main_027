@@ -15,7 +15,7 @@ import PostsCommentsList from './PostsCommentsList';
 const Container = styled.div`
   display: flex;
   /* flex-direction: column; */
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   width: 100%;
 `;
