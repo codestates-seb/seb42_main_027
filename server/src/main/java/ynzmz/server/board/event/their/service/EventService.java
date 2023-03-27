@@ -53,11 +53,36 @@ public class EventService {
     }
 
     public List<Event> findAllMegaEvents(){
-
+        return eventRepository.findEventsBySource("Mega");
     }
+    public Page<Event> pageFindAllMegaEvents(int page){
+        return eventRepository.findEventsBySourcePage("Mega" , PageRequest.of(page-1, 15,Sort.by("theirId")));
+    }
+    public List<Event> findAllDaeSungEvents(){
+        return eventRepository.findEventsBySource("DaeSung");
+    }
+    public List<Event> findAllEtoosEvents(){
+        return eventRepository.findEventsBySource("Etoos");
+    }
+    public Page<Event> pageFindAllEtoosEvents(int page){
+        return eventRepository.findEventsBySourcePage("Etoos", PageRequest.of(page-1,15,Sort.by("theirId")));
+    }
+
+    //페이지 필요? 몰루?
 //-------------------------------------------UPDATE---------------------------------------------------------
 
-//
+    public Event updateEvent(Event event){
+        Event findEvent = findEvent(event.getTheirId());
+
+
+        Optional.ofNullable(event.getTitle()).ifPresent(findEvent::setTitle);
+        Optional.ofNullable(event.getDate()).ifPresent(findEvent::setDate);
+        Optional.ofNullable(event.getHyperLink()).ifPresent(findEvent::setHyperLink);
+        Optional.ofNullable(event.getSource()).ifPresent(findEvent::setSource);
+
+        return eventRepository.save(findEvent);
+
+    }
 
 
     //-------------------------------------------DELETE---------------------------------------------------------
@@ -196,5 +221,78 @@ public class EventService {
 //            e.printStackTrace();
 //        }
 //    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    public void testnew(){
+//    String megaUrl1 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
+//    try {
+//        Connection mConn = Jsoup.connect(megaUrl1);
+//        Document document = mConn.get();
+//
+//        Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
+//        Elements megaeventsdate1 = document.getElementsByClass("date").select("span:nth-child(1)");
+//        // 강사이름O #wrap_2014 > div.column_main > div.column_right > div > div.event_list > ul > li:nth-child(9) > div.info > div.date > span > strong
+//        Elements megaeventsdate3 = document.getElementsByClass("date").select("span:nth-child(3)");
+//        //강사이름 X #wrap_2014 > div.column_main > div.column_right > div > div.event_list > ul > li:nth-child(1) > div.info > div.date > span:nth-child(3) > strong
+//        List<Event> onlyMegaEvents = findAllMegaEvents();
+//        List<Event> eventList = new ArrayList<>();
+//        int k = 0;
+//        for (int i = 0; i < megaeventsLink.size(); i++) {
+//            Event events = new Event();
+//            events.setSource("Mega");
+//            events.setTitle(megaeventsLink.get(i).text());
+//            events.setHyperLink(megaeventsLink.get(i).attr("href"));
+//
+//            //주소 기입
+//            if (megaeventsdate3.get(i).text().substring(0, 1).equals("이")) {
+//                events.setDate(megaeventsdate3.get(i).text()/*.substring(6)*/);
+//
+//            } else if (megaeventsdate1.size() > k) {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
+//                events.setDate(megaeventsdate1.get(k).text().substring(6));
+//
+//                k++;
+//            } else {//(megaeventsdate1.get(i).text().substring(0,1) != "이")
+//
+//                events.setDate(" 선착순");
+//            }
+//            eventList.add(events);
+//
+//
+//
+//        }
+//        for(Event e : eventList){
+//            boolean sim = false;
+//            for(int i = onlyMegaEvents.size()-1 ; i > onlyMegaEvents.size()-11; i--){
+//                if(e.getHyperLink() == onlyMegaEvents.get(i).getHyperLink())
+//                {
+//                    sim = true;
+//                    break;
+//                }
+//                else
+//                {
+//                    sim = false;
+//                }
+//            }
+//            if(sim == false){
+//                createEvent(e);
+//            }
+//        }
+//
+//    } catch (
+//            IOException e) {
+//        e.printStackTrace();
+//    }
+//}
 
 }

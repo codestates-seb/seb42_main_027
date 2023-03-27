@@ -22,6 +22,8 @@ public class Event {
     private String title;
     private String hyperLink;
     private String date; //나중에 datetime으로 파싱
+    private String source;
+
 //    @Column
 //    @Enumerated(EnumType.STRING)
 //    private Source source;
@@ -40,7 +42,6 @@ public class Event {
 //        }
 //    }
     //enum 사용?
-    private String source;
 
 
 

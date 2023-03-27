@@ -44,5 +44,11 @@ public class EventController {
         return new ResponseEntity<>(new MultiResponseDto<>(response,pagedEvent), HttpStatus.OK);
     }
 
-
+    @GetMapping("/{test}")
+    public ResponseEntity<?> test(@PathVariable("test") int something){
+        Page<Event> pagedMega = eventService.pageFindAllMegaEvents(something);
+        List<Event> events = pagedMega.getContent();
+        List<EventDto.Response> response = eventMapper.eventToEventResponses(events);
+        return new ResponseEntity<>(new MultiResponseDto<>(response,pagedMega),HttpStatus.OK);
+    }
 }
