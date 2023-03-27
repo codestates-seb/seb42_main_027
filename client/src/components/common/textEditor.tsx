@@ -96,6 +96,7 @@ function TextEditor({ textContent, setTextContent, path }: Props) {
 }
 
 const TextEditorDiv = styled.div`
+  width: 100%; // 제가 추가했습니다... 문제시 삭제하셔요ㅎ;
   min-height: 25rem;
   padding-bottom: ${theme.gap.px40};
 
