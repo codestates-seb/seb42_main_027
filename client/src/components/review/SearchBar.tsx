@@ -16,7 +16,7 @@ function SearchBar({ search, setSearch, setCurPage }: Props) {
   useEffect(() => {
     const debounce = setTimeout(() => {
       return setSearch(text);
-    }, 800);
+    }, 350);
     return () => {
       clearTimeout(debounce);
     };

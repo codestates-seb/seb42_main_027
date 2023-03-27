@@ -46,7 +46,9 @@ function UpdateLecture() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/boards/lectures/${lectureId}`)
+      .get(`${process.env.REACT_APP_API_URL}/boards/lectures/${lectureId}`, {
+        headers: { 'ngrok-skip-browser-warning': '69420' },
+      })
       .then((res: any) => {
         console.log(res.data.data);
         return res.data.data;
