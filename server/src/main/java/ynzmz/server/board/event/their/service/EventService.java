@@ -191,9 +191,9 @@ public class EventService {
                     event.setDate(" " + date.get(i).text());
                     event.setHyperLink(titles.get(i).attr("href"));
                     event.setTitle(titles.get(i).text());
-                    System.out.println("제목: " + event.getTitle());
-                    System.out.println("링크: " + event.getHyperLink());
-                    System.out.println("날짜: " + event.getDate());
+//                     System.out.println("제목: " + event.getTitle());
+//                     System.out.println("링크: " + event.getHyperLink());
+//                     System.out.println("날짜: " + event.getDate());
                     createEvent(event);
                 }
 
