@@ -22,10 +22,11 @@ import ynzmz.server.board.qna.question.dto.QuestionDto;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.qna.question.mapper.QuestionMapper;
 import ynzmz.server.board.qna.question.service.QuestionService;
-import ynzmz.server.tag.service.TagService;
+import ynzmz.server.s3.service.S3FileService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/boards/qnas/questions")
@@ -38,12 +39,11 @@ public class QuestionController {
     private final AnswerMapper answerMapper;
     private final MemberService memberService;
     private final AnswerService answerService;
-    private final TagService tagService;
+    private final S3FileService s3FileService;
 
     @PostMapping
     public ResponseEntity<?> postQuestion(@Valid @RequestBody QuestionDto.Post questionPost){
         Question requestQuestion = questionMapper.questionPostToQuestion(questionPost);
-        //토큰에서 memberId 확인
         requestQuestion.setMember(loginMemberFindByToken());
 
         Question createdQuestion = questionService.createQuestion(requestQuestion);
@@ -68,7 +68,7 @@ public class QuestionController {
         return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
 
-    //질문글 검색 리스트페이지 = 과목태그별 + 정렬 + 정순 역순
+    //질문글 검색 리스트페이지 = 과목태그별 + 정렬 + 정순 역순 default
     @GetMapping
     public ResponseEntity<?> getQuestions(@RequestParam(required = false) String category,
                                           @RequestParam(required = false) String title,
@@ -101,9 +101,9 @@ public class QuestionController {
             Question question = questionService.findQuestionById(questionId);
             questionService.setViewCount(question); //조회수기능  1번당 1씩 올라가게 (임시)
 
-            MemberDto.VoteInfo loginMemberVoteInfo = memberService.setMemberVoteStatus(loginMember, question);
+            MemberDto.VoteInfo loginMemberVoteInfo = memberService.findQnaVoteStatusByLoginUser(loginMember, question);
             QuestionDto.DetailPageResponse response = questionMapper.questionToQuestionDetailPageResponse(question);
-            response.setLoginUserInfo(loginMemberVoteInfo);
+            response.setLoginUserVoteInfo(loginMemberVoteInfo);
 
             return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
         } catch (BusinessLogicException e) {
@@ -112,7 +112,7 @@ public class QuestionController {
             questionService.setViewCount(question); //조회수기능  1번당 1씩 올라가게 (임시)
 
             QuestionDto.DetailPageResponse response = questionMapper.questionToQuestionDetailPageResponse(question);
-            response.setLoginUserInfo(null);
+            response.setLoginUserVoteInfo(null);
 
             return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
         }
@@ -138,11 +138,16 @@ public class QuestionController {
     @DeleteMapping("/{question-id}")
     public ResponseEntity<?> deleteQuestion(@PathVariable("question-id") long questionId){
 
-        String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
-        Member member = memberService.findMemberByEmail(loginEmail);
-        boolean deleteStatus = questionService.deleteQuestion(questionId, member);
+        //게시글 작성자 & 로그인된 회원 일치하는지 확인
+        memberService.memberValidation(loginMemberFindByToken(), questionService.findQuestionById(questionId).getMember().getMemberId());
 
-        return deleteStatus ? new ResponseEntity<>("삭제완료",HttpStatus.OK) : new ResponseEntity<>("삭제실패",HttpStatus.INTERNAL_SERVER_ERROR);
+        Question question = questionService.findQuestionById(questionId);
+        //게시글 이미지 삭제
+        s3FileService.deleteFilesByS3Urls(question.getUploadImages());
+        questionService.deleteQuestion(questionId);
+        Optional<Question> deletedQuestion = questionService.findOptionalQuestionById(questionId);
+
+        return deletedQuestion.isEmpty() ? new ResponseEntity<>("삭제완료",HttpStatus.OK) : new ResponseEntity<>("삭제실패",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -166,6 +171,7 @@ public class QuestionController {
     }
     //로그인된 사용자 확인
     private Member loginMemberFindByToken(){
+
         String loginEmail = SecurityContextHolder.getContext().getAuthentication().getName(); // 토큰에서 유저 email 확인
         return memberService.findMemberByEmail(loginEmail);
     }

@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
-import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.board.lecture.entity.Lecture;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.vote.Vote;
 import ynzmz.server.vote.review.lecture.entity.ReviewVote;

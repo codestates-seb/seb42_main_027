@@ -1,4 +1,4 @@
-package ynzmz.server.lecture.mapper;
+package ynzmz.server.board.lecture.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,18 +6,18 @@ import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
-import ynzmz.server.lecture.dto.LectureDto;
-import ynzmz.server.lecture.entity.Lecture;
+import ynzmz.server.board.lecture.dto.LectureDto;
+import ynzmz.server.board.lecture.entity.Lecture;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.tag.dto.GradeTagDto;
 import ynzmz.server.tag.dto.PlatformTagDto;
 import ynzmz.server.tag.dto.SubjectTagDto;
-import ynzmz.server.tag.mappingtable.lecture.LectureGradeTag;
-import ynzmz.server.tag.mappingtable.lecture.LecturePlatformTag;
-import ynzmz.server.tag.mappingtable.lecture.LectureSubjectTag;
-import ynzmz.server.teacher.dto.TeacherDto;
-import ynzmz.server.teacher.entity.Teacher;
+import ynzmz.server.tag.entity.lecture.LectureGradeTag;
+import ynzmz.server.tag.entity.lecture.LecturePlatformTag;
+import ynzmz.server.tag.entity.lecture.LectureSubjectTag;
+import ynzmz.server.board.teacher.dto.TeacherDto;
+import ynzmz.server.board.teacher.entity.Teacher;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",

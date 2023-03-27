@@ -5,9 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import ynzmz.server.comment.review.lecture.dto.LectureReviewCommentDto;
-import ynzmz.server.lecture.dto.LectureDto;
+import ynzmz.server.board.lecture.dto.LectureDto;
 import ynzmz.server.member.dto.MemberDto;
-import ynzmz.server.teacher.dto.TeacherDto;
+import ynzmz.server.board.teacher.dto.TeacherDto;
 
 import java.util.List;
 
@@ -43,7 +43,6 @@ public class LectureReviewDto {
         private long viewCount;
         private long voteCount;
         private long totalCommentCount;
-        private TeacherDto.SimpleInfoResponse teacher;
         private LectureDto.SimpleInfoResponse lecture;
         private MemberDto.SimpleInfoResponse member;
     }
