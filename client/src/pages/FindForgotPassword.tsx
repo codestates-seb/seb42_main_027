@@ -25,6 +25,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 70%;
+  width: 100%;
 `;
 
 const SignUpFailedMessage = styled.p`
@@ -32,6 +33,11 @@ const SignUpFailedMessage = styled.p`
   margin: 0.5rem 0;
   font-size: 0.9rem;
   text-align: center;
+`;
+
+const StyleButton = styled.div`
+  width: 10rem;
+  height: 3rem;
 `;
 
 // ModalStyle
@@ -209,14 +215,16 @@ function FindForgotPassword() {
         {isSuccess ? null : (
           <SignUpFailedMessage>암호가 존재하지 않습니다.</SignUpFailedMessage>
         )}
-        <BaseButton
-          onClick={handleSubmit}
-          color="pointColor"
-          size="md"
-          disabled={false}
-        >
-          다음
-        </BaseButton>
+        <StyleButton>
+          <BaseButton
+            onClick={handleSubmit}
+            color="pointColor"
+            size="md"
+            disabled={false}
+          >
+            다음
+          </BaseButton>
+        </StyleButton>
 
         <FindPasswordModal isOpen={isOpen} email={email} />
       </Form>

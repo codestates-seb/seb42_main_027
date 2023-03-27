@@ -16,7 +16,6 @@ const { colors } = theme;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
 const Container = styled.div`
@@ -35,6 +34,11 @@ const SignUpFailedMessage = styled.p`
   color: ${colors.danger};
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
+`;
+
+const StyleButton = styled.div`
+  width: 10rem;
+  height: 3rem;
 `;
 
 function TeacherSignUpForm() {
@@ -297,14 +301,16 @@ function TeacherSignUpForm() {
           이미 가입된 계정이 있습니다. 로그인해 주세요
         </SignUpFailedMessage>
       )}
-      <BaseButton
-        onClick={handleSubmit}
-        color="pointColor"
-        size="md"
-        disabled={false}
-      >
-        가입하기
-      </BaseButton>
+      <StyleButton>
+        <BaseButton
+          onClick={handleSubmit}
+          color="pointColor"
+          size="md"
+          disabled={false}
+        >
+          가입하기
+        </BaseButton>
+      </StyleButton>
       <SignUpInfo>
         유효한 전화번호를 입력하십시오. 새 기기나 웹 브라우저에 로그인할 때 해당
         전화번호를 사용하여 신원을 확인합니다. 메시지 또는 데이터 요금이 적용될

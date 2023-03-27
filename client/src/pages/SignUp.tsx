@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import theme from 'theme';
-import { Container, Title } from 'components/member/memberStyledComponents';
+import {
+  Body,
+  Container,
+  Title,
+} from 'components/member/memberStyledComponents';
 import { Routes, Route } from 'react-router-dom';
 import SelectSignUpType from 'components/member/signup/SelectSignUpType';
 import StudentSignUpForm from 'components/member/signup/StudentSignUpForm';
@@ -16,7 +20,7 @@ const SubTitle = styled.p`
 
 function SignUp() {
   return (
-    <div>
+    <Body>
       <Container>
         <Title>시작하기</Title>
         <SubTitle>지금 가입하고 국내 모든 인강 정보와 후기를 한눈에</SubTitle>
@@ -27,7 +31,7 @@ function SignUp() {
           <Route path="teacher" element={<TeacherSignUpForm />} />
         </Routes>
       </Container>
-    </div>
+    </Body>
   );
 }
 

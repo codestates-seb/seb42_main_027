@@ -51,11 +51,12 @@ const ButtonInfoContainer = styled.div`
 const ButtonInfoTitle = styled.span`
   color: ${colors.pointColor};
   margin-bottom: 0.2rem;
+  font-size: 1.5rem;
 `;
 
 const ButtonInfoSubTitle = styled.span`
   color: ${colors.gray};
-  font-size: 0.8rem;
+  font-size: 1rem;
 `;
 
 function SelectSignUpType() {

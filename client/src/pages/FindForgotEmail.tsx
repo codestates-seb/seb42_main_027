@@ -33,6 +33,11 @@ const SignUpFailedMessage = styled.p`
   text-align: center;
 `;
 
+const StyleButton = styled.div`
+  width: 10rem;
+  height: 3rem;
+`;
+
 // ModalStyle
 const ModalContainer = styled.div`
   display: flex;
@@ -212,14 +217,16 @@ function FindForgotEmail() {
         {isSuccess ? null : (
           <SignUpFailedMessage>이메일이 존재하지 않습니다.</SignUpFailedMessage>
         )}
-        <BaseButton
-          onClick={handleSubmit}
-          color="pointColor"
-          size="md"
-          disabled={false}
-        >
-          다음
-        </BaseButton>
+        <StyleButton>
+          <BaseButton
+            onClick={handleSubmit}
+            color="pointColor"
+            size="md"
+            disabled={false}
+          >
+            다음
+          </BaseButton>
+        </StyleButton>
 
         <ModalWrapper isOpen={isOpen} shouldCloseOnOverlayClick={false}>
           <ModalContainer>

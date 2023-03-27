@@ -7,7 +7,11 @@ import Input from 'components/common/Input';
 import theme from 'theme';
 import login from 'apis/login';
 import { useIsLoginStore } from 'stores/loginStore';
-import { Container, Title } from 'components/member/memberStyledComponents';
+import {
+  Body,
+  Container,
+  Title,
+} from 'components/member/memberStyledComponents';
 import getUserInfo from 'apis/getUserInfo';
 import useUserInfoStore from 'stores/userInfoStore';
 import { Link } from 'react-router-dom';
@@ -103,7 +107,7 @@ function Login() {
   };
 
   return (
-    <div>
+    <Body>
       <Container>
         <Title>로그인</Title>
         <Form>
@@ -165,7 +169,7 @@ function Login() {
           </Link>
         </ButtonGroup>
       </Container>
-    </div>
+    </Body>
   );
 }
 
