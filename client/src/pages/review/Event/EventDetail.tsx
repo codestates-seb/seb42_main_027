@@ -97,21 +97,22 @@ function EventDetail() {
             </button>
           </FlexContainer>
           <GoBackMenu />
-
-          <TitleDiv>
-            <H2>{detailData.title}</H2>
-          </TitleDiv>
-
-          <MainDiv>
-            <Img src="http://placehold.it/300X200" alt="dummyImage" />
-            <FlexContainer
-              dir="col"
-              align="start"
-              gap="0"
-              dangerouslySetInnerHTML={{ __html: detailData.content }}
-            />
-          </MainDiv>
-          <CommentContainer>댓글 금지</CommentContainer>
+          <FlexContainer width="100%" dir="col">
+            {/* 이벤트 제목 */}
+            <TitleDiv>
+              <H2>{detailData.title}</H2>
+            </TitleDiv>
+            {/* 이벤트 내용 */}
+            <MainDiv>
+              <FlexContainer
+                dir="col"
+                align="start"
+                gap="0.4rem"
+                dangerouslySetInnerHTML={{ __html: detailData.content }}
+              />
+            </MainDiv>
+            <CommentContainer>댓글 금지</CommentContainer>
+          </FlexContainer>
         </FlexContainer>
       )}
     </Container>
@@ -126,7 +127,6 @@ type Container = {
 
 const Container = styled.div<Container>`
   width: 100%;
-  height: 100vh;
 
   display: flex;
   justify-content: center;
@@ -153,6 +153,9 @@ const MainDiv = styled.div`
   flex-direction: column;
   padding: ${theme.gap.px20};
   border-bottom: 1px solid ${theme.colors.gray};
+  img {
+    max-width: 100%;
+  }
 `;
 
 const Title = styled.div`
@@ -166,19 +169,10 @@ const Title = styled.div`
 
 const CommentContainer = styled.div`
   display: flex;
-  font-style: oblique;
+  font-style: normal;
   color: gray;
   flex-direction: column;
   width: 100%;
   min-height: 5rem;
   margin-bottom: ${theme.gap.px100};
-`;
-
-const Img = styled.img`
-  display: flex;
-  width: fit-content;
-  height: fit-content;
-  margin: 0 0 2rem 0;
-  border-radius: 0.5rem;
-  background-color: #b8b8b8;
 `;
