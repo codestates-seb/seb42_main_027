@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import theme from 'theme';
 
-const { danger, success, fontColor, gray } = theme.colors;
+const { danger, success, fontColor, gray, pointColor } = theme.colors;
 const dangerRGB = '236, 60, 60';
 const successRGB = '101, 226, 113';
 
@@ -37,6 +37,10 @@ const EditUserInfo = styled.input`
             return 'white';
         }
       }};
+  }
+  :focus {
+    border-color: ${pointColor};
+    box-shadow: 0px 0 5px rgba(0, 0, 0, 0.3);
   }
 `;
 
