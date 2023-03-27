@@ -133,10 +133,15 @@ const SelectedAnswer = styled.div`
 `;
 
 const Title = styled.div`
-  display: flex;
+  display: block;
+  width: 100%;
   font-size: ${theme.fontSizes.md};
   font-weight: bold;
   margin-bottom: 6px;
+  line-height: 1.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &:hover {
     color: ${theme.colors.pointColor};

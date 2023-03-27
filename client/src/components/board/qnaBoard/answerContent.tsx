@@ -13,34 +13,30 @@ import getPostDetail from 'apis/board/getPostDetail';
 import PostVote from 'apis/board/postVote';
 import CalElapsedTime from '../post/calElapsedTime';
 
-import GoBackMenu from '../post/goBackMenu';
-import WriteComment from '../comment/writeComment';
-import CommentBlock from './commentBlock';
+// import WriteComment from '../comment/writeComment';
 
-interface Data {
-  freeId: number;
-  title: 'string';
+interface AnswerData {
+  answerId: number;
   content: 'string';
-  category: 'string';
-  viewCount: number;
   voteCount: number;
   createdAt: string;
-  modifiedAt?: string;
-  commentsListNum: number;
+  modifiedAt: string | null;
+  adoptStatus: boolean;
+  answerCount: number;
   member: {
     memberId: number;
     iconImageUrl?: string;
     displayName: string;
     state: string;
   };
-  comments: [];
+  comments: [Comment];
 }
 
 interface Comment {
-  freeCommentId?: number;
+  qnaCommentId: number;
   content: string;
   createdAt: string;
-  modifiedAt?: string;
+  modifiedAt: string | null;
   voteCount: number;
   member: {
     memberId: number;
@@ -48,105 +44,60 @@ interface Comment {
     displayName: string;
     state: string;
   };
-  memberSim: boolean;
 }
 
-function PostContent() {
+type Props = {
+  data: AnswerData;
+};
+
+function AnswerContent({ data }: Props) {
   const { userInfo } = useUserInfoStore(state => state);
-  const navigate = useNavigate();
   const [isPending, setIsPending] = useState(true);
-  const [listData, setListData] = useState<Data | Record<string, never>>({});
-  const urlData = useLocation().pathname.slice(0, 5);
   const idData = Number(useParams().id);
 
   let calTime = '';
   if (!isPending) {
-    calTime = CalElapsedTime(listData.createdAt);
+    calTime = CalElapsedTime(data.createdAt);
   }
-
-  const voteHandler = async (value: string) => {
-    try {
-      await PostVote('frees', idData, value);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const fetchPostDetail = async () => {
-    try {
-      const buffer = await getPostDetail('frees', idData);
-      setListData(buffer.data);
-      setIsPending(false);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const fetchDeletePost = async () => {
-    try {
-      const confirm = window.confirm('게시글을 삭제하시겠습니까?');
-      if (confirm) {
-        await DeletePost('frees', idData);
-        alert('게시물을 삭제하였습니다.');
-        navigate('/free');
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchPostDetail();
-  }, []);
-
-  console.log(listData);
+  console.log(data);
   console.log('userInfo memeberId', userInfo.memberId);
 
   return (
     <Container>
-      <GoBackMenu />
-      {isPending ? (
-        <NoData>로딩페이지가 들어갈 자리입니다.</NoData>
-      ) : (
-        <div>
-          <TitleDiv>
-            <Top>
-              <Category>{listData.category}</Category>
-              {listData.member.memberId === userInfo.memberId ? (
-                <UDBtnDiv>
-                  <Link to="edit">
-                    <Button.UDWhiteBtn>수정</Button.UDWhiteBtn>
-                  </Link>
-                  <Button.UDWhiteBtn onClick={fetchDeletePost}>
-                    삭제
-                  </Button.UDWhiteBtn>
-                </UDBtnDiv>
-              ) : null}
-            </Top>
-            <H2>{listData.title}</H2>
-            <Writer>
-              <ProfileIcon.Default />
-              <div>{listData.member.displayName}</div>
-              <div> · {calTime}</div>
-              <View>
-                <CountIcon.View />
-                {listData.viewCount}
-              </View>
-            </Writer>
-          </TitleDiv>
-          <MainDiv>
-            <TextDiv dangerouslySetInnerHTML={{ __html: listData.content }} />
-            <VoteDiv>
-              <Button.VoteDownBtn>
-                <CountIcon.VoteDown />
-              </Button.VoteDownBtn>
-              <VoteCount>{listData.voteCount}</VoteCount>
-              <Button.VoteUpBtn onClick={e => voteHandler('up')}>
-                <CountIcon.VoteUp />
-              </Button.VoteUpBtn>
-            </VoteDiv>
-          </MainDiv>
-          <CommentCnt>{listData.commentsListNum}개의 댓글</CommentCnt>
+      <TitleDiv>
+        <Top>
+          <div>
+            <Category>답변</Category>
+            {data.adoptStatus ? <Category>답변채택</Category> : null}
+          </div>
+          {data.member.memberId === userInfo.memberId ? (
+            <UDBtnDiv>
+              <Link to="edit">
+                <Button.UDWhiteBtn>수정</Button.UDWhiteBtn>
+              </Link>
+              <Button.UDWhiteBtn>삭제</Button.UDWhiteBtn>
+            </UDBtnDiv>
+          ) : null}
+        </Top>
+        <Writer>
+          <ProfileIcon.Default />
+          <div>{data.member.displayName}</div>
+          <div> · {calTime}</div>
+        </Writer>
+      </TitleDiv>
+      <MainDiv>
+        <TextDiv dangerouslySetInnerHTML={{ __html: data.content }} />
+        <VoteDiv>
+          <Button.VoteDownBtn>
+            <CountIcon.VoteDown />
+          </Button.VoteDownBtn>
+          <VoteCount>{data.voteCount}</VoteCount>
+          <Button.VoteUpBtn>
+            <CountIcon.VoteUp />
+          </Button.VoteUpBtn>
+        </VoteDiv>
+      </MainDiv>
+      {/* <CommentCnt>{listData.commentsListNum}개의 댓글</CommentCnt>
           <CommentContainer>
             <WriteCommentDiv>
               <WriteComment />
@@ -158,9 +109,7 @@ function PostContent() {
                 })}
               </div>
             )}
-          </CommentContainer>
-        </div>
-      )}
+          </CommentContainer> */}
     </Container>
   );
 }
@@ -169,6 +118,14 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+`;
+
+const NoData = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-top: ${theme.gap.px60};
 `;
 
 const TitleDiv = styled.div`
@@ -194,12 +151,6 @@ const Writer = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-`;
-const View = styled.div`
-  display: flex;
-  position: absolute;
-  right: 0;
-  bottom: 0;
 `;
 
 const Category = styled.div`
@@ -232,14 +183,6 @@ const MainDiv = styled.div`
   border-bottom: 1px solid ${theme.colors.gray};
 `;
 
-const NoData = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  padding-top: ${theme.gap.px60};
-`;
-
 const VoteDiv = styled.div`
   display: flex;
   justify-content: right;
@@ -257,7 +200,7 @@ const VoteCount = styled.div`
   border-bottom: 1px solid ${theme.colors.gray};
 `;
 
-const CommentCnt = styled.div`
+const AnswerCnt = styled.div`
   padding: ${theme.gap.px20};
   border-bottom: 1px solid ${theme.colors.gray};
 `;
@@ -267,14 +210,12 @@ const CommentContainer = styled.div`
   flex-direction: column;
   width: 100%;
   min-height: 253px;
-  margin-bottom: ${theme.gap.px100};
 `;
 
 const WriteCommentDiv = styled.div`
   display: flex;
   width: 100%;
   padding-bottom: calc(${theme.gap.px60} + 7px);
-  border-bottom: 1px solid ${theme.colors.gray};
 `;
 
 const TextDiv = styled.div`
@@ -323,5 +264,4 @@ const TextDiv = styled.div`
     }
   }
 `;
-
-export default PostContent;
+export default AnswerContent;

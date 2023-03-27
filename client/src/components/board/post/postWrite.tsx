@@ -128,9 +128,6 @@ function WritePost() {
   }, []);
 
   // 텍스트 에디터 설정 코드
-  const linkHandler = (value: any) => {
-    console.log('value', value);
-  };
 
   const modules = useMemo(
     () => ({
@@ -142,9 +139,7 @@ function WritePost() {
           [{ list: 'ordered' }, { list: 'bullet' }],
           ['link', 'image'],
         ],
-        handlers: {
-          link: linkHandler,
-        },
+        handlers: {},
       },
     }),
     [],
@@ -209,7 +204,6 @@ function WritePost() {
               id="title"
               type="text"
               defaultValue={title}
-              maxLength={41}
               placeholder="제목을 입력해 주세요."
               onChange={e => setTitle(e.target.value)}
             />
@@ -217,8 +211,9 @@ function WritePost() {
           <PostDiv>
             <Label htmlFor="post">내용</Label>
             <TextEditorDiv id="post">
-              <TextEditor
+              <ReactQuill
                 theme="snow"
+                style={{ height: '100%' }}
                 modules={modules}
                 value={post}
                 onChange={setPost}
@@ -331,6 +326,9 @@ const CancelBtn = styled(Button.FilterBtn)`
 `;
 
 const TextEditorDiv = styled.div`
+  min-height: 25rem;
+  padding-bottom: ${theme.gap.px40};
+
   white-space: pre-wrap;
   strong {
     font-weight: bold;
@@ -340,5 +338,4 @@ const TextEditorDiv = styled.div`
   }
 `;
 
-const TextEditor = styled(ReactQuill)``;
 export default WritePost;
