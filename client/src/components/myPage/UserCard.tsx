@@ -36,7 +36,7 @@ const UserInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   margin-top: 1rem;
   width: 20rem;
 `;
@@ -70,25 +70,28 @@ const UserInfo = styled.p`
   margin: 0.3rem 0;
 `;
 
-const ButtonContainer = styled.div`
+const SideNav = styled.div`
+  margin-top: 3rem;
   display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  & :first-child {
-    margin-right: 0.5rem;
-  }
+  flex-direction: column;
 `;
 
-const EditBtn = styled.span`
-  text-align: end;
-  color: ${colors.gray};
-  cursor: pointer;
-  :hover {
-    color: ${colors.fontColor};
-  }
+type MyPageMenuProps = {
+  color: string;
+};
+
+const MyPageMenu = styled.div<MyPageMenuProps>`
+  font-size: 1.3rem;
+  margin-top: 5rem;
+  color: ${({ color }) => color};
 `;
 
-function UserCard() {
+type UserCardProps = {
+  sideNav: string;
+  setSideNav: React.Dispatch<React.SetStateAction<string>>;
+};
+
+function UserCard({ sideNav, setSideNav }: UserCardProps) {
   const { userInfo } = useUserInfoStore(state => state);
 
   const userData = {
@@ -98,6 +101,14 @@ function UserCard() {
     displayName: userInfo.displayName,
     phoneNumber: userInfo.phoneNumber,
     password: userInfo.password,
+  };
+
+  const handleClickMyProfile = () => {
+    setSideNav('myProfile');
+  };
+
+  const handleClickPostsCommentList = () => {
+    setSideNav('PostsCommentList');
   };
 
   return (
@@ -113,7 +124,29 @@ function UserCard() {
           )}
         </NameTagContainer>
         <UserInfo>{userData.email}</UserInfo>
-        <EditUserInfo />
+        <SideNav>
+          <MyPageMenu
+            color={
+              sideNav === 'myProfile'
+                ? `${colors.pointColor}`
+                : `${colors.fontColor}`
+            }
+            onClick={handleClickMyProfile}
+          >
+            내프로필
+          </MyPageMenu>
+          <MyPageMenu
+            color={
+              sideNav === 'PostsCommentList'
+                ? `${colors.pointColor}`
+                : `${colors.fontColor}`
+            }
+            onClick={handleClickPostsCommentList}
+          >
+            나의 작성 게시물 및 댓글
+          </MyPageMenu>
+        </SideNav>
+        {/* <EditUserInfo /> */}
       </UserInfoContainer>
     </UserCardContainer>
   );
