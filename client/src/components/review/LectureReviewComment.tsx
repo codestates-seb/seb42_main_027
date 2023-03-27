@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import { useParams } from 'react-router-dom';
 import ProfileIcon from 'assets/icons/defaultProfileIcon';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   BsFillHandThumbsUpFill,
@@ -53,9 +53,9 @@ function LectureReviewComment({
   const [voteStatus, setVoteStatus] = useState(tmp);
   const Authorization = localStorage.getItem('token');
 
-  // useEffect(() => {
-  //   console.log(tmp, voteStatus);
-  // }, [voteStatus]);
+  useEffect(() => {
+    console.log(commentVote);
+  }, [commentVote]);
 
   const updateOpenHandler = () => {
     setIsOpen(!isOpen);
@@ -94,7 +94,8 @@ function LectureReviewComment({
       )
       .then(res => res.data.data)
       .then(data => {
-        setCommentVote(data.lectureReviewCommentTotalCount);
+        console.log(data);
+        setCommentVote(data.lectureReviewCommentVoteTotalCount);
         setVoteStatus(data.status);
       });
   };
@@ -109,7 +110,8 @@ function LectureReviewComment({
       )
       .then(res => res.data.data)
       .then(data => {
-        setCommentVote(data.lectureReviewCommentTotalCount);
+        console.log(data);
+        setCommentVote(data.lectureReviewCommentVoteTotalCount);
         setVoteStatus(data.status);
       });
   };

@@ -128,8 +128,7 @@ function LectureReviewDetailPage() {
       )
       .then(res => res.data.data)
       .then(data => {
-        // setReviewVote(data.voteCount);
-        setReviewVote(data.lectureReviewTotalCount);
+        setReviewVote(data.lectureReviewVoteTotalCount);
         setVoteStatus(data.status);
       });
   };
@@ -144,8 +143,7 @@ function LectureReviewDetailPage() {
       )
       .then(res => res.data.data)
       .then(data => {
-        // setReviewVote(data.voteCount);
-        setReviewVote(data.lectureReviewTotalCount);
+        setReviewVote(data.lectureReviewVoteTotalCount);
         setVoteStatus(data.status);
       });
   };
