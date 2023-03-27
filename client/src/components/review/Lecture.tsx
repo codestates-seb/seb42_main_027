@@ -60,7 +60,7 @@ function Lecture({ lecture, first }: Props) {
           onClick={() => {
             axios
               .delete(
-                `${process.env.REACT_APP_API_URL}/lectures/${lecture.lectureId}`,
+                `${process.env.REACT_APP_API_URL}/boards/lectures/${lecture.lectureId}`,
                 {
                   headers: { 'ngrok-skip-browser-warning': '69420' },
                 },

@@ -85,7 +85,7 @@ function Lectures() {
   useEffect(() => {
     window.scrollTo(0, 0);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}`, {
+      .get(`${process.env.REACT_APP_API_URL}/boards/teachers/${teacherId}`, {
         headers: {
           'ngrok-skip-browser-warning': 'asdasdas',
         },

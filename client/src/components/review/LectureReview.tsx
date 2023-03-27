@@ -83,10 +83,11 @@ function LectureReview({
       >
         <VerySmallGrayFont>{`${lecture.title}(${totalCommentCount})`}</VerySmallGrayFont>
 
-        <SmallFont2 onClick={reviewOpenHandler}>{`${title.slice(
-          0,
-          20,
-        )}... (${totalCommentCount})`}</SmallFont2>
+        <SmallFont2 onClick={reviewOpenHandler}>
+          {title.length > 20
+            ? `${title.slice(0, 20)}... (${totalCommentCount})`
+            : `${title} (${totalCommentCount})`}
+        </SmallFont2>
       </FlexContainer>
       {/* 작성자 */}
       <FlexContainer width="15rem">

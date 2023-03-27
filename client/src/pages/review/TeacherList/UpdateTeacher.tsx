@@ -130,7 +130,10 @@ function UpdateTeacher() {
       };
 
       axios
-        .patch(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}`, data)
+        .patch(
+          `${process.env.REACT_APP_API_URL}/boards/teachers/${teacherId}`,
+          data,
+        )
         .then(res => {
           console.log(res);
           navigate(-1);

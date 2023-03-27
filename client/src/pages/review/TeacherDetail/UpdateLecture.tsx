@@ -47,7 +47,7 @@ function UpdateLecture() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/lectures/${lectureId}`)
+      .get(`${process.env.REACT_APP_API_URL}/boards/lectures/${lectureId}`)
       .then((res: any) => {
         console.log(res.data.data);
         return res.data.data;
@@ -141,9 +141,13 @@ function UpdateLecture() {
       };
 
       axios
-        .patch(`${process.env.REACT_APP_API_URL}/lectures/${lectureId}`, data, {
-          headers: { 'ngrok-skip-browser-warning': '69420' },
-        })
+        .patch(
+          `${process.env.REACT_APP_API_URL}/boards/lectures/${lectureId}`,
+          data,
+          {
+            headers: { 'ngrok-skip-browser-warning': '69420' },
+          },
+        )
         .then(res => {
           navigate(-1);
         });

@@ -13,7 +13,7 @@ import Event from 'components/review/Event';
 import useUserInfoStore from 'stores/userInfoStore';
 import isLogin from 'utils/isLogin';
 import { FlexContainer } from '../TeacherList/ReviewPage';
-import { SmallFont, MiddleFont } from '../TeacherDetail/Information';
+import { SmallFont } from '../TeacherDetail/Information';
 
 type EventType = {
   eventId: number;

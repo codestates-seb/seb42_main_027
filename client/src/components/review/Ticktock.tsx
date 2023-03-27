@@ -3,11 +3,13 @@
 /* eslint-disable import/no-unresolved */
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { GiAlarmClock } from 'react-icons/gi';
 import { FaBed } from 'react-icons/fa';
 import { BiArrowBack } from 'react-icons/bi';
 import theme from 'theme';
+import useUserInfoStore from 'stores/userInfoStore';
+import isLogin from 'utils/isLogin';
 
 type Time = {
   status: string;
@@ -23,6 +25,8 @@ function Ticktock() {
   const [attendList, setAttendList] = useState<Time[]>(
     JSON.parse(getItemWithExpireTime('attendList')) || [],
   );
+
+  const { userInfo } = useUserInfoStore(state => state);
 
   const openHandler = () => {
     setIsOpen(!isOpen);
@@ -73,7 +77,7 @@ function Ticktock() {
   }
 
   return (
-    <Container>
+    <Container login={isLogin()}>
       <Button
         onClick={() => {
           if (isOpen !== isOpen2) {
@@ -88,20 +92,20 @@ function Ticktock() {
         <ModalContainer>
           {!toggle ? (
             <FlexContainer dir="col">
-              <p>유저님 안녕하세요!</p>
-              <p>퇴실 상태입니다. 입실해주세요.</p>
+              <p>{userInfo.username || '유저'}님 안녕하세요!</p>
+              <p>버튼을 누르면 공부를 시작합니다.</p>
             </FlexContainer>
           ) : (
             <FlexContainer dir="col">
-              <p>유저님 안녕하세요!</p>
-              <p>입실 상태입니다.</p>
+              <p>{userInfo.username || '유저'}님 안녕하세요!</p>
+              <p>아래 버튼을 눌러 공부를 끝냅니다.</p>
             </FlexContainer>
           )}
 
           <ToggleContainer
             onClick={() => {
               const date = new Date();
-              const status = toggle ? '퇴실' : '입실';
+              const status = toggle ? '종료' : '시작';
               const attend = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
               setToggle(!toggle);
@@ -135,14 +139,19 @@ function Ticktock() {
       ) : null}
       {isOpen2 ? (
         <AttendanceContainer>
-          <FlexContainer width="100%" justify="start" padding="1rem 0 0 1rem">
+          <FlexContainer width="100%" justify="start" padding="1rem 1rem">
             <button onClick={openHandler}>
               <BiArrowBack />
             </button>
           </FlexContainer>
           {attendList.map((el, index) => {
             return (
-              <FlexContainer width="50%" justify="start" gap="1rem" key={index}>
+              <FlexContainer
+                width="50%"
+                justify="start"
+                gap="1.5rem"
+                key={index}
+              >
                 <span>{el.status}</span>
                 <span>{el.attend}</span>
               </FlexContainer>
@@ -156,7 +165,11 @@ function Ticktock() {
 
 export default Ticktock;
 
-const Container = styled.div`
+type Container = {
+  login?: boolean;
+};
+
+const Container = styled.div<Container>`
   position: fixed;
   width: 4rem;
   height: 4rem;
@@ -165,7 +178,8 @@ const Container = styled.div`
   border-radius: 25px;
   background: ${theme.colors.pointColor};
   z-index: 998;
-  display: flex;
+
+  display: ${props => (props.login ? 'flex' : 'none')};
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -220,7 +234,7 @@ const ToggleContainer = styled.div`
 
   > .toggle-container {
     width: 6rem;
-    height: 2rem;
+    height: 1.95rem;
     border-radius: 30px;
     background-color: ${theme.colors.gray};
     transition: 0.5s;

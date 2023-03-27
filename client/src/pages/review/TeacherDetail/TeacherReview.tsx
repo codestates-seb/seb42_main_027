@@ -189,9 +189,12 @@ function TeacherReview() {
   useEffect(() => {
     window.scrollTo(0, 0);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}/reviews`, {
-        headers: { 'ngrok-skip-browser-warning': '69420' },
-      })
+      .get(
+        `${process.env.REACT_APP_API_URL}/boards/teachers/${teacherId}/reviews`,
+        {
+          headers: { 'ngrok-skip-browser-warning': '69420' },
+        },
+      )
       .then((res: any) => {
         return res.data.data;
       })

@@ -94,7 +94,7 @@ function LectureReviewList() {
   useEffect(() => {
     window.scrollTo(0, 0);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/lectures/${lectureId}`, {
+      .get(`${process.env.REACT_APP_API_URL}/boards/lectures/${lectureId}`, {
         headers: {
           'ngrok-skip-browser-warning': 'asdasdas',
         },

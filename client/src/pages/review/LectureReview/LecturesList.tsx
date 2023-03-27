@@ -63,7 +63,7 @@ function LecturesList() {
     setIsPending(true);
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/lectures?${
+        `${process.env.REACT_APP_API_URL}/boards/lectures?${
           subject !== '전체' ? `subject=${subject}&` : ''
         }${sortTag !== '최신순' ? `sort=${sortTag}&` : ''}${
           grade !== '전체' ? `grade=${grade}&` : ''
