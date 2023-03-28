@@ -2,9 +2,12 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import anime from 'animejs';
+import theme from 'theme';
+
+const { colors } = theme;
 
 function StarrySky() {
-  const num = 200; // 별 개수
+  const num = 100; // 별 개수
   const vw = Math.max(document.documentElement.clientWidth, window.innerWidth); // 별이 찍히는 최대 가로 길이
   const vh = Math.max(
     document.documentElement.clientHeight,
@@ -105,11 +108,16 @@ function StarrySky() {
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   position: fixed;
+  top: 0;
   left: 0;
   z-index: -1;
-  background: linear-gradient(to right, #ff47a1 0%, #ff9f4d 100%);
+  background: linear-gradient(
+    to right,
+    ${colors.pointColor} 100%,
+    ${colors.white} 100%
+  );
 
   #sky {
     width: 100%;
@@ -124,7 +132,7 @@ const Container = styled.div`
     margin: 0;
     padding: 0;
     width: 150vh;
-    height: 100vw;
+    height: 100%;
     position: fixed;
     overflow: hidden;
     transform: translatex(calc(50vw - 50%)) translatey(calc(50vh - 50%))

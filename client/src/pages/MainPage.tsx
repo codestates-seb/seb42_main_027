@@ -1,49 +1,72 @@
-import React, { useRef } from 'react';
-import styled from 'styled-components';
+import React, { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import StarrySky from 'components/common/StarrySky';
-import useIntersectionObsever from 'components/mainPage/useIntersectionObsever';
+import styled from 'styled-components';
+import theme from 'theme';
+import BaseButton from 'components/common/BaseButton';
+
+const { colors } = theme;
 
 const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
 `;
 
-const ContentDiv = styled.div`
-  height: 100px;
-  font-size: 36px;
-  margin: 20px;
+const ReviewIntroduction = styled.div`
+  width: 100%;
+  height: 60rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
-
-  animation-name: opacity;
-  animation-duration: 5000ms;
-
-  @keyframes opacity {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+  overflow: hidden;
+  background-color: ${colors.pointColor};
 `;
 
-function Main() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInViewport = useIntersectionObsever(ref);
+const Title = styled.div`
+  font-size: 4rem;
+  color: ${colors.white};
+`;
+
+const SubTitle = styled.div`
+  font-size: 1.5rem;
+  color: ${colors.white};
+`;
+
+const BoardIntroduction = styled.div`
+  width: 100%;
+  height: 60rem;
+  display: flex;
+`;
+
+function MainPage() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+  }, []);
+
   return (
     <Container>
-      {/* <StarrySky /> */}
-      <div style={{ height: '2000px' }} />
-      <ContentDiv ref={ref} className={isInViewport ? 'animation' : ''}>
-        글자 등장! 글자 등장! 글자 등장! 글자 등장! 글자 등장! 글자 등장!
-      </ContentDiv>
+      <ReviewIntroduction>
+        <div data-aos="fade-up">
+          <Title>국내 모든 인강 정보와 후기를 한 눈에</Title>
+          <SubTitle>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis
+            at repudiandae ducimus distinctio fuga iste, labore animi
+            perspiciatis, accusantium illo laudantium provident expedita vero
+            molestiae saepe. Voluptatem eveniet unde quaerat.
+          </SubTitle>
+        </div>
+      </ReviewIntroduction>
+
+      <BoardIntroduction>
+        <h1 data-aos="fade-up">Hello World!</h1>
+      </BoardIntroduction>
     </Container>
   );
 }
 
-export default Main;
+export default MainPage;
