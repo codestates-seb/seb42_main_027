@@ -41,7 +41,7 @@ public class OurService {
         Our findEvent = findEvent(event.getEventId());
         Optional.ofNullable(event.getTitle()).ifPresent(findEvent::setTitle);
         Optional.ofNullable(event.getDate()).ifPresent(findEvent::setDate);
-        Optional.ofNullable(event.getDate()).ifPresent(findEvent::setDate);
+        Optional.ofNullable(event.getImageUrl()).ifPresent(findEvent::setImageUrl);
         Optional.ofNullable(event.getContent()).ifPresent(findEvent::setContent);
     return ourRepository.save(findEvent);
 
