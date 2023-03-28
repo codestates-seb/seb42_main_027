@@ -52,4 +52,10 @@ public class AnswerDto {
         private List<QnaCommentDto.Response> comments;
 
     }
+
+    @Getter @Setter
+    public static class SimpleResponse{
+        private Long answerId;
+        private String content;
+    }
 }

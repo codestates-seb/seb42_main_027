@@ -3,8 +3,8 @@ package ynzmz.server.member.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-import ynzmz.server.board.qna.question.dto.QuestionDto;
-import ynzmz.server.board.qna.question.entity.Question;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import ynzmz.server.member.dto.*;
 import ynzmz.server.member.entity.Member;
 
@@ -19,6 +19,7 @@ public interface MemberMapper {
     MemberDto.SimpleInfoResponse memberToMemberSimpleInfoResponse(Member member);
     List<MemberDto.Response> memberToMemberResponses(List<Member> members);
     MemberDto.ChangePassword memberToMemberChangePassword(MemberDto.ChangePassword changePassword);
+
 
 //    MemberDto.MyLectureReview memberToMemberMyLectureReview(Member member);
 //    MemberQuestionResponseDto memberToMemberQuestionResponse(Member member);

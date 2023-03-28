@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ynzmz.server.board.free.dto.FreeDto;
 import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.member.dto.MemberDto;
@@ -42,15 +43,7 @@ public class FreeCommentDto {
         private boolean memberSim;
     }
 
-    @Getter @Setter
-    @AllArgsConstructor
-    public static class SimpleResponse{
-        private long freeCommentId;
-        private String content;
-        private String createdAt;
-        private String modifiedAt;
-        private long voteCount;
-    }
+
 
     @Setter @Getter
     @AllArgsConstructor
@@ -63,6 +56,24 @@ public class FreeCommentDto {
         private long voteCount;
         private MemberDto.SimpleInfoResponse member;
         private boolean memberSim;
+    }
+    @Getter @Setter
+    @NoArgsConstructor
+    public static class SimpleResponse{
+        private long freeCommentId;
+        private String content;
+        private String createdAt;
+        private String modifiedAt;
+        private long voteCount;
+        private FreeDto.SimpleResponse free;
+
+    }
+
+    @Getter @Setter
+    @AllArgsConstructor
+    public static class SimpleInfoResponse {
+        private long freeCommentId;
+        private String content;
     }
 
 

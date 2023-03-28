@@ -79,4 +79,10 @@ public class LectureReviewDto {
         private LectureDto.SimpleInfoResponse lecture;
         private MemberDto.SimpleInfoResponse member;
     }
+
+    @Getter @Setter
+    public static class SimpleResponse {
+        private Long lectureReviewId;
+        private String title;
+    }
 }

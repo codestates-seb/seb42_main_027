@@ -64,8 +64,8 @@ public class MemberDto{
         @NotBlank(message = "닉네임은 필수 입력 값입니다.")
         private String displayName;
         private String iconImageUrl;
-
     }
+
     @Getter
     @Setter
     @AllArgsConstructor
@@ -75,6 +75,7 @@ public class MemberDto{
         private String iconImageUrl;
         private String state;
     }
+
     @Getter
     @Setter
     @AllArgsConstructor
@@ -112,6 +113,7 @@ public class MemberDto{
     public static class MyLectureReview {
         private List<LectureReviewDto.ListPageResponse> lectureReview = new ArrayList<>();
     }
+
     @Getter
     @Setter
     @NoArgsConstructor @AllArgsConstructor
@@ -129,10 +131,34 @@ public class MemberDto{
     public static class ChangePassword {
         private String nowPassword;
         private String newPassword;
-
         private String confirmPassword;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor @AllArgsConstructor
+    public static class FindChangePassword {
+        private String newPassword;
+        private String confirmPassword;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class FindEmail {
+        private String username;
+        private String phoneNumber;
+    }
 
 
+    @Getter
+    @Setter
+    @NoArgsConstructor @AllArgsConstructor
+    public static class FindPassword {
+        private String username;
+        private String email;
+        private String phoneNumber;
     }
 
 

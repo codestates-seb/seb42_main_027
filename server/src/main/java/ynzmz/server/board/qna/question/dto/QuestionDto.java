@@ -92,4 +92,10 @@ public class QuestionDto {
         private Long adoptAnswerId;
         private MemberDto.SimpleInfoResponse member;
     }
+
+    @Getter @Setter
+    public static class SimpleResponse{
+        private Long questionId;
+        private String title;
+    }
 }

@@ -7,16 +7,17 @@ import ynzmz.server.recomment.free.repository.ReCommentRepository;
 import ynzmz.server.global.error.exception.BusinessLogicException;
 import ynzmz.server.global.error.exception.ExceptionCode;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ReCommentService {
 
-    private final ReCommentRepository recommentRepository;
+    private final ReCommentRepository reCommentRepository;
 
     public FreeReComment creatRecomment(FreeReComment recomment){
-        return recommentRepository.save(recomment);
+        return reCommentRepository.save(recomment);
     }
 
     public FreeReComment updateRecomment(FreeReComment recomment){
@@ -25,7 +26,7 @@ public class ReCommentService {
         Optional.ofNullable(recomment.getContent()).ifPresent(findFreeReComment::setContent);
         Optional.ofNullable(recomment.getModifiedAt()).ifPresent(findFreeReComment::setModifiedAt);
 
-        return recommentRepository.save(findFreeReComment);
+        return reCommentRepository.save(findFreeReComment);
     }
 //
 //    public Page<Recomment> getRecomments(long freeId, String filter, int page, int size) {
@@ -33,16 +34,20 @@ public class ReCommentService {
 //    }
 
     public void deleteReComment(long freeId) {
-        recommentRepository.deleteById(freeId);
+        reCommentRepository.deleteById(freeId);
     }
 
     public FreeReComment findReCommentById(long freeId) {
-        Optional<FreeReComment> Recomment = recommentRepository.findById(freeId);
+        Optional<FreeReComment> Recomment = reCommentRepository.findById(freeId);
         return Recomment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.FREE_NOT_FOUND));
     }
 
+    public List<FreeReComment> findReCommentByMemberId(long memberId){
+        return reCommentRepository.findByMemberId(memberId);
+    }
+    
     public void getSimilarityMember(FreeReComment recomment){
-        if (recomment.getMember().getMemberId() == recomment.getComment().getMember().getMemberId())
+        if (recomment.getMember().getMemberId() == recomment.getFreeComment().getMember().getMemberId())
         {
             recomment.setMemberSim(true);
         }

@@ -64,7 +64,7 @@ public class LectureReviewCommentController {
         Page<LectureReviewComment> pageLectureReviewPostComments = lectureReviewCommentService.getLectureReviewComments(lectureReviewId, filter, page - 1, size);
         List<LectureReviewComment> lectureReviewComments = pageLectureReviewPostComments.getContent();
 
-        List<LectureReviewCommentDto.Response> responses = lectureReviewCommentMapper.lectureReviewCommentsToLectureReviewCommentResponses(lectureReviewComments);
+        List<LectureReviewCommentDto.SimpleResponse> responses = lectureReviewCommentMapper.lectureReviewCommentsToLectureReviewCommentSimpleResponses(lectureReviewComments);
 
         return new ResponseEntity<>(new MultiResponseDto<>(responses, pageLectureReviewPostComments), HttpStatus.OK);
     }

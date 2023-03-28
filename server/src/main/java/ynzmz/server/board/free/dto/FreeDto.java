@@ -65,4 +65,11 @@ public class FreeDto {
         List<FreeCommentDto.ResponseForFreeDetail> comments;
         int commentsListNum;
     }
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class SimpleResponse {
+        private long freeId;
+        private String title;
+    }
 }
