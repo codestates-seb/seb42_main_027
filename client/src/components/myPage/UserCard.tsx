@@ -15,7 +15,7 @@ const UserCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 35rem;
+  width: 25rem;
   /* margin: 0 auto */
   /* padding: 0 8rem; */
   height: 100%;
