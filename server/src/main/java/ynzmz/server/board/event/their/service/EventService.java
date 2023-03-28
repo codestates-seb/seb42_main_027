@@ -276,8 +276,8 @@ public void etoosEventScheduler() {
 
         for (Event e : eventList) {
             boolean sim = false;
-            for (int i = etoosList.size(); i > etoosList.size() - 10; i--) {
-                if (e.getHyperLink() == etoosList.get(i).getHyperLink()) {
+            for (int i = etoosList.size()-1; i > etoosList.size() - 11; i--) {
+                if (e.getHyperLink().equals(etoosList.get(i).getHyperLink())) {
                     sim = true;
                     break;
                 } else {
@@ -328,8 +328,8 @@ public void etoosEventScheduler() {
 
             for (Event e : eventList) {
                 boolean sim = false;
-                for (int i = etoosList.size(); i > etoosList.size() - 10; i--) {
-                    if (e.getHyperLink() == etoosList.get(i).getHyperLink()) {
+                for (int i = etoosList.size()-1; i > etoosList.size() - 11; i--) {
+                    if (e.getHyperLink().equals( etoosList.get(i).getHyperLink())) {
                         sim = true;
                         break;
                     } else {
@@ -408,7 +408,7 @@ public void etoosEventScheduler() {
             for (Event e : eventList) {
                 boolean sim = false;
                 for (int i = onlyMegaEvents.size(); i > onlyMegaEvents.size() - 10; i--) {
-                    if (e.getHyperLink() == onlyMegaEvents.get(i).getHyperLink()) {
+                    if (e.getHyperLink().equals(onlyMegaEvents.get(i).getHyperLink())) {
                         sim = true;
                         break;
                     } else {

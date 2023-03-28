@@ -21,7 +21,6 @@ public class OurDto {
     @AllArgsConstructor
     public static class Patch{
 
-        private int viewCount;
         private String imageUrl;
         private String title;
         private String content;
