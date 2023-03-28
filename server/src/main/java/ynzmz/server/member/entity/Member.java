@@ -1,10 +1,8 @@
 package ynzmz.server.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.data.domain.Auditable;
 import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
@@ -23,8 +21,8 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-@ToString
-public class Member {
+//@ToString
+public class Member extends TimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
@@ -74,6 +72,12 @@ public class Member {
        }
     }
 
+
+    //소셜로그인시 이미등록된 회원이라면 수정날짜만 업데이트하고 기존데이터는 그대로 보존하도록 예외처리
+    public Member updateModifiedDate(){
+        this.onPreUpdate();
+        return this;
+    }
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     @JsonManagedReference

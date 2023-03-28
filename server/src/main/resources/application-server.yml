@@ -25,6 +25,17 @@ spring:
       mail.smtp.auth: true
       mail.smtp.ssl.enable: true
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 557076266512-26m0oio1d43tguk02g1fur7umuarvse2.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              -profile
+              -email #openId 가 있으면 OpenId provider로 인식하기 때문에 이렇게되면 openIdprovider가 아닌 카카오,네이버와 나누어서 service를 만들어야 한다.
+
 
 
 
