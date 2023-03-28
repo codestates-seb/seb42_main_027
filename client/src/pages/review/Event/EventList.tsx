@@ -87,7 +87,9 @@ function EventList() {
         console.log('크롤링');
         axios
           .get(
-            `${process.env.REACT_APP_API_URL}/boards/events/theirs?page=${curPage}&size=${pageSize}`,
+            `${process.env.REACT_APP_API_URL}/boards/events/theirs?page=${
+              curPage - 1
+            }&size=${pageSize}`,
             {
               headers: { 'ngrok-skip-browser-warning': '69420' },
             },
@@ -113,7 +115,7 @@ function EventList() {
 
   return (
     <EventContainer>
-      <FlexContainer width="62.5%" dir="col" gap="0">
+      <FlexContainer width="50rem" dir="col" gap="0">
         <GlobalStyle />
         <Title>
           <H2>이벤트게시판</H2>
@@ -122,7 +124,7 @@ function EventList() {
         <GoBackMenu />
 
         {/* 작성하기 버튼 */}
-        {isLogin() ? (
+        {userInfo.state === 'ADMIN' ? (
           <MenuDiv>
             {localStorage.getItem('token') ? (
               <Link to="articles/write">
@@ -157,14 +159,14 @@ function EventList() {
               width="100%"
               borderTop="2px solid black"
               borderBottom="1px solid black"
-              padding="1.5rem 2rem 1.5rem 4rem"
+              padding="1.5rem 1.3rem 1.5rem 2rem"
             >
               {listArr.map((el, index) => {
                 return (
                   <FlexContainer
                     key={index}
                     width={
-                      el === '제목' ? '25rem' : el === '기간' ? '10rem' : '7rem'
+                      el === '제목' ? '35rem' : el === '기간' ? '10rem' : '7rem'
                     }
                   >
                     <SmallFont>{el}</SmallFont>
@@ -192,7 +194,7 @@ function EventList() {
         <Pagenation
           size={pageInfo.totalPages}
           currentPage={curPage}
-          pageSize={pageSize}
+          pageSize={pageInfo.size}
           setCurPage={setCurPage}
         />
       </FlexContainer>
