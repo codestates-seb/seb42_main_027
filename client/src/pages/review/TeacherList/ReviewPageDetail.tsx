@@ -22,7 +22,7 @@ function ReviewPageDetail() {
       else if (param[key] === 'teacherReview') setSelected('수강 후기');
       else setSelected('강사 소개');
     }
-  }, [selected]);
+  }, [selected, param]);
 
   return (
     <FlexContainer width="100%" dir="col">
