@@ -16,7 +16,7 @@ spring:
         default_batch_fetch_size: 1000
   flyway:
     baseline-on-migrate: true
-    enabled: false
+    enabled: true
 
 mail:
   address:

@@ -10,17 +10,17 @@ public class OurDto {
     @Setter
     @AllArgsConstructor
     public static class Post{
-        private String imageUrl;
         private String title;
         private String content;
         private String date;
+        private int viewCount;
     }
     @Getter
     @Setter
     @AllArgsConstructor
     public static class Patch{
 
-        private String imageUrl;
+        private int viewCount;
         private String title;
         private String content;
         private String date;
@@ -30,10 +30,10 @@ public class OurDto {
     @AllArgsConstructor
     public static class Response{
         private long eventId;
-        private String imageUrl;
         private String title;
         private String content;
         private String date;
+        private int viewCount;
     }
 
     @Getter
@@ -41,8 +41,8 @@ public class OurDto {
     @AllArgsConstructor
     public static class ListResponse{
         private long eventId;
-        private String imageUrl;
         private String title;
         private String date;
+        private int viewCount;
     }
 }

@@ -34,7 +34,7 @@ public class OurService {
     }
 
     public Page<Our> findAllEvents(int page){
-        return ourRepository.findAll(PageRequest.of(page-1,15, Sort.by("eventId")));
+        return ourRepository.findAll(PageRequest.of(page-1,15));
     }
     //-------------------------------------------UPDATE---------------------------------------------------------
     public Our updateEvent(Our event){//추후 고유 이벤트 내용이 확정되면 이야기 하는 것으로
@@ -45,6 +45,10 @@ public class OurService {
         Optional.ofNullable(event.getContent()).ifPresent(findEvent::setContent);
     return ourRepository.save(findEvent);
 
+    }
+
+    public void saveOUr(Our event){
+         ourRepository.save(event);
     }
 
 
@@ -58,7 +62,7 @@ public class OurService {
     public void deleteEvent(Our event){
         ourRepository.delete(event);
     }
-
+    public void plusView(Our event){event.setViewCount(event.getViewCount()+1);}
 
 
 }
