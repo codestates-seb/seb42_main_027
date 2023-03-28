@@ -61,8 +61,11 @@ public class OurController {
 
     @GetMapping("/{event-id}")
     public ResponseEntity<?> GetOur(@PathVariable("event-id") int id){
-        Our Our = service.findEvent(id);
-        OurDto.Response response = mapper.ourToOurResponse(Our);
+        Our our = service.findEvent(id);
+        service.plusView(our);
+        service.saveOUr(our);
+        OurDto.Response response = mapper.ourToOurResponse(our);
+
         return new ResponseEntity<>(new SingleResponseDto<>(response),HttpStatus.OK);
     }
 

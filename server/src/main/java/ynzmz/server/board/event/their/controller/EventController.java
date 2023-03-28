@@ -37,7 +37,7 @@ public class EventController {
     @GetMapping
     public ResponseEntity<?> getAllEvents(@RequestParam int page,
                                         @RequestParam int size){
-        Page<Event> pagedEvent = eventService.findAllEvents(page,size);
+        Page<Event> pagedEvent = eventService.findAllTEvents(page,size);
         List<Event> events = pagedEvent.getContent();
         List<EventDto.Response>response = eventMapper.eventToEventResponses(events);
 
