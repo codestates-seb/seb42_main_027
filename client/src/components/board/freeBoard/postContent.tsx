@@ -21,6 +21,7 @@ interface Data {
   freeId: number;
   title: 'string';
   content: 'string';
+  uploadImages?: string[] | [];
   category: 'string';
   viewCount: number;
   voteCount: number;
@@ -37,7 +38,7 @@ interface Data {
 }
 
 interface Comment {
-  freeCommentId?: number;
+  freeCommentId: number;
   content: string;
   createdAt: string;
   modifiedAt?: string;
@@ -56,6 +57,7 @@ function PostContent() {
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(true);
   const [listData, setListData] = useState<Data | Record<string, never>>({});
+  const [checkState, setCheckState] = useState<boolean>(false);
   const urlData = useLocation().pathname.slice(0, 5);
   const idData = Number(useParams().id);
 
@@ -67,6 +69,7 @@ function PostContent() {
   const voteHandler = async (value: string) => {
     try {
       await PostVote('frees', idData, value);
+      setCheckState(!checkState);
     } catch (err) {
       console.error(err);
     }
@@ -97,7 +100,7 @@ function PostContent() {
 
   useEffect(() => {
     fetchPostDetail();
-  }, []);
+  }, [checkState]);
 
   console.log(listData);
   console.log('userInfo memeberId', userInfo.memberId);
@@ -126,7 +129,7 @@ function PostContent() {
             <H2>{listData.title}</H2>
             <Writer>
               <ProfileIcon.Default />
-              <div>{listData.member.displayName}</div>
+              <NameDiv>{listData.member.displayName}</NameDiv>
               <div> · {calTime}</div>
               <View>
                 <CountIcon.View />
@@ -137,7 +140,7 @@ function PostContent() {
           <MainDiv>
             <TextDiv dangerouslySetInnerHTML={{ __html: listData.content }} />
             <VoteDiv>
-              <Button.VoteDownBtn>
+              <Button.VoteDownBtn onClick={e => voteHandler('down')}>
                 <CountIcon.VoteDown />
               </Button.VoteDownBtn>
               <VoteCount>{listData.voteCount}</VoteCount>
@@ -154,7 +157,14 @@ function PostContent() {
             {listData.commentsListNum === 0 ? null : (
               <div>
                 {listData.comments.map((ele: Comment) => {
-                  return <CommentBlock key={ele.freeCommentId} data={ele} />;
+                  return (
+                    <CommentBlock
+                      key={ele.freeCommentId}
+                      data={ele}
+                      checkState={checkState}
+                      setCheckState={setCheckState}
+                    />
+                  );
                 })}
               </div>
             )}
@@ -195,6 +205,11 @@ const Writer = styled.div`
   align-items: center;
   position: relative;
 `;
+
+const NameDiv = styled.div`
+  margin: 0 3px;
+`;
+
 const View = styled.div`
   display: flex;
   position: absolute;
@@ -321,6 +336,13 @@ const TextDiv = styled.div`
     &.ql-indent-1 {
       margin-left: 3em;
     }
+  }
+  a {
+    text-decoration: underline;
+  }
+  img {
+    max-width: 50rem;
+    height: auto;
   }
 `;
 

@@ -12,7 +12,7 @@ const getPostList = async (
     `${apiUrl}/boards/${board}?category=${category}&sort=${sort}&page=${page}`,
     {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `${localStorage.getItem('token')}`,
         'ngrok-skip-browser-warning': '69420',
       },
     },

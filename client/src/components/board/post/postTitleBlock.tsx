@@ -19,6 +19,7 @@ interface Data {
   };
   title: string;
   content: string;
+  uploadImages?: string[] | [];
   viewCount: number;
   voteCount: number;
   createdAt: string;
@@ -62,7 +63,7 @@ function PostTitleBlock({ ele }: Props) {
         <ProfileImg>
           <ProfileIcon.Mini />
         </ProfileImg>
-        <div>{ele.member.displayName}</div>
+        <NameDiv>{`${ele.member.displayName} `}</NameDiv>
         <div>{` · ${calTime}`}</div>
       </UserData>
       <Count>
@@ -150,22 +151,35 @@ const Title = styled.div`
 
 const UserData = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const ProfileImg = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 18px;
-  height: 18px;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-right: 3px;
+`;
+
+const NameDiv = styled.div`
+  margin-right: 3px;
 `;
 
 const Count = styled.div`
   display: flex;
+  justify-content: space-between;
   position: absolute;
   right: ${theme.gap.px20};
   bottom: 1rem;
+  width: ${theme.gap.px100};
   color: ${theme.colors.gray};
+
+  > div {
+    margin-left: 0.3125rem;
+    }
+  }
 `;
 
 export default PostTitleBlock;

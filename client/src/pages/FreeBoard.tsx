@@ -46,6 +46,7 @@ const Title = styled.div`
   padding: 45px 42px;
   border-radius: 25px;
   background-color: ${theme.colors.palePurple};
+  margin-top: ${theme.gap.px40};
 `;
 
 const H2 = styled.h2`

@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 import useUserInfoStore from 'stores/userInfoStore';
+import { useIsLoginStore } from 'stores/loginStore';
 
 import styled from 'styled-components';
 import theme from 'theme';
 import Button from 'components/common/Button';
 import ProfileIcon from 'assets/icons/defaultProfileIcon';
 import CountIcon from 'assets/icons/countIcon';
+import { AiOutlineExclamationCircle } from 'react-icons/ai';
 
 import DeletePost from 'apis/board/deletePost';
 import getPostDetail from 'apis/board/getPostDetail';
 import PostVote from 'apis/board/postVote';
 import TextEditor from 'components/common/textEditor';
+import PostAnswer from 'apis/board/postAnswer';
 import CalElapsedTime from '../post/calElapsedTime';
 
 import GoBackMenu from '../post/goBackMenu';
@@ -58,7 +61,7 @@ interface AnswerData {
   voteCount: number;
   createdAt: string;
   modifiedAt: string | null;
-  adoptStatus: boolean;
+  adoptStatus: string;
   answerCount: number;
   member: {
     memberId: number;
@@ -71,10 +74,12 @@ interface AnswerData {
 
 function PostContent() {
   const { userInfo } = useUserInfoStore(state => state);
+  const { isLoginInStore } = useIsLoginStore(state => state);
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(true);
   const [listData, setListData] = useState<Data | Record<string, never>>({});
   const [textContent, setTextContent] = useState<string>('');
+  const [checkState, setCheckState] = useState<boolean>(false);
   const idData = Number(useParams().id);
 
   let calTime = '';
@@ -106,9 +111,30 @@ function PostContent() {
     }
   };
 
+  const postHandler = async () => {
+    try {
+      if (textContent === '') {
+        alert('답변 내용은 빈 칸으로 둘 수 없습니다.');
+      } else {
+        const data = {
+          content: textContent,
+          createdAt: `${new Date()}`,
+          questionId: listData.questionId,
+        };
+        console.log('submit data', data);
+        await PostAnswer(data);
+        alert('답변 작성을 완료하였습니다.');
+        window.location.reload();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const voteHandler = async (value: string) => {
     try {
       await PostVote('qnas/questions', idData, value);
+      setCheckState(!checkState);
     } catch (err) {
       console.error(err);
     }
@@ -116,7 +142,7 @@ function PostContent() {
 
   useEffect(() => {
     fetchPostDetail();
-  }, []);
+  }, [checkState]);
 
   console.log(listData);
   console.log('userInfo memeberId', userInfo.memberId);
@@ -145,7 +171,7 @@ function PostContent() {
             <H2>{listData.title}</H2>
             <Writer>
               <ProfileIcon.Default />
-              <div>{listData.member.displayName}</div>
+              <NameDiv>{listData.member.displayName}</NameDiv>
               <div> · {calTime}</div>
               <View>
                 <CountIcon.View />
@@ -156,7 +182,7 @@ function PostContent() {
           <MainDiv>
             <TextDiv dangerouslySetInnerHTML={{ __html: listData.content }} />
             <VoteDiv>
-              <Button.VoteDownBtn>
+              <Button.VoteDownBtn onClick={e => voteHandler('down')}>
                 <CountIcon.VoteDown />
               </Button.VoteDownBtn>
               <VoteCount>{listData.voteCount}</VoteCount>
@@ -180,13 +206,32 @@ function PostContent() {
               </div>
             )}
           </AnswerContainer>
-          <TextEditorDiv>
-            <TextEditor
-              textContent={textContent}
-              setTextContent={setTextContent}
-              path="boards/qnas/answers/contents"
-            />
-          </TextEditorDiv>
+          <PostAnswerDiv>
+            <Label htmlFor="post">답변 작성하기</Label>
+            <TextEditorDiv id="post">
+              {isLoginInStore ? (
+                <TextEditor
+                  textContent={textContent}
+                  setTextContent={setTextContent}
+                  path="boards/qnas/answers/contents"
+                />
+              ) : (
+                <GuideDiv>
+                  <AiOutlineExclamationCircle />
+                  <div>
+                    답글을 쓰려면 <Link to="/login">로그인</Link>이 필요합니다.
+                  </div>
+                </GuideDiv>
+              )}
+            </TextEditorDiv>
+            <BtnDiv>
+              {isLoginInStore ? (
+                <Button.WriteBtn onClick={postHandler}>확인</Button.WriteBtn>
+              ) : (
+                <Button.WriteBtn className="disabled">확인</Button.WriteBtn>
+              )}
+            </BtnDiv>
+          </PostAnswerDiv>
           {/* <CommentCnt>{listData.commentsListNum}개의 댓글</CommentCnt>
           <CommentContainer>
             <WriteCommentDiv>
@@ -244,6 +289,11 @@ const Writer = styled.div`
   align-items: center;
   position: relative;
 `;
+
+const NameDiv = styled.div`
+  margin: 0 3px;
+`;
+
 const View = styled.div`
   display: flex;
   position: absolute;
@@ -361,6 +411,14 @@ const TextDiv = styled.div`
       margin-left: 3em;
     }
   }
+
+  a {
+    text-decoration: underline;
+  }
+  img {
+    max-width: 50rem;
+    height: auto;
+  }
 `;
 
 const AnswerContainer = styled.div`
@@ -372,17 +430,48 @@ const AnswerContainer = styled.div`
 const TextEditorDiv = styled.div`
   display: flex;
 `;
-// const TextEditorDiv = styled.div`
-//   min-height: 25rem;
-//   padding-bottom: ${theme.gap.px40};
 
-//   white-space: pre-wrap;
-//   strong {
-//     font-weight: bold;
-//   }
-//   em {
-//     font-style: italic;
-//   }
-// `;
+const PostAnswerDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: ${theme.gap.px20};
+  margin-bottom: ${theme.gap.px40};
+`;
+
+const Label = styled.label`
+  margin-bottom: ${theme.gap.px10};
+`;
+
+const GuideDiv = styled.div`
+  display: flex;
+  width: 100%;
+  height: 73px;
+  padding: ${theme.gap.px10};
+  border: 1px solid ${theme.colors.gray};
+  /* border-radius: 5px; */
+  color: ${theme.colors.gray};
+  /* margin-left: ${theme.gap.px10}; */
+  a {
+    font-weight: bold;
+    text-decoration: underline;
+    color: ${theme.colors.pointColor};
+  }
+  > div {
+    margin-left: 6px;
+  }
+`;
+
+const BtnDiv = styled.div`
+  display: flex;
+  justify-content: right;
+  padding: ${theme.gap.px20} 0;
+  margin-bottom: ${theme.gap.px80};
+  > div {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+  }
+`;
 
 export default PostContent;
