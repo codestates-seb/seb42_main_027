@@ -154,16 +154,18 @@ type PostProps = {
 };
 
 type PostListProps = {
+  freePosts: never[];
+  setFreePosts: React.Dispatch<React.SetStateAction<never[]>>;
   selectPostCategories: string;
   setSelectPostCategories: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function PostList({
+  freePosts,
+  setFreePosts,
   selectPostCategories,
   setSelectPostCategories,
 }: PostListProps) {
-  const [freePosts, setFreePosts] = useState([]);
-
   const handleChangeBoard = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFreePosts([]);
     setSelectPostCategories(e.target.value);

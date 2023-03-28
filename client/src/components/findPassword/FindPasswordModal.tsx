@@ -60,7 +60,12 @@ function FindPasswordModal({ isOpen, email }: FindPasswordModalProps) {
   const navigate = useNavigate();
 
   const handleClickLoginBtn = () => {
-    navigate('/login');
+    setTimeout(() => {
+      navigate('/');
+    }, 100);
+    setTimeout(() => {
+      navigate('/login');
+    }, 150);
   };
 
   return (
