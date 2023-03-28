@@ -1,22 +1,18 @@
 package ynzmz.server.security.auths.userdetails;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-import ynzmz.server.error.exception.BusinessLogicException;
-import ynzmz.server.error.exception.ExceptionCode;
+import ynzmz.server.global.error.exception.BusinessLogicException;
+import ynzmz.server.global.error.exception.ExceptionCode;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
 
-import javax.management.relation.Role;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.Set;
 
 @Component
 public class MemberDetailsService implements UserDetailsService {

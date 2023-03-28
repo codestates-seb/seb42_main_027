@@ -13,7 +13,7 @@ import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.board.free.service.FreeService;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.comment.free.service.FreeCommentService;
-import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
 import ynzmz.server.vote.free.dto.FreeVoteDto;

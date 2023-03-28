@@ -1,7 +1,6 @@
 package ynzmz.server.comment.free.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,12 +11,9 @@ import ynzmz.server.comment.free.dto.FreeCommentDto;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.comment.free.mapper.FreeCommentMapper;
 import ynzmz.server.comment.free.service.FreeCommentService;
-import ynzmz.server.dto.MultiResponseDto;
-import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/comments/frees")

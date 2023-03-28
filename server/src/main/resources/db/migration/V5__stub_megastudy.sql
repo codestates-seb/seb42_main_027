@@ -1,7 +1,7 @@
 -- 국어
-INSERT INTO teacher (image_url, introduction, name, star_point_average, total_review_count)
+INSERT INTO teacher ( introduction, name, star_point_average, total_review_count)
 VALUES
-    ('없음','너의 역사를 빛내줄 이다지 선생님', '이다지', 0, 0);
+    ('너의 역사를 빛내줄 이다지 선생님', '이다지', 0, 0);
 SET @teacher_id = LAST_INSERT_ID();
 
 INSERT INTO teacher_analects (teacher_teacher_id, analects)
@@ -21,42 +21,42 @@ VALUES
     (@teacher_id, '현) 메가스터디 온/오프라인');
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고1');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO teacher_platform_tag (platform_tag_id, teacher_id) VALUES (@platform_tag_id, @teacher_id);
+INSERT INTO map_teacher_platform_tag (platform_tag_id, teacher_id) VALUES (@platform_tag_id, @teacher_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '한국사');
-INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+INSERT INTO map_teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '사탐전체');
-INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+INSERT INTO map_teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '역사');
-INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+INSERT INTO map_teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '일반사회');
-INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+INSERT INTO map_teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('2024 이다지 한국사 20시간의 기적 - 개념완성','♥ 두근거리는 스토리텔링 생생한 한국사 ♥', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '한국사');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
@@ -64,15 +64,15 @@ VALUES ('이다지도 확실한 한국사 내신완성','前 자사고 선생님
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고1');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '한국사');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
@@ -80,19 +80,19 @@ VALUES ('이다지도 확실한 통합사회 내신완성','★이유 있는 통
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고1');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '일반사회');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 
 
-INSERT INTO teacher (image_url, introduction, name, star_point_average, total_review_count)
+INSERT INTO teacher ( introduction, name, star_point_average, total_review_count)
 VALUES
-    ('없음','있는 그대로의 수능 국어', '강민철', 0, 0);
+    ('있는 그대로의 수능 국어', '강민철', 0, 0);
 SET @teacher_id = LAST_INSERT_ID();
 
 INSERT INTO teacher_analects (teacher_teacher_id, analects)
@@ -105,74 +105,74 @@ VALUES
     (@teacher_id, '現 메가스터디 국어과 강사');
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고1');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO teacher_platform_tag (platform_tag_id, teacher_id) VALUES (@platform_tag_id, @teacher_id);
+INSERT INTO map_teacher_platform_tag (platform_tag_id, teacher_id) VALUES (@platform_tag_id, @teacher_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '국어');
-INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+INSERT INTO map_teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('2024 강민철의 기출 분석 [독서]','진하게 분석하는 평가원 기출, 강민철 시그니처!', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '국어');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[입문] 2024 강민철의 기본 - 예비고3 -','[2024 NEW] 수능 국어의 기본(基本)과 근본(根本)', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고1');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '국어');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[입문] 강민철의 기본 -고전시가-','주요 작품을 익히면, 다른 작품도 읽힙니다.', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고1');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '국어');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 
 -- 수학
-INSERT INTO teacher (image_url, introduction, name, star_point_average, total_review_count)
+INSERT INTO teacher ( introduction, name, star_point_average, total_review_count)
 VALUES
-    ('없음','시작부터 끝까지 수학은 누구나', '현우진', 0, 0);
+    ('시작부터 끝까지 수학은 누구나', '현우진', 0, 0);
 SET @teacher_id = LAST_INSERT_ID();
 
 INSERT INTO teacher_analects (teacher_teacher_id, analects)
@@ -187,90 +187,90 @@ VALUES
     (@teacher_id, '대치동 현장강의 문/이과 최다 수강생 보유');
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고1');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO teacher_platform_tag (platform_tag_id, teacher_id) VALUES (@platform_tag_id, @teacher_id);
+INSERT INTO map_teacher_platform_tag (platform_tag_id, teacher_id) VALUES (@platform_tag_id, @teacher_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '수학');
-INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+INSERT INTO map_teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('2024 현우진의 드릴 - 수학l (공통)','■ 2등급과 1등급 사이 반드시 존재하는 훈련 ■', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '수학');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('2024 현우진의 드릴 - 수학ll (공통)','■ 2등급과 1등급 사이 반드시 존재하는 훈련 ■', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '수학');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('2024 현우진의 뉴런 - 미적분 (선택)','■ 수능 실전개념 뉴런 & 복습을 위한 시냅스 ■', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '수학');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('2023 현우진의 뉴런 - 기하 (선택)','■ 수능 실전개념 뉴런 & 복습을 위한 시냅스 ■', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '수학');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 
 
 -- 수학
-INSERT INTO teacher (image_url, introduction, name, star_point_average, total_review_count)
+INSERT INTO teacher ( introduction, name, star_point_average, total_review_count)
 VALUES
-    ('없음','수능 영어는 ALL TIME', '조정식', 0, 0);
+    ('수능 영어는 ALL TIME', '조정식', 0, 0);
 SET @teacher_id = LAST_INSERT_ID();
 
 INSERT INTO teacher_analects (teacher_teacher_id, analects)
@@ -285,72 +285,72 @@ VALUES
     (@teacher_id, '메가스터디 러셀 영어 대표강사');
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고1');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO teacher_platform_tag (platform_tag_id, teacher_id) VALUES (@platform_tag_id, @teacher_id);
+INSERT INTO map_teacher_platform_tag (platform_tag_id, teacher_id) VALUES (@platform_tag_id, @teacher_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '영어');
-INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+INSERT INTO map_teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[2024] 3월 학평 대비 조정식 모의고사','* 첫 모의고사 전, 꼭 풀어보세요! *', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '영어');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[2024 NEW] 믿어봐! 글 읽는 법을 알려줄게 (현장버전)','영어 지문을 읽고 정보를 정리하는 학습', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '영어');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[2024 NEW] 시작해! 수능 영어의 처음부터','수능 영어의 시작, 기초, 기본! 영어가 처음이라면 반드시!', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고1');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '영어');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
-INSERT INTO teacher (image_url, introduction, name, star_point_average, total_review_count)
+INSERT INTO teacher ( introduction, name, star_point_average, total_review_count)
 VALUES
-    ('없음','실전에 강한 수능 지리 TOP', '이기상', 0, 0);
+    ('실전에 강한 수능 지리 TOP', '이기상', 0, 0);
 SET @teacher_id = LAST_INSERT_ID();
 
 INSERT INTO teacher_analects (teacher_teacher_id, analects)
@@ -368,103 +368,103 @@ VALUES
     (@teacher_id, '前) EBSi 경제지리 담당(2004 ~ 2005)');
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고1');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO teacher_platform_tag (platform_tag_id, teacher_id) VALUES (@platform_tag_id, @teacher_id);
+INSERT INTO map_teacher_platform_tag (platform_tag_id, teacher_id) VALUES (@platform_tag_id, @teacher_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '사탐전체');
-INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+INSERT INTO map_teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '일반사회');
-INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+INSERT INTO map_teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '지리');
-INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+INSERT INTO map_teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[한국지리] 2024 이것이 개념이다','기초부터 심화까지 모든 것이 담긴 실전개념!', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '사탐전체');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '지리');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[세계지리] 2024 이것이 개념이다','기초부터 심화까지 모든 것이 담긴 실전개념!', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '사탐전체');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '지리');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[세계지리] 2024 이것이 만점복습노트다','이것이 개념이다 초단기 복습 버전', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '사탐전체');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '지리');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[한국지리] 2024 이것이 만점복습노트다','이것이 개념이다 초단기 복습 버전', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '사탐전체');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '지리');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
-INSERT INTO teacher (image_url, introduction, name, star_point_average, total_review_count)
+INSERT INTO teacher ( introduction, name, star_point_average, total_review_count)
 VALUES
-    ('없음','윤리 잘 아는 평가원 베프', '김종익', 0, 0);
+    ('윤리 잘 아는 평가원 베프', '김종익', 0, 0);
 SET @teacher_id = LAST_INSERT_ID();
 
 INSERT INTO teacher_analects (teacher_teacher_id, analects)
@@ -483,83 +483,83 @@ VALUES
     (@teacher_id, '前) EBS 수특/수완 생윤,윤사 검토위원 (2013~2018년)');
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고1');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO teacher_platform_tag (platform_tag_id, teacher_id) VALUES (@platform_tag_id, @teacher_id);
+INSERT INTO map_teacher_platform_tag (platform_tag_id, teacher_id) VALUES (@platform_tag_id, @teacher_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '사탐전체');
-INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+INSERT INTO map_teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '윤리');
-INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+INSERT INTO map_teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[윤리와사상] 2024 잘 생긴 개념','평가원이 원하는 진짜 개념과 출제 포인트!', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '사탐전체');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '윤리');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[생활과윤리] 2024 이것만 들어도 3등급 나온다 (삼삼한 개념집)','윤알못을 위한 수능 입문 짤강의!', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고1');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '사탐전체');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '윤리');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[생활과윤리] 잘 아는 윤리 내신 완성','내신도 역시 김종익!', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고1');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '사탐전체');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '윤리');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 
-INSERT INTO teacher (image_url, introduction, name, star_point_average, total_review_count)
+INSERT INTO teacher ( introduction, name, star_point_average, total_review_count)
 VALUES
-    ('없음','신뢰의 물리 만점 전략가', '배기범', 0, 0);
+    ('신뢰의 물리 만점 전략가', '배기범', 0, 0);
 SET @teacher_id = LAST_INSERT_ID();
 
 INSERT INTO teacher_analects (teacher_teacher_id, analects)
@@ -575,75 +575,75 @@ VALUES
     (@teacher_id, '메가엠디 PEET 물리추론 전임교수');
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고1');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
+INSERT INTO map_teacher_grade_tag (grade_tag_id, teacher_id) VALUES (@grade_tag_id, @teacher_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO teacher_platform_tag (platform_tag_id, teacher_id) VALUES (@platform_tag_id, @teacher_id);
+INSERT INTO map_teacher_platform_tag (platform_tag_id, teacher_id) VALUES (@platform_tag_id, @teacher_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '과탐전체');
-INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+INSERT INTO map_teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '물리학');
-INSERT INTO teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
+INSERT INTO map_teacher_subject_tag (subject_tag_id, teacher_id) VALUES (@subject_tag_id, @teacher_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[물리학l] 2024 필수본 개념완성 <기본부터 심화까지>','※ 필히 들어야 하는 수능 물리학의 본질적 접근! 필수본 ※', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '과탐전체');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '물리학');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[물리학l] 2023 필수본 개념완성 <기본부터 심화까지>','※ 개념부터 앞서 나가고 싶다면, 필수본은 필수 ※', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '과탐전체');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '물리학');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 
 INSERT INTO lecture (title,introduction, status, star_point_average, total_review_count, teacher_id)
 VALUES ('[물리학ll] 2023 필수본 개념완성 <기본부터 심화까지>','※ 개념부터 앞서 나가고 싶다면, 필수본은 필수 ※', '완강', 0, 0, @teacher_id);
 SET @lecture_id = LAST_INSERT_ID();
 
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고2');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = '고3');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 SET @grade_tag_id = (SELECT grade_tag_id FROM grade_tag WHERE grade = 'N수');
-INSERT INTO lecture_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
+INSERT INTO map_lecute_grade_tag (grade_tag_id, lecture_id) VALUES (@grade_tag_id, @lecture_id);
 
 SET @platform_tag_id = (SELECT platform_tag_id FROM platform_tag WHERE platform = '메가스터디');
-INSERT INTO lecture_platform_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
+INSERT INTO map_lecute_platfom_tag (platform_tag_id, lecture_id) VALUES (@platform_tag_id, @lecture_id);
 
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '과탐전체');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
 SET @subject_tag_id = (SELECT subject_tag_id FROM subject_tag WHERE subject = '물리학');
-INSERT INTO lecture_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);
+INSERT INTO map_lecute_subject_tag (subject_tag_id, lecture_id) VALUES (@subject_tag_id, @lecture_id);

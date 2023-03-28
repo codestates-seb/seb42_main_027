@@ -13,8 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import ynzmz.server.error.exception.BusinessLogicException;
-import ynzmz.server.error.exception.ExceptionCode;
+import ynzmz.server.global.error.exception.BusinessLogicException;
+import ynzmz.server.global.error.exception.ExceptionCode;
 import ynzmz.server.board.event.their.entity.Event;
 import ynzmz.server.board.event.their.repository.EventRepository;
 
@@ -49,7 +49,9 @@ public class EventService {
         return event.orElseThrow(() -> new BusinessLogicException(ExceptionCode.EVENT_NOT_FOUND));
     }
 
+
     public Page<Event> findAllTEvents(int page, int size) {
+
         return eventRepository.findAll(PageRequest.of(page, size, Sort.by("theirId")));
     }
 
@@ -191,9 +193,11 @@ public class EventService {
                     event.setDate(" " + date.get(i).text());
                     event.setHyperLink(titles.get(i).attr("href"));
                     event.setTitle(titles.get(i).text());
-                    System.out.println("제목: " + event.getTitle());
-                    System.out.println("링크: " + event.getHyperLink());
-                    System.out.println("날짜: " + event.getDate());
+
+//                     System.out.println("제목: " + event.getTitle());
+//                     System.out.println("링크: " + event.getHyperLink());
+//                     System.out.println("날짜: " + event.getDate());
+
                     createEvent(event);
                 }
 

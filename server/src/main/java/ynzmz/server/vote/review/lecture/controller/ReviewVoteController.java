@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.comment.review.lecture.service.LectureReviewCommentService;
-import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.member.entity.Member;
@@ -39,7 +39,9 @@ public class ReviewVoteController {
 
         ReviewVote voteUplectureReviewVote = reviewVoteService.lectureReviewVoteUp(lectureReview, reviewVote);
 
-        ReviewVoteDto.Response response = reviewVoteMapper.lectureReviewVoteToLectureReviewResponse(voteUplectureReviewVote);
+        ReviewVoteDto.ReviewResponse response = reviewVoteMapper.lectureReviewVoteToReviewVoteReviewResponse(voteUplectureReviewVote);
+        response.setLectureReviewId(voteUplectureReviewVote.getLectureReview().getLectureReviewId());
+        response.setLectureReviewVoteTotalCount(voteUplectureReviewVote.getLectureReview().getVoteCount());
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -52,7 +54,9 @@ public class ReviewVoteController {
 
         ReviewVote voteDownlectureReviewVote = reviewVoteService.lectureReviewVoteDown(lectureReview, reviewVote);
 
-        ReviewVoteDto.Response response = reviewVoteMapper.lectureReviewVoteToLectureReviewResponse(voteDownlectureReviewVote);
+        ReviewVoteDto.ReviewResponse response = reviewVoteMapper.lectureReviewVoteToReviewVoteReviewResponse(voteDownlectureReviewVote);
+        response.setLectureReviewId(voteDownlectureReviewVote.getLectureReview().getLectureReviewId());
+        response.setLectureReviewVoteTotalCount(voteDownlectureReviewVote.getLectureReview().getVoteCount());
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -66,7 +70,9 @@ public class ReviewVoteController {
 
         ReviewVote voteUplectureReviewVote = reviewVoteService.lectureReviewVoteUp(lectureReviewComment, reviewVote);
 
-        ReviewVoteDto.Response response = reviewVoteMapper.lectureReviewVoteToLectureReviewResponse(voteUplectureReviewVote);
+        ReviewVoteDto.CommentResponse response = reviewVoteMapper.lectureReviewVoteToReviewVoteCommentResponse(voteUplectureReviewVote);
+        response.setLectureReviewCommentId(voteUplectureReviewVote.getLectureReviewComment().getLectureReviewCommentId());
+        response.setLectureReviewCommentVoteTotalCount(voteUplectureReviewVote.getLectureReviewComment().getVoteCount());
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -79,7 +85,9 @@ public class ReviewVoteController {
 
         ReviewVote voteDownlectureReviewVote = reviewVoteService.lectureReviewVoteDown(lectureReviewComment, reviewVote);
 
-        ReviewVoteDto.Response response = reviewVoteMapper.lectureReviewVoteToLectureReviewResponse(voteDownlectureReviewVote);
+        ReviewVoteDto.CommentResponse response = reviewVoteMapper.lectureReviewVoteToReviewVoteCommentResponse(voteDownlectureReviewVote);
+        response.setLectureReviewCommentId(voteDownlectureReviewVote.getLectureReviewComment().getLectureReviewCommentId());
+        response.setLectureReviewCommentVoteTotalCount(voteDownlectureReviewVote.getLectureReviewComment().getVoteCount());
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }

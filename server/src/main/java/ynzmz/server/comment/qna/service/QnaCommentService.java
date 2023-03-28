@@ -1,16 +1,13 @@
 package ynzmz.server.comment.qna.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.comment.qna.repository.QnaCommentRepository;
-import ynzmz.server.error.exception.BusinessLogicException;
-import ynzmz.server.error.exception.ExceptionCode;
+import ynzmz.server.global.error.exception.BusinessLogicException;
+import ynzmz.server.global.error.exception.ExceptionCode;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,8 +30,12 @@ public class QnaCommentService {
         return qnaCommentRepository.save(findQnaComment);
     }
 
+    @Transactional
     public void deleteQnaComment(long qnaCommentId) {
         qnaCommentRepository.deleteById(qnaCommentId);
+    }
+    public Optional<QnaComment> findOptionalQnaCommentById(long qnaCommentId) {
+        return qnaCommentRepository.findById(qnaCommentId);
     }
 
     public QnaComment findQnaCommentById(long qnaCommentId) {

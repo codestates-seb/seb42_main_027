@@ -11,7 +11,7 @@ import ynzmz.server.recomment.free.dto.ReCommentDto;
 import ynzmz.server.recomment.free.entity.FreeReComment;
 import ynzmz.server.recomment.free.mapper.ReCommentMapper;
 import ynzmz.server.recomment.free.service.ReCommentService;
-import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
 

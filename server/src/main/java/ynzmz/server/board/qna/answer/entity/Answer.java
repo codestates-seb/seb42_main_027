@@ -21,6 +21,7 @@ public class Answer implements Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String content;
     @Column
     @ColumnDefault("0")
@@ -38,6 +39,10 @@ public class Answer implements Vote {
     @JoinColumn(name = "member_id")
     @JsonBackReference
     private Member member;
+
+    @ElementCollection(targetClass=String.class)
+    @Column
+    private List<String> uploadImages = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     @JsonManagedReference

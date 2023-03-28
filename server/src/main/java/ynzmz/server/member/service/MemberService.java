@@ -11,18 +11,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
+import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
-import ynzmz.server.error.exception.BusinessLogicException;
-import ynzmz.server.error.exception.ExceptionCode;
+import ynzmz.server.global.error.exception.BusinessLogicException;
+import ynzmz.server.global.error.exception.ExceptionCode;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.board.qna.question.entity.Question;
+import ynzmz.server.recomment.qna.entity.QnaReComment;
 import ynzmz.server.security.auths.userdetails.MemberDetailsService;
 import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
 import ynzmz.server.vote.Vote;
 import ynzmz.server.vote.qna.dto.LoginUserAnswerVoteResponseDto;
+import ynzmz.server.vote.qna.dto.LoginUserQnaCommentVoteResponseDto;
+import ynzmz.server.vote.qna.dto.LoginUserQnaReCommentVoteResponseDto;
 import ynzmz.server.vote.qna.entity.QnaVote;
 import ynzmz.server.vote.review.lecture.dto.LoginUserLectureReviewCommentVoteResponseDto;
 import ynzmz.server.vote.review.lecture.dto.LoginUserLectureReviewVoteResponseDto;
@@ -145,38 +149,111 @@ public class MemberService {
     }
 
     public void memberValidation(Member loginMember, long memberId) {
-        if (loginMember.getMemberId() != memberId) throw new BusinessLogicException(ExceptionCode.INVALID_MEMBER_STATUS);
+        if (loginMember.getMemberId() != memberId) throw new BusinessLogicException(ExceptionCode.THIS_MEMBER_NOT_PERMISSION);
     }
 
     //해당 게시글에서 게시글&답변에 추천여부 확인
-    public MemberDto.VoteInfo setMemberVoteStatus(Member member, Question question) {
+    public MemberDto.VoteInfo findQnaVoteStatusByLoginUser(Member member, Question question) {
         MemberDto.VoteInfo loginMemberVoteInfo = new MemberDto.VoteInfo();
 
-        loginMemberVoteInfo.setMemberId(member.getMemberId() );
-        loginMemberVoteInfo.setEmail(member.getEmail() );
+        loginMemberVoteInfo.setMemberId( member.getMemberId() );
+        loginMemberVoteInfo.setEmail( member.getEmail() );
         loginMemberVoteInfo.setQuestionId( question.getQuestionId() );
 
-        ArrayList<LoginUserAnswerVoteResponseDto> loginUserAnswerVoteResponseDtos = new ArrayList<>();
         List<QnaVote> qnaVotes = member.getQnaVotes();
-        List<QnaVote> answerVotes = member.getQnaVotes();
-        List<Answer> questionAnswers = question.getAnswers();
+        List<QnaComment> questionComments = question.getComments();
+        List<Answer> answers = question.getAnswers();
 
-        for(QnaVote qnaVote : qnaVotes) {
-            if(Objects.equals(qnaVote.getQuestion().getQuestionId(), question.getQuestionId())) {
-                loginMemberVoteInfo.setQuestionvoteStatus(qnaVote.getVoteStatus());
-                break;
+        ArrayList<LoginUserAnswerVoteResponseDto> loginUserAnswerVoteResponseDtos = new ArrayList<>();
+        ArrayList<LoginUserQnaCommentVoteResponseDto> loginUserQnaCommentVoteResponseDtos = new ArrayList<>();
+        ArrayList<LoginUserQnaReCommentVoteResponseDto> loginUserQnaReCommentVoteResponseDtos = new ArrayList<>();
+
+        for (QnaVote qnaVote : qnaVotes) {
+            switch (qnaVote.getTarget()) {
+                case QUESTION:
+                    if (Objects.equals(qnaVote.getQuestion().getQuestionId(), question.getQuestionId())) {
+                        loginMemberVoteInfo.setQuestionvoteStatus(qnaVote.getVoteStatus());
+                    }
+                    break;
+                case COMMENT:
+                    QnaComment qnaComment = qnaVote.getQnaComment();
+                    if (questionComments.contains(qnaComment)) {
+                        LoginUserQnaCommentVoteResponseDto dto = new LoginUserQnaCommentVoteResponseDto();
+                        dto.setQnaCommentVoteId(qnaComment.getQnaCommentId());
+                        dto.setVoteStatus(qnaVote.getVoteStatus());
+                        loginUserQnaCommentVoteResponseDtos.add(dto);
+                    }
+                    break;
+                case RECOMMENT:
+                    QnaReComment qnaReComment = qnaVote.getQnaReComment();
+                    if (questionComments.stream().anyMatch(c -> c.getQnaReComments().contains(qnaReComment))) {
+                        LoginUserQnaReCommentVoteResponseDto dto = new LoginUserQnaReCommentVoteResponseDto();
+                        dto.setQnaReCommentVoteId(qnaReComment.getQnaReCommentId());
+                        dto.setVoteStatus(qnaVote.getVoteStatus());
+                        loginUserQnaReCommentVoteResponseDtos.add(dto);
+                    }
+                    break;
+                case ANSWER:
+                    Answer answer = qnaVote.getAnswer();
+                    if (answers.contains(answer)) {
+                        LoginUserAnswerVoteResponseDto dto = new LoginUserAnswerVoteResponseDto();
+                        dto.setAnswerId(answer.getAnswerId());
+                        dto.setVoteStatus(qnaVote.getVoteStatus());
+                        loginUserAnswerVoteResponseDtos.add(dto);
+                    }
+                    break;
+            }
+        }
+        //로그인 유저 답변글 추천 상태값
+        for (Answer answer : answers) {
+            for (QnaVote qnaVote : qnaVotes) {
+                if (qnaVote.getTarget() == Vote.Target.ANSWER) {
+                    if (Objects.equals(answer.getAnswerId(), qnaVote.getAnswer().getAnswerId())) {
+                        LoginUserAnswerVoteResponseDto loginUserAnswerVoteResponseDto = new LoginUserAnswerVoteResponseDto();
+                        loginUserAnswerVoteResponseDto.setAnswerId(qnaVote.getAnswer().getAnswerId());
+                        loginUserAnswerVoteResponseDto.setVoteStatus(qnaVote.getVoteStatus());
+                        loginUserAnswerVoteResponseDtos.add(loginUserAnswerVoteResponseDto);
+                    }
+                }
+            }
+        }
+        //로그인 유저 답변글 댓글 추천 상태값
+        for (Answer answer : answers) {
+            for (QnaComment qnaComment : answer.getComments()) {
+                for (QnaVote qnaVote : qnaVotes) {
+                    if (qnaVote.getTarget() == Vote.Target.COMMENT) {
+                        if (Objects.equals(qnaComment.getQnaCommentId(), qnaVote.getQnaComment().getQnaCommentId())) {
+                            LoginUserQnaCommentVoteResponseDto loginUserQnaCommentVoteResponseDto = new LoginUserQnaCommentVoteResponseDto();
+                            loginUserQnaCommentVoteResponseDto.setQnaCommentVoteId(qnaVote.getQnaComment().getQnaCommentId());
+                            loginUserQnaCommentVoteResponseDto.setVoteStatus(qnaVote.getVoteStatus());
+                            loginUserQnaCommentVoteResponseDtos.add(loginUserQnaCommentVoteResponseDto);
+                        }
+                    }
+                }
+            }
+        }
+        //로그인 유저 답변글 대댓글 추천 상태값
+        for (Answer answer : answers) {
+            for (QnaComment qnaComment : answer.getComments()) {
+                for (QnaReComment qnaReComment : qnaComment.getQnaReComments()) {
+                    for (QnaVote qnaVote : qnaVotes) {
+                        if (qnaVote.getTarget() == Vote.Target.RECOMMENT) {
+                            if (Objects.equals(qnaReComment.getQnaReCommentId(), qnaVote.getQnaReComment().getQnaReCommentId())) {
+                                LoginUserQnaReCommentVoteResponseDto loginUserQnaReCommentVoteResponseDto = new LoginUserQnaReCommentVoteResponseDto();
+                                loginUserQnaReCommentVoteResponseDto.setQnaReCommentVoteId(qnaVote.getQnaReComment().getQnaReCommentId());
+                                loginUserQnaReCommentVoteResponseDto.setVoteStatus(qnaVote.getVoteStatus());
+                                loginUserQnaReCommentVoteResponseDtos.add(loginUserQnaReCommentVoteResponseDto);
+                            }
+                        }
+                    }
+                }
             }
         }
 
-//        for (Answer questionAnswer : questionAnswers) {
-//            for (AnswerVote answerVote : answerVotes) {
-//                if(Objects.equals(questionAnswer.getAnswerId(), answerVote.getAnswer().getAnswerId())){
-//                    LoginUserAnswerVoteResponseDto loginUserAnswerVote = new LoginUserAnswerVoteResponseDto(answerVote.getAnswer().getAnswerId(), answerVote.getVoteStatus());
-//                    loginUserAnswerVoteResponseDtos.add(loginUserAnswerVote);
-//                }
-//            }
-//        }
         loginMemberVoteInfo.setAnswerVoteStatus(loginUserAnswerVoteResponseDtos);
+        loginMemberVoteInfo.setQnaCommentVoteStatus(loginUserQnaCommentVoteResponseDtos);
+        loginMemberVoteInfo.setQnaReCommentVoteStatus(loginUserQnaReCommentVoteResponseDtos);
+
         return loginMemberVoteInfo;
     }
 
@@ -199,18 +276,13 @@ public class MemberService {
                     loginUserLectureReviewVoteInfo.setLectureReviewVoteStatus(loginUserLectureReviewVoteResponseDto);
                     break;
                 }
-            }
-        }
-
-        for (LectureReviewComment reviewComment : lectureReviewComments) {
-            for (ReviewVote reviewVote : reviewVotes) {
-                if (reviewVote.getTarget() == Vote.Target.COMMENT) {
-                    if (Objects.equals(reviewComment.getLectureReviewCommentId(), reviewVote.getLectureReviewComment().getLectureReviewCommentId())) {
-                        LoginUserLectureReviewCommentVoteResponseDto loginUserLectureReviewCommentVoteResponseDto = new LoginUserLectureReviewCommentVoteResponseDto();
-                        loginUserLectureReviewCommentVoteResponseDto.setLectureReviewCommentId(reviewVote.getLectureReviewComment().getLectureReviewCommentId());
-                        loginUserLectureReviewCommentVoteResponseDto.setVoteStatus(reviewVote.getStatus());
-                        loginUserLectureReviewCommentVoteResponseDtos.add(loginUserLectureReviewCommentVoteResponseDto);
-                    }
+            } else if (reviewVote.getTarget() == Vote.Target.COMMENT) {
+                LectureReviewComment lectureReviewComment = reviewVote.getLectureReviewComment();
+                if(lectureReviewComments.contains(lectureReviewComment)) {
+                    LoginUserLectureReviewCommentVoteResponseDto loginUserLectureReviewCommentVoteResponseDto = new LoginUserLectureReviewCommentVoteResponseDto();
+                    loginUserLectureReviewCommentVoteResponseDto.setLectureReviewCommentId(reviewVote.getLectureReviewComment().getLectureReviewCommentId());
+                    loginUserLectureReviewCommentVoteResponseDto.setVoteStatus(reviewVote.getStatus());
+                    loginUserLectureReviewCommentVoteResponseDtos.add(loginUserLectureReviewCommentVoteResponseDto);
                 }
             }
         }

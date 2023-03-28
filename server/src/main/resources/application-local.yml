@@ -5,10 +5,10 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/main027?serverTimezone=Asia/Seoul
     username: root
-    password: 12341234
+    password: 12345678
   jpa:
 #    hibernate:
-#      ddl-auto: create
+#      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -23,11 +23,9 @@ mail:
     admin: likedubu@naver.com
 
 jwt:
-#  key: ${JWT_SECRET_KEY}   # 민감한 정보는 시스템 환경 변수에서 로드한다.
-  key: davin1234123412341234123412341234
-  access-token-expiration-minutes: 30
+  key: ENC(LjuWVsYfzpKEDBb7y1w6/Q6352rGfYBVIT0qJfktJwael4SdhN5XG86bhnIkVa0c)
+  access-token-expiration-minutes: 420
   refresh-token-expiration-minutes: 420
-
 
 cloud: # AWS 계정 설정
   aws:
@@ -35,7 +33,11 @@ cloud: # AWS 계정 설정
       static: ap-northeast-2
     s3:
       credentials:
-        access-key: AKIAXPWH6LGUCFTOATC2
-        secret-key: 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
+        access-key: ENC(O/SV8aFGe4ASaXjpRb+j2yNBoDuQNcMHpmkq4hQC/sk=)
+        secret-key: ENC(lbA3Dm/e0/xvi0/M5/WkO1VKrzpKPYRf1+zdc5ocaJNF6icBJdlD2GJwXC7lZDYldorBzT2Z7qU=)
     stack:
       auto: false
+
+jasypt: #패스워드 암호화/복호화 키
+  encryptor:
+    password: ${jasypt_password}

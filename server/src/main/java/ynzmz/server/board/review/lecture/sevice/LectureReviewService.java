@@ -5,12 +5,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.board.review.lecture.repository.LectureReviewRepository;
-import ynzmz.server.error.exception.BusinessLogicException;
-import ynzmz.server.error.exception.ExceptionCode;
-import ynzmz.server.lecture.entity.Lecture;
-import ynzmz.server.teacher.entity.Teacher;
+import ynzmz.server.global.error.exception.BusinessLogicException;
+import ynzmz.server.global.error.exception.ExceptionCode;
+import ynzmz.server.board.lecture.entity.Lecture;
+import ynzmz.server.board.teacher.entity.Teacher;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +53,7 @@ public class LectureReviewService {
         return lectureReviewRepository.findByMemberId(memberId);
     }
 
+    @Transactional
     public void deleteLectureReview(long lectureReviewId) {
         lectureReviewRepository.deleteById(lectureReviewId);
     }
@@ -60,6 +62,10 @@ public class LectureReviewService {
     public LectureReview findLectureReviewById(long lectureReviewId) {
         Optional<LectureReview> lectureReviewPost = lectureReviewRepository.findById(lectureReviewId);
         return lectureReviewPost.orElseThrow(() -> new BusinessLogicException(ExceptionCode.LECTURE_REVIEW_NOT_FOUND));
+    }
+
+    public Optional<LectureReview> findOptionalLectureReviewById(long lectureReviewId) {
+        return lectureReviewRepository.findById(lectureReviewId);
     }
 
     public Map<String,Long> findStarPointCountByTeacher(Teacher teacher) {

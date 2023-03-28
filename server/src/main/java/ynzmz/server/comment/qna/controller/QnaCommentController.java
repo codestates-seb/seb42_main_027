@@ -11,9 +11,11 @@ import ynzmz.server.comment.qna.dto.QnaCommentDto;
 import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.comment.qna.mapper.QnaCommentMapper;
 import ynzmz.server.comment.qna.service.QnaCommentService;
-import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.member.service.MemberService;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/comments/qnas")
@@ -67,9 +69,11 @@ public class QnaCommentController {
     }
 
     @DeleteMapping("/{qna-comment-id}")
-    public void deleteQnaComment(@PathVariable("qna-comment-id") long qnaCommentId) {
+    public ResponseEntity<?> deleteQnaComment(@PathVariable("qna-comment-id") long qnaCommentId) {
         memberService.memberValidation(loginMemberFindByToken(), qnaCommentService.findQnaCommentById(qnaCommentId).getMember().getMemberId());
         qnaCommentService.deleteQnaComment(qnaCommentId);
+        Optional<QnaComment> deletedQnaComment = qnaCommentService.findOptionalQnaCommentById(qnaCommentId);
+        return deletedQnaComment.isEmpty() ? new ResponseEntity<>("삭제완료",HttpStatus.OK) : new ResponseEntity<>("삭제실패",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private Member loginMemberFindByToken(){

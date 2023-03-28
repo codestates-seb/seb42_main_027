@@ -64,16 +64,16 @@ public class QnaVoteService {
 
     public QnaVote findQnaVoteTargetAnswer(Answer answer, Member member){
         Optional<QnaVote> findQuestionVote = qnaVoteRepository.findByAnswerAndMemberAndTarget(answer, member, Vote.Target.ANSWER);
-        return findQuestionVote.orElseGet(()-> new QnaVote(answer, member, Vote.Status.NONE, Vote.Target.QUESTION));
+        return findQuestionVote.orElseGet(()-> new QnaVote(answer, member, Vote.Status.NONE, Vote.Target.ANSWER));
     }
 
     public QnaVote findQnaVoteTargetComment(QnaComment qnaComment, Member member){
-        Optional<QnaVote> findQuestionVote = qnaVoteRepository.findByQnaCommentAndMemberAndTarget(qnaComment, member, Vote.Target.QUESTION);
+        Optional<QnaVote> findQuestionVote = qnaVoteRepository.findByQnaCommentAndMemberAndTarget(qnaComment, member, Vote.Target.COMMENT);
         return findQuestionVote.orElseGet(()-> new QnaVote(qnaComment, member, Vote.Status.NONE, Vote.Target.COMMENT));
     }
 
     public QnaVote findQnaVoteTargetReComment(QnaReComment qnaReComment, Member member){
-        Optional<QnaVote> findQuestionVote = qnaVoteRepository.findByQnaReCommentAndMemberAndTarget(qnaReComment, member, Vote.Target.QUESTION);
+        Optional<QnaVote> findQuestionVote = qnaVoteRepository.findByQnaReCommentAndMemberAndTarget(qnaReComment, member, Vote.Target.RECOMMENT);
         return findQuestionVote.orElseGet(()-> new QnaVote(qnaReComment, member, Vote.Status.NONE, Vote.Target.RECOMMENT));
     }
 

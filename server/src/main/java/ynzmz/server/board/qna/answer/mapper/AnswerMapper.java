@@ -9,7 +9,7 @@ import ynzmz.server.board.qna.answer.dto.AnswerDto;
 import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.tag.dto.SubjectTagDto;
 import ynzmz.server.tag.entity.SubjectTag;
-import ynzmz.server.tag.mappingtable.teacher.TeacherSubjectTag;
+import ynzmz.server.tag.entity.teacher.TeacherSubjectTag;
 
 import java.util.List;
 

@@ -1,15 +1,11 @@
 package ynzmz.server.comment.free.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.comment.free.repository.FreeCommentRepository;
-import ynzmz.server.error.exception.BusinessLogicException;
-import ynzmz.server.error.exception.ExceptionCode;
+import ynzmz.server.global.error.exception.BusinessLogicException;
+import ynzmz.server.global.error.exception.ExceptionCode;
 
 import java.util.List;
 import java.util.Optional;

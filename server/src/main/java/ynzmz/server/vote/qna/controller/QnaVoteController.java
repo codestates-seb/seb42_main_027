@@ -13,7 +13,7 @@ import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.board.qna.answer.service.AnswerService;
 import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.comment.qna.service.QnaCommentService;
-import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.qna.question.service.QuestionService;
 import ynzmz.server.member.entity.Member;
@@ -43,8 +43,8 @@ public class QnaVoteController {
 
         Question question = questionService.findQuestionById(questionId);
         Member member = loginMemberFindByToken();
-
         QnaVote qnaVote = qnaVoteService.findQnaVoteTargetQuestion(question, member); // 현재 상태값 불러오기
+
         QnaVote voteUp = qnaVoteService.qnaVoteUp(question, qnaVote);
 
         QnaVoteDto.QuestionResponse response = qnaVoteMapper.qnaVoteToQuestionResponse(voteUp);

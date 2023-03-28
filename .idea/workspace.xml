@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="21e0b4a1-1309-4891-a3a3-777e2c29c93a" name="변경" comment="fix: Table 변경값 반영">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/server">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/server">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="server" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="server" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="server" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="BeDev" />
+      </map>
+    </option>
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="11a48d9a-aece-4caf-a316-9f3712026e2c" />
+        <option name="url" value="https://github.com/codestates-seb/seb42_main_027.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/5.3.25/1c1a05f9e56b8cee98d71c3d610f177f17b3f73d/spring-web-5.3.25-sources.jar!/org/springframework/http/HttpStatus.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2NSm3Gto32UGm4dIxmnkMWsrsLq" />
+  <component name="ProjectViewState">
+    <option name="compactDirectories" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showScratchesAndConsoles" value="false" />
+    <option name="showVisibilityIcons" value="true" />
+    <option name="sortByType" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;문제&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.37241378&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;f388e2a0991e057a0316947c380806f0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ynzmz.server.board" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="ynzmz.server.s3" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ynzmz.server" />
+      <recent name="ynzmz.server.vote.qna.dto" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.server [clean]">
+    <configuration name="server [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/server" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="server [clean]" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/server" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ACTIVE_PROFILES" value="server" />
+      <envs>
+        <env name="jasypt_password" value="minomino" />
+      </envs>
+      <module name="server.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ynzmz.server.ServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.server [build]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="21e0b4a1-1309-4891-a3a3-777e2c29c93a" name="변경" comment="" />
+      <created>1679665657071</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679665657071</updated>
+      <workItem from="1679665658087" duration="37572000" />
+      <workItem from="1679753992614" duration="5648000" />
+      <workItem from="1679848944257" duration="5740000" />
+      <workItem from="1679863894462" duration="28088000" />
+    </task>
+    <task id="LOCAL-00001" summary="feat: S3 저장시 경로/이름지정 로직추가">
+      <created>1679674868199</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1679674868200</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat: 강사삭제시 이미지 삭제 추가">
+      <created>1679679795319</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1679679795319</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: 질문삭제시 S3업로드된 파일 삭제코드 추가,&#10;리뷰수정시 본인확인로직 추가&#10;fix: 강사, 강의 패키지이동 및 url 수정(Board 내부),&#10;질문,답변,자유게시판 본문글 타입 varchar -&gt; MEDIUMTEXT 변경,&#10;게시글 본인확인 실패시 Exception 코드 변경 (404-&gt;403), Teacher Entity imageUrl 삭제 및 profileImageUrl,realImageUrl 추가">
+      <created>1679731620958</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1679731620958</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix: 강의리뷰게시판 글,댓글 추천시 response값 변경 (필드명변경 및 불필요한데이터 분리)">
+      <created>1679731715356</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1679731715356</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fix: Qna게시판 질문글,답변글 리뷰게시판 강의리뷰글 수정,삭제,등록시 본인확인코드 추가 및 코드통일&#10;답변조회 등 불필요한코드 삭제">
+      <created>1679732989307</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1679732989307</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fix: 강사,강의 삭제 코드통일">
+      <created>1679734476431</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1679734476431</updated>
+    </task>
+    <task id="LOCAL-00007" summary="fix: 질문글 수정사항변경, qna게시판 댓글,대댓글 삭제 코드통일">
+      <created>1679735873257</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1679735873257</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat: 질문게시판 디테일 로그인유저 추천상태값 코드추가">
+      <created>1679753785178</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1679753785178</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fix: Tag관련 코드정리">
+      <created>1679759280039</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1679759280040</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: 암호관련 jasypt 추가">
+      <created>1679870107388</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1679870107388</updated>
+    </task>
+    <task id="LOCAL-00011" summary="merge: jasypt 추가">
+      <created>1679892620427</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1679892620427</updated>
+    </task>
+    <task id="LOCAL-00012" summary="merge: 3/27 민호병합 준비">
+      <created>1679892693231</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1679892693231</updated>
+    </task>
+    <task id="LOCAL-00013" summary="merge: 3/27 민호병합">
+      <created>1679892811755</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1679892811755</updated>
+    </task>
+    <task id="LOCAL-00014" summary="merge: 3/27 민호병합">
+      <created>1679893358019</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1679893358019</updated>
+    </task>
+    <task id="LOCAL-00015" summary="feat: S3-DB 파일 연동 테이블 생성 및 Quest 파일등록,수정,삭제시 연동테이블,S3파일 등록,수정,삭제 코드구현">
+      <created>1679937368743</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1679937368743</updated>
+    </task>
+    <task id="LOCAL-00016" summary="fix: Table 변경사항 전체 flyway 반영후 초기화">
+      <created>1679939947887</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1679939947887</updated>
+    </task>
+    <task id="LOCAL-00017" summary="merge: 민호+석준 병합">
+      <created>1679940095023</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1679940095024</updated>
+    </task>
+    <task id="LOCAL-00018" summary="feat: LectureReview S3파일 동기화 설정(등록,수정,삭제)">
+      <created>1679940993597</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1679940993597</updated>
+    </task>
+    <task id="LOCAL-00019" summary="feat: Teacher,Answer S3파일 동기화 코드추가">
+      <created>1679943023845</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1679943023845</updated>
+    </task>
+    <task id="LOCAL-00020" summary="fix: Table 변경값 반영">
+      <created>1679943274705</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1679943274705</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/BeDev" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: S3 저장시 경로/이름지정 로직추가" />
+    <MESSAGE value="feat: 강사삭제시 이미지 삭제 추가" />
+    <MESSAGE value="feat: 질문삭제시 S3업로드된 파일 삭제코드 추가,&#10;리뷰수정시 본인확인로직 추가&#10;fix: 강사, 강의 패키지이동 및 url 수정(Board 내부),&#10;질문,답변,자유게시판 본문글 타입 varchar -&gt; MEDIUMTEXT 변경,&#10;게시글 본인확인 실패시 Exception 코드 변경 (404-&gt;403), Teacher Entity imageUrl 삭제 및 profileImageUrl,realImageUrl 추가" />
+    <MESSAGE value="fix: 강의리뷰게시판 글,댓글 추천시 response값 변경 (필드명변경 및 불필요한데이터 분리)" />
+    <MESSAGE value="fix: Qna게시판 질문글,답변글 리뷰게시판 강의리뷰글 수정,삭제,등록시 본인확인코드 추가 및 코드통일&#10;답변조회 등 불필요한코드 삭제" />
+    <MESSAGE value="fix: 강사,강의 삭제 코드통일" />
+    <MESSAGE value="fix: 질문글 수정사항변경, qna게시판 댓글,대댓글 삭제 코드통일" />
+    <MESSAGE value="feat: 질문게시판 디테일 로그인유저 추천상태값 코드추가" />
+    <MESSAGE value="fix: Tag관련 코드정리" />
+    <MESSAGE value="feat: 암호관련 jasypt 추가" />
+    <MESSAGE value="merge: jasypt 추가" />
+    <MESSAGE value="merge: 3/27 민호병합 준비" />
+    <MESSAGE value="merge: 3/27 민호병합" />
+    <MESSAGE value="feat: S3-DB 파일 연동 테이블 생성 및 Quest 파일등록,수정,삭제시 연동테이블,S3파일 등록,수정,삭제 코드구현" />
+    <MESSAGE value="fix: Table 변경사항 전체 flyway 반영후 초기화" />
+    <MESSAGE value="merge: 민호+석준 병합" />
+    <MESSAGE value="feat: LectureReview S3파일 동기화 설정(등록,수정,삭제)" />
+    <MESSAGE value="feat: Teacher,Answer S3파일 동기화 코드추가" />
+    <MESSAGE value="fix: Table 변경값 반영" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: Table 변경값 반영" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/ynzmz/server/vote/qna/controller/QnaVoteController.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
