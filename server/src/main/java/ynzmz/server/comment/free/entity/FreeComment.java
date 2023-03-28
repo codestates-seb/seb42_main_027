@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
 import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.vote.Vote;
+import ynzmz.server.vote.free.entity.FreeVote;
 import ynzmz.server.vote.qna.entity.QnaVote;
 
 import javax.persistence.*;
@@ -39,7 +40,7 @@ public class FreeComment implements Vote {
     private Member member;
     @OneToMany(mappedBy = "freeComment", cascade = CascadeType.REMOVE)
     @JsonManagedReference
-    private List<QnaVote> freeVotes = new ArrayList<>();
+    private List<FreeVote> freeVotes = new ArrayList<>();
     @Column
     @ColumnDefault("false")
     private boolean memberSim;
