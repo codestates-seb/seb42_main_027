@@ -74,42 +74,54 @@ function ScoreChart({
   // });
 
   return (
-    <FlexContainer>
+    <FlexContainer gap="0">
+      {/* 강의 만족도 */}
       <ChartBox>
         <SmallFont>수강만족도</SmallFont>
         <BigFont>{starPointAverage.toFixed(1)}</BigFont>
         <BigFont>⭐️⭐️⭐️⭐️⭐️</BigFont>
         <SmallFont>{`${totalReviewCount} Reviews`}</SmallFont>
       </ChartBox>
+      {/* 그래프 */}
       <ChartBox leftBorder align="start">
         {scoreArr.map((el, index) => {
+          const score = starPointCount[`${el}점갯수`];
           return (
             <FlexContainer key={index}>
-              <SmallFont>{`${el}점`}</SmallFont>
-              <ScoreBox />
-              <SmallFont>
-                {totalStarCount ? `${starPointCount[`${el}점갯수`]}` : '0'}
-              </SmallFont>
+              <ScoreFont>{`${el}점`}</ScoreFont>
+              <ScoreBox
+                percent={
+                  starPointCount[`${el}점갯수`]
+                    ? (score / totalStarCount) * 100
+                    : 0
+                }
+              />
+              <ScoreFont>{totalStarCount ? `${score}` : '0'}</ScoreFont>
             </FlexContainer>
           );
         })}
       </ChartBox>
-      <ChartBox>
-        <FlexContainer dir="col" height="100%">
+      {/* 리뷰 3개 */}
+      <ChartBox align="start">
+        <FlexContainer dir="col" align="start">
           {lectures.map((el, index) => {
-            if (index > 2) return; // 강의 리뷰는 3개까지 뿌림
+            if (index > 4) return; // 강의 리뷰는 5개까지 뿌림
             return (
-              <FlexContainer key={index}>
+              <FlexContainer key={index} align="start">
                 <SmallFont>
                   {el.lectureReviews.length
-                    ? `⭐️${el.lectureReviews[0].starPoint}`
+                    ? `⭐️ ${el.lectureReviews[0].starPoint}`
                     : null}
                 </SmallFont>
-                <SmallFont>
+                <VerySmallFont>
                   {el.lectureReviews.length
-                    ? `${el.lectureReviews[0].content.slice(0, 7)}...`
+                    ? `${
+                        el.lectureReviews[0].title.length > 13
+                          ? `${el.lectureReviews[0].title.slice(0, 13)}...`
+                          : el.lectureReviews[0].title
+                      }`
                     : null}
-                </SmallFont>
+                </VerySmallFont>
               </FlexContainer>
             );
           })}
@@ -126,7 +138,12 @@ type ChartBox = {
   align?: string;
 };
 
+type ScoreBox = {
+  percent?: number;
+};
+
 const ChartBox = styled.div<ChartBox>`
+  width: 20rem;
   padding: 0 2rem;
   display: flex;
   flex-direction: column;
@@ -136,7 +153,7 @@ const ChartBox = styled.div<ChartBox>`
   border-left: ${props => (props.leftBorder ? '1px solid gray' : '')};
 `;
 
-const ScoreBox = styled.div<ChartBox>`
+const ScoreBox = styled.div<ScoreBox>`
   width: 170px;
   height: 30px;
   border-radius: 1rem;
@@ -144,5 +161,22 @@ const ScoreBox = styled.div<ChartBox>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: gray;
+  background: ${props =>
+    props.percent
+      ? `linear-gradient(to right, #6667ab ${props.percent}% , #b2b2b2 0%)`
+      : '#b2b2b2'};
+  /* background: linear-gradient(to right, red 1%, #b2b2b2 0%); */
+`;
+
+const VerySmallFont = styled.span`
+  font-size: 0.8rem;
+`;
+
+const ScoreFont = styled.span`
+  width: 1.5rem;
+  color: gray;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

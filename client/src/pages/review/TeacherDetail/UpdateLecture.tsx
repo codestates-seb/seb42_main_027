@@ -82,7 +82,8 @@ function UpdateLecture() {
     '영어',
     '수학',
     '한국사',
-    '경제/정.법',
+    '경제',
+    '정법',
     '지리',
     '윤리',
     '역사',
@@ -126,8 +127,7 @@ function UpdateLecture() {
       !title ||
       !subjectTag.length ||
       !gradeTag.length ||
-      !platformTag.length ||
-      !introduction
+      !platformTag.length
     ) {
       alert('빈 곳을 채워주세요!');
     } else {

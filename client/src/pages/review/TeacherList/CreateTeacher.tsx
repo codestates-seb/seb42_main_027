@@ -73,8 +73,8 @@ function CreateTeacher() {
       !introduction ||
       !profile.length ||
       !analects.length ||
-      !profileImage ||
-      !realImage
+      !profileImage
+      // !realImage
     ) {
       alert('빈 곳을 채워주세요!');
     } else {

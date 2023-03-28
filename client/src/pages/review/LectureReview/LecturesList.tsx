@@ -59,8 +59,6 @@ function LecturesList() {
   const [isPending, setIsPending] = useState(true);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    setIsPending(true);
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/boards/lectures?${

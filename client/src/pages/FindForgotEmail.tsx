@@ -181,7 +181,12 @@ function FindForgotEmail() {
   };
 
   const handleClickLoginBtn = () => {
-    navigate('/login');
+    setTimeout(() => {
+      navigate('/');
+    }, 100);
+    setTimeout(() => {
+      navigate('/login');
+    }, 200);
   };
   const handleClickFindPasswordBtn = () => {
     navigate('/findpassword');

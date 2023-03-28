@@ -25,8 +25,13 @@ function UpdateTeacher() {
   const [introduction, setIntroduction] = useState<string>('');
   const [profile, setProfile] = useState<string>('');
   const [analects, setAnalects] = useState<string>('');
-  const [imageUrl, setImageUrl] = useState<string>('none');
   const [starPointAverage, setStarPointAverage] = useState<number>(4.2);
+  const [profileImage, setProfileImage] = useState<string>();
+  const [profilePreview, setProfilePreview] = useState(
+    'http://placehold.it/340X240',
+  );
+  const [realImage, setRealImage] = useState<string>();
+  const [realPreview, setRealPreview] = useState('http://placehold.it/340X240');
 
   const navigate = useNavigate();
   const { teacherId } = useParams();
@@ -79,24 +84,21 @@ function UpdateTeacher() {
       .then(data => {
         setName(data.name);
         setIntroduction(data.introduction);
-        setImageUrl(data.imageUrl);
         setStarPointAverage(data.starPointAverage);
-
+        setProfileImage(data.profileImageUrl);
+        setRealImage(data.realImageUrl);
         setProfile(data.profile.join('\n'));
         setAnalects(data.analects.join('\n'));
-
         setGradeTag(
           data.gradeTags.map((el: any) => {
             return el.gradeTag;
           }),
         );
-
         setSubjectTag(
           data.subjectTags.map((el: any) => {
             return el.subjectTag;
           }),
         );
-
         setPlatformTag(
           data.platformTags.map((el: any) => {
             return el.platformTag;
@@ -113,26 +115,31 @@ function UpdateTeacher() {
       !platformTag.length ||
       !introduction ||
       !profile.length ||
-      !analects.length ||
-      !imageUrl
+      !analects.length
     ) {
       alert('빈 곳을 채워주세요!');
     } else {
       const data = {
         name,
-        subjectTag,
-        gradeTag,
-        platformTag,
         introduction,
         profile: profile.split('\n'),
         analects: analects.split('\n'),
-        imageUrl,
+        profileImageUrl: profileImage,
+        realImageUrl: realImage,
+        subjectTag,
+        gradeTag,
+        platformTag,
       };
 
       axios
         .patch(
           `${process.env.REACT_APP_API_URL}/boards/teachers/${teacherId}`,
           data,
+          {
+            headers: {
+              'ngrok-skip-browser-warning': 'asdasdas',
+            },
+          },
         )
         .then(res => {
           console.log(res);
@@ -146,7 +153,80 @@ function UpdateTeacher() {
       <GlobalStyle />
       <FlexContainer dir="col">
         <CardContainer>
-          <Img src="http://placehold.it/200X200" alt="dummyImage" />
+          {/* 프로필 사진 */}
+          <FlexContainer dir="col" align="start">
+            <label htmlFor="profile">프로필 사진</label>
+            <input
+              id="profile"
+              type="file"
+              accept="image/*"
+              onChange={(e: any) => {
+                if (e.target.files.length) {
+                  console.log(e.target.files[0]);
+                  const formData = new FormData();
+                  formData.append('image', e.target.files[0]);
+                  formData.append('filePath', 'boards/teachers/profile-images');
+
+                  axios
+                    .post(`${process.env.REACT_APP_API_URL}/upload`, formData, {
+                      headers: {
+                        'ngrok-skip-browser-warning': 'asdasdas',
+                      },
+                    })
+                    .then(res => res.data.data)
+                    .then((data: string) => {
+                      setProfileImage(data);
+                    });
+
+                  const fileReader = new FileReader();
+                  fileReader.readAsDataURL(e.target.files[0]);
+                  fileReader.onload = (e: any) => {
+                    setProfilePreview(e.target.result);
+                  };
+                } else {
+                  setProfileImage('');
+                  setProfilePreview('http://placehold.it/340X240');
+                }
+              }}
+            />
+            <Img src={profilePreview} />
+          </FlexContainer>
+          {/* 실제 사진 */}
+          <FlexContainer dir="col" align="start">
+            <label htmlFor="real">실제 사진</label>
+            <input
+              id="real"
+              type="file"
+              accept="image/*"
+              onChange={(e: any) => {
+                if (e.target.files.length) {
+                  const formData = new FormData();
+                  formData.append('image', e.target.files[0]);
+                  formData.append('filePath', 'boards/teachers/real-images');
+                  axios
+                    .post(`${process.env.REACT_APP_API_URL}/upload`, formData, {
+                      headers: {
+                        'ngrok-skip-browser-warning': 'asdasdas',
+                      },
+                    })
+                    .then(res => res.data.data)
+                    .then((data: any) => {
+                      setRealImage(data);
+                    });
+
+                  const fileReader = new FileReader();
+                  fileReader.readAsDataURL(e.target.files[0]);
+                  fileReader.onload = (e: any) => {
+                    setRealPreview(e.target.result);
+                  };
+                } else {
+                  setRealImage('');
+                  setRealPreview('http://placehold.it/340X240');
+                }
+              }}
+            />
+            <Img src={realPreview} />
+          </FlexContainer>
           <ColumDiv>
             <label htmlFor="name">강사명</label>
             <Input

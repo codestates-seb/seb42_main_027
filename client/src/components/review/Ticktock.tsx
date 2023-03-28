@@ -1,9 +1,11 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable consistent-return */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/button-has-type */
 /* eslint-disable import/no-unresolved */
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GiAlarmClock } from 'react-icons/gi';
 import { FaBed } from 'react-icons/fa';
 import { BiArrowBack } from 'react-icons/bi';
@@ -25,12 +27,68 @@ function Ticktock() {
   const [attendList, setAttendList] = useState<Time[]>(
     JSON.parse(getItemWithExpireTime('attendList')) || [],
   );
+  const [studyTime, setStudyTime] = useState<number>(
+    JSON.parse(getItemWithExpireTime('studyTime')) || 0,
+  );
 
   const { userInfo } = useUserInfoStore(state => state);
+  const today = new Date();
+  const tomorrow = new Date(today.setDate(today.getDate() + 1));
+  const tomorrowZero = new Date(tomorrow.setHours(24, 0, 0, 0));
+  const differ = Math.floor(tomorrowZero.getTime() - today.getTime());
+
+  useEffect(() => {
+    if (!toggle && attendList.length) {
+      setStudyTime(
+        studyTime +
+          timeCalc(
+            attendList[attendList.length - 2].attend,
+            attendList[attendList.length - 1].attend,
+          ),
+      );
+      setItemWithExpireTime(
+        'studyTime',
+        JSON.stringify(
+          studyTime +
+            timeCalc(
+              attendList[attendList.length - 2].attend,
+              attendList[attendList.length - 1].attend,
+            ),
+        ),
+        differ,
+      );
+    }
+  }, [toggle]);
 
   const openHandler = () => {
     setIsOpen(!isOpen);
     setIsOpen2(!isOpen2);
+  };
+
+  const timeCalc = (start: string, end: string) => {
+    const startSplit = start.split(':');
+    const endSplit = end.split(':');
+
+    const startTime =
+      Number(startSplit[0]) * 3600 +
+      Number(startSplit[1]) * 60 +
+      Number(startSplit[2]);
+    const endTime =
+      Number(endSplit[0]) * 3600 +
+      Number(endSplit[1]) * 60 +
+      Number(endSplit[2]);
+
+    return endTime - startTime;
+  };
+
+  const timePresent = (time: number) => {
+    const hour = time > 3600 ? Math.floor(time / 3600) : 0;
+    time -= hour * 3600;
+    const min = time > 60 ? Math.floor(time / 60) : 0;
+    time -= min * 60;
+    const sec = time;
+
+    return `${hour ? `${hour}시간 ` : ''} ${min ? `${min}분 ` : ''} ${sec}초`;
   };
 
   function setItemWithExpireTime(
@@ -39,16 +97,27 @@ function Ticktock() {
     tts: number,
   ) {
     // localStorage에 저장할 객체
-    const obj = {
-      value: keyValue,
-      expire: Date.now() + tts,
-    };
+    if (window.localStorage.getItem(keyName)) {
+      const objString = window.localStorage.getItem(keyName);
+      if (!objString) {
+        return null;
+      }
+      const obj = JSON.parse(objString);
+      obj.value = keyValue;
+      const objString2 = JSON.stringify(obj);
+      window.localStorage.setItem(keyName, objString2);
+    } else {
+      const obj = {
+        value: keyValue,
+        expire: Date.now() + tts,
+      };
 
-    // 객체를 JSON 문자열로 변환
-    const objString = JSON.stringify(obj);
+      // 객체를 JSON 문자열로 변환
+      const objString = JSON.stringify(obj);
 
-    // setItem
-    window.localStorage.setItem(keyName, objString);
+      // setItem
+      window.localStorage.setItem(keyName, objString);
+    }
   }
 
   function getItemWithExpireTime(keyName: string) {
@@ -109,17 +178,14 @@ function Ticktock() {
               const attend = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
               setToggle(!toggle);
-              setItemWithExpireTime(
-                'toggle',
-                JSON.stringify(!toggle),
-                86400000,
-              );
+              setItemWithExpireTime('toggle', JSON.stringify(!toggle), differ);
 
               setAttendList([...attendList, { status, attend }]);
+
               setItemWithExpireTime(
                 'attendList',
                 JSON.stringify([...attendList, { status, attend }]),
-                86400000,
+                differ,
               );
 
               setTimeout(() => {
@@ -139,21 +205,56 @@ function Ticktock() {
       ) : null}
       {isOpen2 ? (
         <AttendanceContainer>
-          <FlexContainer width="100%" justify="start" padding="1rem 1rem">
-            <button onClick={openHandler}>
+          <FlexContainer
+            width="100%"
+            justify="space-between"
+            padding="1rem 1rem 0 1rem"
+            gap="1.5rem"
+          >
+            <StudySpan onClick={openHandler}>
               <BiArrowBack />
-            </button>
+            </StudySpan>
+            <StudyTitleSpan>오늘 공부 내역</StudyTitleSpan>
+            <StudySpan
+              onClick={() => {
+                setIsOpen(false);
+                setIsOpen2(false);
+              }}
+            >
+              X
+            </StudySpan>
           </FlexContainer>
+          <FlexContainer>{timePresent(studyTime)}</FlexContainer>
+          <FlexContainer padding="0 0 1rem 0">{`${today.getFullYear()}.${
+            today.getMonth() + 1
+          }.${today.getDate()}`}</FlexContainer>
+
+          <FlexContainer
+            width="100%"
+            justify="space-evenly"
+            padding="0 0 0.5rem 0"
+            borderBottom="0.5px solid white"
+          >
+            <StudyTitleSpan>분류</StudyTitleSpan>
+            <StudyTitleSpan>시간</StudyTitleSpan>
+          </FlexContainer>
+
           {attendList.map((el, index) => {
             return (
               <FlexContainer
-                width="50%"
-                justify="start"
+                width="100%"
+                justify="center"
                 gap="1.5rem"
                 key={index}
               >
-                <span>{el.status}</span>
-                <span>{el.attend}</span>
+                <FlexContainer width="5rem">{el.status}</FlexContainer>
+                <FlexContainer
+                  padding="0 0 0 0.7rem"
+                  width="5rem"
+                  justify="start"
+                >
+                  {el.attend}
+                </FlexContainer>
               </FlexContainer>
             );
           })}
@@ -221,7 +322,7 @@ const AttendanceContainer = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.5rem;
   cursor: default;
 
   overflow: auto;
@@ -265,4 +366,20 @@ const Button = styled.button`
   background-color: ${theme.colors.pointColor};
   color: white;
   cursor: pointer;
+`;
+
+const StudyTitleSpan = styled.span`
+  font-size: large;
+  font-weight: bold;
+  color: white;
+`;
+
+const StudySpan = styled.span`
+  font-size: large;
+  font-weight: bold;
+  color: white;
+
+  :hover {
+    color: red;
+  }
 `;

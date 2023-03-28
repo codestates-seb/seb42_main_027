@@ -11,7 +11,6 @@ import Loading from 'components/review/Loading';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from 'components/common/Button';
-import isLogin from 'utils/isLogin';
 import { Link } from 'react-router-dom';
 import useUserInfoStore from 'stores/userInfoStore';
 
@@ -60,7 +59,6 @@ function ReviewPage() {
   const { userInfo } = useUserInfoStore(state => state);
 
   useEffect(() => {
-    setIsPending(true);
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/boards/teachers?${
