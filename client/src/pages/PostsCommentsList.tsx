@@ -7,9 +7,10 @@ const ListContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   width: 60%;
-  /* height: 100vh; */
+  height: 100%;
   background-color: #f9fbfc;
-  margin-bottom: 8rem;
+  padding-bottom: 8rem;
+  overflow: auto;
 `;
 
 type PostsCommentsListProps = {

@@ -17,7 +17,7 @@ const UserCardContainer = styled.div`
   align-items: center;
   width: 35rem;
   /* margin: 0 auto */
-  padding: 0 8rem;
+  /* padding: 0 8rem; */
   height: 100%;
   box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1);
   border-left: 0.1rem solid rgb(235, 235, 235);

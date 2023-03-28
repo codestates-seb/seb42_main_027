@@ -20,8 +20,8 @@ const PostListContainer = styled.div`
   padding: 1rem;
   width: 50rem;
 
-  @media screen and (max-width: 1919px) {
-    width: 30rem;
+  @media screen and (max-width: 1590px) {
+    width: 27rem;
   }
 `;
 
