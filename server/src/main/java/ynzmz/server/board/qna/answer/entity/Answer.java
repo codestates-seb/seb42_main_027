@@ -47,7 +47,7 @@ public class Answer implements Vote {
     @Column
     private List<String> uploadImages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<QnaComment> comments = new ArrayList<>();
 
