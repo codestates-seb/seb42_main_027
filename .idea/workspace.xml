@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21e0b4a1-1309-4891-a3a3-777e2c29c93a" name="변경" comment="fix: Teacher S3 동기화 테이블 삭제코드추가" />
+    <list default="true" id="21e0b4a1-1309-4891-a3a3-777e2c29c93a" name="변경" comment="fix: 테이블 변경사항 반영(댓글갯수), 이벤트 id 타입수정" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,7 +58,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="BeDev" />
+        <entry key="$PROJECT_DIR$" value="Be_KMH" />
       </map>
     </option>
   </component>
@@ -176,7 +176,7 @@
       <method v="2" />
     </configuration>
     <configuration name="ServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <option name="ACTIVE_PROFILES" value="server" />
+      <option name="ACTIVE_PROFILES" value="local" />
       <envs>
         <env name="jasypt_password" value="minomino" />
       </envs>
@@ -353,7 +353,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679945392532</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="fix: 테이블 변경사항 반영(댓글갯수), 이벤트 id 타입수정">
+      <created>1679999651159</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1679999651159</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -403,7 +410,8 @@
     <MESSAGE value="feat: Teacher,Answer S3파일 동기화 코드추가" />
     <MESSAGE value="fix: Table 변경값 반영" />
     <MESSAGE value="fix: Teacher S3 동기화 테이블 삭제코드추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: Teacher S3 동기화 테이블 삭제코드추가" />
+    <MESSAGE value="fix: 테이블 변경사항 반영(댓글갯수), 이벤트 id 타입수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 테이블 변경사항 반영(댓글갯수), 이벤트 id 타입수정" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
