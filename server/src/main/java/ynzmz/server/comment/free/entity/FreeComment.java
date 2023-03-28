@@ -1,6 +1,7 @@
 package ynzmz.server.comment.free.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
@@ -8,8 +9,11 @@ import org.springframework.lang.Nullable;
 import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.vote.Vote;
+import ynzmz.server.vote.qna.entity.QnaVote;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -33,7 +37,9 @@ public class FreeComment implements Vote {
     @JsonBackReference
     @Nullable
     private Member member;
-
+    @OneToMany(mappedBy = "freeComment", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<QnaVote> freeVotes = new ArrayList<>();
     @Column
     @ColumnDefault("false")
     private boolean memberSim;

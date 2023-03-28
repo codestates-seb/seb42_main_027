@@ -68,9 +68,9 @@ public class Free implements Vote  {
     private int commentsListNum = comments.size();
 
 
-    @OneToMany(mappedBy = "lectureReview", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "free", cascade = CascadeType.REMOVE)
     @JsonManagedReference
-    private List<ReviewVote> reviewVotes = new ArrayList<>();
+    private List<ReviewVote> freeVotes = new ArrayList<>();
 
 
 }
