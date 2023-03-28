@@ -21,7 +21,7 @@ interface AnswerData {
   voteCount: number;
   createdAt: string;
   modifiedAt: string | null;
-  adoptStatus: boolean;
+  adoptStatus: string;
   answerCount: number;
   member: {
     memberId: number;
@@ -66,10 +66,12 @@ function AnswerContent({ data }: Props) {
     <Container>
       <TitleDiv>
         <Top>
-          <div>
+          <CategoryDiv>
             <Category>답변</Category>
-            {data.adoptStatus ? <Category>답변채택</Category> : null}
-          </div>
+            {data.adoptStatus === 'TRUE' ? (
+              <Category className="seleted">답변채택</Category>
+            ) : null}
+          </CategoryDiv>
           {data.member.memberId === userInfo.memberId ? (
             <UDBtnDiv>
               <Link to="edit">
@@ -87,6 +89,13 @@ function AnswerContent({ data }: Props) {
       </TitleDiv>
       <MainDiv>
         <TextDiv dangerouslySetInnerHTML={{ __html: data.content }} />
+        <div>
+          {data.adoptStatus === 'TRUE' ? (
+            <BtnSelect className="selected">채택하기</BtnSelect>
+          ) : (
+            <BtnSelect>채택하기</BtnSelect>
+          )}
+        </div>
         <VoteDiv>
           <Button.VoteDownBtn>
             <CountIcon.VoteDown />
@@ -138,13 +147,13 @@ const TitleDiv = styled.div`
 const Top = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: ${theme.gap.px10};
 `;
 
-const H2 = styled.h2`
-  font-weight: bold;
-  font-size: ${theme.fontSizes.subTitle};
-  margin-bottom: ${theme.gap.px20};
+const CategoryDiv = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Writer = styled.div`
@@ -167,6 +176,12 @@ const Category = styled.div`
   color: ${theme.colors.pointColor};
   background-color: ${theme.colors.white};
   margin-bottom: 4px;
+  margin-right: 5px;
+
+  &.seleted {
+    color: ${theme.colors.white};
+    background-color: ${theme.colors.pointColor};
+  }
 `;
 
 const UDBtnDiv = styled.div`
@@ -181,6 +196,10 @@ const MainDiv = styled.div`
   flex-direction: column;
   padding: ${theme.gap.px20};
   border-bottom: 1px solid ${theme.colors.gray};
+`;
+
+const BtnSelect = styled(Button.UDWhiteBtn)`
+  width: 3.375rem;
 `;
 
 const VoteDiv = styled.div`
@@ -262,6 +281,13 @@ const TextDiv = styled.div`
     &.ql-indent-1 {
       margin-left: 3em;
     }
+  }
+  a {
+    text-decoration: underline;
+  }
+  img {
+    max-width: 50rem;
+    height: auto;
   }
 `;
 export default AnswerContent;

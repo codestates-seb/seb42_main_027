@@ -5,10 +5,11 @@ const apiUrl = process.env.REACT_APP_API_URL;
 type PostData = {
   content: string;
   createdAt: string;
+  questionId: number;
 };
 
-const PostComment = async (data: PostData, board: string, id: number) => {
-  const response = await axios.post(`${apiUrl}/comments/${board}/${id}`, data, {
+const PostAnswer = async (data: PostData) => {
+  const response = await axios.post(`${apiUrl}/boards/qnas/answers`, data, {
     headers: {
       Authorization: `${localStorage.getItem('token')}`,
       'ngrok-skip-browser-warning': '69420',
@@ -17,4 +18,4 @@ const PostComment = async (data: PostData, board: string, id: number) => {
   return response.data;
 };
 
-export default PostComment;
+export default PostAnswer;

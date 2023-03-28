@@ -28,11 +28,33 @@ function MyPage() {
   const [selectCommentCategories, setSelectCommentCategories] =
     useState('자유 게시판');
   const [sideNav, setSideNav] = useState('myProfile');
+  const [freePosts, setFreePosts] = useState([]);
+  const [freeComments, setFreeComments] = useState([]);
   const { memberId } = userInfo;
 
+  const patchFreePosts = async (id: number | null, select: string) => {
+    try {
+      // 테스트용 memberId 사용
+      const response = await getFreePosts(id, select);
+      setFreePosts(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const patchComments = async (id: number | null, select: string) => {
+    try {
+      // 테스트용 memberId 사용
+      const response = await getComment(id, select);
+      setFreeComments(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    getFreePosts(memberId, selectPostCategories);
-    getComment(memberId, selectCommentCategories);
+    patchFreePosts(memberId, selectPostCategories);
+    patchComments(memberId, selectCommentCategories);
   }, [
     selectPostCategories,
     selectCommentCategories,
@@ -49,6 +71,10 @@ function MyPage() {
         <EditUserInfo />
       ) : (
         <PostsCommentsList
+          freePosts={freePosts}
+          setFreePosts={setFreePosts}
+          freeComments={freeComments}
+          setFreeComments={setFreeComments}
           selectCommentCategories={selectCommentCategories}
           setSelectCommentCategories={setSelectCommentCategories}
           selectPostCategories={selectPostCategories}

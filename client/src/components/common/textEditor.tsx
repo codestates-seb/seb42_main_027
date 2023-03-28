@@ -10,12 +10,26 @@ const apiUrl = process.env.REACT_APP_API_URL;
 type Props = {
   textContent: string;
   setTextContent: React.Dispatch<React.SetStateAction<string>>;
+  // uploadImages?: string[] | [];
+  // setUploadImages?: React.Dispatch<React.SetStateAction<string[] | any>>;
   path: string;
 };
 
-function TextEditor({ textContent, setTextContent, path }: Props) {
+function TextEditor({
+  textContent,
+  setTextContent,
+  // uploadImages,
+  // setUploadImages,
+  path,
+}: Props) {
   const QuillRef: any = useRef();
   console.log('textContent', textContent);
+
+  // const ArrayHandler = (value: string) => {
+  //   if (uploadImages) {
+  //     return [...uploadImages, value];
+  //   }
+  // };
 
   const imageHandler = () => {
     const input = document.createElement('input');
@@ -52,8 +66,12 @@ function TextEditor({ textContent, setTextContent, path }: Props) {
             quill?.setSelection(index, 1);
             quill?.clipboard.dangerouslyPasteHTML(
               index,
-              `<img src=${url} style="max-width: 23.75rem; height: auto;" alt="사진" />`,
+              `<a target="_blank" href="${url}"><img src=${url} alt="사진" /></a>`,
             );
+            // const bufferUrl = ArrayHandler(url);
+            // if (Array.isArray(bufferUrl)) {
+            //   setUploadImages(bufferUrl);
+            // }
           }
         }
         return { ...response, success: true };
@@ -85,7 +103,7 @@ function TextEditor({ textContent, setTextContent, path }: Props) {
       <ReactQuill
         ref={QuillRef}
         theme="snow"
-        style={{ height: '100%' }}
+        style={{ width: '100%', height: '100%' }}
         modules={modules}
         value={textContent}
         onChange={setTextContent}
@@ -106,6 +124,13 @@ const TextEditorDiv = styled.div`
   }
   em {
     font-style: italic;
+  }
+  a {
+    text-decoration: underline;
+  }
+  img {
+    max-width: 50em;
+    height: auto;
   }
 `;
 

@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 
 import styled from 'styled-components';
 import theme from 'theme';
@@ -10,6 +8,7 @@ import Button from 'components/common/Button';
 import PostData from 'apis/board/postData';
 import PatchData from 'apis/board/patchData';
 import getPostDetail from 'apis/board/getPostDetail';
+import TextEditor from 'components/common/textEditor';
 import GoBackMenu from './goBackMenu';
 
 function WritePost() {
@@ -20,6 +19,7 @@ function WritePost() {
   const [category, setCategory] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [post, setPost] = useState<string>('');
+  // const [uploadImages, setUploadImages] = useState<string[] | any>([]);
   const [tag, setTag] = useState<string[] | []>([]);
 
   console.log('category', category);
@@ -37,6 +37,7 @@ function WritePost() {
           title,
           content: post,
           category,
+          // uploadImages,
           createdAt: `${new Date()}`,
         };
         if (urlData === '/fre') {
@@ -67,6 +68,7 @@ function WritePost() {
           title,
           content: post,
           category,
+          // uploadImages,
           modifiedAt: `${new Date()}`,
         };
         if (urlData === '/fre') {
@@ -103,6 +105,7 @@ function WritePost() {
         setCategory(buffer.data.category);
         setTitle(buffer.data.title);
         setPost(buffer.data.content);
+        // setUploadImages(buffer.data.uploadImages);
         setIsPending(false);
         // setTag();
       } else {
@@ -113,6 +116,7 @@ function WritePost() {
         setCategory(buffer.data.category);
         setTitle(buffer.data.title);
         setPost(buffer.data.content);
+        // setUploadImages(buffer.data.uploadImages);
         // setTag();
         setIsPending(false);
       }
@@ -126,24 +130,6 @@ function WritePost() {
       loadPostDetail();
     }
   }, []);
-
-  // 텍스트 에디터 설정 코드
-
-  const modules = useMemo(
-    () => ({
-      toolbar: {
-        container: [
-          [{ size: ['small', false, 'large', 'huge'] }],
-          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-          [{ color: [] }, { background: [] }],
-          [{ list: 'ordered' }, { list: 'bullet' }],
-          ['link', 'image'],
-        ],
-        handlers: {},
-      },
-    }),
-    [],
-  );
 
   return (
     <Container>
@@ -211,20 +197,23 @@ function WritePost() {
           <PostDiv>
             <Label htmlFor="post">내용</Label>
             <TextEditorDiv id="post">
-              <ReactQuill
-                theme="snow"
-                style={{ height: '100%' }}
-                modules={modules}
-                value={post}
-                onChange={setPost}
-                placeholder="내용을 입력해 주세요."
+              <TextEditor
+                textContent={post}
+                setTextContent={setPost}
+                // uploadImages={uploadImages}
+                // setUploadImages={setUploadImages}
+                path={
+                  urlData === '/fre'
+                    ? 'boards/frees/content'
+                    : 'boards/qnas/questions/contents'
+                }
               />
             </TextEditorDiv>
           </PostDiv>
-          <PostDiv>
+          {/* <PostDiv>
             <Label htmlFor="tag">태그</Label>
             <Input id="tag" placeholder="미구현 기능" />
-          </PostDiv>
+          </PostDiv> */}
         </Main>
       )}
       <BtnDiv>
@@ -326,8 +315,9 @@ const CancelBtn = styled(Button.FilterBtn)`
 `;
 
 const TextEditorDiv = styled.div`
+  display: flex;
+  width: 100%;
   min-height: 25rem;
-  padding-bottom: ${theme.gap.px40};
 
   white-space: pre-wrap;
   strong {
@@ -335,6 +325,9 @@ const TextEditorDiv = styled.div`
   }
   em {
     font-style: italic;
+  }
+  a {
+    text-decoration: underline;
   }
 `;
 

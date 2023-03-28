@@ -24,6 +24,7 @@ interface Data {
   };
   title: string;
   content: string;
+  uploadImages?: string[] | [];
   viewCount: number;
   voteCount: number;
   createdAt: string;

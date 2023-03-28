@@ -45,6 +45,11 @@ const WriteBtn = styled.button`
     background-color: ${theme.colors.pointColor_hover};
     border: 1px solid ${theme.colors.pointColor_hover};
   }
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    text-decoration: none;
+  }
 `;
 
 const SubMenuBtn = styled.button`
@@ -91,6 +96,12 @@ const UDWhiteBtn = styled(FilterBtn)`
   &:active {
     cursor: pointer;
     background-color: ${theme.colors.lightGray};
+  }
+  &.selected {
+    cursor: pointer;
+    color: ${theme.colors.white};
+    border: 1px solid ${theme.colors.black};
+    background-color: ${theme.colors.pointColor};
   }
 `;
 

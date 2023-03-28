@@ -4,13 +4,13 @@ import { FaUserCircle } from 'react-icons/fa';
 
 const Default = styled(FaUserCircle)`
   color: ${theme.colors.pointColor};
-  width: 30px;
-  height: 30px;
+  width: 2rem;
+  height: 2rem;
 `;
 
 const Mini = styled(Default)`
-  width: 13.33px;
-  height: 13.33px;
+  width: 1rem;
+  height: 1rem;
 `;
 
 const ProfileIcon = {

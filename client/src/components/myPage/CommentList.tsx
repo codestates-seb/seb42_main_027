@@ -152,16 +152,18 @@ type CommentsProps = {
   commentsListNum: number;
 };
 type CommentListProps = {
+  freeComments: never[];
+  setFreeComments: React.Dispatch<React.SetStateAction<never[]>>;
   selectCommentCategories: string;
   setSelectCommentCategories: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function CommentList({
+  freeComments,
+  setFreeComments,
   selectCommentCategories,
   setSelectCommentCategories,
 }: CommentListProps) {
-  const [freeComments, setFreeComments] = useState([]);
-
   const handleChangeCommentCategorie = (
     e: React.ChangeEvent<HTMLSelectElement>,
   ) => {
