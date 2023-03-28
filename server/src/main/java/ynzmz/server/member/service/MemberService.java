@@ -239,8 +239,8 @@ public class MemberService {
         updatePassword(str,memberEmail);
         MailDto mailDto = new MailDto();
         mailDto.setAddress(memberEmail); //멤버의 이메일로 보낼 주소 설정
-        mailDto.setTitle("안녕하세요. [야놀지말자] 임시 비밀번호 발급 안내 메일입니다.");
-        mailDto.setMessage("안녕하세요. [야놀지말자] 임시 비밀번호 안내 관련 이메일입니다." + "회원님의 임시 비밀번호는 "
+        mailDto.setTitle("안녕하세요. 나만의 일타강사 찾기! <일타> 임시 비밀번호 발급 안내 메일입니다.");
+        mailDto.setMessage("안녕하세요. 나만의 일타강사 찾기! <일타> 임시 비밀번호 안내 관련 이메일입니다." + "회원님의 임시 비밀번호는 "
                 + str + " 입니다." + "로그인 후 비밀번호를 변경해주세요.");
         return mailDto;
     }
@@ -277,7 +277,7 @@ public class MemberService {
         message.setSubject(mailDto.getTitle());
         message.setText(mailDto.getMessage());
         try {
-            message.setFrom(String.valueOf(new InternetAddress("likedubu@naver.com","야놀지말자")));
+            message.setFrom(String.valueOf(new InternetAddress("likedubu@naver.com","일타")));
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
