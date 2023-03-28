@@ -50,7 +50,7 @@ public class EventService {
     }
 
     public Page<Event> findAllEvents(int page, int size) {
-        return eventRepository.findAll(PageRequest.of(page, size, Sort.by("eventId")));
+        return eventRepository.findAll(PageRequest.of(page, size, Sort.by("theirId")));
     }
 
     public List<Event> findAllMegaEvents(){
