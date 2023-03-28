@@ -31,6 +31,7 @@ interface Data {
   adoptAnswerId?: number;
   viewCount: number;
   voteCount: number;
+  commentCount: number;
   answerCount: number;
   createdAt: string;
   modifiedAt: string | null;
@@ -62,6 +63,7 @@ interface AnswerData {
   answerId: number;
   content: 'string';
   voteCount: number;
+  commentCount: number;
   createdAt: string;
   modifiedAt: string | null;
   adoptStatus: string;
@@ -132,8 +134,8 @@ function PostContent() {
         };
         console.log('submit data', data);
         await PostAnswer(data);
-        alert('답변 작성을 완료하였습니다.');
-        window.location.reload();
+        setTextContent('');
+        setCheckState(!checkState);
       }
     } catch (err) {
       console.error(err);
@@ -208,8 +210,8 @@ function PostContent() {
               </Button.VoteUpBtn>
             </VoteDiv>
             <CommentContainer>
-              {/* {listData.comments.length === 0 ? null : (
-                <div>
+              {listData.commentCount === 0 ? null : (
+                <CommentViewDiv>
                   {listData.comments.map((ele: Comment) => {
                     return (
                       <CommentBlock
@@ -220,8 +222,8 @@ function PostContent() {
                       />
                     );
                   })}
-                </div>
-              )} */}
+                </CommentViewDiv>
+              )}
               {comDivIsOpen ? (
                 <CommentDiv>
                   <ComBtnDiv>
@@ -230,7 +232,10 @@ function PostContent() {
                     </Button.RecommentBtn>
                   </ComBtnDiv>
                   <WriteCommentDiv>
-                    <WriteComment />
+                    <WriteComment
+                      checkState={checkState}
+                      setCheckState={setCheckState}
+                    />
                   </WriteCommentDiv>
                 </CommentDiv>
               ) : (
@@ -276,7 +281,7 @@ function PostContent() {
                 <GuideDiv>
                   <AiOutlineExclamationCircle />
                   <div>
-                    답글을 쓰려면 <Link to="/login">로그인</Link>이 필요합니다.
+                    답변을 쓰려면 <Link to="/login">로그인</Link>이 필요합니다.
                   </div>
                 </GuideDiv>
               )}
@@ -414,6 +419,12 @@ const CommentContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+`;
+
+const CommentViewDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: ${theme.gap.px40};
 `;
 
 const CommentDiv = styled.div`

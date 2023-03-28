@@ -10,8 +10,10 @@ import StateIcon from 'assets/icons/stateIcon';
 import PostVote from 'apis/board/postVote';
 import useUserInfoStore from 'stores/userInfoStore';
 import deleteComment from 'apis/board/deleteComment';
+import PatchComment from 'apis/board/patchComment';
 import CalElapsedTime from '../post/calElapsedTime';
 import WriteComment from '../comment/writeComment';
+import EditComment from '../comment/editComment';
 // import RecommentList from './recommentList';
 
 interface Comment {
@@ -38,6 +40,8 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
   const { userInfo } = useUserInfoStore(state => state);
   const [openEdit, setOpenEidt] = useState(false);
   const [openRecom, setOpenRecom] = useState(false);
+  const [checkEdit, setCheckEdit] = useState<boolean>(false);
+  const [editData, setEditData] = useState<string>('');
 
   const calTime: string = CalElapsedTime(data.createdAt);
 
@@ -62,10 +66,29 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
     try {
       const confirm = window.confirm('댓글을 삭제하시겠습니까?');
       if (confirm) {
-        // await deleteComment('frees', Number(data.freeCommentId));
-        // alert('댓글을 삭제하였습니다.');
-        // window.location.reload();
+        await deleteComment('qnas', Number(data.qnaCommentId));
+        setCheckState(!checkState);
       }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const editHandler = () => {
+    setCheckEdit(!checkEdit);
+    setEditData(data.content);
+  };
+
+  const fetchEditComment = async () => {
+    try {
+      const patchData = {
+        content: editData,
+        modifiedAt: `${new Date()}`,
+      };
+      await PatchComment(patchData, 'qnas', Number(data.qnaCommentId));
+      setCheckEdit(!checkEdit);
+      setEditData('');
+      setCheckState(!checkState);
     } catch (err) {
       console.error(err);
     }
@@ -73,6 +96,21 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
 
   return (
     <Container>
+      {checkEdit ? (
+        <WriteCommentDiv>
+          <EditComment
+            data={data}
+            checkState={checkState}
+            setCheckState={setCheckState}
+            editData={editData}
+            setEditData={setEditData}
+          />
+        </WriteCommentDiv>
+      ) : (
+        <MainDiv>
+          <TextDiv>{data.content}</TextDiv>
+        </MainDiv>
+      )}
       <TitleDiv>
         <Writer>
           <div>
@@ -86,23 +124,36 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
           </div>
           <div> · {calTime}</div>
         </Writer>
-        {data.member.memberId === userInfo.memberId ? (
-          <UDBtnDiv>
-            <Button.UDWhiteBtn onClick={openEditHandler}>
-              수정
-            </Button.UDWhiteBtn>
-            <Button.UDWhiteBtn onClick={fetchDeleteComment}>
-              삭제
-            </Button.UDWhiteBtn>
-          </UDBtnDiv>
-        ) : null}
-      </TitleDiv>
-      <MainDiv>
-        <TextDiv>{data.content}</TextDiv>
-        <BottomDiv>
-          <Button.RecommentBtn onClick={openRecomHandler}>
-            댓글 쓰기
-          </Button.RecommentBtn>
+        <UDVDiv>
+          <RecomWriteDiv>
+            <BottomDiv>
+              <Button.RecommentBtn onClick={openRecomHandler}>
+                댓글 쓰기
+              </Button.RecommentBtn>
+            </BottomDiv>
+          </RecomWriteDiv>
+          {data.member.memberId === userInfo.memberId ? (
+            <UDBtnDiv>
+              {checkEdit ? (
+                <Button.UDWhiteBtn onClick={editHandler}>
+                  취소
+                </Button.UDWhiteBtn>
+              ) : (
+                <Button.UDWhiteBtn onClick={editHandler}>
+                  수정
+                </Button.UDWhiteBtn>
+              )}
+              {checkEdit ? (
+                <Button.UDWhiteBtn onClick={fetchEditComment}>
+                  확인
+                </Button.UDWhiteBtn>
+              ) : (
+                <Button.UDWhiteBtn onClick={fetchDeleteComment}>
+                  삭제
+                </Button.UDWhiteBtn>
+              )}
+            </UDBtnDiv>
+          ) : null}
           <VoteDiv>
             <Button.VoteDownBtn onClick={e => voteHandler('down')}>
               <CountIcon.VoteDown />
@@ -112,11 +163,11 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
               <CountIcon.VoteUp />
             </Button.VoteUpBtn>
           </VoteDiv>
-        </BottomDiv>
-      </MainDiv>
+        </UDVDiv>
+      </TitleDiv>
       {openRecom ? (
         <WriteRecomDiv>
-          <WriteComment />
+          <WriteComment checkState={checkState} setCheckState={setCheckState} />
         </WriteRecomDiv>
       ) : null}
       {/* <RecommentList /> */}
@@ -130,7 +181,7 @@ const Container = styled.div`
   width: 100%;
   padding: ${theme.gap.px20};
   padding-bottom: 0;
-  border-bottom: 1px solid ${theme.colors.gray};
+  border-top: 1px solid ${theme.colors.pointColor};
 `;
 
 const TitleDiv = styled.div`
@@ -142,6 +193,7 @@ const TitleDiv = styled.div`
 const Writer = styled.div`
   display: flex;
   align-items: center;
+  color: ${theme.colors.pointColor};
 `;
 
 const Category = styled.div`
@@ -164,17 +216,22 @@ const UDBtnDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   width: calc(${theme.gap.px40} * 2 + 6px);
+  margin-left: ${theme.gap.px20};
 `;
 
 const MainDiv = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: ${theme.gap.px20};
+  margin-bottom: ${theme.gap.px10};
+`;
+
+const RecomWriteDiv = styled(MainDiv)`
+  flex-direction: row;
+  margin: 0;
 `;
 
 const TextDiv = styled.div`
   display: flex;
-  margin-bottom: ${theme.gap.px20};
 `;
 
 const BottomDiv = styled.div`
@@ -182,8 +239,13 @@ const BottomDiv = styled.div`
   justify-content: space-between;
 `;
 
+const UDVDiv = styled.div`
+  display: flex;
+`;
+
 const VoteDiv = styled.div`
   display: flex;
+  margin-left: ${theme.gap.px20};
 `;
 
 const VoteCount = styled.div`
@@ -202,4 +264,8 @@ const WriteRecomDiv = styled.div`
   border-top: 1px dashed ${theme.colors.gray};
 `;
 
+const WriteCommentDiv = styled.div`
+  display: flex;
+  width: 100%;
+`;
 export default CommentBlock;

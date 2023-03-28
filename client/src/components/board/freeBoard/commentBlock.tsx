@@ -66,15 +66,8 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
     try {
       const confirm = window.confirm('댓글을 삭제하시겠습니까?');
       if (confirm) {
-        if (urlData === '/fre') {
-          await deleteComment('frees', Number(data.freeCommentId));
-          alert('댓글을 삭제하였습니다.');
-          window.location.reload();
-        } else {
-          // await deleteComment('qnas', data.freeCommentId);
-          // alert('댓글을 삭제하였습니다.');
-          // window.location.reload();
-        }
+        await deleteComment('frees', Number(data.freeCommentId));
+        setCheckState(!checkState);
       }
     } catch (err) {
       console.error(err);
@@ -113,7 +106,7 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
         <TextDiv>{data.content}</TextDiv>
         <BottomDiv>
           <Button.RecommentBtn onClick={openRecomHandler}>
-            댓글 쓰기
+            {/* 댓글 쓰기 */}
           </Button.RecommentBtn>
           <VoteDiv>
             <Button.VoteDownBtn onClick={e => voteHandler('down')}>
@@ -128,7 +121,7 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
       </MainDiv>
       {openRecom ? (
         <WriteRecomDiv>
-          <WriteComment />
+          <WriteComment checkState={checkState} setCheckState={setCheckState} />
         </WriteRecomDiv>
       ) : null}
       {/* <RecommentList /> */}

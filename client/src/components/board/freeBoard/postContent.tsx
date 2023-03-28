@@ -161,7 +161,10 @@ function PostContent() {
           <CommentCnt>{listData.commentsListNum}개의 댓글</CommentCnt>
           <CommentContainer>
             <WriteCommentDiv>
-              <WriteComment />
+              <WriteComment
+                checkState={checkState}
+                setCheckState={setCheckState}
+              />
             </WriteCommentDiv>
             {listData.commentsListNum === 0 ? null : (
               <div>

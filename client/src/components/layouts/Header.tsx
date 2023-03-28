@@ -93,6 +93,7 @@ const Container = styled.div`
 
 const Title = styled.h1`
   display: flex;
+  min-width: 65px;
   align-items: center;
   font-weight: bold;
   color: ${theme.colors.pointColor};

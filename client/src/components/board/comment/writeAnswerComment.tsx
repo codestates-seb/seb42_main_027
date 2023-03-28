@@ -12,11 +12,12 @@ import useUserInfoStore from 'stores/userInfoStore';
 import PostComment from 'apis/board/postComment';
 
 type Props = {
+  answerId: number;
   checkState: boolean;
   setCheckState: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function WriteComment({ checkState, setCheckState }: Props) {
+function WriteAnswerComment({ answerId, checkState, setCheckState }: Props) {
   const urlData = useLocation().pathname.slice(0, 4);
   const paramsData = useParams();
   const { isLoginInStore } = useIsLoginStore(state => state);
@@ -35,15 +36,10 @@ function WriteComment({ checkState, setCheckState }: Props) {
           createdAt: `${new Date()}`,
         };
         console.log('submit data', data);
-        if (urlData === '/fre') {
-          await PostComment(data, 'frees', Number(paramsData.id));
-          setComment('');
-          setCheckState(!checkState);
-        } else if (urlData === '/qna') {
-          await PostComment(data, 'qnas/questions', Number(paramsData.id));
-          setComment('');
-          setCheckState(!checkState);
-        }
+
+        await PostComment(data, 'qnas/answers', answerId);
+        setComment('');
+        setCheckState(!checkState);
       }
     } catch (err) {
       console.error(err);
@@ -158,4 +154,4 @@ const GuideDiv = styled.div`
   }
 `;
 
-export default WriteComment;
+export default WriteAnswerComment;

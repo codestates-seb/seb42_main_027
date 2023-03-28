@@ -102,7 +102,7 @@ function TextEditor({
         modules={modules}
         value={textContent}
         onChange={setTextContent}
-        placeholder="내용을 입력해 주세요."
+        placeholder="내용을 입력해 주세요. 업로드 할 수 있는 이미지 크기는 최대 10MB입니다."
       />
     </TextEditorDiv>
   );
