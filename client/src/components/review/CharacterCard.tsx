@@ -41,7 +41,7 @@ function CharacterCard({
             <CardContainer>
               <Link to={`/ReviewPageDetail/${el.teacherId}`}>
                 <Img
-                  src={el.realImageUrl || 'http://placehold.it/170X175'}
+                  src={el.profileImageUrl || 'http://placehold.it/170X175'}
                   alt="thumbnail"
                 />
               </Link>

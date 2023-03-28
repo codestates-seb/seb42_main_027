@@ -104,7 +104,6 @@ function CreateLecture() {
       !subjectTag.length ||
       !gradeTag.length ||
       !platformTag.length ||
-      !introduction ||
       !status
     ) {
       alert('빈 곳을 채워주세요!');
