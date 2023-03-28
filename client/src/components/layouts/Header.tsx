@@ -49,13 +49,13 @@ function Header() {
           <Link to="/eventlist">
             <LI>이벤트</LI>
           </Link>
-          <LI>스터디카페</LI>
+          {/* <LI>스터디카페</LI> */}
         </UL>
       </Left>
       <Right>
-        <ToggleDiv>
+        {/* <ToggleDiv>
           <Toggle />
-        </ToggleDiv>
+        </ToggleDiv> */}
         {isLoginInStore ? (
           <BtnDiv>
             <Button.WhiteBtn onClick={handleClickMypage}>
