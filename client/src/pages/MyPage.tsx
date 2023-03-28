@@ -18,6 +18,7 @@ const Container = styled.div`
   justify-content: flex-end;
   align-items: center;
   width: 100%;
+  height: 100%;
 `;
 
 function MyPage() {
