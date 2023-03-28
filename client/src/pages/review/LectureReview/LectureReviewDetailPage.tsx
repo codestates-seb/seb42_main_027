@@ -114,6 +114,9 @@ function LectureReviewDetailPage() {
         }
 
         setIsPending(false);
+      })
+      .catch(() => {
+        setIsPending(false);
       });
   }, [lectureReviewId]);
 
@@ -163,6 +166,7 @@ function LectureReviewDetailPage() {
             <H2>리뷰게시판</H2>
             <p>객관적인 리뷰를 볼 수 있는 공간입니다.</p>
           </Title>
+          {/* 수정 삭제 */}
           <FlexContainer
             display={
               userInfo.memberId === detailData.member.memberId ? 'flex' : 'none'
@@ -196,6 +200,7 @@ function LectureReviewDetailPage() {
             </button>
           </FlexContainer>
           <GoBackMenu />
+          {/* 리뷰 제목 */}
           <TitleDiv>
             <H2>{detailData.title}</H2>
             <FlexContainer>
@@ -203,7 +208,7 @@ function LectureReviewDetailPage() {
               <NameSpan>조회수 {detailData.viewCount}</NameSpan>
             </FlexContainer>
           </TitleDiv>
-
+          {/* 강사 평가 */}
           <FlexContainer
             width="100%"
             justify="space-between"
@@ -234,12 +239,11 @@ function LectureReviewDetailPage() {
               </FlexContainer>
             </FlexContainer>
           </FlexContainer>
-
           {/* 리뷰 내용 */}
           <ContentBox
             dangerouslySetInnerHTML={{ __html: detailData.content }}
           />
-
+          {/* 추천수 */}
           <FlexContainer width="100%" justify="right" padding="0.4rem 5rem">
             <FlexContainer>
               <UpButton voteStatus={voteStatus} onClick={reviewUpHandler}>
@@ -251,7 +255,7 @@ function LectureReviewDetailPage() {
               </DownButton>
             </FlexContainer>
           </FlexContainer>
-
+          {/* 댓글 */}
           <FlexContainer
             dir="col"
             width="100%"
@@ -321,11 +325,6 @@ const DownButton = styled.button<Button>`
   pointer-events: ${props => (props.voteStatus === 'UP' ? 'none' : 'all')};
   background-color: white;
   color: ${props => (props.voteStatus === 'DOWN' ? '#f48224' : 'black')};
-`;
-
-const TitleSpan = styled.span`
-  color: white;
-  font-size: large;
 `;
 
 const NameSpan = styled.span`

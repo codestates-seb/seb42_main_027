@@ -108,6 +108,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  @media screen and (max-width: 600px) {
+    width: 30rem;
+  }
 `;
 
 const CardContainer = styled.div`
