@@ -72,6 +72,7 @@ public class QuestionDto {
         private String modifiedAt;
         private long viewCount;
         private long voteCount;
+        private long commentCount;
         private long answerCount;
         private List<AnswerDto.Response> answers;
         private List<QnaCommentDto.Response> comments;

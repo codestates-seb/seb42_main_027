@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21e0b4a1-1309-4891-a3a3-777e2c29c93a" name="변경" comment="fix: Table 변경값 반영">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="21e0b4a1-1309-4891-a3a3-777e2c29c93a" name="변경" comment="fix: Teacher S3 동기화 테이블 삭제코드추가" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -64,11 +62,11 @@
       </map>
     </option>
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -134,7 +132,7 @@
       <recent name="ynzmz.server.vote.qna.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.server [clean]">
+  <component name="RunManager" selected="Spring Boot.ServerApplication">
     <configuration name="server [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -206,6 +204,7 @@
       <workItem from="1679753992614" duration="5648000" />
       <workItem from="1679848944257" duration="5740000" />
       <workItem from="1679863894462" duration="28088000" />
+      <workItem from="1679945116171" duration="294000" />
     </task>
     <task id="LOCAL-00001" summary="feat: S3 저장시 경로/이름지정 로직추가">
       <created>1679674868199</created>
@@ -347,7 +346,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679943274705</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="fix: Teacher S3 동기화 테이블 삭제코드추가">
+      <created>1679945392532</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1679945392532</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -396,7 +402,8 @@
     <MESSAGE value="feat: LectureReview S3파일 동기화 설정(등록,수정,삭제)" />
     <MESSAGE value="feat: Teacher,Answer S3파일 동기화 코드추가" />
     <MESSAGE value="fix: Table 변경값 반영" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: Table 변경값 반영" />
+    <MESSAGE value="fix: Teacher S3 동기화 테이블 삭제코드추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: Teacher S3 동기화 테이블 삭제코드추가" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -87,7 +87,9 @@ public class S3UpLoadService {
         return s3ImageName;
     }
     public void deleteFileByFilePath(String filePath) {
-        amazonS3Client.deleteObject(bucketName, filePath);
+        if(filePath != null) {
+            amazonS3Client.deleteObject(bucketName, filePath);
+        }
     }
     public void deleteFilesByFilePaths(List<String> filePaths) {
         if(!filePaths.isEmpty()) {

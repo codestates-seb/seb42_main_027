@@ -26,6 +26,7 @@ public class QnaComment implements Vote {
     private String modifiedAt;
     private Target target;
     private long voteCount;
+    private long reCommentCount;
     @ManyToOne
     @JoinColumn(name = "question_id")
     @JsonBackReference

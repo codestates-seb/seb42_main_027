@@ -26,6 +26,7 @@ public class Question implements Vote {
     private String category;
     private long viewCount;
     private long voteCount;
+    private long commentCount;
     private long answerCount;
     private String createdAt;
     private String modifiedAt;

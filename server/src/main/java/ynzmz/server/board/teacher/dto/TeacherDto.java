@@ -39,7 +39,7 @@ public class TeacherDto {
         private List<String> profile;
         private List<String> analects;
         private String profileImageUrl;
-        private String RealImageUrl;
+        private String realImageUrl;
         private List<String> gradeTag;
         private List<String> subjectTag;
         private List<String> platformTag;

@@ -1,6 +1,8 @@
 package ynzmz.server.member.service;
 
-
+import java.util.Objects;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
@@ -32,10 +34,7 @@ import ynzmz.server.vote.review.lecture.dto.LoginUserLectureReviewCommentVoteRes
 import ynzmz.server.vote.review.lecture.dto.LoginUserLectureReviewVoteResponseDto;
 import ynzmz.server.vote.review.lecture.entity.ReviewVote;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Transactional
 @Service
@@ -152,7 +151,7 @@ public class MemberService {
         if (loginMember.getMemberId() != memberId) throw new BusinessLogicException(ExceptionCode.THIS_MEMBER_NOT_PERMISSION);
     }
 
-    //해당 게시글에서 게시글&답변에 추천여부 확인
+//    //해당 게시글에서 게시글&답변에 추천여부 확인
     public MemberDto.VoteInfo findQnaVoteStatusByLoginUser(Member member, Question question) {
         MemberDto.VoteInfo loginMemberVoteInfo = new MemberDto.VoteInfo();
 

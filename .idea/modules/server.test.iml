@@ -31,8 +31,8 @@
     <orderEntry type="library" name="Gradle: org.mapstruct:mapstruct:1.5.2.Final" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-jpa:2.7.9" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:2.7.9" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-security:2.7.9" level="project" />
     <orderEntry type="library" name="Gradle: com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-security:2.7.9" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-validation:2.7.9" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-mail:2.7.9" level="project" />
     <orderEntry type="library" name="Gradle: io.jsonwebtoken:jjwt-api:0.11.5" level="project" />
@@ -56,10 +56,10 @@
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.7.9" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-webmvc:5.3.25" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-web:5.3.25" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.ulisesbocchio:jasypt-spring-boot:3.0.3" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-web:5.7.7" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-config:5.7.7" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-aop:5.3.25" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.ulisesbocchio:jasypt-spring-boot:3.0.3" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-el:9.0.71" level="project" />
     <orderEntry type="library" name="Gradle: org.hibernate.validator:hibernate-validator:6.2.5.Final" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-context-support:5.3.25" level="project" />

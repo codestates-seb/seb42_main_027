@@ -44,6 +44,7 @@ public class AnswerDto {
         private Long answerId;
         private String content;
         private long voteCount;
+        private long commentCount;
         private String createdAt;
         private String modifiedAt;
         private Answer.AdoptStatus adoptStatus;

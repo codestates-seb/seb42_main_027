@@ -23,6 +23,7 @@ import ynzmz.server.board.teacher.service.TeacherService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -64,6 +65,12 @@ public class TeacherController {
     @PatchMapping("/{teacher-id}")
     public ResponseEntity<?> patchTeacher(@PathVariable("teacher-id") long teacherId,
                              @RequestBody TeacherDto.Patch teacherPatch) {
+        Teacher savedTeacher = teacherService.findTeacherById(teacherId);
+        //수정전 저장된 이미지파일 경로들 ( null 가능 )
+        String savedProFileImagePath = s3FileInfoService.getFilePathToFileUrl(savedTeacher.getProfileImageUrl());
+        log.info("savedProFileImagePath" + savedProFileImagePath);
+        String savedRealImagePath = s3FileInfoService.getFilePathToFileUrl(savedTeacher.getRealImageUrl());
+
         Teacher teacher = teacherMapper.teacherPatchToTeacher(teacherPatch);
         teacher.setTeacherId(teacherId);
         Teacher updatedTeacher = teacherService.updateTeacher(teacher);
@@ -78,25 +85,17 @@ public class TeacherController {
         //생성된 강사 맵핑테이블 생성
         tagService.createTeacherTag(updatedTeacher, gradeTags, platformTags, subjectTags);
 
-        //수정전 저장된 이미지파일 경로들
-        String savedProFileImagePath = s3FileInfoService.getFilePathToFileUrl(teacher.getProfileImageUrl());
-        String savedRealImagePath = s3FileInfoService.getFilePathToFileUrl(teacher.getRealImageUrl());
-        //수정후 저장된 이미지파일 경로들
+        //수정후 저장된 이미지파일 경로들 ( null 가능 )
         String updateProFileImagePath = s3FileInfoService.getFilePathToFileUrl(updatedTeacher.getProfileImageUrl());
+        log.info("updateProFileImagePath" + updateProFileImagePath);
         String updateRealImagePath = s3FileInfoService.getFilePathToFileUrl(updatedTeacher.getRealImageUrl());
         //S3FileInfo 값 불러오기
-        List<S3FileInfo> s3FileInfos = s3FileInfoService.findS3FileInfoByTableNameAndId("teacher", teacherId);
+        List<S3FileInfo> s3FileInfos = s3FileInfoService.findS3FileInfoByTableName("teacher");
+        log.info("s3FileInfos (Teacher)" + s3FileInfos.toString());
         //비교후 새로 저장되는 이미지파일 경로들
-        if(!savedProFileImagePath.equals(updateProFileImagePath)) {
-            s3FileInfoService.setS3FileInfosStatusActiveAndIdConnection(updateProFileImagePath, s3FileInfos, teacher.getTeacherId());
-            s3FileInfoService.deleteS3FileInfo(s3FileInfoService.findS3FileInfoByFilePath(savedProFileImagePath));
-            s3UpLoadService.deleteFileByFilePath(savedProFileImagePath);
-        }
-        if(!savedRealImagePath.equals(updateRealImagePath)) {
-            s3FileInfoService.setS3FileInfosStatusActiveAndIdConnection(updateRealImagePath, s3FileInfos, teacher.getTeacherId());
-            s3FileInfoService.deleteS3FileInfo(s3FileInfoService.findS3FileInfoByFilePath(savedRealImagePath));
-            s3UpLoadService.deleteFileByFilePath(savedRealImagePath);
-        }
+
+        updateS3Files(savedProFileImagePath,updateProFileImagePath,s3FileInfos,teacherId);
+        updateS3Files(savedRealImagePath,updateRealImagePath,s3FileInfos,teacherId);
 
         TeacherDto.SimpleInfoResponse response = teacherMapper.teacherToTeacherSimpleInfoResponse(updatedTeacher);
 
@@ -125,6 +124,10 @@ public class TeacherController {
                 : (reverse == null && sort.equals("starPointAverage"))
                 ? teacherService.findTeachers(gradeTag, platformTag, subjectTag, name, sort, reverse,page - 1, size)
                 : (reverse != null && sort.equals("starPointAverage"))
+                ? teacherService.findTeachers(gradeTag, platformTag, subjectTag, name, sort, page - 1, size)
+                : (reverse == null && sort.equals("teacherId"))
+                ? teacherService.findTeachers(gradeTag, platformTag, subjectTag, name, sort, reverse,page - 1, size)
+                : (reverse != null && sort.equals("teacherId"))
                 ? teacherService.findTeachers(gradeTag, platformTag, subjectTag, name, sort, page - 1, size)
                 : (reverse != null)
                 ? teacherService.findTeachers(gradeTag, platformTag, subjectTag, name, sort, reverse,page - 1, size)
@@ -159,14 +162,32 @@ public class TeacherController {
     public ResponseEntity<?> deleteTeacher(@PathVariable("teacher-id") long teacherId){
         Teacher teacher = teacherService.findTeacherById(teacherId);
 
-        s3UpLoadService.deleteFileByFileUrl(teacher.getProfileImageUrl());
-        s3UpLoadService.deleteFileByFileUrl(teacher.getRealImageUrl());
-        s3FileInfoService.deleteS3FileInfo(s3FileInfoService.findS3FileInfoByFileUrl(teacher.getProfileImageUrl()));
-        s3FileInfoService.deleteS3FileInfo(s3FileInfoService.findS3FileInfoByFileUrl(teacher.getRealImageUrl()));
+        if (teacher.getProfileImageUrl() != null) {
+            s3UpLoadService.deleteFileByFileUrl(teacher.getProfileImageUrl());
+            s3FileInfoService.deleteS3FileInfo(s3FileInfoService.findS3FileInfoByFileUrl(teacher.getProfileImageUrl()));
+        }
+        if (teacher.getRealImageUrl() != null) {
+            s3UpLoadService.deleteFileByFileUrl(teacher.getRealImageUrl());
+            s3FileInfoService.deleteS3FileInfo(s3FileInfoService.findS3FileInfoByFileUrl(teacher.getRealImageUrl()));
+        }
 
         teacherService.deleteTeacher(teacherId);
         Optional<Teacher> deletedTeacher = teacherService.findOptionalTeacherById(teacherId);
 
         return deletedTeacher.isEmpty() ? new ResponseEntity<>("삭제완료",HttpStatus.OK) : new ResponseEntity<>("삭제실패",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private void updateS3Files(String savedFilePath, String updatedFilePath, List<S3FileInfo> s3FileInfos, Long teacherId) {
+        if (!Objects.equals(savedFilePath, updatedFilePath)) {
+            if (updatedFilePath != null) {
+                log.info("새로운거 활성화로 바꾸는 위치");
+                s3FileInfoService.setS3FileInfosStatusActiveAndIdConnection(updatedFilePath, s3FileInfos, teacherId);
+            }
+            if (savedFilePath != null) {
+                log.info("원래꺼 삭제해야할 코드 위치");
+                s3FileInfoService.deleteS3FileInfo(s3FileInfoService.findS3FileInfoByFilePath(savedFilePath));
+                s3UpLoadService.deleteFileByFilePath(savedFilePath);
+            }
+        }
     }
 }
