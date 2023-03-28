@@ -194,7 +194,7 @@ create table our (
                      date varchar(255),
                      image_url varchar(255),
                      title varchar(255),
-                     view_count integer not null,
+                     view_count bigint,
                      primary key (event_id)
 ) engine=InnoDB;
 
