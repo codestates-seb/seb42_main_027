@@ -12,6 +12,10 @@ const ListContainer = styled.div`
 `;
 
 type PostsCommentsListProps = {
+  freePosts: never[];
+  freeComments: never[];
+  setFreePosts: React.Dispatch<React.SetStateAction<never[]>>;
+  setFreeComments: React.Dispatch<React.SetStateAction<never[]>>;
   selectPostCategories: string;
   setSelectPostCategories: React.Dispatch<React.SetStateAction<string>>;
   selectCommentCategories: string;
@@ -19,6 +23,10 @@ type PostsCommentsListProps = {
 };
 
 function PostsCommentsList({
+  freePosts,
+  setFreePosts,
+  freeComments,
+  setFreeComments,
   selectPostCategories,
   setSelectPostCategories,
   selectCommentCategories,
@@ -27,10 +35,14 @@ function PostsCommentsList({
   return (
     <ListContainer>
       <PostList
+        freePosts={freePosts}
+        setFreePosts={setFreePosts}
         selectPostCategories={selectPostCategories}
         setSelectPostCategories={setSelectPostCategories}
       />
       <CommentList
+        freeComments={freeComments}
+        setFreeComments={setFreeComments}
         selectCommentCategories={selectCommentCategories}
         setSelectCommentCategories={setSelectCommentCategories}
       />
