@@ -1,19 +1,17 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/require-default-props */
-import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
-import {
-  BsFillHandThumbsUpFill,
-  BsFillHandThumbsDownFill,
-} from 'react-icons/bs';
+
 import { AiFillStar } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import useUserInfoStore from 'stores/userInfoStore';
 import theme from 'theme';
 import { Link } from 'react-router-dom';
+import Button from 'components/common/Button';
+import CountIcon from 'assets/icons/countIcon';
 import LectureReviewComment from './LectureReviewComment';
 import Loading from './Loading';
 
@@ -237,14 +235,18 @@ function LectureReviewDetail({
           </FlexContainer>
           {/* 리뷰 추천 */}
           <FlexContainer width="100%" justify="right" padding="1rem 5rem">
-            <FlexContainer>
-              <UpButton voteStatus={voteStatus} onClick={reviewUpHandler}>
-                <BsFillHandThumbsUpFill size="1rem" />
-              </UpButton>
-              {reviewVote}
+            <FlexContainer gap="0">
               <DownButton voteStatus={voteStatus} onClick={reviewDownHandler}>
-                <BsFillHandThumbsDownFill size="1rem" />
+                <Button.VoteDownBtn>
+                  <CountIcon.VoteDown />
+                </Button.VoteDownBtn>
               </DownButton>
+              <VoteCount>{reviewVote}</VoteCount>
+              <UpButton voteStatus={voteStatus} onClick={reviewUpHandler}>
+                <Button.VoteUpBtn>
+                  <CountIcon.VoteUp />
+                </Button.VoteUpBtn>
+              </UpButton>
             </FlexContainer>
           </FlexContainer>
 
@@ -381,4 +383,15 @@ const OriginalSpan = styled.span`
   :hover {
     color: red;
   }
+`;
+
+const VoteCount = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.875rem;
+  height: 1.25rem;
+  font-size: ${theme.fontSizes.xs};
+  border-top: 1px solid ${theme.colors.gray};
+  border-bottom: 1px solid ${theme.colors.gray};
 `;

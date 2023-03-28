@@ -7,12 +7,10 @@ import { useParams } from 'react-router-dom';
 import ProfileIcon from 'assets/icons/defaultProfileIcon';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import {
-  BsFillHandThumbsUpFill,
-  BsFillHandThumbsDownFill,
-} from 'react-icons/bs';
 import useUserInfoStore from 'stores/userInfoStore';
 import theme from 'theme';
+import Button from 'components/common/Button';
+import CountIcon from 'assets/icons/countIcon';
 
 type Props = {
   lectureReviewCommentId: number;
@@ -124,14 +122,18 @@ function LectureReviewComment({
             <ProfileIcon.Default />
             {member.displayName}
           </VerySmallGrayFont>
-          <FlexContainer>
-            <UpButton voteStatus={voteStatus} onClick={commentUpHandler}>
-              <BsFillHandThumbsUpFill size="1rem" />
-            </UpButton>
-            {commentVote}
+          <FlexContainer gap="0">
             <DownButton voteStatus={voteStatus} onClick={commentDownHandler}>
-              <BsFillHandThumbsDownFill size="1rem" />
+              <Button.VoteDownBtn>
+                <CountIcon.VoteDown />
+              </Button.VoteDownBtn>
             </DownButton>
+            <VoteCount>{commentVote}</VoteCount>
+            <UpButton voteStatus={voteStatus} onClick={commentUpHandler}>
+              <Button.VoteUpBtn>
+                <CountIcon.VoteUp />
+              </Button.VoteUpBtn>
+            </UpButton>
           </FlexContainer>
         </FlexContainer>
         {isOpen ? (
@@ -257,4 +259,15 @@ const Ubutton = styled.button`
   background-color: white;
   color: #afafaf;
   border-radius: 0.4rem;
+`;
+
+const VoteCount = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.875rem;
+  height: 1.25rem;
+  font-size: ${theme.fontSizes.xs};
+  border-top: 1px solid ${theme.colors.gray};
+  border-bottom: 1px solid ${theme.colors.gray};
 `;
