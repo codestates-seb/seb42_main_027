@@ -1,6 +1,7 @@
 package ynzmz.server.member.service;
 
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
@@ -17,8 +18,6 @@ import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.global.error.exception.BusinessLogicException;
 import ynzmz.server.global.error.exception.ExceptionCode;
-import ynzmz.server.error.exception.BusinessLogicException;
-import ynzmz.server.error.exception.ExceptionCode;
 import ynzmz.server.member.dto.MailDto;
 import ynzmz.server.member.dto.MemberDto;
 import ynzmz.server.member.entity.Member;
@@ -38,9 +37,7 @@ import ynzmz.server.vote.review.lecture.dto.LoginUserLectureReviewCommentVoteRes
 import ynzmz.server.vote.review.lecture.dto.LoginUserLectureReviewVoteResponseDto;
 import ynzmz.server.vote.review.lecture.entity.ReviewVote;
 
-import java.util.*;
 import javax.mail.internet.InternetAddress;
-import javax.validation.constraints.Email;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +47,7 @@ import java.util.Optional;
 @Transactional
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
@@ -58,20 +56,19 @@ public class MemberService {
     private final CustomAuthorityUtils authorityUtils;
     private AuthenticationManager authenticationManager;
     private MemberDetailsService memberDetailsService;
-    @Autowired
     private JavaMailSender javaMailSender;
 
 
-    public MemberService (MemberRepository memberRepository,
-                          MemberMapper memberMapper, ApplicationEventPublisher publisher,
-                          PasswordEncoder passwordEncoder,
-                          CustomAuthorityUtils authorityUtils){
-        this.memberRepository = memberRepository;
-        this.memberMapper = memberMapper;
-        this.publisher = publisher;
-        this.passwordEncoder = passwordEncoder;
-        this.authorityUtils = authorityUtils;
-    }
+//    public MemberService (MemberRepository memberRepository,
+//                          MemberMapper memberMapper, ApplicationEventPublisher publisher,
+//                          PasswordEncoder passwordEncoder,
+//                          CustomAuthorityUtils authorityUtils){
+//        this.memberRepository = memberRepository;
+//        this.memberMapper = memberMapper;
+//        this.publisher = publisher;
+//        this.passwordEncoder = passwordEncoder;
+//        this.authorityUtils = authorityUtils;
+//    }
 
     @Transactional
     public Member createMember(Member member){

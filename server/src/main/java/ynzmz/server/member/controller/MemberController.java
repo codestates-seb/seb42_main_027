@@ -28,6 +28,7 @@ import ynzmz.server.board.review.lecture.sevice.LectureReviewService;
 import ynzmz.server.comment.free.dto.FreeCommentDto;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.comment.free.mapper.FreeCommentMapper;
+import ynzmz.server.comment.free.repository.FreeCommentRepository;
 import ynzmz.server.comment.free.service.FreeCommentService;
 import ynzmz.server.comment.qna.dto.QnaCommentDto;
 import ynzmz.server.comment.qna.entity.QnaComment;
@@ -37,8 +38,8 @@ import ynzmz.server.comment.review.lecture.dto.LectureReviewCommentDto;
 import ynzmz.server.comment.review.lecture.entity.LectureReviewComment;
 import ynzmz.server.comment.review.lecture.mapper.LectureReviewCommentMapper;
 import ynzmz.server.comment.review.lecture.service.LectureReviewCommentService;
-import ynzmz.server.dto.MultiResponseDto;
-import ynzmz.server.dto.SingleResponseDto;
+import ynzmz.server.global.dto.MultiResponseDto;
+import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.member.dto.MailDto;
 import ynzmz.server.member.repository.MemberRepository;
 import ynzmz.server.member.service.MemberService;
@@ -53,10 +54,9 @@ import ynzmz.server.recomment.qna.dto.QnaReCommentDto;
 import ynzmz.server.recomment.qna.entity.QnaReComment;
 import ynzmz.server.recomment.qna.mapper.QnaReCommentMapper;
 import ynzmz.server.recomment.qna.service.QnaReCommentService;
-import ynzmz.server.security.auths.filter.JwtAuthenticationFilter;
-import ynzmz.server.security.auths.jwt.JwtTokenizer;
-import ynzmz.server.security.auths.utils.CustomAuthorityUtils;
 
+
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.io.UnsupportedEncodingException;
@@ -93,8 +93,6 @@ public class MemberController {
     private final LectureReviewCommentMapper lectureReviewCommentMapper;
     private final QnaReCommentService qnaReCommentService;
     private final QnaReCommentMapper qnaReCommentMapper;
-    private final LectureReviewCommentService lectureReviewCommentService;
-    private final LectureReviewCommentMapper lectureReviewCommentMapper;
 
 
     //회원가입
