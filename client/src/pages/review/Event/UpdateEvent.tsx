@@ -21,6 +21,8 @@ const defaultData = {
 function UpdateEvent() {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
+  const [imageUrl, setImageUrl] = useState<string>('');
+  const [imagePreview, setImagePreview] = useState<string>('');
   const [start, setStart] = useState<string>('');
   const [end, setEnd] = useState<string>('');
 
@@ -41,6 +43,8 @@ function UpdateEvent() {
         console.log(data);
         setTitle(data.title);
         setContent(data.content);
+        setImageUrl(data.imageUrl);
+        setImagePreview(data.imageUrl);
       })
       .catch(() => {
         alert('Get Data Fail!');
@@ -67,7 +71,7 @@ function UpdateEvent() {
       const data = {
         title,
         content,
-        imageUrl: '이미지 URL',
+        imageUrl,
         date: `${start} ~ ${end}`,
       };
 
@@ -131,6 +135,44 @@ function UpdateEvent() {
             }}
           />
         </FlexContainer>
+        {/* 썸네일 */}
+        <FlexContainer dir="col" align="start" width="100%">
+          <label htmlFor="thumnail">썸네일</label>
+          <input
+            id="thumnail"
+            type="file"
+            accept="image/*"
+            onChange={(e: any) => {
+              if (e.target.files.length) {
+                console.log(e.target.files[0]);
+                const formData = new FormData();
+                formData.append('image', e.target.files[0]);
+                formData.append('filePath', 'boards/boards/events/thumnail');
+
+                axios
+                  .post(`${process.env.REACT_APP_API_URL}/upload`, formData, {
+                    headers: {
+                      'ngrok-skip-browser-warning': 'asdasdas',
+                    },
+                  })
+                  .then(res => res.data.data)
+                  .then((data: string) => {
+                    setImageUrl(data);
+                  });
+
+                const fileReader = new FileReader();
+                fileReader.readAsDataURL(e.target.files[0]);
+                fileReader.onload = (e: any) => {
+                  setImagePreview(e.target.result);
+                };
+              } else {
+                setImageUrl('');
+                setImagePreview('http://placehold.it/200X200');
+              }
+            }}
+          />
+          <Img src={imagePreview} />
+        </FlexContainer>
         {/* 이벤트 내용 */}
         <FlexContainer dir="col" align="start" gap="0" width="100%">
           <label htmlFor="content">Content</label>
@@ -176,4 +218,11 @@ const DateInput = styled.input`
   width: 40%;
   padding: 0.3rem 0.5rem;
   border: 0.5px solid gray;
+`;
+
+const Img = styled.img`
+  width: 340px;
+  height: 240px;
+  border-radius: 0.5rem;
+  background-color: #b8b8b8;
 `;
