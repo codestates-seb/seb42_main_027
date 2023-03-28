@@ -60,21 +60,33 @@ public class S3FileInfoService {
         }
     }
     public void setS3FileInfosStatusActiveAndIdConnection(String proFileImagePath, String realImagePath, List<S3FileInfo> s3FileInfos, long idOfTable ) {
+        // 여기서 둘중한개 없으면 null 에러남 예외처리 필요
         for (S3FileInfo s3FileInfo : s3FileInfos) {
-            if (proFileImagePath.equals(s3FileInfo.getFilePath()) || realImagePath.equals(s3FileInfo.getFilePath())) {
-                s3FileInfo.setIdOfTable(idOfTable);
-                s3FileInfo.setStatus(S3FileInfo.Status.ACTIVE);
-                s3FileInfoRepository.save(s3FileInfo);
+            if(proFileImagePath != null) {
+                if (proFileImagePath.equals(s3FileInfo.getFilePath())) {
+                    s3FileInfo.setIdOfTable(idOfTable);
+                    s3FileInfo.setStatus(S3FileInfo.Status.ACTIVE);
+                    s3FileInfoRepository.save(s3FileInfo);
+                }
+            }
+            if(realImagePath != null) {
+                if(realImagePath.equals(s3FileInfo.getFilePath())) {
+                    s3FileInfo.setIdOfTable(idOfTable);
+                    s3FileInfo.setStatus(S3FileInfo.Status.ACTIVE);
+                    s3FileInfoRepository.save(s3FileInfo);
+                }
             }
         }
     }
 
     public void setS3FileInfosStatusActiveAndIdConnection(String ImagePath, List<S3FileInfo> s3FileInfos, long idOfTable ) {
-        for (S3FileInfo s3FileInfo : s3FileInfos) {
-            if (ImagePath.equals(s3FileInfo.getFilePath())) {
-                s3FileInfo.setIdOfTable(idOfTable);
-                s3FileInfo.setStatus(S3FileInfo.Status.ACTIVE);
-                s3FileInfoRepository.save(s3FileInfo);
+        if(!s3FileInfos.isEmpty()) {
+            for (S3FileInfo s3FileInfo : s3FileInfos) {
+                if (ImagePath.equals(s3FileInfo.getFilePath())) {
+                    s3FileInfo.setIdOfTable(idOfTable);
+                    s3FileInfo.setStatus(S3FileInfo.Status.ACTIVE);
+                    s3FileInfoRepository.save(s3FileInfo);
+                }
             }
         }
     }
@@ -99,9 +111,12 @@ public class S3FileInfoService {
         s3FileInfoRepository.deleteAll(s3FileInfos);
     }
     public void deleteS3FileInfo(S3FileInfo s3FileInfo) {
-        s3FileInfoRepository.delete(s3FileInfo);
+        if(s3FileInfo != null) {
+            s3FileInfoRepository.delete(s3FileInfo);
+        }
     }
     public String getFilePathToFileUrl(String fileUrl) {
+        if(fileUrl == null) return null;
         String prefix = "https://main-project-28-img.s3.ap-northeast-2.amazonaws.com/";
         return fileUrl.replace(prefix, "");
     }

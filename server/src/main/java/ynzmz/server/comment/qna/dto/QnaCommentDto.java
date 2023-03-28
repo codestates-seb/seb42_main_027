@@ -35,6 +35,7 @@ public class QnaCommentDto {
         private String createdAt;
         private String modifiedAt;
         private long voteCount;
+        private long reCommentCount;
         private MemberDto.SimpleInfoResponse member;
         private List<QnaReCommentDto.Response> qnaReComments;
     }

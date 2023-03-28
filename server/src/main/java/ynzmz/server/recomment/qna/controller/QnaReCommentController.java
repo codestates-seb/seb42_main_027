@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.comment.qna.service.QnaCommentService;
 import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.member.entity.Member;
@@ -28,9 +29,11 @@ public class QnaReCommentController {
     public ResponseEntity<?> createQuestionComment(@RequestBody QnaReCommentDto.Post postDto,
                                                    @PathVariable("qna-comment-id") long qnaCommentId) {
         QnaReComment qnaReComment = qnaReCommentMapper.qnaReCommentPostToQnaReComment(postDto);
+        QnaComment qnaComment = qnaCommentService.findQnaCommentById(qnaCommentId);
         //토큰에서 memberId 확인
         qnaReComment.setMember(loginMemberFindByToken());
-        qnaReComment.setQnaComment(qnaCommentService.findQnaCommentById(qnaCommentId));
+        qnaReComment.setQnaComment(qnaComment);
+        qnaComment.setReCommentCount(qnaComment.getQnaReComments().size() + 1);
 
         QnaReComment createComment = qnaReCommentService.createQnaReComment(qnaReComment);
         QnaReCommentDto.Response response = qnaReCommentMapper.qnaReCommentToQnaReCommentResponse(createComment);
@@ -56,6 +59,10 @@ public class QnaReCommentController {
     public ResponseEntity<?> deleteQnaComment(@PathVariable("qna-recomment-id") long qnaReCommentId) {
         //본인확인
         memberService.memberValidation(loginMemberFindByToken(), qnaReCommentService.findQnaReCommentById(qnaReCommentId).getMember().getMemberId());
+
+        QnaReComment qnaReComment = qnaReCommentService.findQnaReCommentById(qnaReCommentId);
+        QnaComment qnaComment = qnaReComment.getQnaComment();
+        qnaComment.setReCommentCount(qnaComment.getQnaReComments().size() - 1);
 
         qnaReCommentService.deleteQnaReComment(qnaReCommentId);
         Optional<QnaReComment> deletedQnaReComment = qnaReCommentService.findOptionalQnaReCommentById(qnaReCommentId);

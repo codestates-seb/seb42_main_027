@@ -74,6 +74,7 @@ public class TeacherService {
         teacherRepository.save(teacher);
     }
 
+    @Transactional
     public Teacher findTeacherById(long teacherId){
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
         return teacher.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TEACHER_NOT_FOUND));

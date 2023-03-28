@@ -111,6 +111,7 @@ public class QuestionService {
 
         //질문글 등록한사람 본인이 답변채택 할수있어야함.
         Question question = checkTheAuthorOfTheQuestion(member, questionId);
+        log.info("질문글 찾기 완료");
         if (question.getAdoptAnswerId() == null) { //만약 채택되있는게 없으면 신청한걸로 채택
             question.setAdoptAnswerId(answer.getAnswerId());
             answer.setAdoptStatus(Answer.AdoptStatus.TRUE);
@@ -122,7 +123,7 @@ public class QuestionService {
             answer.setAdoptStatus(Answer.AdoptStatus.TRUE); //새로운거 채택
             log.info("다른거 채택되있을시 기존값 변경후 채택");
         } else if ((long) question.getAdoptAnswerId() == answer.getAnswerId()) { // 채택된것을 다시 채택을 누르면 채택취소되게
-            question.setAdoptAnswerId(0L); // 질문에는 아무것도 없는상태로
+            question.setAdoptAnswerId(null); // 질문에는 아무것도 없는상태로
             answer.setAdoptStatus(Answer.AdoptStatus.FALSE); //답변글을  취소로 변경
             log.info("채택 두번시 채택취소");
         }
@@ -131,10 +132,12 @@ public class QuestionService {
 
     private Question checkTheAuthorOfTheQuestion(Member member, long questionId) {
         List<Question> questions = member.getQuestions();
+        log.info("회원의 질문 요청 리스트 확인완료");
 
         for (Question question : questions) {
             long findQuestionId = question.getQuestionId();
             if (findQuestionId == questionId) return question;
+            log.info("요청받은 질문글 특정완료");
         }
         log.warn("게시글 쓴사람이 아닌데 채택요청함");
         throw new BusinessLogicException(ExceptionCode.NOT_IMPLEMENTATION);

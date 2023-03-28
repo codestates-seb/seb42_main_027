@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.comment.qna.entity.QnaComment;
@@ -17,6 +18,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@ToString
 public class Answer implements Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +28,7 @@ public class Answer implements Vote {
     @Column
     @ColumnDefault("0")
     private long voteCount;
+    private long commentCount;
     private String createdAt;
     private String modifiedAt;
     @Enumerated(EnumType.STRING)
@@ -44,7 +47,7 @@ public class Answer implements Vote {
     @Column
     private List<String> uploadImages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<QnaComment> comments = new ArrayList<>();
 

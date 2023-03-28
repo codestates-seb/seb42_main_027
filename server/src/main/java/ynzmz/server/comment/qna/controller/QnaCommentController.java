@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ynzmz.server.board.qna.answer.entity.Answer;
 import ynzmz.server.board.qna.answer.service.AnswerService;
+import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.qna.question.service.QuestionService;
 import ynzmz.server.comment.qna.dto.QnaCommentDto;
 import ynzmz.server.comment.qna.entity.QnaComment;
@@ -30,10 +32,12 @@ public class QnaCommentController {
     public ResponseEntity<?> createQuestionComment(@RequestBody QnaCommentDto.Post postDto,
                                                    @PathVariable("question-id") long questionId) {
         QnaComment qnaComment = qnaCommentMapper.qnaCommentPostToQnaComment(postDto);
+        Question question = questionService.findQuestionById(questionId);
         //토큰에서 memberId 확인
         qnaComment.setMember(loginMemberFindByToken());
-        qnaComment.setQuestion(questionService.findQuestionById(questionId));
+        qnaComment.setQuestion(question);
         qnaComment.setTarget(QnaComment.Target.Question);
+        question.setCommentCount(question.getComments().size() + 1);
 
         QnaComment createComment = qnaCommentService.createQnaComment(qnaComment);
         QnaCommentDto.Response response = qnaCommentMapper.qnaCommentToQnaCommentResponse(createComment);
@@ -44,10 +48,12 @@ public class QnaCommentController {
     public ResponseEntity<?> createAnswerComment(@RequestBody QnaCommentDto.Post postDto,
                                                    @PathVariable("answer-id") long answerId) {
         QnaComment qnaComment = qnaCommentMapper.qnaCommentPostToQnaComment(postDto);
+        Answer answer = answerService.findAnswerById(answerId);
         //토큰에서 memberId 확인
         qnaComment.setMember(loginMemberFindByToken());
-        qnaComment.setAnswer(answerService.findAnswerById(answerId));
+        qnaComment.setAnswer(answer);
         qnaComment.setTarget(QnaComment.Target.Answer);
+        answer.setCommentCount(answer.getComments().size() + 1);
 
         QnaComment createComment = qnaCommentService.createQnaComment(qnaComment);
         QnaCommentDto.Response response = qnaCommentMapper.qnaCommentToQnaCommentResponse(createComment);
@@ -71,7 +77,18 @@ public class QnaCommentController {
     @DeleteMapping("/{qna-comment-id}")
     public ResponseEntity<?> deleteQnaComment(@PathVariable("qna-comment-id") long qnaCommentId) {
         memberService.memberValidation(loginMemberFindByToken(), qnaCommentService.findQnaCommentById(qnaCommentId).getMember().getMemberId());
+
+        QnaComment qnaComment = qnaCommentService.findQnaCommentById(qnaCommentId);
+        if(qnaComment.getTarget() == QnaComment.Target.Question) {
+            Question question = qnaComment.getQuestion();
+            question.setCommentCount(question.getComments().size() - 1);
+        } else {
+            Answer answer = qnaComment.getAnswer();
+            answer.setCommentCount(answer.getComments().size() -1 );
+        }
+
         qnaCommentService.deleteQnaComment(qnaCommentId);
+
         Optional<QnaComment> deletedQnaComment = qnaCommentService.findOptionalQnaCommentById(qnaCommentId);
         return deletedQnaComment.isEmpty() ? new ResponseEntity<>("삭제완료",HttpStatus.OK) : new ResponseEntity<>("삭제실패",HttpStatus.INTERNAL_SERVER_ERROR);
     }

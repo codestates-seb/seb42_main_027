@@ -122,27 +122,21 @@ public class QuestionController {
     //질문글 상세페이지
     @GetMapping("/{question-id}")
     public ResponseEntity<?> getQuestion(@PathVariable("question-id") long questionId) {
+        Question question = questionService.findQuestionById(questionId);
+        QuestionDto.DetailPageResponse response = questionMapper.questionToQuestionDetailPageResponse(question);
+        questionService.setViewCount(question); //조회수기능  1번당 1씩 올라가게 (임시)
         try {
             //로그인된 회원일경우 (해당 글 & 댓글 추천여부 같이반환)
             Member loginMember = loginMemberFindByToken();
-            Question question = questionService.findQuestionById(questionId);
-            questionService.setViewCount(question); //조회수기능  1번당 1씩 올라가게 (임시)
-
             MemberDto.VoteInfo loginMemberVoteInfo = memberService.findQnaVoteStatusByLoginUser(loginMember, question);
-            QuestionDto.DetailPageResponse response = questionMapper.questionToQuestionDetailPageResponse(question);
             response.setLoginUserVoteInfo(loginMemberVoteInfo);
 
-            return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
         } catch (BusinessLogicException e) {
             //로그인 안된 회원일 경우 (해당 글 & 댓글 추천상태값 없음)
-            Question question = questionService.findQuestionById(questionId);
-            questionService.setViewCount(question); //조회수기능  1번당 1씩 올라가게 (임시)
-
-            QuestionDto.DetailPageResponse response = questionMapper.questionToQuestionDetailPageResponse(question);
             response.setLoginUserVoteInfo(null);
-
-            return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
         }
+
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
 
@@ -193,13 +187,18 @@ public class QuestionController {
     @PostMapping("{question-id}/adopt-answer/{answer-id}")
     public ResponseEntity<?> adoptAnswerToQuestion(@PathVariable("question-id") long questionId,
                                                    @PathVariable("answer-id") long answerId) {
+        log.info("questionId = " + questionId);
+        log.info("answerId = " + answerId);
 
         //답변 채택시 update 된 답변의 정보만 response 요청
         Member member = loginMemberFindByToken();
+        log.info("채택시 회원인증 완료 ");
         Answer answer = answerService.findAnswerById(answerId);
+        log.info("채택할 답변 찾기 완료 ");
         questionService.adoptAnswer(questionId, answer, member);
-        Answer adoptedAnswer = answerService.findAnswerById(answerId);
-        AnswerDto.SimpleInfoResponse response = answerMapper.answerToAnswerInfoResponse(adoptedAnswer);
+        log.info("채택처리 완료 ");
+//        Answer adoptedAnswer = answerService.findAnswerById(answerId);
+        AnswerDto.SimpleInfoResponse response = answerMapper.answerToAnswerInfoResponse(answer);
 
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }

@@ -2,6 +2,7 @@ package ynzmz.server.board.qna.answer.service;
 
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ynzmz.server.board.qna.answer.repository.AnswerRepository;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Transactional
 @Service
+@Slf4j
 public class AnswerService {
 
     private final AnswerRepository answerRepository;
@@ -41,10 +43,12 @@ public class AnswerService {
         return answerRepository.findByMemberId(memberId);
     }
 
-    public Answer findAnswerById(long answerId) {
-        Optional<Answer> optionalQuestion = answerRepository.findById(answerId);
 
-        return optionalQuestion.orElseThrow(()-> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+    public Answer findAnswerById(long answerId) {
+        Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
+        log.info("answerId = " + answerId);
+        log.info("optionalAnswer = " + optionalAnswer.isEmpty());
+        return optionalAnswer.orElseThrow(()-> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
     }
     public Optional<Answer> findOptionalAnswerById(long answerId) {
         return answerRepository.findById(answerId);
