@@ -3,6 +3,7 @@ package ynzmz.server.member.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -56,6 +57,7 @@ public class MemberService {
     private final CustomAuthorityUtils authorityUtils;
     private AuthenticationManager authenticationManager;
     private MemberDetailsService memberDetailsService;
+    @Autowired
     private JavaMailSender javaMailSender;
 
 
@@ -356,6 +358,7 @@ public class MemberService {
         Long memberId = OptionalMember.get().getMemberId();
         updatePassword(memberId, memberPassword);
     }
+
 
     //메일보내기
     public void mailSend(MailDto mailDto){
