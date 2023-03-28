@@ -202,6 +202,9 @@ function TeacherReview() {
         console.log(data);
         setData(data);
         setIsPending(false);
+      })
+      .catch(() => {
+        setIsPending(false);
       });
   }, []);
 
@@ -258,7 +261,7 @@ function TeacherReview() {
                 })}
               </FlexContainer>
               {/* 모든 강의의 수강 후기 */}
-              <FlexContainer dir="col" width="100%" gap="0">
+              <FlexContainer dir="col" width="50rem" gap="0">
                 {!data.lectures.filter(lecture => {
                   return lecture.lectureReviews.length;
                 }).length ? (

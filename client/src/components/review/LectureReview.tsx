@@ -3,7 +3,6 @@
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
-import { SmallFont } from 'pages/review/TeacherDetail/Information';
 import { BsFillHandThumbsUpFill } from 'react-icons/bs';
 import { AiFillStar } from 'react-icons/ai';
 
@@ -81,7 +80,7 @@ function LectureReview({
         gap="0.4rem"
         padding="0 0 0 2rem"
       >
-        <VerySmallGrayFont>{`${lecture.title}(${totalCommentCount})`}</VerySmallGrayFont>
+        <VerySmallGrayFont>{lecture.title}</VerySmallGrayFont>
 
         <SmallFont2 onClick={reviewOpenHandler}>
           {title.length > 20
@@ -92,7 +91,9 @@ function LectureReview({
       {/* 작성자 */}
       <FlexContainer width="15rem">
         <VerySmallGrayFont>
-          {`${member.displayName.slice(0, 5)}...`}
+          {member.displayName.length > 5
+            ? `${member.displayName.slice(0, 7)}...`
+            : `${member.displayName}`}
         </VerySmallGrayFont>
       </FlexContainer>
       {/* 생성날짜 */}
@@ -125,7 +126,8 @@ const VerySmallGrayFont = styled.div`
 `;
 
 const SmallFont2 = styled.div`
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
 `;
 
@@ -134,4 +136,8 @@ const BestBox = styled.div`
   background-color: red;
   color: white;
   border-radius: 1rem;
+`;
+
+const SmallFont = styled.div`
+  text-align: center;
 `;

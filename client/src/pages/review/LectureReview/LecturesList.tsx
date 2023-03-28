@@ -149,7 +149,7 @@ function LecturesList() {
       <Pagenation
         size={pageInfo.totalPages}
         currentPage={curPage}
-        pageSize={pageSize}
+        pageSize={pageInfo.size}
         setCurPage={setCurPage}
       />
     </FlexContainer>
