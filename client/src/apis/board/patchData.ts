@@ -6,13 +6,14 @@ type PatchData = {
   title: string;
   content: string;
   category: string;
+  // uploadImages: string[];
   modifiedAt: string;
 };
 
 const PatchData = async (data: PatchData, board: string, id: number) => {
   const response = await axios.patch(`${apiUrl}/boards/${board}/${id}`, data, {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `${localStorage.getItem('token')}`,
       'ngrok-skip-browser-warning': '69420',
     },
   });

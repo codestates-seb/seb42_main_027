@@ -7,6 +7,7 @@ import Button from 'components/common/Button';
 import ProfileIcon from 'assets/icons/defaultProfileIcon';
 import CountIcon from 'assets/icons/countIcon';
 
+import PostVote from 'apis/board/postVote';
 import useUserInfoStore from 'stores/userInfoStore';
 import deleteComment from 'apis/board/deleteComment';
 import CalElapsedTime from '../post/calElapsedTime';
@@ -14,7 +15,7 @@ import WriteComment from '../comment/writeComment';
 import RecommentList from './recommentList';
 
 interface Data {
-  freeCommentId?: number;
+  freeCommentId: number;
   content: string;
   createdAt: string;
   modifiedAt?: string;
@@ -30,9 +31,11 @@ interface Data {
 
 type Props = {
   data: Data;
+  checkState: boolean;
+  setCheckState: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function CommentBlock({ data }: Props) {
+function CommentBlock({ data, checkState, setCheckState }: Props) {
   const { userInfo } = useUserInfoStore(state => state);
   const urlData = useLocation().pathname.slice(0, 4);
   const [openEdit, setOpenEidt] = useState(false);
@@ -47,6 +50,15 @@ function CommentBlock({ data }: Props) {
 
   const openRecomHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setOpenRecom(!openRecom);
+  };
+
+  const voteHandler = async (value: string) => {
+    try {
+      await PostVote('frees/comments', data.freeCommentId, value);
+      setCheckState(!checkState);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const fetchDeleteComment = async () => {
@@ -95,11 +107,11 @@ function CommentBlock({ data }: Props) {
             댓글 쓰기
           </Button.RecommentBtn>
           <VoteDiv>
-            <Button.VoteDownBtn>
+            <Button.VoteDownBtn onClick={e => voteHandler('down')}>
               <CountIcon.VoteDown />
             </Button.VoteDownBtn>
-            <VoteCount>0</VoteCount>
-            <Button.VoteUpBtn>
+            <VoteCount>{data.voteCount}</VoteCount>
+            <Button.VoteUpBtn onClick={e => voteHandler('up')}>
               <CountIcon.VoteUp />
             </Button.VoteUpBtn>
           </VoteDiv>
