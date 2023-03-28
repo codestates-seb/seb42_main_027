@@ -1,6 +1,7 @@
 create table answer (
                         answer_id bigint not null auto_increment,
                         adopt_status varchar(255),
+                        comment_count bigint not null,
                         content MEDIUMTEXT,
                         created_at varchar(255),
                         modified_at varchar(255),
@@ -16,7 +17,7 @@ create table answer_upload_images (
 ) engine=InnoDB;
 
 create table event (
-                       their_id bigint not null,
+                       their_id bigint not null auto_increment,
                        date varchar(255),
                        hyper_link varchar(255),
                        image_url varchar(255),
@@ -189,12 +190,12 @@ create table member_roles (
 ) engine=InnoDB;
 
 create table our (
-                     event_id bigint not null,
+                     event_id bigint not null auto_increment,
                      content varchar(255),
                      date varchar(255),
                      image_url varchar(255),
                      title varchar(255),
-                     view_count bigint,
+                     view_count integer not null,
                      primary key (event_id)
 ) engine=InnoDB;
 
@@ -209,6 +210,7 @@ create table qna_comment (
                              content varchar(255),
                              created_at varchar(255),
                              modified_at varchar(255),
+                             re_comment_count bigint not null,
                              target integer,
                              vote_count bigint not null,
                              answer_id bigint,
@@ -245,6 +247,7 @@ create table question (
                           adopt_answer_id bigint,
                           answer_count bigint not null,
                           category varchar(255),
+                          comment_count bigint not null,
                           content MEDIUMTEXT,
                           created_at varchar(255),
                           modified_at varchar(255),

@@ -13,9 +13,9 @@ import javax.persistence.*;
 @Setter
 public class Our {
     @Id
-    @AutoConfigureOrder
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long eventId;
+//    @AutoConfigureOrder
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long eventId;
 
     private String imageUrl;
     private String title;

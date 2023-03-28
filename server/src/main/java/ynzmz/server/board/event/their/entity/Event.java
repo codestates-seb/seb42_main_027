@@ -14,10 +14,8 @@ import javax.persistence.*;
 @Setter
 public class Event {
     @Id
-//    @AutoConfigureOrder
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long theirId;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long theirId;
     private String imageUrl;
     private String title;
     private String hyperLink;

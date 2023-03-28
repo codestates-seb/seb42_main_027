@@ -99,7 +99,7 @@ public class EventService {
 
     //----------------------------------------------------포스트컨스트럭트 데이터크롤링------------------------------------------------------------
 
-    @PostConstruct
+//    @PostConstruct
     public void megaCrawler() {
         String megaUrl1 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
         String megaUrl2 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=2&intCP=NaN";
@@ -176,7 +176,7 @@ public class EventService {
         }
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void etoosCrawler() {
             String etoosUrl = "https://go3.etoos.com/hietoos/event/default.asp?etoos=myall&ING_FLAG=I&etgrd=go3";
 
@@ -208,7 +208,7 @@ public class EventService {
     }
 
 
-    @PostConstruct
+//    @PostConstruct
     public void daeSungCrawler(){
         String daesungUrl1 = "https://www.mimacstudy.com/event/eventIngList.ds?evtType=&currPage=1&searchType=evtName&searchText=";
         String daesungUrl2 = "https://www.mimacstudy.com/event/eventIngList.ds?evtType=&currPage=2&searchType=evtName&searchText=";

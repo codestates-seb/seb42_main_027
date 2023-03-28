@@ -35,7 +35,7 @@ public class OurController {
     }
 
     @PatchMapping("/{event-id}")
-    public ResponseEntity<?> patchOur(@PathVariable("event-id") int id,@RequestBody OurDto.Patch patch){
+    public ResponseEntity<?> patchOur(@PathVariable("event-id") long id,@RequestBody OurDto.Patch patch){
     Our event= mapper.ourPatchToOur(patch);
     event.setEventId(id);
     service.updateEvent(event);
