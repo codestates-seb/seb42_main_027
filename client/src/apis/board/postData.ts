@@ -6,7 +6,7 @@ type PostData = {
   title: string;
   content: string;
   category: string;
-  // uploadImages: string[];
+  uploadImages: string[] | [];
   createdAt: string;
 };
 

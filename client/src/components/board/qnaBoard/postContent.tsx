@@ -7,19 +7,21 @@ import styled from 'styled-components';
 import theme from 'theme';
 import Button from 'components/common/Button';
 import ProfileIcon from 'assets/icons/defaultProfileIcon';
+import StateIcon from 'assets/icons/stateIcon';
 import CountIcon from 'assets/icons/countIcon';
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
 
 import DeletePost from 'apis/board/deletePost';
 import getPostDetail from 'apis/board/getPostDetail';
 import PostVote from 'apis/board/postVote';
-import TextEditor from 'components/common/textEditor';
 import PostAnswer from 'apis/board/postAnswer';
+import TextEditor from '../customTextEditor';
 import CalElapsedTime from '../post/calElapsedTime';
 
 import GoBackMenu from '../post/goBackMenu';
 import WriteComment from '../comment/writeComment';
 import AnswerContent from './answerContent';
+import CommentBlock from './commentBlock';
 
 interface Data {
   questionId: number;
@@ -39,6 +41,7 @@ interface Data {
     state: string;
   };
   answers: [AnswerData];
+  comments: [Comment];
 }
 
 interface Comment {
@@ -80,12 +83,18 @@ function PostContent() {
   const [listData, setListData] = useState<Data | Record<string, never>>({});
   const [textContent, setTextContent] = useState<string>('');
   const [checkState, setCheckState] = useState<boolean>(false);
+  const [uploadImages, setUploadImages] = useState<string[] | []>([]);
+  const [comDivIsOpen, setComDivIsOpen] = useState<boolean>(false);
   const idData = Number(useParams().id);
 
   let calTime = '';
   if (!isPending) {
     calTime = CalElapsedTime(listData.createdAt);
   }
+
+  const openComDivHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setComDivIsOpen(!comDivIsOpen);
+  };
 
   const fetchPostDetail = async () => {
     try {
@@ -151,7 +160,7 @@ function PostContent() {
     <Container>
       <GoBackMenu />
       {isPending ? (
-        <NoData>로딩페이지가 들어갈 자리입니다.</NoData>
+        <NoData>LOADING...</NoData>
       ) : (
         <div>
           <TitleDiv>
@@ -171,7 +180,15 @@ function PostContent() {
             <H2>{listData.title}</H2>
             <Writer>
               <ProfileIcon.Default />
-              <NameDiv>{listData.member.displayName}</NameDiv>
+              <NameDiv>
+                {listData.member.displayName}
+                {listData.member.state === 'TEACHER' ? (
+                  <StateIcon.Teacher title="강사" />
+                ) : null}
+                {listData.member.state === 'ADMIN' ? (
+                  <StateIcon.Admin title="관리자" />
+                ) : null}
+              </NameDiv>
               <div> · {calTime}</div>
               <View>
                 <CountIcon.View />
@@ -191,9 +208,40 @@ function PostContent() {
               </Button.VoteUpBtn>
             </VoteDiv>
             <CommentContainer>
-              <WriteCommentDiv>
-                <WriteComment />
-              </WriteCommentDiv>
+              {/* {listData.comments.length === 0 ? null : (
+                <div>
+                  {listData.comments.map((ele: Comment) => {
+                    return (
+                      <CommentBlock
+                        key={ele.qnaCommentId}
+                        data={ele}
+                        checkState={checkState}
+                        setCheckState={setCheckState}
+                      />
+                    );
+                  })}
+                </div>
+              )} */}
+              {comDivIsOpen ? (
+                <CommentDiv>
+                  <ComBtnDiv>
+                    <Button.RecommentBtn onClick={openComDivHandler}>
+                      닫기
+                    </Button.RecommentBtn>
+                  </ComBtnDiv>
+                  <WriteCommentDiv>
+                    <WriteComment />
+                  </WriteCommentDiv>
+                </CommentDiv>
+              ) : (
+                <CommentDiv>
+                  <ComBtnDiv>
+                    <Button.RecommentBtn onClick={openComDivHandler}>
+                      댓글 쓰기
+                    </Button.RecommentBtn>
+                  </ComBtnDiv>
+                </CommentDiv>
+              )}
             </CommentContainer>
           </MainDiv>
           <AnswerCnt>{listData.answerCount}개의 답변</AnswerCnt>
@@ -201,7 +249,14 @@ function PostContent() {
             {listData.answerCount === 0 ? null : (
               <div>
                 {listData.answers.map((ele: AnswerData) => {
-                  return <AnswerContent key={ele.answerId} data={ele} />;
+                  return (
+                    <AnswerContent
+                      key={ele.answerId}
+                      data={ele}
+                      checkState={checkState}
+                      setCheckState={setCheckState}
+                    />
+                  );
                 })}
               </div>
             )}
@@ -213,6 +268,8 @@ function PostContent() {
                 <TextEditor
                   textContent={textContent}
                   setTextContent={setTextContent}
+                  uploadImages={uploadImages}
+                  setUploadImages={setUploadImages}
                   path="boards/qnas/answers/contents"
                 />
               ) : (
@@ -334,7 +391,7 @@ const MainDiv = styled.div`
 const VoteDiv = styled.div`
   display: flex;
   justify-content: right;
-  margin-bottom: ${theme.gap.px120};
+  margin-bottom: ${theme.gap.px60};
 `;
 
 const VoteCount = styled.div`
@@ -357,13 +414,26 @@ const CommentContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 253px;
+`;
+
+const CommentDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid ${theme.colors.pointColor};
+  padding-top: ${theme.gap.px20};
+  margin-left: ${theme.gap.px40};
+  margin-bottom: ${theme.gap.px100};
+`;
+
+const ComBtnDiv = styled.div`
+  display: flex;
+  justify-content: left;
+  padding-left: ${theme.gap.px20};
 `;
 
 const WriteCommentDiv = styled.div`
   display: flex;
   width: 100%;
-  padding-bottom: calc(${theme.gap.px60} + 7px);
 `;
 
 const TextDiv = styled.div`
@@ -429,6 +499,8 @@ const AnswerContainer = styled.div`
 
 const TextEditorDiv = styled.div`
   display: flex;
+  justify-content: center;
+  width: 100%;
 `;
 
 const PostAnswerDiv = styled.div`
@@ -440,7 +512,7 @@ const PostAnswerDiv = styled.div`
 `;
 
 const Label = styled.label`
-  margin-bottom: ${theme.gap.px10};
+  margin-bottom: ${theme.gap.px20};
 `;
 
 const GuideDiv = styled.div`

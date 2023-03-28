@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import theme from 'theme';
 
 import ProfileIcon from 'assets/icons/defaultProfileIcon';
+import StateIcon from 'assets/icons/stateIcon';
 import CountIcon from 'assets/icons/countIcon';
 import CalElapsedTime from './calElapsedTime';
 
@@ -22,6 +23,7 @@ interface Data {
   uploadImages?: string[] | [];
   viewCount: number;
   voteCount: number;
+  answerCount: number;
   createdAt: string;
   modifiedAt?: string;
   commentsListNum: number;
@@ -63,7 +65,15 @@ function PostTitleBlock({ ele }: Props) {
         <ProfileImg>
           <ProfileIcon.Mini />
         </ProfileImg>
-        <NameDiv>{`${ele.member.displayName} `}</NameDiv>
+        <NameDiv>
+          {`${ele.member.displayName} `}
+          {ele.member.state === 'TEACHER' ? (
+            <StateIcon.Teacher title="강사" />
+          ) : null}
+          {ele.member.state === 'ADMIN' ? (
+            <StateIcon.Admin title="관리자" />
+          ) : null}
+        </NameDiv>
         <div>{` · ${calTime}`}</div>
       </UserData>
       <Count>
@@ -71,10 +81,17 @@ function PostTitleBlock({ ele }: Props) {
           <CountIcon.View />
           {ele.viewCount}
         </div>
-        <div>
-          <CountIcon.Comment />
-          {ele.commentsListNum}
-        </div>
+        {urlData === '/free' ? (
+          <div>
+            <CountIcon.Comment />
+            {ele.commentsListNum}
+          </div>
+        ) : (
+          <div>
+            <CountIcon.Comment />
+            {ele.answerCount}
+          </div>
+        )}
         <div>
           <CountIcon.Vote />
           {ele.voteCount}
@@ -100,7 +117,7 @@ const Container = styled.div`
 
 const Top = styled.div`
   display: flex;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 `;
 
 const Category = styled.div`
@@ -165,6 +182,7 @@ const ProfileImg = styled.div`
 
 const NameDiv = styled.div`
   margin-right: 3px;
+  display: flex;
 `;
 
 const Count = styled.div`

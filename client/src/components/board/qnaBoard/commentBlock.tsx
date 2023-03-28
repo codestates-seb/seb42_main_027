@@ -1,25 +1,24 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router';
+import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 import theme from 'theme';
 import Button from 'components/common/Button';
-import ProfileIcon from 'assets/icons/defaultProfileIcon';
-import StateIcon from 'assets/icons/stateIcon';
 import CountIcon from 'assets/icons/countIcon';
+import StateIcon from 'assets/icons/stateIcon';
 
 import PostVote from 'apis/board/postVote';
 import useUserInfoStore from 'stores/userInfoStore';
 import deleteComment from 'apis/board/deleteComment';
 import CalElapsedTime from '../post/calElapsedTime';
 import WriteComment from '../comment/writeComment';
-import RecommentList from './recommentList';
+// import RecommentList from './recommentList';
 
-interface Data {
-  freeCommentId: number;
+interface Comment {
+  qnaCommentId: number;
   content: string;
   createdAt: string;
-  modifiedAt?: string;
+  modifiedAt: string | null;
   voteCount: number;
   member: {
     memberId: number;
@@ -27,21 +26,18 @@ interface Data {
     displayName: string;
     state: string;
   };
-  memberSim: boolean;
 }
 
 type Props = {
-  data: Data;
+  data: Comment;
   checkState: boolean;
   setCheckState: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function CommentBlock({ data, checkState, setCheckState }: Props) {
   const { userInfo } = useUserInfoStore(state => state);
-  const urlData = useLocation().pathname.slice(0, 4);
   const [openEdit, setOpenEidt] = useState(false);
   const [openRecom, setOpenRecom] = useState(false);
-  // console.log(data.member.displayName);
 
   const calTime: string = CalElapsedTime(data.createdAt);
 
@@ -55,7 +51,7 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
 
   const voteHandler = async (value: string) => {
     try {
-      await PostVote('frees/comments', data.freeCommentId, value);
+      await PostVote('qnas/comments', data.qnaCommentId, value);
       setCheckState(!checkState);
     } catch (err) {
       console.error(err);
@@ -66,15 +62,9 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
     try {
       const confirm = window.confirm('댓글을 삭제하시겠습니까?');
       if (confirm) {
-        if (urlData === '/fre') {
-          await deleteComment('frees', Number(data.freeCommentId));
-          alert('댓글을 삭제하였습니다.');
-          window.location.reload();
-        } else {
-          // await deleteComment('qnas', data.freeCommentId);
-          // alert('댓글을 삭제하였습니다.');
-          // window.location.reload();
-        }
+        // await deleteComment('frees', Number(data.freeCommentId));
+        // alert('댓글을 삭제하였습니다.');
+        // window.location.reload();
       }
     } catch (err) {
       console.error(err);
@@ -85,8 +75,7 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
     <Container>
       <TitleDiv>
         <Writer>
-          <ProfileIcon.Default />
-          <NameDiv>
+          <div>
             {data.member.displayName}
             {data.member.state === 'TEACHER' ? (
               <StateIcon.Teacher title="강사" />
@@ -94,9 +83,8 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
             {data.member.state === 'ADMIN' ? (
               <StateIcon.Admin title="관리자" />
             ) : null}
-          </NameDiv>
+          </div>
           <div> · {calTime}</div>
-          {data.memberSim ? <Category>작성자</Category> : null}
         </Writer>
         {data.member.memberId === userInfo.memberId ? (
           <UDBtnDiv>
@@ -151,11 +139,6 @@ const TitleDiv = styled.div`
   margin-bottom: ${theme.gap.px20};
 `;
 
-const NameDiv = styled.div`
-  margin: 0 3px;
-  display: flex;
-`;
-
 const Writer = styled.div`
   display: flex;
   align-items: center;
@@ -174,7 +157,6 @@ const Category = styled.div`
   font-weight: bold;
   color: ${theme.colors.pointColor};
   background-color: ${theme.colors.white};
-  margin-left: 6px;
 `;
 
 const UDBtnDiv = styled.div`

@@ -6,11 +6,12 @@ import styled from 'styled-components';
 import theme from 'theme';
 import Button from 'components/common/Button';
 import ProfileIcon from 'assets/icons/defaultProfileIcon';
+import StateIcon from 'assets/icons/stateIcon';
 import CountIcon from 'assets/icons/countIcon';
 
 import DeletePost from 'apis/board/deletePost';
-import getPostDetail from 'apis/board/getPostDetail';
 import PostVote from 'apis/board/postVote';
+import PostAdopt from 'apis/board/postAdopt';
 import CalElapsedTime from '../post/calElapsedTime';
 
 // import WriteComment from '../comment/writeComment';
@@ -48,19 +49,49 @@ interface Comment {
 
 type Props = {
   data: AnswerData;
+  checkState: boolean;
+  setCheckState: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function AnswerContent({ data }: Props) {
+function AnswerContent({ data, checkState, setCheckState }: Props) {
   const { userInfo } = useUserInfoStore(state => state);
-  const [isPending, setIsPending] = useState(true);
+  const navigate = useNavigate();
   const idData = Number(useParams().id);
+  const calTime = CalElapsedTime(data.createdAt);
 
-  let calTime = '';
-  if (!isPending) {
-    calTime = CalElapsedTime(data.createdAt);
-  }
   console.log(data);
   console.log('userInfo memeberId', userInfo.memberId);
+
+  const fetchDeletePost = async () => {
+    try {
+      const confirm = window.confirm('답변을 삭제하시겠습니까?');
+      if (confirm) {
+        await DeletePost('qnas/answers', data.answerId);
+        alert('답변을 삭제하였습니다.');
+        window.location.reload();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchPostAdopt = async () => {
+    try {
+      await PostAdopt(idData, data.answerId);
+      setCheckState(!checkState);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const voteHandler = async (value: string) => {
+    try {
+      await PostVote('qnas/answers', data.answerId, value);
+      setCheckState(!checkState);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <Container>
@@ -77,31 +108,45 @@ function AnswerContent({ data }: Props) {
               <Link to="edit">
                 <Button.UDWhiteBtn>수정</Button.UDWhiteBtn>
               </Link>
-              <Button.UDWhiteBtn>삭제</Button.UDWhiteBtn>
+              <Button.UDWhiteBtn onClick={fetchDeletePost}>
+                삭제
+              </Button.UDWhiteBtn>
             </UDBtnDiv>
           ) : null}
         </Top>
         <Writer>
           <ProfileIcon.Default />
-          <div>{data.member.displayName}</div>
+          <NameDiv>
+            {data.member.displayName}
+            {data.member.state === 'TEACHER' ? (
+              <StateIcon.Teacher title="강사" />
+            ) : null}
+            {data.member.state === 'ADMIN' ? (
+              <StateIcon.Admin title="관리자" />
+            ) : null}
+          </NameDiv>
           <div> · {calTime}</div>
         </Writer>
       </TitleDiv>
       <MainDiv>
         <TextDiv dangerouslySetInnerHTML={{ __html: data.content }} />
-        <div>
-          {data.adoptStatus === 'TRUE' ? (
-            <BtnSelect className="selected">채택하기</BtnSelect>
-          ) : (
-            <BtnSelect>채택하기</BtnSelect>
-          )}
-        </div>
+        {data.member.memberId === userInfo.memberId ? (
+          <div>
+            {data.adoptStatus === 'TRUE' ? (
+              <BtnSelect onClick={fetchPostAdopt} className="selected">
+                채택완료
+              </BtnSelect>
+            ) : (
+              <BtnSelect onClick={fetchPostAdopt}>채택하기</BtnSelect>
+            )}
+          </div>
+        ) : null}
         <VoteDiv>
-          <Button.VoteDownBtn>
+          <Button.VoteDownBtn onClick={e => voteHandler('down')}>
             <CountIcon.VoteDown />
           </Button.VoteDownBtn>
           <VoteCount>{data.voteCount}</VoteCount>
-          <Button.VoteUpBtn>
+          <Button.VoteUpBtn onClick={e => voteHandler('up')}>
             <CountIcon.VoteUp />
           </Button.VoteUpBtn>
         </VoteDiv>
@@ -160,6 +205,11 @@ const Writer = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+`;
+
+const NameDiv = styled.div`
+  margin: 0 3px;
+  display: flex;
 `;
 
 const Category = styled.div`
