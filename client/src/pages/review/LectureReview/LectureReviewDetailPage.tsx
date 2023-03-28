@@ -4,10 +4,6 @@
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
-import {
-  BsFillHandThumbsUpFill,
-  BsFillHandThumbsDownFill,
-} from 'react-icons/bs';
 import { AiFillStar } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -19,6 +15,8 @@ import { Link } from 'react-router-dom';
 import useUserInfoStore from 'stores/userInfoStore';
 import theme from 'theme';
 import GoBackMenu from 'components/board/post/goBackMenu';
+import Button from 'components/common/Button';
+import CountIcon from 'assets/icons/countIcon';
 
 const defaultDetailData = {
   lectureReviewId: 1,
@@ -114,6 +112,9 @@ function LectureReviewDetailPage() {
         }
 
         setIsPending(false);
+      })
+      .catch(() => {
+        setIsPending(false);
       });
   }, [lectureReviewId]);
 
@@ -163,6 +164,7 @@ function LectureReviewDetailPage() {
             <H2>리뷰게시판</H2>
             <p>객관적인 리뷰를 볼 수 있는 공간입니다.</p>
           </Title>
+          {/* 수정 삭제 */}
           <FlexContainer
             display={
               userInfo.memberId === detailData.member.memberId ? 'flex' : 'none'
@@ -196,6 +198,7 @@ function LectureReviewDetailPage() {
             </button>
           </FlexContainer>
           <GoBackMenu />
+          {/* 리뷰 제목 */}
           <TitleDiv>
             <H2>{detailData.title}</H2>
             <FlexContainer>
@@ -203,7 +206,7 @@ function LectureReviewDetailPage() {
               <NameSpan>조회수 {detailData.viewCount}</NameSpan>
             </FlexContainer>
           </TitleDiv>
-
+          {/* 강사 평가 */}
           <FlexContainer
             width="100%"
             justify="space-between"
@@ -234,24 +237,28 @@ function LectureReviewDetailPage() {
               </FlexContainer>
             </FlexContainer>
           </FlexContainer>
-
           {/* 리뷰 내용 */}
           <ContentBox
             dangerouslySetInnerHTML={{ __html: detailData.content }}
           />
-
-          <FlexContainer width="100%" justify="right" padding="0.4rem 5rem">
-            <FlexContainer>
-              <UpButton voteStatus={voteStatus} onClick={reviewUpHandler}>
-                <BsFillHandThumbsUpFill size="1.5rem" />
-              </UpButton>
-              {reviewVote}
+          {/* 추천수 */}
+          <FlexContainer width="100%" justify="right" padding="0.4rem 1.5rem">
+            {/* 추천수 버튼 */}
+            <FlexContainer gap="0" width="100%" justify="right">
               <DownButton voteStatus={voteStatus} onClick={reviewDownHandler}>
-                <BsFillHandThumbsDownFill size="1.5rem" />
+                <Button.VoteDownBtn>
+                  <CountIcon.VoteDown />
+                </Button.VoteDownBtn>
               </DownButton>
+              <VoteCount>{reviewVote}</VoteCount>
+              <UpButton voteStatus={voteStatus} onClick={reviewUpHandler}>
+                <Button.VoteUpBtn>
+                  <CountIcon.VoteUp />
+                </Button.VoteUpBtn>
+              </UpButton>
             </FlexContainer>
           </FlexContainer>
-
+          {/* 댓글 */}
           <FlexContainer
             dir="col"
             width="100%"
@@ -323,11 +330,6 @@ const DownButton = styled.button<Button>`
   color: ${props => (props.voteStatus === 'DOWN' ? '#f48224' : 'black')};
 `;
 
-const TitleSpan = styled.span`
-  color: white;
-  font-size: large;
-`;
-
 const NameSpan = styled.span`
   color: black;
   font-size: 0.9rem;
@@ -370,4 +372,15 @@ const ContentBox = styled.div`
   img {
     max-width: 90%;
   }
+`;
+
+const VoteCount = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.875rem;
+  height: 1.25rem;
+  font-size: ${theme.fontSizes.xs};
+  border-top: 1px solid ${theme.colors.gray};
+  border-bottom: 1px solid ${theme.colors.gray};
 `;

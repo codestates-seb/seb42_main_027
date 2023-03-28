@@ -8,17 +8,19 @@ import { useState } from 'react';
 
 type Props = {
   event: {
-    eventId: number;
-    title: string;
-    date: string;
-    viewCount: number;
     imageUrl: string;
+    title: string;
+    source: string;
+    hyperLink: string;
+    date: string;
+    // imageUrl: string;
   };
 };
 
-function Event({ event }: Props) {
+function CrolingEvent({ event }: Props) {
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
+  const id = Math.random() * (500 - 1) + 1;
 
   const endCheck = (last: string) => {
     const today = new Date();
@@ -34,7 +36,7 @@ function Event({ event }: Props) {
   return (
     <Container>
       <FlexContainer width="6rem">
-        <MiddleFont>자체</MiddleFont>
+        <MiddleFont>외부</MiddleFont>
       </FlexContainer>
       <FlexContainer
         onMouseOver={e => {
@@ -46,62 +48,46 @@ function Event({ event }: Props) {
         align="start"
         gap="0.3rem"
       >
-        <Link to={`/eventdetail/${event.eventId}`}>
-          <TitleSpan
-            offsetX={offsetX}
-            offsetY={offsetY}
-            end={endCheck(event.date)}
-          >
-            {event.title.length > 30
-              ? `${event.title.slice(0, 35)}...`
-              : event.title}
-            <Img
-              src={event.imageUrl || 'http://placehold.it/200X200'}
-              alt="dummyImage"
-            />
-          </TitleSpan>
-        </Link>
+        <TitleSpan end={endCheck(event.date)} href={event.hyperLink}>
+          {event.title.length > 30
+            ? `${event.title.slice(0, 35)}...`
+            : event.title}
+        </TitleSpan>
       </FlexContainer>
 
       <FlexContainer width="6rem" padding="0 0 0 1rem">
         <DateFont>{event.date}</DateFont>
       </FlexContainer>
       <FlexContainer width="6rem" padding="0 0 0 1.2rem">
-        {event.viewCount}
+        {endCheck(event.date) ? <EndFont>종료</EndFont> : '진행중'}
       </FlexContainer>
     </Container>
   );
 }
 
-export default Event;
+export default CrolingEvent;
 
 type Container = {
   first?: boolean;
 };
 type TitleSpan = {
-  offsetX: number;
-  offsetY: number;
   end?: boolean;
 };
+
 const Container = styled.div<Container>`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
   border-top: ${props => (props.first ? '2px solid black' : null)};
   border-bottom: 0.5px solid black;
 `;
 
-const IdFont = styled.div`
-  font-size: 0.9rem;
-  font-weight: bold;
-`;
-
 const MiddleFont = styled.div`
   font-size: 0.9rem;
-  color: orange;
+  color: #6667ab;
   font-weight: bold;
 `;
 
@@ -110,7 +96,7 @@ const DateFont = styled.span`
   color: gray;
 `;
 
-const TitleSpan = styled.span<TitleSpan>`
+const TitleSpan = styled.a<TitleSpan>`
   font-size: 1rem;
   font-weight: bold;
   color: ${props => (props.end ? 'gray' : 'black')};
@@ -118,14 +104,8 @@ const TitleSpan = styled.span<TitleSpan>`
 
   :hover {
     color: ${props => (props.end ? 'gray' : 'red')};
-    img {
-      display: flex;
-      position: fixed;
-      top: ${props => `${props.offsetY - 90}px`};
-      left: ${props => `${props.offsetX}px`};
-      z-index: 1;
-    }
   }
+  cursor: pointer;
 `;
 
 const Img = styled.img`
@@ -134,4 +114,9 @@ const Img = styled.img`
   height: 6rem;
   border-radius: 0.5rem;
   background-color: #b8b8b8;
+`;
+
+const EndFont = styled.span`
+  font-size: small;
+  color: gray;
 `;

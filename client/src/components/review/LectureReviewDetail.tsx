@@ -1,17 +1,17 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/require-default-props */
-import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
-import {
-  BsFillHandThumbsUpFill,
-  BsFillHandThumbsDownFill,
-} from 'react-icons/bs';
+
 import { AiFillStar } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import useUserInfoStore from 'stores/userInfoStore';
+import theme from 'theme';
+import { Link } from 'react-router-dom';
+import Button from 'components/common/Button';
+import CountIcon from 'assets/icons/countIcon';
 import LectureReviewComment from './LectureReviewComment';
 import Loading from './Loading';
 
@@ -135,8 +135,7 @@ function LectureReviewDetail({
       )
       .then(res => res.data.data)
       .then(data => {
-        // setReviewVote(data.voteCount);
-        setReviewVote(data.lectureReviewTotalCount);
+        setReviewVote(data.lectureReviewVoteTotalCount);
         setVoteStatus(data.status);
       });
   };
@@ -151,8 +150,7 @@ function LectureReviewDetail({
       )
       .then(res => res.data.data)
       .then(data => {
-        // setReviewVote(data.voteCount);
-        setReviewVote(data.lectureReviewTotalCount);
+        setReviewVote(data.lectureReviewVoteTotalCount);
         setVoteStatus(data.status);
       });
   };
@@ -166,65 +164,89 @@ function LectureReviewDetail({
           <FlexContainer
             width="100%"
             justify="space-between"
-            padding="1.5rem 2rem"
+            padding="2rem 4rem"
             borderTop="2px solid black"
             borderBottom="1px solid black"
             gap="0.2rem"
             backColor="#6667ab"
           >
-            <span>{detailData.title}</span>
+            <TitleSpan>{detailData.title}</TitleSpan>
             <FlexContainer>
-              <span>{detailData.member.displayName}</span>
-              <span>조회수: {detailData.viewCount}</span>
+              <SubSpan>{detailData.member.displayName}</SubSpan>
+              <SubSpan>조회수: {detailData.viewCount}</SubSpan>
             </FlexContainer>
           </FlexContainer>
 
-          <FlexContainer width="100%" dir="col" padding="2rem">
-            <FlexContainer
-              width="90%"
-              justify="space-between"
-              borderTop="1px solid gray"
-              borderBottom="1px solid gray"
-              padding="1rem 6rem"
-            >
-              <FlexContainer dir="col">
-                <span>강사:{detailData.teacher.name}</span>
-                <span>
-                  <AiFillStar />
-                  {detailData.starPoint.toFixed(1)}
-                </span>
+          {/* 강사 평가 */}
+          <FlexContainer
+            width="100%"
+            justify="space-between"
+            borderBottom={`1px solid  ${theme.colors.gray}`}
+            padding="1rem 0"
+          >
+            <FlexContainer dir="col" width="50%">
+              <FlexContainer>{detailData.teacher.name}</FlexContainer>
+              <FlexContainer gap="0.2rem">
+                강사 평균:
+                <AiFillStar color="gold" size="1.4rem" />
+                <span>{detailData.starPoint.toFixed(1)}</span>
               </FlexContainer>
-              <FlexContainer dir="col">
-                <span>강좌:{detailData.lecture.title}</span>
-                <FlexContainer gap="3rem">
-                  <span>
-                    전체:
-                    <AiFillStar />
-                    {detailData.lecture.starPointAverage.toFixed(1)}
-                  </span>
-                  <span>
-                    내 평점:
-                    <AiFillStar />
-                    {detailData.starPoint}
-                  </span>
+            </FlexContainer>
+            <FlexContainer dir="col" width="50%">
+              <span>{detailData.lecture.title}</span>
+              <FlexContainer gap="1rem">
+                <FlexContainer gap="0.2rem">
+                  강의 평점:
+                  <AiFillStar color="gold" size="1.4rem" />
+                  {detailData.lecture.starPointAverage.toFixed(1)}
+                </FlexContainer>
+                <FlexContainer gap="0.2rem">
+                  내 평점:
+                  <AiFillStar color="gold" size="1.4rem" />
+                  {detailData.starPoint}
                 </FlexContainer>
               </FlexContainer>
             </FlexContainer>
           </FlexContainer>
+          {/* 리뷰 내용 */}
+          <FlexContainer
+            width="100%"
+            dir="col"
+            justify="start"
+            padding="1rem 5rem"
+          >
+            <FlexContainer
+              width="100%"
+              dir="col"
+              borderBottom="0.5px solid gray"
+              padding="0 0 1rem 0"
+            >
+              <IntroSpan>해당 페이지는 읽기 전용입니다</IntroSpan>
+              <OriginalSpan>
+                <Link to={`/lecturereviewdetail/${lectureReviewId}`}>
+                  (원본 게시물로 이동)
+                </Link>
+              </OriginalSpan>
+            </FlexContainer>
 
-          <FlexContainer width="100%" justify="start" padding="1rem 5rem">
-            {detailData.content}
+            <ContentBox
+              dangerouslySetInnerHTML={{ __html: detailData.content }}
+            />
           </FlexContainer>
-
+          {/* 리뷰 추천 */}
           <FlexContainer width="100%" justify="right" padding="1rem 5rem">
-            <FlexContainer>
-              <UpButton voteStatus={voteStatus} onClick={reviewUpHandler}>
-                <BsFillHandThumbsUpFill size="1rem" />
-              </UpButton>
-              {reviewVote}
+            <FlexContainer gap="0">
               <DownButton voteStatus={voteStatus} onClick={reviewDownHandler}>
-                <BsFillHandThumbsDownFill size="1rem" />
+                <Button.VoteDownBtn>
+                  <CountIcon.VoteDown />
+                </Button.VoteDownBtn>
               </DownButton>
+              <VoteCount>{reviewVote}</VoteCount>
+              <UpButton voteStatus={voteStatus} onClick={reviewUpHandler}>
+                <Button.VoteUpBtn>
+                  <CountIcon.VoteUp />
+                </Button.VoteUpBtn>
+              </UpButton>
             </FlexContainer>
           </FlexContainer>
 
@@ -235,7 +257,7 @@ function LectureReviewDetail({
             align="start"
             padding="1rem 5rem"
           >
-            <span>답변</span>
+            {detailData.comments.length ? <IntroSpan>답변</IntroSpan> : null}
 
             {detailData.comments.map((el, index) => {
               return (
@@ -306,6 +328,7 @@ const ModalContainer = styled.div`
   align-items: center;
 
   overflow-y: auto;
+  gap: 0.4rem;
 `;
 
 const UpButton = styled.button<Button>`
@@ -320,4 +343,55 @@ const DownButton = styled.button<Button>`
   pointer-events: ${props => (props.voteStatus === 'UP' ? 'none' : 'all')};
   background-color: white;
   color: ${props => (props.voteStatus === 'DOWN' ? '#f48224' : 'black')};
+`;
+
+const ContentBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  padding: 3rem 1rem;
+  gap: 0.4rem;
+
+  img {
+    max-width: 90%;
+  }
+`;
+
+const TitleSpan = styled.span`
+  font-size: large;
+  font-weight: bold;
+  color: white;
+`;
+
+const SubSpan = styled.span`
+  font-size: medium;
+  color: white;
+`;
+
+const IntroSpan = styled.span`
+  font-size: medium;
+  font-weight: bold;
+  color: gray;
+`;
+
+const OriginalSpan = styled.span`
+  font-size: medium;
+  font-weight: bold;
+  color: #3d9eff;
+  :hover {
+    color: red;
+  }
+`;
+
+const VoteCount = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.875rem;
+  height: 1.25rem;
+  font-size: ${theme.fontSizes.xs};
+  border-top: 1px solid ${theme.colors.gray};
+  border-bottom: 1px solid ${theme.colors.gray};
 `;

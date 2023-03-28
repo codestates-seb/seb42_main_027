@@ -8,30 +8,33 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Loading from 'components/review/Loading';
 import theme from 'theme';
-import FreeBoardMenu from 'components/board/post/boardMenu';
+
 import Event from 'components/review/Event';
 import useUserInfoStore from 'stores/userInfoStore';
 import isLogin from 'utils/isLogin';
 import GoBackMenu from 'components/board/post/goBackMenu';
+import Button from 'components/common/Button';
+import { Link } from 'react-router-dom';
+import { HiPencil } from 'react-icons/hi';
+import CrolingEvent from 'components/review/CrolingEvent';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 import { SmallFont } from '../TeacherDetail/Information';
 
 type EventType = {
   eventId: number;
-  status: string;
   imageUrl: string;
   title: string;
-  content: string;
+  viewCount: number;
   date: string;
 };
 
-// type CrolingEventType = {
-//   eventId: number;
-//   imageUrl: string;
-//   title: string;
-//   content: string;
-//   date: string;
-// };
+type CrolingEventType = {
+  imageUrl: string;
+  title: string;
+  source: string;
+  hyperLink: string;
+  date: string;
+};
 
 type PageInfo = {
   page: number;
@@ -42,20 +45,11 @@ type PageInfo = {
 
 const defaultEvent = {
   eventId: 1,
-  status: 'none',
   imageUrl: 'http://',
   title:
     'Default 너무길어서 잘릴 제목의 길이인데 더 이상 할 말이 생각나지 않는다 이러면 어떻게하지',
-  content: 'Default Content',
   date: '2023-03-02 ~ 2023-03-21',
-};
-const defaultEvent2 = {
-  eventId: 1,
-  status: 'none',
-  imageUrl: 'http://',
-  title: 'Default Title',
-  content: 'Default Content',
-  date: '2023-03-02 ~ 2023-04-29',
+  viewCount: 0,
 };
 
 const defaultPageInfo = {
@@ -66,36 +60,51 @@ const defaultPageInfo = {
 };
 
 function EventList() {
-  const [event, setEvent] = useState<EventType[]>([
-    defaultEvent2,
-    defaultEvent,
-    defaultEvent,
-  ]);
+  const [event, setEvent] = useState([]);
   const [crolingEvent, setCrolingEvent] = useState([]);
   const [isPending, setIsPending] = useState(false);
 
   const [pageInfo, setPageInfo] = useState<PageInfo>(defaultPageInfo);
   const [curPage, setCurPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(6);
+  const [pageSize, setPageSize] = useState<number>(15);
 
-  const listArr = ['번호', '말머리', '제목', '기간', '조회'];
+  const listArr = ['말머리', '제목', '기간', '조회'];
   const { userInfo } = useUserInfoStore(state => state);
 
   useEffect(() => {
     setIsPending(true);
     axios
-      .get(
-        `${process.env.REACT_APP_API_URL}/boards/events/ours?page=${curPage}`,
-        {
-          headers: { 'ngrok-skip-browser-warning': '69420' },
-        },
-      )
+      .get(`${process.env.REACT_APP_API_URL}/boards/events/ours?page=1`, {
+        headers: { 'ngrok-skip-browser-warning': '69420' },
+      })
       .then((res: any) => {
         console.log(res.data.data);
-        console.log(res.data.pageInfo);
+
         setEvent(res.data.data);
         setPageInfo(res.data.pageInfo);
-        setIsPending(false);
+      })
+      .then(() => {
+        console.log('크롤링');
+        axios
+          .get(
+            `${process.env.REACT_APP_API_URL}/boards/events/theirs?page=${curPage}&size=${pageSize}`,
+            {
+              headers: { 'ngrok-skip-browser-warning': '69420' },
+            },
+          )
+          .then(res => {
+            return res.data;
+          })
+          .then(data => {
+            console.log(data.data);
+            console.log(data.pageInfo);
+            setCrolingEvent(data.data);
+            setPageInfo(data.pageInfo);
+            setIsPending(false);
+          })
+          .catch(() => {
+            setIsPending(false);
+          });
       })
       .catch(() => {
         setIsPending(false);
@@ -112,8 +121,25 @@ function EventList() {
         </Title>
         <GoBackMenu />
 
+        {/* 작성하기 버튼 */}
         {isLogin() ? (
-          <FreeBoardMenu />
+          <MenuDiv>
+            {localStorage.getItem('token') ? (
+              <Link to="articles/write">
+                <Button.WriteBtn>
+                  <HiPencil />
+                  작성하기
+                </Button.WriteBtn>
+              </Link>
+            ) : (
+              <Link to="../login">
+                <Button.WriteBtn>
+                  <HiPencil />
+                  작성하기
+                </Button.WriteBtn>
+              </Link>
+            )}
+          </MenuDiv>
         ) : (
           <FlexContainer padding="2rem">관리자 게시판</FlexContainer>
         )}
@@ -131,13 +157,15 @@ function EventList() {
               width="100%"
               borderTop="2px solid black"
               borderBottom="1px solid black"
-              padding="1.5rem 1rem"
+              padding="1.5rem 2rem 1.5rem 4rem"
             >
               {listArr.map((el, index) => {
                 return (
                   <FlexContainer
                     key={index}
-                    grow={el === '제목' ? 7 : el === '기간' ? 2 : 1}
+                    width={
+                      el === '제목' ? '25rem' : el === '기간' ? '10rem' : '7rem'
+                    }
                   >
                     <SmallFont>{el}</SmallFont>
                   </FlexContainer>
@@ -149,9 +177,12 @@ function EventList() {
                 등록된 이벤트가 없습니다
               </FlexContainer>
             ) : (
-              <FlexContainer width="100%" dir="col" gap="0.1rem">
+              <FlexContainer width="100%" dir="col" gap="0rem">
                 {event.map((el, index) => {
                   return <Event key={index} event={el} />;
+                })}
+                {crolingEvent.map((el, index) => {
+                  return <CrolingEvent key={index} event={el} />;
                 })}
               </FlexContainer>
             )}
@@ -175,6 +206,15 @@ const EventContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const MenuDiv = styled.div`
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 100%;
+  min-height: 100px;
+  border-bottom: 1px solid ${theme.colors.gray};
 `;
 
 const Title = styled.div`
