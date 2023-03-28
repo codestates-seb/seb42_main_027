@@ -10,6 +10,7 @@ import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.comment.qna.entity.QnaComment;
 import ynzmz.server.member.entity.Member;
 import ynzmz.server.vote.Vote;
+import ynzmz.server.vote.qna.entity.QnaVote;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -50,6 +51,9 @@ public class Answer implements Vote {
     @OneToMany(mappedBy = "answer", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<QnaComment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<QnaVote> qnaVotes = new ArrayList<>();
 
     public enum AdoptStatus{
         TRUE,
