@@ -170,105 +170,97 @@ function CommentList({
   };
 
   return (
-    <>
-      <PostListContainer>
-        <PostListTitleContainer>
-          <h2>내가 작성한 댓글</h2>
-          <StyleSelect
-            onChange={handleChangeCommentCategorie}
-            value={selectCommentCategories}
-          >
-            <option value="자유 게시판">자유 게시판</option>
-            <option value="답변 게시글">답변 댓글</option>
-            <option value="강의 리뷰">강의 리뷰</option>
-            <option value="자유 대댓글">자유게시판 대댓글</option>
-            <option value="질문답변 대댓글">질문답변 대댓글</option>
-          </StyleSelect>
-        </PostListTitleContainer>
-        <List>
-          {freeComments.map((comment: CommentsProps) => {
-            function selectKey(select: string) {
-              if (select === '답변 게시글') {
-                return comment.qnaCommentId;
-              }
-              if (select === '강의 리뷰') {
-                return comment.lectureReviewCommentId;
-              }
-              if (select === '자유 대댓글') {
-                return comment.freeReCommentId;
-              }
-              if (select === '질문답변 대댓글') {
-                return comment.qnaReCommentId;
-              }
-              if (select === '자유 게시판') {
-                return comment.freeCommentId;
-              }
+    <PostListContainer>
+      <PostListTitleContainer>
+        <h2>내가 작성한 댓글</h2>
+        <StyleSelect
+          onChange={handleChangeCommentCategorie}
+          value={selectCommentCategories}
+        >
+          <option value="자유 게시판">자유 게시판</option>
+          <option value="답변 게시글">답변 댓글</option>
+          <option value="강의 리뷰">강의 리뷰</option>
+          <option value="자유 대댓글">자유게시판 대댓글</option>
+          <option value="질문답변 대댓글">질문답변 대댓글</option>
+        </StyleSelect>
+      </PostListTitleContainer>
+      <List>
+        {freeComments.map((comment: CommentsProps) => {
+          function selectKey(select: string) {
+            if (select === '답변 게시글') {
+              return comment.qnaCommentId;
+            }
+            if (select === '강의 리뷰') {
+              return comment.lectureReviewCommentId;
+            }
+            if (select === '자유 대댓글') {
+              return comment.freeReCommentId;
+            }
+            if (select === '질문답변 대댓글') {
+              return comment.qnaReCommentId;
+            }
+            if (select === '자유 게시판') {
               return comment.freeCommentId;
             }
+            return comment.freeCommentId;
+          }
 
-            return (
-              <ListItem key={selectKey(selectCommentCategories)}>
-                <Bottom>
-                  <Content>{comment.content}</Content>
-                  <Count>
-                    <CountIcon.Vote />
-                    {comment.voteCount}
-                  </Count>
-                </Bottom>
+          return (
+            <ListItem key={selectKey(selectCommentCategories)}>
+              <Bottom>
+                <Content>{comment.content}</Content>
+                <Count>
+                  <CountIcon.Vote />
+                  {comment.voteCount}
+                </Count>
+              </Bottom>
 
-                {selectCommentCategories === '자유 게시판' ? (
-                  <SourcesInfo>
-                    <Source to={`/free/articles/${comment.free?.freeId}`}>
-                      {comment.free?.title}
-                    </Source>
-                    에 남긴 답변
-                  </SourcesInfo>
-                ) : null}
+              {selectCommentCategories === '자유 게시판' ? (
+                <SourcesInfo>
+                  <Source to={`/free/articles/${comment.free?.freeId}`}>
+                    {comment.free?.title}
+                  </Source>
+                  에 남긴 답변
+                </SourcesInfo>
+              ) : null}
 
-                {selectCommentCategories === '답변 게시글' &&
-                comment.question ? (
-                  <SourcesInfo>
-                    <Source
-                      to={`/qna/articles/${comment.question?.questionId}`}
-                    >
-                      {comment.question?.title}
-                    </Source>
-                    에 남긴 답변
-                  </SourcesInfo>
-                ) : null}
+              {selectCommentCategories === '답변 게시글' && comment.question ? (
+                <SourcesInfo>
+                  <Source to={`/qna/articles/${comment.question?.questionId}`}>
+                    {comment.question?.title}
+                  </Source>
+                  에 남긴 답변
+                </SourcesInfo>
+              ) : null}
 
-                {selectCommentCategories === '강의 리뷰' ? (
-                  <SourcesInfo>
-                    <Source
-                      to={`/qna/articles/${comment.lectureReview?.lectureReviewId}`}
-                    >
-                      {comment.lectureReview?.title}
-                    </Source>
-                    에 남긴 답변
-                  </SourcesInfo>
-                ) : null}
+              {selectCommentCategories === '강의 리뷰' ? (
+                <SourcesInfo>
+                  <Source
+                    to={`/qna/articles/${comment.lectureReview?.lectureReviewId}`}
+                  >
+                    {comment.lectureReview?.title}
+                  </Source>
+                  에 남긴 답변
+                </SourcesInfo>
+              ) : null}
 
-                {selectCommentCategories === '자유 대댓글' ? (
-                  <SourcesInfo>
-                    <CommentSource>
-                      {comment.freeComment?.content}
-                    </CommentSource>
-                    에 남긴 답변
-                  </SourcesInfo>
-                ) : null}
+              {selectCommentCategories === '자유 대댓글' ? (
+                <SourcesInfo>
+                  <CommentSource>{comment.freeComment?.content}</CommentSource>
+                  에 남긴 답변
+                </SourcesInfo>
+              ) : null}
 
-                {selectCommentCategories === '질문답변 대댓글' ? (
-                  <SourcesInfo>
-                    {comment.qnaComment?.content}에 남긴 답변
-                  </SourcesInfo>
-                ) : null}
-              </ListItem>
-            );
-          })}
-        </List>
-      </PostListContainer>
-      ;
-    </>
+              {selectCommentCategories === '질문답변 대댓글' ? (
+                <SourcesInfo>
+                  {comment.qnaComment?.content}에 남긴 답변
+                </SourcesInfo>
+              ) : null}
+            </ListItem>
+          );
+        })}
+      </List>
+    </PostListContainer>
   );
 }
 export default CommentList;
