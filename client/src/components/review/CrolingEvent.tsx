@@ -3,8 +3,6 @@
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
 
 type Props = {
   event: {
@@ -18,13 +16,9 @@ type Props = {
 };
 
 function CrolingEvent({ event }: Props) {
-  const [offsetX, setOffsetX] = useState(0);
-  const [offsetY, setOffsetY] = useState(0);
-  const id = Math.random() * (500 - 1) + 1;
-
   const endCheck = (last: string) => {
     const today = new Date();
-    const lastDay = last.slice(13);
+    const lastDay = last.slice(14);
 
     if (Number(today.getFullYear()) < Number(lastDay.slice(0, 4))) return false;
     if (Number(today.getMonth()) + 1 < Number(lastDay.slice(5, 7)))
@@ -38,19 +32,10 @@ function CrolingEvent({ event }: Props) {
       <FlexContainer width="6rem">
         <MiddleFont>외부</MiddleFont>
       </FlexContainer>
-      <FlexContainer
-        onMouseOver={e => {
-          setOffsetX(e.clientX);
-          setOffsetY(e.clientY);
-        }}
-        width="26rem"
-        dir="col"
-        align="start"
-        gap="0.3rem"
-      >
+      <FlexContainer width="26rem" dir="col" align="start" gap="0.3rem">
         <TitleSpan end={endCheck(event.date)} href={event.hyperLink}>
           {event.title.length > 30
-            ? `${event.title.slice(0, 35)}...`
+            ? `${event.title.slice(0, 30)}...`
             : event.title}
         </TitleSpan>
       </FlexContainer>

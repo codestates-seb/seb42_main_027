@@ -5,7 +5,6 @@ import { useParams } from 'react-router';
 import styled from 'styled-components';
 import Lecture from 'components/review/Lecture';
 import { Link } from 'react-router-dom';
-import isLogin from 'utils/isLogin';
 import Button from 'components/common/Button';
 
 import useUserInfoStore from 'stores/userInfoStore';

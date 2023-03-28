@@ -87,8 +87,6 @@ function LectureReviewList() {
   const [isPending, setIsPending] = useState<boolean>(true);
   const { lectureId } = useParams();
 
-  const Authorization = localStorage.getItem('token');
-
   const list = ['추천', '만족도', '제목', '작성자', '등록일'];
 
   useEffect(() => {
