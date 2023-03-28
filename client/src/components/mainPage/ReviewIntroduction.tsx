@@ -19,7 +19,7 @@ const ContentWrapper = styled.div`
   margin-top: 5rem;
   margin-left: 3rem;
   width: 48rem;
-  height: 20rem;
+  height: 15rem;
 `;
 
 const Title = styled.div`

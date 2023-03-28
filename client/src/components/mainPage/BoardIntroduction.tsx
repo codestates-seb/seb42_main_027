@@ -18,11 +18,9 @@ const Container = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+  margin-top: 4rem;
   width: 100%;
-  height: 20rem;
-  padding: 1rem 3rem;
   display: flex;
-  justify-content: flex-end;
   align-items: flex-end;
   margin-bottom: 4rem;
 `;
@@ -30,10 +28,11 @@ const ContentWrapper = styled.div`
 const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 35rem;
+  margin-left: 3rem;
 `;
 
 const Title = styled.div`
+  width: 45rem;
   font-size: 2.5rem;
   color: ${colors.black};
   margin-bottom: 0.5rem;
@@ -81,13 +80,13 @@ const SelectBtn = styled.div`
 `;
 
 const SubTitle = styled.div`
+  width: 40rem;
   font-size: 1.2rem;
   color: ${colors.black};
 `;
 
 const MacWrapper = styled.div`
   display: flex;
-  padding: 1rem 4rem;
 `;
 
 function ReviewIntroduction() {
@@ -125,17 +124,14 @@ function ReviewIntroduction() {
 
   return (
     <Container>
-      <ContentWrapper data-aos="fade-left">
+      <ContentWrapper data-aos="fade-down">
         <TitleContainer>
           <Title>
             게시판 기능으로 수강생들끼리 정보 공유하고, 더 나은 인강 선택하세요!
           </Title>
           <SubTitle>
-            게시판 기능은 수강생들이 인강에 대해 서로 의견을 나눌 수 있는
-            공간입니다. 게시글을 작성하고 댓글을 달며 자유롭게 소통할 수 있으며,
-            인강에 대한 질문이나 정보 공유도 가능합니다. 이를 통해
-            수강생들끼리의 정보 교류를 도모하고, 보다 나은 인강 선택을 할 수
-            있도록 도와줍니다.
+            게시판에서 수강생들끼리 의견 공유하고, 정보 교류로 높은 만족도를
+            느껴보세요!
           </SubTitle>
         </TitleContainer>
       </ContentWrapper>

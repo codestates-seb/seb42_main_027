@@ -17,8 +17,8 @@ const Container = styled.div`
 function MainPage() {
   useEffect(() => {
     AOS.init({
-      duration: 1000,
-      once: true,
+      duration: 2000,
+      once: false,
     });
   }, []);
 
