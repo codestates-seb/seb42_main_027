@@ -407,7 +407,7 @@ public void etoosEventScheduler() {
             }
             for (Event e : eventList) {
                 boolean sim = false;
-                for (int i = onlyMegaEvents.size(); i > onlyMegaEvents.size() - 10; i--) {
+                for (int i = onlyMegaEvents.size()-1; i > onlyMegaEvents.size() - 11; i--) {
                     if (e.getHyperLink().equals(onlyMegaEvents.get(i).getHyperLink())) {
                         sim = true;
                         break;
