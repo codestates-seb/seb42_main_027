@@ -9,6 +9,7 @@ import { BsPhone } from 'react-icons/bs';
 import { AiOutlineUser } from 'react-icons/ai';
 import { useEditInfoStore } from 'stores/useEditInfoStore';
 import EditUserInfoInput from './EditUserInfoInput';
+import userIcon from '../../assets/images/blank-profile-picture-973460_960_720.webp';
 
 const { colors } = theme;
 
@@ -162,7 +163,7 @@ function EditUserInfo() {
   const { isEditInfo, setIsEditInfo } = useEditInfoStore(state => state);
 
   const userData = {
-    profileImage: 'https://i.pravatar.cc/150?img=7',
+    profileImage: `${userIcon}`,
     name: userInfo.username,
     email: userInfo.email,
     displayName: userInfo.displayName,

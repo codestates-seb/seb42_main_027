@@ -10,6 +10,7 @@ import {
   validateEmail,
   validatePassword,
 } from '../../../utils/regex';
+import userIcon from '../../../assets/images/blank-profile-picture-973460_960_720.webp';
 
 const { colors } = theme;
 
