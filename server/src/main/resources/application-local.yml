@@ -7,16 +7,16 @@ spring:
     username: root
     password: 12341234
   jpa:
-    hibernate:
-      ddl-auto: create
+#    hibernate:
+#      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 1000
   flyway:
-    baseline-on-migrate: false
-    enabled: false
+    baseline-on-migrate: true
+    enabled: true
 
 mail:
   address:

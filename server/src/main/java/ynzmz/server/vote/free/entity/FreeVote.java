@@ -8,6 +8,8 @@ import lombok.Setter;
 import ynzmz.server.board.free.entity.Free;
 import ynzmz.server.comment.free.entity.FreeComment;
 import ynzmz.server.member.entity.Member;
+import ynzmz.server.recomment.free.entity.FreeReComment;
+import ynzmz.server.recomment.qna.entity.QnaReComment;
 import ynzmz.server.vote.Vote;
 
 import javax.persistence.*;
@@ -36,6 +38,10 @@ public class FreeVote {
     @JoinColumn(name = "member_id")
     @JsonBackReference
     private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "free_re_comment_id")
+    private FreeReComment freeReComment;
     public FreeVote(Free free, Member member, Vote.Status status, Vote.Target target){
         this.free = free;
         this.member = member;
