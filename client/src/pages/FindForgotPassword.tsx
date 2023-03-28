@@ -153,6 +153,7 @@ function FindForgotPassword() {
     pathData.email = email;
     pathData.phoneNumber = phoneNum;
     validationName(userName);
+    validationEmail(email);
     validationPhoneNumber(phoneNum);
     if (
       isUserNameSuccess.isSuccess === 'true' &&
@@ -225,9 +226,7 @@ function FindForgotPassword() {
             다음
           </BaseButton>
         </StyleButton>
-        <button type="button" onClick={handleOpenModal}>
-          버튼
-        </button>
+
         <FindPasswordModal isOpen={isOpen} email={email} />
       </Form>
     </Container>
