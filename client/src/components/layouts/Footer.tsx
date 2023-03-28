@@ -5,7 +5,7 @@ import { ReactComponent as GithubLogo } from '../../assets/images/github-mark-wh
 function Footer() {
   return (
     <Container>
-      <Title>야놀지말자</Title>
+      <Title>일타</Title>
       <Section>
         <ul>
           <LI>[FE] 김기은, 노지용, 이채욱</LI>

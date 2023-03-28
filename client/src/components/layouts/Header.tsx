@@ -31,7 +31,7 @@ function Header() {
     <Container>
       <Left>
         <Link to="/">
-          <Title>yanoljimalja</Title>
+          <Title>일타</Title>
         </Link>
         <UL>
           <Link to="/ReviewPage">
