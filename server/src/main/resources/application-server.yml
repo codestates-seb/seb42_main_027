@@ -2,9 +2,9 @@ server:
   port: 8080
 spring:
   datasource:
-    url: jdbc:mysql://mainproject27team.c16y5acx5nnq.ap-northeast-2.rds.amazonaws.com:3306/mainproject?serverTimezone=Asia/Seoul
-    username: admin
-    password: ENC(D4/hy+/wLxdwV/oo+B5uY6fhvuEej6NgFVEPd+j/tRA=)
+    url: ENC(e6d4e/Zr1BaJE5nv8OnPUJxbZ45U62/Myr6q74YqxKhVhQRto2TP1v/SQZnnzHEUT9/ZFsSmkZAyTP/7eMBWCMCyRjr44u1KspDDeQEUJBPijzU3aIZUKmV/031KQYL8j6rCH6m97x0ezmx7/ZO67qYECdb24XxA8x36+jaPpF8=)
+    username: ENC(U8YsYVH0jHbLnwUbonzDBQ==)
+    password: ENC(RgeriXVJoSircOrLz1wJlHl1YBqrisz+)
   jpa:
 #    hibernate:
 #      ddl-auto: create
@@ -20,14 +20,11 @@ spring:
   mail:
     host: smtp.naver.com
     port: 465
-    username: likedubu@naver.com
-    password: peanut610!
+    username: ENC(M+G39CQoJxPzjdBNwNy0da8p0ttxNvTdbt1ftJ2Uh+s=)
+    password: ENC(yIhO/NphR8unaVQZA3bYGUaihfWDiOsb)
     properties:
       mail.smtp.auth: true
       mail.smtp.ssl.enable: true
-
-
-
 
 
 mail:

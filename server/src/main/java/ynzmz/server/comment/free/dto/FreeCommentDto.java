@@ -18,7 +18,7 @@ public class FreeCommentDto {
     public static class Post{
         private String content;
         private String createdAt;
-        private String freeImoticonUrl;
+        private String freeEmoticonUrl;
     }
 
     @Getter
@@ -28,7 +28,7 @@ public class FreeCommentDto {
         private String content;
         private String category;
         private String modifiedAt;
-        private String freeImoticonUrl;
+        private String freeEmoticonUrl;
 
     }
     @Setter @Getter
@@ -40,7 +40,7 @@ public class FreeCommentDto {
         private String content;
         private String createdAt;
         private String modifiedAt;
-        private String freeImoticonUrl;
+        private String freeEmoticonUrl;
         private long voteCount;
         private MemberDto.SimpleInfoResponse member;
         private boolean memberSim;
@@ -56,7 +56,7 @@ public class FreeCommentDto {
         private String content;
         private String createdAt;
         private String modifiedAt;
-        private String freeImoticonUrl;
+        private String freeEmoticonUrl;
         private long voteCount;
         private MemberDto.SimpleInfoResponse member;
         private boolean memberSim;

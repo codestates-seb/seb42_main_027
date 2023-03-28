@@ -44,6 +44,7 @@ create table free_comment (
                               free_comment_id bigint not null auto_increment,
                               content varchar(255),
                               created_at varchar(255),
+                              free_emoticon_url varchar(255),
                               member_sim bit default false,
                               modified_at varchar(255),
                               vote_count bigint default 0,
@@ -172,6 +173,8 @@ create table map_teacher_subject_tag (
 
 create table member (
                         member_id bigint not null auto_increment,
+                        created_date varchar(255),
+                        modified_date varchar(255),
                         created_at varchar(255),
                         display_name varchar(255),
                         email varchar(255),
