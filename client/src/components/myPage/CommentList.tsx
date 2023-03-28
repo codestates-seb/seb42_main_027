@@ -21,7 +21,7 @@ const PostListContainer = styled.div`
   width: 45rem;
 
   @media screen and (max-width: 1439px) {
-    width: 27rem;
+    width: 35rem;
   }
 `;
 

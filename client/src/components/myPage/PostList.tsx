@@ -22,7 +22,7 @@ const PostListContainer = styled.div`
   width: 45rem;
 
   @media screen and (max-width: 1439px) {
-    width: 27rem;
+    width: 35rem;
   }
 `;
 
@@ -234,10 +234,14 @@ function PostList({
                           </Link>
                         ) : null}
                       </Title>
-                      <Content>{post.content}</Content>
+                      <Content
+                        dangerouslySetInnerHTML={{ __html: post.content }}
+                      />
                     </ContentContainer>
                   ) : (
-                    <Content>{post.content}</Content>
+                    <Content
+                      dangerouslySetInnerHTML={{ __html: post.content }}
+                    />
                   )}
                   <Count>
                     {post.viewCount ? (

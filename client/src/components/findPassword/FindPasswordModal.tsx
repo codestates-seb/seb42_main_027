@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { validatePassword } from 'utils/regex';
 import theme from 'theme';
 import ModalWrapper from 'components/common/ModalWrapper';
@@ -8,6 +8,7 @@ import BaseButton from 'components/common/BaseButton';
 import { useNavigate } from 'react-router';
 import useUserInfoStore from 'stores/userInfoStore';
 import patchFindPassword from 'apis/patchFindPassword';
+import postSendEmail from 'apis/postSendEmail';
 import patchUserPassword from '../../apis/patchUserPassword';
 
 const { colors, fontSizes } = theme;
@@ -59,7 +60,16 @@ type FindPasswordModalProps = {
 function FindPasswordModal({ isOpen, email }: FindPasswordModalProps) {
   const navigate = useNavigate();
 
+  const fetchSendEmail = async () => {
+    try {
+      await postSendEmail(email);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const handleClickLoginBtn = () => {
+    fetchSendEmail();
     setTimeout(() => {
       navigate('/');
     }, 100);
