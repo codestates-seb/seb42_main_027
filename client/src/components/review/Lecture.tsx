@@ -49,7 +49,7 @@ function Lecture({ lecture, first }: Props) {
         <BsStarFill size="20px" color="gold" />
         <span>{lecture.starPointAverage.toFixed(1)}</span>
       </FlexContainer>
-      <FlexContainer width="5rem">
+      <FlexContainer width="6rem">
         {lecture.totalReviewCount} Reviews
       </FlexContainer>
       <FlexContainer
