@@ -114,7 +114,7 @@ function TeacherSignUpForm() {
     } else {
       setIsPhoneNumSuccess({
         isSuccess: 'false',
-        errorMessage: '형직에 맞지 않는 번호입니다.',
+        errorMessage: '형식에 맞지 않는 번호입니다.',
       });
     }
   };
