@@ -87,6 +87,8 @@ function LectureReviewList() {
   const [isPending, setIsPending] = useState<boolean>(true);
   const { lectureId } = useParams();
 
+  const Authorization = localStorage.getItem('token');
+
   const list = ['추천', '만족도', '제목', '작성자', '등록일'];
 
   useEffect(() => {
@@ -122,9 +124,11 @@ function LectureReviewList() {
             display={!data.data.lectureReviews.length ? 'flex' : 'none'}
             width="100%"
           >
-            <Link to="create">
-              <PButton>리뷰 등록</PButton>
-            </Link>
+            {Authorization ? (
+              <Link to="create">
+                <PButton>리뷰 등록</PButton>
+              </Link>
+            ) : null}
           </FlexContainer>
           {!data.data.lectureReviews.length ? (
             <FlexContainer height="30vh">등록된 리뷰가 없습니다</FlexContainer>
