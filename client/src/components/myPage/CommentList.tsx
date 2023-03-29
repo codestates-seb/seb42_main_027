@@ -18,10 +18,10 @@ const PostListContainer = styled.div`
   border-radius: 1rem;
   background-color: white;
   padding: 1rem;
-  width: 50rem;
+  width: 45rem;
 
-  @media screen and (max-width: 1590px) {
-    width: 27rem;
+  @media screen and (max-width: 1439px) {
+    width: 35rem;
   }
 `;
 

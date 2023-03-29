@@ -7,10 +7,11 @@ import { validatePassword, validatePhoneNum } from 'utils/regex';
 import theme from 'theme';
 import { BsPhone } from 'react-icons/bs';
 import { AiOutlineUser } from 'react-icons/ai';
+import { useEditInfoStore } from 'stores/useEditInfoStore';
 import EditUserInfoInput from './EditUserInfoInput';
+import userIcon from '../../assets/images/blank-profile-picture-973460_960_720.webp';
 
 const { colors } = theme;
-const { fontSizes } = theme;
 
 const Container = styled.div`
   width: 60%;
@@ -33,8 +34,8 @@ const UserInfoContainer = styled.div`
   margin-top: 8rem;
   background-color: white;
   margin-left: 6rem;
-  @media screen and (max-width: 1919px) {
-    width: 30rem;
+  @media screen and (max-width: 1439px) {
+    width: 35rem;
   }
 `;
 
@@ -159,8 +160,10 @@ function EditUserInfo() {
       errorMessage: '',
     });
 
+  const { isEditInfo, setIsEditInfo } = useEditInfoStore(state => state);
+
   const userData = {
-    profileImage: 'https://i.pravatar.cc/150?img=7',
+    profileImage: `${userIcon}`,
     name: userInfo.username,
     email: userInfo.email,
     displayName: userInfo.displayName,
@@ -310,6 +313,7 @@ function EditUserInfo() {
     if (isEdit === true) {
       try {
         await patchUserInfo(UserInfoPathData, userInfo.memberId);
+        setIsEditInfo(!isEditInfo);
         alert('정보가 수정되었습니다.');
         setIsEdit(false);
         resetUserInfoValue();
@@ -346,9 +350,11 @@ function EditUserInfo() {
   };
 
   useEffect(() => {
+    console.log('ccc');
+
     setDisplayName(userInfo.displayName);
     setPhoneNum(userInfo.phoneNumber);
-  }, [userInfo]);
+  }, [userInfo, isEdit]);
 
   return (
     <Container>
