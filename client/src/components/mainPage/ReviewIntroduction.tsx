@@ -61,8 +61,9 @@ function ReviewIntroduction() {
           <br /> 후기를 한 눈에
         </Title>
         <SubTitle>
-          국내 모든 인강 정보와 후기를 한 눈에 볼 수 있는 서비스로, 수강생들은
-          다양한 검색 조건으로 쉽게 인강 정보를 찾을 수 있습니다.
+          국내 모든 인강 정보와 후기를 한 눈에 볼 수 있는 서비스로,
+          <br /> 수강생들은 다양한 검색 조건으로 쉽게 인강 정보를 찾을 수
+          있습니다.
         </SubTitle>
         <BtnWrapper>
           <BaseButton
