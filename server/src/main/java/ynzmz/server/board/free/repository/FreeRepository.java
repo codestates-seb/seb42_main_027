@@ -41,4 +41,9 @@ public interface FreeRepository extends JpaRepository<Free,Long> {
             "FROM Free f " +
             "WHERE (f.category = '공지')")
     List<Free> findNoticeListFree(Pageable pageable);
+
+    @Query(value = "SELECT DISTINCT f " +
+            "FROM Free f " +
+            "WHERE (f.category = '공지')")
+    Page<Free> findNoticePageFree(Pageable pageable);
 }

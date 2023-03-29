@@ -18,4 +18,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     @Query(value = "SELECT e FROM Event e where e.source = :source")
     Page<Event> findEventsBySourcePage(String source, Pageable pageable);
+
+
+
+
 }

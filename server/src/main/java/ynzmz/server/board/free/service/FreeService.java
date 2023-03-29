@@ -88,6 +88,10 @@ public Page<Free> findFreesByCategoryAndSortAndTitle(int page, String category,S
         return repository.findFreesByCategory(category, PageRequest.of(page, 15), title);
     }
 
+    public Page<Free> findEventsByNotice(int page, String sort) {
+        return repository.findNoticePageFree(PageRequest.of(page,15 ,Sort.by(sort).descending()));
+    }
+
 
 
     public Page<Free> findFreesByCategory(int page, String title,String category,String sort){
@@ -118,5 +122,8 @@ public Page<Free> findFreesByCategoryAndSortAndTitle(int page, String category,S
 
     public void getCommentNum(Free free){
         free.setCommentsListNum(free.getComments().size());
+        repository.save(free);
     }
+
+
 }

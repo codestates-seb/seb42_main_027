@@ -67,7 +67,7 @@ public class FreeController {
         Page<Free> freePage = (category != null && category.equals("전체"))
                 ? freeService.findAllFrees(title,sort,page-1,size)
                 : (category != null && category.equals("공지"))
-                ? freeService.findFreesWithSort( page - 1, sort)
+                ? freeService.findEventsByNotice( page - 1, sort)
                 : freeService.findFreesByCategory(page -1,title, category,sort);
 
         List<Free> free = freePage.getContent();
@@ -77,6 +77,7 @@ public class FreeController {
         //추천순 X 조회순 X --> 바닐라 버전
 
     }
+
 
 
 
