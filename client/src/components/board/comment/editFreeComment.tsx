@@ -12,7 +12,7 @@ import useUserInfoStore from 'stores/userInfoStore';
 import PostComment from 'apis/board/postComment';
 
 interface Comment {
-  qnaCommentId: number;
+  freeCommentId: number;
   content: string;
   createdAt: string;
   modifiedAt: string | null;
@@ -33,7 +33,7 @@ type Props = {
   setEditData: React.Dispatch<React.SetStateAction<string>>;
 };
 
-function EditComment({
+function EditFreeComment({
   data,
   checkState,
   setCheckState,
@@ -98,4 +98,4 @@ const GuideDiv = styled.div`
   }
 `;
 
-export default EditComment;
+export default EditFreeComment;

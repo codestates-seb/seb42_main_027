@@ -11,15 +11,17 @@ import CountIcon from 'assets/icons/countIcon';
 import PostVote from 'apis/board/postVote';
 import useUserInfoStore from 'stores/userInfoStore';
 import deleteComment from 'apis/board/deleteComment';
+import PatchComment from 'apis/board/patchComment';
 import CalElapsedTime from '../post/calElapsedTime';
 import WriteComment from '../comment/writeComment';
+import EditFreeComment from '../comment/editFreeComment';
 import RecommentList from './recommentList';
 
 interface Data {
   freeCommentId: number;
   content: string;
   createdAt: string;
-  modifiedAt?: string;
+  modifiedAt: string | null;
   voteCount: number;
   member: {
     memberId: number;
@@ -39,14 +41,16 @@ type Props = {
 function CommentBlock({ data, checkState, setCheckState }: Props) {
   const { userInfo } = useUserInfoStore(state => state);
   const urlData = useLocation().pathname.slice(0, 4);
-  const [openEdit, setOpenEidt] = useState(false);
+  const [checkEdit, setCheckEdit] = useState<boolean>(false);
+  const [editData, setEditData] = useState<string>('');
   const [openRecom, setOpenRecom] = useState(false);
   // console.log(data.member.displayName);
 
   const calTime: string = CalElapsedTime(data.createdAt);
 
-  const openEditHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setOpenEidt(!openEdit);
+  const editHandler = () => {
+    setCheckEdit(!checkEdit);
+    setEditData(data.content);
   };
 
   const openRecomHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -74,6 +78,21 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
     }
   };
 
+  const fetchEditComment = async () => {
+    try {
+      const patchData = {
+        content: editData,
+        modifiedAt: `${new Date()}`,
+      };
+      await PatchComment(patchData, 'frees', Number(data.freeCommentId));
+      setCheckEdit(!checkEdit);
+      setEditData('');
+      setCheckState(!checkState);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Container>
       <TitleDiv>
@@ -93,17 +112,35 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
         </Writer>
         {data.member.memberId === userInfo.memberId ? (
           <UDBtnDiv>
-            <Button.UDWhiteBtn onClick={openEditHandler}>
-              수정
-            </Button.UDWhiteBtn>
-            <Button.UDWhiteBtn onClick={fetchDeleteComment}>
-              삭제
-            </Button.UDWhiteBtn>
+            {checkEdit ? (
+              <Button.UDWhiteBtn onClick={editHandler}>취소</Button.UDWhiteBtn>
+            ) : (
+              <Button.UDWhiteBtn onClick={editHandler}>수정</Button.UDWhiteBtn>
+            )}
+            {checkEdit ? (
+              <Button.UDWhiteBtn onClick={fetchEditComment}>
+                확인
+              </Button.UDWhiteBtn>
+            ) : (
+              <Button.UDWhiteBtn onClick={fetchDeleteComment}>
+                삭제
+              </Button.UDWhiteBtn>
+            )}
           </UDBtnDiv>
         ) : null}
       </TitleDiv>
       <MainDiv>
-        <TextDiv>{data.content}</TextDiv>
+        {checkEdit ? (
+          <EditFreeComment
+            data={data}
+            checkState={checkState}
+            setCheckState={setCheckState}
+            editData={editData}
+            setEditData={setEditData}
+          />
+        ) : (
+          <TextDiv>{data.content}</TextDiv>
+        )}
         <BottomDiv>
           <Button.RecommentBtn onClick={openRecomHandler}>
             {/* 댓글 쓰기 */}

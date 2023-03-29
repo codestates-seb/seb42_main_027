@@ -42,7 +42,7 @@ interface Comment {
   freeCommentId: number;
   content: string;
   createdAt: string;
-  modifiedAt?: string;
+  modifiedAt: string | null;
   voteCount: number;
   member: {
     memberId: number;
