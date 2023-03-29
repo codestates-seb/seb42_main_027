@@ -62,7 +62,8 @@ public class OurService {
     public void deleteEvent(Our event){
         ourRepository.delete(event);
     }
-    public void plusView(Our event){event.setViewCount(event.getViewCount()+1);}
+    public void plusView(Our event){event.setViewCount(event.getViewCount()+1);
+    ourRepository.save(event);}
 
 
 }
