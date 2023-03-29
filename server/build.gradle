@@ -31,8 +31,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3' // yml Secret Key 암호화
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3' // yml Secret Key 암호화
 
 
 	compileOnly "org.flywaydb:flyway-mysql"
