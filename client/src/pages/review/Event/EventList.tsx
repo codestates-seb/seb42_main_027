@@ -11,7 +11,6 @@ import theme from 'theme';
 
 import Event from 'components/review/Event';
 import useUserInfoStore from 'stores/userInfoStore';
-import isLogin from 'utils/isLogin';
 import GoBackMenu from 'components/board/post/goBackMenu';
 import Button from 'components/common/Button';
 import { Link } from 'react-router-dom';
@@ -191,12 +190,14 @@ function EventList() {
           </FlexContainer>
         )}
 
-        <Pagenation
-          size={pageInfo.totalPages}
-          currentPage={curPage}
-          pageSize={pageInfo.size}
-          setCurPage={setCurPage}
-        />
+        {pageInfo.totalPages ? (
+          <Pagenation
+            size={pageInfo.totalPages}
+            currentPage={curPage}
+            pageSize={pageInfo.size}
+            setCurPage={setCurPage}
+          />
+        ) : null}
       </FlexContainer>
     </EventContainer>
   );
