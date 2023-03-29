@@ -2,12 +2,16 @@ package ynzmz.server.board.event.their.seedcrawler;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.context.annotation.Bean;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Service;
 import ynzmz.server.board.event.their.entity.Event;
 import ynzmz.server.board.event.their.service.EventService;
 
@@ -15,7 +19,9 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-@AllArgsConstructor
+@Service
+@RequiredArgsConstructor
+@Slf4j
 public class Megaseed {
     private final EventService eventService;
 
