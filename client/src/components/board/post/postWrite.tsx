@@ -8,7 +8,7 @@ import Button from 'components/common/Button';
 import PostData from 'apis/board/postData';
 import PatchData from 'apis/board/patchData';
 import getPostDetail from 'apis/board/getPostDetail';
-import TextEditor from 'components/common/textEditor';
+import TextEditor from '../customTextEditor';
 import GoBackMenu from './goBackMenu';
 
 function WritePost() {
@@ -19,13 +19,13 @@ function WritePost() {
   const [category, setCategory] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [post, setPost] = useState<string>('');
-  // const [uploadImages, setUploadImages] = useState<string[] | any>([]);
-  const [tag, setTag] = useState<string[] | []>([]);
+  const [uploadImages, setUploadImages] = useState<string[] | []>([]);
+  // const [tag, setTag] = useState<string[] | []>([]);
 
   console.log('category', category);
   console.log('title', title);
   console.log('post', post);
-  console.log('tag', tag);
+  // console.log('tag', tag);
   console.log('paramsData', paramsData);
 
   const postHandler = async () => {
@@ -37,7 +37,7 @@ function WritePost() {
           title,
           content: post,
           category,
-          // uploadImages,
+          uploadImages,
           createdAt: `${new Date()}`,
         };
         if (urlData === '/fre') {
@@ -68,7 +68,7 @@ function WritePost() {
           title,
           content: post,
           category,
-          // uploadImages,
+          uploadImages,
           modifiedAt: `${new Date()}`,
         };
         if (urlData === '/fre') {
@@ -105,7 +105,7 @@ function WritePost() {
         setCategory(buffer.data.category);
         setTitle(buffer.data.title);
         setPost(buffer.data.content);
-        // setUploadImages(buffer.data.uploadImages);
+        setUploadImages(buffer.data.uploadImages);
         setIsPending(false);
         // setTag();
       } else {
@@ -116,7 +116,7 @@ function WritePost() {
         setCategory(buffer.data.category);
         setTitle(buffer.data.title);
         setPost(buffer.data.content);
-        // setUploadImages(buffer.data.uploadImages);
+        setUploadImages(buffer.data.uploadImages);
         // setTag();
         setIsPending(false);
       }
@@ -200,8 +200,8 @@ function WritePost() {
               <TextEditor
                 textContent={post}
                 setTextContent={setPost}
-                // uploadImages={uploadImages}
-                // setUploadImages={setUploadImages}
+                uploadImages={uploadImages}
+                setUploadImages={setUploadImages}
                 path={
                   urlData === '/fre'
                     ? 'boards/frees/content'

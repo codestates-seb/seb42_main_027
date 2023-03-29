@@ -27,6 +27,7 @@ interface Data {
   uploadImages?: string[] | [];
   viewCount: number;
   voteCount: number;
+  answerCount: number;
   createdAt: string;
   modifiedAt?: string;
   commentsListNum: number;
@@ -95,7 +96,7 @@ function PostList() {
       <FreeBoardMenu />
       {isPending ? (
         <MainDiv>
-          <NoData>로딩페이지가 들어갈 자리입니다.</NoData>
+          <NoData>LOADING...</NoData>
         </MainDiv>
       ) : (
         <MainDiv>

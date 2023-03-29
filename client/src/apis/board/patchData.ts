@@ -6,7 +6,7 @@ type PatchData = {
   title: string;
   content: string;
   category: string;
-  // uploadImages: string[];
+  uploadImages: string[] | [];
   modifiedAt: string;
 };
 

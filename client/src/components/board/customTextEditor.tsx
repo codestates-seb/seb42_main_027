@@ -10,25 +10,23 @@ const apiUrl = process.env.REACT_APP_API_URL;
 type Props = {
   textContent: string;
   setTextContent: React.Dispatch<React.SetStateAction<string>>;
-  // uploadImages: string[] | [];
-  // setUploadImages: React.Dispatch<React.SetStateAction<string[] | []>>;
+  uploadImages: string[] | [];
+  setUploadImages: React.Dispatch<React.SetStateAction<string[] | []>>;
   path: string;
 };
 
 function TextEditor({
   textContent,
   setTextContent,
-  // uploadImages,
-  // setUploadImages,
+  uploadImages,
+  setUploadImages,
   path,
 }: Props) {
   const QuillRef: any = useRef();
   console.log('textContent', textContent);
 
   // const ArrayHandler = (value: string) => {
-  //   if (uploadImages) {
-  //     return [...uploadImages, value];
-  //   }
+  //   return [...uploadImages, value];
   // };
 
   const imageHandler = () => {
@@ -68,10 +66,7 @@ function TextEditor({
               index,
               `<a target="_blank" href="${url}"><img src=${url} alt="사진" /></a>`,
             );
-            // const bufferUrl = ArrayHandler(url);
-            // if (Array.isArray(bufferUrl)) {
-            //   setUploadImages(bufferUrl);
-            // }
+            setUploadImages(uploadImages => [...uploadImages, url]);
           }
         }
         return { ...response, success: true };
@@ -107,7 +102,7 @@ function TextEditor({
         modules={modules}
         value={textContent}
         onChange={setTextContent}
-        placeholder="내용을 입력해 주세요."
+        placeholder="내용을 입력해 주세요. 업로드 할 수 있는 이미지 크기는 최대 10MB입니다."
       />
     </TextEditorDiv>
   );
