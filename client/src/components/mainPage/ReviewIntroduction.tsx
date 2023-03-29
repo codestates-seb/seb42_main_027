@@ -32,6 +32,9 @@ const SubTitle = styled.div`
   font-size: 1.5rem;
   color: ${colors.white};
   margin-bottom: 1.5rem;
+  & :first-child {
+    margin-bottom: 0.3rem;
+  }
 `;
 
 const BtnWrapper = styled.div`
@@ -57,13 +60,14 @@ function ReviewIntroduction() {
     <Container>
       <ContentWrapper data-aos="fade-right">
         <Title>
-          국내 모든 인강 정보와
+          모든 인강 정보와
           <br /> 후기를 한 눈에
         </Title>
         <SubTitle>
-          국내 모든 인강 정보와 후기를 한 눈에 볼 수 있는 서비스로,
-          <br /> 수강생들은 다양한 검색 조건으로 쉽게 인강 정보를 찾을 수
-          있습니다.
+          <p>모든 인강 정보와 후기를 한 눈에 볼 수 있는 서비스로,</p>
+          <p>
+            수강생들은 다양한 검색 조건으로 쉽게 인강 정보를 찾을 수 있습니다.
+          </p>
         </SubTitle>
         <BtnWrapper>
           <BaseButton
