@@ -108,11 +108,11 @@ function LectureReviewList() {
   }, []);
 
   return (
-    <Container height="100%">
+    <Container>
       {isPending ? (
         <Loading />
       ) : (
-        <FlexContainer width="50rem" dir="col" gap="0.5rem">
+        <FlexContainer width="50rem" height="100%" dir="col" gap="0.5rem">
           <Title>
             <H2>리뷰게시판</H2>
             <p>강의에 대한 리뷰를 한 눈에 볼 수 있는 공간입니다.</p>
@@ -191,7 +191,6 @@ type Container = {
 };
 
 const Container = styled.div<Container>`
-  height: ${props => props.height};
   display: flex;
   flex-direction: column;
   justify-content: start;
