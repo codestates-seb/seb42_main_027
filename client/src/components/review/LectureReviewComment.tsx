@@ -149,13 +149,13 @@ function LectureReviewComment({
         )}
         <FlexContainer
           width="100%"
-          justify="space-evently"
+          justify="space-between"
           align="end"
           padding="1rem 0"
         >
           <VerySmallGrayFont>{createdAt.slice(0, 10)}</VerySmallGrayFont>
           {!teacherId && userInfo.memberId === member.memberId ? (
-            <FlexContainer width="100%" justify="right">
+            <FlexContainer justify="right">
               {isOpen ? (
                 <FlexContainer gap="0.8rem">
                   <Ubutton onClick={updateHandler}>확인</Ubutton>
