@@ -71,6 +71,7 @@ create table free_vote (
                            target varchar(255),
                            free_id bigint,
                            free_comment_id bigint,
+                           free_re_comment_id bigint,
                            member_id bigint,
                            primary key (free_vote_id)
 ) engine=InnoDB;
@@ -373,15 +374,24 @@ alter table free_vote
         foreign key (free_id)
             references free (free_id);
 
+
 alter table free_vote
     add constraint FKtkw4tg043pyvpu37f8wxsepsv
         foreign key (free_comment_id)
             references free_comment (free_comment_id);
 
+
+alter table free_vote
+    add constraint FK6g8v49q3lemlnhamv9svnhixe
+        foreign key (free_re_comment_id)
+            references free_re_comment (free_re_comment_id);
+
+
 alter table free_vote
     add constraint FK3time945f2rove5ydgmlguyix
         foreign key (member_id)
             references member (member_id);
+
 
 alter table lecture
     add constraint FK2ea1ueblrv09ngwf3i0lf0h2o
