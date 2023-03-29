@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import theme from 'theme';
 import Button from 'components/common/Button';
 import ProfileIcon from 'assets/icons/defaultProfileIcon';
+import StateIcon from 'assets/icons/stateIcon';
 import CountIcon from 'assets/icons/countIcon';
 
 import DeletePost from 'apis/board/deletePost';
@@ -41,7 +42,7 @@ interface Comment {
   freeCommentId: number;
   content: string;
   createdAt: string;
-  modifiedAt?: string;
+  modifiedAt: string | null;
   voteCount: number;
   member: {
     memberId: number;
@@ -109,7 +110,7 @@ function PostContent() {
     <Container>
       <GoBackMenu />
       {isPending ? (
-        <NoData>로딩페이지가 들어갈 자리입니다.</NoData>
+        <NoData>LOADING...</NoData>
       ) : (
         <div>
           <TitleDiv>
@@ -129,7 +130,15 @@ function PostContent() {
             <H2>{listData.title}</H2>
             <Writer>
               <ProfileIcon.Default />
-              <NameDiv>{listData.member.displayName}</NameDiv>
+              <NameDiv>
+                {listData.member.displayName}
+                {listData.member.state === 'TEACHER' ? (
+                  <StateIcon.Teacher title="강사" />
+                ) : null}
+                {listData.member.state === 'ADMIN' ? (
+                  <StateIcon.Admin title="관리자" />
+                ) : null}
+              </NameDiv>
               <div> · {calTime}</div>
               <View>
                 <CountIcon.View />
@@ -152,7 +161,10 @@ function PostContent() {
           <CommentCnt>{listData.commentsListNum}개의 댓글</CommentCnt>
           <CommentContainer>
             <WriteCommentDiv>
-              <WriteComment />
+              <WriteComment
+                checkState={checkState}
+                setCheckState={setCheckState}
+              />
             </WriteCommentDiv>
             {listData.commentsListNum === 0 ? null : (
               <div>

@@ -6,19 +6,21 @@ import styled from 'styled-components';
 import theme from 'theme';
 import Button from 'components/common/Button';
 import ProfileIcon from 'assets/icons/defaultProfileIcon';
+import StateIcon from 'assets/icons/stateIcon';
 import CountIcon from 'assets/icons/countIcon';
 
 import DeletePost from 'apis/board/deletePost';
-import getPostDetail from 'apis/board/getPostDetail';
 import PostVote from 'apis/board/postVote';
+import PostAdopt from 'apis/board/postAdopt';
 import CalElapsedTime from '../post/calElapsedTime';
-
-// import WriteComment from '../comment/writeComment';
+import CommentBlock from './commentBlock';
+import WriteAnswerComment from '../comment/writeAnswerComment';
 
 interface AnswerData {
   answerId: number;
   content: 'string';
   voteCount: number;
+  commentCount: number;
   createdAt: string;
   modifiedAt: string | null;
   adoptStatus: string;
@@ -48,19 +50,61 @@ interface Comment {
 
 type Props = {
   data: AnswerData;
+  checkState: boolean;
+  setCheckState: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function AnswerContent({ data }: Props) {
+function AnswerContent({ data, checkState, setCheckState }: Props) {
   const { userInfo } = useUserInfoStore(state => state);
-  const [isPending, setIsPending] = useState(true);
+  const [checkEdit, setCheckEdit] = useState<boolean>(false);
+  const [editData, setEditData] = useState<string>(data.content);
+  const [comDivIsOpen, setComDivIsOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
   const idData = Number(useParams().id);
+  const calTime = CalElapsedTime(data.createdAt);
 
-  let calTime = '';
-  if (!isPending) {
-    calTime = CalElapsedTime(data.createdAt);
-  }
   console.log(data);
   console.log('userInfo memeberId', userInfo.memberId);
+
+  const openComDivHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setComDivIsOpen(!comDivIsOpen);
+  };
+
+  const fetchDeletePost = async () => {
+    try {
+      const confirm = window.confirm('답변을 삭제하시겠습니까?');
+      if (confirm) {
+        await DeletePost('qnas/answers', data.answerId);
+        alert('답변을 삭제하였습니다.');
+        setCheckState(!checkState);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchPostAdopt = async () => {
+    try {
+      await PostAdopt(idData, data.answerId);
+      setCheckState(!checkState);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const voteHandler = async (value: string) => {
+    try {
+      await PostVote('qnas/answers', data.answerId, value);
+      setCheckState(!checkState);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const editHandler = () => {
+    setCheckEdit(!checkEdit);
+    setEditData(data.content);
+  };
 
   return (
     <Container>
@@ -74,51 +118,102 @@ function AnswerContent({ data }: Props) {
           </CategoryDiv>
           {data.member.memberId === userInfo.memberId ? (
             <UDBtnDiv>
-              <Link to="edit">
-                <Button.UDWhiteBtn>수정</Button.UDWhiteBtn>
-              </Link>
-              <Button.UDWhiteBtn>삭제</Button.UDWhiteBtn>
+              {checkEdit ? (
+                <Button.UDWhiteBtn onClick={editHandler}>
+                  취소
+                </Button.UDWhiteBtn>
+              ) : (
+                <Button.UDWhiteBtn onClick={editHandler}>
+                  수정
+                </Button.UDWhiteBtn>
+              )}
+              {checkEdit ? (
+                <Button.UDWhiteBtn>확인</Button.UDWhiteBtn>
+              ) : (
+                <Button.UDWhiteBtn onClick={fetchDeletePost}>
+                  삭제
+                </Button.UDWhiteBtn>
+              )}
             </UDBtnDiv>
           ) : null}
         </Top>
         <Writer>
           <ProfileIcon.Default />
-          <div>{data.member.displayName}</div>
+          <NameDiv>
+            {data.member.displayName}
+            {data.member.state === 'TEACHER' ? (
+              <StateIcon.Teacher title="강사" />
+            ) : null}
+            {data.member.state === 'ADMIN' ? (
+              <StateIcon.Admin title="관리자" />
+            ) : null}
+          </NameDiv>
           <div> · {calTime}</div>
         </Writer>
       </TitleDiv>
       <MainDiv>
         <TextDiv dangerouslySetInnerHTML={{ __html: data.content }} />
-        <div>
-          {data.adoptStatus === 'TRUE' ? (
-            <BtnSelect className="selected">채택하기</BtnSelect>
-          ) : (
-            <BtnSelect>채택하기</BtnSelect>
-          )}
-        </div>
+        {data.member.memberId === userInfo.memberId ? (
+          <div>
+            {data.adoptStatus === 'TRUE' ? (
+              <BtnSelect onClick={fetchPostAdopt} className="selected">
+                채택완료
+              </BtnSelect>
+            ) : (
+              <BtnSelect onClick={fetchPostAdopt}>채택하기</BtnSelect>
+            )}
+          </div>
+        ) : null}
         <VoteDiv>
-          <Button.VoteDownBtn>
+          <Button.VoteDownBtn onClick={e => voteHandler('down')}>
             <CountIcon.VoteDown />
           </Button.VoteDownBtn>
           <VoteCount>{data.voteCount}</VoteCount>
-          <Button.VoteUpBtn>
+          <Button.VoteUpBtn onClick={e => voteHandler('up')}>
             <CountIcon.VoteUp />
           </Button.VoteUpBtn>
         </VoteDiv>
+        <CommentContainer>
+          {data.commentCount === 0 ? null : (
+            <CommentViewDiv>
+              {data.comments.map((ele: Comment) => {
+                return (
+                  <CommentBlock
+                    key={ele.qnaCommentId}
+                    data={ele}
+                    checkState={checkState}
+                    setCheckState={setCheckState}
+                  />
+                );
+              })}
+            </CommentViewDiv>
+          )}
+          {comDivIsOpen ? (
+            <CommentDiv>
+              <ComBtnDiv>
+                <Button.RecommentBtn onClick={openComDivHandler}>
+                  닫기
+                </Button.RecommentBtn>
+              </ComBtnDiv>
+              <WriteCommentDiv>
+                <WriteAnswerComment
+                  answerId={data.answerId}
+                  checkState={checkState}
+                  setCheckState={setCheckState}
+                />
+              </WriteCommentDiv>
+            </CommentDiv>
+          ) : (
+            <CommentDiv>
+              <ComBtnDiv>
+                <Button.RecommentBtn onClick={openComDivHandler}>
+                  댓글 쓰기
+                </Button.RecommentBtn>
+              </ComBtnDiv>
+            </CommentDiv>
+          )}
+        </CommentContainer>
       </MainDiv>
-      {/* <CommentCnt>{listData.commentsListNum}개의 댓글</CommentCnt>
-          <CommentContainer>
-            <WriteCommentDiv>
-              <WriteComment />
-            </WriteCommentDiv>
-            {listData.commentsListNum === 0 ? null : (
-              <div>
-                {listData.comments.map((ele: Comment) => {
-                  return <CommentBlock key={ele.freeCommentId} data={ele} />;
-                })}
-              </div>
-            )}
-          </CommentContainer> */}
     </Container>
   );
 }
@@ -160,6 +255,11 @@ const Writer = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+`;
+
+const NameDiv = styled.div`
+  margin: 0 3px;
+  display: flex;
 `;
 
 const Category = styled.div`
@@ -228,13 +328,32 @@ const CommentContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 253px;
+`;
+
+const CommentViewDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: ${theme.gap.px40};
+`;
+
+const CommentDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid ${theme.colors.pointColor};
+  padding-top: ${theme.gap.px20};
+  margin-left: ${theme.gap.px40};
+  margin-bottom: ${theme.gap.px100};
+`;
+
+const ComBtnDiv = styled.div`
+  display: flex;
+  justify-content: left;
+  padding-left: ${theme.gap.px20};
 `;
 
 const WriteCommentDiv = styled.div`
   display: flex;
   width: 100%;
-  padding-bottom: calc(${theme.gap.px60} + 7px);
 `;
 
 const TextDiv = styled.div`
