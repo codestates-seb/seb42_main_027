@@ -2,7 +2,7 @@ import BaseButton from 'components/common/BaseButton';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import theme from 'theme';
-import reviewMac from '../../assets/images/Group 72.png';
+import reviewMac from '../../assets/images/mac.png';
 
 const { colors } = theme;
 
@@ -25,12 +25,13 @@ const ContentWrapper = styled.div`
 const Title = styled.div`
   font-size: 4rem;
   color: ${colors.white};
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
 `;
 
 const SubTitle = styled.div`
   font-size: 1.5rem;
   color: ${colors.white};
+  margin-bottom: 1.5rem;
 `;
 
 const BtnWrapper = styled.div`
@@ -61,9 +62,7 @@ function ReviewIntroduction() {
         </Title>
         <SubTitle>
           국내 모든 인강 정보와 후기를 한 눈에 볼 수 있는 서비스로, 수강생들은
-          다양한 검색 조건으로 쉽게 인강 정보를 찾을 수 있습니다. 인기 랭킹과
-          할인 쿠폰 정보도 함께 제공되며, 강사들도 강의를 홍보하고 판매할 수
-          있는 플랫폼을 제공하여 상호 작용을 도모합니다.
+          다양한 검색 조건으로 쉽게 인강 정보를 찾을 수 있습니다.
         </SubTitle>
         <BtnWrapper>
           <BaseButton
