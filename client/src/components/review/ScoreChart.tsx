@@ -1,14 +1,12 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable consistent-return */
 /* eslint-disable radix */
 /* eslint-disable react/no-array-index-key */
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
-import {
-  BigFont,
-  MiddleFont,
-  SmallFont,
-} from 'pages/review/TeacherDetail/Information';
+import { BigFont, SmallFont } from 'pages/review/TeacherDetail/Information';
+import { BsStarFill, BsStar, BsStarHalf } from 'react-icons/bs';
 
 type Props = {
   starPointAverage: number;
@@ -79,7 +77,17 @@ function ScoreChart({
       <ChartBox>
         <SmallFont>수강만족도</SmallFont>
         <BigFont>{starPointAverage.toFixed(1)}</BigFont>
-        <BigFont>⭐️⭐️⭐️⭐️⭐️</BigFont>
+        <BigFont>
+          {scoreArr.map((el, index) => {
+            return el <= Number(starPointAverage.toFixed(1)) ? (
+              <BsStarFill key={index} color="gold" />
+            ) : el - 0.5 <= Number(starPointAverage.toFixed(1)) ? (
+              <BsStarHalf key={index} color="gold" />
+            ) : (
+              <BsStar key={index} color="gold" />
+            );
+          })}
+        </BigFont>
         <SmallFont>{`${totalReviewCount} Reviews`}</SmallFont>
       </ChartBox>
       {/* 그래프 */}
@@ -107,12 +115,15 @@ function ScoreChart({
           {lectures.map((el, index) => {
             if (index > 4) return; // 강의 리뷰는 5개까지 뿌림
             return (
-              <FlexContainer key={index} align="start">
-                <SmallFont>
+              <FlexContainer key={index} gap="0.6rem">
+                <VerySmallFont>
+                  {el.lectureReviews.length ? (
+                    <BsStarFill color="gold" />
+                  ) : null}
                   {el.lectureReviews.length
-                    ? `⭐️ ${el.lectureReviews[0].starPoint}`
+                    ? `${el.lectureReviews[0].starPoint}`
                     : null}
-                </SmallFont>
+                </VerySmallFont>
                 <VerySmallFont>
                   {el.lectureReviews.length
                     ? `${
@@ -151,6 +162,10 @@ const ChartBox = styled.div<ChartBox>`
   align-items: ${props => props.align || 'center'};
   gap: 0.8rem;
   border-left: ${props => (props.leftBorder ? '1px solid gray' : '')};
+
+  @media screen and (min-width: 1500px) {
+    width: 22rem;
+  }
 `;
 
 const ScoreBox = styled.div<ScoreBox>`
@@ -165,15 +180,19 @@ const ScoreBox = styled.div<ScoreBox>`
     props.percent
       ? `linear-gradient(to right, #6667ab ${props.percent}% , #b2b2b2 0%)`
       : '#b2b2b2'};
-  /* background: linear-gradient(to right, red 1%, #b2b2b2 0%); */
 `;
 
 const VerySmallFont = styled.span`
   font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 0.3rem;
 `;
 
 const ScoreFont = styled.span`
-  width: 1.5rem;
+  width: 2rem;
   color: gray;
   font-weight: bold;
   display: flex;

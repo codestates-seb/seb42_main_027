@@ -10,7 +10,6 @@ const ListContainer = styled.div`
   height: 100%;
   background-color: #f9fbfc;
   padding-bottom: 8rem;
-  overflow: auto;
 `;
 
 type PostsCommentsListProps = {

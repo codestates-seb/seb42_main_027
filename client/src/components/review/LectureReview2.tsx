@@ -44,6 +44,7 @@ function LectureReview2({
 }: Props) {
   return (
     <Container>
+      {/* 추천수 */}
       <FlexContainer
         width="10rem"
         dir="col"
@@ -59,10 +60,12 @@ function LectureReview2({
         </SmallFont>
         <SmallFont>{voteCount}</SmallFont>
       </FlexContainer>
+      {/* 평점 */}
       <FlexContainer width="10rem" padding="0 0 0 3rem" gap="0.2rem">
         <AiFillStar color="gold" size="1.5rem" />
         <SmallFont>{starPoint}</SmallFont>
       </FlexContainer>
+      {/* 강의 소개 및 타이틀 */}
       <FlexContainer
         width="70rem"
         dir="col"
@@ -80,9 +83,12 @@ function LectureReview2({
           </Link>
         </SmallFont2>
       </FlexContainer>
+      {/* 작성자 */}
       <FlexContainer width="15rem">
         <VerySmallGrayFont>
-          {`${member.displayName.slice(0, 5)}...`}
+          {member.displayName.length > 5
+            ? `${member.displayName.slice(0, 7)}...`
+            : `${member.displayName}`}
         </VerySmallGrayFont>
       </FlexContainer>
       <FlexContainer width="20rem">

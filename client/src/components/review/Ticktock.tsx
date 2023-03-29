@@ -200,7 +200,7 @@ function Ticktock() {
               className={`toggle-circle ${toggle ? 'toggle--checked' : ''}`}
             />
           </ToggleContainer>
-          <Button onClick={openHandler}>오늘 출결 내역 보기</Button>
+          <Button onClick={openHandler}>오늘 공부 내역 보기</Button>
         </ModalContainer>
       ) : null}
       {isOpen2 ? (
@@ -208,8 +208,9 @@ function Ticktock() {
           <FlexContainer
             width="100%"
             justify="space-between"
-            padding="1rem 1rem 0 1rem"
+            padding="1rem 1rem 0.5rem 1rem"
             gap="1.5rem"
+            borderBottom="0.5px solid white"
           >
             <StudySpan onClick={openHandler}>
               <BiArrowBack />
@@ -366,10 +367,14 @@ const Button = styled.button`
   background-color: ${theme.colors.pointColor};
   color: white;
   cursor: pointer;
+  transition: 0.5s;
+  :hover {
+    color: wheat;
+  }
 `;
 
 const StudyTitleSpan = styled.span`
-  font-size: large;
+  font-size: 1.1rem;
   font-weight: bold;
   color: white;
 `;
@@ -378,8 +383,8 @@ const StudySpan = styled.span`
   font-size: large;
   font-weight: bold;
   color: white;
-
+  transition: 0.5s;
   :hover {
-    color: red;
+    color: wheat;
   }
 `;

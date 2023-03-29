@@ -4,13 +4,15 @@ import { useIsLoginStore } from 'stores/loginStore';
 import isLogin from 'utils/isLogin';
 import getUserInfo from 'apis/getUserInfo';
 import useUserInfoStore from 'stores/userInfoStore';
+import { useEditInfoStore } from 'stores/useEditInfoStore';
 
 import GlobalStyle from './GlobalStyles';
 import Router from './Router';
 
 function App() {
   const { setIsLoginInStore } = useIsLoginStore();
-  const { userInfo, setUserInfo } = useUserInfoStore(state => state);
+  const { setUserInfo } = useUserInfoStore(state => state);
+  const { isEditInfo } = useEditInfoStore(state => state);
 
   const activeLogin = isLogin();
 
@@ -24,7 +26,6 @@ function App() {
       console.log('정보를 가져오지 못했습니다.');
     }
   };
-  console.log(userInfo.state);
 
   useEffect(() => {
     if (isLogin()) {
@@ -34,7 +35,7 @@ function App() {
       }, 500);
       console.log('정보를 불러왔습니다.');
     }
-  }, [activeLogin]);
+  }, [activeLogin, isEditInfo]);
 
   return (
     <>

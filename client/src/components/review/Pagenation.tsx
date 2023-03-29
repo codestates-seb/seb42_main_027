@@ -8,14 +8,15 @@ type Props = {
   currentPage: number; // 현재 페이지
   pageSize: number; // 한 페이지에 뿌릴 강사 수
   setCurPage: React.Dispatch<React.SetStateAction<number>>;
-  // sort:string; // 정렬 형태
-  // word:string; // 검색어
 };
 
 function Pagenation({ size, currentPage, pageSize, setCurPage }: Props) {
+  const preNum = Math.floor(currentPage / pageSize);
   const totalPage = size; // 전체 Page 개수
   const pageArr = [];
-  for (let i = 1; i <= totalPage; i += 1) pageArr.push(i);
+  const start = !preNum ? 1 : preNum * pageSize;
+  const last = Math.min(totalPage, preNum * 10 + pageSize - 1);
+  for (let i = start; i <= last; i += 1) pageArr.push(i);
   return (
     <FlexContainer>
       <PagenationContainer>
@@ -29,20 +30,43 @@ function Pagenation({ size, currentPage, pageSize, setCurPage }: Props) {
         >
           ⬅ prev
         </PageBox>
+
         <PageContainer>
-          {pageArr.map((el, index) => {
-            return (
-              <PageBox
-                key={index}
-                selected={currentPage === el}
-                onClick={() => {
-                  setCurPage(Number(el));
-                }}
-              >
-                {el}
-              </PageBox>
-            );
-          })}
+          {currentPage !== 1 ? (
+            <PageBox
+              selected={currentPage === 1}
+              onClick={() => {
+                setCurPage(1);
+              }}
+            >
+              1...
+            </PageBox>
+          ) : null}
+          <FlexContainer gap="0.2rem">
+            {pageArr.map((el, index) => {
+              return (
+                <PageBox
+                  key={index}
+                  selected={currentPage === el}
+                  onClick={() => {
+                    setCurPage(Number(el));
+                  }}
+                >
+                  {el}
+                </PageBox>
+              );
+            })}
+          </FlexContainer>
+          {currentPage !== totalPage ? (
+            <PageBox
+              selected={currentPage === totalPage}
+              onClick={() => {
+                setCurPage(Number(totalPage));
+              }}
+            >
+              {`...${totalPage}`}
+            </PageBox>
+          ) : null}
         </PageContainer>
         <PageBox
           last={currentPage === totalPage}
@@ -62,7 +86,7 @@ function Pagenation({ size, currentPage, pageSize, setCurPage }: Props) {
 export default Pagenation;
 
 const PagenationContainer = styled.div`
-  width: 60vw;
+  width: 50rem;
   border-top: 1px solid #b8b8b8;
 
   display: flex;
@@ -74,6 +98,7 @@ const PageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 3rem;
 `;
 
 type BorderTop = {
