@@ -24,19 +24,19 @@ type itemsProps = {
 
 const items: itemsProps[] = [
   {
-    item: 'https://cdn.pixabay.com/photo/2023/03/21/08/36/bamboo-7866718_1280.jpg',
+    item: 'https://cdn.discordapp.com/attachments/1081017804590952469/1090554650916311051/image.png',
     name: '이미지01',
   },
   {
-    item: 'https://cdn.pixabay.com/photo/2016/09/11/02/07/greece-1660546_1280.jpg',
+    item: 'https://cdn.discordapp.com/attachments/1081017804590952469/1090556087935184906/image.png',
     name: '이미지02',
   },
   {
-    item: 'https://cdn.pixabay.com/photo/2017/11/09/17/36/bridge-2934151_1280.png',
+    item: 'https://cdn.discordapp.com/attachments/1081017804590952469/1090556480765309018/image.png',
     name: '이미지03',
   },
   {
-    item: 'https://cdn.pixabay.com/photo/2017/11/10/01/25/fantasy-2935093__480.jpg',
+    item: 'https://cdn.discordapp.com/attachments/1081017804590952469/1090557122082787388/image.png',
     name: '이미지03',
   },
 ];

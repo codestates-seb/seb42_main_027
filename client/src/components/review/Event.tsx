@@ -78,11 +78,7 @@ export default Event;
 type Container = {
   first?: boolean;
 };
-type TitleSpan = {
-  offsetX: number;
-  offsetY: number;
-  end?: boolean;
-};
+
 const Container = styled.div<Container>`
   width: 100%;
   display: flex;
@@ -109,6 +105,12 @@ const DateFont = styled.span`
   font-size: 0.8rem;
   color: gray;
 `;
+
+type TitleSpan = {
+  offsetX: number;
+  offsetY: number;
+  end?: boolean;
+};
 
 const TitleSpan = styled.span<TitleSpan>`
   font-size: 1rem;
