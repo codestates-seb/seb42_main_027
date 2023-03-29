@@ -35,7 +35,7 @@ const Title = styled.div`
   width: 45rem;
   font-size: 2.5rem;
   color: ${colors.black};
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 `;
 
 const MidContentWrapper = styled.div`
