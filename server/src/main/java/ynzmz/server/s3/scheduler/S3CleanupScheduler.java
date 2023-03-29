@@ -14,7 +14,7 @@ import java.util.List;
 public class S3CleanupScheduler {
     private final S3FileInfoService s3FileInfoService;
     private final S3UpLoadService s3UpLoadService;
-    @Scheduled(cron = "0 0 * * * *") //corn 표현식 ( 매 정각 시간 마다 실행 (1시간주기))
+//    @Scheduled(cron = "0 0 * * * *") //corn 표현식 ( 매 정각 시간 마다 실행 (1시간주기))
     public void cleanupS3File(){
         //상태값 TEMP 인 S3FileInfo 불러오기
         List<S3FileInfo> unusedFiles = s3FileInfoService.findS3FileInfosForTemp();
