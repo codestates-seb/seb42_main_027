@@ -300,7 +300,7 @@ public void etoosEventScheduler() {
 }
 
     @Scheduled(cron ="0 0 12 1/1 * ?")
-    @Scheduled(cron ="0 0/1 * * * ?")
+//    @Scheduled(cron ="0 0/1 * * * ?")
     public void daesungEventScheduler() {
 
         String daesungUrl1 = "https://www.mimacstudy.com/event/eventIngList.ds?evtType=&currPage=1&searchType=evtName&searchText=";
