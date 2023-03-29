@@ -249,6 +249,7 @@ public class EventService {
 
 
 @Scheduled(cron ="0 0 12 1/1 * ?")
+//@Scheduled(cron ="0 0/1 * * * ?")
 public void etoosEventScheduler() {
 
     String etoosUrl = "https://go3.etoos.com/hietoos/event/default.asp?etoos=myall&ING_FLAG=I&etgrd=go3";
@@ -272,16 +273,19 @@ public void etoosEventScheduler() {
 //                    System.out.println("날짜: " + event.getDate());
             eventList.add(event);
         }
-
+//        for(Event e1:etoosList){
+//            System.out.println(e1.getTitle());
+//        }
 
         for (Event e : eventList) {
             boolean sim = false;
-            for (int i = etoosList.size()-1; i > etoosList.size() - 11; i--) {
+            for (int i = 0; i < etoosList.size() - 11; i++) {
                 if (e.getHyperLink().equals(etoosList.get(i).getHyperLink())) {
+                    sim = false;
+
+                } else {
                     sim = true;
                     break;
-                } else {
-                    sim = false;
                 }
             }
             if (sim == false) {
@@ -296,10 +300,11 @@ public void etoosEventScheduler() {
 }
 
     @Scheduled(cron ="0 0 12 1/1 * ?")
+    @Scheduled(cron ="0 0/1 * * * ?")
     public void daesungEventScheduler() {
 
         String daesungUrl1 = "https://www.mimacstudy.com/event/eventIngList.ds?evtType=&currPage=1&searchType=evtName&searchText=";
-        List<Event> etoosList = findAllDaeSungEvents();
+        List<Event> daeSungList = findAllDaeSungEvents();
         List<Event> eventList = new ArrayList<>();
 
         try {
@@ -325,15 +330,19 @@ public void etoosEventScheduler() {
 //                    System.out.println("날짜: " + event.getDate());
                 eventList.add(event);
             }
-
+//            for(Event e1:daeSungList){
+//                System.out.println(e1.getTitle());
+//            }
+//
             for (Event e : eventList) {
                 boolean sim = false;
-                for (int i = etoosList.size()-1; i > etoosList.size() - 11; i--) {
-                    if (e.getHyperLink().equals( etoosList.get(i).getHyperLink())) {
+                for (int i = 0; i < daeSungList.size() - 11; i++) {
+                    if (!e.getHyperLink().equals(daeSungList.get(i).getHyperLink())) {
+                        sim = false;
+
+                    } else {
                         sim = true;
                         break;
-                    } else {
-                        sim = false;
                     }
                 }
                 if (sim == false) {
@@ -350,6 +359,7 @@ public void etoosEventScheduler() {
 
 
     @Scheduled(cron ="0 0 12 1/1 * ?")
+//@Scheduled(cron ="0 0/1 * * * ?")
     public void megaEventScheduler() {
 
         String megaUrl1 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
@@ -360,26 +370,30 @@ public void etoosEventScheduler() {
             Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
             Elements dateList = document.select( "div.date > span > strong");
             Elements dateList2 = new Elements();
-            List<String> dateListString = new ArrayList<>();
-            List<Event> onlyMegaEvents = findAllMegaEvents();
+            List<Event> onlyMegaEvents = findAllMegaEvents(); //db안에있던 메가
             List<Event> eventList = new ArrayList<>();
 
             for(Element e:dateList){
                 if(e.text().equals("이벤트 기간")){
-                    dateList2.add(e);}
+                    dateList2.add(e.parent());}
                 else if(e.text().equals("선착순")){
                     dateList2.add(e);
                 }
             }
-            Elements dateList3 = new Elements();
-
-            for(Element e:dateList2) {
-                if(e.text().equals("이벤트 기간")){
-                    dateList3.add(e.parent());}
-                else if(e.text().equals("선착순")){
-                    dateList3.add(e);
-                }
-
+//            for(Event e1:onlyMegaEvents){
+//                System.out.println(e1.getTitle());
+//            }
+//            Elements dateList3 = new Elements();
+////            List<String> dateList3 = new ArrayList<>();
+//
+//            for(Element e:dateList2) {
+//                if (e.text().equals("이벤트 기간")) {
+//                    dateList3.add(e.parent());
+//                } else if (e.text().equals("선착순")) {
+//                    dateList3.add(e);
+//                }
+//            }
+//            System.out.println(dateList2.size());
 
 
                 for (int i = 0; i < megaeventsLink.size(); i++) {
@@ -388,31 +402,32 @@ public void etoosEventScheduler() {
                     events.setTitle(megaeventsLink.get(i).text());
                     events.setHyperLink(megaeventsLink.get(i).attr("href"));
 
-                    if(dateList3.get(i).text().equals("선착순")){
-                        events.setDate(dateList3.get(i).text());
+                    if(dateList2.get(i).equals("선착순")){
+                        events.setDate(dateList2.get(i).text());
                     }
                     else{
-                        events.setDate(dateList3.get(i).text().substring(6));
+                        events.setDate(dateList2.get(i).text().substring(6));
                     }
 
 
                     //주소 기입
-//
+////
 //                    System.out.println(megaeventsLink.get(i).text() + " , "
 //                            + megaeventsLink.get(i).attr("href")
 //                            + "," + events.getDate());
-                    eventList.add(events);
+//                    eventList.add(events);
                 }
 
-            }
+
             for (Event e : eventList) {
                 boolean sim = false;
-                for (int i = onlyMegaEvents.size()-1; i > onlyMegaEvents.size() - 11; i--) {
-                    if (e.getHyperLink().equals(onlyMegaEvents.get(i).getHyperLink())) {
+                for (int i = 0; i < onlyMegaEvents.size() ; i++) {
+                    if (!e.getTitle().equals(onlyMegaEvents.get(i).getTitle())) {//같으면
+                        sim = false;
+
+                    } else {
                         sim = true;
                         break;
-                    } else {
-                        sim = false;
                     }
                 }
                 if (sim == false) {

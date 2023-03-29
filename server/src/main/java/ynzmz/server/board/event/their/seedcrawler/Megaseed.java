@@ -51,7 +51,7 @@ public class Megaseed {
                 Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
                 Elements dateList = document.select("div.date > span > strong");
                 Elements dateList2 = new Elements();
-                List<String> dateListString = new ArrayList<>();
+
 
                 for (Element e : dateList) {
                     if (e.text().equals("이벤트 기간")) {
@@ -159,9 +159,9 @@ public class Megaseed {
                     String[] href1 = href.get(i).attr("href").substring(19).split("'");
                     event.setHyperLink(href1[0]);
                     event.setTitle(titles.get(i).text());
-                    System.out.println("제목: " + event.getTitle());
-                    System.out.println("링크: " + event.getHyperLink());
-                    System.out.println("날짜: " + event.getDate());
+//                    System.out.println("제목: " + event.getTitle());
+//                    System.out.println("링크: " + event.getHyperLink());
+//                    System.out.println("날짜: " + event.getDate());
                     eventService.createEvent(event);
                 }
             }
