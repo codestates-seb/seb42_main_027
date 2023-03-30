@@ -78,6 +78,16 @@ export const StyledSlider = styled(Slider)`
     margin: 0 auto;
     overflow-x: hidden;
     background: none;
+
+    @media screen and (max-width: 1700px) {
+      width: 70rem;
+      height: 17.5rem;
+    }
+
+    @media screen and (max-width: 750px) {
+      width: 45rem;
+      height: 11rem;
+    }
   }
 
   .slick-slide div {
