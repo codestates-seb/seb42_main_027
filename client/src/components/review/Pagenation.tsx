@@ -11,11 +11,11 @@ type Props = {
 };
 
 function Pagenation({ size, currentPage, pageSize, setCurPage }: Props) {
-  const preNum = Math.floor(currentPage / pageSize);
+  const preNum = Math.floor(currentPage / 5);
   const totalPage = size; // 전체 Page 개수
   const pageArr = [];
-  const start = !preNum ? 1 : preNum * pageSize;
-  const last = Math.min(totalPage, preNum * 10 + pageSize - 1);
+  const start = !preNum ? 1 : preNum * 5;
+  const last = Math.min(totalPage, (preNum + 1) * 5);
   for (let i = start; i <= last; i += 1) pageArr.push(i);
   return (
     <FlexContainer>
