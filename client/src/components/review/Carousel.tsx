@@ -124,8 +124,14 @@ const SliderItem = styled.div`
   img {
     width: 100%;
     height: 15rem;
-    @media screen and (min-width: 750px) {
-      height: 25rem;
+    @media screen and (max-width: 1700px) {
+      width: 70rem;
+      height: 17.5rem;
+    }
+
+    @media screen and (max-width: 750px) {
+      width: 45rem;
+      height: 11rem;
     }
   }
 `;
