@@ -300,7 +300,7 @@ function LectureReviewDetailPage() {
 export default LectureReviewDetailPage;
 
 type Container = {
-  reviewOpen?: boolean;
+  toggle?: boolean;
 };
 
 type Button = {
@@ -309,13 +309,13 @@ type Button = {
 
 const Container = styled.div<Container>`
   width: 100%;
-  background-color: white;
-
+  background-color: ${props => (props.toggle ? 'gray' : 'white')};
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
   gap: 0.5rem;
+  transition: all 0.5s ease;
 `;
 
 const UpButton = styled.button<Button>`
@@ -370,7 +370,7 @@ const ContentBox = styled.div`
   min-height: 200px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: start;
   padding: 3rem 1rem;
   gap: 0.4rem;

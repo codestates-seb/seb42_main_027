@@ -351,7 +351,7 @@ const ContentBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: start;
   padding: 3rem 1rem;
   gap: 0.4rem;
