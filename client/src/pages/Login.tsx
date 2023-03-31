@@ -151,7 +151,7 @@ function Login() {
               onClick={handleClickGoogleLogin}
               color="white"
               size="md"
-              disabled={false}
+              disabled
             >
               Google 로그인
             </BaseButton>
