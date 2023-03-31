@@ -74,7 +74,7 @@ export const StyledSlider = styled(Slider)`
   .slick-list {
     //슬라이드 스크린
     width: 100rem;
-    height: 100%;
+    height: 25rem;
     margin: 0 auto;
     overflow-x: hidden;
     background: none;
@@ -82,6 +82,21 @@ export const StyledSlider = styled(Slider)`
     @media screen and (max-width: 1700px) {
       width: 80rem;
       height: 20rem;
+    }
+
+    @media screen and (max-width: 1500px) {
+      width: 70rem;
+      height: 17.5rem;
+    }
+
+    @media screen and (max-width: 1300px) {
+      width: 60rem;
+      height: 15rem;
+    }
+
+    @media screen and (max-width: 1000px) {
+      width: 50rem;
+      height: 12.5rem;
     }
 
     @media screen and (max-width: 750px) {
@@ -128,10 +143,26 @@ const SliderItem = styled.div`
   text-align: center;
   img {
     width: 100%;
-    height: 15rem;
+    height: 25rem;
+
     @media screen and (max-width: 1700px) {
       width: 80rem;
       height: 20rem;
+    }
+
+    @media screen and (max-width: 1500px) {
+      width: 70rem;
+      height: 17.5rem;
+    }
+
+    @media screen and (max-width: 1300px) {
+      width: 60rem;
+      height: 15rem;
+    }
+
+    @media screen and (max-width: 1000px) {
+      width: 50rem;
+      height: 12.5rem;
     }
 
     @media screen and (max-width: 750px) {
