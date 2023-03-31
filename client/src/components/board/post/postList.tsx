@@ -63,7 +63,7 @@ function PostList() {
           'frees',
           selectedMenuStore,
           selectedSortStore,
-          1,
+          curPage,
         );
         setListData(buffer.data);
         setPageInfo(buffer.pageInfo);
@@ -73,7 +73,7 @@ function PostList() {
           'qnas/questions',
           selectedMenuStore,
           selectedSortStore,
-          1,
+          curPage,
         );
         setListData(buffer.data);
         setPageInfo(buffer.pageInfo);
