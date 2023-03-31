@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21e0b4a1-1309-4891-a3a3-777e2c29c93a" name="변경" comment="fix: flyway V1 복구">
+    <list default="true" id="21e0b4a1-1309-4891-a3a3-777e2c29c93a" name="변경" comment="fix: 리뷰게시판 조회수">
       <change afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/event/our/mapper/OurMapperImpl.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/event/their/mapper/EventMapperImpl.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/server/build/generated/sources/annotationProcessor/java/main/ynzmz/server/board/free/mapper/FreeMapperImpl.java" afterDir="false" />
@@ -27,8 +27,9 @@
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/7.5.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application-server.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application-server.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gradle/file-system.probe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +170,7 @@
       <recent name="ynzmz.server.vote.qna.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.ServerApplication">
+  <component name="RunManager" selected="Gradle.server [clean]">
     <configuration name="server [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -241,7 +242,7 @@
       <workItem from="1679848944257" duration="5740000" />
       <workItem from="1679863894462" duration="28088000" />
       <workItem from="1679945116171" duration="294000" />
-      <workItem from="1680084459335" duration="7552000" />
+      <workItem from="1680084459335" duration="9331000" />
     </task>
     <task id="LOCAL-00001" summary="feat: S3 저장시 경로/이름지정 로직추가">
       <created>1679674868199</created>
@@ -432,7 +433,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680091846551</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="fix: 리뷰게시판 조회수">
+      <created>1680239126064</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1680239126064</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -463,7 +471,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="feat: 강사삭제시 이미지 삭제 추가" />
     <MESSAGE value="feat: 질문삭제시 S3업로드된 파일 삭제코드 추가,&#10;리뷰수정시 본인확인로직 추가&#10;fix: 강사, 강의 패키지이동 및 url 수정(Board 내부),&#10;질문,답변,자유게시판 본문글 타입 varchar -&gt; MEDIUMTEXT 변경,&#10;게시글 본인확인 실패시 Exception 코드 변경 (404-&gt;403), Teacher Entity imageUrl 삭제 및 profileImageUrl,realImageUrl 추가" />
     <MESSAGE value="fix: 강의리뷰게시판 글,댓글 추천시 response값 변경 (필드명변경 및 불필요한데이터 분리)" />
     <MESSAGE value="fix: Qna게시판 질문글,답변글 리뷰게시판 강의리뷰글 수정,삭제,등록시 본인확인코드 추가 및 코드통일&#10;답변조회 등 불필요한코드 삭제" />
@@ -488,7 +495,8 @@
     <MESSAGE value="fix: 사진크기제한 1MB -&gt; 10MB 상향 , 자유게시판 정렬 및 추천 수정" />
     <MESSAGE value="fix: S3사진삭제 스케줄러 비활성화" />
     <MESSAGE value="fix: flyway V1 복구" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: flyway V1 복구" />
+    <MESSAGE value="fix: 리뷰게시판 조회수" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 리뷰게시판 조회수" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
