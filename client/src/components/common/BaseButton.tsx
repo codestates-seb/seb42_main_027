@@ -9,6 +9,7 @@ type ButtonProps = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled: boolean;
   children: string;
+  type?: any;
 };
 
 const StyledButton = styled.button<ButtonProps>`
@@ -50,14 +51,21 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-function BaseButton({ size, color, onClick, disabled, children }: ButtonProps) {
+function BaseButton({
+  size,
+  color,
+  onClick,
+  disabled,
+  children,
+  type = 'button',
+}: ButtonProps) {
   return (
     <StyledButton
       color={color}
       onClick={onClick}
       disabled={disabled}
       size={size}
-      type="button"
+      type={type}
     >
       {children}
     </StyledButton>
@@ -66,6 +74,7 @@ function BaseButton({ size, color, onClick, disabled, children }: ButtonProps) {
 
 BaseButton.defaultProps = {
   onClick: undefined,
+  type: 'button',
 };
 
 export default BaseButton;
