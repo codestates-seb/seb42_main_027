@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ynzmz.server.board.qna.question.entity.Question;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
 import ynzmz.server.board.review.lecture.repository.LectureReviewRepository;
 import ynzmz.server.global.error.exception.BusinessLogicException;
@@ -53,6 +54,11 @@ public class LectureReviewService {
         return lectureReviewRepository.findByMemberId(memberId);
     }
 
+    @Transactional
+    public void setViewCount(LectureReview lectureReview) {
+        lectureReview.setViewCount(lectureReview.getViewCount() + 1);
+        lectureReviewRepository.save(lectureReview);
+    }
     @Transactional
     public void deleteLectureReview(long lectureReviewId) {
         lectureReviewRepository.deleteById(lectureReviewId);

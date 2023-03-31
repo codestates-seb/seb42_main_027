@@ -107,11 +107,13 @@ public class LectureReviewController {
     //리뷰 1건 상세조회
     @GetMapping("/{lecture-review-id}")
     public ResponseEntity<?> getLectureReviewDetail(@PathVariable("lecture-review-id") long lectureReviewId){
+
         try {
             //로그인 회원인경우, 해당 디테일페이지에서 게시글,댓글 추천값정보 반환
             Member loginMember = loginMemberFindByToken();
 
             LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewId);
+            lectureReviewService.setViewCount(lectureReview);
             MemberDto.LoginUserLectureReviewVoteInfo lectureReviewVoteStatusByLoginUser = memberService.findLectureReviewVoteStatusByLoginUser(loginMember, lectureReview);
             LectureReviewDto.DetailPageResponse response = lectureReviewMapper.lectureReviewToLectureReviewDetailPageResponse(lectureReview);
             response.setTeacher(teacherMapper.teacherToTeacherSimpleInfoResponse(lectureReview.getLecture().getTeacher()));
@@ -121,6 +123,7 @@ public class LectureReviewController {
         } catch (BusinessLogicException e) {
             //로그인 안된 회원일경우, 추천값 정보 null
             LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewId);
+            lectureReviewService.setViewCount(lectureReview);
             LectureReviewDto.DetailPageResponse response = lectureReviewMapper.lectureReviewToLectureReviewDetailPageResponse(lectureReview);
 
             response.setTeacher(teacherMapper.teacherToTeacherSimpleInfoResponse(lectureReview.getLecture().getTeacher()));

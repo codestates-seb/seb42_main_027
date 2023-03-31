@@ -15,7 +15,7 @@ spring:
         default_batch_fetch_size: 1000
   flyway:
     baseline-on-migrate: true
-    enabled: true
+    enabled: false
   # 임시비밀번호발급 >> 보내는 이메일주소 변경. 이름으로 표시할수 있는지 알아볼 것.
   mail:
     host: smtp.naver.com
