@@ -449,11 +449,11 @@ function EditUserInfo() {
 
         <ButtonContainer>
           {isEdit && !isEditPassword ? (
-            <EditBtn onClick={handleCancelEditUserInfo}>정보 취소</EditBtn>
+            <EditBtn onClick={handleCancelEditUserInfo}>취소</EditBtn>
           ) : null}
 
           {!isEdit && isEditPassword ? (
-            <EditBtn onClick={handleCancelEditPassword}>암호 취소</EditBtn>
+            <EditBtn onClick={handleCancelEditPassword}>취소</EditBtn>
           ) : null}
 
           {isEdit ? null : (
