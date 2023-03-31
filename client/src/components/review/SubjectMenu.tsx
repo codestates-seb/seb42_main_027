@@ -251,7 +251,7 @@ type MenuButton = {
 
 const MenuContainer = styled.div<MenuContainer>`
   visibility: ${props => (props.isOpen ? 'visible' : 'hidden')};
-  height: ${props => (props.isOpen ? '42.5vh' : '0vh')};
+  height: ${props => (props.isOpen ? '21.3rem' : '0vh')};
   padding: 0.5rem;
 
   border-radius: 1rem 1rem 1rem 1rem;
@@ -267,7 +267,7 @@ const MenuContainer = styled.div<MenuContainer>`
 
 const MenuAllContainer = styled.div<MenuAllContainer>`
   visibility: ${props => (props.isOpen ? 'visible' : 'hidden')};
-  height: ${props => (props.isOpen ? '35.5vh' : '0vh')};
+  height: ${props => (props.isOpen ? '18rem' : '0vh')};
   background-color: #d0d0d0;
   border-radius: 1rem;
 

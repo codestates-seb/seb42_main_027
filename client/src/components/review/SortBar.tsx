@@ -23,7 +23,7 @@ function SortBar({
   sortTag,
   setButtonOpen,
 }: Props) {
-  const sortArr: string[] = ['최신순', '평점순', '이름순', '랜덤'];
+  const sortArr: string[] = ['평점순', '최신순', '이름순', '랜덤'];
 
   const sortTagHandler = (e: any) => {
     setSortTag(e.target.value);

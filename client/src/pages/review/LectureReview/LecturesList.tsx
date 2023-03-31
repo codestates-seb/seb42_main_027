@@ -49,7 +49,7 @@ function LecturesList() {
   const [subject, setSubject] = useState<string>('전체');
   const [grade, setGrade] = useState<string>('전체');
   const [platform, setPlatform] = useState<string>('전체');
-  const [sortTag, setSortTag] = useState<string>('최신순');
+  const [sortTag, setSortTag] = useState<string>('평점순');
   const [search, setSearch] = useState<string>('');
   const [reverse, setReverse] = useState<string>('정순');
   const [lectures, setLectures] = useState<LectureType[]>([]); // 서버에서 받아올 선생 정보
@@ -135,7 +135,6 @@ function LecturesList() {
                     totalReviewCount: el.totalReviewCount,
                     gradeTags: el.gradeTags,
                     subjectTags: el.subjectTags,
-
                     teacher: el.teacher,
                   }}
                   first={index === 0}

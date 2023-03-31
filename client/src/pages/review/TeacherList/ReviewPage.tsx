@@ -47,7 +47,7 @@ function ReviewPage() {
   const [subject, setSubject] = useState<string>('전체');
   const [grade, setGrade] = useState<string>('전체');
   const [platform, setPlatform] = useState<string>('전체');
-  const [sortTag, setSortTag] = useState<string>('최신순');
+  const [sortTag, setSortTag] = useState<string>('평점순');
   const [search, setSearch] = useState<string>('');
   const [reverse, setReverse] = useState<string>('정순');
   const [teachers, setTeachers] = useState<Teachers[]>([]); // 서버에서 받아올 선생 정보
