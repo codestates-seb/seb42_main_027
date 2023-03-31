@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
 import { useIsLoginStore } from 'stores/loginStore';
@@ -12,10 +12,16 @@ function Header() {
   const { setSelectedMenuStore } = boardMenuStore(state => state);
   const { setSelectedSortStore } = boardSortStore(state => state);
   const navigate = useNavigate();
+  const location = useLocation();
+
   const logOutHandler = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
     setIsLoginInStore(false);
+    console.log(location.pathname);
+    if (location.pathname === '/mypage') {
+      navigate('/');
+    }
   };
 
   const handleClickMypage = () => {
