@@ -81,24 +81,28 @@ function Login() {
     }
   };
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoginError(
-      '아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.',
-    );
-    if (!password) setLoginError('암호를 입력하세요.');
-    if (!email) setLoginError('이메일를 입력하세요.');
+    if (isPasswordInputOpen) {
+      setLoginError(
+        '아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.',
+      );
+      if (!password) setLoginError('암호를 입력하세요.');
+      if (!email) setLoginError('이메일를 입력하세요.');
 
-    pathData.email = email;
-    pathData.password = password;
-    try {
-      await login(pathData);
-      navigate(-1);
-      setIsLoginInStore(true);
-      fetchUserInfo();
-    } catch (error) {
-      setFailedLogin(true);
-      console.error(error);
+      pathData.email = email;
+      pathData.password = password;
+      try {
+        await login(pathData);
+        navigate(-1);
+        setIsLoginInStore(true);
+        fetchUserInfo();
+      } catch (error) {
+        setFailedLogin(true);
+        console.error(error);
+      }
+    } else {
+      setIsPasswordInputOpen(true);
     }
   };
 
@@ -110,7 +114,8 @@ function Login() {
     <Body>
       <Container>
         <Title>로그인</Title>
-        <Form>
+
+        <Form onSubmit={handleSubmit}>
           <Input
             value={email}
             onChange={handleChangeEmail}
@@ -129,12 +134,7 @@ function Login() {
           ) : null}
           <ButtonGroup>
             {isPasswordInputOpen ? (
-              <BaseButton
-                color="pointColor"
-                size="md"
-                disabled={false}
-                onClick={handleSubmit}
-              >
+              <BaseButton color="pointColor" size="md" disabled={false}>
                 로그인
               </BaseButton>
             ) : (
