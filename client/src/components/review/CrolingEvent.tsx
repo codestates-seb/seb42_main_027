@@ -1,6 +1,3 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/require-default-props */
-import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 
@@ -41,7 +38,10 @@ function CrolingEvent({ event }: Props) {
       </FlexContainer>
 
       <FlexContainer width="6rem" padding="0 0 0 1rem">
-        <DateFont>{event.date}</DateFont>
+        <FlexContainer dir="col" gap="0" align="start">
+          <DateFont>{event.date.slice(0, 13)}</DateFont>
+          <DateFont>{event.date.slice(13)}</DateFont>
+        </FlexContainer>
       </FlexContainer>
       <FlexContainer width="6rem" padding="0 0 0 1.2rem">
         {endCheck(event.date) ? <EndFont>종료</EndFont> : '진행중'}
@@ -91,14 +91,6 @@ const TitleSpan = styled.a<TitleSpan>`
     color: ${props => (props.end ? 'gray' : 'red')};
   }
   cursor: pointer;
-`;
-
-const Img = styled.img`
-  display: none;
-  width: 10.5rem;
-  height: 6rem;
-  border-radius: 0.5rem;
-  background-color: #b8b8b8;
 `;
 
 const EndFont = styled.span`
