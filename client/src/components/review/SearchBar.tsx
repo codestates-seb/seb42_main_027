@@ -45,4 +45,10 @@ const SearchInput = styled.input`
   padding: 0.7rem 0.8rem;
   border-radius: 5rem;
   background-color: #b8b8b8;
+  transition: all 0.2s;
+  border: 2px solid white;
+
+  :focus {
+    border: 2px solid #6667ab;
+  }
 `;

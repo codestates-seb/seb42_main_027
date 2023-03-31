@@ -4,18 +4,18 @@ import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 
 type Props = {
-  size: number; // 전체 강사 수
+  size: number; // 전체 page 수
   currentPage: number; // 현재 페이지
   pageSize: number; // 한 페이지에 뿌릴 강사 수
   setCurPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 function Pagenation({ size, currentPage, pageSize, setCurPage }: Props) {
-  const preNum = Math.floor(currentPage / pageSize);
+  const preNum = Math.floor(currentPage / 5);
   const totalPage = size; // 전체 Page 개수
   const pageArr = [];
-  const start = !preNum ? 1 : preNum * pageSize;
-  const last = Math.min(totalPage, preNum * 10 + pageSize - 1);
+  const start = !preNum ? 1 : preNum * 5;
+  const last = Math.min(totalPage, (preNum + 1) * 5);
   for (let i = start; i <= last; i += 1) pageArr.push(i);
   return (
     <FlexContainer>
@@ -32,7 +32,7 @@ function Pagenation({ size, currentPage, pageSize, setCurPage }: Props) {
         </PageBox>
 
         <PageContainer>
-          {currentPage !== 1 ? (
+          {totalPage > 5 && currentPage !== 1 ? (
             <PageBox
               selected={currentPage === 1}
               onClick={() => {
@@ -57,7 +57,7 @@ function Pagenation({ size, currentPage, pageSize, setCurPage }: Props) {
               );
             })}
           </FlexContainer>
-          {currentPage !== totalPage ? (
+          {totalPage > 5 && currentPage !== totalPage ? (
             <PageBox
               selected={currentPage === totalPage}
               onClick={() => {

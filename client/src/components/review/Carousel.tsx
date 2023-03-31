@@ -78,6 +78,21 @@ export const StyledSlider = styled(Slider)`
     margin: 0 auto;
     overflow-x: hidden;
     background: none;
+
+    @media screen and (max-width: 1700px) {
+      width: 80rem;
+      height: 20rem;
+    }
+
+    @media screen and (max-width: 750px) {
+      width: 45rem;
+      height: 11rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      width: 30rem;
+      height: 7.5rem;
+    }
   }
 
   .slick-slide div {
@@ -114,8 +129,19 @@ const SliderItem = styled.div`
   img {
     width: 100%;
     height: 15rem;
-    @media screen and (min-width: 750px) {
-      height: 25rem;
+    @media screen and (max-width: 1700px) {
+      width: 80rem;
+      height: 20rem;
+    }
+
+    @media screen and (max-width: 750px) {
+      width: 45rem;
+      height: 11rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      width: 30rem;
+      height: 7.5rem;
     }
   }
 `;

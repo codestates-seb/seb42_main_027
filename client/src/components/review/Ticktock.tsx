@@ -302,7 +302,7 @@ const ModalContainer = styled.div`
 `;
 
 const AttendanceContainer = styled.div`
-  width: 15rem;
+  width: 16rem;
   height: 23rem;
   position: fixed;
   bottom: 7rem;

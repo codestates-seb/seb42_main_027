@@ -1,6 +1,3 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/require-default-props */
-import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import { Link } from 'react-router-dom';
@@ -64,7 +61,10 @@ function Event({ event }: Props) {
       </FlexContainer>
 
       <FlexContainer width="6rem" padding="0 0 0 1rem">
-        <DateFont>{event.date}</DateFont>
+        <FlexContainer dir="col" gap="0" align="start">
+          <DateFont>{event.date.slice(0, 12)}</DateFont>
+          <DateFont>{event.date.slice(12)}</DateFont>
+        </FlexContainer>
       </FlexContainer>
       <FlexContainer width="6rem" padding="0 0 0 1.2rem">
         {event.viewCount}
@@ -88,11 +88,6 @@ const Container = styled.div<Container>`
   padding: 1rem 0;
   border-top: ${props => (props.first ? '2px solid black' : null)};
   border-bottom: 0.5px solid black;
-`;
-
-const IdFont = styled.div`
-  font-size: 0.9rem;
-  font-weight: bold;
 `;
 
 const MiddleFont = styled.div`

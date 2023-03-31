@@ -203,7 +203,9 @@ function LectureReviewDetailPage() {
             <H2>{detailData.title}</H2>
             <FlexContainer>
               <NameSpan>{detailData.member.displayName}</NameSpan>
-              <NameSpan>조회수 {detailData.viewCount}</NameSpan>
+              <NameSpan>
+                <CountIcon.View /> {detailData.viewCount}
+              </NameSpan>
             </FlexContainer>
           </TitleDiv>
           {/* 강사 평가 */}
@@ -298,7 +300,7 @@ function LectureReviewDetailPage() {
 export default LectureReviewDetailPage;
 
 type Container = {
-  reviewOpen?: boolean;
+  toggle?: boolean;
 };
 
 type Button = {
@@ -307,13 +309,13 @@ type Button = {
 
 const Container = styled.div<Container>`
   width: 100%;
-  background-color: white;
-
+  background-color: ${props => (props.toggle ? 'gray' : 'white')};
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
   gap: 0.5rem;
+  transition: all 0.5s ease;
 `;
 
 const UpButton = styled.button<Button>`
@@ -333,6 +335,10 @@ const DownButton = styled.button<Button>`
 const NameSpan = styled.span`
   color: black;
   font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
 `;
 
 const Title = styled.div`
@@ -364,7 +370,7 @@ const ContentBox = styled.div`
   min-height: 200px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: start;
   padding: 3rem 1rem;
   gap: 0.4rem;
