@@ -11,6 +11,9 @@ import useUserInfoStore from 'stores/userInfoStore';
 import theme from 'theme';
 import Button from 'components/common/Button';
 import CountIcon from 'assets/icons/countIcon';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2';
 
 type Props = {
   lectureReviewCommentId: number;
@@ -51,6 +54,10 @@ function LectureReviewComment({
   const [voteStatus, setVoteStatus] = useState(tmp);
   const Authorization = localStorage.getItem('token');
 
+  const up = () => toast.success('Comment UP!');
+  const down = () => toast.error('Comment DOWN!');
+  const cancle = () => toast.info('Comment Cancle!');
+
   useEffect(() => {
     console.log(commentVote);
   }, [commentVote]);
@@ -59,26 +66,41 @@ function LectureReviewComment({
     setIsOpen(!isOpen);
   };
   const updateHandler = () => {
-    if (!updateContent) alert('내용을 입력하하세요');
-    else {
-      axios
-        .patch(
-          `${process.env.REACT_APP_API_URL}/comments/reviews/lectures/${lectureReviewCommentId}`,
-          {
-            content: updateContent,
-            createdAt: new Date(),
-            lectureReviewCommentId,
-          },
-          {
-            headers: {
-              Authorization,
-              'ngrok-skip-browser-warning': '69420',
+    if (!updateContent) {
+      Swal.fire({
+        title: '내용을 입력해주세요',
+        icon: 'warning',
+
+        confirmButtonColor: '#d33', // confrim 버튼 색깔 지정
+        confirmButtonText: '승인', // confirm 버튼 텍스트 지정
+      });
+    } else {
+      Swal.fire({
+        title: '수정이 완료되었습니다',
+        icon: 'success',
+
+        confirmButtonColor: '#6667ab', // confrim 버튼 색깔 지정
+        confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+      }).then(() => {
+        axios
+          .patch(
+            `${process.env.REACT_APP_API_URL}/comments/reviews/lectures/${lectureReviewCommentId}`,
+            {
+              content: updateContent,
+              createdAt: new Date(),
+              lectureReviewCommentId,
             },
-          },
-        )
-        .then(() => {
-          window.location.reload();
-        });
+            {
+              headers: {
+                Authorization,
+                'ngrok-skip-browser-warning': '69420',
+              },
+            },
+          )
+          .then(() => {
+            window.location.reload();
+          });
+      });
     }
   };
   const commentUpHandler = () => {
@@ -95,6 +117,8 @@ function LectureReviewComment({
         console.log(data);
         setCommentVote(data.lectureReviewCommentVoteTotalCount);
         setVoteStatus(data.status);
+        if (data.status === 'UP') up();
+        else if (data.status === 'NONE') cancle();
       });
   };
   const commentDownHandler = () => {
@@ -111,11 +135,14 @@ function LectureReviewComment({
         console.log(data);
         setCommentVote(data.lectureReviewCommentVoteTotalCount);
         setVoteStatus(data.status);
+        if (data.status === 'DOWN') down();
+        else if (data.status === 'NONE') cancle();
       });
   };
 
   return (
     <Container>
+      <ToastContainer pauseOnHover autoClose={1000} />
       <FlexContainer width="100%" align="start" dir="col" gap="0.2rem">
         <FlexContainer width="100%" justify="space-between" padding="0 0.2rem">
           <VerySmallGrayFont>
