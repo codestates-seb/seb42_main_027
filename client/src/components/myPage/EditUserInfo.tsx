@@ -26,7 +26,7 @@ const Container = styled.div`
 const UserInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50rem;
+  width: 45rem;
   padding: 1rem;
   border: 0.15rem solid ${colors.pointColor};
   box-shadow: 0px 0 5px rgba(0, 0, 0, 0.1);
@@ -34,6 +34,7 @@ const UserInfoContainer = styled.div`
   margin-top: 8rem;
   background-color: white;
   margin-left: 6rem;
+
   @media screen and (max-width: 1439px) {
     width: 35rem;
   }
@@ -448,11 +449,11 @@ function EditUserInfo() {
 
         <ButtonContainer>
           {isEdit && !isEditPassword ? (
-            <EditBtn onClick={handleCancelEditUserInfo}>정보 취소</EditBtn>
+            <EditBtn onClick={handleCancelEditUserInfo}>취소</EditBtn>
           ) : null}
 
           {!isEdit && isEditPassword ? (
-            <EditBtn onClick={handleCancelEditPassword}>암호 취소</EditBtn>
+            <EditBtn onClick={handleCancelEditPassword}>취소</EditBtn>
           ) : null}
 
           {isEdit ? null : (
