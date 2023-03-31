@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/no-array-index-key */
 import styled from 'styled-components';
@@ -6,6 +7,7 @@ import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import axios from 'axios';
 import useUserInfoStore from 'stores/userInfoStore';
 import { BsStarFill } from 'react-icons/bs';
+import Swal from 'sweetalert2';
 
 type Props = {
   teachers: {
@@ -77,18 +79,36 @@ function CharacterCard({
               </Link>
               <button
                 onClick={() => {
-                  axios
-                    .delete(
-                      `${process.env.REACT_APP_API_URL}/boards/teachers/${el.teacherId}`,
-                      {
-                        headers: {
-                          'ngrok-skip-browser-warning': 'asdasdas',
-                        },
-                      },
-                    )
-                    .then(() => {
-                      window.location.reload();
-                    });
+                  Swal.fire({
+                    title: '강사를 삭제하시겠습니까?',
+                    text: '다시 되돌릴 수 없습니다. 신중하세요.',
+                    icon: 'warning',
+
+                    showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+                    confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+                    cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+                    confirmButtonText: '승인', // confirm 버튼 텍스트 지정
+                    cancelButtonText: '취소', // cancel 버튼 텍스트 지정
+
+                    reverseButtons: true, // 버튼 순서 거꾸로
+                  }).then(result => {
+                    // 만약 Promise리턴을 받으면,
+                    if (result.isConfirmed) {
+                      // 만약 모달창에서 confirm 버튼을 눌렀다면
+                      axios
+                        .delete(
+                          `${process.env.REACT_APP_API_URL}/boards/teachers/${el.teacherId}`,
+                          {
+                            headers: {
+                              'ngrok-skip-browser-warning': 'asdasdas',
+                            },
+                          },
+                        )
+                        .then(() => {
+                          window.location.reload();
+                        });
+                    }
+                  });
                 }}
               >
                 삭제

@@ -9,6 +9,7 @@ import StarCounter from 'components/review/StarCounter';
 import GoBackMenu from 'components/board/post/goBackMenu';
 import theme from 'theme';
 import TextEditor from 'components/common/textEditor';
+import Swal from 'sweetalert2';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 import { UploadButton } from '../TeacherList/CreateTeacher';
 
@@ -46,7 +47,13 @@ function UpdateReview() {
 
   const updateHandler = () => {
     if (!title || !content || !starPoint) {
-      alert('빈 곳을 채워주세요!');
+      Swal.fire({
+        title: '빈 곳을 입력해주세요',
+        icon: 'warning',
+
+        confirmButtonColor: '#d33', // confrim 버튼 색깔 지정
+        confirmButtonText: '승인', // confirm 버튼 텍스트 지정
+      });
     } else {
       const data = {
         title,
@@ -56,20 +63,28 @@ function UpdateReview() {
         modifiedAt: new Date(),
       };
 
-      axios
-        .patch(
-          `${process.env.REACT_APP_API_URL}/boards/reviews/lectures/${lectureReviewId}`,
-          data,
-          {
-            headers: {
-              Authorization,
-              'ngrok-skip-browser-warning': 'asdasdas',
+      Swal.fire({
+        title: '수정이 완료되었습니다',
+        icon: 'success',
+
+        confirmButtonColor: '#6667ab', // confrim 버튼 색깔 지정
+        confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+      }).then(() => {
+        axios
+          .patch(
+            `${process.env.REACT_APP_API_URL}/boards/reviews/lectures/${lectureReviewId}`,
+            data,
+            {
+              headers: {
+                Authorization,
+                'ngrok-skip-browser-warning': 'asdasdas',
+              },
             },
-          },
-        )
-        .then(() => {
-          navigate(-1);
-        });
+          )
+          .then(() => {
+            navigate(-1);
+          });
+      });
     }
   };
 
