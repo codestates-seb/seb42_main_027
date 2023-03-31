@@ -14,8 +14,8 @@ function Pagenation({ size, currentPage, pageSize, setCurPage }: Props) {
   const preNum = Math.floor(currentPage / 5);
   const totalPage = size; // 전체 Page 개수
   const pageArr = [];
-  const start = !preNum ? 1 : preNum * 5;
-  const last = Math.min(totalPage, (preNum + 1) * 5);
+  const start = currentPage % 5 ? preNum * 5 + 1 : (preNum - 1) * 5 + 1;
+  const last = Math.min(totalPage, start + 4);
   for (let i = start; i <= last; i += 1) pageArr.push(i);
   return (
     <FlexContainer>
