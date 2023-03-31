@@ -173,7 +173,9 @@ function LectureReviewDetail({
             <TitleSpan>{detailData.title}</TitleSpan>
             <FlexContainer>
               <SubSpan>{detailData.member.displayName}</SubSpan>
-              <SubSpan>조회수: {detailData.viewCount}</SubSpan>
+              <SubSpan>
+                <CountIcon.View /> {detailData.viewCount}
+              </SubSpan>
             </FlexContainer>
           </FlexContainer>
 
@@ -368,6 +370,10 @@ const TitleSpan = styled.span`
 const SubSpan = styled.span`
   font-size: medium;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
 `;
 
 const IntroSpan = styled.span`

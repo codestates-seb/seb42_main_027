@@ -203,7 +203,9 @@ function LectureReviewDetailPage() {
             <H2>{detailData.title}</H2>
             <FlexContainer>
               <NameSpan>{detailData.member.displayName}</NameSpan>
-              <NameSpan>조회수 {detailData.viewCount}</NameSpan>
+              <NameSpan>
+                <CountIcon.View /> {detailData.viewCount}
+              </NameSpan>
             </FlexContainer>
           </TitleDiv>
           {/* 강사 평가 */}
@@ -333,6 +335,10 @@ const DownButton = styled.button<Button>`
 const NameSpan = styled.span`
   color: black;
   font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
 `;
 
 const Title = styled.div`
