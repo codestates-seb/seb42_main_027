@@ -12,6 +12,8 @@ import theme from 'theme';
 import { Link } from 'react-router-dom';
 import Button from 'components/common/Button';
 import CountIcon from 'assets/icons/countIcon';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import LectureReviewComment from './LectureReviewComment';
 import Loading from './Loading';
 
@@ -87,6 +89,10 @@ function LectureReviewDetail({
   const { userInfo } = useUserInfoStore(state => state);
   const Authorization = localStorage.getItem('token');
 
+  const up = () => toast.success('UP!');
+  const down = () => toast.error('DOWN!');
+  const cancle = () => toast.info('Cancle!');
+
   useEffect(() => {
     if (lectureReviewId < 0) return;
     setIsPending(true);
@@ -137,6 +143,8 @@ function LectureReviewDetail({
       .then(data => {
         setReviewVote(data.lectureReviewVoteTotalCount);
         setVoteStatus(data.status);
+        if (data.status === 'UP') up();
+        else if (data.status === 'NONE') cancle();
       });
   };
   const reviewDownHandler = () => {
@@ -152,11 +160,14 @@ function LectureReviewDetail({
       .then(data => {
         setReviewVote(data.lectureReviewVoteTotalCount);
         setVoteStatus(data.status);
+        if (data.status === 'DOWN') down();
+        else if (data.status === 'NONE') cancle();
       });
   };
 
   return (
     <Container reviewOpen={reviewOpen} onClick={closeHandler}>
+      <ToastContainer pauseOnHover autoClose={1000} />
       {isPending ? (
         <Loading />
       ) : (

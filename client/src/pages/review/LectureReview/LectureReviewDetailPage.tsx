@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/require-default-props */
-import GlobalStyle from 'GlobalStyles';
+
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import { AiFillStar } from 'react-icons/ai';
@@ -18,6 +18,8 @@ import GoBackMenu from 'components/board/post/goBackMenu';
 import Button from 'components/common/Button';
 import CountIcon from 'assets/icons/countIcon';
 import Swal from 'sweetalert2';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const defaultDetailData = {
   lectureReviewId: 1,
@@ -83,6 +85,10 @@ function LectureReviewDetailPage() {
   const Authorization = localStorage.getItem('token');
   const navigate = useNavigate();
 
+  const up = () => toast.success('UP!');
+  const down = () => toast.error('DOWN!');
+  const cancle = () => toast.info('Cancle!');
+
   useEffect(() => {
     window.scrollTo(0, 0);
     setIsPending(true);
@@ -132,6 +138,8 @@ function LectureReviewDetailPage() {
       .then(data => {
         setReviewVote(data.lectureReviewVoteTotalCount);
         setVoteStatus(data.status);
+        if (data.status === 'UP') up();
+        else if (data.status === 'NONE') cancle();
       });
   };
   const reviewDownHandler = () => {
@@ -147,11 +155,14 @@ function LectureReviewDetailPage() {
       .then(data => {
         setReviewVote(data.lectureReviewVoteTotalCount);
         setVoteStatus(data.status);
+        if (data.status === 'DOWN') down();
+        else if (data.status === 'NONE') cancle();
       });
   };
 
   return (
     <Container>
+      <ToastContainer pauseOnHover autoClose={1000} />
       {isPending ? (
         <Loading />
       ) : (
