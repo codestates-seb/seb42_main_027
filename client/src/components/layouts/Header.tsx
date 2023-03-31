@@ -4,7 +4,7 @@ import Button from 'components/common/Button';
 import { useIsLoginStore } from 'stores/loginStore';
 import { boardMenuStore } from 'stores/boardMenuStore';
 import { boardSortStore } from 'stores/boardSortStore';
-import Toggle from '../common/Toggle';
+// import Toggle from '../common/Toggle';
 import theme from '../../theme';
 
 function Header() {
@@ -18,9 +18,10 @@ function Header() {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
     setIsLoginInStore(false);
-    console.log(location.pathname);
     if (location.pathname === '/mypage') {
       navigate('/');
+    } else {
+      window.location.reload();
     }
   };
 
