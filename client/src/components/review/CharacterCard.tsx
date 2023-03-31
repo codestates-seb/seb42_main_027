@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import axios from 'axios';
 import useUserInfoStore from 'stores/userInfoStore';
+import { BsStarFill } from 'react-icons/bs';
 
 type Props = {
   teachers: {
@@ -64,7 +65,9 @@ function CharacterCard({
               >
                 {el.subjectTags[0].subjectTag}
               </Span>
-              <NomalSpan>⭐️ {el.starPointAverage.toFixed(1)}</NomalSpan>
+              <NomalSpan>
+                <BsStarFill color="gold" /> {el.starPointAverage.toFixed(1)}
+              </NomalSpan>
             </CardContainer>
             <FlexContainer
               display={userInfo.state === 'ADMIN' ? 'flex' : 'none'}
@@ -147,4 +150,5 @@ const NomalSpan = styled.span`
   font-size: large;
   font-weight: bold;
   cursor: default;
+  text-align: center;
 `;
