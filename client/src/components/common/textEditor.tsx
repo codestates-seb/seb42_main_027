@@ -90,7 +90,7 @@ function TextEditor({
           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
           [{ color: [] }, { background: [] }],
           [{ list: 'ordered' }, { list: 'bullet' }],
-          ['link', 'image'],
+          ['image'],
         ],
         handlers: { image: imageHandler },
       },

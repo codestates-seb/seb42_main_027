@@ -12,9 +12,11 @@ import CountIcon from 'assets/icons/countIcon';
 import DeletePost from 'apis/board/deletePost';
 import PostVote from 'apis/board/postVote';
 import PostAdopt from 'apis/board/postAdopt';
+import PatchAnswer from 'apis/board/patchAnswer';
 import CalElapsedTime from '../post/calElapsedTime';
 import CommentBlock from './commentBlock';
 import WriteAnswerComment from '../comment/writeAnswerComment';
+import TextEditor from '../customTextEditor';
 
 interface AnswerData {
   answerId: number;
@@ -52,13 +54,21 @@ type Props = {
   data: AnswerData;
   checkState: boolean;
   setCheckState: React.Dispatch<React.SetStateAction<boolean>>;
+  questionWriter: number;
 };
 
-function AnswerContent({ data, checkState, setCheckState }: Props) {
+function AnswerContent({
+  data,
+  checkState,
+  setCheckState,
+  questionWriter,
+}: Props) {
   const { userInfo } = useUserInfoStore(state => state);
   const [checkEdit, setCheckEdit] = useState<boolean>(false);
   const [editData, setEditData] = useState<string>(data.content);
+  const [uploadImages, setUploadImages] = useState<string[] | []>([]);
   const [comDivIsOpen, setComDivIsOpen] = useState<boolean>(false);
+  const [voteTotal, SetVoteTotal] = useState<number>(data.voteCount);
   const navigate = useNavigate();
   const idData = Number(useParams().id);
   const calTime = CalElapsedTime(data.createdAt);
@@ -68,6 +78,21 @@ function AnswerContent({ data, checkState, setCheckState }: Props) {
 
   const openComDivHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setComDivIsOpen(!comDivIsOpen);
+  };
+
+  const patchAnswerHandler = async () => {
+    try {
+      const patchData = {
+        content: editData,
+        uploadImages,
+        modifiedAt: `${new Date()}`,
+      };
+      await PatchAnswer(patchData, data.answerId);
+      await setCheckState(!checkState);
+      setCheckEdit(!checkEdit);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const fetchDeletePost = async () => {
@@ -94,16 +119,16 @@ function AnswerContent({ data, checkState, setCheckState }: Props) {
 
   const voteHandler = async (value: string) => {
     try {
-      await PostVote('qnas/answers', data.answerId, value);
-      setCheckState(!checkState);
+      const res = await PostVote('qnas/answers', data.answerId, value);
+      await SetVoteTotal(res.data.answerVoteTotalCount);
     } catch (err) {
       console.error(err);
     }
   };
 
   const editHandler = () => {
-    setCheckEdit(!checkEdit);
     setEditData(data.content);
+    setCheckEdit(!checkEdit);
   };
 
   return (
@@ -128,7 +153,9 @@ function AnswerContent({ data, checkState, setCheckState }: Props) {
                 </Button.UDWhiteBtn>
               )}
               {checkEdit ? (
-                <Button.UDWhiteBtn>확인</Button.UDWhiteBtn>
+                <Button.UDWhiteBtn onClick={patchAnswerHandler}>
+                  확인
+                </Button.UDWhiteBtn>
               ) : (
                 <Button.UDWhiteBtn onClick={fetchDeletePost}>
                   삭제
@@ -151,69 +178,83 @@ function AnswerContent({ data, checkState, setCheckState }: Props) {
           <div> · {calTime}</div>
         </Writer>
       </TitleDiv>
-      <MainDiv>
-        <TextDiv dangerouslySetInnerHTML={{ __html: data.content }} />
-        {data.member.memberId === userInfo.memberId ? (
-          <div>
-            {data.adoptStatus === 'TRUE' ? (
-              <BtnSelect onClick={fetchPostAdopt} className="selected">
-                채택완료
-              </BtnSelect>
-            ) : (
-              <BtnSelect onClick={fetchPostAdopt}>채택하기</BtnSelect>
+      {checkEdit ? (
+        <EditDiv>
+          <TextEditorDiv>
+            <TextEditor
+              textContent={editData}
+              setTextContent={setEditData}
+              uploadImages={uploadImages}
+              setUploadImages={setUploadImages}
+              path="boards/qnas/answers/contents"
+            />
+          </TextEditorDiv>
+        </EditDiv>
+      ) : (
+        <MainDiv>
+          <TextDiv dangerouslySetInnerHTML={{ __html: data.content }} />
+          {questionWriter === userInfo.memberId ? (
+            <div>
+              {data.adoptStatus === 'TRUE' ? (
+                <BtnSelect onClick={fetchPostAdopt} className="selected">
+                  채택완료
+                </BtnSelect>
+              ) : (
+                <BtnSelect onClick={fetchPostAdopt}>채택하기</BtnSelect>
+              )}
+            </div>
+          ) : null}
+          <VoteDiv>
+            <Button.VoteDownBtn onClick={e => voteHandler('down')}>
+              <CountIcon.VoteDown />
+            </Button.VoteDownBtn>
+            <VoteCount>{voteTotal}</VoteCount>
+            <Button.VoteUpBtn onClick={e => voteHandler('up')}>
+              <CountIcon.VoteUp />
+            </Button.VoteUpBtn>
+          </VoteDiv>
+          <CommentContainer>
+            {data.commentCount === 0 ? null : (
+              <CommentViewDiv>
+                {data.comments.map((ele: Comment) => {
+                  return (
+                    <CommentBlock
+                      key={ele.qnaCommentId}
+                      data={ele}
+                      checkState={checkState}
+                      setCheckState={setCheckState}
+                    />
+                  );
+                })}
+              </CommentViewDiv>
             )}
-          </div>
-        ) : null}
-        <VoteDiv>
-          <Button.VoteDownBtn onClick={e => voteHandler('down')}>
-            <CountIcon.VoteDown />
-          </Button.VoteDownBtn>
-          <VoteCount>{data.voteCount}</VoteCount>
-          <Button.VoteUpBtn onClick={e => voteHandler('up')}>
-            <CountIcon.VoteUp />
-          </Button.VoteUpBtn>
-        </VoteDiv>
-        <CommentContainer>
-          {data.commentCount === 0 ? null : (
-            <CommentViewDiv>
-              {data.comments.map((ele: Comment) => {
-                return (
-                  <CommentBlock
-                    key={ele.qnaCommentId}
-                    data={ele}
+            {comDivIsOpen ? (
+              <CommentDiv>
+                <ComBtnDiv>
+                  <Button.RecommentBtn onClick={openComDivHandler}>
+                    닫기
+                  </Button.RecommentBtn>
+                </ComBtnDiv>
+                <WriteCommentDiv>
+                  <WriteAnswerComment
+                    answerId={data.answerId}
                     checkState={checkState}
                     setCheckState={setCheckState}
                   />
-                );
-              })}
-            </CommentViewDiv>
-          )}
-          {comDivIsOpen ? (
-            <CommentDiv>
-              <ComBtnDiv>
-                <Button.RecommentBtn onClick={openComDivHandler}>
-                  닫기
-                </Button.RecommentBtn>
-              </ComBtnDiv>
-              <WriteCommentDiv>
-                <WriteAnswerComment
-                  answerId={data.answerId}
-                  checkState={checkState}
-                  setCheckState={setCheckState}
-                />
-              </WriteCommentDiv>
-            </CommentDiv>
-          ) : (
-            <CommentDiv>
-              <ComBtnDiv>
-                <Button.RecommentBtn onClick={openComDivHandler}>
-                  댓글 쓰기
-                </Button.RecommentBtn>
-              </ComBtnDiv>
-            </CommentDiv>
-          )}
-        </CommentContainer>
-      </MainDiv>
+                </WriteCommentDiv>
+              </CommentDiv>
+            ) : (
+              <CommentDiv>
+                <ComBtnDiv>
+                  <Button.RecommentBtn onClick={openComDivHandler}>
+                    댓글 쓰기
+                  </Button.RecommentBtn>
+                </ComBtnDiv>
+              </CommentDiv>
+            )}
+          </CommentContainer>
+        </MainDiv>
+      )}
     </Container>
   );
 }
@@ -296,6 +337,16 @@ const MainDiv = styled.div`
   flex-direction: column;
   padding: ${theme.gap.px20};
   border-bottom: 1px solid ${theme.colors.gray};
+`;
+
+const EditDiv = styled(MainDiv)`
+  padding-bottom: ${theme.gap.px100};
+`;
+
+const TextEditorDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
 `;
 
 const BtnSelect = styled(Button.UDWhiteBtn)`

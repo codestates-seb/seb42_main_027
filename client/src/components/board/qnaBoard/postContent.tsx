@@ -28,7 +28,7 @@ interface Data {
   title: 'string';
   content: 'string';
   category: string;
-  adoptAnswerId?: number;
+  adoptAnswerId: number;
   viewCount: number;
   voteCount: number;
   commentCount: number;
@@ -43,6 +43,7 @@ interface Data {
   };
   answers: [AnswerData];
   comments: [Comment];
+  loginUserVoteInfo: [VoteInfo];
 }
 
 interface Comment {
@@ -77,6 +78,25 @@ interface AnswerData {
   comments: [Comment];
 }
 
+interface VoteInfo {
+  memberId: number;
+  email: string;
+  questionId: number;
+  questionvoteStatus: string;
+  answerVoteStatus: [AnswerVoteInfo];
+  qnaCommentVoteStatus: [CommentVoteInfo];
+}
+
+interface AnswerVoteInfo {
+  answerId: number;
+  voteStatus: string;
+}
+
+interface CommentVoteInfo {
+  qnaCommentVoteId: number;
+  voteStatus: string;
+}
+
 function PostContent() {
   const { userInfo } = useUserInfoStore(state => state);
   const { isLoginInStore } = useIsLoginStore(state => state);
@@ -87,6 +107,11 @@ function PostContent() {
   const [checkState, setCheckState] = useState<boolean>(false);
   const [uploadImages, setUploadImages] = useState<string[] | []>([]);
   const [comDivIsOpen, setComDivIsOpen] = useState<boolean>(false);
+  const [voteTotal, SetVoteTotal] = useState<number>(0);
+  const [isVoteStatus, SetIsVoteStatus] = useState<string>('');
+  const [voteInfo, setVoteInfo] = useState<VoteInfo | Record<string, never>>(
+    {},
+  );
   const idData = Number(useParams().id);
 
   let calTime = '';
@@ -101,8 +126,9 @@ function PostContent() {
   const fetchPostDetail = async () => {
     try {
       const buffer = await getPostDetail('qnas/questions', idData);
-      setListData(buffer.data);
-      // category = await categoryHandler();
+      await setListData(buffer.data);
+      await SetVoteTotal(buffer.data.voteCount);
+      await setVoteInfo(buffer.data.loginUserVoteInfo);
       setIsPending(false);
     } catch (err) {
       console.error(err);
@@ -129,13 +155,15 @@ function PostContent() {
       } else {
         const data = {
           content: textContent,
+          uploadImages,
           createdAt: `${new Date()}`,
           questionId: listData.questionId,
         };
         console.log('submit data', data);
         await PostAnswer(data);
-        setTextContent('');
-        setCheckState(!checkState);
+        await setTextContent('');
+        await setCheckState(!checkState);
+        window.scrollTo(0, 0);
       }
     } catch (err) {
       console.error(err);
@@ -144,8 +172,9 @@ function PostContent() {
 
   const voteHandler = async (value: string) => {
     try {
-      await PostVote('qnas/questions', idData, value);
-      setCheckState(!checkState);
+      const res = await PostVote('qnas/questions', idData, value);
+      await SetVoteTotal(res.data.questionVoteTotalCount);
+      await SetIsVoteStatus(res.data.questionvoteStatus);
     } catch (err) {
       console.error(err);
     }
@@ -167,7 +196,12 @@ function PostContent() {
         <div>
           <TitleDiv>
             <Top>
-              <Category>{listData.category}</Category>
+              <CategoryDiv>
+                <Category>{listData.category}</Category>
+                {listData.adoptAnswerId ? (
+                  <Category className="seleted">답변채택</Category>
+                ) : null}
+              </CategoryDiv>
               {listData.member.memberId === userInfo.memberId ? (
                 <UDBtnDiv>
                   <Link to="edit">
@@ -201,11 +235,17 @@ function PostContent() {
           <MainDiv>
             <TextDiv dangerouslySetInnerHTML={{ __html: listData.content }} />
             <VoteDiv>
-              <Button.VoteDownBtn onClick={e => voteHandler('down')}>
+              <Button.VoteDownBtn
+                className={isVoteStatus === 'DOWN' ? 'selected' : ''}
+                onClick={e => voteHandler('down')}
+              >
                 <CountIcon.VoteDown />
               </Button.VoteDownBtn>
-              <VoteCount>{listData.voteCount}</VoteCount>
-              <Button.VoteUpBtn onClick={e => voteHandler('up')}>
+              <VoteCount>{voteTotal}</VoteCount>
+              <Button.VoteUpBtn
+                className={isVoteStatus === 'UP' ? 'selected' : ''}
+                onClick={e => voteHandler('up')}
+              >
                 <CountIcon.VoteUp />
               </Button.VoteUpBtn>
             </VoteDiv>
@@ -250,50 +290,62 @@ function PostContent() {
             </CommentContainer>
           </MainDiv>
           <AnswerCnt>{listData.answerCount}개의 답변</AnswerCnt>
-          <AnswerContainer>
-            {listData.answerCount === 0 ? null : (
-              <div>
-                {listData.answers.map((ele: AnswerData) => {
-                  return (
-                    <AnswerContent
-                      key={ele.answerId}
-                      data={ele}
-                      checkState={checkState}
-                      setCheckState={setCheckState}
-                    />
-                  );
-                })}
-              </div>
-            )}
-          </AnswerContainer>
-          <PostAnswerDiv>
-            <Label htmlFor="post">답변 작성하기</Label>
-            <TextEditorDiv id="post">
-              {isLoginInStore ? (
-                <TextEditor
-                  textContent={textContent}
-                  setTextContent={setTextContent}
-                  uploadImages={uploadImages}
-                  setUploadImages={setUploadImages}
-                  path="boards/qnas/answers/contents"
-                />
-              ) : (
-                <GuideDiv>
-                  <AiOutlineExclamationCircle />
+          {listData.category === '공지' ? (
+            <PostAnswerDiv>
+              <NoticeDiv>공지글에는 답변을 작성할 수 없습니다.</NoticeDiv>
+            </PostAnswerDiv>
+          ) : (
+            <div>
+              <AnswerContainer>
+                {listData.answerCount === 0 ? null : (
                   <div>
-                    답변을 쓰려면 <Link to="/login">로그인</Link>이 필요합니다.
+                    {listData.answers.map((ele: AnswerData) => {
+                      return (
+                        <AnswerContent
+                          key={ele.answerId}
+                          data={ele}
+                          checkState={checkState}
+                          setCheckState={setCheckState}
+                          questionWriter={listData.member.memberId}
+                        />
+                      );
+                    })}
                   </div>
-                </GuideDiv>
-              )}
-            </TextEditorDiv>
-            <BtnDiv>
-              {isLoginInStore ? (
-                <Button.WriteBtn onClick={postHandler}>확인</Button.WriteBtn>
-              ) : (
-                <Button.WriteBtn className="disabled">확인</Button.WriteBtn>
-              )}
-            </BtnDiv>
-          </PostAnswerDiv>
+                )}
+              </AnswerContainer>
+              <PostAnswerDiv>
+                <Label htmlFor="post">답변 작성하기</Label>
+                <TextEditorDiv id="post">
+                  {isLoginInStore ? (
+                    <TextEditor
+                      textContent={textContent}
+                      setTextContent={setTextContent}
+                      uploadImages={uploadImages}
+                      setUploadImages={setUploadImages}
+                      path="boards/qnas/answers/contents"
+                    />
+                  ) : (
+                    <GuideDiv>
+                      <AiOutlineExclamationCircle />
+                      <div>
+                        답변을 쓰려면 <Link to="/login">로그인</Link>이
+                        필요합니다.
+                      </div>
+                    </GuideDiv>
+                  )}
+                </TextEditorDiv>
+                <BtnDiv>
+                  {isLoginInStore ? (
+                    <Button.WriteBtn onClick={postHandler}>
+                      확인
+                    </Button.WriteBtn>
+                  ) : (
+                    <Button.WriteBtn className="disabled">확인</Button.WriteBtn>
+                  )}
+                </BtnDiv>
+              </PostAnswerDiv>
+            </div>
+          )}
           {/* <CommentCnt>{listData.commentsListNum}개의 댓글</CommentCnt>
           <CommentContainer>
             <WriteCommentDiv>
@@ -363,6 +415,11 @@ const View = styled.div`
   bottom: 0;
 `;
 
+const CategoryDiv = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const Category = styled.div`
   display: flex;
   justify-content: center;
@@ -377,6 +434,11 @@ const Category = styled.div`
   color: ${theme.colors.pointColor};
   background-color: ${theme.colors.white};
   margin-bottom: 4px;
+  margin-right: 5px;
+  &.seleted {
+    color: ${theme.colors.white};
+    background-color: ${theme.colors.pointColor};
+  }
 `;
 
 const UDBtnDiv = styled.div`
@@ -555,6 +617,10 @@ const BtnDiv = styled.div`
     justify-content: space-between;
     width: 200px;
   }
+`;
+
+const NoticeDiv = styled.div`
+  margin-bottom: ${theme.gap.px60};
 `;
 
 export default PostContent;

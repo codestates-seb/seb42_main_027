@@ -59,6 +59,7 @@ function PostContent() {
   const [isPending, setIsPending] = useState(true);
   const [listData, setListData] = useState<Data | Record<string, never>>({});
   const [checkState, setCheckState] = useState<boolean>(false);
+  const [voteTotal, SetVoteTotal] = useState<number>(0);
   const urlData = useLocation().pathname.slice(0, 5);
   const idData = Number(useParams().id);
 
@@ -69,8 +70,8 @@ function PostContent() {
 
   const voteHandler = async (value: string) => {
     try {
-      await PostVote('frees', idData, value);
-      setCheckState(!checkState);
+      const res = await PostVote('frees', idData, value);
+      await SetVoteTotal(res.data.freeTotalCount);
     } catch (err) {
       console.error(err);
     }
@@ -152,7 +153,7 @@ function PostContent() {
               <Button.VoteDownBtn onClick={e => voteHandler('down')}>
                 <CountIcon.VoteDown />
               </Button.VoteDownBtn>
-              <VoteCount>{listData.voteCount}</VoteCount>
+              <VoteCount>{voteTotal}</VoteCount>
               <Button.VoteUpBtn onClick={e => voteHandler('up')}>
                 <CountIcon.VoteUp />
               </Button.VoteUpBtn>

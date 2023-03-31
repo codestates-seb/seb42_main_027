@@ -42,6 +42,7 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
   const [openRecom, setOpenRecom] = useState(false);
   const [checkEdit, setCheckEdit] = useState<boolean>(false);
   const [editData, setEditData] = useState<string>('');
+  const [voteTotal, SetVoteTotal] = useState<number>(data.voteCount);
 
   const calTime: string = CalElapsedTime(data.createdAt);
 
@@ -55,8 +56,8 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
 
   const voteHandler = async (value: string) => {
     try {
-      await PostVote('qnas/comments', data.qnaCommentId, value);
-      setCheckState(!checkState);
+      const res = await PostVote('qnas/comments', data.qnaCommentId, value);
+      await SetVoteTotal(res.data.commentVoteTotalCount);
     } catch (err) {
       console.error(err);
     }
@@ -158,7 +159,7 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
             <Button.VoteDownBtn onClick={e => voteHandler('down')}>
               <CountIcon.VoteDown />
             </Button.VoteDownBtn>
-            <VoteCount>{data.voteCount}</VoteCount>
+            <VoteCount>{voteTotal}</VoteCount>
             <Button.VoteUpBtn onClick={e => voteHandler('up')}>
               <CountIcon.VoteUp />
             </Button.VoteUpBtn>
