@@ -80,13 +80,18 @@ export const StyledSlider = styled(Slider)`
     background: none;
 
     @media screen and (max-width: 1700px) {
-      width: 70rem;
-      height: 17.5rem;
+      width: 80rem;
+      height: 20rem;
     }
 
     @media screen and (max-width: 750px) {
       width: 45rem;
       height: 11rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      width: 30rem;
+      height: 7.5rem;
     }
   }
 
@@ -125,13 +130,18 @@ const SliderItem = styled.div`
     width: 100%;
     height: 15rem;
     @media screen and (max-width: 1700px) {
-      width: 70rem;
-      height: 17.5rem;
+      width: 80rem;
+      height: 20rem;
     }
 
     @media screen and (max-width: 750px) {
       width: 45rem;
       height: 11rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      width: 30rem;
+      height: 7.5rem;
     }
   }
 `;
