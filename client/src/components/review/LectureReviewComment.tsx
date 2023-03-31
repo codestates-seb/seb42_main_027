@@ -142,7 +142,6 @@ function LectureReviewComment({
 
   return (
     <Container>
-      <ToastContainer pauseOnHover autoClose={1000} />
       <FlexContainer width="100%" align="start" dir="col" gap="0.2rem">
         <FlexContainer width="100%" justify="space-between" padding="0 0.2rem">
           <VerySmallGrayFont>
