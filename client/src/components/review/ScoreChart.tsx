@@ -2,7 +2,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable radix */
 /* eslint-disable react/no-array-index-key */
-import GlobalStyle from 'GlobalStyles';
+
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import { BigFont, SmallFont } from 'pages/review/TeacherDetail/Information';

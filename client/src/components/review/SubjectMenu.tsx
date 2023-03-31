@@ -73,6 +73,7 @@ function SubjectMenu({
     <MenuContainer isOpen={buttonOpen}>
       <FlexContainer dir="col" gap="0.4rem" justify="start">
         <MenuButton
+          isOpen={buttonOpen}
           width="fit-content"
           isSelected={subject === '전체'}
           value="전체"
@@ -80,18 +81,13 @@ function SubjectMenu({
         >
           과목 전체
         </MenuButton>
-        <FlexContainer
-          borderRadius="1rem"
-          backColor="#d0d0d0"
-          justify="start"
-          align="start"
-          gap="0"
-        >
-          <MenuSubContainer>
+        <MenuAllContainer isOpen={buttonOpen}>
+          <MenuSubContainer isOpen={buttonOpen}>
             공통
             {subjectArr1.map((el, index) => {
               return (
                 <MenuButton
+                  isOpen={buttonOpen}
                   isSelected={subject === el}
                   key={index}
                   value={el}
@@ -102,11 +98,12 @@ function SubjectMenu({
               );
             })}
           </MenuSubContainer>
-          <MenuSubContainer>
+          <MenuSubContainer isOpen={buttonOpen}>
             사회탐구
             {subjectArr2.map((el, index) => {
               return (
                 <MenuButton
+                  isOpen={buttonOpen}
                   isSelected={subject === el}
                   key={index}
                   value={el}
@@ -117,11 +114,12 @@ function SubjectMenu({
               );
             })}
           </MenuSubContainer>
-          <MenuSubContainer>
+          <MenuSubContainer isOpen={buttonOpen}>
             과학탐구
             {subjectArr3.map((el, index) => {
               return (
                 <MenuButton
+                  isOpen={buttonOpen}
                   isSelected={subject === el}
                   key={index}
                   value={el}
@@ -132,11 +130,12 @@ function SubjectMenu({
               );
             })}
           </MenuSubContainer>
-          <MenuSubContainer>
+          <MenuSubContainer isOpen={buttonOpen}>
             기타
             {subjectArr4.map((el, index) => {
               return (
                 <MenuButton
+                  isOpen={buttonOpen}
                   isSelected={subject === el}
                   key={index}
                   value={el}
@@ -147,11 +146,12 @@ function SubjectMenu({
               );
             })}
           </MenuSubContainer>
-        </FlexContainer>
+        </MenuAllContainer>
       </FlexContainer>
 
       <FlexContainer dir="col" gap="0.4rem" justify="start">
         <MenuButton
+          isOpen={buttonOpen}
           width="fit-content"
           isSelected={grade === '전체'}
           value="전체"
@@ -159,18 +159,13 @@ function SubjectMenu({
         >
           학년 전체
         </MenuButton>
-        <FlexContainer
-          borderRadius="1rem"
-          backColor="#d0d0d0"
-          justify="start"
-          align="start"
-          gap="0"
-        >
-          <MenuSubContainer>
+        <MenuAllContainer isOpen={buttonOpen}>
+          <MenuSubContainer isOpen={buttonOpen}>
             중등부
             {subjectArr5.map((el, index) => {
               return (
                 <MenuButton
+                  isOpen={buttonOpen}
                   isSelected={grade === el}
                   key={index}
                   value={el}
@@ -181,11 +176,12 @@ function SubjectMenu({
               );
             })}
           </MenuSubContainer>
-          <MenuSubContainer>
+          <MenuSubContainer isOpen={buttonOpen}>
             고등부
             {subjectArr6.map((el, index) => {
               return (
                 <MenuButton
+                  isOpen={buttonOpen}
                   isSelected={grade === el}
                   key={index}
                   value={el}
@@ -196,11 +192,12 @@ function SubjectMenu({
               );
             })}
           </MenuSubContainer>
-        </FlexContainer>
+        </MenuAllContainer>
       </FlexContainer>
 
       <FlexContainer dir="col" gap="0.4rem" justify="start">
         <MenuButton
+          isOpen={buttonOpen}
           width="fit-content"
           isSelected={platform === '전체'}
           value="전체"
@@ -208,18 +205,13 @@ function SubjectMenu({
         >
           플랫폼 전체
         </MenuButton>
-        <FlexContainer
-          borderRadius="1rem"
-          backColor="#d0d0d0"
-          justify="start"
-          align="start"
-          gap="0"
-        >
-          <MenuSubContainer>
+        <MenuAllContainer isOpen={buttonOpen}>
+          <MenuSubContainer isOpen={buttonOpen}>
             플랫폼
             {subjectArr7.map((el, index) => {
               return (
                 <MenuButton
+                  isOpen={buttonOpen}
                   isSelected={platform === el}
                   key={index}
                   value={el}
@@ -230,7 +222,7 @@ function SubjectMenu({
               );
             })}
           </MenuSubContainer>
-        </FlexContainer>
+        </MenuAllContainer>
       </FlexContainer>
     </MenuContainer>
   );
@@ -242,28 +234,57 @@ type MenuContainer = {
   isOpen?: boolean;
 };
 
+type MenuAllContainer = {
+  isOpen?: boolean;
+  dir?: string;
+};
+
+type MenuSubContainer = {
+  isOpen?: boolean;
+};
+
 type MenuButton = {
   isSelected?: boolean;
   width?: string;
+  isOpen?: boolean;
 };
 
 const MenuContainer = styled.div<MenuContainer>`
+  visibility: ${props => (props.isOpen ? 'visible' : 'hidden')};
+  height: ${props => (props.isOpen ? '42.5vh' : '0vh')};
   padding: 0.5rem;
+
   border-radius: 1rem 1rem 1rem 1rem;
   border: 1px solid #6667ab;
   background-color: #b9b9b9;
-  display: ${props => (props.isOpen ? 'flex' : 'none')};
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: left;
   gap: 1rem;
+  transition: all 0.5s;
 `;
 
-const MenuSubContainer = styled.div`
+const MenuAllContainer = styled.div<MenuAllContainer>`
+  visibility: ${props => (props.isOpen ? 'visible' : 'hidden')};
+  height: ${props => (props.isOpen ? '35.5vh' : '0vh')};
+  background-color: #d0d0d0;
+  border-radius: 1rem;
+
+  display: flex;
+  flex-direction: ${props => props.dir || 'row'};
+  justify-content: start;
+  align-items: start;
+  gap: 0rem;
+  transition: height 0.5s;
+`;
+
+const MenuSubContainer = styled.div<MenuSubContainer>`
+  visibility: ${props => (props.isOpen ? 'visible' : 'hidden')};
+  opacity: ${props => (props.isOpen ? '1' : '0')};
   width: fit-content;
   padding: 0.5rem;
   border-radius: 1rem;
-  background-color: #d0d0d0;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -271,14 +292,18 @@ const MenuSubContainer = styled.div`
   align-items: center;
   gap: 0.3rem;
   color: black;
+  transition: opacity 0.6s 0.2s;
 `;
 
 const MenuButton = styled.button<MenuButton>`
   width: ${props => props.width || '100%'};
+  visibility: ${props => (props.isOpen ? 'visible' : 'hidden')};
+  opacity: ${props => (props.isOpen ? '1' : '0')};
   padding: 0.4rem 0.5rem;
   cursor: pointer;
   border-radius: 0.5rem;
   border: 1px solid #6667ab;
   background-color: ${props => (props.isSelected ? '#6667ab' : '#dsdssd')};
   color: ${props => (props.isSelected ? 'white' : 'black')};
+  transition: opacity 0.6s 0.2s;
 `;
