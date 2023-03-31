@@ -105,10 +105,10 @@ function WritePost() {
     try {
       if (urlData === '/fre') {
         const buffer = await getPostDetail('frees', Number(paramsData.id));
-        setCategory(buffer.data.category);
-        setTitle(buffer.data.title);
-        setPost(buffer.data.content);
-        setUploadImages(buffer.data.uploadImages);
+        await setCategory(buffer.data.category);
+        await setTitle(buffer.data.title);
+        await setPost(buffer.data.content);
+        // await setUploadImages(buffer.data.uploadImages);
         setIsPending(false);
         // setTag();
       } else {
@@ -116,10 +116,10 @@ function WritePost() {
           'qnas/questions',
           Number(paramsData.id),
         );
-        setCategory(buffer.data.category);
-        setTitle(buffer.data.title);
-        setPost(buffer.data.content);
-        setUploadImages(buffer.data.uploadImages);
+        await setCategory(buffer.data.category);
+        await setTitle(buffer.data.title);
+        await setPost(buffer.data.content);
+        // await setUploadImages(buffer.data.uploadImages);
         // setTag();
         setIsPending(false);
       }

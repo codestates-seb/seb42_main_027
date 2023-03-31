@@ -25,10 +25,6 @@ function TextEditor({
   const QuillRef: any = useRef();
   console.log('textContent', textContent);
 
-  // const ArrayHandler = (value: string) => {
-  //   return [...uploadImages, value];
-  // };
-
   const imageHandler = () => {
     const input = document.createElement('input');
     const formData = new FormData();
