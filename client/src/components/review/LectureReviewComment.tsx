@@ -56,7 +56,7 @@ function LectureReviewComment({
 
   const up = () => toast.success('Comment UP!');
   const down = () => toast.error('Comment DOWN!');
-  const cancle = () => toast.info('Comment Cancle!');
+  const cancle = () => toast.info('Comment Cancel!');
   const login = () => toast.info('Login!');
 
   useEffect(() => {
