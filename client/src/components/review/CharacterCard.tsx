@@ -149,6 +149,7 @@ const CardContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 `;
 
 const Img = styled.img`
