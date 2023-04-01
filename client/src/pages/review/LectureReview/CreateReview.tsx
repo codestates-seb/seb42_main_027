@@ -53,28 +53,37 @@ function CreateReview() {
         createdAt: new Date(),
       };
 
-      Swal.fire({
-        title: '등록이 완료되었습니다',
-        icon: 'success',
-
-        confirmButtonColor: '#6667ab', // confrim 버튼 색깔 지정
-        confirmButtonText: '확인', // confirm 버튼 텍스트 지정
-      }).then(() => {
-        axios
-          .post(
-            `${process.env.REACT_APP_API_URL}/boards/reviews/lectures`,
-            data,
-            {
-              headers: {
-                Authorization,
-                'ngrok-skip-browser-warning': 'asdasdas',
-              },
+      axios
+        .post(
+          `${process.env.REACT_APP_API_URL}/boards/reviews/lectures`,
+          data,
+          {
+            headers: {
+              Authorization,
+              'ngrok-skip-browser-warning': 'asdasdas',
             },
-          )
-          .then(() => {
+          },
+        )
+        .then(() => {
+          Swal.fire({
+            title: '등록이 완료되었습니다',
+            icon: 'success',
+
+            confirmButtonColor: '#6667ab', // confrim 버튼 색깔 지정
+            confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+          }).then(() => {
             navigate(-1);
           });
-      });
+        })
+        .catch(() => {
+          Swal.fire({
+            title: '등록이 실패했습니다ㅠ',
+            icon: 'warning',
+
+            confirmButtonColor: '#d33', // confrim 버튼 색깔 지정
+            confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+          });
+        });
     }
   };
 
