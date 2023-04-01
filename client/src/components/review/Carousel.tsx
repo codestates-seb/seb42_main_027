@@ -73,7 +73,7 @@ export const StyledSlider = styled(Slider)`
 
   .slick-list {
     //슬라이드 스크린
-    width: 100vw;
+    width: 98.9vw;
     height: 25vw;
     margin: 0 auto;
     overflow-x: hidden;
