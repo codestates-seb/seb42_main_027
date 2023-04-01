@@ -10,6 +10,7 @@ import LectureReview2 from 'components/review/LectureReview2';
 import LectureIntro from 'components/review/LectureIntro';
 import theme from 'theme';
 import GoBackMenu from 'components/board/post/goBackMenu';
+import { Title } from 'pages/FreeBoard';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 import { SmallFont } from '../TeacherDetail/Information';
 
@@ -114,7 +115,7 @@ function LectureReviewList() {
       {isPending ? (
         <Loading />
       ) : (
-        <FlexContainer width="50rem" height="100%" dir="col" gap="0.5rem">
+        <FlexContainer width="62.5%" height="100%" dir="col" gap="0.5rem">
           <Title>
             <H2>리뷰게시판</H2>
             <p>강의에 대한 리뷰를 한 눈에 볼 수 있는 공간입니다.</p>
@@ -202,15 +203,6 @@ const Container = styled.div<Container>`
   justify-content: start;
   align-items: center;
   margin-bottom: 3rem;
-`;
-
-const Title = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  height: 150px;
-  padding: 45px 42px;
-  border-radius: 25px;
-  background-color: ${theme.colors.palePurple};
 `;
 
 const H2 = styled.h2`

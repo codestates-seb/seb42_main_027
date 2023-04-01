@@ -11,11 +11,11 @@ import theme from 'theme';
 
 import Event from 'components/review/Event';
 import useUserInfoStore from 'stores/userInfoStore';
-import GoBackMenu from 'components/board/post/goBackMenu';
 import Button from 'components/common/Button';
 import { Link } from 'react-router-dom';
 import { HiPencil } from 'react-icons/hi';
 import CrolingEvent from 'components/review/CrolingEvent';
+import { Title } from 'pages/FreeBoard';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 import { SmallFont } from '../TeacherDetail/Information';
 
@@ -220,14 +220,6 @@ const MenuDiv = styled.div`
   width: 100%;
   min-height: 100px;
   border-bottom: 1px solid ${theme.colors.gray};
-`;
-
-const Title = styled.div`
-  width: 100%;
-  height: 150px;
-  padding: 45px 42px;
-  border-radius: 25px;
-  background-color: ${theme.colors.palePurple};
 `;
 
 const H2 = styled.h2`
