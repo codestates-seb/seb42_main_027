@@ -57,6 +57,7 @@ function LectureReviewComment({
   const up = () => toast.success('Comment UP!');
   const down = () => toast.error('Comment DOWN!');
   const cancle = () => toast.info('Comment Cancle!');
+  const login = () => toast.info('Login!');
 
   useEffect(() => {
     console.log(commentVote);
@@ -119,6 +120,9 @@ function LectureReviewComment({
         setVoteStatus(data.status);
         if (data.status === 'UP') up();
         else if (data.status === 'NONE') cancle();
+      })
+      .catch(() => {
+        login();
       });
   };
   const commentDownHandler = () => {
@@ -137,6 +141,9 @@ function LectureReviewComment({
         setVoteStatus(data.status);
         if (data.status === 'DOWN') down();
         else if (data.status === 'NONE') cancle();
+      })
+      .catch(() => {
+        login();
       });
   };
 
