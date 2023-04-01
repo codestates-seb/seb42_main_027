@@ -114,7 +114,7 @@ function EventList() {
 
   return (
     <EventContainer>
-      <FlexContainer width="50rem" dir="col" gap="2rem">
+      <FlexContainer width="62.5%" dir="col" gap="2rem">
         <GlobalStyle />
         <Title>
           <H2>이벤트게시판</H2>
@@ -162,7 +162,7 @@ function EventList() {
                   <FlexContainer
                     key={index}
                     width={
-                      el === '제목' ? '35rem' : el === '기간' ? '10rem' : '7rem'
+                      el === '제목' ? '60%' : el === '기간' ? '17%' : '12%'
                     }
                   >
                     <SmallFont>{el}</SmallFont>
@@ -175,7 +175,12 @@ function EventList() {
                 등록된 이벤트가 없습니다
               </FlexContainer>
             ) : (
-              <FlexContainer width="100%" dir="col" gap="0rem">
+              <FlexContainer
+                width="100%"
+                dir="col"
+                gap="0rem"
+                padding="0 0 2rem 0"
+              >
                 {event.map((el, index) => {
                   return <Event key={index} event={el} />;
                 })}
@@ -184,17 +189,16 @@ function EventList() {
                 })}
               </FlexContainer>
             )}
+            {pageInfo.totalPages ? (
+              <Pagenation
+                size={pageInfo.totalPages}
+                currentPage={curPage}
+                pageSize={pageInfo.size}
+                setCurPage={setCurPage}
+              />
+            ) : null}
           </FlexContainer>
         )}
-
-        {pageInfo.totalPages ? (
-          <Pagenation
-            size={pageInfo.totalPages}
-            currentPage={curPage}
-            pageSize={pageInfo.size}
-            setCurPage={setCurPage}
-          />
-        ) : null}
       </FlexContainer>
     </EventContainer>
   );
@@ -204,6 +208,7 @@ export default EventList;
 
 const EventContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;

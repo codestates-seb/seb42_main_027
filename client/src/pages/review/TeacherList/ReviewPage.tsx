@@ -139,15 +139,14 @@ function ReviewPage() {
               setCurPage={setCurPage}
             />
           )}
+          <Pagenation
+            size={pageInfo.totalPages}
+            currentPage={curPage}
+            pageSize={pageInfo.size}
+            setCurPage={setCurPage}
+          />
         </FlexContainer>
       )}
-
-      <Pagenation
-        size={pageInfo.totalPages}
-        currentPage={curPage}
-        pageSize={pageInfo.size}
-        setCurPage={setCurPage}
-      />
     </FlexContainer>
   );
 }
