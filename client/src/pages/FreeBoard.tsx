@@ -40,7 +40,7 @@ const Main = styled.div`
   margin: 0 auto;
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   width: 100%;
   height: 150px;
   padding: 45px 42px;

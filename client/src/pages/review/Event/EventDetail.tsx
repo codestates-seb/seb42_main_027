@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import isLogin from 'utils/isLogin';
 import GoBackMenu from 'components/board/post/goBackMenu';
 import useUserInfoStore from 'stores/userInfoStore';
+import { Title } from 'pages/FreeBoard';
 
 const defaultDetailData = {
   eventId: 1,
@@ -156,15 +157,6 @@ const MainDiv = styled.div`
   img {
     max-width: 100%;
   }
-`;
-
-const Title = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  height: 150px;
-  padding: 45px 42px;
-  border-radius: 25px;
-  background-color: ${theme.colors.palePurple};
 `;
 
 const CommentContainer = styled.div`

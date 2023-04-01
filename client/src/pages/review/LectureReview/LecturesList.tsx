@@ -118,7 +118,7 @@ function LecturesList() {
       {isPending ? (
         <Loading />
       ) : (
-        <FlexContainer dir="col">
+        <FlexContainer width="62.5%" dir="col">
           {!lectures.length ? (
             <FlexContainer height="50vh">등록된 강의가 없습니다</FlexContainer>
           ) : (
@@ -142,15 +142,14 @@ function LecturesList() {
               );
             })
           )}
+          <Pagenation
+            size={pageInfo.totalPages}
+            currentPage={curPage}
+            pageSize={pageInfo.size}
+            setCurPage={setCurPage}
+          />
         </FlexContainer>
       )}
-
-      <Pagenation
-        size={pageInfo.totalPages}
-        currentPage={curPage}
-        pageSize={pageInfo.size}
-        setCurPage={setCurPage}
-      />
     </FlexContainer>
   );
 }

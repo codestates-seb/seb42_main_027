@@ -73,41 +73,11 @@ export const StyledSlider = styled(Slider)`
 
   .slick-list {
     //슬라이드 스크린
-    width: 100rem;
-    height: 25rem;
+    width: 98.9vw;
+    height: 25vw;
     margin: 0 auto;
     overflow-x: hidden;
     background: none;
-
-    @media screen and (max-width: 1700px) {
-      width: 80rem;
-      height: 20rem;
-    }
-
-    @media screen and (max-width: 1500px) {
-      width: 70rem;
-      height: 17.5rem;
-    }
-
-    @media screen and (max-width: 1300px) {
-      width: 60rem;
-      height: 15rem;
-    }
-
-    @media screen and (max-width: 1000px) {
-      width: 50rem;
-      height: 12.5rem;
-    }
-
-    @media screen and (max-width: 750px) {
-      width: 45rem;
-      height: 11rem;
-    }
-
-    @media screen and (max-width: 600px) {
-      width: 30rem;
-      height: 7.5rem;
-    }
   }
 
   .slick-slide div {
@@ -142,37 +112,7 @@ export const StyledSlider = styled(Slider)`
 const SliderItem = styled.div`
   text-align: center;
   img {
-    width: 100%;
-    height: 25rem;
-
-    @media screen and (max-width: 1700px) {
-      width: 80rem;
-      height: 20rem;
-    }
-
-    @media screen and (max-width: 1500px) {
-      width: 70rem;
-      height: 17.5rem;
-    }
-
-    @media screen and (max-width: 1300px) {
-      width: 60rem;
-      height: 15rem;
-    }
-
-    @media screen and (max-width: 1000px) {
-      width: 50rem;
-      height: 12.5rem;
-    }
-
-    @media screen and (max-width: 750px) {
-      width: 45rem;
-      height: 11rem;
-    }
-
-    @media screen and (max-width: 600px) {
-      width: 30rem;
-      height: 7.5rem;
-    }
+    width: 100vw;
+    height: 25vw;
   }
 `;

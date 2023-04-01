@@ -11,11 +11,11 @@ import theme from 'theme';
 
 import Event from 'components/review/Event';
 import useUserInfoStore from 'stores/userInfoStore';
-import GoBackMenu from 'components/board/post/goBackMenu';
 import Button from 'components/common/Button';
 import { Link } from 'react-router-dom';
 import { HiPencil } from 'react-icons/hi';
 import CrolingEvent from 'components/review/CrolingEvent';
+import { Title } from 'pages/FreeBoard';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 import { SmallFont } from '../TeacherDetail/Information';
 
@@ -67,7 +67,7 @@ function EventList() {
   const [curPage, setCurPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(15);
 
-  const listArr = ['말머리', '제목', '기간', '조회'];
+  const listArr = ['말머리', '제목', '기간', '상태'];
   const { userInfo } = useUserInfoStore(state => state);
 
   useEffect(() => {
@@ -114,13 +114,12 @@ function EventList() {
 
   return (
     <EventContainer>
-      <FlexContainer width="50rem" dir="col" gap="0">
+      <FlexContainer width="62.5%" dir="col" gap="2rem">
         <GlobalStyle />
         <Title>
           <H2>이벤트게시판</H2>
           <p>다양한 이벤트를 한 눈에 볼 수 있는 공간입니다.</p>
         </Title>
-        <GoBackMenu />
 
         {/* 작성하기 버튼 */}
         {userInfo.state === 'ADMIN' ? (
@@ -141,9 +140,7 @@ function EventList() {
               </Link>
             )}
           </MenuDiv>
-        ) : (
-          <FlexContainer padding="2rem">관리자 게시판</FlexContainer>
-        )}
+        ) : null}
 
         {isPending ? (
           <Loading />
@@ -165,7 +162,7 @@ function EventList() {
                   <FlexContainer
                     key={index}
                     width={
-                      el === '제목' ? '35rem' : el === '기간' ? '10rem' : '7rem'
+                      el === '제목' ? '60%' : el === '기간' ? '17%' : '12%'
                     }
                   >
                     <SmallFont>{el}</SmallFont>
@@ -178,7 +175,12 @@ function EventList() {
                 등록된 이벤트가 없습니다
               </FlexContainer>
             ) : (
-              <FlexContainer width="100%" dir="col" gap="0rem">
+              <FlexContainer
+                width="100%"
+                dir="col"
+                gap="0rem"
+                padding="0 0 2rem 0"
+              >
                 {event.map((el, index) => {
                   return <Event key={index} event={el} />;
                 })}
@@ -187,17 +189,16 @@ function EventList() {
                 })}
               </FlexContainer>
             )}
+            {pageInfo.totalPages ? (
+              <Pagenation
+                size={pageInfo.totalPages}
+                currentPage={curPage}
+                pageSize={pageInfo.size}
+                setCurPage={setCurPage}
+              />
+            ) : null}
           </FlexContainer>
         )}
-
-        {pageInfo.totalPages ? (
-          <Pagenation
-            size={pageInfo.totalPages}
-            currentPage={curPage}
-            pageSize={pageInfo.size}
-            setCurPage={setCurPage}
-          />
-        ) : null}
       </FlexContainer>
     </EventContainer>
   );
@@ -207,6 +208,7 @@ export default EventList;
 
 const EventContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -218,14 +220,6 @@ const MenuDiv = styled.div`
   width: 100%;
   min-height: 100px;
   border-bottom: 1px solid ${theme.colors.gray};
-`;
-
-const Title = styled.div`
-  width: 100%;
-  height: 150px;
-  padding: 45px 42px;
-  border-radius: 25px;
-  background-color: ${theme.colors.palePurple};
 `;
 
 const H2 = styled.h2`

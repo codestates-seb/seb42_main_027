@@ -93,7 +93,6 @@ function ReviewPage() {
       <Carousel />
       <FlexContainer
         display={userInfo.state === 'ADMIN' ? 'flex' : 'none'}
-        width="80%"
         justify="right"
       >
         <Link to="createTeacher">
@@ -128,7 +127,7 @@ function ReviewPage() {
       {isPending ? (
         <Loading />
       ) : (
-        <FlexContainer dir="col">
+        <FlexContainer width="62.5%" dir="col">
           {!teachers.length ? (
             <FlexContainer height="50vh">등록된 강사가 없습니다</FlexContainer>
           ) : (
@@ -139,15 +138,14 @@ function ReviewPage() {
               setCurPage={setCurPage}
             />
           )}
+          <Pagenation
+            size={pageInfo.totalPages}
+            currentPage={curPage}
+            pageSize={pageInfo.size}
+            setCurPage={setCurPage}
+          />
         </FlexContainer>
       )}
-
-      <Pagenation
-        size={pageInfo.totalPages}
-        currentPage={curPage}
-        pageSize={pageInfo.size}
-        setCurPage={setCurPage}
-      />
     </FlexContainer>
   );
 }

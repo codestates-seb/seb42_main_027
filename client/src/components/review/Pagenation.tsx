@@ -18,7 +18,7 @@ function Pagenation({ size, currentPage, pageSize, setCurPage }: Props) {
   const last = Math.min(totalPage, start + 4);
   for (let i = start; i <= last; i += 1) pageArr.push(i);
   return (
-    <FlexContainer>
+    <FlexContainer width="100%">
       <PagenationContainer>
         <PageBox
           first={currentPage === 1}
@@ -86,7 +86,7 @@ function Pagenation({ size, currentPage, pageSize, setCurPage }: Props) {
 export default Pagenation;
 
 const PagenationContainer = styled.div`
-  width: 50rem;
+  width: 100%;
   border-top: 1px solid #b8b8b8;
 
   display: flex;

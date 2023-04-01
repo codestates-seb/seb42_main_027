@@ -20,6 +20,7 @@ import CountIcon from 'assets/icons/countIcon';
 import Swal from 'sweetalert2';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Title } from 'pages/FreeBoard';
 
 const defaultDetailData = {
   lectureReviewId: 1,
@@ -87,7 +88,8 @@ function LectureReviewDetailPage() {
 
   const up = () => toast.success('UP!');
   const down = () => toast.error('DOWN!');
-  const cancle = () => toast.info('Cancle!');
+  const cancle = () => toast.info('Cancel!');
+  const login = () => toast.info('Login!');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -140,6 +142,9 @@ function LectureReviewDetailPage() {
         setVoteStatus(data.status);
         if (data.status === 'UP') up();
         else if (data.status === 'NONE') cancle();
+      })
+      .catch(() => {
+        login();
       });
   };
   const reviewDownHandler = () => {
@@ -157,6 +162,9 @@ function LectureReviewDetailPage() {
         setVoteStatus(data.status);
         if (data.status === 'DOWN') down();
         else if (data.status === 'NONE') cancle();
+      })
+      .catch(() => {
+        login();
       });
   };
 
@@ -167,7 +175,7 @@ function LectureReviewDetailPage() {
         <Loading />
       ) : (
         <FlexContainer
-          width="50rem"
+          width="62.5%"
           dir="col"
           backColor="white"
           justify="start"
@@ -369,15 +377,6 @@ const NameSpan = styled.span`
   justify-content: center;
   align-items: center;
   gap: 0.2rem;
-`;
-
-const Title = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  height: 150px;
-  padding: 45px 42px;
-  border-radius: 25px;
-  background-color: ${theme.colors.palePurple};
 `;
 
 const H2 = styled.h2`

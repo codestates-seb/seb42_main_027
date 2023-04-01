@@ -62,7 +62,7 @@ function ScoreChart({
   starPointCount,
   lectures,
 }: Props) {
-  const scoreArr = [1, 2, 3, 4, 5];
+  const scoreArr = [5, 4, 3, 2, 1];
   const totalStarCount = scoreArr.reduce((acc, cur) => {
     return acc + starPointCount[`${cur}점갯수`];
   }, 0);

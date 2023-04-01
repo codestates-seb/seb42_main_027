@@ -53,28 +53,37 @@ function CreateReview() {
         createdAt: new Date(),
       };
 
-      Swal.fire({
-        title: '등록이 완료되었습니다',
-        icon: 'success',
-
-        confirmButtonColor: '#6667ab', // confrim 버튼 색깔 지정
-        confirmButtonText: '확인', // confirm 버튼 텍스트 지정
-      }).then(() => {
-        axios
-          .post(
-            `${process.env.REACT_APP_API_URL}/boards/reviews/lectures`,
-            data,
-            {
-              headers: {
-                Authorization,
-                'ngrok-skip-browser-warning': 'asdasdas',
-              },
+      axios
+        .post(
+          `${process.env.REACT_APP_API_URL}/boards/reviews/lectures`,
+          data,
+          {
+            headers: {
+              Authorization,
+              'ngrok-skip-browser-warning': 'asdasdas',
             },
-          )
-          .then(() => {
+          },
+        )
+        .then(() => {
+          Swal.fire({
+            title: '등록이 완료되었습니다',
+            icon: 'success',
+
+            confirmButtonColor: '#6667ab', // confrim 버튼 색깔 지정
+            confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+          }).then(() => {
             navigate(-1);
           });
-      });
+        })
+        .catch(() => {
+          Swal.fire({
+            title: '등록이 실패했습니다ㅠ',
+            icon: 'warning',
+
+            confirmButtonColor: '#d33', // confrim 버튼 색깔 지정
+            confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+          });
+        });
     }
   };
 
@@ -122,7 +131,6 @@ function CreateReview() {
         </FlexContainer> */}
 
         <FlexContainer>
-          <UploadButton onClick={createHandler}>후기 등록</UploadButton>
           <UploadButton
             onClick={() => {
               navigate(-1);
@@ -130,6 +138,7 @@ function CreateReview() {
           >
             등록 취소
           </UploadButton>
+          <UploadButton onClick={createHandler}>후기 등록</UploadButton>
         </FlexContainer>
       </FlexContainer>
     </Container>
@@ -168,16 +177,6 @@ const H2 = styled.h2`
 const Input = styled.input`
   width: 100%;
   padding: 0.6rem 0.5rem;
-  border: 0.5px solid gray;
-  :focus {
-    border: 1.2px solid black;
-  }
-`;
-
-const TextArea = styled.textarea`
-  width: 100%;
-  height: 15rem;
-  padding: 0.5rem;
   border: 0.5px solid gray;
   :focus {
     border: 1.2px solid black;

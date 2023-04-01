@@ -91,7 +91,8 @@ function LectureReviewDetail({
 
   const up = () => toast.success('UP!');
   const down = () => toast.error('DOWN!');
-  const cancle = () => toast.info('Cancle!');
+  const cancle = () => toast.info('Cancel!');
+  const login = () => toast.info('Login!');
 
   useEffect(() => {
     if (lectureReviewId < 0) return;
@@ -145,6 +146,9 @@ function LectureReviewDetail({
         setVoteStatus(data.status);
         if (data.status === 'UP') up();
         else if (data.status === 'NONE') cancle();
+      })
+      .catch(() => {
+        login();
       });
   };
   const reviewDownHandler = () => {
@@ -162,6 +166,9 @@ function LectureReviewDetail({
         setVoteStatus(data.status);
         if (data.status === 'DOWN') down();
         else if (data.status === 'NONE') cancle();
+      })
+      .catch(() => {
+        login();
       });
   };
 

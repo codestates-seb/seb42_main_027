@@ -320,7 +320,6 @@ function CreateTeacher() {
       </FlexContainer>
       {/* 등록, 취소 버튼 */}
       <FlexContainer>
-        <UploadButton onClick={createHandler}>강사 등록</UploadButton>
         <UploadButton
           onClick={() => {
             navigate(-1);
@@ -328,6 +327,7 @@ function CreateTeacher() {
         >
           등록 취소
         </UploadButton>
+        <UploadButton onClick={createHandler}>강사 등록</UploadButton>
       </FlexContainer>
     </UpdateContainer>
   );
@@ -373,6 +373,8 @@ export const UploadButton = styled.button`
   background-color: #1295ff;
   color: white;
   border: none;
+  border-radius: 10px;
+
   cursor: pointer;
   :hover {
     background-color: #0088ff;
