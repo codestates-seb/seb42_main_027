@@ -67,7 +67,7 @@ function EventList() {
   const [curPage, setCurPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(15);
 
-  const listArr = ['말머리', '제목', '기간', '조회'];
+  const listArr = ['말머리', '제목', '기간', '상태'];
   const { userInfo } = useUserInfoStore(state => state);
 
   useEffect(() => {
@@ -114,13 +114,12 @@ function EventList() {
 
   return (
     <EventContainer>
-      <FlexContainer width="50rem" dir="col" gap="0">
+      <FlexContainer width="50rem" dir="col" gap="2rem">
         <GlobalStyle />
         <Title>
           <H2>이벤트게시판</H2>
           <p>다양한 이벤트를 한 눈에 볼 수 있는 공간입니다.</p>
         </Title>
-        <GoBackMenu />
 
         {/* 작성하기 버튼 */}
         {userInfo.state === 'ADMIN' ? (
@@ -141,9 +140,7 @@ function EventList() {
               </Link>
             )}
           </MenuDiv>
-        ) : (
-          <FlexContainer padding="2rem">관리자 게시판</FlexContainer>
-        )}
+        ) : null}
 
         {isPending ? (
           <Loading />

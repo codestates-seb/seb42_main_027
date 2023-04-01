@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import CountIcon from 'assets/icons/countIcon';
 
 type Props = {
   event: {
@@ -30,9 +31,11 @@ function Event({ event }: Props) {
 
   return (
     <Container>
+      {/* 말머리 */}
       <FlexContainer width="6rem">
         <MiddleFont>자체</MiddleFont>
       </FlexContainer>
+      {/* 제목 */}
       <FlexContainer
         onMouseOver={e => {
           setOffsetX(e.clientX);
@@ -59,14 +62,16 @@ function Event({ event }: Props) {
           </TitleSpan>
         </Link>
       </FlexContainer>
-
+      {/* 기간 */}
       <FlexContainer width="6rem" padding="0 0 0 1rem">
         <FlexContainer dir="col" gap="0" align="start">
           <DateFont>{event.date.slice(0, 12)}</DateFont>
           <DateFont>{event.date.slice(12)}</DateFont>
         </FlexContainer>
       </FlexContainer>
-      <FlexContainer width="6rem" padding="0 0 0 1.2rem">
+      {/* 상태/조회수 */}
+      <FlexContainer width="6rem" padding="0 0 0 1.2rem" gap="0.2rem">
+        <CountIcon.View />
         {event.viewCount}
       </FlexContainer>
     </Container>
