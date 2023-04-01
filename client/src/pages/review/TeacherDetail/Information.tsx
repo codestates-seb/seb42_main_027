@@ -74,7 +74,10 @@ function Information() {
           >
             <FlexContainer dir="col">
               <Img
-                src={data.profileImageUrl || 'http://placehold.it/340X350'}
+                src={
+                  data.profileImageUrl ||
+                  'https://web.yonsei.ac.kr/_ezaid/board/_skin/albumRecent/1/no_image.gif'
+                }
                 alt="profileImage"
               />
               <span>프로필 사진</span>
@@ -82,7 +85,10 @@ function Information() {
 
             <FlexContainer dir="col">
               <Img
-                src={data.realImageUrl || 'http://placehold.it/340X350'}
+                src={
+                  data.realImageUrl ||
+                  'https://web.yonsei.ac.kr/_ezaid/board/_skin/albumRecent/1/no_image.gif'
+                }
                 alt="realImage"
               />
               <span>실제 사진</span>
