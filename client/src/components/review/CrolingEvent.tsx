@@ -26,10 +26,10 @@ function CrolingEvent({ event }: Props) {
 
   return (
     <Container>
-      <FlexContainer width="6rem">
+      <FlexContainer width="14%">
         <MiddleFont>외부</MiddleFont>
       </FlexContainer>
-      <FlexContainer width="26rem" dir="col" align="start" gap="0.3rem">
+      <FlexContainer width="58%" dir="col" align="start" gap="0.3rem">
         <TitleSpan end={endCheck(event.date)} href={event.hyperLink}>
           {event.title.length > 30
             ? `${event.title.slice(0, 30)}...`
@@ -37,13 +37,13 @@ function CrolingEvent({ event }: Props) {
         </TitleSpan>
       </FlexContainer>
 
-      <FlexContainer width="6rem" padding="0 0 0 1rem">
+      <FlexContainer width="13%">
         <FlexContainer dir="col" gap="0" align="start">
           <DateFont>{event.date.slice(0, 13)}</DateFont>
           <DateFont>{event.date.slice(13)}</DateFont>
         </FlexContainer>
       </FlexContainer>
-      <FlexContainer width="6rem" padding="0 0 0 1.2rem">
+      <FlexContainer width="12%">
         {endCheck(event.date) ? <EndFont>종료</EndFont> : '진행중'}
       </FlexContainer>
     </Container>
@@ -65,7 +65,7 @@ const Container = styled.div<Container>`
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding: 0.5rem 0;
+  padding: 0.5rem 1.5rem;
   border-top: ${props => (props.first ? '2px solid black' : null)};
   border-bottom: 0.5px solid black;
 `;

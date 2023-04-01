@@ -120,6 +120,7 @@ function LectureReviewList() {
             <p>강의에 대한 리뷰를 한 눈에 볼 수 있는 공간입니다.</p>
           </Title>
           <GoBackMenu />
+          {/* 강의 등록 - 관리자 */}
           <FlexContainer
             display={!data.data.lectureReviews.length ? 'flex' : 'none'}
             width="100%"
@@ -130,6 +131,7 @@ function LectureReviewList() {
               </Link>
             ) : null}
           </FlexContainer>
+          {/* 강의 목록 */}
           {!data.data.lectureReviews.length ? (
             <FlexContainer height="30vh">등록된 리뷰가 없습니다</FlexContainer>
           ) : (

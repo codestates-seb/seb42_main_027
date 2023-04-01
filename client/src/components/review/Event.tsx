@@ -32,7 +32,7 @@ function Event({ event }: Props) {
   return (
     <Container>
       {/* 말머리 */}
-      <FlexContainer width="6rem">
+      <FlexContainer width="14%">
         <MiddleFont>자체</MiddleFont>
       </FlexContainer>
       {/* 제목 */}
@@ -41,10 +41,9 @@ function Event({ event }: Props) {
           setOffsetX(e.clientX);
           setOffsetY(e.clientY);
         }}
-        width="26rem"
+        width="58%"
         dir="col"
         align="start"
-        gap="0.3rem"
       >
         <Link to={`/eventdetail/${event.eventId}`}>
           <TitleSpan
@@ -63,14 +62,14 @@ function Event({ event }: Props) {
         </Link>
       </FlexContainer>
       {/* 기간 */}
-      <FlexContainer width="6rem" padding="0 0 0 1rem">
+      <FlexContainer width="13%">
         <FlexContainer dir="col" gap="0" align="start">
           <DateFont>{event.date.slice(0, 12)}</DateFont>
           <DateFont>{event.date.slice(12)}</DateFont>
         </FlexContainer>
       </FlexContainer>
       {/* 상태/조회수 */}
-      <FlexContainer width="6rem" padding="0 0 0 1.2rem" gap="0.2rem">
+      <FlexContainer width="12%" gap="0.2rem">
         <CountIcon.View />
         {event.viewCount}
       </FlexContainer>
@@ -90,7 +89,7 @@ const Container = styled.div<Container>`
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 0;
+  padding: 1rem 1.5rem;
   border-top: ${props => (props.first ? '2px solid black' : null)};
   border-bottom: 0.5px solid black;
 `;

@@ -34,10 +34,10 @@ function Lecture({ lecture, first }: Props) {
   const { userInfo } = useUserInfoStore(state => state);
   return (
     <Container first={first}>
-      <FlexContainer width="5rem">
+      <FlexContainer width="12%">
         <MiddleFont>{lecture.teacher.name}</MiddleFont>
       </FlexContainer>
-      <FlexContainer width="27rem" dir="col" align="start" gap="0.3rem">
+      <FlexContainer width="62%" dir="col" align="start" gap="0.3rem">
         <StatusBox>{lecture.status}</StatusBox>
         <IntroSpan>{`${lecture.introduction}`}</IntroSpan>
         <Link to={`/lecturereviewlist/${lecture.lectureId}`}>
@@ -45,11 +45,11 @@ function Lecture({ lecture, first }: Props) {
         </Link>
         <SmallFont>+ 자세히 보기</SmallFont>
       </FlexContainer>
-      <FlexContainer width="5rem" gap="0.4rem">
+      <FlexContainer width="12%" gap="0.4rem">
         <BsStarFill size="20px" color="gold" />
         <span>{lecture.starPointAverage.toFixed(1)}</span>
       </FlexContainer>
-      <FlexContainer width="6rem">
+      <FlexContainer width="14%">
         {lecture.totalReviewCount} Reviews
       </FlexContainer>
       <FlexContainer
