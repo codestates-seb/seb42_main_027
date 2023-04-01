@@ -117,6 +117,19 @@ const VoteUpBtn = styled(FilterBtn)`
     cursor: pointer;
     background-color: ${theme.colors.lightGray};
   }
+  &.selected {
+    cursor: pointer;
+    border: 1px solid ${theme.colors.black};
+    background-color: ${theme.colors.pointColor};
+    &:hover {
+      cursor: pointer;
+      color: ${theme.colors.white};
+    }
+    &:active {
+      cursor: pointer;
+      background-color: ${theme.colors.pointColor_hover};
+    }
+  }
 `;
 
 const VoteDownBtn = styled(VoteUpBtn)`

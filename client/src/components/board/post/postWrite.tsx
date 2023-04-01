@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
+import useUserInfoStore from 'stores/userInfoStore';
 
 import styled from 'styled-components';
 import theme from 'theme';
@@ -12,6 +13,7 @@ import TextEditor from '../customTextEditor';
 import GoBackMenu from './goBackMenu';
 
 function WritePost() {
+  const { userInfo } = useUserInfoStore(state => state);
   const urlData = useLocation().pathname.slice(0, 4);
   const paramsData = useParams();
   const navigate = useNavigate();
@@ -27,6 +29,7 @@ function WritePost() {
   console.log('post', post);
   // console.log('tag', tag);
   console.log('paramsData', paramsData);
+  console.log('userinfoStore', userInfo);
 
   const postHandler = async () => {
     try {
@@ -43,12 +46,12 @@ function WritePost() {
         if (urlData === '/fre') {
           console.log('submit data', data);
           const resData = await PostData(data, 'frees');
-          alert('게시글 작성을 완료하였습니다.');
+          // alert('게시글 작성을 완료하였습니다.');
           navigate(`/free/articles/${resData.data.freeId}`, { replace: true });
         } else if (urlData === '/qna') {
           console.log('submit data', data);
           const resData = await PostData(data, 'qnas/questions');
-          alert('게시글 작성을 완료하였습니다.');
+          // alert('게시글 작성을 완료하였습니다.');
           navigate(`/qna/articles/${resData.data.questionId}`, {
             replace: true,
           });
@@ -74,7 +77,7 @@ function WritePost() {
         if (urlData === '/fre') {
           console.log('submit data', data);
           const resData = await PatchData(data, 'frees', Number(paramsData.id));
-          alert('게시글 수정을 완료하였습니다.');
+          // alert('게시글 수정을 완료하였습니다.');
           navigate(`/free/articles/${resData.data.freeId}`, { replace: true });
         } else if (urlData === '/qna') {
           console.log('submit data', data);
@@ -83,7 +86,7 @@ function WritePost() {
             'qnas/questions',
             Number(paramsData.id),
           );
-          alert('게시글 수정을 완료하였습니다.');
+          // alert('게시글 수정을 완료하였습니다.');
           navigate(`/qna/articles/${resData.data.questionId}`, {
             replace: true,
           });
@@ -102,10 +105,10 @@ function WritePost() {
     try {
       if (urlData === '/fre') {
         const buffer = await getPostDetail('frees', Number(paramsData.id));
-        setCategory(buffer.data.category);
-        setTitle(buffer.data.title);
-        setPost(buffer.data.content);
-        setUploadImages(buffer.data.uploadImages);
+        await setCategory(buffer.data.category);
+        await setTitle(buffer.data.title);
+        await setPost(buffer.data.content);
+        // await setUploadImages(buffer.data.uploadImages);
         setIsPending(false);
         // setTag();
       } else {
@@ -113,10 +116,10 @@ function WritePost() {
           'qnas/questions',
           Number(paramsData.id),
         );
-        setCategory(buffer.data.category);
-        setTitle(buffer.data.title);
-        setPost(buffer.data.content);
-        setUploadImages(buffer.data.uploadImages);
+        await setCategory(buffer.data.category);
+        await setTitle(buffer.data.title);
+        await setPost(buffer.data.content);
+        // await setUploadImages(buffer.data.uploadImages);
         // setTag();
         setIsPending(false);
       }
@@ -160,7 +163,9 @@ function WritePost() {
                 }}
               >
                 <option value="">주제를 선택해 주세요.</option>
-                <option value="공지">공지</option>
+                {userInfo.state === 'ADMIN' ? (
+                  <option value="공지">공지</option>
+                ) : null}
                 <option value="일상">일상</option>
                 <option value="정보">정보</option>
                 <option value="유머">유머</option>
@@ -173,7 +178,9 @@ function WritePost() {
                 }}
               >
                 <option value="">주제를 선택해 주세요.</option>
-                <option value="공지">공지</option>
+                {userInfo.state === 'ADMIN' ? (
+                  <option value="공지">공지</option>
+                ) : null}
                 <option value="국어">국어</option>
                 <option value="영어">영어</option>
                 <option value="수학">수학</option>

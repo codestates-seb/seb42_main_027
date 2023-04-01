@@ -25,10 +25,6 @@ function TextEditor({
   const QuillRef: any = useRef();
   console.log('textContent', textContent);
 
-  // const ArrayHandler = (value: string) => {
-  //   return [...uploadImages, value];
-  // };
-
   const imageHandler = () => {
     const input = document.createElement('input');
     const formData = new FormData();
@@ -85,7 +81,7 @@ function TextEditor({
           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
           [{ color: [] }, { background: [] }],
           [{ list: 'ordered' }, { list: 'bullet' }],
-          ['link', 'image'],
+          ['image'],
         ],
         handlers: { image: imageHandler },
       },
@@ -102,7 +98,7 @@ function TextEditor({
         modules={modules}
         value={textContent}
         onChange={setTextContent}
-        placeholder="내용을 입력해 주세요. 업로드 할 수 있는 이미지 크기는 최대 10MB입니다."
+        placeholder="내용을 입력해 주세요. 업로드 할 수 있는 이미지 크기는 이미지 1장 당 최대 10MB입니다."
       />
     </TextEditorDiv>
   );

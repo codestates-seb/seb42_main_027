@@ -191,7 +191,7 @@ const Count = styled.div`
   position: absolute;
   right: ${theme.gap.px20};
   bottom: 1rem;
-  width: ${theme.gap.px100};
+  width: ${theme.gap.px120};
   color: ${theme.colors.gray};
 
   > div {

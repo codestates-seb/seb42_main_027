@@ -4,6 +4,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 type PostData = {
   content: string;
+  uploadImages: string[] | [];
   createdAt: string;
   questionId: number;
 };
