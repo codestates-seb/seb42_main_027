@@ -154,7 +154,6 @@ function CreateEvent() {
         </FlexContainer>
         {/* 등록 버튼 */}
         <FlexContainer>
-          <UploadButton onClick={createHandler}>이벤트 등록</UploadButton>
           <UploadButton
             onClick={() => {
               navigate(-1);
@@ -162,6 +161,7 @@ function CreateEvent() {
           >
             등록 취소
           </UploadButton>
+          <UploadButton onClick={createHandler}>이벤트 등록</UploadButton>
         </FlexContainer>
       </FlexContainer>
     </Container>

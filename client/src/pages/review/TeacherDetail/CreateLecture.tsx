@@ -135,6 +135,7 @@ function CreateLecture() {
       <GlobalStyle />
       <FlexContainer dir="col" width="30vw">
         <CardContainer>
+          {/* 제목 */}
           <ColumDiv>
             <label htmlFor="name">강의 제목</label>
             <Input
@@ -143,7 +144,7 @@ function CreateLecture() {
               onChange={e => setTitle(e.target.value)}
             />
           </ColumDiv>
-
+          {/* 상태 */}
           <ColumDiv>
             <label htmlFor="subject">강의 상태</label>
             <FlexContainer justify="start" gap="0.5rem">
@@ -165,7 +166,7 @@ function CreateLecture() {
               })}
             </FlexContainer>
           </ColumDiv>
-
+          {/* 과목 */}
           <ColumDiv>
             <label htmlFor="subject">과목</label>
             <select onChange={subjectClickHandler}>
@@ -179,7 +180,7 @@ function CreateLecture() {
               })}
             </select>
           </ColumDiv>
-
+          {/* 학년 */}
           <ColumDiv>
             <label htmlFor="grade">학년</label>
             <select onChange={gradeClickHandler}>
@@ -193,7 +194,7 @@ function CreateLecture() {
               })}
             </select>
           </ColumDiv>
-
+          {/* 플랫폼 */}
           <ColumDiv>
             <label htmlFor="platform">플랫폼</label>
             <select onChange={platformClickHandler}>
@@ -207,7 +208,7 @@ function CreateLecture() {
               })}
             </select>
           </ColumDiv>
-
+          {/* 강의 소개 */}
           <ColumDiv>
             <label htmlFor="introduction">강의 소개</label>
             <Textarea
@@ -220,8 +221,8 @@ function CreateLecture() {
           </ColumDiv>
         </CardContainer>
       </FlexContainer>
+      {/* 등록 버튼 */}
       <FlexContainer>
-        <UploadButton onClick={createHandler}>강의 등록</UploadButton>
         <UploadButton
           onClick={() => {
             navigate(-1);
@@ -229,6 +230,7 @@ function CreateLecture() {
         >
           등록 취소
         </UploadButton>
+        <UploadButton onClick={createHandler}>강의 등록</UploadButton>
       </FlexContainer>
     </UpdateContainer>
   );

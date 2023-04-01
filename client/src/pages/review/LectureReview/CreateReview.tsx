@@ -131,7 +131,6 @@ function CreateReview() {
         </FlexContainer> */}
 
         <FlexContainer>
-          <UploadButton onClick={createHandler}>후기 등록</UploadButton>
           <UploadButton
             onClick={() => {
               navigate(-1);
@@ -139,6 +138,7 @@ function CreateReview() {
           >
             등록 취소
           </UploadButton>
+          <UploadButton onClick={createHandler}>후기 등록</UploadButton>
         </FlexContainer>
       </FlexContainer>
     </Container>
@@ -177,16 +177,6 @@ const H2 = styled.h2`
 const Input = styled.input`
   width: 100%;
   padding: 0.6rem 0.5rem;
-  border: 0.5px solid gray;
-  :focus {
-    border: 1.2px solid black;
-  }
-`;
-
-const TextArea = styled.textarea`
-  width: 100%;
-  height: 15rem;
-  padding: 0.5rem;
   border: 0.5px solid gray;
   :focus {
     border: 1.2px solid black;
