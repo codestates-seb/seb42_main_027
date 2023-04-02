@@ -1,5 +1,4 @@
 /* eslint-disable react/no-array-index-key */
-import GlobalStyle from 'GlobalStyles';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
@@ -199,7 +198,6 @@ function TeacherReview() {
         return res.data.data;
       })
       .then(data => {
-        console.log(data);
         setData(data);
         setIsPending(false);
       })

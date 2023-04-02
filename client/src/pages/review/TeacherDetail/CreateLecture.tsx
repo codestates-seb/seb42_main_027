@@ -43,10 +43,6 @@ function CreateLecture() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(subjectTag);
-  }, [subjectTag]);
-
   const subjectArr: string[] = [
     '국어',
     '영어',

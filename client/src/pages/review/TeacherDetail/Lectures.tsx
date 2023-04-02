@@ -93,7 +93,6 @@ function Lectures() {
         return res.data.data;
       })
       .then(data => {
-        console.log(data);
         setData(data);
         setIsPending(false);
       });

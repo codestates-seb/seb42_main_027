@@ -50,7 +50,6 @@ function UpdateLecture() {
         headers: { 'ngrok-skip-browser-warning': '69420' },
       })
       .then((res: any) => {
-        console.log(res.data.data);
         return res.data.data;
       })
       .then(data => {
