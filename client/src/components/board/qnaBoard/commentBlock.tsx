@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 import theme from 'theme';
@@ -30,19 +29,31 @@ interface Comment {
   };
 }
 
+interface voteStatusArray {
+  qnaCommentVoteId: number;
+  voteStatus: string;
+}
+
 type Props = {
   data: Comment;
   checkState: boolean;
   setCheckState: React.Dispatch<React.SetStateAction<boolean>>;
+  voteStatusArray: [voteStatusArray] | [];
 };
 
-function CommentBlock({ data, checkState, setCheckState }: Props) {
+function CommentBlock({
+  data,
+  checkState,
+  setCheckState,
+  voteStatusArray,
+}: Props) {
   const { userInfo } = useUserInfoStore(state => state);
   const [openEdit, setOpenEidt] = useState(false);
   const [openRecom, setOpenRecom] = useState(false);
   const [checkEdit, setCheckEdit] = useState<boolean>(false);
   const [editData, setEditData] = useState<string>('');
   const [voteTotal, SetVoteTotal] = useState<number>(data.voteCount);
+  const [isVoteStatus, SetIsVoteStatus] = useState<string | null>('');
 
   const calTime: string = CalElapsedTime(data.createdAt);
 
@@ -58,8 +69,9 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
     try {
       const res = await PostVote('qnas/comments', data.qnaCommentId, value);
       await SetVoteTotal(res.data.commentVoteTotalCount);
+      await SetIsVoteStatus(res.data.status);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -71,7 +83,7 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
         setCheckState(!checkState);
       }
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -91,9 +103,23 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
       setEditData('');
       setCheckState(!checkState);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
+
+  const voteStatusHandler = () => {
+    if (voteStatusArray) {
+      voteStatusArray.forEach(ele => {
+        if (ele.qnaCommentVoteId === data.qnaCommentId) {
+          SetIsVoteStatus(ele.voteStatus);
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    voteStatusHandler();
+  }, []);
 
   return (
     <Container>
@@ -128,9 +154,9 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
         <UDVDiv>
           <RecomWriteDiv>
             <BottomDiv>
-              <Button.RecommentBtn onClick={openRecomHandler}>
+              {/* <Button.RecommentBtn onClick={openRecomHandler}>
                 댓글 쓰기
-              </Button.RecommentBtn>
+              </Button.RecommentBtn> */}
             </BottomDiv>
           </RecomWriteDiv>
           {data.member.memberId === userInfo.memberId ? (
@@ -156,21 +182,27 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
             </UDBtnDiv>
           ) : null}
           <VoteDiv>
-            <Button.VoteDownBtn onClick={e => voteHandler('down')}>
+            <Button.VoteDownBtn
+              className={isVoteStatus === 'DOWN' ? 'selected' : ''}
+              onClick={e => voteHandler('down')}
+            >
               <CountIcon.VoteDown />
             </Button.VoteDownBtn>
             <VoteCount>{voteTotal}</VoteCount>
-            <Button.VoteUpBtn onClick={e => voteHandler('up')}>
+            <Button.VoteUpBtn
+              className={isVoteStatus === 'UP' ? 'selected' : ''}
+              onClick={e => voteHandler('up')}
+            >
               <CountIcon.VoteUp />
             </Button.VoteUpBtn>
           </VoteDiv>
         </UDVDiv>
       </TitleDiv>
-      {openRecom ? (
+      {/* {openRecom ? (
         <WriteRecomDiv>
           <WriteComment checkState={checkState} setCheckState={setCheckState} />
         </WriteRecomDiv>
-      ) : null}
+      ) : null} */}
       {/* <RecommentList /> */}
     </Container>
   );

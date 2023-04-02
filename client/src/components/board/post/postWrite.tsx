@@ -24,13 +24,6 @@ function WritePost() {
   const [uploadImages, setUploadImages] = useState<string[] | []>([]);
   // const [tag, setTag] = useState<string[] | []>([]);
 
-  console.log('category', category);
-  console.log('title', title);
-  console.log('post', post);
-  // console.log('tag', tag);
-  console.log('paramsData', paramsData);
-  console.log('userinfoStore', userInfo);
-
   const postHandler = async () => {
     try {
       if (category === '' || title === '' || post === '') {
@@ -44,12 +37,10 @@ function WritePost() {
           createdAt: `${new Date()}`,
         };
         if (urlData === '/fre') {
-          console.log('submit data', data);
           const resData = await PostData(data, 'frees');
           // alert('게시글 작성을 완료하였습니다.');
           navigate(`/free/articles/${resData.data.freeId}`, { replace: true });
         } else if (urlData === '/qna') {
-          console.log('submit data', data);
           const resData = await PostData(data, 'qnas/questions');
           // alert('게시글 작성을 완료하였습니다.');
           navigate(`/qna/articles/${resData.data.questionId}`, {
@@ -75,12 +66,10 @@ function WritePost() {
           modifiedAt: `${new Date()}`,
         };
         if (urlData === '/fre') {
-          console.log('submit data', data);
           const resData = await PatchData(data, 'frees', Number(paramsData.id));
           // alert('게시글 수정을 완료하였습니다.');
           navigate(`/free/articles/${resData.data.freeId}`, { replace: true });
         } else if (urlData === '/qna') {
-          console.log('submit data', data);
           const resData = await PatchData(
             data,
             'qnas/questions',

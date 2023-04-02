@@ -50,11 +50,31 @@ interface Comment {
   };
 }
 
+interface VoteInfo {
+  memberId: number;
+  email: string;
+  questionId: number;
+  questionvoteStatus: string;
+  answerVoteStatus: [AnswerVoteInfo];
+  qnaCommentVoteStatus: [CommentVoteInfo];
+}
+
+interface AnswerVoteInfo {
+  answerId: number;
+  voteStatus: string;
+}
+
+interface CommentVoteInfo {
+  qnaCommentVoteId: number;
+  voteStatus: string;
+}
+
 type Props = {
   data: AnswerData;
   checkState: boolean;
   setCheckState: React.Dispatch<React.SetStateAction<boolean>>;
   questionWriter: number;
+  voteInfo: VoteInfo | Record<string, never>;
 };
 
 function AnswerContent({
@@ -62,6 +82,7 @@ function AnswerContent({
   checkState,
   setCheckState,
   questionWriter,
+  voteInfo,
 }: Props) {
   const { userInfo } = useUserInfoStore(state => state);
   const [checkEdit, setCheckEdit] = useState<boolean>(false);
@@ -69,12 +90,10 @@ function AnswerContent({
   const [uploadImages, setUploadImages] = useState<string[] | []>([]);
   const [comDivIsOpen, setComDivIsOpen] = useState<boolean>(false);
   const [voteTotal, SetVoteTotal] = useState<number>(data.voteCount);
+  const [isVoteStatus, SetIsVoteStatus] = useState<string | null>('');
   const navigate = useNavigate();
   const idData = Number(useParams().id);
   const calTime = CalElapsedTime(data.createdAt);
-
-  console.log(data);
-  console.log('userInfo memeberId', userInfo.memberId);
 
   const openComDivHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setComDivIsOpen(!comDivIsOpen);
@@ -91,7 +110,7 @@ function AnswerContent({
       await setCheckState(!checkState);
       setCheckEdit(!checkEdit);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -104,7 +123,7 @@ function AnswerContent({
         setCheckState(!checkState);
       }
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -113,7 +132,7 @@ function AnswerContent({
       await PostAdopt(idData, data.answerId);
       setCheckState(!checkState);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -121,8 +140,9 @@ function AnswerContent({
     try {
       const res = await PostVote('qnas/answers', data.answerId, value);
       await SetVoteTotal(res.data.answerVoteTotalCount);
+      await SetIsVoteStatus(res.data.status);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -205,11 +225,17 @@ function AnswerContent({
             </div>
           ) : null}
           <VoteDiv>
-            <Button.VoteDownBtn onClick={e => voteHandler('down')}>
+            <Button.VoteDownBtn
+              className={isVoteStatus === 'DOWN' ? 'selected' : ''}
+              onClick={e => voteHandler('down')}
+            >
               <CountIcon.VoteDown />
             </Button.VoteDownBtn>
             <VoteCount>{voteTotal}</VoteCount>
-            <Button.VoteUpBtn onClick={e => voteHandler('up')}>
+            <Button.VoteUpBtn
+              className={isVoteStatus === 'UP' ? 'selected' : ''}
+              onClick={e => voteHandler('up')}
+            >
               <CountIcon.VoteUp />
             </Button.VoteUpBtn>
           </VoteDiv>
@@ -223,6 +249,7 @@ function AnswerContent({
                       data={ele}
                       checkState={checkState}
                       setCheckState={setCheckState}
+                      voteStatusArray={voteInfo.qnaCommentVoteStatus}
                     />
                   );
                 })}

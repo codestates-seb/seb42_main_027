@@ -41,9 +41,7 @@ type Props = {
 };
 
 function PostTitleBlock({ ele }: Props) {
-  console.log('ele', ele);
   const urlData = useLocation().pathname;
-  console.log(urlData);
   const calTime: string = CalElapsedTime(ele.createdAt);
 
   return (

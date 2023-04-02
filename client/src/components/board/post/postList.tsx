@@ -88,9 +88,6 @@ function PostList() {
     fetchPostList();
   }, [selectedMenuStore, selectedSortStore]);
 
-  console.log('listData', listData);
-  console.log('pageInfo', pageInfo);
-
   return (
     <Container>
       <FreeBoardMenu />
