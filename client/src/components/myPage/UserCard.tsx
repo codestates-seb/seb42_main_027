@@ -117,17 +117,19 @@ function UserCard({ sideNav, setSideNav }: UserCardProps) {
     setSideNav('PostsCommentList');
   };
 
+  const userStateSwitch = (state: string) => {
+    if (state === 'STUDENT') return '학생';
+    if (state === 'ADMIN') return '관리자';
+    return '강사';
+  };
+
   return (
     <UserCardContainer>
       <ProfileImage src={userData.profileImage} />
       <UserInfoContainer>
         <NameTagContainer>
           <Name>{userData.displayName}</Name>
-          {userInfo.state === 'STUDENT' ? (
-            <UserState> 학생</UserState>
-          ) : (
-            <UserState> 강사</UserState>
-          )}
+          <UserState> {userStateSwitch(userInfo.state)}</UserState>
         </NameTagContainer>
         <UserInfo>{userData.email}</UserInfo>
         <SideNav>
