@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import GlobalStyle from 'GlobalStyles';
+
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import styled from 'styled-components';
@@ -13,14 +13,6 @@ import Swal from 'sweetalert2';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 import { UploadButton } from '../TeacherList/CreateTeacher';
 
-const defaultData = {
-  title: '리뷰글 제목',
-  starPoint: 5,
-  content: '리뷰글 내용',
-  lectureId: 64,
-  createdAt: new Date(),
-};
-
 function CreateReview() {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
@@ -32,7 +24,6 @@ function CreateReview() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    console.log('Rerendering');
   }, []);
 
   const createHandler = () => {

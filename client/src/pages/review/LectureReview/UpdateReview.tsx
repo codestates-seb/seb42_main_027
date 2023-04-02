@@ -35,7 +35,6 @@ function UpdateReview() {
         },
       )
       .then((res: any) => {
-        console.log(res.data.data);
         return res.data.data;
       })
       .then(data => {
@@ -121,16 +120,6 @@ function UpdateReview() {
             path="boards/reviews/lectures/contents"
           />
         </FlexContainer>
-        {/* <FlexContainer dir="col" align="start" gap="0.5rem" width="95%">
-          <Label htmlFor="content">내용</Label>
-          <TextArea
-            id="content"
-            value={content}
-            onChange={e => {
-              setContent(e.target.value);
-            }}
-          />
-        </FlexContainer> */}
 
         <FlexContainer>
           <UploadButton onClick={updateHandler}>후기 수정</UploadButton>

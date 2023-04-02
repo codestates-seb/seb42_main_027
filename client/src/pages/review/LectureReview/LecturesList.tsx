@@ -75,8 +75,6 @@ function LecturesList() {
         },
       )
       .then((res: any) => {
-        console.log(res.data.data);
-        console.log(res.data.pageInfo);
         setLectures(res.data.data);
         setPageInfo(res.data.pageInfo);
         setIsPending(false);

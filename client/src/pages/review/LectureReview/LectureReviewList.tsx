@@ -104,7 +104,6 @@ function LectureReviewList() {
         return res.data;
       })
       .then(data => {
-        console.log(data);
         setData(data);
         setIsPending(false);
       });

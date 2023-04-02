@@ -105,7 +105,6 @@ function LectureReviewDetailPage() {
         return res.data.data;
       })
       .then(data => {
-        console.log(data);
         setDetailData(data);
         setReviewVote(data.voteCount);
         if (
