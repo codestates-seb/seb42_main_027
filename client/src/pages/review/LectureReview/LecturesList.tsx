@@ -118,7 +118,7 @@ function LecturesList() {
       {isPending ? (
         <Loading />
       ) : (
-        <FlexContainer width="62.5%" dir="col">
+        <FlexContainer width="50rem" dir="col">
           {!lectures.length ? (
             <FlexContainer height="50vh">등록된 강의가 없습니다</FlexContainer>
           ) : (
