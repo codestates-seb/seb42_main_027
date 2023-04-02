@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import GlobalStyle from 'GlobalStyles';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -19,11 +19,6 @@ function CreateEvent() {
 
   const navigate = useNavigate();
   const Authorization = localStorage.getItem('token');
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    console.log(content);
-  }, [content]);
 
   const createHandler = () => {
     if (!title || !content || !start || !end) {

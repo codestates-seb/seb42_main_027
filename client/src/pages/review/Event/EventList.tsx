@@ -77,13 +77,10 @@ function EventList() {
         headers: { 'ngrok-skip-browser-warning': '69420' },
       })
       .then((res: any) => {
-        console.log(res.data.data);
-
         setEvent(res.data.data);
         setPageInfo(res.data.pageInfo);
       })
       .then(() => {
-        console.log('크롤링');
         axios
           .get(
             `${process.env.REACT_APP_API_URL}/boards/events/theirs?page=${
@@ -97,8 +94,6 @@ function EventList() {
             return res.data;
           })
           .then(data => {
-            console.log(data.data);
-            console.log(data.pageInfo);
             setCrolingEvent(data.data);
             setPageInfo(data.pageInfo);
             setIsPending(false);

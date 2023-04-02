@@ -1,7 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/button-has-type */
-/* eslint-disable react/require-default-props */
-import GlobalStyle from 'GlobalStyles';
+
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import theme from 'theme';
@@ -13,7 +12,6 @@ import { useParams, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import isLogin from 'utils/isLogin';
 import GoBackMenu from 'components/board/post/goBackMenu';
-import useUserInfoStore from 'stores/userInfoStore';
 import { Title } from 'pages/FreeBoard';
 
 const defaultDetailData = {
@@ -33,8 +31,6 @@ function EventDetail() {
   const Authorization = localStorage.getItem('token');
   const navigate = useNavigate();
 
-  const { userInfo } = useUserInfoStore(state => state);
-
   useEffect(() => {
     setIsPending(true);
     axios
@@ -45,7 +41,6 @@ function EventDetail() {
         return res.data.data;
       })
       .then(data => {
-        console.log(data);
         setDetailData(data);
         setIsPending(false);
       })

@@ -1,7 +1,6 @@
-/* eslint-disable prefer-destructuring */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import GlobalStyle from 'GlobalStyles';
+
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import styled from 'styled-components';
@@ -10,13 +9,6 @@ import axios from 'axios';
 import TextEditor from 'components/common/textEditor';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 import { UploadButton } from '../TeacherList/CreateTeacher';
-
-const defaultData = {
-  imageUrl: '이미지 URL',
-  title: '제목',
-  content: '내용',
-  date: new Date(),
-};
 
 function UpdateEvent() {
   const [title, setTitle] = useState<string>('');
@@ -40,7 +32,6 @@ function UpdateEvent() {
         return res.data.data;
       })
       .then(data => {
-        console.log(data);
         setTitle(data.title);
         setContent(data.content);
         setImageUrl(data.imageUrl);
