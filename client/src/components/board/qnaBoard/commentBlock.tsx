@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 import theme from 'theme';
@@ -30,21 +29,7 @@ interface Comment {
   };
 }
 
-interface VoteInfo {
-  memberId: number;
-  email: string;
-  questionId: number;
-  questionvoteStatus: string;
-  answerVoteStatus: [AnswerVoteInfo];
-  qnaCommentVoteStatus: [CommentVoteInfo];
-}
-
-interface AnswerVoteInfo {
-  answerId: number;
-  voteStatus: string;
-}
-
-interface CommentVoteInfo {
+interface voteStatusArray {
   qnaCommentVoteId: number;
   voteStatus: string;
 }
@@ -53,10 +38,15 @@ type Props = {
   data: Comment;
   checkState: boolean;
   setCheckState: React.Dispatch<React.SetStateAction<boolean>>;
-  // voteInfo: VoteInfo;
+  voteStatusArray: [voteStatusArray] | [];
 };
 
-function CommentBlock({ data, checkState, setCheckState }: Props) {
+function CommentBlock({
+  data,
+  checkState,
+  setCheckState,
+  voteStatusArray,
+}: Props) {
   const { userInfo } = useUserInfoStore(state => state);
   const [openEdit, setOpenEidt] = useState(false);
   const [openRecom, setOpenRecom] = useState(false);
@@ -81,7 +71,7 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
       await SetVoteTotal(res.data.commentVoteTotalCount);
       await SetIsVoteStatus(res.data.status);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -93,7 +83,7 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
         setCheckState(!checkState);
       }
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -113,9 +103,23 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
       setEditData('');
       setCheckState(!checkState);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
+
+  const voteStatusHandler = () => {
+    if (voteStatusArray) {
+      voteStatusArray.forEach(ele => {
+        if (ele.qnaCommentVoteId === data.qnaCommentId) {
+          SetIsVoteStatus(ele.voteStatus);
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    voteStatusHandler();
+  }, []);
 
   return (
     <Container>

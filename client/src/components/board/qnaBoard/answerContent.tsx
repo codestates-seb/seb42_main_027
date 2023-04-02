@@ -50,11 +50,31 @@ interface Comment {
   };
 }
 
+interface VoteInfo {
+  memberId: number;
+  email: string;
+  questionId: number;
+  questionvoteStatus: string;
+  answerVoteStatus: [AnswerVoteInfo];
+  qnaCommentVoteStatus: [CommentVoteInfo];
+}
+
+interface AnswerVoteInfo {
+  answerId: number;
+  voteStatus: string;
+}
+
+interface CommentVoteInfo {
+  qnaCommentVoteId: number;
+  voteStatus: string;
+}
+
 type Props = {
   data: AnswerData;
   checkState: boolean;
   setCheckState: React.Dispatch<React.SetStateAction<boolean>>;
   questionWriter: number;
+  voteInfo: VoteInfo | Record<string, never>;
 };
 
 function AnswerContent({
@@ -62,6 +82,7 @@ function AnswerContent({
   checkState,
   setCheckState,
   questionWriter,
+  voteInfo,
 }: Props) {
   const { userInfo } = useUserInfoStore(state => state);
   const [checkEdit, setCheckEdit] = useState<boolean>(false);
@@ -73,9 +94,6 @@ function AnswerContent({
   const navigate = useNavigate();
   const idData = Number(useParams().id);
   const calTime = CalElapsedTime(data.createdAt);
-
-  console.log(data);
-  console.log('userInfo memeberId', userInfo.memberId);
 
   const openComDivHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setComDivIsOpen(!comDivIsOpen);
@@ -92,7 +110,7 @@ function AnswerContent({
       await setCheckState(!checkState);
       setCheckEdit(!checkEdit);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -105,7 +123,7 @@ function AnswerContent({
         setCheckState(!checkState);
       }
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -114,7 +132,7 @@ function AnswerContent({
       await PostAdopt(idData, data.answerId);
       setCheckState(!checkState);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -124,7 +142,7 @@ function AnswerContent({
       await SetVoteTotal(res.data.answerVoteTotalCount);
       await SetIsVoteStatus(res.data.status);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -231,6 +249,7 @@ function AnswerContent({
                       data={ele}
                       checkState={checkState}
                       setCheckState={setCheckState}
+                      voteStatusArray={voteInfo.qnaCommentVoteStatus}
                     />
                   );
                 })}

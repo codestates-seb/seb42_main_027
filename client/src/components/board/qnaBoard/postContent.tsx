@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import useUserInfoStore from 'stores/userInfoStore';
 import { useIsLoginStore } from 'stores/loginStore';
 
@@ -136,7 +136,7 @@ function PostContent() {
       }
       setIsPending(false);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -149,7 +149,7 @@ function PostContent() {
         navigate('/qna');
       }
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -164,14 +164,13 @@ function PostContent() {
           createdAt: `${new Date()}`,
           questionId: listData.questionId,
         };
-        console.log('submit data', data);
         await PostAnswer(data);
         await setTextContent('');
         await setCheckState(!checkState);
         window.scrollTo(0, 0);
       }
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -181,7 +180,7 @@ function PostContent() {
       await SetVoteTotal(res.data.questionVoteTotalCount);
       await SetIsVoteStatus(res.data.status);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -261,7 +260,7 @@ function PostContent() {
                         data={ele}
                         checkState={checkState}
                         setCheckState={setCheckState}
-                        // voteInfo={voteInfo}
+                        voteStatusArray={voteInfo.qnaCommentVoteStatus}
                       />
                     );
                   })}
@@ -310,6 +309,7 @@ function PostContent() {
                           checkState={checkState}
                           setCheckState={setCheckState}
                           questionWriter={listData.member.memberId}
+                          voteInfo={voteInfo}
                         />
                       );
                     })}
@@ -349,19 +349,6 @@ function PostContent() {
               </PostAnswerDiv>
             </div>
           )}
-          {/* <CommentCnt>{listData.commentsListNum}개의 댓글</CommentCnt>
-          <CommentContainer>
-            <WriteCommentDiv>
-              <WriteComment />
-            </WriteCommentDiv>
-            {listData.commentsListNum === 0 ? null : (
-              <div>
-                {listData.comments.map((ele: Comment) => {
-                  return <CommentBlock key={ele.freeCommentId} data={ele} />;
-                })}
-              </div>
-            )}
-          </CommentContainer> */}
         </div>
       )}
     </Container>
