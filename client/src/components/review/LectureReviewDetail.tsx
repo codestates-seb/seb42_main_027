@@ -7,7 +7,6 @@ import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import { AiFillStar } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import useUserInfoStore from 'stores/userInfoStore';
 import theme from 'theme';
 import { Link } from 'react-router-dom';
 import Button from 'components/common/Button';
@@ -86,7 +85,6 @@ function LectureReviewDetail({
   const [reviewVote, setReviewVote] = useState(detailData.voteCount);
   const [voteStatus, setVoteStatus] = useState('');
 
-  const { userInfo } = useUserInfoStore(state => state);
   const Authorization = localStorage.getItem('token');
 
   const up = () => toast.success('UP!');
@@ -108,7 +106,6 @@ function LectureReviewDetail({
         return res.data.data;
       })
       .then(data => {
-        console.log(data);
         setDetailData(data);
         setReviewVote(data.voteCount);
         if (

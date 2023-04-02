@@ -1,6 +1,5 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/require-default-props */
-import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import { SmallFont } from 'pages/review/TeacherDetail/Information';

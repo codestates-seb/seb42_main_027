@@ -59,10 +59,6 @@ function LectureReviewComment({
   const cancle = () => toast.info('Comment Cancel!');
   const login = () => toast.info('Login!');
 
-  useEffect(() => {
-    console.log(commentVote);
-  }, [commentVote]);
-
   const updateOpenHandler = () => {
     setIsOpen(!isOpen);
   };
@@ -115,7 +111,6 @@ function LectureReviewComment({
       )
       .then(res => res.data.data)
       .then(data => {
-        console.log(data);
         setCommentVote(data.lectureReviewCommentVoteTotalCount);
         setVoteStatus(data.status);
         if (data.status === 'UP') up();
@@ -136,7 +131,6 @@ function LectureReviewComment({
       )
       .then(res => res.data.data)
       .then(data => {
-        console.log(data);
         setCommentVote(data.lectureReviewCommentVoteTotalCount);
         setVoteStatus(data.status);
         if (data.status === 'DOWN') down();
