@@ -60,6 +60,7 @@ function PostContent() {
   const [listData, setListData] = useState<Data | Record<string, never>>({});
   const [checkState, setCheckState] = useState<boolean>(false);
   const [voteTotal, SetVoteTotal] = useState<number>(0);
+  const [isVoteStatus, SetIsVoteStatus] = useState<string | null>('');
   const urlData = useLocation().pathname.slice(0, 5);
   const idData = Number(useParams().id);
 
@@ -71,7 +72,8 @@ function PostContent() {
   const voteHandler = async (value: string) => {
     try {
       const res = await PostVote('frees', idData, value);
-      await SetVoteTotal(res.data.freeTotalCount);
+      SetVoteTotal(res.data.freeTotalCount);
+      SetIsVoteStatus(res.data.status);
     } catch (err) {
       console.error(err);
     }
@@ -81,6 +83,7 @@ function PostContent() {
     try {
       const buffer = await getPostDetail('frees', idData);
       setListData(buffer.data);
+      SetVoteTotal(buffer.data.voteCount);
       setIsPending(false);
     } catch (err) {
       console.error(err);
@@ -92,7 +95,7 @@ function PostContent() {
       const confirm = window.confirm('게시글을 삭제하시겠습니까?');
       if (confirm) {
         await DeletePost('frees', idData);
-        alert('게시물을 삭제하였습니다.');
+        // alert('게시물을 삭제하였습니다.');
         navigate('/free');
       }
     } catch (err) {
@@ -103,9 +106,6 @@ function PostContent() {
   useEffect(() => {
     fetchPostDetail();
   }, [checkState]);
-
-  console.log(listData);
-  console.log('userInfo memeberId', userInfo.memberId);
 
   return (
     <Container>
@@ -150,11 +150,17 @@ function PostContent() {
           <MainDiv>
             <TextDiv dangerouslySetInnerHTML={{ __html: listData.content }} />
             <VoteDiv>
-              <Button.VoteDownBtn onClick={e => voteHandler('down')}>
+              <Button.VoteDownBtn
+                className={isVoteStatus === 'DOWN' ? 'selected' : ''}
+                onClick={e => voteHandler('down')}
+              >
                 <CountIcon.VoteDown />
               </Button.VoteDownBtn>
               <VoteCount>{voteTotal}</VoteCount>
-              <Button.VoteUpBtn onClick={e => voteHandler('up')}>
+              <Button.VoteUpBtn
+                className={isVoteStatus === 'UP' ? 'selected' : ''}
+                onClick={e => voteHandler('up')}
+              >
                 <CountIcon.VoteUp />
               </Button.VoteUpBtn>
             </VoteDiv>

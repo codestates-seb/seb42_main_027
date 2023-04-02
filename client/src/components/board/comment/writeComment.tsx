@@ -8,7 +8,6 @@ import ProfileIcon from 'assets/icons/defaultProfileIcon';
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
 
 import { useIsLoginStore } from 'stores/loginStore';
-import useUserInfoStore from 'stores/userInfoStore';
 import PostComment from 'apis/board/postComment';
 
 type Props = {
@@ -20,10 +19,7 @@ function WriteComment({ checkState, setCheckState }: Props) {
   const urlData = useLocation().pathname.slice(0, 4);
   const paramsData = useParams();
   const { isLoginInStore } = useIsLoginStore(state => state);
-  const { userInfo } = useUserInfoStore(state => state);
   const [comment, setComment] = useState<string>('');
-
-  console.log('comment', comment);
 
   const postHandler = async () => {
     try {
@@ -34,7 +30,6 @@ function WriteComment({ checkState, setCheckState }: Props) {
           content: comment,
           createdAt: `${new Date()}`,
         };
-        console.log('submit data', data);
         if (urlData === '/fre') {
           await PostComment(data, 'frees', Number(paramsData.id));
           setComment('');
@@ -46,7 +41,7 @@ function WriteComment({ checkState, setCheckState }: Props) {
         }
       }
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -112,15 +107,6 @@ const Textarea = styled.textarea`
   border: 1px solid ${theme.colors.gray};
   border-radius: 5px;
   margin-left: ${theme.gap.px10};
-`;
-
-const TextEditor = styled.div`
-  display: flex;
-  margin-left: ${theme.gap.px10};
-
-  /* > .text-editor {
-    display: flex;
-  } */
 `;
 
 const SubmitDiv = styled.div`

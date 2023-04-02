@@ -45,7 +45,7 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
   const [editData, setEditData] = useState<string>('');
   const [openRecom, setOpenRecom] = useState(false);
   const [voteTotal, SetVoteTotal] = useState<number>(data.voteCount);
-  // console.log(data.member.displayName);
+  const [isVoteStatus, SetIsVoteStatus] = useState<string | null>('');
 
   const calTime: string = CalElapsedTime(data.createdAt);
 
@@ -62,6 +62,7 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
     try {
       const res = await PostVote('frees/comments', data.freeCommentId, value);
       await SetVoteTotal(res.data.freeCommentTotalCount);
+      await SetIsVoteStatus(res.data.status);
     } catch (err) {
       console.error(err);
     }
@@ -147,11 +148,17 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
             {/* 댓글 쓰기 */}
           </Button.RecommentBtn>
           <VoteDiv>
-            <Button.VoteDownBtn onClick={e => voteHandler('down')}>
+            <Button.VoteDownBtn
+              className={isVoteStatus === 'DOWN' ? 'selected' : ''}
+              onClick={e => voteHandler('down')}
+            >
               <CountIcon.VoteDown />
             </Button.VoteDownBtn>
             <VoteCount>{voteTotal}</VoteCount>
-            <Button.VoteUpBtn onClick={e => voteHandler('up')}>
+            <Button.VoteUpBtn
+              className={isVoteStatus === 'UP' ? 'selected' : ''}
+              onClick={e => voteHandler('up')}
+            >
               <CountIcon.VoteUp />
             </Button.VoteUpBtn>
           </VoteDiv>

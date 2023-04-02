@@ -69,6 +69,7 @@ function AnswerContent({
   const [uploadImages, setUploadImages] = useState<string[] | []>([]);
   const [comDivIsOpen, setComDivIsOpen] = useState<boolean>(false);
   const [voteTotal, SetVoteTotal] = useState<number>(data.voteCount);
+  const [isVoteStatus, SetIsVoteStatus] = useState<string | null>('');
   const navigate = useNavigate();
   const idData = Number(useParams().id);
   const calTime = CalElapsedTime(data.createdAt);
@@ -121,6 +122,7 @@ function AnswerContent({
     try {
       const res = await PostVote('qnas/answers', data.answerId, value);
       await SetVoteTotal(res.data.answerVoteTotalCount);
+      await SetIsVoteStatus(res.data.status);
     } catch (err) {
       console.error(err);
     }
@@ -205,11 +207,17 @@ function AnswerContent({
             </div>
           ) : null}
           <VoteDiv>
-            <Button.VoteDownBtn onClick={e => voteHandler('down')}>
+            <Button.VoteDownBtn
+              className={isVoteStatus === 'DOWN' ? 'selected' : ''}
+              onClick={e => voteHandler('down')}
+            >
               <CountIcon.VoteDown />
             </Button.VoteDownBtn>
             <VoteCount>{voteTotal}</VoteCount>
-            <Button.VoteUpBtn onClick={e => voteHandler('up')}>
+            <Button.VoteUpBtn
+              className={isVoteStatus === 'UP' ? 'selected' : ''}
+              onClick={e => voteHandler('up')}
+            >
               <CountIcon.VoteUp />
             </Button.VoteUpBtn>
           </VoteDiv>

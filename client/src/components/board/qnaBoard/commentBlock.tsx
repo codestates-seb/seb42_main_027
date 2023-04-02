@@ -30,10 +30,30 @@ interface Comment {
   };
 }
 
+interface VoteInfo {
+  memberId: number;
+  email: string;
+  questionId: number;
+  questionvoteStatus: string;
+  answerVoteStatus: [AnswerVoteInfo];
+  qnaCommentVoteStatus: [CommentVoteInfo];
+}
+
+interface AnswerVoteInfo {
+  answerId: number;
+  voteStatus: string;
+}
+
+interface CommentVoteInfo {
+  qnaCommentVoteId: number;
+  voteStatus: string;
+}
+
 type Props = {
   data: Comment;
   checkState: boolean;
   setCheckState: React.Dispatch<React.SetStateAction<boolean>>;
+  // voteInfo: VoteInfo;
 };
 
 function CommentBlock({ data, checkState, setCheckState }: Props) {
@@ -43,6 +63,7 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
   const [checkEdit, setCheckEdit] = useState<boolean>(false);
   const [editData, setEditData] = useState<string>('');
   const [voteTotal, SetVoteTotal] = useState<number>(data.voteCount);
+  const [isVoteStatus, SetIsVoteStatus] = useState<string | null>('');
 
   const calTime: string = CalElapsedTime(data.createdAt);
 
@@ -58,6 +79,7 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
     try {
       const res = await PostVote('qnas/comments', data.qnaCommentId, value);
       await SetVoteTotal(res.data.commentVoteTotalCount);
+      await SetIsVoteStatus(res.data.status);
     } catch (err) {
       console.error(err);
     }
@@ -128,9 +150,9 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
         <UDVDiv>
           <RecomWriteDiv>
             <BottomDiv>
-              <Button.RecommentBtn onClick={openRecomHandler}>
+              {/* <Button.RecommentBtn onClick={openRecomHandler}>
                 댓글 쓰기
-              </Button.RecommentBtn>
+              </Button.RecommentBtn> */}
             </BottomDiv>
           </RecomWriteDiv>
           {data.member.memberId === userInfo.memberId ? (
@@ -156,21 +178,27 @@ function CommentBlock({ data, checkState, setCheckState }: Props) {
             </UDBtnDiv>
           ) : null}
           <VoteDiv>
-            <Button.VoteDownBtn onClick={e => voteHandler('down')}>
+            <Button.VoteDownBtn
+              className={isVoteStatus === 'DOWN' ? 'selected' : ''}
+              onClick={e => voteHandler('down')}
+            >
               <CountIcon.VoteDown />
             </Button.VoteDownBtn>
             <VoteCount>{voteTotal}</VoteCount>
-            <Button.VoteUpBtn onClick={e => voteHandler('up')}>
+            <Button.VoteUpBtn
+              className={isVoteStatus === 'UP' ? 'selected' : ''}
+              onClick={e => voteHandler('up')}
+            >
               <CountIcon.VoteUp />
             </Button.VoteUpBtn>
           </VoteDiv>
         </UDVDiv>
       </TitleDiv>
-      {openRecom ? (
+      {/* {openRecom ? (
         <WriteRecomDiv>
           <WriteComment checkState={checkState} setCheckState={setCheckState} />
         </WriteRecomDiv>
-      ) : null}
+      ) : null} */}
       {/* <RecommentList /> */}
     </Container>
   );

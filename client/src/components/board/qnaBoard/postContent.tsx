@@ -108,7 +108,7 @@ function PostContent() {
   const [uploadImages, setUploadImages] = useState<string[] | []>([]);
   const [comDivIsOpen, setComDivIsOpen] = useState<boolean>(false);
   const [voteTotal, SetVoteTotal] = useState<number>(0);
-  const [isVoteStatus, SetIsVoteStatus] = useState<string>('');
+  const [isVoteStatus, SetIsVoteStatus] = useState<string | null>('');
   const [voteInfo, setVoteInfo] = useState<VoteInfo | Record<string, never>>(
     {},
   );
@@ -126,9 +126,14 @@ function PostContent() {
   const fetchPostDetail = async () => {
     try {
       const buffer = await getPostDetail('qnas/questions', idData);
-      await setListData(buffer.data);
-      await SetVoteTotal(buffer.data.voteCount);
-      await setVoteInfo(buffer.data.loginUserVoteInfo);
+      setListData(buffer.data);
+      SetVoteTotal(buffer.data.voteCount);
+      if (buffer.data.loginUserVoteInfo) {
+        setVoteInfo(buffer.data.loginUserVoteInfo);
+        if (buffer.data.loginUserVoteInfo.questionvoteStatus) {
+          SetIsVoteStatus(buffer.data.loginUserVoteInfo.questionvoteStatus);
+        }
+      }
       setIsPending(false);
     } catch (err) {
       console.error(err);
@@ -140,7 +145,7 @@ function PostContent() {
       const confirm = window.confirm('게시글을 삭제하시겠습니까?');
       if (confirm) {
         await DeletePost('qnas/questions', idData);
-        alert('게시물을 삭제하였습니다.');
+        // alert('게시물을 삭제하였습니다.');
         navigate('/qna');
       }
     } catch (err) {
@@ -174,7 +179,7 @@ function PostContent() {
     try {
       const res = await PostVote('qnas/questions', idData, value);
       await SetVoteTotal(res.data.questionVoteTotalCount);
-      await SetIsVoteStatus(res.data.questionvoteStatus);
+      await SetIsVoteStatus(res.data.status);
     } catch (err) {
       console.error(err);
     }
@@ -183,9 +188,6 @@ function PostContent() {
   useEffect(() => {
     fetchPostDetail();
   }, [checkState]);
-
-  console.log(listData);
-  console.log('userInfo memeberId', userInfo.memberId);
 
   return (
     <Container>
@@ -259,6 +261,7 @@ function PostContent() {
                         data={ele}
                         checkState={checkState}
                         setCheckState={setCheckState}
+                        // voteInfo={voteInfo}
                       />
                     );
                   })}
