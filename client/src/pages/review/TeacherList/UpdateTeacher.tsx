@@ -78,7 +78,6 @@ function UpdateTeacher() {
         },
       })
       .then((res: any) => {
-        console.log(res.data.data);
         return res.data.data;
       })
       .then(data => {
@@ -142,7 +141,6 @@ function UpdateTeacher() {
           },
         )
         .then(res => {
-          console.log(res);
           navigate(-1);
         });
     }
@@ -162,7 +160,6 @@ function UpdateTeacher() {
               accept="image/*"
               onChange={(e: any) => {
                 if (e.target.files.length) {
-                  console.log(e.target.files[0]);
                   const formData = new FormData();
                   formData.append('image', e.target.files[0]);
                   formData.append('filePath', 'boards/teachers/profile-images');

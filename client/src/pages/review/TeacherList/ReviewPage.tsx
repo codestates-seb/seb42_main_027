@@ -75,8 +75,6 @@ function ReviewPage() {
         },
       )
       .then((res: any) => {
-        console.log(res.data.data);
-        console.log(res.data.pageInfo);
         setTeachers(res.data.data);
         setPageInfo(res.data.pageInfo);
         setCurPage(res.data.pageInfo.page);

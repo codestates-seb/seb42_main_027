@@ -60,10 +60,6 @@ function CreateTeacher() {
     } else setPlatformTag([...platformTag, e.target.value]);
   };
 
-  useEffect(() => {
-    console.log(realImage);
-  }, [realImage]);
-
   const createHandler = () => {
     if (
       !name ||
@@ -89,7 +85,6 @@ function CreateTeacher() {
         profileImageUrl: profileImage,
         realImageUrl: realImage,
       };
-      console.log(data);
 
       axios
         .post(`${process.env.REACT_APP_API_URL}/boards/teachers`, data, {
@@ -117,7 +112,6 @@ function CreateTeacher() {
               accept="image/*"
               onChange={(e: any) => {
                 if (e.target.files.length) {
-                  console.log(e.target.files[0]);
                   const formData = new FormData();
                   formData.append('image', e.target.files[0]);
                   formData.append('filePath', 'boards/teachers/profile-images');
