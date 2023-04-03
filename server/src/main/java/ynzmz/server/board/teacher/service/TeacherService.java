@@ -56,19 +56,27 @@ public class TeacherService {
         teacherRepository.deleteById(teacherId);
     }
 
-    @Transactional
+//    @Transactional
     public void setTeacherStarPointAverageAndTotalReviewCount(Teacher teacher) {
+        // 강사의 평균점수, 전체 리뷰 갯수 정보 변경
         List<Lecture> lectures = teacher.getLectures();
         double starPoint = 0;
-        double starPointAverage;
+        double starPointAverage = 0;
         long totalReviewCount = 0;
-        for(Lecture lecture : lectures) {
-            for(LectureReview lectureReview : lecture.getLectureReviews()) {
-                starPoint += lectureReview.getStarPoint();
-                totalReviewCount ++;
+        if(!lectures.isEmpty()) {
+            for (Lecture lecture : lectures) {
+                List<LectureReview> lectureReviews = lecture.getLectureReviews();
+                if (!lectureReviews.isEmpty()) {
+                    for (LectureReview lectureReview : lectureReviews) {
+                        starPoint += lectureReview.getStarPoint();
+                        totalReviewCount++;
+                    }
+                }
+            }
+            if(totalReviewCount != 0) {
+                starPointAverage = starPoint / totalReviewCount;
             }
         }
-        starPointAverage = starPoint / totalReviewCount;
         teacher.setStarPointAverage(starPointAverage);
         teacher.setTotalReviewCount(totalReviewCount);
         teacherRepository.save(teacher);

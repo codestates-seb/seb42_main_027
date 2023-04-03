@@ -1,6 +1,7 @@
 package ynzmz.server.board.lecture.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class LectureService {
     private final LectureRepository lectureRepository;
     @Transactional
@@ -66,19 +68,24 @@ public class LectureService {
     }
 
     //강의 평균 별점 저장
-    @Transactional
+//    @Transactional
     public void setLectureStarPointAverageAndTotalReviewCount(Lecture lecture){
         List<LectureReview> lectureReviews = lecture.getLectureReviews();
+
         double starPoint = 0;
-        double starPointAverage;
-        for(LectureReview lectureReview : lectureReviews) {
-            starPoint += lectureReview.getStarPoint();
+        double starPointAverage = 0;
+        long totalReviewCount = 0;
+
+        if(!lectureReviews.isEmpty()) {
+            for(LectureReview lectureReview : lectureReviews) {
+                starPoint += lectureReview.getStarPoint();
+            }
+            starPointAverage = starPoint / lectureReviews.size();
+            totalReviewCount = lectureReviews.size();
         }
-        starPointAverage = starPoint / lectureReviews.size();
-        long totalReviewCount = lectureReviews.size();
+
         lecture.setStarPointAverage(starPointAverage);
         lecture.setTotalReviewCount(totalReviewCount);
         lectureRepository.save(lecture);
     }
-
 }

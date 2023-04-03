@@ -31,6 +31,14 @@ public class LectureReviewDto {
         private String content;
         private String modifiedAt;
     }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class Delete{
+        private long teacherId;
+        private long lectureId;
+    }
     @Getter @Setter
     public static class ListPageResponse{
 

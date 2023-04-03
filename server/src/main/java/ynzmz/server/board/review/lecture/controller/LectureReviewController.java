@@ -6,8 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ynzmz.server.board.lecture.entity.Lecture;
 import ynzmz.server.board.review.lecture.dto.LectureReviewDto;
 import ynzmz.server.board.review.lecture.entity.LectureReview;
+import ynzmz.server.board.teacher.entity.Teacher;
 import ynzmz.server.global.dto.SingleResponseDto;
 import ynzmz.server.global.error.exception.BusinessLogicException;
 import ynzmz.server.board.lecture.service.LectureService;
@@ -133,13 +135,13 @@ public class LectureReviewController {
     }
     //리뷰 삭제
     @DeleteMapping("/{lecture-review-id}")
-    public ResponseEntity<?> deleteLectureReview(@PathVariable("lecture-review-id") long lectureReviewId){
+    public ResponseEntity<?> deleteLectureReview(@PathVariable("lecture-review-id") long lectureReviewId,
+                                                 @RequestBody LectureReviewDto.Delete lectureReviewDelete){
 
         //게시글 작성자 & 로그인된 회원 일치하는지 확인
         memberService.memberValidation(loginMemberFindByToken(), lectureReviewService.findLectureReviewById(lectureReviewId).getMember().getMemberId());
 
         LectureReview lectureReview = lectureReviewService.findLectureReviewById(lectureReviewId);
-
         //삭제되어야할 파일 Url -> 파일 경로 변환
         List<String> deleteFilePaths = s3FileInfoService.getFilePathsByFileUrls(lectureReview.getUploadImages());
         //삭제되어야할 파일들 S3 에서 삭제 & DB S3FileInfo 값 삭제
@@ -147,7 +149,17 @@ public class LectureReviewController {
         s3FileInfoService.deleteS3FileInfos(s3FileInfosByFilePaths);
         s3UpLoadService.deleteFilesByFilePaths(deleteFilePaths);
 
+        //삭제 시키는 코드
         lectureReviewService.deleteLectureReview(lectureReviewId);
+
+        Teacher teacher = teacherService.findTeacherById(lectureReviewDelete.getTeacherId());
+        Lecture lecture = lectureService.findLectureById(lectureReviewDelete.getLectureId());
+
+        //리뷰 등록시 강의의 평균별점 및 총 리뷰갯수 수정
+        lectureService.setLectureStarPointAverageAndTotalReviewCount(lecture);
+        //리뷰 등록시 강사의 평균별점 및 총 리뷰갯수 수정
+        teacherService.setTeacherStarPointAverageAndTotalReviewCount(teacher);
+
         Optional<LectureReview> deletedLectureReview = lectureReviewService.findOptionalLectureReviewById(lectureReviewId);
         return deletedLectureReview.isEmpty() ? new ResponseEntity<>("삭제완료",HttpStatus.OK) : new ResponseEntity<>("삭제실패",HttpStatus.INTERNAL_SERVER_ERROR);
     }
