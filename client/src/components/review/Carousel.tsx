@@ -32,7 +32,7 @@ const items: itemsProps[] = [
     name: '이미지02',
   },
   {
-    item: 'https://cdn.discordapp.com/attachments/1081017804590952469/1090556480765309018/image.png',
+    item: 'https://cdn.discordapp.com/attachments/1081017804590952469/1092248819888050206/2023._4._3._9.44.jpg',
     name: '이미지03',
   },
   {

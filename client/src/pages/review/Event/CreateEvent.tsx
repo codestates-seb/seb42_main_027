@@ -109,7 +109,6 @@ function CreateEvent() {
             accept="image/*"
             onChange={(e: any) => {
               if (e.target.files.length) {
-                console.log(e.target.files[0]);
                 const formData = new FormData();
                 formData.append('image', e.target.files[0]);
                 formData.append('filePath', 'boards/events/thumnail');
