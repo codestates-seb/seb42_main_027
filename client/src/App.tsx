@@ -33,7 +33,6 @@ function App() {
       setTimeout(() => {
         fetchUserInfo();
       }, 500);
-      console.log('정보를 불러왔습니다.');
     }
   }, [activeLogin, isEditInfo]);
 
