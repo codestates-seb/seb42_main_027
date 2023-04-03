@@ -4,12 +4,15 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import isLogin from 'utils/isLogin';
 import Button from 'components/common/Button';
 import Loading from 'components/review/Loading';
 import LectureReview2 from 'components/review/LectureReview2';
-import { FlexContainer } from './ReviewPage';
-import { SmallFont } from './TeacherDetail/Information';
+import LectureIntro from 'components/review/LectureIntro';
+import theme from 'theme';
+import GoBackMenu from 'components/board/post/goBackMenu';
+import { Title } from 'pages/FreeBoard';
+import { FlexContainer } from '../TeacherList/ReviewPage';
+import { SmallFont } from '../TeacherDetail/Information';
 
 const defaultData = {
   data: {
@@ -85,11 +88,14 @@ function LectureReviewList() {
   const [isPending, setIsPending] = useState<boolean>(true);
   const { lectureId } = useParams();
 
+  const Authorization = localStorage.getItem('token');
+
   const list = ['추천', '만족도', '제목', '작성자', '등록일'];
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/lectures/${lectureId}`, {
+      .get(`${process.env.REACT_APP_API_URL}/boards/lectures/${lectureId}`, {
         headers: {
           'ngrok-skip-browser-warning': 'asdasdas',
         },
@@ -98,31 +104,45 @@ function LectureReviewList() {
         return res.data;
       })
       .then(data => {
-        console.log(data);
         setData(data);
         setIsPending(false);
       });
   }, []);
 
   return (
-    <Container height={data.data.lectureReviews.length < 6 ? '100vh' : '100%'}>
+    <Container>
       {isPending ? (
         <Loading />
       ) : (
-        <FlexContainer dir="col">
+        <FlexContainer width="62.5%" height="100%" dir="col" gap="0.5rem">
+          <Title>
+            <H2>리뷰게시판</H2>
+            <p>강의에 대한 리뷰를 한 눈에 볼 수 있는 공간입니다.</p>
+          </Title>
+          <GoBackMenu />
+          {/* 강의 등록 - 관리자 */}
           <FlexContainer
-            display={isLogin() ? 'flex' : 'none'}
-            width="50rem"
-            justify={!data.data.lectureReviews.length ? 'center' : 'right'}
+            display={!data.data.lectureReviews.length ? 'flex' : 'none'}
+            width="100%"
           >
-            <Link to="create">
-              <PButton>리뷰 등록</PButton>
-            </Link>
+            {Authorization ? (
+              <Link to="create">
+                <PButton>리뷰 등록</PButton>
+              </Link>
+            ) : null}
           </FlexContainer>
+          {/* 강의 목록 */}
           {!data.data.lectureReviews.length ? (
-            <FlexContainer height="50vh">등록된 리뷰가 없습니다</FlexContainer>
+            <FlexContainer height="30vh">등록된 리뷰가 없습니다</FlexContainer>
           ) : (
-            <FlexContainer width="50rem" dir="col" gap="1rem">
+            <FlexContainer width="100%" dir="col" gap="1rem">
+              {data.data.lectureReviews.length ? (
+                <LectureIntro
+                  lecture={data.data.lectureReviews[0].lecture}
+                  teacher={data.data.teacher}
+                />
+              ) : null}
+
               <FlexContainer
                 width="100%"
                 borderTop="2px solid black"
@@ -177,6 +197,15 @@ type Container = {
 };
 
 const Container = styled.div<Container>`
-  height: ${props => props.height};
-  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 3rem;
+`;
+
+const H2 = styled.h2`
+  font-weight: bold;
+  font-size: ${theme.fontSizes.subTitle};
+  margin-bottom: ${theme.gap.px10};
 `;

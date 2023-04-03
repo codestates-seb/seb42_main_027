@@ -6,34 +6,51 @@ import styled from 'styled-components';
 import theme from 'theme';
 import Button from 'components/common/Button';
 import ProfileIcon from 'assets/icons/defaultProfileIcon';
+import StateIcon from 'assets/icons/stateIcon';
 import CountIcon from 'assets/icons/countIcon';
 
 import DeletePost from 'apis/board/deletePost';
 import getPostDetail from 'apis/board/getPostDetail';
+import PostVote from 'apis/board/postVote';
 import CalElapsedTime from '../post/calElapsedTime';
 
 import GoBackMenu from '../post/goBackMenu';
-import CommentList from './commentList';
+import WriteComment from '../comment/writeComment';
+import CommentBlock from './commentBlock';
 
 interface Data {
-  freeId?: number;
-  questionId?: number;
-  category?: 'string';
-  selected?: boolean;
+  freeId: number;
+  title: 'string';
+  content: 'string';
+  uploadImages?: string[] | [];
+  category: 'string';
+  viewCount: number;
+  voteCount: number;
+  createdAt: string;
+  modifiedAt?: string;
+  commentsListNum: number;
   member: {
     memberId: number;
     iconImageUrl?: string;
     displayName: string;
     state: string;
   };
-  title: 'string';
-  content: 'string';
-  viewCount: number;
-  voteCount: number;
+  comments: [];
+}
+
+interface Comment {
+  freeCommentId: number;
+  content: string;
   createdAt: string;
-  modifiedAt?: string;
-  commentsListNum: number;
-  // comments?: any;
+  modifiedAt: string | null;
+  voteCount: number;
+  member: {
+    memberId: number;
+    iconImageUrl?: string;
+    displayName: string;
+    state: string;
+  };
+  memberSim: boolean;
 }
 
 function PostContent() {
@@ -41,40 +58,33 @@ function PostContent() {
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(true);
   const [listData, setListData] = useState<Data | Record<string, never>>({});
+  const [checkState, setCheckState] = useState<boolean>(false);
+  const [voteTotal, SetVoteTotal] = useState<number>(0);
+  const [isVoteStatus, SetIsVoteStatus] = useState<string | null>('');
   const urlData = useLocation().pathname.slice(0, 5);
   const idData = Number(useParams().id);
 
-  let elapsedTime: number = CalElapsedTime(listData.createdAt);
   let calTime = '';
-
   if (!isPending) {
-    if (elapsedTime < 60) {
-      calTime = '방금 전';
-    } else if (elapsedTime < 3600) {
-      elapsedTime = Math.round(elapsedTime / 60);
-      calTime = `${elapsedTime}분 전`;
-    } else if (elapsedTime < 43200) {
-      elapsedTime = Math.round(elapsedTime / 3600);
-      calTime = `${elapsedTime}시간 전`;
-    } else if (elapsedTime < 129600) {
-      elapsedTime = Math.round(elapsedTime / 43200);
-      calTime = `${elapsedTime}일 전`;
-    } else {
-      calTime = listData.createdAt.slice(0, 24);
-    }
+    calTime = CalElapsedTime(listData.createdAt);
   }
+
+  const voteHandler = async (value: string) => {
+    try {
+      const res = await PostVote('frees', idData, value);
+      SetVoteTotal(res.data.freeTotalCount);
+      SetIsVoteStatus(res.data.status);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const fetchPostDetail = async () => {
     try {
-      if (urlData === '/free') {
-        const buffer = await getPostDetail('frees', idData);
-        setListData(buffer.data);
-        // listData = dummyData;
-        setIsPending(false);
-      } else {
-        // listData = dummyData2;
-      }
-      // listData = listData.data;
+      const buffer = await getPostDetail('frees', idData);
+      setListData(buffer.data);
+      SetVoteTotal(buffer.data.voteCount);
+      setIsPending(false);
     } catch (err) {
       console.error(err);
     }
@@ -84,15 +94,9 @@ function PostContent() {
     try {
       const confirm = window.confirm('게시글을 삭제하시겠습니까?');
       if (confirm) {
-        if (urlData === '/free') {
-          await DeletePost('frees', idData);
-          alert('게시물을 삭제하였습니다.');
-          navigate('/free');
-        } else {
-          await DeletePost('qnas/answers', idData);
-          alert('게시물을 삭제하였습니다.');
-          navigate('/qna');
-        }
+        await DeletePost('frees', idData);
+        // alert('게시물을 삭제하였습니다.');
+        navigate('/free');
       }
     } catch (err) {
       console.error(err);
@@ -101,18 +105,13 @@ function PostContent() {
 
   useEffect(() => {
     fetchPostDetail();
-  }, []);
-  console.log('userInfoData:', userInfo.memberId);
-
-  console.log(listData);
-  console.log('userInfo memeberId', userInfo.memberId);
-  // console.log('comments', listData.comments[0].content);
+  }, [checkState]);
 
   return (
     <Container>
       <GoBackMenu />
       {isPending ? (
-        <h1>로딩페이지가 들어갈 자리입니다.</h1>
+        <NoData>LOADING...</NoData>
       ) : (
         <div>
           <TitleDiv>
@@ -132,7 +131,15 @@ function PostContent() {
             <H2>{listData.title}</H2>
             <Writer>
               <ProfileIcon.Default />
-              <div>{listData.member.displayName}</div>
+              <NameDiv>
+                {listData.member.displayName}
+                {listData.member.state === 'TEACHER' ? (
+                  <StateIcon.Teacher title="강사" />
+                ) : null}
+                {listData.member.state === 'ADMIN' ? (
+                  <StateIcon.Admin title="관리자" />
+                ) : null}
+              </NameDiv>
               <div> · {calTime}</div>
               <View>
                 <CountIcon.View />
@@ -141,20 +148,46 @@ function PostContent() {
             </Writer>
           </TitleDiv>
           <MainDiv>
-            <div>{listData.content}</div>
+            <TextDiv dangerouslySetInnerHTML={{ __html: listData.content }} />
             <VoteDiv>
-              <Button.VoteDownBtn>
+              <Button.VoteDownBtn
+                className={isVoteStatus === 'DOWN' ? 'selected' : ''}
+                onClick={e => voteHandler('down')}
+              >
                 <CountIcon.VoteDown />
               </Button.VoteDownBtn>
-              <VoteCount>{listData.voteCount}</VoteCount>
-              <Button.VoteUpBtn>
+              <VoteCount>{voteTotal}</VoteCount>
+              <Button.VoteUpBtn
+                className={isVoteStatus === 'UP' ? 'selected' : ''}
+                onClick={e => voteHandler('up')}
+              >
                 <CountIcon.VoteUp />
               </Button.VoteUpBtn>
             </VoteDiv>
           </MainDiv>
           <CommentCnt>{listData.commentsListNum}개의 댓글</CommentCnt>
-          <CommentList />
-          {/* <CommentList data={listData.comments} /> */}
+          <CommentContainer>
+            <WriteCommentDiv>
+              <WriteComment
+                checkState={checkState}
+                setCheckState={setCheckState}
+              />
+            </WriteCommentDiv>
+            {listData.commentsListNum === 0 ? null : (
+              <div>
+                {listData.comments.map((ele: Comment) => {
+                  return (
+                    <CommentBlock
+                      key={ele.freeCommentId}
+                      data={ele}
+                      checkState={checkState}
+                      setCheckState={setCheckState}
+                    />
+                  );
+                })}
+              </div>
+            )}
+          </CommentContainer>
         </div>
       )}
     </Container>
@@ -191,6 +224,11 @@ const Writer = styled.div`
   align-items: center;
   position: relative;
 `;
+
+const NameDiv = styled.div`
+  margin: 0 3px;
+`;
+
 const View = styled.div`
   display: flex;
   position: absolute;
@@ -202,8 +240,9 @@ const Category = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
+  min-width: 40px;
   height: 18px;
+  padding: 0 calc(${theme.gap.px10} / 2);
   border: 1px solid ${theme.colors.pointColor};
   border-radius: 5px;
   font-size: ${theme.fontSizes.sm};
@@ -227,6 +266,14 @@ const MainDiv = styled.div`
   border-bottom: 1px solid ${theme.colors.gray};
 `;
 
+const NoData = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-top: ${theme.gap.px60};
+`;
+
 const VoteDiv = styled.div`
   display: flex;
   justify-content: right;
@@ -247,6 +294,75 @@ const VoteCount = styled.div`
 const CommentCnt = styled.div`
   padding: ${theme.gap.px20};
   border-bottom: 1px solid ${theme.colors.gray};
+`;
+
+const CommentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 253px;
+  margin-bottom: ${theme.gap.px100};
+`;
+
+const WriteCommentDiv = styled.div`
+  display: flex;
+  width: 100%;
+  padding-bottom: calc(${theme.gap.px60} + 7px);
+  border-bottom: 1px solid ${theme.colors.gray};
+`;
+
+const TextDiv = styled.div`
+  font-size: 1rem;
+  line-height: 2rem;
+  margin-bottom: ${theme.gap.px20};
+  white-space: pre-wrap;
+
+  .ql-size-small {
+    font-size: ${theme.fontSizes.sm};
+  }
+  .ql-size-large {
+    font-size: ${theme.fontSizes.md};
+  }
+  .ql-size-huge {
+    font-size: ${theme.fontSizes.lg};
+  }
+  strong {
+    font-weight: bold;
+  }
+  em {
+    font-style: italic;
+  }
+  blockquote {
+    border-left: 4px solid #ccc;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 16px;
+  }
+  ol {
+    padding-left: 3em;
+  }
+  ol > li {
+    list-style: decimal;
+    &.ql-indent-1 {
+      margin-left: 3em;
+    }
+  }
+  ul {
+    padding-left: 3em;
+  }
+  ul > li {
+    list-style: disc;
+    &.ql-indent-1 {
+      margin-left: 3em;
+    }
+  }
+  a {
+    text-decoration: underline;
+  }
+  img {
+    max-width: 50rem;
+    height: auto;
+  }
 `;
 
 export default PostContent;

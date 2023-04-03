@@ -1,17 +1,33 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-function Main() {
+import ReviewIntroduction from 'components/mainPage/ReviewIntroduction';
+import BoardIntroduction from 'components/mainPage/BoardIntroduction';
+
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
+function MainPage() {
+  useEffect(() => {
+    AOS.init({
+      duration: 2000,
+      once: false,
+    });
+  }, []);
+
   return (
     <Container>
-      <h1>메인페이지</h1>
+      <ReviewIntroduction />
+      <BoardIntroduction />
     </Container>
   );
 }
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export default Main;
+export default MainPage;

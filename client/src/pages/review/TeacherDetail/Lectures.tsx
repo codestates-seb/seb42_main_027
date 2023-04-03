@@ -5,10 +5,10 @@ import { useParams } from 'react-router';
 import styled from 'styled-components';
 import Lecture from 'components/review/Lecture';
 import { Link } from 'react-router-dom';
-import isLogin from 'utils/isLogin';
 import Button from 'components/common/Button';
 
-import { FlexContainer } from '../ReviewPage';
+import useUserInfoStore from 'stores/userInfoStore';
+import { FlexContainer } from '../TeacherList/ReviewPage';
 
 const defaultData = {
   lectureId: 1,
@@ -79,10 +79,12 @@ function Lectures() {
   const [data, setData] = useState(defaultData2);
   const [isPending, setIsPending] = useState<boolean>(true);
   const { teacherId } = useParams();
+  const { userInfo } = useUserInfoStore(state => state);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     axios
-      .get(`${process.env.REACT_APP_API_URL}/teachers/${teacherId}`, {
+      .get(`${process.env.REACT_APP_API_URL}/boards/teachers/${teacherId}`, {
         headers: {
           'ngrok-skip-browser-warning': 'asdasdas',
         },
@@ -91,7 +93,6 @@ function Lectures() {
         return res.data.data;
       })
       .then(data => {
-        console.log(data);
         setData(data);
         setIsPending(false);
       });
@@ -104,7 +105,7 @@ function Lectures() {
       ) : (
         <FlexContainer dir="col">
           <FlexContainer
-            display={isLogin() ? 'flex' : 'none'}
+            display={userInfo.state === 'ADMIN' ? 'flex' : 'none'}
             width="100%"
             justify={!data.lectures.length ? 'center' : 'right'}
           >

@@ -7,9 +7,14 @@ import Input from 'components/common/Input';
 import theme from 'theme';
 import login from 'apis/login';
 import { useIsLoginStore } from 'stores/loginStore';
-import { Container, Title } from 'components/member/memberStyledComponents';
+import {
+  Body,
+  Container,
+  Title,
+} from 'components/member/memberStyledComponents';
 import getUserInfo from 'apis/getUserInfo';
 import useUserInfoStore from 'stores/userInfoStore';
+import { Link } from 'react-router-dom';
 import BaseButton from '../components/common/BaseButton';
 
 const { colors } = theme;
@@ -17,12 +22,15 @@ const { colors } = theme;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 100%;
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
   margin-bottom: 1rem;
+  button {
+    margin-right: 0.3rem;
+  }
 `;
 
 const Separator = styled.span`
@@ -43,6 +51,9 @@ function Login() {
   const [loginError, setLoginError] = useState('');
   const { setIsLoginInStore } = useIsLoginStore(state => state);
   const { userInfo, setUserInfo } = useUserInfoStore(state => state);
+
+  const googleLoginUrl =
+    'https://accounts.google.com/o/oauth2/auth?client_id=557076266512-26m0oio1d43tguk02g1fur7umuarvse2.apps.googleusercontent.com&redirect_uri=http://localhost:8080/login/oauth2/code/google&response_type=code&scope=email%20profile%20openid&access_type=offline';
   const navigate = useNavigate();
   const pathData = {
     email: '',
@@ -70,33 +81,42 @@ function Login() {
     }
   };
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoginError(
-      '아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.',
-    );
-    if (!password) setLoginError('암호를 입력하세요.');
-    if (!email) setLoginError('이메일를 입력하세요.');
 
-    pathData.email = email;
-    pathData.password = password;
-    try {
-      const data = await login(pathData);
-      navigate(-1);
-      setIsLoginInStore(true);
-      fetchUserInfo();
-      console.log('data', data);
-    } catch (error) {
-      setFailedLogin(true);
-      console.error(error);
+    if (isPasswordInputOpen) {
+      setLoginError(
+        '아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.',
+      );
+      if (!password) setLoginError('암호를 입력하세요.');
+      if (!email) setLoginError('이메일를 입력하세요.');
+
+      pathData.email = email;
+      pathData.password = password;
+      try {
+        await login(pathData);
+        navigate(-1);
+        setIsLoginInStore(true);
+        fetchUserInfo();
+      } catch (error) {
+        setFailedLogin(true);
+        console.error(error);
+      }
+    } else {
+      setIsPasswordInputOpen(true);
     }
   };
 
+  const handleClickGoogleLogin = () => {
+    window.open(googleLoginUrl, '_blank', 'height=600');
+  };
+
   return (
-    <div>
+    <Body>
       <Container>
         <Title>로그인</Title>
-        <Form>
+
+        <Form onSubmit={handleSubmit}>
           <Input
             value={email}
             onChange={handleChangeEmail}
@@ -119,7 +139,7 @@ function Login() {
                 color="pointColor"
                 size="md"
                 disabled={false}
-                onClick={handleSubmit}
+                type="submit"
               >
                 로그인
               </BaseButton>
@@ -133,19 +153,29 @@ function Login() {
                 다음
               </BaseButton>
             )}
-            <BaseButton color="white" size="md" disabled={false}>
+            <BaseButton
+              onClick={handleClickGoogleLogin}
+              color="white"
+              size="md"
+              disabled
+            >
               Google 로그인
             </BaseButton>
           </ButtonGroup>
         </Form>
+
         {failedLogin ? <FailLoginMessage>{loginError}</FailLoginMessage> : null}
         <ButtonGroup>
-          <PButton>이메일 찾기</PButton>
+          <Link to="/findemail">
+            <PButton>이메일 찾기</PButton>
+          </Link>
           <Separator>|</Separator>
-          <PButton>암호 찾기</PButton>
+          <Link to="/findpassword">
+            <PButton>암호 찾기</PButton>
+          </Link>
         </ButtonGroup>
       </Container>
-    </div>
+    </Body>
   );
 }
 

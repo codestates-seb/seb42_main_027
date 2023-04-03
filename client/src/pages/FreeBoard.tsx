@@ -35,20 +35,18 @@ const Container = styled.div`
 const Main = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  height: 100%;
   max-width: 62.5%;
   margin: 0 auto;
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   width: 100%;
   height: 150px;
   padding: 45px 42px;
   border-radius: 25px;
   background-color: ${theme.colors.palePurple};
+  margin-top: ${theme.gap.px40};
 `;
 
 const H2 = styled.h2`

@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import { boardMenuStore } from 'stores/boardMenuStore';
+import { boardSortStore } from 'stores/boardSortStore';
+
 import styled from 'styled-components';
 import theme from 'theme';
 import Button from 'components/common/Button';
@@ -8,15 +11,19 @@ import { HiPencil } from 'react-icons/hi';
 import { MdMenuOpen } from 'react-icons/md';
 
 function FreeBoardMenu() {
-  const [selectMenu, setSelectMenu] = useState('0');
+  const { selectedMenuStore, setSelectedMenuStore } = boardMenuStore(
+    state => state,
+  );
   const [sortMenuOpen, setSortMenuOpen] = useState(false);
-  const [selectSort, setSelectSort] = useState('최신순');
+  const { selectedSortStore, setSelectedSortStore } = boardSortStore(
+    state => state,
+  );
 
   const urlData = useLocation().pathname.slice(0, 4);
 
   const menuSelectHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e.target instanceof Element) {
-      setSelectMenu(e.target.id);
+      setSelectedMenuStore(e.target.id);
     }
   };
   const sortMenuOpenHandler = () => {
@@ -24,7 +31,7 @@ function FreeBoardMenu() {
   };
   const sortSelectHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e.target instanceof Element) {
-      setSelectSort(e.target.id);
+      setSelectedSortStore(e.target.id);
     }
   };
   return (
@@ -47,68 +54,68 @@ function FreeBoardMenu() {
 
       {urlData === '/fre' ? (
         <Category>
-          {selectMenu === '0' ? (
+          {selectedMenuStore === '전체' ? (
             <Button.SubMenuBtn
-              id="0"
+              id="전체"
               className="selected"
               onClick={menuSelectHandler}
             >
               전체
             </Button.SubMenuBtn>
           ) : (
-            <Button.SubMenuBtn id="0" onClick={menuSelectHandler}>
+            <Button.SubMenuBtn id="전체" onClick={menuSelectHandler}>
               전체
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '1' ? (
+          {selectedMenuStore === '공지' ? (
             <Button.SubMenuBtn
-              id="1"
+              id="공지"
               className="selected"
               onClick={menuSelectHandler}
             >
               공지
             </Button.SubMenuBtn>
           ) : (
-            <Button.SubMenuBtn id="1" onClick={menuSelectHandler}>
+            <Button.SubMenuBtn id="공지" onClick={menuSelectHandler}>
               공지
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '2' ? (
+          {selectedMenuStore === '일상' ? (
             <Button.SubMenuBtn
-              id="2"
+              id="일상"
               className="selected"
               onClick={menuSelectHandler}
             >
               일상
             </Button.SubMenuBtn>
           ) : (
-            <Button.SubMenuBtn id="2" onClick={menuSelectHandler}>
+            <Button.SubMenuBtn id="일상" onClick={menuSelectHandler}>
               일상
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '3' ? (
+          {selectedMenuStore === '정보' ? (
             <Button.SubMenuBtn
-              id="3"
+              id="정보"
               className="selected"
               onClick={menuSelectHandler}
             >
               정보
             </Button.SubMenuBtn>
           ) : (
-            <Button.SubMenuBtn id="3" onClick={menuSelectHandler}>
+            <Button.SubMenuBtn id="정보" onClick={menuSelectHandler}>
               정보
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '4' ? (
+          {selectedMenuStore === '유머' ? (
             <Button.SubMenuBtn
-              id="4"
+              id="유머"
               className="selected"
               onClick={menuSelectHandler}
             >
               유머
             </Button.SubMenuBtn>
           ) : (
-            <Button.SubMenuBtn id="4" onClick={menuSelectHandler}>
+            <Button.SubMenuBtn id="유머" onClick={menuSelectHandler}>
               유머
             </Button.SubMenuBtn>
           )}
@@ -116,120 +123,120 @@ function FreeBoardMenu() {
       ) : null}
       {urlData === '/qna' ? (
         <Category>
-          {selectMenu === '0' ? (
+          {selectedMenuStore === '전체' ? (
             <Button.SubMenuBtn
-              id="0"
+              id="전체"
               className="selected"
               onClick={menuSelectHandler}
             >
               전체
             </Button.SubMenuBtn>
           ) : (
-            <Button.SubMenuBtn id="0" onClick={menuSelectHandler}>
+            <Button.SubMenuBtn id="전체" onClick={menuSelectHandler}>
               전체
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '1' ? (
+          {selectedMenuStore === '공지' ? (
             <Button.SubMenuBtn
-              id="1"
+              id="공지"
               className="selected"
               onClick={menuSelectHandler}
             >
               공지
             </Button.SubMenuBtn>
           ) : (
-            <Button.SubMenuBtn id="1" onClick={menuSelectHandler}>
+            <Button.SubMenuBtn id="공지" onClick={menuSelectHandler}>
               공지
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '2' ? (
+          {selectedMenuStore === '국어' ? (
             <Button.SubMenuBtn
-              id="2"
+              id="국어"
               className="selected"
               onClick={menuSelectHandler}
             >
               국어
             </Button.SubMenuBtn>
           ) : (
-            <Button.SubMenuBtn id="2" onClick={menuSelectHandler}>
+            <Button.SubMenuBtn id="국어" onClick={menuSelectHandler}>
               국어
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '3' ? (
+          {selectedMenuStore === '영어' ? (
             <Button.SubMenuBtn
-              id="3"
+              id="영어"
               className="selected"
               onClick={menuSelectHandler}
             >
               영어
             </Button.SubMenuBtn>
           ) : (
-            <Button.SubMenuBtn id="3" onClick={menuSelectHandler}>
+            <Button.SubMenuBtn id="영어" onClick={menuSelectHandler}>
               영어
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '4' ? (
+          {selectedMenuStore === '수학' ? (
             <Button.SubMenuBtn
-              id="4"
+              id="수학"
               className="selected"
               onClick={menuSelectHandler}
             >
               수학
             </Button.SubMenuBtn>
           ) : (
-            <Button.SubMenuBtn id="4" onClick={menuSelectHandler}>
+            <Button.SubMenuBtn id="수학" onClick={menuSelectHandler}>
               수학
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '5' ? (
+          {selectedMenuStore === '사탐' ? (
             <Button.SubMenuBtn
-              id="5"
+              id="사탐"
               className="selected"
               onClick={menuSelectHandler}
             >
               사탐
             </Button.SubMenuBtn>
           ) : (
-            <Button.SubMenuBtn id="5" onClick={menuSelectHandler}>
+            <Button.SubMenuBtn id="사탐" onClick={menuSelectHandler}>
               사탐
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '6' ? (
+          {selectedMenuStore === '과탐' ? (
             <Button.SubMenuBtn
-              id="6"
+              id="과탐"
               className="selected"
               onClick={menuSelectHandler}
             >
               과탐
             </Button.SubMenuBtn>
           ) : (
-            <Button.SubMenuBtn id="6" onClick={menuSelectHandler}>
+            <Button.SubMenuBtn id="과탐" onClick={menuSelectHandler}>
               과탐
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '7' ? (
+          {selectedMenuStore === '국사' ? (
             <Button.SubMenuBtn
-              id="7"
+              id="국사"
               className="selected"
               onClick={menuSelectHandler}
             >
               국사
             </Button.SubMenuBtn>
           ) : (
-            <Button.SubMenuBtn id="7" onClick={menuSelectHandler}>
+            <Button.SubMenuBtn id="국사" onClick={menuSelectHandler}>
               국사
             </Button.SubMenuBtn>
           )}
-          {selectMenu === '8' ? (
+          {selectedMenuStore === '기타' ? (
             <Button.SubMenuBtn
-              id="8"
+              id="기타"
               className="selected"
               onClick={menuSelectHandler}
             >
               기타
             </Button.SubMenuBtn>
           ) : (
-            <Button.SubMenuBtn id="8" onClick={menuSelectHandler}>
+            <Button.SubMenuBtn id="기타" onClick={menuSelectHandler}>
               기타
             </Button.SubMenuBtn>
           )}
@@ -241,27 +248,27 @@ function FreeBoardMenu() {
           onClick={sortMenuOpenHandler}
         >
           <MdMenuOpen />
-          <div>{selectSort}</div>
+          <div>{selectedSortStore}</div>
         </FilterOpenBtn>
         {sortMenuOpen ? (
           <SortModal>
             <FilterSelectBtn
               id="최신순"
-              className={selectSort === '최신순' ? 'selected' : ''}
+              className={selectedSortStore === '최신순' ? 'selected' : ''}
               onMouseDown={sortSelectHandler}
             >
               최신순
             </FilterSelectBtn>
             <FilterSelectBtn
               id="추천순"
-              className={selectSort === '추천순' ? 'selected' : ''}
+              className={selectedSortStore === '추천순' ? 'selected' : ''}
               onMouseDown={sortSelectHandler}
             >
               추천순
             </FilterSelectBtn>
             <FilterSelectBtn
               id="조회순"
-              className={selectSort === '조회순' ? 'selected' : ''}
+              className={selectedSortStore === '조회순' ? 'selected' : ''}
               onMouseDown={sortSelectHandler}
             >
               조회순

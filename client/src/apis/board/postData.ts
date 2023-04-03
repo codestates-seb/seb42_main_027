@@ -6,13 +6,14 @@ type PostData = {
   title: string;
   content: string;
   category: string;
+  uploadImages: string[] | [];
   createdAt: string;
 };
 
 const PostData = async (data: PostData, board: string) => {
   const response = await axios.post(`${apiUrl}/boards/${board}`, data, {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `${localStorage.getItem('token')}`,
       'ngrok-skip-browser-warning': '69420',
     },
   });

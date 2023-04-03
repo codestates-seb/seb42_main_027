@@ -10,7 +10,7 @@ type PostData = {
 const PostComment = async (data: PostData, board: string, id: number) => {
   const response = await axios.post(`${apiUrl}/comments/${board}/${id}`, data, {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `${localStorage.getItem('token')}`,
       'ngrok-skip-browser-warning': '69420',
     },
   });

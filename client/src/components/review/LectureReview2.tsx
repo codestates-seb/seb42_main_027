@@ -1,8 +1,7 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/require-default-props */
-import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
-import { FlexContainer } from 'pages/review/ReviewPage';
+import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import { SmallFont } from 'pages/review/TeacherDetail/Information';
 import { BsFillHandThumbsUpFill } from 'react-icons/bs';
 import { AiFillStar } from 'react-icons/ai';
@@ -44,6 +43,7 @@ function LectureReview2({
 }: Props) {
   return (
     <Container>
+      {/* 추천수 */}
       <FlexContainer
         width="10rem"
         dir="col"
@@ -59,10 +59,12 @@ function LectureReview2({
         </SmallFont>
         <SmallFont>{voteCount}</SmallFont>
       </FlexContainer>
+      {/* 평점 */}
       <FlexContainer width="10rem" padding="0 0 0 3rem" gap="0.2rem">
         <AiFillStar color="gold" size="1.5rem" />
         <SmallFont>{starPoint}</SmallFont>
       </FlexContainer>
+      {/* 강의 소개 및 타이틀 */}
       <FlexContainer
         width="70rem"
         dir="col"
@@ -73,15 +75,19 @@ function LectureReview2({
         <VerySmallGrayFont>{`${lecture.title}`}</VerySmallGrayFont>
 
         <SmallFont2>
-          <Link to={`/lecturereviewdetail/${lectureReviewId}`}>{`${title.slice(
-            0,
-            20,
-          )}... (${totalCommentCount})`}</Link>
+          <Link to={`/lecturereviewdetail/${lectureReviewId}`}>
+            {title.length > 20
+              ? `${title.slice(0, 20)}... (${totalCommentCount})`
+              : `${title} (${totalCommentCount})`}
+          </Link>
         </SmallFont2>
       </FlexContainer>
+      {/* 작성자 */}
       <FlexContainer width="15rem">
         <VerySmallGrayFont>
-          {`${member.displayName.slice(0, 5)}...`}
+          {member.displayName.length > 5
+            ? `${member.displayName.slice(0, 7)}...`
+            : `${member.displayName}`}
         </VerySmallGrayFont>
       </FlexContainer>
       <FlexContainer width="20rem">
@@ -115,6 +121,9 @@ const VerySmallGrayFont = styled.div`
 const SmallFont2 = styled.div`
   font-size: 1.1rem;
   cursor: pointer;
+  :hover {
+    color: red;
+  }
 `;
 
 const BestBox = styled.div`

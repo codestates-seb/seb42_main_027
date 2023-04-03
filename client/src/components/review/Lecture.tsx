@@ -2,10 +2,11 @@
 /* eslint-disable react/require-default-props */
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
-import { FlexContainer } from 'pages/review/ReviewPage';
+import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import { Link, useParams } from 'react-router-dom';
-import isLogin from 'utils/isLogin';
 import axios from 'axios';
+import useUserInfoStore from 'stores/userInfoStore';
+import { BsStarFill } from 'react-icons/bs';
 
 type Props = {
   first?: boolean;
@@ -30,12 +31,13 @@ type Props = {
 
 function Lecture({ lecture, first }: Props) {
   const { teacherId } = useParams();
+  const { userInfo } = useUserInfoStore(state => state);
   return (
     <Container first={first}>
-      <FlexContainer width="5rem">
+      <FlexContainer width="12%">
         <MiddleFont>{lecture.teacher.name}</MiddleFont>
       </FlexContainer>
-      <FlexContainer width="25rem" dir="col" align="start" gap="0.3rem">
+      <FlexContainer width="62%" dir="col" align="start" gap="0.3rem">
         <StatusBox>{lecture.status}</StatusBox>
         <IntroSpan>{`${lecture.introduction}`}</IntroSpan>
         <Link to={`/lecturereviewlist/${lecture.lectureId}`}>
@@ -43,15 +45,16 @@ function Lecture({ lecture, first }: Props) {
         </Link>
         <SmallFont>+ 자세히 보기</SmallFont>
       </FlexContainer>
-      <FlexContainer width="3rem">
-        ⭐️ {lecture.starPointAverage.toFixed(1)}
+      <FlexContainer width="12%" gap="0.4rem">
+        <BsStarFill size="20px" color="gold" />
+        <span>{lecture.starPointAverage.toFixed(1)}</span>
       </FlexContainer>
-      <FlexContainer width="5rem">
+      <FlexContainer width="14%">
         {lecture.totalReviewCount} Reviews
       </FlexContainer>
       <FlexContainer
         dir="col"
-        display={isLogin() && teacherId ? 'flex' : 'none'}
+        display={userInfo.state === 'ADMIN' && teacherId ? 'flex' : 'none'}
       >
         <Link to={`updateLecture/${lecture.lectureId}`}>
           <button>수정</button>
@@ -60,7 +63,7 @@ function Lecture({ lecture, first }: Props) {
           onClick={() => {
             axios
               .delete(
-                `${process.env.REACT_APP_API_URL}/lectures/${lecture.lectureId}`,
+                `${process.env.REACT_APP_API_URL}/boards/lectures/${lecture.lectureId}`,
                 {
                   headers: { 'ngrok-skip-browser-warning': '69420' },
                 },
@@ -84,6 +87,7 @@ type Container = {
 };
 
 const Container = styled.div<Container>`
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

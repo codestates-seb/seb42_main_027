@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
-import { FlexContainer } from 'pages/review/ReviewPage';
+import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import Filter from './Filter';
 
 type Props = {
@@ -23,7 +23,7 @@ function SortBar({
   sortTag,
   setButtonOpen,
 }: Props) {
-  const sortArr: string[] = ['최신순', '평점순', '이름순', '랜덤'];
+  const sortArr: string[] = ['평점순', '최신순', '이름순', '랜덤'];
 
   const sortTagHandler = (e: any) => {
     setSortTag(e.target.value);
@@ -77,5 +77,10 @@ const PointBtn = styled.button<PointBtn>`
     cursor: pointer;
     background-color: #525392;
     color: white;
+  }
+  @media screen and (max-width: 600px) {
+    width: 4rem;
+    height: 2.125rem;
+    font-size: small;
   }
 `;

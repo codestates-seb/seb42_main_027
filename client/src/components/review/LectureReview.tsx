@@ -2,8 +2,7 @@
 /* eslint-disable react/require-default-props */
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
-import { FlexContainer } from 'pages/review/ReviewPage';
-import { SmallFont } from 'pages/review/TeacherDetail/Information';
+import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import { BsFillHandThumbsUpFill } from 'react-icons/bs';
 import { AiFillStar } from 'react-icons/ai';
 
@@ -52,6 +51,7 @@ function LectureReview({
 
   return (
     <Container>
+      {/* 추천수 */}
       <FlexContainer
         width="10rem"
         dir="col"
@@ -67,10 +67,12 @@ function LectureReview({
         </SmallFont>
         <SmallFont>{voteCount}</SmallFont>
       </FlexContainer>
+      {/* 평점 */}
       <FlexContainer width="10rem" padding="0 0 0 3rem" gap="0.2rem">
         <AiFillStar color="gold" size="1.5rem" />
         <SmallFont>{starPoint}</SmallFont>
       </FlexContainer>
+      {/* 강의 소개 및 타이틀 */}
       <FlexContainer
         width="60rem"
         dir="col"
@@ -78,18 +80,23 @@ function LectureReview({
         gap="0.4rem"
         padding="0 0 0 2rem"
       >
-        <VerySmallGrayFont>{`${lecture.title}(${totalCommentCount})`}</VerySmallGrayFont>
+        <VerySmallGrayFont>{lecture.title}</VerySmallGrayFont>
 
-        <SmallFont2 onClick={reviewOpenHandler}>{`${title.slice(
-          0,
-          20,
-        )}... (${totalCommentCount})`}</SmallFont2>
+        <SmallFont2 onClick={reviewOpenHandler}>
+          {title.length > 20
+            ? `${title.slice(0, 20)}... (${totalCommentCount})`
+            : `${title} (${totalCommentCount})`}
+        </SmallFont2>
       </FlexContainer>
+      {/* 작성자 */}
       <FlexContainer width="15rem">
         <VerySmallGrayFont>
-          {`${member.displayName.slice(0, 5)}...`}
+          {member.displayName.length > 5
+            ? `${member.displayName.slice(0, 7)}...`
+            : `${member.displayName}`}
         </VerySmallGrayFont>
       </FlexContainer>
+      {/* 생성날짜 */}
       <FlexContainer width="20rem">
         <VerySmallGrayFont>{createdAt.slice(0, 10)}</VerySmallGrayFont>
       </FlexContainer>
@@ -119,7 +126,8 @@ const VerySmallGrayFont = styled.div`
 `;
 
 const SmallFont2 = styled.div`
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
 `;
 
@@ -128,4 +136,8 @@ const BestBox = styled.div`
   background-color: red;
   color: white;
   border-radius: 1rem;
+`;
+
+const SmallFont = styled.div`
+  text-align: center;
 `;

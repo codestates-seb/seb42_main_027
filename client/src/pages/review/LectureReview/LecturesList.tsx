@@ -9,10 +9,9 @@ import Carousel from 'components/review/Carousel';
 import SubjectMenu from 'components/review/SubjectMenu';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Button from 'components/common/Button';
 
 import Loading from 'components/review/Loading';
-import { FlexContainer } from './ReviewPage';
+import { FlexContainer } from '../TeacherList/ReviewPage';
 
 type LectureType = {
   lectureId: number;
@@ -50,7 +49,7 @@ function LecturesList() {
   const [subject, setSubject] = useState<string>('전체');
   const [grade, setGrade] = useState<string>('전체');
   const [platform, setPlatform] = useState<string>('전체');
-  const [sortTag, setSortTag] = useState<string>('최신순');
+  const [sortTag, setSortTag] = useState<string>('평점순');
   const [search, setSearch] = useState<string>('');
   const [reverse, setReverse] = useState<string>('정순');
   const [lectures, setLectures] = useState<LectureType[]>([]); // 서버에서 받아올 선생 정보
@@ -60,10 +59,9 @@ function LecturesList() {
   const [isPending, setIsPending] = useState(true);
 
   useEffect(() => {
-    setIsPending(true);
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/lectures?${
+        `${process.env.REACT_APP_API_URL}/boards/lectures?${
           subject !== '전체' ? `subject=${subject}&` : ''
         }${sortTag !== '최신순' ? `sort=${sortTag}&` : ''}${
           grade !== '전체' ? `grade=${grade}&` : ''
@@ -77,10 +75,11 @@ function LecturesList() {
         },
       )
       .then((res: any) => {
-        console.log(res.data.data);
-        console.log(res.data.pageInfo);
         setLectures(res.data.data);
         setPageInfo(res.data.pageInfo);
+        setIsPending(false);
+      })
+      .catch(() => {
         setIsPending(false);
       });
   }, [subject, sortTag, search, curPage, grade, platform, reverse]);
@@ -117,7 +116,7 @@ function LecturesList() {
       {isPending ? (
         <Loading />
       ) : (
-        <FlexContainer dir="col">
+        <FlexContainer width="50rem" dir="col">
           {!lectures.length ? (
             <FlexContainer height="50vh">등록된 강의가 없습니다</FlexContainer>
           ) : (
@@ -134,7 +133,6 @@ function LecturesList() {
                     totalReviewCount: el.totalReviewCount,
                     gradeTags: el.gradeTags,
                     subjectTags: el.subjectTags,
-
                     teacher: el.teacher,
                   }}
                   first={index === 0}
@@ -142,15 +140,14 @@ function LecturesList() {
               );
             })
           )}
+          <Pagenation
+            size={pageInfo.totalPages}
+            currentPage={curPage}
+            pageSize={pageInfo.size}
+            setCurPage={setCurPage}
+          />
         </FlexContainer>
       )}
-
-      <Pagenation
-        size={pageInfo.totalPages}
-        currentPage={curPage}
-        pageSize={pageSize}
-        setCurPage={setCurPage}
-      />
     </FlexContainer>
   );
 }
@@ -178,5 +175,3 @@ const SubjectSelectButton = styled.div<SubjectSelectButton>`
   align-items: center;
   cursor: pointer;
 `;
-
-const PButton = Button.PointBtn;

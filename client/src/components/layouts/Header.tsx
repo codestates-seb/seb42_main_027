@@ -1,27 +1,44 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
 import { useIsLoginStore } from 'stores/loginStore';
-import Toggle from '../common/Toggle';
+import { boardMenuStore } from 'stores/boardMenuStore';
+import { boardSortStore } from 'stores/boardSortStore';
+// import Toggle from '../common/Toggle';
 import theme from '../../theme';
 
 function Header() {
   const { isLoginInStore, setIsLoginInStore } = useIsLoginStore(state => state);
+  const { setSelectedMenuStore } = boardMenuStore(state => state);
+  const { setSelectedSortStore } = boardSortStore(state => state);
   const navigate = useNavigate();
+  const location = useLocation();
+
   const logOutHandler = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
     setIsLoginInStore(false);
+    if (location.pathname === '/mypage') {
+      navigate('/');
+    } else {
+      window.location.reload();
+    }
   };
 
   const handleClickMypage = () => {
     navigate('/mypage');
   };
+
+  const menuResetHandler = () => {
+    setSelectedMenuStore('전체');
+    setSelectedSortStore('최신순');
+  };
+
   return (
     <Container>
       <Left>
         <Link to="/">
-          <Title>yanoljimalja</Title>
+          <Title>일타</Title>
         </Link>
         <UL>
           <Link to="/ReviewPage">
@@ -30,21 +47,22 @@ function Header() {
           <Link to="/lectureslist">
             <LI>강의리뷰</LI>
           </Link>
-          <Link to="/qna">
+          <Link onClick={menuResetHandler} to="/qna">
             <LI>질문게시판</LI>
           </Link>
-          <Link to="/free">
+          <Link onClick={menuResetHandler} to="/free">
             <LI>자유게시판</LI>
           </Link>
-
-          <LI>이벤트</LI>
-          <LI>스터디카페</LI>
+          <Link to="/eventlist">
+            <LI>이벤트</LI>
+          </Link>
+          {/* <LI>스터디카페</LI> */}
         </UL>
       </Left>
       <Right>
-        <ToggleDiv>
+        {/* <ToggleDiv>
           <Toggle />
-        </ToggleDiv>
+        </ToggleDiv> */}
         {isLoginInStore ? (
           <BtnDiv>
             <Button.WhiteBtn onClick={handleClickMypage}>
@@ -82,6 +100,7 @@ const Container = styled.div`
 
 const Title = styled.h1`
   display: flex;
+  min-width: 65px;
   align-items: center;
   font-weight: bold;
   color: ${theme.colors.pointColor};

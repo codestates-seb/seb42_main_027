@@ -5,10 +5,9 @@ import GlobalStyle from 'GlobalStyles';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router';
-import styled from 'styled-components';
 
-import { FlexContainer } from '../ReviewPage';
-import { Container } from './Information';
+import { FlexContainer } from '../TeacherList/ReviewPage';
+
 import {
   UpdateContainer,
   ColumDiv,
@@ -16,8 +15,7 @@ import {
   Textarea,
   CardContainer,
   UploadButton,
-  Span,
-} from '../CreateTeacher';
+} from '../TeacherList/CreateTeacher';
 
 const defaultData = {
   gradeTags: ['1'],
@@ -33,6 +31,7 @@ const defaultData = {
   analects: ['1'],
   profile: ['1'],
 };
+
 function UpdateLecture() {
   const { teacherId, lectureId } = useParams();
 
@@ -47,9 +46,10 @@ function UpdateLecture() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/lectures/${lectureId}`)
+      .get(`${process.env.REACT_APP_API_URL}/boards/lectures/${lectureId}`, {
+        headers: { 'ngrok-skip-browser-warning': '69420' },
+      })
       .then((res: any) => {
-        console.log(res.data.data);
         return res.data.data;
       })
       .then(data => {
@@ -81,7 +81,8 @@ function UpdateLecture() {
     '영어',
     '수학',
     '한국사',
-    '경제/정.법',
+    '경제',
+    '정법',
     '지리',
     '윤리',
     '역사',
@@ -125,8 +126,7 @@ function UpdateLecture() {
       !title ||
       !subjectTag.length ||
       !gradeTag.length ||
-      !platformTag.length ||
-      !introduction
+      !platformTag.length
     ) {
       alert('빈 곳을 채워주세요!');
     } else {
@@ -141,10 +141,14 @@ function UpdateLecture() {
       };
 
       axios
-        .patch(`${process.env.REACT_APP_API_URL}/lectures/${lectureId}`, data, {
-          headers: { 'ngrok-skip-browser-warning': '69420' },
-        })
-        .then(res => {
+        .patch(
+          `${process.env.REACT_APP_API_URL}/boards/lectures/${lectureId}`,
+          data,
+          {
+            headers: { 'ngrok-skip-browser-warning': '69420' },
+          },
+        )
+        .then(() => {
           navigate(-1);
         });
     }

@@ -6,11 +6,11 @@ import { Routes, Route, Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FlexContainer } from './ReviewPage';
-import Information from './TeacherDetail/Information';
-import Lectures from './TeacherDetail/Lectures';
-import TeacherReview from './TeacherDetail/TeacherReview';
-import CreateLecture from './TeacherDetail/CreateLecture';
-import UpdateLecture from './TeacherDetail/UpdateLecture';
+import Information from '../TeacherDetail/Information';
+import Lectures from '../TeacherDetail/Lectures';
+import TeacherReview from '../TeacherDetail/TeacherReview';
+import CreateLecture from '../TeacherDetail/CreateLecture';
+import UpdateLecture from '../TeacherDetail/UpdateLecture';
 
 function ReviewPageDetail() {
   const [selected, setSelected] = useState<string>('');
@@ -22,7 +22,7 @@ function ReviewPageDetail() {
       else if (param[key] === 'teacherReview') setSelected('수강 후기');
       else setSelected('강사 소개');
     }
-  }, [selected]);
+  }, [param]);
 
   return (
     <FlexContainer width="100%" dir="col">

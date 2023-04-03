@@ -24,15 +24,19 @@ type itemsProps = {
 
 const items: itemsProps[] = [
   {
-    item: 'http://placehold.it/1300x400',
+    item: 'https://cdn.discordapp.com/attachments/1081017804590952469/1090554650916311051/image.png',
     name: '이미지01',
   },
   {
-    item: 'http://placehold.it/1300x400/ff0000',
+    item: 'https://cdn.discordapp.com/attachments/1081017804590952469/1090556087935184906/image.png',
     name: '이미지02',
   },
   {
-    item: 'http://placehold.it/1300x400/00ffff',
+    item: 'https://cdn.discordapp.com/attachments/1081017804590952469/1092248819888050206/2023._4._3._9.44.jpg',
+    name: '이미지03',
+  },
+  {
+    item: 'https://cdn.discordapp.com/attachments/1081017804590952469/1090557122082787388/image.png',
     name: '이미지03',
   },
 ];
@@ -69,8 +73,8 @@ export const StyledSlider = styled(Slider)`
 
   .slick-list {
     //슬라이드 스크린
-    width: 90vw;
-    height: 10rem;
+    width: 98.9vw;
+    height: 25vw;
     margin: 0 auto;
     overflow-x: hidden;
     background: none;
@@ -89,6 +93,7 @@ export const StyledSlider = styled(Slider)`
 
   .slick-track {
     //이건 잘 모르겠음
+    width: 100%;
     height: 100%;
   }
 
@@ -107,7 +112,7 @@ export const StyledSlider = styled(Slider)`
 const SliderItem = styled.div`
   text-align: center;
   img {
-    max-width: 100%;
-    height: auto;
+    width: 100vw;
+    height: 25vw;
   }
 `;

@@ -3,26 +3,31 @@ import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import theme from 'theme';
 
+import { boardMenuStore } from 'stores/boardMenuStore';
+import { boardSortStore } from 'stores/boardSortStore';
+
 import getPostList from 'apis/board/getPostList';
-// import { dummyData, dummyData2 } from './dummyData';
+import Pagenation from '../Pagenation';
 import FreeBoardMenu from './boardMenu';
 import PostTitleBlock from './postTitleBlock';
 
 interface Data {
   freeId?: number;
   questionId?: number;
-  category?: 'string';
-  selected?: boolean;
+  category: string;
+  adoptAnswerId?: number;
   member: {
     memberId: number;
     iconImageUrl?: string;
     displayName: string;
     state: string;
   };
-  title: 'string';
-  content: 'string';
+  title: string;
+  content: string;
+  uploadImages?: string[] | [];
   viewCount: number;
   voteCount: number;
+  answerCount: number;
   createdAt: string;
   modifiedAt?: string;
   commentsListNum: number;
@@ -35,22 +40,45 @@ interface PageInfo {
   totalPages: number;
 }
 
+const DefaultPageInfo = {
+  page: 0,
+  size: 0,
+  totalElements: 0,
+  totalPages: 0,
+};
+
 function PostList() {
   const [isPending, setIsPending] = useState(true);
   const [listData, setListData] = useState<Data[] | []>([]);
+  const { selectedMenuStore } = boardMenuStore(state => state);
+  const { selectedSortStore } = boardSortStore(state => state);
+  const [pageInfo, setPageInfo] = useState<PageInfo>(DefaultPageInfo);
+  const [curPage, setCurPage] = useState<number>(1);
   const urlData = useLocation().pathname;
 
   const fetchPostList = async () => {
     try {
       if (urlData === '/free') {
-        const buffer = await getPostList('frees', 1);
+        const buffer = await getPostList(
+          'frees',
+          selectedMenuStore,
+          selectedSortStore,
+          curPage,
+        );
         setListData(buffer.data);
-        // listData = dummyData;
+        setPageInfo(buffer.pageInfo);
         setIsPending(false);
       } else if (urlData === '/qna') {
-        // listData = dummyData2;
+        const buffer = await getPostList(
+          'qnas/questions',
+          selectedMenuStore,
+          selectedSortStore,
+          curPage,
+        );
+        setListData(buffer.data);
+        setPageInfo(buffer.pageInfo);
+        setIsPending(false);
       }
-      // listData = listData.data;
     } catch (err) {
       console.error(err);
     }
@@ -58,30 +86,44 @@ function PostList() {
 
   useEffect(() => {
     fetchPostList();
-  }, []);
-
-  console.log('listData', listData);
+  }, [selectedMenuStore, selectedSortStore]);
 
   return (
     <Container>
       <FreeBoardMenu />
       {isPending ? (
         <MainDiv>
-          <h1>로딩페이지가 들어갈 자리입니다.</h1>
+          <NoData>LOADING...</NoData>
         </MainDiv>
       ) : (
         <MainDiv>
           {listData.length === 0 ? (
-            <h1>작성된 게시물이 없습니다.</h1>
+            <NoData>작성된 게시물이 없습니다.</NoData>
           ) : (
             <div>
-              {listData.map((ele: Data) => {
-                return <PostTitleBlock key={ele.freeId} ele={ele} />;
-              })}
+              {urlData === '/free' ? (
+                <div>
+                  {listData.map((ele: Data) => {
+                    return <PostTitleBlock key={ele.freeId} ele={ele} />;
+                  })}
+                </div>
+              ) : (
+                <div>
+                  {listData.map((ele: Data) => {
+                    return <PostTitleBlock key={ele.questionId} ele={ele} />;
+                  })}
+                </div>
+              )}
             </div>
           )}
         </MainDiv>
       )}
+      <Pagenation
+        size={pageInfo.totalPages}
+        currentPage={curPage}
+        pageSize={15}
+        setCurPage={setCurPage}
+      />
     </Container>
   );
 }
@@ -103,4 +145,13 @@ const MainDiv = styled.div`
     width: 100%;
   }
 `;
+
+const NoData = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-top: ${theme.gap.px60};
+`;
+
 export default PostList;

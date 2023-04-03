@@ -2,12 +2,22 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import GlobalStyle from 'GlobalStyles';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import styled from 'styled-components';
 import axios from 'axios';
 import { FlexContainer } from './ReviewPage';
+import {
+  UpdateContainer,
+  ColumDiv,
+  Input,
+  Textarea,
+  CardContainer,
+  UploadButton,
+  Img,
+  Span,
+} from './CreateTeacher';
 
-function CreateTeacher() {
+function UpdateTeacher() {
   const [name, setName] = useState<string>('');
   const [platformTag, setPlatformTag] = useState<string[]>([]);
   const [subjectTag, setSubjectTag] = useState<string[]>([]);
@@ -15,9 +25,16 @@ function CreateTeacher() {
   const [introduction, setIntroduction] = useState<string>('');
   const [profile, setProfile] = useState<string>('');
   const [analects, setAnalects] = useState<string>('');
-  const [imageUrl, setImageUrl] = useState<string>('none');
+  const [starPointAverage, setStarPointAverage] = useState<number>(4.2);
+  const [profileImage, setProfileImage] = useState<string>();
+  const [profilePreview, setProfilePreview] = useState(
+    'http://placehold.it/340X240',
+  );
+  const [realImage, setRealImage] = useState<string>();
+  const [realPreview, setRealPreview] = useState('http://placehold.it/340X240');
 
   const navigate = useNavigate();
+  const { teacherId } = useParams();
 
   const subjectArr: string[][] = [
     ['국어', '영어', '수학', '한국사'],
@@ -54,10 +71,42 @@ function CreateTeacher() {
   };
 
   useEffect(() => {
-    console.log('Rerendering!');
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/boards/teachers/${teacherId}`, {
+        headers: {
+          'ngrok-skip-browser-warning': 'asdasdas',
+        },
+      })
+      .then((res: any) => {
+        return res.data.data;
+      })
+      .then(data => {
+        setName(data.name);
+        setIntroduction(data.introduction);
+        setStarPointAverage(data.starPointAverage);
+        setProfileImage(data.profileImageUrl);
+        setRealImage(data.realImageUrl);
+        setProfile(data.profile.join('\n'));
+        setAnalects(data.analects.join('\n'));
+        setGradeTag(
+          data.gradeTags.map((el: any) => {
+            return el.gradeTag;
+          }),
+        );
+        setSubjectTag(
+          data.subjectTags.map((el: any) => {
+            return el.subjectTag;
+          }),
+        );
+        setPlatformTag(
+          data.platformTags.map((el: any) => {
+            return el.platformTag;
+          }),
+        );
+      });
   }, []);
 
-  const createHandler = () => {
+  const updateHandler = () => {
     if (
       !name ||
       !subjectTag.length ||
@@ -65,28 +114,32 @@ function CreateTeacher() {
       !platformTag.length ||
       !introduction ||
       !profile.length ||
-      !analects.length ||
-      !imageUrl
+      !analects.length
     ) {
       alert('빈 곳을 채워주세요!');
     } else {
       const data = {
         name,
-        subjectTag,
-        gradeTag,
-        platformTag,
         introduction,
         profile: profile.split('\n'),
         analects: analects.split('\n'),
-        imageUrl,
+        profileImageUrl: profileImage,
+        realImageUrl: realImage,
+        subjectTag,
+        gradeTag,
+        platformTag,
       };
 
       axios
-        .post(`${process.env.REACT_APP_API_URL}/teachers`, data, {
-          headers: {
-            'ngrok-skip-browser-warning': 'asdasdas',
+        .patch(
+          `${process.env.REACT_APP_API_URL}/boards/teachers/${teacherId}`,
+          data,
+          {
+            headers: {
+              'ngrok-skip-browser-warning': 'asdasdas',
+            },
           },
-        })
+        )
         .then(res => {
           navigate(-1);
         });
@@ -98,7 +151,79 @@ function CreateTeacher() {
       <GlobalStyle />
       <FlexContainer dir="col">
         <CardContainer>
-          <Img src="http://placehold.it/200X200" alt="dummyImage" />
+          {/* 프로필 사진 */}
+          <FlexContainer dir="col" align="start">
+            <label htmlFor="profile">프로필 사진</label>
+            <input
+              id="profile"
+              type="file"
+              accept="image/*"
+              onChange={(e: any) => {
+                if (e.target.files.length) {
+                  const formData = new FormData();
+                  formData.append('image', e.target.files[0]);
+                  formData.append('filePath', 'boards/teachers/profile-images');
+
+                  axios
+                    .post(`${process.env.REACT_APP_API_URL}/upload`, formData, {
+                      headers: {
+                        'ngrok-skip-browser-warning': 'asdasdas',
+                      },
+                    })
+                    .then(res => res.data.data)
+                    .then((data: string) => {
+                      setProfileImage(data);
+                    });
+
+                  const fileReader = new FileReader();
+                  fileReader.readAsDataURL(e.target.files[0]);
+                  fileReader.onload = (e: any) => {
+                    setProfilePreview(e.target.result);
+                  };
+                } else {
+                  setProfileImage('');
+                  setProfilePreview('http://placehold.it/340X240');
+                }
+              }}
+            />
+            <Img src={profilePreview} />
+          </FlexContainer>
+          {/* 실제 사진 */}
+          <FlexContainer dir="col" align="start">
+            <label htmlFor="real">실제 사진</label>
+            <input
+              id="real"
+              type="file"
+              accept="image/*"
+              onChange={(e: any) => {
+                if (e.target.files.length) {
+                  const formData = new FormData();
+                  formData.append('image', e.target.files[0]);
+                  formData.append('filePath', 'boards/teachers/real-images');
+                  axios
+                    .post(`${process.env.REACT_APP_API_URL}/upload`, formData, {
+                      headers: {
+                        'ngrok-skip-browser-warning': 'asdasdas',
+                      },
+                    })
+                    .then(res => res.data.data)
+                    .then((data: any) => {
+                      setRealImage(data);
+                    });
+
+                  const fileReader = new FileReader();
+                  fileReader.readAsDataURL(e.target.files[0]);
+                  fileReader.onload = (e: any) => {
+                    setRealPreview(e.target.result);
+                  };
+                } else {
+                  setRealImage('');
+                  setRealPreview('http://placehold.it/340X240');
+                }
+              }}
+            />
+            <Img src={realPreview} />
+          </FlexContainer>
           <ColumDiv>
             <label htmlFor="name">강사명</label>
             <Input
@@ -125,6 +250,8 @@ function CreateTeacher() {
                           id={el}
                           value={el}
                           type="checkbox"
+                          readOnly
+                          checked={subjectTag.includes(el)}
                           onClick={subjectClickHandler}
                         />
                         <label htmlFor={el}>{el}</label>
@@ -153,6 +280,8 @@ function CreateTeacher() {
                           id={el}
                           value={el}
                           type="checkbox"
+                          readOnly
+                          checked={gradeTag.includes(el)}
                           onClick={gradeClickHandler}
                         />
                         <label htmlFor={el}>{el}</label>
@@ -180,8 +309,9 @@ function CreateTeacher() {
                         <input
                           id={el}
                           value={el}
-                          readOnly
                           type="checkbox"
+                          readOnly
+                          checked={platformTag.includes(el)}
                           onClick={platformClickHandler}
                         />
                         <label htmlFor={el}>{el}</label>
@@ -194,7 +324,7 @@ function CreateTeacher() {
           </ColumDiv>
 
           <ColumDiv>
-            <label htmlFor="profile">프로필</label>
+            <label htmlFor="profile">경력</label>
             <Textarea
               id="profile"
               value={profile}
@@ -223,96 +353,21 @@ function CreateTeacher() {
               }}
             />
           </ColumDiv>
-          <Span>⭐️ 신입</Span>
+          <Span>⭐️ {starPointAverage}</Span>
         </CardContainer>
       </FlexContainer>
       <FlexContainer>
-        <UploadButton onClick={createHandler}>강사 등록</UploadButton>
+        <UploadButton onClick={updateHandler}>강사 수정</UploadButton>
         <UploadButton
           onClick={() => {
             navigate(-1);
           }}
         >
-          등록 취소
+          수정 취소
         </UploadButton>
       </FlexContainer>
     </UpdateContainer>
   );
 }
 
-export default CreateTeacher;
-
-export const UpdateContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  gap: 2rem;
-`;
-
-export const ColumDiv = styled.div`
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  gap: 0.5rem;
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border: 1px solid black;
-`;
-export const Textarea = styled.textarea`
-  width: 100%;
-  padding: 0.5rem;
-  height: 7rem;
-  margin-bottom: 1rem;
-`;
-
-export const UploadButton = styled.button`
-  width: fit-content;
-  height: 2.5rem;
-  padding: 0 0.6rem;
-  background-color: #1295ff;
-  color: white;
-  border: none;
-  cursor: pointer;
-  :hover {
-    background-color: #0088ff;
-  }
-`;
-
-export const CardContainer = styled.div`
-  width: 100%;
-  padding: 2rem 0.5rem;
-  background-color: white;
-  border: 0.3rem solid #6667ab;
-  border-radius: 1.2rem;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-`;
-
-export const Img = styled.img`
-  width: 25rem;
-  height: 15rem;
-  border-radius: 0.5rem;
-  background-color: #b8b8b8;
-`;
-
-export const Span = styled.span`
-  font-weight: bold;
-`;
-
-export const LargeSpan = styled.div`
-  width: 100%;
-  margin: 1rem 0;
-  font-size: large;
-  font-weight: bold;
-`;
+export default UpdateTeacher;

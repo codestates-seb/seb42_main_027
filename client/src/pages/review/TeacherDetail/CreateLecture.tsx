@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router';
 import styled from 'styled-components';
-import { FlexContainer } from '../ReviewPage';
+import { FlexContainer } from '../TeacherList/ReviewPage';
 
 import {
   UpdateContainer,
@@ -14,7 +14,7 @@ import {
   Textarea,
   CardContainer,
   UploadButton,
-} from '../CreateTeacher';
+} from '../TeacherList/CreateTeacher';
 
 const defaultData = {
   gradeTags: ['1'],
@@ -43,16 +43,13 @@ function CreateLecture() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(subjectTag);
-  }, [subjectTag]);
-
   const subjectArr: string[] = [
     '국어',
     '영어',
     '수학',
     '한국사',
-    '경제/정.법',
+    '경제',
+    '정법',
     '지리',
     '윤리',
     '역사',
@@ -103,7 +100,6 @@ function CreateLecture() {
       !subjectTag.length ||
       !gradeTag.length ||
       !platformTag.length ||
-      !introduction ||
       !status
     ) {
       alert('빈 곳을 채워주세요!');
@@ -119,7 +115,7 @@ function CreateLecture() {
       };
 
       axios
-        .post(`${process.env.REACT_APP_API_URL}/lectures`, data, {
+        .post(`${process.env.REACT_APP_API_URL}/boards/lectures`, data, {
           headers: {
             'ngrok-skip-browser-warning': '69420',
           },
@@ -135,6 +131,7 @@ function CreateLecture() {
       <GlobalStyle />
       <FlexContainer dir="col" width="30vw">
         <CardContainer>
+          {/* 제목 */}
           <ColumDiv>
             <label htmlFor="name">강의 제목</label>
             <Input
@@ -143,7 +140,7 @@ function CreateLecture() {
               onChange={e => setTitle(e.target.value)}
             />
           </ColumDiv>
-
+          {/* 상태 */}
           <ColumDiv>
             <label htmlFor="subject">강의 상태</label>
             <FlexContainer justify="start" gap="0.5rem">
@@ -165,7 +162,7 @@ function CreateLecture() {
               })}
             </FlexContainer>
           </ColumDiv>
-
+          {/* 과목 */}
           <ColumDiv>
             <label htmlFor="subject">과목</label>
             <select onChange={subjectClickHandler}>
@@ -179,7 +176,7 @@ function CreateLecture() {
               })}
             </select>
           </ColumDiv>
-
+          {/* 학년 */}
           <ColumDiv>
             <label htmlFor="grade">학년</label>
             <select onChange={gradeClickHandler}>
@@ -193,7 +190,7 @@ function CreateLecture() {
               })}
             </select>
           </ColumDiv>
-
+          {/* 플랫폼 */}
           <ColumDiv>
             <label htmlFor="platform">플랫폼</label>
             <select onChange={platformClickHandler}>
@@ -207,7 +204,7 @@ function CreateLecture() {
               })}
             </select>
           </ColumDiv>
-
+          {/* 강의 소개 */}
           <ColumDiv>
             <label htmlFor="introduction">강의 소개</label>
             <Textarea
@@ -220,8 +217,8 @@ function CreateLecture() {
           </ColumDiv>
         </CardContainer>
       </FlexContainer>
+      {/* 등록 버튼 */}
       <FlexContainer>
-        <UploadButton onClick={createHandler}>강의 등록</UploadButton>
         <UploadButton
           onClick={() => {
             navigate(-1);
@@ -229,6 +226,7 @@ function CreateLecture() {
         >
           등록 취소
         </UploadButton>
+        <UploadButton onClick={createHandler}>강의 등록</UploadButton>
       </FlexContainer>
     </UpdateContainer>
   );

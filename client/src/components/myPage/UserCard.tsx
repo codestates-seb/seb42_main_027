@@ -4,38 +4,48 @@ import patchUserInfo from 'apis/patchUserInfo';
 import styled from 'styled-components';
 import { validatePassword, validatePhoneNum } from 'utils/regex';
 import theme from 'theme';
-import EditUserInfoInput from './EditUserInfo';
+import patchUserPassword from 'apis/patchUserPassword';
+import EditUserInfoInput from './EditUserInfoInput';
+import EditUserInfo from './EditUserInfo';
+import userIcon from '../../assets/images/blank-profile-picture-973460_960_720.webp';
 
 const { colors } = theme;
 const { fontSizes } = theme;
 
 const UserCardContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  width: 50%;
-  margin: 0 auto;
-  margin-bottom: 3rem;
+  width: 25rem;
+  /* margin: 0 auto */
+  /* padding: 0 8rem; */
+  height: 100%;
+  box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1);
+  border-left: 0.1rem solid rgb(235, 235, 235);
+  z-index: 1;
 `;
 
 const ProfileImage = styled.img`
-  width: 14rem;
-  height: 14rem;
+  width: 10rem;
+  height: 10rem;
   object-fit: cover;
   border-radius: 50%;
-  margin-top: 2rem;
-  margin-right: 5rem;
+  box-shadow: 0px 0 5px rgba(0, 0, 0, 0.3);
+  margin-top: 8rem;
 `;
 
 const UserInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   margin-top: 1rem;
-  width: 60rem;
+  width: 20rem;
 `;
 
 const NameTagContainer = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   width: 100%;
 `;
@@ -43,7 +53,8 @@ const NameTagContainer = styled.div`
 const Name = styled.h2`
   font-size: 2rem;
   margin: 1rem 0;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
+  font-weight: 500;
 `;
 
 const UserState = styled.div`
@@ -59,73 +70,38 @@ const UserState = styled.div`
 
 const UserInfo = styled.p`
   font-size: ${fontSizes.md};
-  margin: 0.3rem 0;
+  color: ${colors.fontColor};
 `;
 
-const EditBtn = styled.span`
-  width: 100%;
-  text-align: end;
-  color: ${colors.gray};
-  cursor: pointer;
-  :hover {
-    color: ${colors.fontColor};
-  }
-`;
-
-const EditPasswordBtn = styled.span`
-  width: 100%;
-  color: ${colors.gray};
-  cursor: pointer;
-  :hover {
-    color: ${colors.fontColor};
-  }
-`;
-
-const EditUserInfoContainer = styled.div`
+const SideNav = styled.div`
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 0.5rem;
 `;
 
-function UserCard() {
+type MyPageMenuProps = {
+  color: string;
+};
+
+const MyPageMenu = styled.div<MyPageMenuProps>`
+  font-size: 1.3rem;
+  margin-top: 3rem;
+  color: ${({ color }) => color};
+  font-weight: 600;
+  cursor: pointer;
+`;
+
+type UserCardProps = {
+  sideNav: string;
+  setSideNav: React.Dispatch<React.SetStateAction<string>>;
+};
+
+function UserCard({ sideNav, setSideNav }: UserCardProps) {
   const { userInfo } = useUserInfoStore(state => state);
-  const [isEdit, setIsEdit] = useState(false);
-  const [isEditPassword, setIsEditPassword] = useState(false);
-
-  const [displayName, setDisplayName] = useState(userInfo.displayName);
-  const [isDisplayNameSuccess, setIsDisplayNameSuccess] = useState({
-    isSuccess: '',
-    errorMessage: '',
-  });
-
-  const [phoneNum, setPhoneNum] = useState(userInfo.phoneNumber);
-  const [isPhoneNumSuccess, setIsPhoneNumSuccess] = useState({
-    isSuccess: '',
-    errorMessage: '',
-  });
-
-  const [password, setPassword] = useState('');
-  const [isPasswordSuccess, setIsPasswordSuccess] = useState({
-    isSuccess: '',
-    errorMessage: '',
-  });
-
-  const [editPassword, setEditPassword] = useState('');
-  const [isEditPasswordSuccess, setIsEditPasswordSuccess] = useState({
-    isSuccess: '',
-    errorMessage: '',
-  });
-
-  const [confirmEditPassword, setConfirmEditPassword] = useState('');
-  const [isConfirmEditPasswordSuccess, setIsConfirmEditPasswordSuccess] =
-    useState({
-      isSuccess: '',
-      errorMessage: '',
-    });
 
   const userData = {
-    profileImage: 'https://i.pravatar.cc/150?img=7',
+    profileImage: `${userIcon}`,
     name: userInfo.username,
     email: userInfo.email,
     displayName: userInfo.displayName,
@@ -133,202 +109,52 @@ function UserCard() {
     password: userInfo.password,
   };
 
-  const colorSelector = (value: string) => {
-    if (value === '') {
-      return undefined;
-    }
-    if (value === 'true') {
-      return 'success';
-    }
-    return 'danger';
+  const handleClickMyProfile = () => {
+    setSideNav('myProfile');
   };
 
-  const handleChangeDisplayName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setDisplayName(value);
-    if (value.length === 0) {
-      setIsDisplayNameSuccess({
-        isSuccess: 'false',
-        errorMessage: '필수 정보입니다.',
-      });
-    } else if (value.length >= 2 && value.length < 5) {
-      setIsDisplayNameSuccess({ isSuccess: 'true', errorMessage: '' });
-    } else {
-      setIsDisplayNameSuccess({
-        isSuccess: 'false',
-        errorMessage: '2글자 이상 5글자 미만으로 입력해주세요.',
-      });
-    }
+  const handleClickPostsCommentList = () => {
+    setSideNav('PostsCommentList');
   };
 
-  const handleChangePhoneNum = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setPhoneNum(value);
-    if (value.length === 0) {
-      setIsPhoneNumSuccess({
-        isSuccess: 'false',
-        errorMessage: '필수 정보입니다.',
-      });
-    } else if (validatePhoneNum(value)) {
-      setIsPhoneNumSuccess({ isSuccess: 'true', errorMessage: '' });
-    } else {
-      setIsPhoneNumSuccess({
-        isSuccess: 'false',
-        errorMessage: '형직에 맞지 않는 번호입니다.',
-      });
-    }
+  const userStateSwitch = (state: string) => {
+    if (state === 'STUDENT') return '학생';
+    if (state === 'ADMIN') return '관리자';
+    return '강사';
   };
 
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-
-    setPassword(value);
-    if (value.length === 0) {
-      setIsPasswordSuccess({
-        isSuccess: 'false',
-        errorMessage: '필수 정보입니다.',
-      });
-    } else if (validatePassword(value)) {
-      setIsPasswordSuccess({ isSuccess: 'true', errorMessage: '' });
-    } else {
-      setIsPasswordSuccess({
-        isSuccess: 'false',
-        errorMessage: '8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.',
-      });
-    }
-  };
-  const handleChangeEditPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-
-    setEditPassword(value);
-    if (value.length === 0) {
-      setIsEditPasswordSuccess({
-        isSuccess: 'false',
-        errorMessage: '필수 정보입니다.',
-      });
-    } else if (validatePassword(value)) {
-      setIsEditPasswordSuccess({ isSuccess: 'true', errorMessage: '' });
-    } else {
-      setIsEditPasswordSuccess({
-        isSuccess: 'false',
-        errorMessage: '8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.',
-      });
-    }
-  };
-  const handleChangeConfirmEditPassword = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const { value } = e.target;
-
-    setConfirmEditPassword(value);
-    if (value.length === 0) {
-      setIsConfirmEditPasswordSuccess({
-        isSuccess: 'false',
-        errorMessage: '필수 정보입니다.',
-      });
-    } else if (editPassword === value) {
-      setIsConfirmEditPasswordSuccess({ isSuccess: 'true', errorMessage: '' });
-    } else {
-      setIsConfirmEditPasswordSuccess({
-        isSuccess: 'false',
-        errorMessage: '암호가 일치하지 않습니다.',
-      });
-    }
-  };
-  const pathData = {
-    phoneNumber: phoneNum,
-    password: isEditPassword ? editPassword : userInfo.password,
-    displayName,
-  };
-
-  const handleClickEdit = async () => {
-    setIsEdit(true);
-    if (isEdit === true) {
-      try {
-        await patchUserInfo(pathData, userInfo.memberId);
-        alert('정보가 수정되었습니다.');
-        setIsEdit(false);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
-  const handleClickEditPassword = () => {
-    setIsEditPassword(!isEditPassword);
-  };
-
-  useEffect(() => {
-    setDisplayName(userInfo.displayName);
-    setPhoneNum(userInfo.phoneNumber);
-  }, [userInfo]);
   return (
     <UserCardContainer>
       <ProfileImage src={userData.profileImage} />
       <UserInfoContainer>
         <NameTagContainer>
-          <Name>{userData.name}</Name>
-          {userInfo.memberState === 'STUDENT' ? (
-            <UserState> 학생</UserState>
-          ) : (
-            <UserState> 강사</UserState>
-          )}
+          <Name>{userData.displayName}</Name>
+          <UserState> {userStateSwitch(userInfo.state)}</UserState>
         </NameTagContainer>
-        <UserInfo>이메일: {userData.email}</UserInfo>
-        {isEdit ? (
-          <>
-            <EditUserInfoContainer>
-              <EditUserInfoInput
-                placeholder={userData.displayName}
-                onChange={handleChangeDisplayName}
-                value={displayName}
-                errorMessage={isDisplayNameSuccess.errorMessage}
-                color={colorSelector(isDisplayNameSuccess.isSuccess)}
-              />
-              <EditUserInfoInput
-                placeholder={userData.phoneNumber}
-                onChange={handleChangePhoneNum}
-                value={phoneNum}
-                errorMessage={isPhoneNumSuccess.errorMessage}
-                color={colorSelector(isPhoneNumSuccess.isSuccess)}
-              />
-            </EditUserInfoContainer>
-            <EditPasswordBtn onClick={handleClickEditPassword}>
-              {isEditPassword ? '암호' : '암호 수정'}
-            </EditPasswordBtn>
-            {isEditPassword ? (
-              <EditUserInfoContainer>
-                <EditUserInfoInput
-                  placeholder="현재 암호"
-                  onChange={handleChangePassword}
-                  value={password}
-                  errorMessage={isPasswordSuccess.errorMessage}
-                  color={colorSelector(isPasswordSuccess.isSuccess)}
-                />
-                <EditUserInfoInput
-                  placeholder="새로운 암호"
-                  onChange={handleChangeEditPassword}
-                  value={editPassword}
-                  errorMessage={isEditPasswordSuccess.errorMessage}
-                  color={colorSelector(isEditPasswordSuccess.isSuccess)}
-                />
-                <EditUserInfoInput
-                  placeholder="생로운 암호 확인"
-                  onChange={handleChangeConfirmEditPassword}
-                  value={confirmEditPassword}
-                  errorMessage={isConfirmEditPasswordSuccess.errorMessage}
-                  color={colorSelector(isConfirmEditPasswordSuccess.isSuccess)}
-                />
-              </EditUserInfoContainer>
-            ) : null}
-          </>
-        ) : (
-          <>
-            <UserInfo>전화번호: {userData.phoneNumber}</UserInfo>
-            <UserInfo>닉네임: {userData.displayName}</UserInfo>
-          </>
-        )}
-        <EditBtn onClick={handleClickEdit}>{isEdit ? '저장' : '수정'}</EditBtn>
+        <UserInfo>{userData.email}</UserInfo>
+        <SideNav>
+          <MyPageMenu
+            color={
+              sideNav === 'myProfile'
+                ? `${colors.pointColor}`
+                : `${colors.fontColor}`
+            }
+            onClick={handleClickMyProfile}
+          >
+            내프로필
+          </MyPageMenu>
+          <MyPageMenu
+            color={
+              sideNav === 'PostsCommentList'
+                ? `${colors.pointColor}`
+                : `${colors.fontColor}`
+            }
+            onClick={handleClickPostsCommentList}
+          >
+            나의 작성 게시물 및 댓글
+          </MyPageMenu>
+        </SideNav>
+        {/* <EditUserInfo /> */}
       </UserInfoContainer>
     </UserCardContainer>
   );
