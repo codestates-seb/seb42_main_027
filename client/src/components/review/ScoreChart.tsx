@@ -63,6 +63,7 @@ function ScoreChart({
   lectures,
 }: Props) {
   const scoreArr = [5, 4, 3, 2, 1];
+  const scoreArrReverse = [1, 2, 3, 4, 5];
   const totalStarCount = scoreArr.reduce((acc, cur) => {
     return acc + starPointCount[`${cur}점갯수`];
   }, 0);
@@ -78,7 +79,7 @@ function ScoreChart({
         <SmallFont>수강만족도</SmallFont>
         <BigFont>{starPointAverage.toFixed(1)}</BigFont>
         <BigFont>
-          {scoreArr.map((el, index) => {
+          {scoreArrReverse.map((el, index) => {
             return el <= Number(starPointAverage.toFixed(1)) ? (
               <BsStarFill key={index} color="gold" />
             ) : el - 0.5 <= Number(starPointAverage.toFixed(1)) ? (
