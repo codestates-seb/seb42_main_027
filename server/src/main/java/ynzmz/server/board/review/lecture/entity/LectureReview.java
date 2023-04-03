@@ -23,6 +23,8 @@ public class LectureReview implements Vote {
     private Long lectureReviewId;
     private String title;
     private int starPoint;
+
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String content;
     private String createdAt;
     private String modifiedAt;

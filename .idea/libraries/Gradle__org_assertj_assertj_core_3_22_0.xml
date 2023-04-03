@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.assertj:assertj-core:3.22.0">
+  <library name="Gradle: org.assertj:assertj-core:3.22.0" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.assertj/assertj-core/3.22.0/c300c0c6a24559f35fa0bd3a5472dc1edcd0111e/assertj-core-3.22.0.jar!/" />
     </CLASSES>

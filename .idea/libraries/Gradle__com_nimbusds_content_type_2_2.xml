@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: com.nimbusds:content-type:2.2">
+  <library name="Gradle: com.nimbusds:content-type:2.2" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.nimbusds/content-type/2.2/9a894bce7646dd4086652d85b88013229f23724b/content-type-2.2.jar!/" />
     </CLASSES>

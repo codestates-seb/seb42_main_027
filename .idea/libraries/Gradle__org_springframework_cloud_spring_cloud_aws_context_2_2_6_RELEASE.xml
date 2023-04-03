@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.springframework.cloud:spring-cloud-aws-context:2.2.6.RELEASE">
+  <library name="Gradle: org.springframework.cloud:spring-cloud-aws-context:2.2.6.RELEASE" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-aws-context/2.2.6.RELEASE/e26fddbe55135d8ff23e9620e22eda649f5772ea/spring-cloud-aws-context-2.2.6.RELEASE.jar!/" />
     </CLASSES>

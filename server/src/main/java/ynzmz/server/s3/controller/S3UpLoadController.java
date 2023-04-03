@@ -22,12 +22,12 @@ public class S3UpLoadController {
     @PostMapping
     public ResponseEntity<?> uploadFile(@ModelAttribute MultipartFile image,
                                         @RequestParam(required = false) String filePath) throws IOException {
-        // filePath 에서 어디 테이블인지 구분해야함.
-        //파일 업로드
+        //파일 업로드 ( 경로에 파일명 검색 -> 파일명 생성 -> 저장 )
         String imagePatch = s3UpLoadService.uploadFile(image, filePath);
+
         // 이미지 업로드후 경로를 S3File 테이블에 상태값 TEMP 로 저장
         s3FileInfoService.saveTempS3FileInfo(imagePatch);
-        // 글이 작성되면, 아이디값을 붙히고, ACTIVE 로 상태값 변경 ( 이건 각각 controller에서 )
+        // 글이 작성되면, 아이디값을 붙히고, ACTIVE 로 상태값 변경 ( 이건 각각 controller 에서 )
         // TEMP 상태인것은 S3CleanupScheduler 에서 한시간마다 자동삭제
 
         return new ResponseEntity<>(new SingleResponseDto<>(imagePatch), HttpStatus.OK);
@@ -35,7 +35,7 @@ public class S3UpLoadController {
 
     @GetMapping
     public ResponseEntity<?> getFileNameByS3Patch(@RequestParam(required = false) String filePath){
-        List<String> strings = s3UpLoadService.listFilesInBucketDirectory(filePath);
+        List<String> strings = s3UpLoadService.getFileNamesInPath(filePath);
 
         return new ResponseEntity<>(new SingleResponseDto<>(strings), HttpStatus.OK);
     }

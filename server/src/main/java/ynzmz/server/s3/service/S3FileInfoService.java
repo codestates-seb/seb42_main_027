@@ -1,6 +1,7 @@
 package ynzmz.server.s3.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ynzmz.server.s3.entity.S3FileInfo;
 import ynzmz.server.s3.repository.S3FileInfoRepository;
@@ -11,7 +12,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class S3FileInfoService {
+
     private final S3FileInfoRepository s3FileInfoRepository;
+
+    @Value("${s3.upload.bucket-Url}")
+    private String imageBucket;
 
     public List<S3FileInfo> findS3FileInfosForTemp(){
         return s3FileInfoRepository.findByStatus(S3FileInfo.Status.TEMP);
@@ -117,33 +122,28 @@ public class S3FileInfoService {
     }
     public String getFilePathToFileUrl(String fileUrl) {
         if(fileUrl == null) return null;
-        String prefix = "https://main-project-28-img.s3.ap-northeast-2.amazonaws.com/";
-        return fileUrl.replace(prefix, "");
+        return fileUrl.replace(imageBucket, "");
     }
     public List<String> getFilePathsByFileUrls(List<String> fileUrls) {
-        String prefix = "https://main-project-28-img.s3.ap-northeast-2.amazonaws.com/";
         List<String> filePaths = new ArrayList<>();
-        for(String fileUrl : fileUrls) filePaths.add(fileUrl.replace(prefix, ""));
+        for(String fileUrl : fileUrls) filePaths.add(fileUrl.replace(imageBucket, ""));
         return filePaths;
     }
 
     public String extractTable(String filePath) {
+        // boards/teachers/real-images/9.jpg 예시경로
         String[] splitPath = filePath.split("/");
-
-        if (splitPath.length == 0) {
-            return null;
-        }
-
+        if (splitPath.length == 0) return null;
         String category = splitPath[0];
 
         switch (category) {
             case "boards":
-                if (splitPath.length < 3) return splitPath[1];
                 String subCategory = splitPath[1];
                 if (subCategory.equals("qnas")) return splitPath[2].equals("answers") ? "answer" : "question";
                 else if (subCategory.equals("frees")) return "free";
                 else if (subCategory.equals("teachers")) return "teacher";
                 else if (subCategory.equals("reviews") && splitPath[2].equals("lectures")) return "lectureReview";
+                else if (subCategory.equals("events")) return "event";
                 break;
             case "members": return "member";
             case "emoticons": return "emoticon";

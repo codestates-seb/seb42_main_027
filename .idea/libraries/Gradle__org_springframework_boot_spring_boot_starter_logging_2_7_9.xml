@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.springframework.boot:spring-boot-starter-logging:2.7.9">
+  <library name="Gradle: org.springframework.boot:spring-boot-starter-logging:2.7.9" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-logging/2.7.9/4b1afa6083581924606c7cc892933b63ec5810d3/spring-boot-starter-logging-2.7.9.jar!/" />
     </CLASSES>

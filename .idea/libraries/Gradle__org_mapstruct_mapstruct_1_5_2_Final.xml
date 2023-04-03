@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.mapstruct:mapstruct:1.5.2.Final">
+  <library name="Gradle: org.mapstruct:mapstruct:1.5.2.Final" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct/1.5.2.Final/835b31a56daf7eed653864fa70af59afd017c9cc/mapstruct-1.5.2.Final.jar!/" />
     </CLASSES>

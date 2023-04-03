@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.7.9">
+  <library name="Gradle: org.springframework.boot:spring-boot-starter-tomcat:2.7.9" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-tomcat/2.7.9/a1076e6ffa1d771d3ccd18e72280317a152323e8/spring-boot-starter-tomcat-2.7.9.jar!/" />
     </CLASSES>

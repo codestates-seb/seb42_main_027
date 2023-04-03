@@ -34,6 +34,10 @@ mail:
   address:
     admin: likedubu@naver.com
 
+s3:
+  upload:
+    bucket-Url: https://main-project-28-img.s3.ap-northeast-2.amazonaws.com/
+
 jwt:
   #  key: ${JWT_SECRET_KEY}   # 민감한 정보는 시스템 환경 변수에서 로드한다.
   key: ENC(LjuWVsYfzpKEDBb7y1w6/Q6352rGfYBVIT0qJfktJwael4SdhN5XG86bhnIkVa0c)

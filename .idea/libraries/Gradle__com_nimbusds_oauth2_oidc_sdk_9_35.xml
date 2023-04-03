@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: com.nimbusds:oauth2-oidc-sdk:9.35">
+  <library name="Gradle: com.nimbusds:oauth2-oidc-sdk:9.35" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.nimbusds/oauth2-oidc-sdk/9.35/7bfdf91bc4ae265f6c49a367bc0ed0e47d0e3a97/oauth2-oidc-sdk-9.35.jar!/" />
     </CLASSES>

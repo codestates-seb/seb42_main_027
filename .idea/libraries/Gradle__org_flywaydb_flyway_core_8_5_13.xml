@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.flywaydb:flyway-core:8.5.13">
+  <library name="Gradle: org.flywaydb:flyway-core:8.5.13" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.flywaydb/flyway-core/8.5.13/659e5942926c38af7347b3e9f1f7658b22aa78b7/flyway-core-8.5.13.jar!/" />
     </CLASSES>

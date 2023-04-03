@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.attoparser:attoparser:2.0.5.RELEASE">
+  <library name="Gradle: org.attoparser:attoparser:2.0.5.RELEASE" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.attoparser/attoparser/2.0.5.RELEASE/a93ad36df9560de3a5312c1d14f69d938099fa64/attoparser-2.0.5.RELEASE.jar!/" />
     </CLASSES>

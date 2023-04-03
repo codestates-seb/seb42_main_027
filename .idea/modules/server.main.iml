@@ -4,7 +4,11 @@
     <facet type="web" name="Web">
       <configuration>
         <webroots />
-        <sourceRoots />
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/../../server/build/generated/sources/annotationProcessor/java/main" />
+          <root url="file://$MODULE_DIR$/../../server/src/main/java" />
+          <root url="file://$MODULE_DIR$/../../server/src/main/resources" />
+        </sourceRoots>
       </configuration>
     </facet>
     <facet type="jpa" name="JPA">

@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: com.sun.mail:jakarta.mail:1.6.7">
+  <library name="Gradle: com.sun.mail:jakarta.mail:1.6.7" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.mail/jakarta.mail/1.6.7/319df0e9d536c1a01acdfe49b6e82b97d2393073/jakarta.mail-1.6.7.jar!/" />
     </CLASSES>

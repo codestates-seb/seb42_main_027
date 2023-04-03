@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.springframework.security:spring-security-oauth2-client:5.7.7">
+  <library name="Gradle: org.springframework.security:spring-security-oauth2-client:5.7.7" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-oauth2-client/5.7.7/1436a5c8a5c9b63ae888eee5132cc97db5b5c7ce/spring-security-oauth2-client-5.7.7.jar!/" />
     </CLASSES>

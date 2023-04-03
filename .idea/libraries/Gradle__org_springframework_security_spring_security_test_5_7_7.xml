@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.springframework.security:spring-security-test:5.7.7">
+  <library name="Gradle: org.springframework.security:spring-security-test:5.7.7" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-test/5.7.7/f6a85aa77132b8fa53e9d0aaf49c5a253ae48dfa/spring-security-test-5.7.7.jar!/" />
     </CLASSES>

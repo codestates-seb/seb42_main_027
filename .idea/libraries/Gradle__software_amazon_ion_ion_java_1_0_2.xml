@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: software.amazon.ion:ion-java:1.0.2">
+  <library name="Gradle: software.amazon.ion:ion-java:1.0.2" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/software.amazon.ion/ion-java/1.0.2/ee9dacea7726e495f8352b81c12c23834ffbc564/ion-java-1.0.2.jar!/" />
     </CLASSES>

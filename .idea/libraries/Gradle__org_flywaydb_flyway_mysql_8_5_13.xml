@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.flywaydb:flyway-mysql:8.5.13">
+  <library name="Gradle: org.flywaydb:flyway-mysql:8.5.13" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.flywaydb/flyway-mysql/8.5.13/c19e9c61ccb820e6384ed992f5a5c82a3469a9f4/flyway-mysql-8.5.13.jar!/" />
     </CLASSES>

@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3">
+  <library name="Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/jakarta.xml.bind/jakarta.xml.bind-api/2.3.3/48e3b9cfc10752fba3521d6511f4165bea951801/jakarta.xml.bind-api-2.3.3.jar!/" />
     </CLASSES>

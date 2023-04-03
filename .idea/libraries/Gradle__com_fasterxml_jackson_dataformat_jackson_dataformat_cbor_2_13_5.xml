@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.13.5">
+  <library name="Gradle: com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.13.5" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.dataformat/jackson-dataformat-cbor/2.13.5/76f77a8427bf8f387cfdae5773cc5bec8cc4f604/jackson-dataformat-cbor-2.13.5.jar!/" />
     </CLASSES>

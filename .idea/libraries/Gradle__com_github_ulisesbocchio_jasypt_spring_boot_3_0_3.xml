@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: com.github.ulisesbocchio:jasypt-spring-boot:3.0.3">
+  <library name="Gradle: com.github.ulisesbocchio:jasypt-spring-boot:3.0.3" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ulisesbocchio/jasypt-spring-boot/3.0.3/b841a2e9adb4a6590aef28fe2fd8f7c52288d190/jasypt-spring-boot-3.0.3.jar!/" />
     </CLASSES>

@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.thymeleaf:thymeleaf:3.0.15.RELEASE">
+  <library name="Gradle: org.thymeleaf:thymeleaf:3.0.15.RELEASE" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf/3.0.15.RELEASE/13e3296a03d8a597b734d832ed8656139bf9cdd8/thymeleaf-3.0.15.RELEASE.jar!/" />
     </CLASSES>

@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.springframework.boot:spring-boot-starter-validation:2.7.9">
+  <library name="Gradle: org.springframework.boot:spring-boot-starter-validation:2.7.9" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-validation/2.7.9/7cfc9801c13eefd3d20499c2371d921eb11c328/spring-boot-starter-validation-2.7.9.jar!/" />
     </CLASSES>

@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.unbescape:unbescape:1.1.6.RELEASE">
+  <library name="Gradle: org.unbescape:unbescape:1.1.6.RELEASE" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.unbescape/unbescape/1.1.6.RELEASE/7b90360afb2b860e09e8347112800d12c12b2a13/unbescape-1.1.6.RELEASE.jar!/" />
     </CLASSES>
