@@ -58,6 +58,20 @@ function CharacterCard({
               >
                 {el.platformTags[0].platformTag}
               </Span>
+              {/* {el.subjectTags.map((el, index) => {
+                return (
+                  <Span
+                    key={index}
+                    onClick={() => {
+                      setSubject(el.subjectTag);
+                      setPlatform('전체');
+                      setCurPage(1);
+                    }}
+                  >
+                    {el.subjectTag}
+                  </Span>
+                );
+              })} */}
               <Span
                 onClick={() => {
                   setSubject(el.subjectTags[0].subjectTag);
@@ -125,7 +139,7 @@ export default CharacterCard;
 
 const Container = styled.div`
   margin: 2rem 0 4rem 0;
-  width: 50rem;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -141,7 +155,7 @@ const CardContainer = styled.div`
   padding: 0.5rem;
   padding-bottom: 1rem;
   background-color: white;
-  border: 0.3rem solid #6667ab;
+  border: 1px solid #6667ab;
   border-radius: 1.2rem;
 
   display: flex;
@@ -160,7 +174,8 @@ const Img = styled.img`
 `;
 
 const Span = styled.span`
-  font-weight: bold;
+  font-size: 0.85rem;
+
   cursor: pointer;
   :hover {
     color: red;

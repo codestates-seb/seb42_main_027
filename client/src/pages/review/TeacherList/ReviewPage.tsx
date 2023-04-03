@@ -53,7 +53,7 @@ function ReviewPage() {
   const [teachers, setTeachers] = useState<Teachers[]>([]); // 서버에서 받아올 선생 정보
   const [pageInfo, setPageInfo] = useState<PageInfo>(defaultPageInfo);
   const [curPage, setCurPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(6);
+  const [pageSize, setPageSize] = useState<number>(10);
   const [isPending, setIsPending] = useState(true);
 
   const { userInfo } = useUserInfoStore(state => state);
@@ -125,7 +125,7 @@ function ReviewPage() {
       {isPending ? (
         <Loading />
       ) : (
-        <FlexContainer width="62.5%" dir="col">
+        <FlexContainer width="80%" dir="col">
           {!teachers.length ? (
             <FlexContainer height="50vh">등록된 강사가 없습니다</FlexContainer>
           ) : (

@@ -1,7 +1,7 @@
 import GlobalStyle from 'GlobalStyles';
 import styled from 'styled-components';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
-
+import theme from 'theme';
 import { useEffect, useState } from 'react';
 
 type Props = {
@@ -41,14 +41,14 @@ export default SearchBar;
 
 const SearchInput = styled.input`
   width: 32rem;
-  border: none;
+  border: 1px solid ${theme.colors.gray};
   padding: 0.7rem 0.8rem;
   border-radius: 5rem;
-  background-color: #b8b8b8;
+  background-color: none;
   transition: all 0.2s;
-  border: 2px solid white;
+  font-size: ${theme.fontSizes.sm};
 
   :focus {
-    border: 2px solid #6667ab;
+    border: 1px solid #6667ab;
   }
 `;
