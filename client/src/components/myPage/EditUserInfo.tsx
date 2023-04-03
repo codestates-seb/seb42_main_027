@@ -351,8 +351,6 @@ function EditUserInfo() {
   };
 
   useEffect(() => {
-    console.log('ccc');
-
     setDisplayName(userInfo.displayName);
     setPhoneNum(userInfo.phoneNumber);
   }, [userInfo, isEdit]);

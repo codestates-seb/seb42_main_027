@@ -164,11 +164,9 @@ function FindForgotPassword() {
         const response = await postForgotPassword(pathData);
         setIsSuccess(true);
         setIsOpen(true);
-        console.log(response);
       } catch (error: any) {
         console.error(error);
         // ! 수정 필요
-        console.log('error message', error.response.data);
         if (error.response.data === '일치하는 회원정보를 찾을 수 없습니다.') {
           setIsSuccess(false);
         }
