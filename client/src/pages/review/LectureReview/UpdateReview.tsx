@@ -122,7 +122,6 @@ function UpdateReview() {
         </FlexContainer>
 
         <FlexContainer>
-          <UploadButton onClick={updateHandler}>후기 수정</UploadButton>
           <UploadButton
             onClick={() => {
               navigate(-1);
@@ -130,6 +129,7 @@ function UpdateReview() {
           >
             수정 취소
           </UploadButton>
+          <UploadButton onClick={updateHandler}>후기 수정</UploadButton>
         </FlexContainer>
       </FlexContainer>
     </Container>
