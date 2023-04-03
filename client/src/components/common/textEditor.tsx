@@ -23,7 +23,6 @@ function TextEditor({
   path,
 }: Props) {
   const QuillRef: any = useRef();
-  console.log('textContent', textContent);
 
   // const ArrayHandler = (value: string) => {
   //   if (uploadImages) {
