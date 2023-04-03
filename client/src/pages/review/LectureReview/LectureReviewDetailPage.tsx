@@ -222,9 +222,17 @@ function LectureReviewDetailPage() {
                             Authorization,
                             'ngrok-skip-browser-warning': '69420',
                           },
+                          data: {
+                            teacherId: detailData.teacher.teacherId,
+                            lectureId: detailData.lecture.lectureId,
+                          },
                         },
                       )
                       .then(() => {
+                        navigate(-1);
+                      })
+                      .catch(() => {
+                        alert('Fail');
                         navigate(-1);
                       });
                   }
