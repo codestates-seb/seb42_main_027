@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import isLogin from 'utils/isLogin';
 import GoBackMenu from 'components/board/post/goBackMenu';
 import { Title } from 'pages/FreeBoard';
+import useUserInfoStore from 'stores/userInfoStore';
 
 const defaultDetailData = {
   eventId: 1,
@@ -30,6 +31,8 @@ function EventDetail() {
   const { eventId } = useParams();
   const Authorization = localStorage.getItem('token');
   const navigate = useNavigate();
+
+  const { userInfo } = useUserInfoStore(state => state);
 
   useEffect(() => {
     setIsPending(true);
@@ -69,28 +72,33 @@ function EventDetail() {
             width="100%"
             justify="right"
           >
-            <Link to="update">
-              <button>수정</button>
-            </Link>
-            <button
-              onClick={() => {
-                axios
-                  .delete(
-                    `${process.env.REACT_APP_API_URL}/boards/events/ours/${eventId}`,
-                    {
-                      headers: {
-                        Authorization,
-                        'ngrok-skip-browser-warning': '69420',
-                      },
-                    },
-                  )
-                  .then(() => {
-                    navigate(-1);
-                  });
-              }}
+            <FlexContainer
+              display={userInfo.state === 'ADMIN' ? 'flex' : 'none'}
+              justify="right"
             >
-              삭제
-            </button>
+              <Link to="update">
+                <button>수정</button>
+              </Link>
+              <button
+                onClick={() => {
+                  axios
+                    .delete(
+                      `${process.env.REACT_APP_API_URL}/boards/events/ours/${eventId}`,
+                      {
+                        headers: {
+                          Authorization,
+                          'ngrok-skip-browser-warning': '69420',
+                        },
+                      },
+                    )
+                    .then(() => {
+                      navigate(-1);
+                    });
+                }}
+              >
+                삭제
+              </button>
+            </FlexContainer>
           </FlexContainer>
           <GoBackMenu />
           <FlexContainer width="100%" dir="col">
