@@ -248,138 +248,138 @@ public class EventService {
 
 
 
-@Scheduled(cron ="0 0 12 1/1 * ?")
-//@Scheduled(cron ="0 0/1 * * * ?")
-public void etoosEventScheduler() {
-
-    String etoosUrl = "https://go3.etoos.com/hietoos/event/default.asp?etoos=myall&ING_FLAG=I&etgrd=go3";
-
-
-    try {
-        Connection eConn = Jsoup.connect(etoosUrl);
-        Document document = eConn.get();
-        Elements titles = document.getElementsByClass("tbl tbl_ev_list").select(" strong > a");
-        Elements date = document.getElementsByClass("tbl tbl_ev_list").select(" dl:nth-child(3) > dd");
-        List<Event> etoosList = findAllEtoosEvents();
-        List<Event> eventList = new ArrayList<>();
-        for (int i = 0; i < titles.size(); i++) {
-            Event event = new Event();
-            event.setSource("Etoos");
-            event.setDate(" " + date.get(i).text());
-            event.setHyperLink(titles.get(i).attr("href"));
-            event.setTitle(titles.get(i).text());
-//                    System.out.println("제목: " + event.getTitle());
-//                    System.out.println("링크: " + event.getHyperLink());
-//                    System.out.println("날짜: " + event.getDate());
-            eventList.add(event);
-        }
-//        for(Event e1:etoosList){
-//            System.out.println(e1.getTitle());
-//        }
-
-        for (Event e : eventList) {
-            boolean sim = false;
-            for (int i = 0; i < etoosList.size() - 11; i++) {
-                if (e.getHyperLink().equals(etoosList.get(i).getHyperLink())) {
-                    sim = false;
-
-                } else {
-                    sim = true;
-                    break;
-                }
-            }
-            if (sim == false) {
-                createEvent(e);
-            }
-        }
-    }
-    catch (
-            IOException e) {
-        e.printStackTrace();
-    }
-}
-
-    @Scheduled(cron ="0 0 12 1/1 * ?")
-//    @Scheduled(cron ="0 0/1 * * * ?")
-    public void daesungEventScheduler() {
-
-        String daesungUrl1 = "https://www.mimacstudy.com/event/eventIngList.ds?evtType=&currPage=1&searchType=evtName&searchText=";
-        List<Event> daeSungList = findAllDaeSungEvents();
-        List<Event> eventList = new ArrayList<>();
-
-        try {
-
-
-            Connection dConn = Jsoup.connect(daesungUrl1);
-            Document document = dConn.get();
-
-
-            Elements titles = document.getElementsByClass("event_list").select(" div.info > p.event_summary");
-            Elements date = document.getElementsByClass("event_list").select(" div.info > p.period");
-            Elements href = document.getElementsByClass("event_list").select(" div.img > a");
-
-            for (int i = 0; i < titles.size(); i++) {
-                Event event = new Event();
-                event.setSource("DaeSung");
-                event.setDate(" " +date.get(i).text());
-                String[] href1 = href.get(i).attr("href").substring(19).split("'");
-                event.setHyperLink(href1[0]);
-                event.setTitle(titles.get(i).text());
-//                    System.out.println("제목: " + event.getTitle());
-//                    System.out.println("링크: " + event.getHyperLink());
-//                    System.out.println("날짜: " + event.getDate());
-                eventList.add(event);
-            }
-//            for(Event e1:daeSungList){
-//                System.out.println(e1.getTitle());
-//            }
+//@Scheduled(cron ="0 0 12 1/1 * ?")
+////@Scheduled(cron ="0 0/1 * * * ?")
+//public void etoosEventScheduler() {
 //
-            for (Event e : eventList) {
-                boolean sim = false;
-                for (int i = 0; i < daeSungList.size() - 11; i++) {
-                    if (!e.getHyperLink().equals(daeSungList.get(i).getHyperLink())) {
-                        sim = false;
-
-                    } else {
-                        sim = true;
-                        break;
-                    }
-                }
-                if (sim == false) {
-                    createEvent(e);
-                }
-            }
-        }
-        catch (
-                IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    @Scheduled(cron ="0 0 12 1/1 * ?")
-//@Scheduled(cron ="0 0/1 * * * ?")
-    public void megaEventScheduler() {
-
-        String megaUrl1 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
-        try {
-            Connection mConn = Jsoup.connect(megaUrl1);
-            Document document = mConn.get();
-
-            Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
-            Elements dateList = document.select( "div.date > span > strong");
-            Elements dateList2 = new Elements();
-            List<Event> onlyMegaEvents = findAllMegaEvents(); //db안에있던 메가
-            List<Event> eventList = new ArrayList<>();
-
-            for(Element e:dateList){
-                if(e.text().equals("이벤트 기간")){
-                    dateList2.add(e.parent());}
-                else if(e.text().equals("선착순")){
-                    dateList2.add(e);
-                }
-            }
+//    String etoosUrl = "https://go3.etoos.com/hietoos/event/default.asp?etoos=myall&ING_FLAG=I&etgrd=go3";
+//
+//
+//    try {
+//        Connection eConn = Jsoup.connect(etoosUrl);
+//        Document document = eConn.get();
+//        Elements titles = document.getElementsByClass("tbl tbl_ev_list").select(" strong > a");
+//        Elements date = document.getElementsByClass("tbl tbl_ev_list").select(" dl:nth-child(3) > dd");
+//        List<Event> etoosList = findAllEtoosEvents();
+//        List<Event> eventList = new ArrayList<>();
+//        for (int i = 0; i < titles.size(); i++) {
+//            Event event = new Event();
+//            event.setSource("Etoos");
+//            event.setDate(" " + date.get(i).text());
+//            event.setHyperLink(titles.get(i).attr("href"));
+//            event.setTitle(titles.get(i).text());
+////                    System.out.println("제목: " + event.getTitle());
+////                    System.out.println("링크: " + event.getHyperLink());
+////                    System.out.println("날짜: " + event.getDate());
+//            eventList.add(event);
+//        }
+////        for(Event e1:etoosList){
+////            System.out.println(e1.getTitle());
+////        }
+//
+//        for (Event e : eventList) {
+//            boolean sim = false;
+//            for (int i = 0; i < etoosList.size() - 11; i++) {
+//                if (e.getHyperLink().equals(etoosList.get(i).getHyperLink())) {
+//                    sim = false;
+//
+//                } else {
+//                    sim = true;
+//                    break;
+//                }
+//            }
+//            if (sim == false) {
+//                createEvent(e);
+//            }
+//        }
+//    }
+//    catch (
+//            IOException e) {
+//        e.printStackTrace();
+//    }
+//}
+//
+//    @Scheduled(cron ="0 0 12 1/1 * ?")
+////    @Scheduled(cron ="0 0/1 * * * ?")
+//    public void daesungEventScheduler() {
+//
+//        String daesungUrl1 = "https://www.mimacstudy.com/event/eventIngList.ds?evtType=&currPage=1&searchType=evtName&searchText=";
+//        List<Event> daeSungList = findAllDaeSungEvents();
+//        List<Event> eventList = new ArrayList<>();
+//
+//        try {
+//
+//
+//            Connection dConn = Jsoup.connect(daesungUrl1);
+//            Document document = dConn.get();
+//
+//
+//            Elements titles = document.getElementsByClass("event_list").select(" div.info > p.event_summary");
+//            Elements date = document.getElementsByClass("event_list").select(" div.info > p.period");
+//            Elements href = document.getElementsByClass("event_list").select(" div.img > a");
+//
+//            for (int i = 0; i < titles.size(); i++) {
+//                Event event = new Event();
+//                event.setSource("DaeSung");
+//                event.setDate(" " +date.get(i).text());
+//                String[] href1 = href.get(i).attr("href").substring(19).split("'");
+//                event.setHyperLink(href1[0]);
+//                event.setTitle(titles.get(i).text());
+////                    System.out.println("제목: " + event.getTitle());
+////                    System.out.println("링크: " + event.getHyperLink());
+////                    System.out.println("날짜: " + event.getDate());
+//                eventList.add(event);
+//            }
+////            for(Event e1:daeSungList){
+////                System.out.println(e1.getTitle());
+////            }
+////
+//            for (Event e : eventList) {
+//                boolean sim = false;
+//                for (int i = 0; i < daeSungList.size() - 11; i++) {
+//                    if (!e.getHyperLink().equals(daeSungList.get(i).getHyperLink())) {
+//                        sim = false;
+//
+//                    } else {
+//                        sim = true;
+//                        break;
+//                    }
+//                }
+//                if (sim == false) {
+//                    createEvent(e);
+//                }
+//            }
+//        }
+//        catch (
+//                IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+//
+//
+//    @Scheduled(cron ="0 0 12 1/1 * ?")
+////@Scheduled(cron ="0 0/1 * * * ?")
+//    public void megaEventScheduler() {
+//
+//        String megaUrl1 = "https://www.megastudy.net/inside/event/event_list.asp?tab=0&order=1&smode=&sword=&page=1&intCP=NaN";
+//        try {
+//            Connection mConn = Jsoup.connect(megaUrl1);
+//            Document document = mConn.get();
+//
+//            Elements megaeventsLink = document.getElementsByClass("event_list").select(" h4 > a");
+//            Elements dateList = document.select( "div.date > span > strong");
+//            Elements dateList2 = new Elements();
+//            List<Event> onlyMegaEvents = findAllMegaEvents(); //db안에있던 메가
+//            List<Event> eventList = new ArrayList<>();
+//
+//            for(Element e:dateList){
+//                if(e.text().equals("이벤트 기간")){
+//                    dateList2.add(e.parent());}
+//                else if(e.text().equals("선착순")){
+//                    dateList2.add(e);
+//                }
+//            }
 //            for(Event e1:onlyMegaEvents){
 //                System.out.println(e1.getTitle());
 //            }
@@ -395,50 +395,50 @@ public void etoosEventScheduler() {
 //            }
 //            System.out.println(dateList2.size());
 
-
-                for (int i = 0; i < megaeventsLink.size(); i++) {
-                    Event events = new Event();
-                    events.setSource("Mega");
-                    events.setTitle(megaeventsLink.get(i).text());
-                    events.setHyperLink(megaeventsLink.get(i).attr("href"));
-
-                    if(dateList2.get(i).equals("선착순")){
-                        events.setDate(dateList2.get(i).text());
-                    }
-                    else{
-                        events.setDate(dateList2.get(i).text().substring(6));
-                    }
-
-
-                    //주소 기입
-////
-//                    System.out.println(megaeventsLink.get(i).text() + " , "
-//                            + megaeventsLink.get(i).attr("href")
-//                            + "," + events.getDate());
-//                    eventList.add(events);
-                }
-
-
-            for (Event e : eventList) {
-                boolean sim = false;
-                for (int i = 0; i < onlyMegaEvents.size() ; i++) {
-                    if (!e.getTitle().equals(onlyMegaEvents.get(i).getTitle())) {//같으면
-                        sim = false;
-
-                    } else {
-                        sim = true;
-                        break;
-                    }
-                }
-                if (sim == false) {
-                    createEvent(e);
-                }
-            }
-        }
-        catch (
-                IOException e) {
-            e.printStackTrace();
-        }
-    }
+//
+//                for (int i = 0; i < megaeventsLink.size(); i++) {
+//                    Event events = new Event();
+//                    events.setSource("Mega");
+//                    events.setTitle(megaeventsLink.get(i).text());
+//                    events.setHyperLink(megaeventsLink.get(i).attr("href"));
+//
+//                    if(dateList2.get(i).equals("선착순")){
+//                        events.setDate(dateList2.get(i).text());
+//                    }
+//                    else{
+//                        events.setDate(dateList2.get(i).text().substring(6));
+//                    }
+//
+//
+//                    //주소 기입
+//////
+////                    System.out.println(megaeventsLink.get(i).text() + " , "
+////                            + megaeventsLink.get(i).attr("href")
+////                            + "," + events.getDate());
+////                    eventList.add(events);
+//                }
+//
+//
+//            for (Event e : eventList) {
+//                boolean sim = false;
+//                for (int i = 0; i < onlyMegaEvents.size() ; i++) {
+//                    if (!e.getTitle().equals(onlyMegaEvents.get(i).getTitle())) {//같으면
+//                        sim = false;
+//
+//                    } else {
+//                        sim = true;
+//                        break;
+//                    }
+//                }
+//                if (sim == false) {
+//                    createEvent(e);
+//                }
+//            }
+//        }
+//        catch (
+//                IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
 

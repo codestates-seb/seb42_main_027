@@ -11,6 +11,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.context.annotation.Bean;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ynzmz.server.board.event.their.entity.Event;
 import ynzmz.server.board.event.their.service.EventService;
@@ -19,9 +20,10 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-@Service
+//@Service
 @RequiredArgsConstructor
 @Slf4j
+@Component
 public class Megaseed {
     private final EventService eventService;
 
@@ -73,7 +75,7 @@ public class Megaseed {
                 }
 
 
-                for (int i = 0; i < megaeventsLink.size(); i++) {
+                for (int i = 0; i < dateList3.size(); i++) {
                     Event events = new Event();
                     events.setSource("Mega");
                     events.setTitle(megaeventsLink.get(i).text());
