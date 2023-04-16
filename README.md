@@ -47,5 +47,5 @@
 ### 🔧 BackEnd
 |김다빈(팀장)|노석준|김민호|
 |:--:|:--:|:--:|
-|<img src="https://avatars.githubusercontent.com/u/115959559?v=4" alt="img" height="150px" width="150px" />|<img src="https://i.ibb.co/bszppf2/image.jpg" alt="img" height="150px" width="150px" />|<img src="https://i.ibb.co/FwGTJ34/image.jpg" alt="img" height="150px" width="150px" />|
+|<img src="https://file.notion.so/f/s/1605240b-057d-4cfd-9486-772122bdeda4/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-03-03_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_2.11.35.png?id=36dcbf2c-c5c2-46b8-88f7-637d66afe127&table=block&spaceId=82d63a72-8254-4cde-bf1e-b2597b7c099c&expirationTimestamp=1681742586085&signature=vLLd_e55nsGrRtTaKdDLxrLwy1-NM9388MSE4p44z50&downloadName=%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA+2023-03-03+%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE+2.11.35.png" alt="img" height="150px" width="150px" />|<img src="https://i.ibb.co/bszppf2/image.jpg" alt="img" height="150px" width="150px" />|<img src="https://i.ibb.co/FwGTJ34/image.jpg" alt="img" height="150px" width="150px" />|
 |[Kim-Davin](https://github.com/Kim-Davin)|[CARRO11](https://github.com/CARRO11)|[Minogod](https://github.com/Minogod)|
