@@ -28,7 +28,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class EventService {
-
     //Create와 Delete 만 구현 --> 더 필요할까? --> 야놀지말자 고유 이벤트도 포함시켜야 함
     private final EventRepository eventRepository;
 

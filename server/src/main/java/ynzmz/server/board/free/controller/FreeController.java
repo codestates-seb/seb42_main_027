@@ -31,7 +31,6 @@ public class FreeController {
 
     private final FreeRepository freeRepository;
 
-
     @PostMapping(produces =  MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> postFree(@RequestBody FreeDto.post post){
         Free free = freeMapper.freePostToFree(post);
