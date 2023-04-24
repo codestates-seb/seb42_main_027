@@ -167,6 +167,7 @@ type Container = {
   padding?: string;
   overflow?: string;
   top?: string;
+  min?: string;
 };
 
 type SubjectSelectButton = {
@@ -190,6 +191,7 @@ export const FlexContainer = styled.div<Container>`
   padding: ${props => props.padding};
   overflow: ${props => props.overflow};
   top: ${props => props.top};
+  min-height: ${props => props.min};
 `;
 
 const SubjectSelectButton = styled.div<SubjectSelectButton>`
