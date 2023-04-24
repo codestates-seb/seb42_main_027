@@ -32,6 +32,10 @@ import EventList from 'pages/review/Event/EventList';
 import EventDetail from 'pages/review/Event/EventDetail';
 import CreateEvent from 'pages/review/Event/CreateEvent';
 import UpdateEvent from 'pages/review/Event/UpdateEvent';
+
+import BookLists from 'pages/review/Book/BookLists';
+import BookCart from 'pages/review/Book/BookCart';
+
 import FindForgotEmail from 'pages/FindForgotEmail';
 import FindForgotPassword from 'pages/FindForgotPassword';
 import Ticktock from 'components/review/Ticktock';
@@ -111,6 +115,10 @@ function Router() {
         <Route path="/eventlist/articles/write" element={<CreateEvent />} />
         <Route path="/eventdetail/:eventId" element={<EventDetail />} />
         <Route path="/eventdetail/:eventId/update" element={<UpdateEvent />} />
+
+        <Route path="/booklists" element={<BookLists />} />
+        {/* <Route path="/bookdetail" element={<BookDetail />} /> */}
+        <Route path="/bookcart" element={<BookCart />} />
       </Routes>
       <Ticktock />
       <Footer />
