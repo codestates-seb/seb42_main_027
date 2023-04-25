@@ -24,6 +24,7 @@ export const includeCartList = selectorFamily({
     },
 });
 
+// 현재 cartList의 전체 가격
 export const allPrice = selector({
   key: 'allPrice',
   get: ({ get }) => {
