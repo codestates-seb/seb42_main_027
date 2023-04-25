@@ -2,6 +2,7 @@
 <p align='center'>
 <img src="https://i.ibb.co/9Wg9QGT/2023-04-15-12-17-36.png" alt="2023-04-15-12-17-36" border="0" />
 </p>
+🔗 배포링크: http://1ta.info/
 
 ## ⚙️ 기술 스택
 ### ✨ FrontEnd
@@ -12,9 +13,6 @@
 ### 🔗 협업 Tool
 <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white"><img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white">
 
-## 🏠 [HOME PAGE](http://1ta.info/)
-
-모든 인강 정보와 후기를 한 눈에!
 
 ## 📌 프로젝트 소개
 - 👩‍👩‍👧‍👦 모든 플랫폼의 강의정보를 한 사이트에서 조회할 수 있습니다.
