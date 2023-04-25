@@ -4,10 +4,12 @@ import { useRecoilValue } from 'recoil';
 import { cartList } from 'stores/bookCartStore';
 import BookCartItem from 'components/book/BookCartItem';
 import BookBill from 'components/book/BookBill';
+import Payment from 'components/book/Payment';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 
 function BookCart() {
   const cart = useRecoilValue(cartList);
+
   return (
     <FlexContainer
       dir="col"
@@ -25,7 +27,10 @@ function BookCart() {
             return <BookCartItem key={JSON.stringify(el)} item={el} />;
           })}
         </FlexContainer>
-        <BookBill />
+        <FlexContainer dir="col" align="start">
+          <BookBill />
+          <Payment />
+        </FlexContainer>
       </FlexContainer>
     </FlexContainer>
   );
