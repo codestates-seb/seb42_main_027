@@ -1,9 +1,10 @@
 /* eslint-disable react/button-has-type */
 import React from 'react';
 import Button from 'components/common/Button';
-import { allPrice } from 'stores/bookCartStore';
-import { useRecoilValue } from 'recoil';
+import { allPrice, cartList } from 'stores/bookCartStore';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
+import { useNavigate } from 'react-router';
 
 export interface RequestPayAdditionalParams {
   digital?: boolean;
@@ -86,7 +87,8 @@ declare global {
 
 function Payment() {
   const totalPrice = useRecoilValue(allPrice);
-
+  const [cart, setCart] = useRecoilState(cartList);
+  const navigate = useNavigate();
   const handlePayment = () => {
     window.IMP?.init('imp85173768');
     const amount = totalPrice;
@@ -114,6 +116,8 @@ function Payment() {
       const { success } = response;
       if (success) {
         alert('결제 성공!');
+        setCart([]);
+        navigate('/booklists');
       } else {
         alert('결제 실패!');
       }
