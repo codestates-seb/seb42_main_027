@@ -41,23 +41,25 @@ function BookList({ info }: BookList) {
             <div>등록월 {info.date}</div>
             <div>⭐️⭐️⭐️⭐️⭐️ {info.score}점</div>
           </FlexContainer>
-          <PButton
-            onClick={() => {
-              // 중복 여부 검사
-              if (!addFlag) {
-                add();
-                setCart([...cart, { ...info, count: 1 }]);
-              } else {
-                duple();
-              }
-            }}
-          >
-            추가
-          </PButton>
         </FlexContainer>
       </FlexContainer>
       {/* 가격 */}
-      <FlexContainer>{info.price}원</FlexContainer>
+      <FlexContainer dir="col">
+        {info.price}원
+        <PButton
+          onClick={() => {
+            // 중복 여부 검사
+            if (!addFlag) {
+              add();
+              setCart([...cart, { ...info, count: 1, checked: true }]);
+            } else {
+              duple();
+            }
+          }}
+        >
+          담기
+        </PButton>
+      </FlexContainer>
     </FlexContainer>
   );
 }

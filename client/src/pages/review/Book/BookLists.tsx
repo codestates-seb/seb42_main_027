@@ -19,7 +19,7 @@ export type BookListDataType = {
 const dummyBook = [
   {
     imageUrl: 'http://placehold.it/180x160',
-    name: '서든어택 잘하는 법',
+    name: '공부 잘하는 법',
     date: '2023.02.',
     score: 4.9,
     price: 100,
@@ -27,7 +27,7 @@ const dummyBook = [
   },
   {
     imageUrl: 'http://placehold.it/180x160',
-    name: '패는 법',
+    name: '대머리 되는 법',
     date: '2021.12.',
     score: 2.5,
     price: 200,
@@ -35,7 +35,7 @@ const dummyBook = [
   },
   {
     imageUrl: 'http://placehold.it/180x160',
-    name: '서든어택 잘하는 법2',
+    name: '마 법',
     date: '2022.05.',
     score: 1.9,
     price: 300,

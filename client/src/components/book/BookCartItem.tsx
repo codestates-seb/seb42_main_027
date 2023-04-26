@@ -13,10 +13,12 @@ type BookCartItem = {
 function BookCartItem({ item }: BookCartItem) {
   const [cart, setCart] = useRecoilState(cartList);
   const [quantity, setQuantity] = useState(item.count);
+  const [check, setCheck] = useState(item.checked);
 
+  // quantity 변환 시 전역 상태 cart 요소 변경
   useEffect(() => {
     const index = cart.findIndex(el => el.id === item.id);
-
+    // 선택된 요소의 개수가 현재 quantity와 다를 경우만 실행
     if (cart[index].count !== quantity) {
       const tmp = cart[index];
       setCart([
@@ -27,18 +29,39 @@ function BookCartItem({ item }: BookCartItem) {
     }
   }, [quantity]);
 
+  useEffect(() => {
+    const index = cart.findIndex(el => el.id === item.id);
+
+    if (cart[index].checked !== check) {
+      const tmp = cart[index];
+      setCart([
+        ...cart.slice(0, index),
+        { ...tmp, checked: check },
+        ...cart.slice(index + 1),
+      ]);
+    }
+  }, [check]);
+
   return (
-    <FlexContainer width="40rem" justify="space-between">
-      {/* 아이템 이미지 */}
+    <FlexContainer width="40rem" justify="start">
+      {/* 체크 박스 */}
+      <input
+        type="checkbox"
+        onChange={(e: any) => {
+          setCheck(e.target.checked);
+        }}
+        checked={check}
+      />
       <FlexContainer align="start">
+        {/* 아이템 이미지 */}
         <img src={item.imageUrl} alt={item.name} />
         {/* 아이템 정보 */}
-        <FlexContainer dir="col" align="start" padding="1rem">
+        <FlexContainer dir="col" width="20rem" align="start" padding="1rem">
           <h3>{item.name}</h3>
           <div>{item.price} 원</div>
         </FlexContainer>
       </FlexContainer>
-      <FlexContainer dir="col" gap="1rem">
+      <FlexContainer dir="col" width="10rem" gap="2rem">
         {/* 아이템 삭제 */}
         <PButton
           onClick={() => {
@@ -47,6 +70,7 @@ function BookCartItem({ item }: BookCartItem) {
         >
           삭제
         </PButton>
+        {/* 수량 조절 */}
         <Input
           title="장바구니 아이템 수량 변경"
           type="number"

@@ -5,6 +5,7 @@ import { allPrice, cartList } from 'stores/bookCartStore';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { FlexContainer } from 'pages/review/TeacherList/ReviewPage';
 import { useNavigate } from 'react-router';
+import Swal from 'sweetalert2';
 
 export interface RequestPayAdditionalParams {
   digital?: boolean;
@@ -115,11 +116,24 @@ function Payment() {
     const callback = (response: RequestPayResponse) => {
       const { success } = response;
       if (success) {
-        alert('결제 성공!');
-        setCart([]);
-        navigate('/booklists');
+        Swal.fire({
+          title: '결제 완료!',
+          icon: 'success',
+
+          confirmButtonColor: '#6667ab', // confrim 버튼 색깔 지정
+          confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+        }).then(() => {
+          setCart([]);
+          navigate('/booklists');
+        });
       } else {
-        alert('결제 실패!');
+        Swal.fire({
+          title: '결제 실패ㅠ',
+          icon: 'warning',
+
+          confirmButtonColor: '#d33', // confrim 버튼 색깔 지정
+          confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+        });
       }
     };
 
