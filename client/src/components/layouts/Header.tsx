@@ -58,7 +58,7 @@ function Header() {
           </Link>
           {/* <LI>스터디카페</LI> */}
           <Link to="/booklists">
-            <LI>도서구매</LI>
+            <LI>Shop</LI>
           </Link>
         </UL>
       </Left>

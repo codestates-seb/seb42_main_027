@@ -5,6 +5,7 @@ import theme from 'theme';
 import BaseButton from 'components/common/BaseButton';
 import postSignUp from 'apis/postSignUp';
 import Input from 'components/common/Input';
+import Swal from 'sweetalert2';
 import {
   validatePhoneNum,
   validateEmail,
@@ -252,9 +253,18 @@ function StudentSignUpForm() {
 
     try {
       await postSignUp(pathData);
-      navigate('/');
+      // navigate('/');
       setTimeout(() => {
-        navigate('/login');
+        Swal.fire({
+          title: '가입 성공!',
+          icon: 'success',
+
+          confirmButtonColor: '#6667ab', // confrim 버튼 색깔 지정
+          confirmButtonText: '확인', // confirm 버튼 텍스트 지정
+        }).then(() => {
+          navigate('/login');
+        });
+        // navigate('/login');
       }, 100);
       setIsSuccess(true);
     } catch (error: any) {
