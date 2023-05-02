@@ -4,7 +4,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { cartList, allChecked } from 'stores/bookCartStore';
 import BookCartItem from 'components/book/BookCartItem';
 import BookBill from 'components/book/BookBill';
-import Payment from 'components/book/Payment';
 import { useEffect, useState } from 'react';
 import { FlexContainer } from '../TeacherList/ReviewPage';
 

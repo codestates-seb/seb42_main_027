@@ -9,6 +9,12 @@ import { useEditInfoStore } from 'stores/useEditInfoStore';
 import GlobalStyle from './GlobalStyles';
 import Router from './Router';
 
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
+
 function App() {
   const { setIsLoginInStore } = useIsLoginStore();
   const { setUserInfo } = useUserInfoStore(state => state);
