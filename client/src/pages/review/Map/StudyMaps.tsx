@@ -9,6 +9,10 @@ function StudyMaps() {
   const [text, seTtext] = useState('');
   const [keyword, setKeyword] = useState('이태원');
 
+  useEffect(() => {
+    console.log(keyword);
+  }, [keyword]);
+
   return (
     <FlexContainer dir="col" padding="3rem">
       <FlexContainer gap="0.3rem">
