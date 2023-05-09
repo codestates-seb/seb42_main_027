@@ -44,7 +44,6 @@ function KakaoMap({ latitude, longitude, keyword }: MapProps) {
     myMap.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT);
 
     setMap(myMap);
-    setMap(myMap);
   }, []);
 
   // 카카오맵 검색 Hook
