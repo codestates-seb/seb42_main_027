@@ -9,6 +9,13 @@ import { useEditInfoStore } from 'stores/useEditInfoStore';
 import GlobalStyle from './GlobalStyles';
 import Router from './Router';
 
+// 전역적으로 카카오 타입 선언
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
+
 function App() {
   const { setIsLoginInStore } = useIsLoginStore();
   const { setUserInfo } = useUserInfoStore(state => state);

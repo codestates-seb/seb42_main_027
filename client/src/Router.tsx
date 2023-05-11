@@ -39,6 +39,7 @@ import BookCart from 'pages/review/Book/BookCart';
 import FindForgotEmail from 'pages/FindForgotEmail';
 import FindForgotPassword from 'pages/FindForgotPassword';
 import Ticktock from 'components/review/Ticktock';
+import StudyMaps from 'pages/review/Map/StudyMaps';
 
 function Router() {
   return (
@@ -119,6 +120,8 @@ function Router() {
         <Route path="/booklists" element={<BookLists />} />
         {/* <Route path="/bookdetail" element={<BookDetail />} /> */}
         <Route path="/bookcart" element={<BookCart />} />
+
+        <Route path="/studymaps" element={<StudyMaps />} />
       </Routes>
       <Ticktock />
       <Footer />

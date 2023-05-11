@@ -56,7 +56,9 @@ function Header() {
           <Link to="/eventlist">
             <LI>이벤트</LI>
           </Link>
-          {/* <LI>스터디카페</LI> */}
+          <Link to="/studymaps">
+            <LI>스터디카페</LI>
+          </Link>
           <Link to="/booklists">
             <LI>Shop</LI>
           </Link>
