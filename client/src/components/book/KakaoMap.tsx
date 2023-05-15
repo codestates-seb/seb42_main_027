@@ -13,9 +13,13 @@ interface MapProps {
   keyword: string;
 }
 
+// 마커 배열은 전역으로 선언.
+// 전역 변수로 선언하지 않으면 매번 리렌더링 될 때마다 빈 배열로 초기화됨.
+let markers: any[] = [];
+
 function KakaoMap({ latitude, longitude, keyword }: MapProps) {
-  let markers: any[] = [];
   const [map, setMap] = useState<any>(null);
+
   const mapContainer = useRef<HTMLDivElement>(null);
   const options = {
     // 지도를 생성할 때 필요한 기본 옵션
@@ -24,6 +28,7 @@ function KakaoMap({ latitude, longitude, keyword }: MapProps) {
     // draggable: false,
   };
   const ps = new window.kakao.maps.services.Places();
+  const infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
 
   // 초기 카카오맵 세팅 Hook.
   useEffect(() => {
@@ -91,13 +96,24 @@ function KakaoMap({ latitude, longitude, keyword }: MapProps) {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
+
+        infoAdd(marker, places[i].place_name);
       }
 
       // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-
       if (map !== null) map.setBounds(bounds);
     }
+    // 인포 윈도우 이벤트 추가
+    function infoAdd(marker: any, title: any) {
+      window.kakao.maps.event.addListener(marker, 'mouseover', function () {
+        displayInfowindow(marker, title);
+      });
 
+      window.kakao.maps.event.addListener(marker, 'mouseout', function () {
+        infowindow.close();
+      });
+    }
+    // 마커 추가
     function addMarker(position: any, idx: any) {
       const imageSrc =
         'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png'; // 마커 이미지 url, 스프라이트 이미지를 씁니다
@@ -119,15 +135,21 @@ function KakaoMap({ latitude, longitude, keyword }: MapProps) {
 
       marker.setMap(map); // 지도 위에 마커를 표출합니다
       markers.push(marker); // 배열에 생성된 마커를 추가합니다
-
       return marker;
     }
-
+    // 마커 삭제
     function removeMarker() {
       for (let i = 0; i < markers.length; i += 1) {
         markers[i].setMap(null);
       }
       markers = [];
+    }
+    // 인포윈도우 디스플레이 추가
+    function displayInfowindow(marker: any, title: any) {
+      const content = `<div style="padding:5px;z-index:1;">${title}</div>`;
+
+      infowindow.setContent(content);
+      infowindow.open(map, marker);
     }
   }, [keyword]);
 
@@ -143,5 +165,11 @@ const MapContainer = styled.div`
   width: 700px;
   height: 600px;
 `;
-
+const InfoDispaly = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  z-index: 1;
+`;
 export default KakaoMap;
